@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Rust on fyshXplore</title>
-        <link>http://fyshxfish.github.io/tags/rust/</link>
+        <link>http://localhost:1313/tags/rust/</link>
         <description>Recent content in Rust on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Mon, 05 Aug 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://fyshxfish.github.io/tags/rust/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 05 Aug 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/rust/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Rust 基础与 gdb 使用拾遗</title>
-        <link>http://fyshxfish.github.io/p/rust-%E5%9F%BA%E7%A1%80%E4%B8%8E-gdb-%E4%BD%BF%E7%94%A8%E6%8B%BE%E9%81%97/</link>
+        <link>http://localhost:1313/p/rust-%E5%9F%BA%E7%A1%80%E4%B8%8E-gdb-%E4%BD%BF%E7%94%A8%E6%8B%BE%E9%81%97/</link>
         <pubDate>Mon, 05 Aug 2024 00:00:00 +0000</pubDate>
         
-        <guid>http://fyshxfish.github.io/p/rust-%E5%9F%BA%E7%A1%80%E4%B8%8E-gdb-%E4%BD%BF%E7%94%A8%E6%8B%BE%E9%81%97/</guid>
+        <guid>http://localhost:1313/p/rust-%E5%9F%BA%E7%A1%80%E4%B8%8E-gdb-%E4%BD%BF%E7%94%A8%E6%8B%BE%E9%81%97/</guid>
         <description>&lt;p&gt; &lt;/p&gt;
 &lt;h2 id=&#34;如何调试一个rust程序&#34;&gt;&lt;a href=&#34;#%e5%a6%82%e4%bd%95%e8%b0%83%e8%af%95%e4%b8%80%e4%b8%aarust%e7%a8%8b%e5%ba%8f&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;如何调试一个rust程序？
 &lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ gdb excutable

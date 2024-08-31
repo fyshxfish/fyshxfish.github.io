@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en-us" dir="ltr">
     <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Problem: Given a positive integer $n$, find all ordered pairs of distinct positive integers $i$ and $j$, where $ 1 \\leq i \\leq j \\leq n $, such that $ i + j $ is prime. isDivisible :: Int -&gt; Int -&gt; Bool isDivisible x y | mod x y == 0 = True | otherwise = False isPrime :: Int -&gt; Bool isPrime x | x &lt;= 2 =">
-<title>SICP 2.2.3 Nested Mappings 案例的 Haskell 实现 (List Monad)</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away. &ndash; Antoine de Saint-Exupéry 通过包管理器下载 mit-scheme MacOS: brew install mit-scheme Ubuntu: sudo apt-get update sudo apt-get install mit-scheme REPL 基本使用 （REPL: Read-Evaluate-Print L">
+<title>mit-scheme 配置与基本使用</title>
 
-<link rel='canonical' href='http://localhost:1313/p/sicp-2.2.3-nested-mappings-%E6%A1%88%E4%BE%8B%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-list-monad/'>
+<link rel='canonical' href='http://localhost:1313/p/mit-scheme-%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/'>
 
-<link rel="stylesheet" href="/scss/style.min.779699777e744844f163cca3f24d7c291eb6c00251bff20ab15ac8d2427f6c35.css"><meta property='og:title' content="SICP 2.2.3 Nested Mappings 案例的 Haskell 实现 (List Monad)">
-<meta property='og:description' content="Problem: Given a positive integer $n$, find all ordered pairs of distinct positive integers $i$ and $j$, where $ 1 \\leq i \\leq j \\leq n $, such that $ i + j $ is prime. isDivisible :: Int -&gt; Int -&gt; Bool isDivisible x y | mod x y == 0 = True | otherwise = False isPrime :: Int -&gt; Bool isPrime x | x &lt;= 2 =">
-<meta property='og:url' content='http://localhost:1313/p/sicp-2.2.3-nested-mappings-%E6%A1%88%E4%BE%8B%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-list-monad/'>
+<link rel="stylesheet" href="/scss/style.min.779699777e744844f163cca3f24d7c291eb6c00251bff20ab15ac8d2427f6c35.css"><meta property='og:title' content="mit-scheme 配置与基本使用">
+<meta property='og:description' content="Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away. &ndash; Antoine de Saint-Exupéry 通过包管理器下载 mit-scheme MacOS: brew install mit-scheme Ubuntu: sudo apt-get update sudo apt-get install mit-scheme REPL 基本使用 （REPL: Read-Evaluate-Print L">
+<meta property='og:url' content='http://localhost:1313/p/mit-scheme-%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/'>
 <meta property='og:site_name' content='fyshXplore'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='SICP' /><meta property='article:tag' content='Haskell' /><meta property='article:published_time' content='2024-08-29T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2024-08-29T00:00:00&#43;08:00'/>
-<meta name="twitter:title" content="SICP 2.2.3 Nested Mappings 案例的 Haskell 实现 (List Monad)">
-<meta name="twitter:description" content="Problem: Given a positive integer $n$, find all ordered pairs of distinct positive integers $i$ and $j$, where $ 1 \\leq i \\leq j \\leq n $, such that $ i + j $ is prime. isDivisible :: Int -&gt; Int -&gt; Bool isDivisible x y | mod x y == 0 = True | otherwise = False isPrime :: Int -&gt; Bool isPrime x | x &lt;= 2 =">
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='SICP' /><meta property='article:tag' content='Scheme' /><meta property='article:published_time' content='2024-08-24T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2024-08-24T00:00:00&#43;08:00'/>
+<meta name="twitter:title" content="mit-scheme 配置与基本使用">
+<meta name="twitter:description" content="Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away. &ndash; Antoine de Saint-Exupéry 通过包管理器下载 mit-scheme MacOS: brew install mit-scheme Ubuntu: sudo apt-get update sudo apt-get install mit-scheme REPL 基本使用 （REPL: Read-Evaluate-Print L">
   
 
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -192,7 +192,39 @@
     </ol>
 </aside>
 
-    
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title"></h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#通过包管理器下载-mit-scheme">通过包管理器下载 mit-scheme</a></li>
+    <li><a href="#repl-基本使用">REPL 基本使用</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
 
             <main class="main full-width">
     <article class="main-article">
@@ -211,7 +243,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/sicp-2.2.3-nested-mappings-%E6%A1%88%E4%BE%8B%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-list-monad/">SICP 2.2.3 Nested Mappings 案例的 Haskell 实现 (List Monad)</a>
+            <a href="/p/mit-scheme-%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/">mit-scheme 配置与基本使用</a>
         </h2>
     
         
@@ -233,7 +265,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Aug 29, 2024</time>
+                <time class="article-time--published">Aug 24, 2024</time>
             </div>
         
 
@@ -250,45 +282,96 @@
     
     
     <blockquote>
-<p><strong>Problem</strong>: Given a positive integer $n$, find all ordered pairs of distinct positive integers $i$ and $j$, where $ 1 \leq i \leq j \leq n $, such that $ i + j $ is prime.</p>
+<p>Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away.
+<br>&ndash; Antoine de Saint-Exupéry</p>
 </blockquote>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-haskell" data-lang="haskell"><span class="line"><span class="cl"><span class="nf">isDivisible</span> <span class="ow">::</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="kt">Bool</span> 
-</span></span><span class="line"><span class="cl"><span class="nf">isDivisible</span> <span class="n">x</span> <span class="n">y</span> 
-</span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="n">mod</span> <span class="n">x</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">0</span>  <span class="ow">=</span> <span class="kt">True</span> 
-</span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="n">otherwise</span>     <span class="ow">=</span> <span class="kt">False</span> 
+<h2 id="通过包管理器下载-mit-scheme"><a href="#%e9%80%9a%e8%bf%87%e5%8c%85%e7%ae%a1%e7%90%86%e5%99%a8%e4%b8%8b%e8%bd%bd-mit-scheme" class="header-anchor"></a>通过包管理器下载 mit-scheme
+</h2><p>MacOS:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">brew install mit-scheme
+</span></span></code></pre></div><p>Ubuntu:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt-get update 
+</span></span><span class="line"><span class="cl">sudo apt-get install mit-scheme
+</span></span></code></pre></div><h2 id="repl-基本使用"><a href="#repl-%e5%9f%ba%e6%9c%ac%e4%bd%bf%e7%94%a8" class="header-anchor"></a>REPL 基本使用
+</h2><p>（REPL: <strong>R</strong>ead-<strong>E</strong>valuate-<strong>P</strong>rint Loop）</p>
+<ol>
+<li>
+<p>进入 REPL:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mit-scheme
+</span></span></code></pre></div></li>
+<li>
+<p>在 REPL 加载中加载 scheme 代码:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="mi">1</span> <span class="p">]</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nb">load</span> <span class="s2">&#34;path/to/file.scm&#34;</span><span class="p">)</span>
+</span></span></code></pre></div><p>(后缀 <code>.scm</code> 可以省略.)</p>
+</li>
+<li>
+<p>查看手册:</p>
+<ol>
+<li>
+<p><code>man mit-scheme</code> 命令行查看 mit-scheme CLI 手册, 很简短, 可以通过命令行参数指定堆栈大小 / 加载文件 / 同时打开编辑器/ &hellip;</p>
+</li>
+<li>
+<p>按下 Ctrl-C 后键入 <code>H</code> 查看中断手册:</p>
+<ul>
+<li>
+<p>Ctrl-C: 接收下一个键盘输入, 决定中断行为.</p>
+</li>
+<li>
+<p>Ctrl-G: 回到 top-level</p>
+</li>
+<li>
+<p>Ctrl-Z: 挂起当前 mit-scheme 进程</p>
+</li>
+</ul>
+</li>
+<li>
+<p>按下 Ctrl-C 后键入 <code>?</code> 查看手册: 下一键盘输入 (option) 与 REPL 行为 (清屏 / 挂起 / 退出 / 忽略中断 / &hellip;) 的对应关系;</p>
+</li>
+</ol>
+</li>
+</ol>
+<!-- 4. You don't have to RESTART if enter an illegal statement in REPL.  
+    
+    You can keep going despite the error. -->
+<ol start="4">
+<li>
+<p>如果 REPL 没有反应:</p>
+<ol>
+<li>
+<p>检查括号是否逐对匹配;</p>
+</li>
+<li>
+<p>Ctrl-C 中断后回到 REPL, 提示符 (<code>1 ] =&gt;</code> / <code>2 error&gt;</code>) 不会重新显示.</p>
+</li>
+<li>
+<p>担心递归太深? 递归深度超限时, REPL 会提示 <code>Recursion depth limit exceeded. Aborting!</code> (3.1 中提到可以通过 CLI 参数指定堆栈大小, 即, mit-scheme使用的堆栈资源是有限的.)</p>
+</li>
+</ol>
+</li>
+<li>
+<p><del>ScHeMe</del> Scheme 是大小写不敏感的语言.</p>
+<p>所以 <code>(LoAd &quot;path/to/file.scm&quot;)</code>/<code>(DEFINE x 1)</code>/<code>(define x 1)</code>/<code>(defiNE x 1)</code>/&hellip; 都不会引发错误.</p>
+</li>
+<li>
+<p>History variable (procedure): 重用 REPL 求值后返回的 procedure:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scheme" data-lang="scheme"><span class="line"><span class="cl"><span class="mi">1</span> <span class="p">]</span><span class="k">=&gt; </span><span class="p">(</span><span class="nf">average-dump</span> <span class="nv">square</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nf">isPrime</span> <span class="ow">::</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="kt">Bool</span>
-</span></span><span class="line"><span class="cl"><span class="nf">isPrime</span> <span class="n">x</span> 
-</span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="mi">2</span>    <span class="ow">=</span> <span class="kt">True</span> 
-</span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="n">otherwise</span> <span class="ow">=</span> <span class="n">not</span> <span class="p">(</span><span class="n">foldr</span> <span class="p">(</span><span class="o">||</span><span class="p">)</span> <span class="kt">False</span> <span class="p">(</span><span class="n">map</span> <span class="p">(</span><span class="n">isDivisible</span> <span class="n">x</span><span class="p">)</span> <span class="p">[</span><span class="mi">2</span><span class="o">..</span><span class="p">((</span><span class="n">floor</span> <span class="o">.</span> <span class="n">sqrt</span> <span class="o">.</span> <span class="n">fromIntegral</span><span class="p">)</span> <span class="n">x</span><span class="p">)]))</span>
+</span></span><span class="line"><span class="cl"><span class="c1">;Value: #[compound-procedure 12]    ; 可以在后续表达式中重用, 就像 gdb 中的 history variable `$1`</span>
 </span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="mi">1</span> <span class="p">]</span><span class="k">=&gt; </span><span class="p">(</span><span class="o">#</span><span class="p">[</span><span class="nv">compound-procedure</span> <span class="mi">12</span><span class="p">]</span> <span class="mi">10</span><span class="p">)</span> <span class="c1">; 虽然也不是很方便直接使用, 但是确实是能用</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nf">genPairs</span> <span class="ow">::</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="p">[((</span><span class="kt">Int</span><span class="p">,</span> <span class="kt">Int</span><span class="p">),</span> <span class="kt">Int</span><span class="p">)]</span>
-</span></span><span class="line"><span class="cl"><span class="nf">genPairs</span> <span class="n">n</span> <span class="ow">=</span> <span class="kr">do</span> 
-</span></span><span class="line"><span class="cl">    <span class="n">x</span> <span class="ow">&lt;-</span> <span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="n">n</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">    <span class="n">y</span> <span class="ow">&lt;-</span> <span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span>
-</span></span><span class="line"><span class="cl">    <span class="n">return</span> <span class="p">((</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="c1">;Value: 55</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nf">sumPrimePairs</span> <span class="ow">::</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="p">[((</span><span class="kt">Int</span><span class="p">,</span> <span class="kt">Int</span><span class="p">),</span> <span class="kt">Int</span><span class="p">)]</span>
-</span></span><span class="line"><span class="cl"><span class="nf">sumPrimePairs</span> <span class="ow">=</span> <span class="p">(</span><span class="n">filter</span> <span class="p">(</span><span class="nf">\</span><span class="p">(</span><span class="kr">_</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span> <span class="ow">-&gt;</span> <span class="p">(</span><span class="n">isPrime</span> <span class="n">s</span><span class="p">)))</span> <span class="o">.</span> <span class="n">genPairs</span>
-</span></span></code></pre></div><p>Context of <strong>List Monad</strong> : 不确定的结果.</p>
-<!-- 今天吃饭回来想到 List Monad 的 Context 和这个问题的  -->
-<p>此章的标题是 Nested Mappings, 在代码层面的表现是嵌套的 lambda, Haskell 中的 do-notation 展开形式就是嵌套的 lambda, 前者是后者的语法糖.</p>
-<p>此章中定义的 <code>flatMap</code> 就是 Haskell 中的 <code>&gt;&gt;=</code> (bind).</p>
-<!-- 把 SICP 中的 scheme 代码用 Haskell 重写一遍应该也挺有意义的. -->
-<!-- 以一己之力发起 RIIH 运动, Rewrite it in Haskell! -->
-<hr>
-<p>2024-08-30 补充： SICP page 168 集合全排列的 Haskell 实现</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-haskell" data-lang="haskell"><span class="line"><span class="cl"><span class="nf">permutations</span> <span class="ow">::</span> <span class="kt">Eq</span> <span class="n">a</span> <span class="ow">=&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[[</span><span class="n">a</span><span class="p">]]</span>
-</span></span><span class="line"><span class="cl"><span class="nf">permutations</span> <span class="kt">[]</span> <span class="ow">=</span> <span class="p">[</span><span class="kt">[]</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nf">permutations</span> <span class="n">xs</span> <span class="ow">=</span> <span class="kr">do</span>
-</span></span><span class="line"><span class="cl">    <span class="n">x</span> <span class="ow">&lt;-</span> <span class="n">xs</span> 
-</span></span><span class="line"><span class="cl">    <span class="n">perm</span> <span class="ow">&lt;-</span> <span class="n">permutations</span> <span class="o">$</span> <span class="n">removeByElem</span> <span class="n">x</span> <span class="n">xs</span>
-</span></span><span class="line"><span class="cl">    <span class="n">return</span> <span class="p">(</span><span class="n">x</span><span class="kt">:</span> <span class="n">perm</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="mi">1</span> <span class="p">]</span><span class="k">=&gt; </span><span class="p">(</span><span class="k">define </span><span class="nv">newfunc</span> <span class="o">#</span><span class="p">[</span><span class="nv">compound-procedure</span> <span class="mi">12</span><span class="p">])</span>   <span class="c1">; 可以绑定到一个标识符上, 再复用</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nf">removeByElem</span> <span class="ow">::</span> <span class="kt">Eq</span> <span class="n">a</span> <span class="ow">=&gt;</span> <span class="n">a</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nf">removeByElem</span> <span class="n">x</span> <span class="ow">=</span> <span class="n">filter</span> <span class="p">(</span><span class="o">/=</span> <span class="n">x</span><span class="p">)</span>
-</span></span></code></pre></div><!-- 从 scheme 实现， 到 Haskell `map + lambda` 实现，到 List Monad `do-notation` 实现，  -->
+</span></span><span class="line"><span class="cl"><span class="c1">;Value: newfunc</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="mi">1</span> <span class="p">]</span><span class="k">=&gt; </span><span class="p">(</span><span class="nf">newfunc</span> <span class="mi">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">;Value: 55</span>
+</span></span></code></pre></div> <!-- (So what exactly is this compound-procedure? machine code, code evaluated by means of substitute model, or something?) -->
+</li>
+</ol>
+<!-- 7. Press ^C once to get **help information**; Press ^C twice to goto the top level REPL.  -->
 
 </section>
 
@@ -299,7 +382,7 @@
         
             <a href="/tags/sicp/">SICP</a>
         
-            <a href="/tags/haskell/">Haskell</a>
+            <a href="/tags/scheme/">Scheme</a>
         
     </section>
 
@@ -370,12 +453,12 @@
             
                 
 <article class="">
-    <a href="/p/mit-scheme-%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/">
+    <a href="/p/sicp-2.2.3-nested-mappings-%E6%A1%88%E4%BE%8B%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-list-monad/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">mit-scheme 配置与基本使用</h2>
+            <h2 class="article-title">SICP 2.2.3 Nested Mappings 案例的 Haskell 实现 (List Monad)</h2>
         </div>
     </a>
 </article>

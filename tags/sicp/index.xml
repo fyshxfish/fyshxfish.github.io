@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>SICP on fyshXplore</title>
-        <link>http://fyshxfish.github.io/tags/sicp/</link>
+        <link>http://localhost:1313/tags/sicp/</link>
         <description>Recent content in SICP on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Thu, 29 Aug 2024 00:00:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/tags/sicp/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 29 Aug 2024 00:00:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/sicp/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Scheme: `let` 的语义 (feat. `if` 的语义)</title>
-        <link>http://fyshxfish.github.io/p/scheme-let-%E7%9A%84%E8%AF%AD%E4%B9%89-feat.-if-%E7%9A%84%E8%AF%AD%E4%B9%89/</link>
+        <link>http://localhost:1313/p/scheme-let-%E7%9A%84%E8%AF%AD%E4%B9%89-feat.-if-%E7%9A%84%E8%AF%AD%E4%B9%89/</link>
         <pubDate>Thu, 29 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/p/scheme-let-%E7%9A%84%E8%AF%AD%E4%B9%89-feat.-if-%E7%9A%84%E8%AF%AD%E4%B9%89/</guid>
+        <guid>http://localhost:1313/p/scheme-let-%E7%9A%84%E8%AF%AD%E4%B9%89-feat.-if-%E7%9A%84%E8%AF%AD%E4%B9%89/</guid>
         <description>&lt;h2 id=&#34;let-语义&#34;&gt;&lt;a href=&#34;#let-%e8%af%ad%e4%b9%89&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;&lt;code&gt;let&lt;/code&gt; 语义
 &lt;/h2&gt;&lt;p&gt;结论: &lt;code&gt;let&lt;/code&gt; scope 会直接求值 (包括绑定和绑定之后的表达式, 也就是 &lt;code&gt;let&lt;/code&gt; 之外的一层括号所包裹的范围), 即使你把 &lt;code&gt;let&lt;/code&gt; 嵌套在内层函数里而且这个函数还完全没有被调用.&lt;/p&gt;
 &lt;p&gt;示例:&lt;/p&gt;
@@ -105,10 +105,10 @@
         </item>
         <item>
         <title>SICP 2.2.3 Nested Mappings 案例的 Haskell 实现 (List Monad)</title>
-        <link>http://fyshxfish.github.io/p/sicp-2.2.3-nested-mappings-%E6%A1%88%E4%BE%8B%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-list-monad/</link>
+        <link>http://localhost:1313/p/sicp-2.2.3-nested-mappings-%E6%A1%88%E4%BE%8B%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-list-monad/</link>
         <pubDate>Thu, 29 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/p/sicp-2.2.3-nested-mappings-%E6%A1%88%E4%BE%8B%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-list-monad/</guid>
+        <guid>http://localhost:1313/p/sicp-2.2.3-nested-mappings-%E6%A1%88%E4%BE%8B%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-list-monad/</guid>
         <description>&lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Problem&lt;/strong&gt;: Given a positive integer $n$, find all ordered pairs of distinct positive integers $i$ and $j$, where $ 1 \leq i \leq j \leq n $, such that $ i + j $ is prime.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -149,6 +149,105 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;removeByElem&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;::&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Eq&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;removeByElem&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;filter&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;/=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- 从 scheme 实现， 到 Haskell `map + lambda` 实现，到 List Monad `do-notation` 实现，  --&gt;
+</description>
+        </item>
+        <item>
+        <title>mit-scheme 配置与基本使用</title>
+        <link>http://localhost:1313/p/mit-scheme-%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</link>
+        <pubDate>Sat, 24 Aug 2024 00:00:00 +0800</pubDate>
+        
+        <guid>http://localhost:1313/p/mit-scheme-%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</guid>
+        <description>&lt;blockquote&gt;
+&lt;p&gt;Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away.
+&lt;br&gt;&amp;ndash; Antoine de Saint-Exupéry&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;通过包管理器下载-mit-scheme&#34;&gt;&lt;a href=&#34;#%e9%80%9a%e8%bf%87%e5%8c%85%e7%ae%a1%e7%90%86%e5%99%a8%e4%b8%8b%e8%bd%bd-mit-scheme&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;通过包管理器下载 mit-scheme
+&lt;/h2&gt;&lt;p&gt;MacOS:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;brew install mit-scheme
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Ubuntu:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt-get update 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;sudo apt-get install mit-scheme
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;repl-基本使用&#34;&gt;&lt;a href=&#34;#repl-%e5%9f%ba%e6%9c%ac%e4%bd%bf%e7%94%a8&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;REPL 基本使用
+&lt;/h2&gt;&lt;p&gt;（REPL: &lt;strong&gt;R&lt;/strong&gt;ead-&lt;strong&gt;E&lt;/strong&gt;valuate-&lt;strong&gt;P&lt;/strong&gt;rint Loop）&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;进入 REPL:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;mit-scheme
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在 REPL 加载中加载 scheme 代码:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-gdscript3&#34; data-lang=&#34;gdscript3&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;load&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;path/to/file.scm&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;(后缀 &lt;code&gt;.scm&lt;/code&gt; 可以省略.)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;查看手册:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;man mit-scheme&lt;/code&gt; 命令行查看 mit-scheme CLI 手册, 很简短, 可以通过命令行参数指定堆栈大小 / 加载文件 / 同时打开编辑器/ &amp;hellip;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;按下 Ctrl-C 后键入 &lt;code&gt;H&lt;/code&gt; 查看中断手册:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Ctrl-C: 接收下一个键盘输入, 决定中断行为.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Ctrl-G: 回到 top-level&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Ctrl-Z: 挂起当前 mit-scheme 进程&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;按下 Ctrl-C 后键入 &lt;code&gt;?&lt;/code&gt; 查看手册: 下一键盘输入 (option) 与 REPL 行为 (清屏 / 挂起 / 退出 / 忽略中断 / &amp;hellip;) 的对应关系;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;!-- 4. You don&#39;t have to RESTART if enter an illegal statement in REPL.  
+    
+    You can keep going despite the error. --&gt;
+&lt;ol start=&#34;4&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;如果 REPL 没有反应:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;检查括号是否逐对匹配;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Ctrl-C 中断后回到 REPL, 提示符 (&lt;code&gt;1 ] =&amp;gt;&lt;/code&gt; / &lt;code&gt;2 error&amp;gt;&lt;/code&gt;) 不会重新显示.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;担心递归太深? 递归深度超限时, REPL 会提示 &lt;code&gt;Recursion depth limit exceeded. Aborting!&lt;/code&gt; (3.1 中提到可以通过 CLI 参数指定堆栈大小, 即, mit-scheme使用的堆栈资源是有限的.)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;del&gt;ScHeMe&lt;/del&gt; Scheme 是大小写不敏感的语言.&lt;/p&gt;
+&lt;p&gt;所以 &lt;code&gt;(LoAd &amp;quot;path/to/file.scm&amp;quot;)&lt;/code&gt;/&lt;code&gt;(DEFINE x 1)&lt;/code&gt;/&lt;code&gt;(define x 1)&lt;/code&gt;/&lt;code&gt;(defiNE x 1)&lt;/code&gt;/&amp;hellip; 都不会引发错误.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;History variable (procedure): 重用 REPL 求值后返回的 procedure:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-scheme&#34; data-lang=&#34;scheme&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;=&amp;gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;average-dump&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;square&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;;Value: #[compound-procedure 12]    ; 可以在后续表达式中重用, 就像 gdb 中的 history variable `$1`&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;=&amp;gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;#&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;compound-procedure&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;12&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;; 虽然也不是很方便直接使用, 但是确实是能用&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;;Value: 55&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;=&amp;gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;define &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;newfunc&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;#&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;compound-procedure&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;12&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;])&lt;/span&gt;   &lt;span class=&#34;c1&#34;&gt;; 可以绑定到一个标识符上, 再复用&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;;Value: newfunc&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;=&amp;gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;newfunc&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;10&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;;Value: 55&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt; &lt;!-- (So what exactly is this compound-procedure? machine code, code evaluated by means of substitute model, or something?) --&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;!-- 7. Press ^C once to get **help information**; Press ^C twice to goto the top level REPL.  --&gt;
 </description>
         </item>
         

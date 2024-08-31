@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Haskell on fyshXplore</title>
-        <link>http://fyshxfish.github.io/tags/haskell/</link>
+        <link>http://localhost:1313/tags/haskell/</link>
         <description>Recent content in Haskell on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Thu, 29 Aug 2024 00:00:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/tags/haskell/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 29 Aug 2024 00:00:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/haskell/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>SICP 2.2.3 Nested Mappings 案例的 Haskell 实现 (List Monad)</title>
-        <link>http://fyshxfish.github.io/p/sicp-2.2.3-nested-mappings-%E6%A1%88%E4%BE%8B%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-list-monad/</link>
+        <link>http://localhost:1313/p/sicp-2.2.3-nested-mappings-%E6%A1%88%E4%BE%8B%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-list-monad/</link>
         <pubDate>Thu, 29 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/p/sicp-2.2.3-nested-mappings-%E6%A1%88%E4%BE%8B%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-list-monad/</guid>
+        <guid>http://localhost:1313/p/sicp-2.2.3-nested-mappings-%E6%A1%88%E4%BE%8B%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-list-monad/</guid>
         <description>&lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Problem&lt;/strong&gt;: Given a positive integer $n$, find all ordered pairs of distinct positive integers $i$ and $j$, where $ 1 \leq i \leq j \leq n $, such that $ i + j $ is prime.&lt;/p&gt;
 &lt;/blockquote&gt;
@@ -56,10 +56,10 @@
         </item>
         <item>
         <title>Haskell开发环境 (GHCup &#43; HLS) 修复记录</title>
-        <link>http://fyshxfish.github.io/p/haskell%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</link>
+        <link>http://localhost:1313/p/haskell%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</link>
         <pubDate>Fri, 16 Aug 2024 00:00:00 +0000</pubDate>
         
-        <guid>http://fyshxfish.github.io/p/haskell%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</guid>
+        <guid>http://localhost:1313/p/haskell%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</guid>
         <description>&lt;!-- *不知不觉我已经在MacOS, Windows, Linux三种平台上配置过Haskell环境了，我觉得我已经是环境配置大师了，POWER!* --&gt;
 &lt;!-- # Mac上重新配置Haskell开发环境记录 --&gt;
 &lt;h2 id=&#34;ghcup-修复&#34;&gt;&lt;a href=&#34;#ghcup-%e4%bf%ae%e5%a4%8d&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;ghcup 修复
