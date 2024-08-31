@@ -2,21 +2,23 @@
 <html lang="en-us" dir="ltr">
     <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="let 语义 结论: let scope 会直接求值 (包括绑定和绑定之后的表达式, 也就是 let 之外的一层括号所包裹的范围), 即使你把 let 嵌套在内层函数里而且这个函数还完全没">
-<title>Scheme: let 的语义 (feat. if 的语义)</title>
+<title>Scheme: `let` 的语义 (feat. `if` 的语义)</title>
 
 <link rel='canonical' href='http://fyshxfish.github.io/p/scheme-let-%E7%9A%84%E8%AF%AD%E4%B9%89-feat.-if-%E7%9A%84%E8%AF%AD%E4%B9%89/'>
 
-<link rel="stylesheet" href="/scss/style.min.0304c6baf04e01a8fe70693791cb744d56a3578a3120a8796cefc66825aa39c7.css"><meta property='og:title' content="Scheme: let 的语义 (feat. if 的语义)">
+<link rel="stylesheet" href="/scss/style.min.779699777e744844f163cca3f24d7c291eb6c00251bff20ab15ac8d2427f6c35.css"><meta property='og:title' content="Scheme: `let` 的语义 (feat. `if` 的语义)">
 <meta property='og:description' content="let 语义 结论: let scope 会直接求值 (包括绑定和绑定之后的表达式, 也就是 let 之外的一层括号所包裹的范围), 即使你把 let 嵌套在内层函数里而且这个函数还完全没">
 <meta property='og:url' content='http://fyshxfish.github.io/p/scheme-let-%E7%9A%84%E8%AF%AD%E4%B9%89-feat.-if-%E7%9A%84%E8%AF%AD%E4%B9%89/'>
-<meta property='og:site_name' content='fyshx'>
+<meta property='og:site_name' content='fyshXplore'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='SICP' /><meta property='article:published_time' content='2024-08-29T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2024-08-29T00:00:00&#43;08:00'/>
-<meta name="twitter:title" content="Scheme: let 的语义 (feat. if 的语义)">
+<meta name="twitter:title" content="Scheme: `let` 的语义 (feat. `if` 的语义)">
 <meta name="twitter:description" content="let 语义 结论: let scope 会直接求值 (包括绑定和绑定之后的表达式, 也就是 let 之外的一层括号所包裹的范围), 即使你把 let 嵌套在内层函数里而且这个函数还完全没">
-    <link rel="shortcut icon" href="/favicon.png" />
-
   
 
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
 
     </head>
     <body class="
@@ -67,14 +69,14 @@
                 
                 </a>
                 
-                    <span class="emoji">🐟</span>
+                    <span class="emoji">🫧</span>
                 
             </figure>
             
         
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/">fyshx</a></h1>
+            <h1 class="site-name"><a href="/">fyshXplore</a></h1>
             <h2 class="site-description">Hello, there!</h2>
         </div>
     </header><ol class="menu-social">
@@ -214,7 +216,7 @@
   <ol>
     <li><a href="#let-语义"><code>let</code> 语义</a></li>
     <li><a href="#if-语义"><code>if</code> 语义</a></li>
-    <li><a href="#为什么会写这篇文本"><strong>为什么会写这篇文本</strong>:</a></li>
+    <li><a href="#为什么会写这篇文本">为什么会写这篇文本:</a></li>
   </ol>
 </nav>
         </div>
@@ -242,7 +244,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/scheme-let-%E7%9A%84%E8%AF%AD%E4%B9%89-feat.-if-%E7%9A%84%E8%AF%AD%E4%B9%89/">Scheme: let 的语义 (feat. if 的语义)</a>
+            <a href="/p/scheme-let-%E7%9A%84%E8%AF%AD%E4%B9%89-feat.-if-%E7%9A%84%E8%AF%AD%E4%B9%89/">Scheme: `let` 的语义 (feat. `if` 的语义)</a>
         </h2>
     
         
@@ -331,7 +333,7 @@
 </span></span><span class="line"><span class="cl">    <span class="p">)</span>   
 </span></span><span class="line"><span class="cl"><span class="p">)</span>
 </span></span></code></pre></div><p>函数应用的语义是（applicative mode evaluation）：先对参数（比如这里的<code>then-clause</code> 和 <code>else-clause</code>）进行求值，然后进行函数应用，这也是为什么不能在<code>then-clause</code> 或 <code>else-clause</code>里写递归表达式，因为它们会先被求值，而不是根据 predicate 的值决定是否求值，于是递归就无穷无尽了. <code>if</code>/<code>cond</code>/&hellip; 是 special form, 相较于通过 <code>define</code> 定义的 abstraction, 语义是特殊的. 我喜欢 <code>new-if</code> 这个例子，它简洁而有力地体现了 lisp 元编程的特性，通过此例也可以更好地接纳 lisp 里大量的括号，根据 substitution model, 这里的 <code>predicate</code>, <code>then-clause</code>, <code>else-clause</code> 可以替换成你需要的表达式, 而表达式就是被括号包裹的, 即 括号是表达式的边界, 你可以把被括号包裹的表达式放在任意的参数位 (当然要符合 abstraction 隐式的对于参数的类型约束).</p>
-<h2 id="为什么会写这篇文本"><a href="#%e4%b8%ba%e4%bb%80%e4%b9%88%e4%bc%9a%e5%86%99%e8%bf%99%e7%af%87%e6%96%87%e6%9c%ac" class="header-anchor"></a><strong>为什么会写这篇文本</strong>:
+<h2 id="为什么会写这篇文本"><a href="#%e4%b8%ba%e4%bb%80%e4%b9%88%e4%bc%9a%e5%86%99%e8%bf%99%e7%af%87%e6%96%87%e6%9c%ac" class="header-anchor"></a>为什么会写这篇文本:
 </h2><p>对于这样素数判断的一段代码：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scheme" data-lang="scheme"><span class="line"><span class="cl"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">prime?</span> <span class="nv">x</span><span class="p">)</span> 
 </span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="k">or </span><span class="p">(</span><span class="nb">= </span><span class="nv">x</span> <span class="mi">1</span><span class="p">)</span> <span class="p">(</span><span class="nb">= </span><span class="nv">x</span> <span class="mi">2</span><span class="p">))</span>
@@ -446,6 +448,19 @@
 </article>
 
             
+                
+<article class="">
+    <a href="/p/haskell%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Haskell开发环境 (GHCup &#43; HLS) 修复记录</h2>
+        </div>
+    </a>
+</article>
+
+            
         </div>
     </div>
 </aside>
@@ -459,12 +474,15 @@
     <section class="copyright">
         &copy; 
         
-        2024 fyshx
+        2024 fyshXplore
     </section>
     
     <section class="powerby">
         
-            Wish you a nice day! <br/>
+            Wish you a nice day!<br/>
+                Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a><br/>
+                Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener">Stack </a></b>
+                designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> <br/>
          <br />
         
     </section>

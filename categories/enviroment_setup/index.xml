@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>Enviroment Setup on fyshx</title>
+        <title>Enviroment Setup on fyshXplore</title>
         <link>http://fyshxfish.github.io/categories/enviroment_setup/</link>
-        <description>Recent content in Enviroment Setup on fyshx</description>
+        <description>Recent content in Enviroment Setup on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
         <lastBuildDate>Mon, 26 Aug 2024 00:00:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/categories/enviroment_setup/index.xml" rel="self" type="application/rss+xml" /><item>
@@ -63,6 +63,51 @@ View: Toggle Status Bar Visibility - Ctrl+Shift+8&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;p&gt;(最近的一个需求是：希望可以选中若干行代码，然后一个快捷键删除所有的空行.)&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Haskell开发环境 (GHCup &#43; HLS) 修复记录</title>
+        <link>http://fyshxfish.github.io/p/haskell%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</link>
+        <pubDate>Fri, 16 Aug 2024 00:00:00 +0000</pubDate>
+        
+        <guid>http://fyshxfish.github.io/p/haskell%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</guid>
+        <description>&lt;!-- *不知不觉我已经在MacOS, Windows, Linux三种平台上配置过Haskell环境了，我觉得我已经是环境配置大师了，POWER!* --&gt;
+&lt;!-- # Mac上重新配置Haskell开发环境记录 --&gt;
+&lt;h2 id=&#34;ghcup-修复&#34;&gt;&lt;a href=&#34;#ghcup-%e4%bf%ae%e5%a4%8d&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;ghcup 修复
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;终端使用&lt;code&gt;ghcup&lt;/code&gt;直接被杀进程，输出大致如：&lt;code&gt;ghcup terminated by SIGKILL&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;使用ghcup官网上的命令通过curl重新安装，会得到一句红色的报错信息&lt;code&gt;&amp;quot;ghcup --metadata-fetching-mode=Strict upgrade&amp;quot; failed!&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;不知道是不是因为太久没打开了，&lt;strong&gt;解决方式&lt;/strong&gt;是清除缓存：&lt;code&gt;rm -rf ~/.ghcup/cache&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;ghcup-配置环境&#34;&gt;&lt;a href=&#34;#ghcup-%e9%85%8d%e7%bd%ae%e7%8e%af%e5%a2%83&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;ghcup 配置环境
+&lt;/h2&gt;&lt;p&gt;&lt;code&gt;ghcup tui&lt;/code&gt;下载和设置HLS和ghc（以及stack, cabal）版本，&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;ghc版本：注意ghc的备注信息中需要有hls-powered，不知道为什么我的mac上的版本是9.4.7，正好没有hls支持（9.8.4是有hls支持的），当时下载的时机这么刚好吗。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;HLS版本：VSCode的Haskell插件会要求HLS是最新的版本，所以就直接下最新的版本吧，VSCode弹出提示&amp;quot;Haskell插件需要2.9.0.1的HLS，是否下载&amp;quot;，这里的下载比较慢，而且看不到进度，所以可以直接在终端的ghcup下载，然后回到VSC（重启？反正我重启了），插件就可以正常使用了。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;HLS 无法正常工作也可以尝试通过 &lt;code&gt;ghcup tui&lt;/code&gt; 下载并切换 HLS 的版本。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;img src=&#34;ghcup_tui.png&#34; alt=&#34;ghcup_tui&#34; style=&#34;zoom:75%;&#34; /&gt;
+&lt;h2 id=&#34;一个网络问题&#34;&gt;&lt;a href=&#34;#%e4%b8%80%e4%b8%aa%e7%bd%91%e7%bb%9c%e9%97%ae%e9%a2%98&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;一个网络问题
+&lt;/h2&gt;&lt;p&gt;在第一步中修复ghcup之后，使用ghcup会遇到这样的报错：&lt;/p&gt;
+&lt;!-- ![](https://pic.imge.cc/2024/08/16/66bf0ff5c20d6.png) --&gt;
+&lt;img src=&#34;curl_error.png&#34; alt=&#34;curl_error&#34; style=&#34;zoom:75%;&#34; /&gt;
+&lt;p&gt;根据提示执行：&lt;code&gt;ghcup config set downloader Wget&lt;/code&gt;，再次使用ghcup，得到差不多一样的报错：&lt;/p&gt;
+&lt;!-- ![](https://pic.imge.cc/2024/08/16/66bf0ff6054ff.png) --&gt;
+&lt;img src=&#34;wget_error.png&#34; alt=&#34;wget_error&#34; style=&#34;zoom:75%;&#34; /&gt;
+&lt;p&gt;关于yaml：尝试过最后一行的removing &amp;hellip;yaml，结果为本机中确实不存在这个文件，所以不是这里的问题。&lt;/p&gt;
+&lt;p&gt;解决方式：复制clash的终端代理命令，就不会报这个错了，同时下载速度得到了极大提升。&lt;/p&gt;
 </description>
         </item>
         
