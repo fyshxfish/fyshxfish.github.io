@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>Example Tag on fyshx</title>
+        <link>http://fyshxfish.github.io/tags/example-tag/</link>
+        <description>Recent content in Example Tag on fyshx</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en-us</language>
+        <lastBuildDate>Sat, 31 Aug 2024 14:13:33 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/tags/example-tag/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>test `123` 测试测试测试</title>
+        <link>http://fyshxfish.github.io/post/format-test/</link>
+        <pubDate>Sat, 31 Aug 2024 14:13:33 +0800</pubDate>
+        
+        <guid>http://fyshxfish.github.io/post/format-test/</guid>
+        <description>&lt;img src="http://fyshxfish.github.io/post/format-test/cover.png" alt="Featured image of post test `123` 测试测试测试" /&gt;&lt;h1 id=&#34;一级标题&#34;&gt;&lt;a href=&#34;#%e4%b8%80%e7%ba%a7%e6%a0%87%e9%a2%98&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;一级标题
+&lt;/h1&gt;&lt;h2 id=&#34;二级标题&#34;&gt;&lt;a href=&#34;#%e4%ba%8c%e7%ba%a7%e6%a0%87%e9%a2%98&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;二级标题
+&lt;/h2&gt;&lt;h3 id=&#34;三级标题&#34;&gt;&lt;a href=&#34;#%e4%b8%89%e7%ba%a7%e6%a0%87%e9%a2%98&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;三级标题
+&lt;/h3&gt;&lt;p&gt;这是一个普通的段落。你可以在其中使用 &lt;strong&gt;加粗&lt;/strong&gt;、&lt;em&gt;斜体&lt;/em&gt;、&lt;del&gt;删除线&lt;/del&gt;，以及 &lt;code&gt;行内代码&lt;/code&gt;。&lt;/p&gt;
+&lt;hr&gt;
+&lt;blockquote&gt;
+&lt;p&gt;这是一个引用块，用来引用其他内容。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;有序列表项一&lt;/li&gt;
+&lt;li&gt;有序列表项二
+&lt;ul&gt;
+&lt;li&gt;无序子列表项一&lt;/li&gt;
+&lt;li&gt;无序子列表项二&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;这是一个引用块，用来引用其他内容。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;无序列表项一&lt;/li&gt;
+&lt;li&gt;无序列表项二
+&lt;ol&gt;
+&lt;li&gt;有序子列表项一&lt;/li&gt;
+&lt;li&gt;有序子列表项二&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;div class=&#34;chroma&#34;&gt;
+&lt;table class=&#34;lntable&#34;&gt;&lt;tr&gt;&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code&gt;&lt;span class=&#34;lnt&#34;&gt;1
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;2
+&lt;/span&gt;&lt;span class=&#34;lnt&#34;&gt;3
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;td class=&#34;lntd&#34;&gt;
+&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;c1&#34;&gt;# 这是代码块，用于显示代码&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;k&#34;&gt;def&lt;/span&gt; &lt;span class=&#34;nf&#34;&gt;hello_world&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;():&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;nb&#34;&gt;print&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s2&#34;&gt;&amp;#34;Hello, world!&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;&lt;hr&gt;
+&lt;h3 id=&#34;链接与图片&#34;&gt;&lt;a href=&#34;#%e9%93%be%e6%8e%a5%e4%b8%8e%e5%9b%be%e7%89%87&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;链接与图片
+&lt;/h3&gt;&lt;p&gt;这是一个&lt;a class=&#34;link&#34; href=&#34;github.com&#34; &gt;链接&lt;/a&gt;，以及一张图片：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;http://fyshxfish.github.io/post/format-test/fyshx_avatar.jpg&#34;
+	width=&#34;640&#34;
+	height=&#34;640&#34;
+	srcset=&#34;http://fyshxfish.github.io/post/format-test/fyshx_avatar_hu17836244657754115369.jpg 480w, http://fyshxfish.github.io/post/format-test/fyshx_avatar_hu9941738232740760003.jpg 1024w&#34;
+	loading=&#34;lazy&#34;
+	
+		alt=&#34;fsyhx avatar&#34;
+	
+	
+		class=&#34;gallery-image&#34; 
+		data-flex-grow=&#34;100&#34;
+		data-flex-basis=&#34;240px&#34;
+	
+&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;表格&#34;&gt;&lt;a href=&#34;#%e8%a1%a8%e6%a0%bc&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;表格
+&lt;/h3&gt;&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;表头1&lt;/th&gt;
+&lt;th&gt;表头2&lt;/th&gt;
+&lt;th&gt;表头3&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;内容1&lt;/td&gt;
+&lt;td&gt;内容2&lt;/td&gt;
+&lt;td&gt;内容3&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;内容4&lt;/td&gt;
+&lt;td&gt;内容5&lt;/td&gt;
+&lt;td&gt;内容6&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;任务列表&#34;&gt;&lt;a href=&#34;#%e4%bb%bb%e5%8a%a1%e5%88%97%e8%a1%a8&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;任务列表
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;&lt;input checked=&#34;&#34; disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 已完成的任务&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 待办的任务&lt;/li&gt;
+&lt;li&gt;&lt;input disabled=&#34;&#34; type=&#34;checkbox&#34;&gt; 另一个待办任务&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;脚注&#34;&gt;&lt;a href=&#34;#%e8%84%9a%e6%b3%a8&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;脚注
+&lt;/h3&gt;&lt;p&gt;这是一个带有脚注的句子。&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h3 id=&#34;分隔线&#34;&gt;&lt;a href=&#34;#%e5%88%86%e9%9a%94%e7%ba%bf&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;分隔线
+&lt;/h3&gt;&lt;hr&gt;
+&lt;p&gt;这是一条水平分割线上方的内容。&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;这是一条水平分割线下方的内容。&lt;/p&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
+&lt;p&gt;这是脚注的内容。&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>
