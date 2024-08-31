@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Example Tag on fyshx</title>
-        <link>http://fyshxfish.github.io/tags/example-tag/</link>
+        <link>http://localhost:1313/tags/example-tag/</link>
         <description>Recent content in Example Tag on fyshx</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Sat, 31 Aug 2024 14:13:33 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/tags/example-tag/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 31 Aug 2024 14:13:33 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/example-tag/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>test `123` 测试测试测试</title>
-        <link>http://fyshxfish.github.io/post/format-test/</link>
+        <link>http://localhost:1313/post/format-test/</link>
         <pubDate>Sat, 31 Aug 2024 14:13:33 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/post/format-test/</guid>
-        <description>&lt;img src="http://fyshxfish.github.io/post/format-test/cover.png" alt="Featured image of post test `123` 测试测试测试" /&gt;&lt;h1 id=&#34;一级标题&#34;&gt;&lt;a href=&#34;#%e4%b8%80%e7%ba%a7%e6%a0%87%e9%a2%98&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;一级标题
+        <guid>http://localhost:1313/post/format-test/</guid>
+        <description>&lt;img src="http://localhost:1313/post/format-test/cover.png" alt="Featured image of post test `123` 测试测试测试" /&gt;&lt;h1 id=&#34;一级标题&#34;&gt;&lt;a href=&#34;#%e4%b8%80%e7%ba%a7%e6%a0%87%e9%a2%98&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;一级标题
 &lt;/h1&gt;&lt;h2 id=&#34;二级标题&#34;&gt;&lt;a href=&#34;#%e4%ba%8c%e7%ba%a7%e6%a0%87%e9%a2%98&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;二级标题
 &lt;/h2&gt;&lt;h3 id=&#34;三级标题&#34;&gt;&lt;a href=&#34;#%e4%b8%89%e7%ba%a7%e6%a0%87%e9%a2%98&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;三级标题
 &lt;/h3&gt;&lt;p&gt;这是一个普通的段落。你可以在其中使用 &lt;strong&gt;加粗&lt;/strong&gt;、&lt;em&gt;斜体&lt;/em&gt;、&lt;del&gt;删除线&lt;/del&gt;，以及 &lt;code&gt;行内代码&lt;/code&gt;。&lt;/p&gt;
@@ -56,10 +56,10 @@
 &lt;/div&gt;&lt;hr&gt;
 &lt;h3 id=&#34;链接与图片&#34;&gt;&lt;a href=&#34;#%e9%93%be%e6%8e%a5%e4%b8%8e%e5%9b%be%e7%89%87&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;链接与图片
 &lt;/h3&gt;&lt;p&gt;这是一个&lt;a class=&#34;link&#34; href=&#34;github.com&#34; &gt;链接&lt;/a&gt;，以及一张图片：&lt;/p&gt;
-&lt;p&gt;&lt;img src=&#34;http://fyshxfish.github.io/post/format-test/fyshx_avatar.jpg&#34;
+&lt;p&gt;&lt;img src=&#34;http://localhost:1313/post/format-test/fyshx_avatar.jpg&#34;
 	width=&#34;640&#34;
 	height=&#34;640&#34;
-	srcset=&#34;http://fyshxfish.github.io/post/format-test/fyshx_avatar_hu17836244657754115369.jpg 480w, http://fyshxfish.github.io/post/format-test/fyshx_avatar_hu9941738232740760003.jpg 1024w&#34;
+	srcset=&#34;http://localhost:1313/post/format-test/fyshx_avatar_hu17836244657754115369.jpg 480w, http://localhost:1313/post/format-test/fyshx_avatar_hu9941738232740760003.jpg 1024w&#34;
 	loading=&#34;lazy&#34;
 	
 		alt=&#34;fsyhx avatar&#34;

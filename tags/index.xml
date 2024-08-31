@@ -6,12 +6,20 @@
         <description>Recent content in Tags on fyshx</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Sat, 31 Aug 2024 14:13:33 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Example Tag</title>
-        <link>http://fyshxfish.github.io/tags/example-tag/</link>
-        <pubDate>Sat, 31 Aug 2024 14:13:33 +0800</pubDate>
+        <lastBuildDate>Thu, 29 Aug 2024 00:00:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Haskell</title>
+        <link>http://fyshxfish.github.io/tags/haskell/</link>
+        <pubDate>Thu, 29 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/tags/example-tag/</guid>
+        <guid>http://fyshxfish.github.io/tags/haskell/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>SICP</title>
+        <link>http://fyshxfish.github.io/tags/sicp/</link>
+        <pubDate>Thu, 29 Aug 2024 00:00:00 +0800</pubDate>
+        
+        <guid>http://fyshxfish.github.io/tags/sicp/</guid>
         <description></description>
         </item>
         <item>
@@ -20,6 +28,14 @@
         <pubDate>Mon, 26 Aug 2024 00:00:00 +0800</pubDate>
         
         <guid>http://fyshxfish.github.io/tags/vscode/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Rust</title>
+        <link>http://fyshxfish.github.io/tags/rust/</link>
+        <pubDate>Mon, 05 Aug 2024 00:00:00 +0000</pubDate>
+        
+        <guid>http://fyshxfish.github.io/tags/rust/</guid>
         <description></description>
         </item>
         

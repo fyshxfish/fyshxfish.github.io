@@ -6,20 +6,28 @@
         <description>Recent content in Categories on fyshx</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en-us</language>
-        <lastBuildDate>Sat, 31 Aug 2024 14:13:33 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Example Category</title>
-        <link>http://fyshxfish.github.io/categories/example-category/</link>
-        <pubDate>Sat, 31 Aug 2024 14:13:33 +0800</pubDate>
+        <lastBuildDate>Thu, 29 Aug 2024 00:00:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>FP</title>
+        <link>http://fyshxfish.github.io/categories/fp/</link>
+        <pubDate>Thu, 29 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/categories/example-category/</guid>
+        <guid>http://fyshxfish.github.io/categories/fp/</guid>
         <description></description>
         </item>
         <item>
-        <title>环境配置</title>
-        <link>http://fyshxfish.github.io/categories/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</link>
+        <title>Enviroment Setup</title>
+        <link>http://fyshxfish.github.io/categories/enviroment_setup/</link>
         <pubDate>Mon, 26 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/categories/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/</guid>
+        <guid>http://fyshxfish.github.io/categories/enviroment_setup/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Xplore</title>
+        <link>http://fyshxfish.github.io/categories/xplore/</link>
+        <pubDate>Mon, 05 Aug 2024 00:00:00 +0000</pubDate>
+        
+        <guid>http://fyshxfish.github.io/categories/xplore/</guid>
         <description></description>
         </item>
         

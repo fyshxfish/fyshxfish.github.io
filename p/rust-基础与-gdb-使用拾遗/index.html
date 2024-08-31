@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en-us" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="如何调试一个rust程序？ $ gdb excutable 简单的示例： 查看变量的地址： 格式化p s的输出： $17 = alloc::string::String { vec: alloc::vec::Vec&lt;u8, alloc::alloc::Global&gt; { buf: alloc::raw_vec::RawVec&lt;u8, alloc::alloc::Global&gt; { ptr: core::ptr::unique::Unique&lt;u8&gt; { pointer: core::ptr::non_null::NonNull&lt;u8&gt; { pointer: 0x5555555abb80 }, _marker: core::marker::PhantomData&lt;u8&gt; }, cap: alloc::raw_vec::Cap (16), alloc: alloc::alloc::Global }, len:">
+<title>Rust 基础与 gdb 使用拾遗</title>
+
+<link rel='canonical' href='http://fyshxfish.github.io/p/rust-%E5%9F%BA%E7%A1%80%E4%B8%8E-gdb-%E4%BD%BF%E7%94%A8%E6%8B%BE%E9%81%97/'>
+
+<link rel="stylesheet" href="/scss/style.min.0304c6baf04e01a8fe70693791cb744d56a3578a3120a8796cefc66825aa39c7.css"><meta property='og:title' content="Rust 基础与 gdb 使用拾遗">
+<meta property='og:description' content="如何调试一个rust程序？ $ gdb excutable 简单的示例： 查看变量的地址： 格式化p s的输出： $17 = alloc::string::String { vec: alloc::vec::Vec&lt;u8, alloc::alloc::Global&gt; { buf: alloc::raw_vec::RawVec&lt;u8, alloc::alloc::Global&gt; { ptr: core::ptr::unique::Unique&lt;u8&gt; { pointer: core::ptr::non_null::NonNull&lt;u8&gt; { pointer: 0x5555555abb80 }, _marker: core::marker::PhantomData&lt;u8&gt; }, cap: alloc::raw_vec::Cap (16), alloc: alloc::alloc::Global }, len:">
+<meta property='og:url' content='http://fyshxfish.github.io/p/rust-%E5%9F%BA%E7%A1%80%E4%B8%8E-gdb-%E4%BD%BF%E7%94%A8%E6%8B%BE%E9%81%97/'>
+<meta property='og:site_name' content='fyshx'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='rust' /><meta property='article:published_time' content='2024-08-05T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-08-05T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="Rust 基础与 gdb 使用拾遗">
+<meta name="twitter:description" content="如何调试一个rust程序？ $ gdb excutable 简单的示例： 查看变量的地址： 格式化p s的输出： $17 = alloc::string::String { vec: alloc::vec::Vec&lt;u8, alloc::alloc::Global&gt; { buf: alloc::raw_vec::RawVec&lt;u8, alloc::alloc::Global&gt; { ptr: core::ptr::unique::Unique&lt;u8&gt; { pointer: core::ptr::non_null::NonNull&lt;u8&gt; { pointer: 0x5555555abb80 }, _marker: core::marker::PhantomData&lt;u8&gt; }, cap: alloc::raw_vec::Cap (16), alloc: alloc::alloc::Global }, len:">
+    <link rel="shortcut icon" href="/favicon.png" />
+
+  
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/fyshx_avatar_hu134059368025567045.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🐟</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">fyshx</a></h1>
+            <h2 class="site-description">Hello, there!</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/fyshxfish'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span></span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title"></h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#如何调试一个rust程序">如何调试一个rust程序？</a></li>
+    <li><a href="#dbg-辅助输出调试信息中的所有权问题"><code>dbg!</code> 辅助输出调试信息中的所有权问题</a></li>
+    <li><a href="#关于-gdb">关于 gdb</a></li>
+    <li><a href="#关于对-vector-的引用">关于对 vector 的引用</a></li>
+    <li><a href="#一个问题如何让一个vector看起来存储了多种类型的数据">一个问题：如何让一个Vector看起来存储了多种类型的数据？</a></li>
+    <li><a href="#gdb-调试-enum-示例与-gdb以及其他repl中的-history-variable">gdb 调试 enum 示例与 gdb（以及其他REPL）中的 history variable</a></li>
+    <li><a href="#rust_backtrace-与命令行拾遗">RUST_BACKTRACE 与命令行拾遗</a></li>
+    <li><a href="#花里胡哨的技术rust的println的色彩转义">花里胡哨的技术：rust的<code>println</code>的色彩转义</a></li>
+    <li><a href="#resultt-e的unwrap和expect-之间的区别"><code>Result&lt;T, E&gt;</code>的<code>unwrap</code>和<code>expect</code> 之间的区别：</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/xplore/" style="background-color: #92af88; color: #fff;">
+                Xplore
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/rust-%E5%9F%BA%E7%A1%80%E4%B8%8E-gdb-%E4%BD%BF%E7%94%A8%E6%8B%BE%E9%81%97/">Rust 基础与 gdb 使用拾遗</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Aug 05, 2024</time>
+            </div>
+        
+
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p> </p>
+<h2 id="如何调试一个rust程序"><a href="#%e5%a6%82%e4%bd%95%e8%b0%83%e8%af%95%e4%b8%80%e4%b8%aarust%e7%a8%8b%e5%ba%8f" class="header-anchor"></a>如何调试一个rust程序？
+</h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ gdb excutable
+</span></span></code></pre></div><p>简单的示例：</p>
+<!-- ![gdb_debug](gdb_debug.png) -->
+<img src="gdb_debug.png" alt="gdb_debug" style="zoom:80%;" />
+<p>查看变量的地址：</p>
+<img src="mem_check.png" alt="mem_check" style="zoom:80%;" />
+<p>格式化<code>p s</code>的输出：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="cp">$</span><span class="mi">17</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">alloc</span>::<span class="n">string</span>::<span class="nb">String</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">vec</span>: <span class="nc">alloc</span>::<span class="n">vec</span>::<span class="nb">Vec</span><span class="o">&lt;</span><span class="kt">u8</span><span class="p">,</span><span class="w"> </span><span class="n">alloc</span>::<span class="n">alloc</span>::<span class="n">Global</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">buf</span>: <span class="nc">alloc</span>::<span class="n">raw_vec</span>::<span class="n">RawVec</span><span class="o">&lt;</span><span class="kt">u8</span><span class="p">,</span><span class="w"> </span><span class="n">alloc</span>::<span class="n">alloc</span>::<span class="n">Global</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">ptr</span>: <span class="nc">core</span>::<span class="n">ptr</span>::<span class="n">unique</span>::<span class="n">Unique</span><span class="o">&lt;</span><span class="kt">u8</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">pointer</span>: <span class="nc">core</span>::<span class="n">ptr</span>::<span class="n">non_null</span>::<span class="n">NonNull</span><span class="o">&lt;</span><span class="kt">u8</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="n">pointer</span>: <span class="mh">0x5555555abb80</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">},</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">_marker</span>: <span class="nc">core</span>::<span class="n">marker</span>::<span class="n">PhantomData</span><span class="o">&lt;</span><span class="kt">u8</span><span class="o">&gt;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">},</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">cap</span>: <span class="nc">alloc</span>::<span class="n">raw_vec</span>::<span class="n">Cap</span><span class="w"> </span><span class="p">(</span><span class="mi">16</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">alloc</span>: <span class="nc">alloc</span>::<span class="n">alloc</span>::<span class="n">Global</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">},</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">len</span>: <span class="mi">16</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p>提要：<code>p &lt;variable&gt;</code>  <code>p &amp;&lt;variable&gt;</code>  <code>ptype &lt;variable&gt;</code></p>
+<h2 id="dbg-辅助输出调试信息中的所有权问题"><a href="#dbg-%e8%be%85%e5%8a%a9%e8%be%93%e5%87%ba%e8%b0%83%e8%af%95%e4%bf%a1%e6%81%af%e4%b8%ad%e7%9a%84%e6%89%80%e6%9c%89%e6%9d%83%e9%97%ae%e9%a2%98" class="header-anchor"></a><code>dbg!</code> 辅助输出调试信息中的所有权问题
+</h2><p>错误的：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="fm">dbg!</span><span class="p">(</span><span class="n">var</span><span class="p">);</span><span class="w">      </span><span class="c1">// move
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="fm">dbg!</span><span class="p">(</span><span class="n">var</span><span class="p">);</span><span class="w">      </span><span class="c1">// invalid reference
+</span></span></span></code></pre></div><p><code>dbg!</code>将拿走<code>var</code>的所有权(<strong>Move</strong>)，<code>var</code>就不能再用了。</p>
+<p>正确的：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="fm">dbg!</span><span class="p">(</span><span class="o">&amp;</span><span class="n">var</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// or
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">let</span><span class="w"> </span><span class="n">new_var</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="fm">dbg!</span><span class="p">(</span><span class="n">var</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="fm">dbg!</span><span class="p">(</span><span class="o">&amp;</span><span class="n">new_var</span><span class="p">);</span><span class="w"> </span><span class="c1">// if u will 
+</span></span></span></code></pre></div><h2 id="关于-gdb"><a href="#%e5%85%b3%e4%ba%8e-gdb" class="header-anchor"></a>关于 gdb
+</h2><p>对于想探究的东西，使用gdb去进行探索，例如：[<code>enum</code>的底层表示？] -&gt; 写一个简单的例程，编译成可执行文件，然后进行gdb，使用<code>print var</code> <code>print &amp;var</code> <code>x/x &lt;addr&gt;</code>进行探索。</p>
+<h2 id="关于对-vector-的引用"><a href="#%e5%85%b3%e4%ba%8e%e5%af%b9-vector-%e7%9a%84%e5%bc%95%e7%94%a8" class="header-anchor"></a>关于对 vector 的引用
+</h2><ul>
+<li>
+<p>一个摘录</p>
+<p>ch08-01</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/* CANNOT COMPILE */</span><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="fm">vec!</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">];</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">first</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">v</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;The first element is: </span><span class="si">{first}</span><span class="s">&#34;</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><blockquote>
+<p>The code in Listing 8-6 might look like it should work: <em><strong>why should a reference to the first element care about changes at the end of the vector?</strong></em> This error is due to the way vectors work: because vectors put the values next to each other in memory, adding a new element onto the end of the vector might <u>require allocating new memory and copying the old elements to the new space</u>, if there isn’t enough room to put all the elements next to each other where the vector is currently stored. In that case, the reference to the first element would be pointing to <u>deallocated memory</u>. The borrowing rules prevent programs from ending up in that situation.</p>
+</blockquote>
+</li>
+</ul>
+<h2 id="一个问题如何让一个vector看起来存储了多种类型的数据"><a href="#%e4%b8%80%e4%b8%aa%e9%97%ae%e9%a2%98%e5%a6%82%e4%bd%95%e8%ae%a9%e4%b8%80%e4%b8%aavector%e7%9c%8b%e8%b5%b7%e6%9d%a5%e5%ad%98%e5%82%a8%e4%ba%86%e5%a4%9a%e7%a7%8d%e7%b1%bb%e5%9e%8b%e7%9a%84%e6%95%b0%e6%8d%ae" class="header-anchor"></a>一个问题：如何让一个Vector看起来存储了多种类型的数据？
+</h2><p>答案：让Vector存储enum，enum含有多种类型的variant，在某种程度上可以说Vector存储了多种类型的数据。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">fn</span> <span class="nf">main</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">v</span>: <span class="nb">Vec</span><span class="o">&lt;</span><span class="n">CellType</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="fm">vec!</span><span class="p">[</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">CellType</span>::<span class="n">Int</span><span class="p">(</span><span class="mi">12</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">CellType</span>::<span class="n">Text</span><span class="p">(</span><span class="nb">String</span>::<span class="n">from</span><span class="p">(</span><span class="s">&#34;word&#34;</span><span class="p">)),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">CellType</span>::<span class="n">Float</span><span class="p">(</span><span class="mf">3.14</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">];</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">v1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">enum</span> <span class="nc">CellType</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Int</span><span class="p">(</span><span class="kt">i32</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Float</span><span class="p">(</span><span class="kt">f64</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Text</span><span class="p">(</span><span class="nb">String</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><h2 id="gdb-调试-enum-示例与-gdb以及其他repl中的-history-variable"><a href="#gdb-%e8%b0%83%e8%af%95-enum-%e7%a4%ba%e4%be%8b%e4%b8%8e-gdb%e4%bb%a5%e5%8f%8a%e5%85%b6%e4%bb%96repl%e4%b8%ad%e7%9a%84-history-variable" class="header-anchor"></a>gdb 调试 enum 示例与 gdb（以及其他REPL）中的 history variable
+</h2><p><strong>源代码：</strong></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">fn</span> <span class="nf">main</span><span class="p">(){</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">v</span>: <span class="nb">Vec</span><span class="o">&lt;</span><span class="n">CellType</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="fm">vec!</span><span class="p">[</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">CellType</span>::<span class="n">Int</span><span class="p">(</span><span class="mi">12</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">CellType</span>::<span class="n">Float</span><span class="p">(</span><span class="mf">3.14</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">];</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">v1</span>: <span class="kp">&amp;</span><span class="nc">CellType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">v2</span>: <span class="kp">&amp;</span><span class="nc">CellType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;END&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">enum</span> <span class="nc">CellType</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Int</span><span class="p">(</span><span class="kt">i32</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Float</span><span class="p">(</span><span class="kt">f64</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div><p><strong>调试实录：</strong></p>
+<img src="gdb_enum.png" alt="gdb_enum" style="zoom:80%;" />
+<ol>
+<li><code>p v1</code>：打印<code>v1: &amp;CellType</code>的值，也就是指针值，即附带数据存储在堆上的地址，注意到<code>v1, v2</code>对应的数据各占据了16个字节。</li>
+<li><code>x/4x $1</code>：检查<code>v1</code>指针指向的16字节</li>
+<li><code>p *v1</code>：解引用<code>v1</code>查看该内存处存储的实际值</li>
+</ol>
+<ul>
+<li>
+<p><code>enum</code>在计算机中存储的实际数据分析</p>
+<ul>
+<li>第一个字节应该是variant标识符，对应关系：<code>0-Int</code> <code>1-Float</code></li>
+<li><code>Int</code>：附带数据存储在第二个字节，<code>0x0000000c</code>即代码中的<code>Int(12)</code></li>
+<li><code>Float</code>：附带的数据存储在第三、四个字节<code>0x40091eb8_51eb851f</code>是<code>3.14</code>的IEEE 754 64bit表示</li>
+<li>遗留的问题：为什么上述两变体存储附加数据的位置不同，<code>Float</code>中的<code>0x00005555</code>是什么？</li>
+</ul>
+</li>
+<li>
+<p>gdb的使用拾遗 (history variable)：</p>
+  <!-- 今天我终于知道了 `p var` 打印出来的内容为什么前面有一个 `$x` ，原来是供用户后续复用的，过去半年的 gdb 都白用了。（今年计算机系统实验时手动复制内存地址的时候，觉得这个手动的操作一定有某种简化的方式，所以询问 gpt 在 gdb 有什么办法可以做类似 *bash* 里`echo $(ls)`这样的插值，gpt给的回答我都不满意，回头扫了一眼 gdb 终于意识到 `$1` 这个地方有点玄机，也是学到了） -->
+<p><code>p var</code> 打印出来的 <code>$x</code> 是一种 history variable, 供用户后续复用的，类似的 REPL 行为还有<em>bash</em> 里 <code>echo $(ls)</code>，mit-scheme 也会为返回的 procedure 给出一个可引用的 history variable（不过这个 variable 很长，且包含了 #[] 等特殊字符，真正要复用还是要复制一遍标识符，绑定在某个标识符上再复用。）。</p>
+</li>
+</ul>
+<h2 id="rust_backtrace-与命令行拾遗"><a href="#rust_backtrace-%e4%b8%8e%e5%91%bd%e4%bb%a4%e8%a1%8c%e6%8b%be%e9%81%97" class="header-anchor"></a>RUST_BACKTRACE 与命令行拾遗
+</h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nv">RUST_BACKTRACE</span><span class="o">=</span><span class="m">1</span> cargo run
+</span></span><span class="line"><span class="cl">$ <span class="nv">A</span><span class="o">=</span><span class="m">12</span> <span class="nv">B</span><span class="o">=</span><span class="m">23</span> <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$A</span><span class="s2"> </span><span class="nv">$B</span><span class="s2">&#34;</span>
+</span></span></code></pre></div><p>在命令的最左可以写临时的环境变量。</p>
+<h2 id="花里胡哨的技术rust的println的色彩转义"><a href="#%e8%8a%b1%e9%87%8c%e8%83%a1%e5%93%a8%e7%9a%84%e6%8a%80%e6%9c%afrust%e7%9a%84println%e7%9a%84%e8%89%b2%e5%bd%a9%e8%bd%ac%e4%b9%89" class="header-anchor"></a>花里胡哨的技术：rust的<code>println</code>的色彩转义
+</h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\x1b</span><span class="s">[34mMESSAGE</span><span class="se">\x1b</span><span class="s">[0m&#34;</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></div><ul>
+<li>
+<p>使用<code>\x1b[34m</code>进行转义</p>
+</li>
+<li>
+<p><code>\x1b</code>是什么？</p>
+<p><code>\x</code>表十六进制，<code>1b</code>是ESC的ASCII十六进制码</p>
+  <img src="ascii.png" alt="ascii" style="zoom:80%;" />
+</li>
+</ul>
+<h2 id="resultt-e的unwrap和expect-之间的区别"><a href="#resultt-e%e7%9a%84unwrap%e5%92%8cexpect-%e4%b9%8b%e9%97%b4%e7%9a%84%e5%8c%ba%e5%88%ab" class="header-anchor"></a><code>Result&lt;T, E&gt;</code>的<code>unwrap</code>和<code>expect</code> 之间的区别：
+</h2><p>适当地看一些库函数的实现，可以对封装好的函数有更具体的了解，例如<code>Result&lt;T, E&gt;</code>的<code>unwrap</code>和<code>expect</code>，看过源码就可以知道这两者的区别在于何处（只在于<code>unwrap_failed</code>的<code>msg</code>参数，至于<code>unwrap_failed</code>只是一个对<code>panic!</code>的封装）：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">impl</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">E</span><span class="o">&gt;</span><span class="w"> </span><span class="nb">Result</span><span class="o">&lt;</span><span class="nb">Result</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">E</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">E</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">..</span><span class="p">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">expect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">msg</span>: <span class="kp">&amp;</span><span class="kt">str</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">T</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">where</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">E</span>: <span class="nc">fmt</span>::<span class="n">Debug</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">match</span><span class="w"> </span><span class="bp">self</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nb">Ok</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">t</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nb">Err</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">unwrap_failed</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">e</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">unwrap</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">T</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">where</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">E</span>: <span class="nc">fmt</span>::<span class="n">Debug</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">match</span><span class="w"> </span><span class="bp">self</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nb">Ok</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">t</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nb">Err</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">unwrap_failed</span><span class="p">(</span><span class="s">&#34;called `Result::unwrap()` on an `Err` value&#34;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">e</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">..</span><span class="p">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">fn</span> <span class="nf">unwrap_failed</span><span class="p">(</span><span class="n">msg</span>: <span class="kp">&amp;</span><span class="kt">str</span><span class="p">,</span><span class="w"> </span><span class="n">error</span>: <span class="kp">&amp;</span><span class="nc">dyn</span><span class="w"> </span><span class="n">fmt</span>::<span class="n">Debug</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="o">!</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="fm">panic!</span><span class="p">(</span><span class="s">&#34;</span><span class="si">{msg}</span><span class="s">: </span><span class="si">{error:?}</span><span class="s">&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></div>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/rust/">Rust</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2024 fyshx
+    </section>
+    
+    <section class="powerby">
+        
+            Wish you a nice day! <br/>
+         <br />
+        
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
