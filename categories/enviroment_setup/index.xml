@@ -62,7 +62,7 @@ View: Toggle Status Bar Visibility - Ctrl+Shift+8&lt;/p&gt;
 &lt;p&gt;同 Vim Normal Mode 下的 &lt;code&gt;o(O)&lt;/code&gt;.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;p&gt;(最近的一个需求是：希望可以选中若干行代码，然后一个快捷键删除所有的空行.)&lt;/p&gt;
+&lt;!-- (最近的一个需求是：希望可以选中若干行代码，然后一个快捷键删除所有的空行.) --&gt;
 </description>
         </item>
         <item>
