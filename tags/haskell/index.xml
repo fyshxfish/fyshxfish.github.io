@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Haskell on fyshXplore</title>
-        <link>http://localhost:1313/tags/haskell/</link>
+        <link>http://fyshxfish.github.io/tags/haskell/</link>
         <description>Recent content in Haskell on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Thu, 29 Aug 2024 00:00:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/haskell/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 29 Aug 2024 00:00:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/tags/haskell/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>SICP 2.2.3 Nested Mappings 案例的 Haskell 实现 (List Monad)</title>
-        <link>http://localhost:1313/p/sicp-2.2.3-nested-mappings-%E6%A1%88%E4%BE%8B%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-list-monad/</link>
+        <link>http://fyshxfish.github.io/p/sicp-2.2.3-nested-mappings-%E6%A1%88%E4%BE%8B%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-list-monad/</link>
         <pubDate>Thu, 29 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/sicp-2.2.3-nested-mappings-%E6%A1%88%E4%BE%8B%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-list-monad/</guid>
+        <guid>http://fyshxfish.github.io/p/sicp-2.2.3-nested-mappings-%E6%A1%88%E4%BE%8B%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-list-monad/</guid>
         <description>&lt;h2 id=&#34;问题&#34;&gt;&lt;a href=&#34;#%e9%97%ae%e9%a2%98&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;问题
 &lt;/h2&gt;&lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Problem&lt;/strong&gt;: Given a positive integer $n$, find all ordered pairs of distinct positive integers $i$ and $j$, where $ 1 \leq i \leq j \leq n $, such that $ i + j $ is prime.&lt;/p&gt;
@@ -60,10 +60,10 @@
         </item>
         <item>
         <title>Haskell开发环境 (GHCup &#43; HLS) 修复记录</title>
-        <link>http://localhost:1313/p/haskell%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</link>
+        <link>http://fyshxfish.github.io/p/haskell%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</link>
         <pubDate>Fri, 16 Aug 2024 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/p/haskell%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</guid>
+        <guid>http://fyshxfish.github.io/p/haskell%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</guid>
         <description>&lt;!-- *不知不觉我已经在MacOS, Windows, Linux三种平台上配置过Haskell环境了，我觉得我已经是环境配置大师了，POWER!* --&gt;
 &lt;!-- # Mac上重新配置Haskell开发环境记录 --&gt;
 &lt;h2 id=&#34;ghcup-修复&#34;&gt;&lt;a href=&#34;#ghcup-%e4%bf%ae%e5%a4%8d&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;ghcup 修复
@@ -89,16 +89,16 @@
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;HLS 无法正常工作也可以尝试通过 &lt;code&gt;ghcup tui&lt;/code&gt; 下载并切换 HLS 的版本。&lt;/p&gt;
+  &lt;img src=&#34;ghcup_tui.png&#34; alt=&#34;ghcup_tui&#34; style=&#34;zoom:80%;  box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7)&#34; /&gt;
+  &lt;!-- ![ghcup_tui](ghcup_tui.png){width=80%} --&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;img src=&#34;ghcup_tui.png&#34; alt=&#34;ghcup_tui&#34; style=&#34;zoom:75%;&#34; /&gt;
 &lt;h2 id=&#34;一个网络问题&#34;&gt;&lt;a href=&#34;#%e4%b8%80%e4%b8%aa%e7%bd%91%e7%bb%9c%e9%97%ae%e9%a2%98&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;一个网络问题
 &lt;/h2&gt;&lt;p&gt;在第一步中修复ghcup之后，使用ghcup会遇到这样的报错：&lt;/p&gt;
-&lt;!-- ![](https://pic.imge.cc/2024/08/16/66bf0ff5c20d6.png) --&gt;
-&lt;img src=&#34;curl_error.png&#34; alt=&#34;curl_error&#34; style=&#34;zoom:75%;&#34; /&gt;
+&lt;img src=&#34;curl_error.png&#34; alt=&#34;curl_error&#34; style=&#34;zoom:80%;  box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7)&#34; /&gt;
 &lt;p&gt;根据提示执行：&lt;code&gt;ghcup config set downloader Wget&lt;/code&gt;，再次使用ghcup，得到差不多一样的报错：&lt;/p&gt;
 &lt;!-- ![](https://pic.imge.cc/2024/08/16/66bf0ff6054ff.png) --&gt;
-&lt;img src=&#34;wget_error.png&#34; alt=&#34;wget_error&#34; style=&#34;zoom:75%;&#34; /&gt;
+&lt;img src=&#34;wget_error.png&#34; alt=&#34;wget_error&#34; style=&#34;zoom:80%;  box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7)&#34; /&gt;
 &lt;p&gt;关于yaml：尝试过最后一行的removing &amp;hellip;yaml，结果为本机中确实不存在这个文件，所以不是这里的问题。&lt;/p&gt;
 &lt;p&gt;解决方式：复制clash的终端代理命令，就不会报这个错了，同时下载速度得到了极大提升。&lt;/p&gt;
 </description>

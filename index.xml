@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>fyshXplore</title>
-        <link>http://localhost:1313/</link>
+        <link>http://fyshxfish.github.io/</link>
         <description>Recent content on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Sat, 31 Aug 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 31 Aug 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://fyshxfish.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Archives</title>
-        <link>http://localhost:1313/archives/</link>
+        <link>http://fyshxfish.github.io/archives/</link>
         <pubDate>Sat, 31 Aug 2024 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/archives/</guid>
+        <guid>http://fyshxfish.github.io/archives/</guid>
         <description></description>
         </item>
         <item>
         <title>Scheme: `let` 的语义 (feat. `if` 的语义)</title>
-        <link>http://localhost:1313/p/scheme-let-%E7%9A%84%E8%AF%AD%E4%B9%89-feat.-if-%E7%9A%84%E8%AF%AD%E4%B9%89/</link>
+        <link>http://fyshxfish.github.io/p/scheme-let-%E7%9A%84%E8%AF%AD%E4%B9%89-feat.-if-%E7%9A%84%E8%AF%AD%E4%B9%89/</link>
         <pubDate>Thu, 29 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/scheme-let-%E7%9A%84%E8%AF%AD%E4%B9%89-feat.-if-%E7%9A%84%E8%AF%AD%E4%B9%89/</guid>
+        <guid>http://fyshxfish.github.io/p/scheme-let-%E7%9A%84%E8%AF%AD%E4%B9%89-feat.-if-%E7%9A%84%E8%AF%AD%E4%B9%89/</guid>
         <description>&lt;hr&gt;
 &lt;h2 id=&#34;let-的语义&#34;&gt;&lt;a href=&#34;#let-%e7%9a%84%e8%af%ad%e4%b9%89&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;&lt;code&gt;let&lt;/code&gt; 的语义
 &lt;/h2&gt;&lt;p&gt;&lt;mark&gt;结论&lt;/mark&gt;: &lt;code&gt;let&lt;/code&gt; scope 会立即求值 (包括绑定和绑定之后的表达式, 也就是 &lt;code&gt;let&lt;/code&gt; 之外的一层括号所包裹的范围), 即使你把 &lt;code&gt;let&lt;/code&gt; 嵌套在内层函数里而且这个函数还完全没有被调用.&lt;/p&gt;
@@ -114,10 +114,10 @@
         </item>
         <item>
         <title>SICP 2.2.3 Nested Mappings 案例的 Haskell 实现 (List Monad)</title>
-        <link>http://localhost:1313/p/sicp-2.2.3-nested-mappings-%E6%A1%88%E4%BE%8B%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-list-monad/</link>
+        <link>http://fyshxfish.github.io/p/sicp-2.2.3-nested-mappings-%E6%A1%88%E4%BE%8B%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-list-monad/</link>
         <pubDate>Thu, 29 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/sicp-2.2.3-nested-mappings-%E6%A1%88%E4%BE%8B%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-list-monad/</guid>
+        <guid>http://fyshxfish.github.io/p/sicp-2.2.3-nested-mappings-%E6%A1%88%E4%BE%8B%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-list-monad/</guid>
         <description>&lt;h2 id=&#34;问题&#34;&gt;&lt;a href=&#34;#%e9%97%ae%e9%a2%98&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;问题
 &lt;/h2&gt;&lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Problem&lt;/strong&gt;: Given a positive integer $n$, find all ordered pairs of distinct positive integers $i$ and $j$, where $ 1 \leq i \leq j \leq n $, such that $ i + j $ is prime.&lt;/p&gt;
@@ -166,11 +166,11 @@
         </item>
         <item>
         <title>VSCode 配置与使用记录</title>
-        <link>http://localhost:1313/p/vscode-%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/</link>
+        <link>http://fyshxfish.github.io/p/vscode-%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/</link>
         <pubDate>Mon, 26 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/vscode-%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/</guid>
-        <description>&lt;img src="http://localhost:1313/p/vscode-%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/cover.png" alt="Featured image of post VSCode 配置与使用记录" /&gt;&lt;p&gt;不严肃的随手记录，希望我能记得持续更新，因为我经常把一些记录扔在零零散散的位置，然后忘记这个记录的存在。&lt;/p&gt;
+        <guid>http://fyshxfish.github.io/p/vscode-%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/</guid>
+        <description>&lt;img src="http://fyshxfish.github.io/p/vscode-%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/cover.png" alt="Featured image of post VSCode 配置与使用记录" /&gt;&lt;p&gt;不严肃的随手记录，希望我能记得持续更新，因为我经常把一些记录扔在零零散散的位置，然后忘记这个记录的存在。&lt;/p&gt;
 &lt;p&gt;首先在这里贴蒋炎岩老师的&lt;a class=&#34;link&#34; href=&#34;https://www.bilibili.com/video/BV1y2421w7NK/?spm_id_from=333.999.0.0&amp;amp;vd_source=6a9d230feb804002a202ce26ff40a4cc&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;一场与VSCode相关的讲座&lt;/a&gt;，&lt;strong&gt;Ctrl+Shift+P&lt;/strong&gt;：如果你需要做某些事情，可以先尝试用 Ctrl+Shift+P 打开命令面板搜索（比如也许你想重新加载VSCode窗口，你就可以 Ctrl+Shift+P 然后搜索&amp;quot;reload window&amp;quot;），如果你发现自己需要经常做这个动作，那么就 Ctrl+k Ctrl+s 进入 Keyboard Shortcuts 为这个操作绑定快捷键吧，配置快捷键的哲学就在于：发现自己经常重复做某件事情，有一个瞬间发现自己不想用鼠标再次重复这个过程，于是去检索记忆/配置这个热键。&lt;/p&gt;
 &lt;p&gt;(如果后续VSCode Command Palette接入了语言模型，可以进行自然语言的模糊搜素，那应该会很不错。)&lt;/p&gt;
@@ -183,10 +183,10 @@ View: Toggle Status Bar Visibility - Ctrl+Shift+8&lt;/p&gt;
 &lt;/h3&gt;&lt;p&gt;之前看蒋炎岩老师的课的时候发现他的终端tab和代码tab的形态是一致的，现在我也知道怎么做了，先Ctrl+Shift+P，在命令面板中检索&lt;code&gt;Terminal: Move Terminal to Editor Area&lt;/code&gt;，即可将终端放置到Editor Area，其他类似操作还有&lt;code&gt;Move Terminal to Panel&lt;/code&gt;, &lt;code&gt;Create New Terminal in Editor Area&lt;/code&gt;&amp;hellip;当然，可以为你经常使用的操作绑定快捷键。&lt;/p&gt;
 &lt;p&gt;一种适用的场景是：如果你在学习某种编程语言，而这种语言（比如Haskell, Lisp, Python&amp;hellip;）刚好有REPL，你就可以在Editor Area切分，一半放代码，一半放Terminal REPL，如果需要，可以编辑文件，然后在REPL中导入代码文件（像Haskell ghci中的&lt;code&gt;:l foo.hs&lt;/code&gt;），这样就很方便，可以通过Ctrl+1/Ctrl+2在代码tab和终端tab之间做Focus的切换；视觉上我认为这样的体验也一些，比默认的上下分屏更好（毕竟更多情况下电脑的屏幕水平边比竖直边长，这也是为什么我喜欢竖直向的浏览器标签栏）。&lt;/p&gt;
 &lt;p&gt;还有一种类似的实现：通过Ctrl+Shift+B打开Secondary Side Bar，把终端拖到Secondary Side Bar，不过在我的Windows的VScode上，我不能把终端拖到Secondary Side Bar展示，很奇怪，之前在Linux虚拟机上是可以的。&lt;/p&gt;
-&lt;img src=&#34;vscode_layout.png&#34; alt=&#34;vscode_layout&#34; style=&#34;zoom:80%;&#34; /&gt;
+&lt;img src=&#34;vscode_layout.png&#34; alt=&#34;vscode_layout&#34; style=&#34;zoom:80%;box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
 &lt;h3 id=&#34;-rainbow-brackets&#34;&gt;&lt;a href=&#34;#-rainbow-brackets&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;&amp;raquo; Rainbow Brackets
 &lt;/h3&gt;&lt;p&gt;在Settings(GUI)中键入&lt;code&gt;@id:editor.bracketPairColorization.enabled @id:editor.guides.bracketPairs&lt;/code&gt;，选择你需要的选项，&lt;code&gt;editor.bracketPairColorization.enabled&lt;/code&gt;是默认启用的，&lt;code&gt;editor.guides.bracketPairs&lt;/code&gt;是默认关闭(&lt;code&gt;false&lt;/code&gt;)的，可以选择&lt;code&gt;true&lt;/code&gt;或者&lt;code&gt;active&lt;/code&gt;启用，&lt;code&gt;true&lt;/code&gt;的效果是所有括号都有引导线，&lt;code&gt;active&lt;/code&gt;的效果是只有最接近光标的外层括号有引导线，我觉得&lt;code&gt;active&lt;/code&gt;就很好了，&lt;code&gt;true&lt;/code&gt;让编辑界面有点花里胡哨。效果如下：&lt;/p&gt;
-&lt;img src=&#34;rainbow_guideline.png&#34; alt=&#34;rainbow_guideline&#34; style=&#34;zoom:80%;&#34; /&gt;
+&lt;img src=&#34;rainbow_guideline.png&#34; alt=&#34;rainbow_guideline&#34; style=&#34;zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
 &lt;p&gt;顺便一个快捷键：Ctrl+Shift+\，可以在当前文本对应的左右括号之间跳转，给别人展示代码的时候也许有用，对应Vim Normal Mode下的%.(P.S. 此快捷键在Terminal中使用，可以用来在不同的Terminal tab中跳转)&lt;/p&gt;
 &lt;p&gt;起因是我最近在看SICP，这本书使用的语言是lisp(scheme)，这门语言的括号实在是多(，真的有其他语言的语言设计中具备比lisp更多的括号吗？) 于是我在Extensions中搜索Rainbow Brackets，对应插件表示项目已放弃维护，因为此特性已由VSCode内置，并为我指路至Settings(GUI)的配置具体位置。&lt;/p&gt;
 &lt;h3 id=&#34;-一些常用的快捷键&#34;&gt;&lt;a href=&#34;#-%e4%b8%80%e4%ba%9b%e5%b8%b8%e7%94%a8%e7%9a%84%e5%bf%ab%e6%8d%b7%e9%94%ae&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;&amp;raquo; 一些常用的快捷键
@@ -225,10 +225,10 @@ View: Toggle Status Bar Visibility - Ctrl+Shift+8&lt;/p&gt;
         </item>
         <item>
         <title>mit-scheme 配置与基本使用</title>
-        <link>http://localhost:1313/p/mit-scheme-%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</link>
+        <link>http://fyshxfish.github.io/p/mit-scheme-%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</link>
         <pubDate>Sat, 24 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/mit-scheme-%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</guid>
+        <guid>http://fyshxfish.github.io/p/mit-scheme-%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</guid>
         <description>&lt;blockquote&gt;
 &lt;p&gt;Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away.
 &lt;br&gt;&amp;ndash; Antoine de Saint-Exupéry&lt;/p&gt;
@@ -327,10 +327,10 @@ View: Toggle Status Bar Visibility - Ctrl+Shift+8&lt;/p&gt;
         </item>
         <item>
         <title>Haskell开发环境 (GHCup &#43; HLS) 修复记录</title>
-        <link>http://localhost:1313/p/haskell%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</link>
+        <link>http://fyshxfish.github.io/p/haskell%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</link>
         <pubDate>Fri, 16 Aug 2024 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/p/haskell%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</guid>
+        <guid>http://fyshxfish.github.io/p/haskell%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</guid>
         <description>&lt;!-- *不知不觉我已经在MacOS, Windows, Linux三种平台上配置过Haskell环境了，我觉得我已经是环境配置大师了，POWER!* --&gt;
 &lt;!-- # Mac上重新配置Haskell开发环境记录 --&gt;
 &lt;h2 id=&#34;ghcup-修复&#34;&gt;&lt;a href=&#34;#ghcup-%e4%bf%ae%e5%a4%8d&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;ghcup 修复
@@ -356,34 +356,34 @@ View: Toggle Status Bar Visibility - Ctrl+Shift+8&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;HLS 无法正常工作也可以尝试通过 &lt;code&gt;ghcup tui&lt;/code&gt; 下载并切换 HLS 的版本。&lt;/p&gt;
+  &lt;img src=&#34;ghcup_tui.png&#34; alt=&#34;ghcup_tui&#34; style=&#34;zoom:80%;  box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7)&#34; /&gt;
+  &lt;!-- ![ghcup_tui](ghcup_tui.png){width=80%} --&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;img src=&#34;ghcup_tui.png&#34; alt=&#34;ghcup_tui&#34; style=&#34;zoom:75%;&#34; /&gt;
 &lt;h2 id=&#34;一个网络问题&#34;&gt;&lt;a href=&#34;#%e4%b8%80%e4%b8%aa%e7%bd%91%e7%bb%9c%e9%97%ae%e9%a2%98&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;一个网络问题
 &lt;/h2&gt;&lt;p&gt;在第一步中修复ghcup之后，使用ghcup会遇到这样的报错：&lt;/p&gt;
-&lt;!-- ![](https://pic.imge.cc/2024/08/16/66bf0ff5c20d6.png) --&gt;
-&lt;img src=&#34;curl_error.png&#34; alt=&#34;curl_error&#34; style=&#34;zoom:75%;&#34; /&gt;
+&lt;img src=&#34;curl_error.png&#34; alt=&#34;curl_error&#34; style=&#34;zoom:80%;  box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7)&#34; /&gt;
 &lt;p&gt;根据提示执行：&lt;code&gt;ghcup config set downloader Wget&lt;/code&gt;，再次使用ghcup，得到差不多一样的报错：&lt;/p&gt;
 &lt;!-- ![](https://pic.imge.cc/2024/08/16/66bf0ff6054ff.png) --&gt;
-&lt;img src=&#34;wget_error.png&#34; alt=&#34;wget_error&#34; style=&#34;zoom:75%;&#34; /&gt;
+&lt;img src=&#34;wget_error.png&#34; alt=&#34;wget_error&#34; style=&#34;zoom:80%;  box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7)&#34; /&gt;
 &lt;p&gt;关于yaml：尝试过最后一行的removing &amp;hellip;yaml，结果为本机中确实不存在这个文件，所以不是这里的问题。&lt;/p&gt;
 &lt;p&gt;解决方式：复制clash的终端代理命令，就不会报这个错了，同时下载速度得到了极大提升。&lt;/p&gt;
 </description>
         </item>
         <item>
         <title>Rust 基础与 gdb 使用拾遗</title>
-        <link>http://localhost:1313/p/rust-%E5%9F%BA%E7%A1%80%E4%B8%8E-gdb-%E4%BD%BF%E7%94%A8%E6%8B%BE%E9%81%97/</link>
+        <link>http://fyshxfish.github.io/p/rust-%E5%9F%BA%E7%A1%80%E4%B8%8E-gdb-%E4%BD%BF%E7%94%A8%E6%8B%BE%E9%81%97/</link>
         <pubDate>Mon, 05 Aug 2024 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/p/rust-%E5%9F%BA%E7%A1%80%E4%B8%8E-gdb-%E4%BD%BF%E7%94%A8%E6%8B%BE%E9%81%97/</guid>
+        <guid>http://fyshxfish.github.io/p/rust-%E5%9F%BA%E7%A1%80%E4%B8%8E-gdb-%E4%BD%BF%E7%94%A8%E6%8B%BE%E9%81%97/</guid>
         <description>&lt;p&gt; &lt;/p&gt;
 &lt;h2 id=&#34;如何调试一个rust程序&#34;&gt;&lt;a href=&#34;#%e5%a6%82%e4%bd%95%e8%b0%83%e8%af%95%e4%b8%80%e4%b8%aarust%e7%a8%8b%e5%ba%8f&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;如何调试一个rust程序？
 &lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ gdb excutable
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;简单的示例：&lt;/p&gt;
 &lt;!-- ![gdb_debug](gdb_debug.png) --&gt;
-&lt;img src=&#34;gdb_debug.png&#34; alt=&#34;gdb_debug&#34; style=&#34;zoom:80%;&#34; /&gt;
+&lt;img src=&#34;gdb_debug.png&#34; alt=&#34;gdb_debug&#34; style=&#34;zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
 &lt;p&gt;查看变量的地址：&lt;/p&gt;
-&lt;img src=&#34;mem_check.png&#34; alt=&#34;mem_check&#34; style=&#34;zoom:80%;&#34; /&gt;
+&lt;img src=&#34;mem_check.png&#34; alt=&#34;mem_check&#34; style=&#34;zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
 &lt;p&gt;格式化&lt;code&gt;p s&lt;/code&gt;的输出：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;cp&#34;&gt;$&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;17&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;o&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;alloc&lt;/span&gt;::&lt;span class=&#34;n&#34;&gt;string&lt;/span&gt;::&lt;span class=&#34;nb&#34;&gt;String&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;vec&lt;/span&gt;: &lt;span class=&#34;nc&#34;&gt;alloc&lt;/span&gt;::&lt;span class=&#34;n&#34;&gt;vec&lt;/span&gt;::&lt;span class=&#34;nb&#34;&gt;Vec&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;u8&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;alloc&lt;/span&gt;::&lt;span class=&#34;n&#34;&gt;alloc&lt;/span&gt;::&lt;span class=&#34;n&#34;&gt;Global&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span class=&#34;w&#34;&gt; &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
@@ -467,7 +467,7 @@ View: Toggle Status Bar Visibility - Ctrl+Shift+8&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;n&#34;&gt;Float&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;f64&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;调试实录：&lt;/strong&gt;&lt;/p&gt;
-&lt;img src=&#34;gdb_enum.png&#34; alt=&#34;gdb_enum&#34; style=&#34;zoom:80%;&#34; /&gt;
+&lt;img src=&#34;gdb_enum.png&#34; alt=&#34;gdb_enum&#34; style=&#34;zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
 &lt;ol&gt;
 &lt;li&gt;&lt;code&gt;p v1&lt;/code&gt;：打印&lt;code&gt;v1: &amp;amp;CellType&lt;/code&gt;的值，也就是指针值，即附带数据存储在堆上的地址，注意到&lt;code&gt;v1, v2&lt;/code&gt;对应的数据各占据了16个字节。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;x/4x $1&lt;/code&gt;：检查&lt;code&gt;v1&lt;/code&gt;指针指向的16字节&lt;/li&gt;
@@ -502,7 +502,7 @@ View: Toggle Status Bar Visibility - Ctrl+Shift+8&lt;/p&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;code&gt;\x1b&lt;/code&gt;是什么？&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;\x&lt;/code&gt;表十六进制，&lt;code&gt;1b&lt;/code&gt;是ESC的ASCII十六进制码&lt;/p&gt;
-  &lt;img src=&#34;ascii.png&#34; alt=&#34;ascii&#34; style=&#34;zoom:80%;&#34; /&gt;
+  &lt;img src=&#34;ascii.png&#34; alt=&#34;ascii&#34; style=&#34;zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;resultt-e的unwrap和expect-之间的区别&#34;&gt;&lt;a href=&#34;#resultt-e%e7%9a%84unwrap%e5%92%8cexpect-%e4%b9%8b%e9%97%b4%e7%9a%84%e5%8c%ba%e5%88%ab&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;&lt;code&gt;Result&amp;lt;T, E&amp;gt;&lt;/code&gt;的&lt;code&gt;unwrap&lt;/code&gt;和&lt;code&gt;expect&lt;/code&gt; 之间的区别：
@@ -538,10 +538,10 @@ View: Toggle Status Bar Visibility - Ctrl+Shift+8&lt;/p&gt;
         </item>
         <item>
         <title>Search</title>
-        <link>http://localhost:1313/search/</link>
+        <link>http://fyshxfish.github.io/search/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/search/</guid>
+        <guid>http://fyshxfish.github.io/search/</guid>
         <description></description>
         </item>
         

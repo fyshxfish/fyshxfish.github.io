@@ -2,17 +2,17 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>VSCode on fyshXplore</title>
-        <link>http://localhost:1313/tags/vscode/</link>
+        <link>http://fyshxfish.github.io/tags/vscode/</link>
         <description>Recent content in VSCode on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Mon, 26 Aug 2024 00:00:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/vscode/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 26 Aug 2024 00:00:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/tags/vscode/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>VSCode 配置与使用记录</title>
-        <link>http://localhost:1313/p/vscode-%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/</link>
+        <link>http://fyshxfish.github.io/p/vscode-%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/</link>
         <pubDate>Mon, 26 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/vscode-%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/</guid>
-        <description>&lt;img src="http://localhost:1313/p/vscode-%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/cover.png" alt="Featured image of post VSCode 配置与使用记录" /&gt;&lt;p&gt;不严肃的随手记录，希望我能记得持续更新，因为我经常把一些记录扔在零零散散的位置，然后忘记这个记录的存在。&lt;/p&gt;
+        <guid>http://fyshxfish.github.io/p/vscode-%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/</guid>
+        <description>&lt;img src="http://fyshxfish.github.io/p/vscode-%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/cover.png" alt="Featured image of post VSCode 配置与使用记录" /&gt;&lt;p&gt;不严肃的随手记录，希望我能记得持续更新，因为我经常把一些记录扔在零零散散的位置，然后忘记这个记录的存在。&lt;/p&gt;
 &lt;p&gt;首先在这里贴蒋炎岩老师的&lt;a class=&#34;link&#34; href=&#34;https://www.bilibili.com/video/BV1y2421w7NK/?spm_id_from=333.999.0.0&amp;amp;vd_source=6a9d230feb804002a202ce26ff40a4cc&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;一场与VSCode相关的讲座&lt;/a&gt;，&lt;strong&gt;Ctrl+Shift+P&lt;/strong&gt;：如果你需要做某些事情，可以先尝试用 Ctrl+Shift+P 打开命令面板搜索（比如也许你想重新加载VSCode窗口，你就可以 Ctrl+Shift+P 然后搜索&amp;quot;reload window&amp;quot;），如果你发现自己需要经常做这个动作，那么就 Ctrl+k Ctrl+s 进入 Keyboard Shortcuts 为这个操作绑定快捷键吧，配置快捷键的哲学就在于：发现自己经常重复做某件事情，有一个瞬间发现自己不想用鼠标再次重复这个过程，于是去检索记忆/配置这个热键。&lt;/p&gt;
 &lt;p&gt;(如果后续VSCode Command Palette接入了语言模型，可以进行自然语言的模糊搜素，那应该会很不错。)&lt;/p&gt;
@@ -25,10 +25,10 @@ View: Toggle Status Bar Visibility - Ctrl+Shift+8&lt;/p&gt;
 &lt;/h3&gt;&lt;p&gt;之前看蒋炎岩老师的课的时候发现他的终端tab和代码tab的形态是一致的，现在我也知道怎么做了，先Ctrl+Shift+P，在命令面板中检索&lt;code&gt;Terminal: Move Terminal to Editor Area&lt;/code&gt;，即可将终端放置到Editor Area，其他类似操作还有&lt;code&gt;Move Terminal to Panel&lt;/code&gt;, &lt;code&gt;Create New Terminal in Editor Area&lt;/code&gt;&amp;hellip;当然，可以为你经常使用的操作绑定快捷键。&lt;/p&gt;
 &lt;p&gt;一种适用的场景是：如果你在学习某种编程语言，而这种语言（比如Haskell, Lisp, Python&amp;hellip;）刚好有REPL，你就可以在Editor Area切分，一半放代码，一半放Terminal REPL，如果需要，可以编辑文件，然后在REPL中导入代码文件（像Haskell ghci中的&lt;code&gt;:l foo.hs&lt;/code&gt;），这样就很方便，可以通过Ctrl+1/Ctrl+2在代码tab和终端tab之间做Focus的切换；视觉上我认为这样的体验也一些，比默认的上下分屏更好（毕竟更多情况下电脑的屏幕水平边比竖直边长，这也是为什么我喜欢竖直向的浏览器标签栏）。&lt;/p&gt;
 &lt;p&gt;还有一种类似的实现：通过Ctrl+Shift+B打开Secondary Side Bar，把终端拖到Secondary Side Bar，不过在我的Windows的VScode上，我不能把终端拖到Secondary Side Bar展示，很奇怪，之前在Linux虚拟机上是可以的。&lt;/p&gt;
-&lt;img src=&#34;vscode_layout.png&#34; alt=&#34;vscode_layout&#34; style=&#34;zoom:80%;&#34; /&gt;
+&lt;img src=&#34;vscode_layout.png&#34; alt=&#34;vscode_layout&#34; style=&#34;zoom:80%;box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
 &lt;h3 id=&#34;-rainbow-brackets&#34;&gt;&lt;a href=&#34;#-rainbow-brackets&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;&amp;raquo; Rainbow Brackets
 &lt;/h3&gt;&lt;p&gt;在Settings(GUI)中键入&lt;code&gt;@id:editor.bracketPairColorization.enabled @id:editor.guides.bracketPairs&lt;/code&gt;，选择你需要的选项，&lt;code&gt;editor.bracketPairColorization.enabled&lt;/code&gt;是默认启用的，&lt;code&gt;editor.guides.bracketPairs&lt;/code&gt;是默认关闭(&lt;code&gt;false&lt;/code&gt;)的，可以选择&lt;code&gt;true&lt;/code&gt;或者&lt;code&gt;active&lt;/code&gt;启用，&lt;code&gt;true&lt;/code&gt;的效果是所有括号都有引导线，&lt;code&gt;active&lt;/code&gt;的效果是只有最接近光标的外层括号有引导线，我觉得&lt;code&gt;active&lt;/code&gt;就很好了，&lt;code&gt;true&lt;/code&gt;让编辑界面有点花里胡哨。效果如下：&lt;/p&gt;
-&lt;img src=&#34;rainbow_guideline.png&#34; alt=&#34;rainbow_guideline&#34; style=&#34;zoom:80%;&#34; /&gt;
+&lt;img src=&#34;rainbow_guideline.png&#34; alt=&#34;rainbow_guideline&#34; style=&#34;zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
 &lt;p&gt;顺便一个快捷键：Ctrl+Shift+\，可以在当前文本对应的左右括号之间跳转，给别人展示代码的时候也许有用，对应Vim Normal Mode下的%.(P.S. 此快捷键在Terminal中使用，可以用来在不同的Terminal tab中跳转)&lt;/p&gt;
 &lt;p&gt;起因是我最近在看SICP，这本书使用的语言是lisp(scheme)，这门语言的括号实在是多(，真的有其他语言的语言设计中具备比lisp更多的括号吗？) 于是我在Extensions中搜索Rainbow Brackets，对应插件表示项目已放弃维护，因为此特性已由VSCode内置，并为我指路至Settings(GUI)的配置具体位置。&lt;/p&gt;
 &lt;h3 id=&#34;-一些常用的快捷键&#34;&gt;&lt;a href=&#34;#-%e4%b8%80%e4%ba%9b%e5%b8%b8%e7%94%a8%e7%9a%84%e5%bf%ab%e6%8d%b7%e9%94%ae&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;&amp;raquo; 一些常用的快捷键
