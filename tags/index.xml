@@ -6,12 +6,20 @@
         <description>Recent content in Tags on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Thu, 29 Aug 2024 00:00:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 02 Sep 2024 01:53:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Haskell</title>
         <link>http://fyshxfish.github.io/tags/haskell/</link>
-        <pubDate>Thu, 29 Aug 2024 00:00:00 +0800</pubDate>
+        <pubDate>Mon, 02 Sep 2024 01:53:00 +0800</pubDate>
         
         <guid>http://fyshxfish.github.io/tags/haskell/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>SICP</title>
+        <link>http://fyshxfish.github.io/tags/sicp/</link>
+        <pubDate>Mon, 02 Sep 2024 01:53:00 +0800</pubDate>
+        
+        <guid>http://fyshxfish.github.io/tags/sicp/</guid>
         <description></description>
         </item>
         <item>
@@ -20,14 +28,6 @@
         <pubDate>Thu, 29 Aug 2024 00:00:00 +0800</pubDate>
         
         <guid>http://fyshxfish.github.io/tags/scheme/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>SICP</title>
-        <link>http://fyshxfish.github.io/tags/sicp/</link>
-        <pubDate>Thu, 29 Aug 2024 00:00:00 +0800</pubDate>
-        
-        <guid>http://fyshxfish.github.io/tags/sicp/</guid>
         <description></description>
         </item>
         <item>

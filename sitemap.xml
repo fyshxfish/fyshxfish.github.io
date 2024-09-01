@@ -3,7 +3,28 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>http://fyshxfish.github.io/</loc>
-    <lastmod>2024-08-31T00:00:00+00:00</lastmod>
+    <lastmod>2024-09-02T01:53:00+08:00</lastmod>
+  </url><url>
+    <loc>http://fyshxfish.github.io/categories/</loc>
+    <lastmod>2024-09-02T01:53:00+08:00</lastmod>
+  </url><url>
+    <loc>http://fyshxfish.github.io/categories/fp/</loc>
+    <lastmod>2024-09-02T01:53:00+08:00</lastmod>
+  </url><url>
+    <loc>http://fyshxfish.github.io/tags/haskell/</loc>
+    <lastmod>2024-09-02T01:53:00+08:00</lastmod>
+  </url><url>
+    <loc>http://fyshxfish.github.io/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.3.4-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/</loc>
+    <lastmod>2024-09-02T01:53:00+08:00</lastmod>
+  </url><url>
+    <loc>http://fyshxfish.github.io/post/</loc>
+    <lastmod>2024-09-02T01:53:00+08:00</lastmod>
+  </url><url>
+    <loc>http://fyshxfish.github.io/tags/sicp/</loc>
+    <lastmod>2024-09-02T01:53:00+08:00</lastmod>
+  </url><url>
+    <loc>http://fyshxfish.github.io/tags/</loc>
+    <lastmod>2024-09-02T01:53:00+08:00</lastmod>
   </url><url>
     <loc>http://fyshxfish.github.io/archives/</loc>
     <lastmod>2024-08-31T00:00:00+00:00</lastmod>
@@ -11,31 +32,13 @@
     <loc>http://fyshxfish.github.io/page/</loc>
     <lastmod>2024-08-31T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://fyshxfish.github.io/categories/</loc>
-    <lastmod>2024-08-29T00:00:00+08:00</lastmod>
-  </url><url>
-    <loc>http://fyshxfish.github.io/categories/fp/</loc>
-    <lastmod>2024-08-29T00:00:00+08:00</lastmod>
-  </url><url>
-    <loc>http://fyshxfish.github.io/tags/haskell/</loc>
-    <lastmod>2024-08-29T00:00:00+08:00</lastmod>
-  </url><url>
-    <loc>http://fyshxfish.github.io/post/</loc>
+    <loc>http://fyshxfish.github.io/p/nested-mappings-%E6%A1%88%E4%BE%8B%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.2.3-list-monad/</loc>
     <lastmod>2024-08-29T00:00:00+08:00</lastmod>
   </url><url>
     <loc>http://fyshxfish.github.io/tags/scheme/</loc>
     <lastmod>2024-08-29T00:00:00+08:00</lastmod>
   </url><url>
     <loc>http://fyshxfish.github.io/p/scheme-let-%E7%9A%84%E8%AF%AD%E4%B9%89-feat.-if-%E7%9A%84%E8%AF%AD%E4%B9%89/</loc>
-    <lastmod>2024-08-29T00:00:00+08:00</lastmod>
-  </url><url>
-    <loc>http://fyshxfish.github.io/tags/sicp/</loc>
-    <lastmod>2024-08-29T00:00:00+08:00</lastmod>
-  </url><url>
-    <loc>http://fyshxfish.github.io/p/sicp-2.2.3-nested-mappings-%E6%A1%88%E4%BE%8B%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-list-monad/</loc>
-    <lastmod>2024-08-29T00:00:00+08:00</lastmod>
-  </url><url>
-    <loc>http://fyshxfish.github.io/tags/</loc>
     <lastmod>2024-08-29T00:00:00+08:00</lastmod>
   </url><url>
     <loc>http://fyshxfish.github.io/categories/enviroment_setup/</loc>

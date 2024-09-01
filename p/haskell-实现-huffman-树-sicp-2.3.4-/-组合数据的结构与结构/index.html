@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="在看 SICP Section 2.3.4，对这节的组合 / 抽象有相当程度的参考. 其实我应该把代码放在某个仓库里，比如把一些数据结构的 Haskell 实现整合在一个仓库里，但是我还">
+<title>Haskell 实现 Huffman 树 - SICP § 2.3.4 / 组合数据的结构与结构</title>
+
+<link rel='canonical' href='http://localhost:1313/p/haskell-%E5%AE%9E%E7%8E%B0-huffman-%E6%A0%91-sicp-2.3.4-/-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E7%BB%93%E6%9E%84/'>
+
+<link rel="stylesheet" href="/scss/style.min.b51788d43472ffad20b588167514427b70146d30bc2a1ee0490ab0db3b5da439.css"><meta property='og:title' content="Haskell 实现 Huffman 树 - SICP § 2.3.4 / 组合数据的结构与结构">
+<meta property='og:description' content="在看 SICP Section 2.3.4，对这节的组合 / 抽象有相当程度的参考. 其实我应该把代码放在某个仓库里，比如把一些数据结构的 Haskell 实现整合在一个仓库里，但是我还">
+<meta property='og:url' content='http://localhost:1313/p/haskell-%E5%AE%9E%E7%8E%B0-huffman-%E6%A0%91-sicp-2.3.4-/-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E7%BB%93%E6%9E%84/'>
+<meta property='og:site_name' content='fyshXplore'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='SICP' /><meta property='article:tag' content='Haskell' /><meta property='article:published_time' content='2024-09-02T01:53:00&#43;08:00'/><meta property='article:modified_time' content='2024-09-02T01:53:00&#43;08:00'/>
+<meta name="twitter:title" content="Haskell 实现 Huffman 树 - SICP § 2.3.4 / 组合数据的结构与结构">
+<meta name="twitter:description" content="在看 SICP Section 2.3.4，对这节的组合 / 抽象有相当程度的参考. 其实我应该把代码放在某个仓库里，比如把一些数据结构的 Haskell 实现整合在一个仓库里，但是我还">
+  
+
+<style>
+  :root {
+     
+    --zh-font-family: "Noto Serif SC";
+     
+     
+     
+    --code-font-family: Consolas, Menlo, Monaco, "Courier New", var(--zh-font-family), monospace;
+    --article-font-family: "Noto Serif SC";
+  }
+</style>
+
+<script>
+  (function () {
+    const customFont = document.createElement("link");
+    customFont.href =
+      "https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap";
+
+    customFont.type = "text/css";
+    customFont.rel = "stylesheet";
+
+    document.head.appendChild(customFont);
+  })();
+</script>
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/fyshx_avatar_hu134059368025567045.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🫧</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">fyshXplore</a></h1>
+            <h2 class="site-description">Hello, there!</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/fyshxfish'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">&thinsp;Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#huffman-树的-haskell-实现">Huffman 树的 Haskell 实现</a></li>
+    <li><a href="#组合数据-compound-data-的结构与解构-construct--extract">组合数据 (compound data) 的结构与解构 (construct / extract)</a>
+      <ol>
+        <li><a href="#sicp-blur-the-barrier-of-data-and-procedure">SICP: Blur the Barrier of data and procedure</a></li>
+        <li><a href="#haskell-pattern-match">Haskell: Pattern Match</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/fp/" style="background-color: #b7c9e2; color: #fff;">
+                FP
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/haskell-%E5%AE%9E%E7%8E%B0-huffman-%E6%A0%91-sicp-2.3.4-/-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E7%BB%93%E6%9E%84/">Haskell 实现 Huffman 树 - SICP § 2.3.4 / 组合数据的结构与结构</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Sep 2, 2024</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    3 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>在看 SICP Section 2.3.4，对这节的组合 / 抽象有相当程度的参考.</p>
+<p>其实我应该把代码放在某个仓库里，比如把一些数据结构的 Haskell 实现整合在一个仓库里，但是我还没有这么多可供整合的材料，所以以后再说吧.</p>
+<h2 id="huffman-树的-haskell-实现"><a href="#huffman-%e6%a0%91%e7%9a%84-haskell-%e5%ae%9e%e7%8e%b0" class="header-anchor"></a>Huffman 树的 Haskell 实现
+</h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-haskell" data-lang="haskell"><span class="line"><span class="cl"><span class="kr">type</span> <span class="kt">Weight</span> <span class="ow">=</span> <span class="kt">Int</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">data</span> <span class="kt">HuffmanTree</span> <span class="n">a</span> <span class="ow">=</span> <span class="kt">Empty</span> <span class="o">|</span> 
+</span></span><span class="line"><span class="cl">                     <span class="kt">Leaf</span> <span class="n">a</span> <span class="kt">Weight</span> <span class="o">|</span> 
+</span></span><span class="line"><span class="cl">                     <span class="kt">Node</span> <span class="p">(</span><span class="kt">HuffmanTree</span> <span class="n">a</span><span class="p">)</span> <span class="p">(</span><span class="kt">HuffmanTree</span> <span class="n">a</span><span class="p">)</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="kt">Weight</span> 
+</span></span><span class="line"><span class="cl">                     <span class="kr">deriving</span> <span class="p">(</span><span class="kt">Show</span><span class="p">,</span> <span class="kt">Eq</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">data</span> <span class="kt">Symbol</span> <span class="ow">=</span> <span class="kt">A</span> <span class="o">|</span> <span class="kt">B</span> <span class="o">|</span> <span class="kt">C</span> <span class="o">|</span> <span class="kt">D</span> <span class="o">|</span> <span class="kt">E</span> <span class="o">|</span> <span class="kt">F</span> <span class="o">|</span> <span class="kt">G</span> <span class="o">|</span> <span class="kt">H</span> <span class="kr">deriving</span> <span class="p">(</span><span class="kt">Show</span><span class="p">,</span> <span class="kt">Eq</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">getWeight</span> <span class="ow">::</span> <span class="kt">HuffmanTree</span> <span class="n">a</span> <span class="ow">-&gt;</span> <span class="kt">Weight</span>
+</span></span><span class="line"><span class="cl"><span class="nf">getWeight</span> <span class="p">(</span><span class="kt">Leaf</span> <span class="kr">_</span> <span class="n">w</span><span class="p">)</span> <span class="ow">=</span> <span class="n">w</span> 
+</span></span><span class="line"><span class="cl"><span class="nf">getWeight</span> <span class="p">(</span><span class="kt">Node</span> <span class="kr">_</span> <span class="kr">_</span> <span class="kr">_</span> <span class="n">w</span><span class="p">)</span> <span class="ow">=</span> <span class="n">w</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">adjoinTree</span> <span class="ow">::</span> <span class="kt">HuffmanTree</span> <span class="n">a</span>  <span class="ow">-&gt;</span> <span class="p">[</span><span class="kt">HuffmanTree</span> <span class="n">a</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="kt">HuffmanTree</span> <span class="n">a</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nf">adjoinTree</span> <span class="n">t</span> <span class="kt">[]</span> <span class="ow">=</span> <span class="p">[</span><span class="n">t</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nf">adjoinTree</span> <span class="n">t</span> <span class="p">(</span><span class="n">t&#39;</span><span class="kt">:</span><span class="n">ts</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="n">w</span> <span class="o">&lt;</span> <span class="n">w&#39;</span>   <span class="ow">=</span> <span class="n">t</span><span class="kt">:</span> <span class="n">t&#39;</span><span class="kt">:</span> <span class="n">ts</span> 
+</span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="n">otherwise</span> <span class="ow">=</span> <span class="n">t&#39;</span><span class="kt">:</span> <span class="p">(</span><span class="n">adjoinTree</span> <span class="n">t</span> <span class="n">ts</span><span class="p">)</span>  
+</span></span><span class="line"><span class="cl">    <span class="kr">where</span> <span class="n">w</span>  <span class="ow">=</span> <span class="n">getWeight</span> <span class="n">t</span> 
+</span></span><span class="line"><span class="cl">          <span class="n">w&#39;</span> <span class="ow">=</span> <span class="n">getWeight</span> <span class="n">t&#39;</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">moveFirstNode</span> <span class="ow">::</span> <span class="p">[</span><span class="kt">HuffmanTree</span> <span class="n">a</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="kt">HuffmanTree</span> <span class="n">a</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nf">moveFirstNode</span> <span class="p">(</span><span class="n">t</span><span class="kt">:</span><span class="n">ts</span><span class="p">)</span> <span class="ow">=</span> <span class="n">adjoinTree</span> <span class="n">t</span> <span class="n">ts</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">initLeafs</span> <span class="ow">::</span> <span class="p">[</span><span class="kt">HuffmanTree</span> <span class="n">a</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="kt">HuffmanTree</span> <span class="n">a</span><span class="p">]</span>     <span class="c1">-- I know pl(leaf) = leaves, btw. ^^   </span>
+</span></span><span class="line"><span class="cl"><span class="nf">initLeafs</span> <span class="kt">[]</span> <span class="ow">=</span> <span class="kt">[]</span>   
+</span></span><span class="line"><span class="cl"><span class="nf">initLeafs</span> <span class="p">(</span><span class="n">p</span><span class="kt">:</span><span class="n">ps</span><span class="p">)</span> <span class="ow">=</span> <span class="n">adjoinTree</span> <span class="n">p</span> <span class="p">(</span><span class="n">initLeafs</span> <span class="n">ps</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">makeNode</span> <span class="ow">::</span> <span class="kt">HuffmanTree</span> <span class="n">a</span> <span class="ow">-&gt;</span> <span class="kt">HuffmanTree</span> <span class="n">a</span> <span class="ow">-&gt;</span> <span class="kt">HuffmanTree</span> <span class="n">a</span> 
+</span></span><span class="line"><span class="cl"><span class="nf">makeNode</span> <span class="p">(</span><span class="kt">Leaf</span> <span class="n">s1</span> <span class="n">w1</span><span class="p">)</span> <span class="p">(</span><span class="kt">Leaf</span> <span class="n">s2</span> <span class="n">w2</span><span class="p">)</span> <span class="ow">=</span> <span class="kt">Node</span> <span class="p">(</span><span class="kt">Leaf</span> <span class="n">s1</span> <span class="n">w1</span><span class="p">)</span> <span class="p">(</span><span class="kt">Leaf</span> <span class="n">s2</span> <span class="n">w2</span><span class="p">)</span> <span class="p">[</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">]</span> <span class="p">(</span><span class="n">w1</span> <span class="o">+</span> <span class="n">w2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nf">makeNode</span> <span class="p">(</span><span class="kt">Leaf</span> <span class="n">s</span> <span class="n">w</span><span class="p">)</span> <span class="p">(</span><span class="kt">Node</span> <span class="n">l</span> <span class="n">r</span> <span class="n">ss</span> <span class="n">w&#39;</span><span class="p">)</span> <span class="ow">=</span> <span class="kt">Node</span> <span class="p">(</span><span class="kt">Leaf</span> <span class="n">s</span> <span class="n">w</span><span class="p">)</span> <span class="p">(</span><span class="kt">Node</span> <span class="n">l</span> <span class="n">r</span> <span class="n">ss</span> <span class="n">w&#39;</span><span class="p">)</span> <span class="p">(</span><span class="n">s</span><span class="kt">:</span><span class="n">ss</span><span class="p">)</span> <span class="p">(</span><span class="n">w</span> <span class="o">+</span> <span class="n">w&#39;</span><span class="p">)</span>  
+</span></span><span class="line"><span class="cl"><span class="nf">makeNode</span> <span class="p">(</span><span class="kt">Node</span> <span class="n">l</span> <span class="n">r</span> <span class="n">ss</span> <span class="n">w&#39;</span><span class="p">)</span> <span class="p">(</span><span class="kt">Leaf</span> <span class="n">s</span> <span class="n">w</span><span class="p">)</span>  <span class="ow">=</span> <span class="kt">Node</span> <span class="p">(</span><span class="kt">Node</span> <span class="n">l</span> <span class="n">r</span> <span class="n">ss</span> <span class="n">w&#39;</span><span class="p">)</span> <span class="p">(</span><span class="kt">Leaf</span> <span class="n">s</span> <span class="n">w</span><span class="p">)</span> <span class="p">(</span><span class="n">ss</span> <span class="o">++</span> <span class="p">[</span><span class="n">s</span><span class="p">])</span> <span class="p">(</span><span class="n">w</span> <span class="o">+</span> <span class="n">w&#39;</span><span class="p">)</span>  
+</span></span><span class="line"><span class="cl"><span class="nf">makeNode</span> <span class="p">(</span><span class="kt">Node</span> <span class="n">l1</span> <span class="n">r1</span> <span class="n">ss1</span> <span class="n">w1</span><span class="p">)</span> <span class="p">(</span><span class="kt">Node</span> <span class="n">l2</span> <span class="n">r2</span> <span class="n">ss2</span> <span class="n">w2</span><span class="p">)</span> <span class="ow">=</span> <span class="kt">Node</span> <span class="p">(</span><span class="kt">Node</span> <span class="n">l1</span> <span class="n">r1</span> <span class="n">ss1</span> <span class="n">w1</span><span class="p">)</span> <span class="p">(</span><span class="kt">Node</span> <span class="n">l2</span> <span class="n">r2</span> <span class="n">ss2</span> <span class="n">w2</span><span class="p">)</span> <span class="p">(</span><span class="n">ss1</span> <span class="o">++</span> <span class="n">ss2</span><span class="p">)</span> <span class="p">(</span><span class="n">w1</span> <span class="o">+</span> <span class="n">w2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">constructHuffTree</span> <span class="ow">::</span> <span class="p">[</span><span class="kt">HuffmanTree</span> <span class="n">a</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="kt">HuffmanTree</span> <span class="n">a</span>
+</span></span><span class="line"><span class="cl"><span class="nf">constructHuffTree</span> <span class="kt">[]</span> <span class="ow">=</span> <span class="kt">Empty</span>
+</span></span><span class="line"><span class="cl"><span class="nf">constructHuffTree</span> <span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="ow">=</span> <span class="n">t</span>       <span class="c1">-- singleton leaf </span>
+</span></span><span class="line"><span class="cl"><span class="nf">constructHuffTree</span> <span class="p">(</span><span class="n">x</span><span class="kt">:</span><span class="n">y</span><span class="kt">:</span><span class="n">ts</span><span class="p">)</span> <span class="ow">=</span> <span class="n">constructHuffTree</span> <span class="o">$</span> <span class="n">moveFirstNode</span> <span class="o">$</span> <span class="p">(</span><span class="n">makeNode</span> <span class="n">x</span> <span class="n">y</span><span class="p">)</span><span class="kt">:</span> <span class="n">ts</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">initAndConstructHuffTree</span> <span class="ow">::</span> <span class="p">[</span><span class="kt">HuffmanTree</span> <span class="n">a</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="kt">HuffmanTree</span> <span class="n">a</span>
+</span></span><span class="line"><span class="cl"><span class="nf">initAndConstructHuffTree</span> <span class="ow">=</span> <span class="n">constructHuffTree</span> <span class="o">.</span> <span class="n">initLeafs</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">{- TEST: -}</span>
+</span></span><span class="line"><span class="cl"><span class="nf">unorderedLeafs</span> <span class="ow">::</span> <span class="p">[</span><span class="kt">HuffmanTree</span> <span class="kt">Symbol</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nf">unorderedLeafs</span> <span class="ow">=</span> <span class="p">[(</span><span class="kt">Leaf</span> <span class="kt">B</span> <span class="mi">6</span><span class="p">),</span> <span class="p">(</span><span class="kt">Leaf</span> <span class="kt">A</span> <span class="mi">8</span><span class="p">),</span> <span class="p">(</span><span class="kt">Leaf</span>  <span class="kt">C</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="kt">Leaf</span> <span class="kt">E</span> <span class="mi">3</span><span class="p">),</span> <span class="p">(</span><span class="kt">Leaf</span> <span class="kt">D</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="kt">Leaf</span>  <span class="kt">G</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="kt">Leaf</span> <span class="kt">F</span> <span class="mi">2</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl"><span class="c1">-- SICP example: </span>
+</span></span><span class="line"><span class="cl"><span class="c1">-- unorderedLeafs = [(Leaf A 8), (Leaf B 3), (Leaf  C 1), (Leaf D 1), (Leaf E 1), (Leaf F 1), (Leaf G 1), (Leaf H 1)]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">orderedLeafs</span> <span class="ow">::</span> <span class="p">[</span><span class="kt">HuffmanTree</span> <span class="kt">Symbol</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nf">orderedLeafs</span> <span class="ow">=</span> <span class="n">initLeafs</span> <span class="n">unorderedLeafs</span>
+</span></span></code></pre></div><!-- ## 随便聊聊 -->
+<!--  -->
+<h2 id="组合数据-compound-data-的结构与解构-construct--extract"><a href="#%e7%bb%84%e5%90%88%e6%95%b0%e6%8d%ae-compound-data-%e7%9a%84%e7%bb%93%e6%9e%84%e4%b8%8e%e8%a7%a3%e6%9e%84-construct--extract" class="header-anchor"></a>组合数据 (compound data) 的结构与解构 (construct / extract)
+</h2><h3 id="sicp-blur-the-barrier-of-data-and-procedure"><a href="#sicp-blur-the-barrier-of-data-and-procedure" class="header-anchor"></a>SICP: Blur the Barrier of data and procedure
+</h3><p>我们希望将<strong>有结构</strong>的数据——而不是散落的变量——作为程序的组件，所以有了组合数据 (compound data)，比如 <code>struct</code> / <code>class</code>，于是出现的问题是，如何把用于构造 compound data 的字段重新提取出来，<strong>提取</strong>的行为需要保证的一件事情是：字段被提取前后行为是一致的，主要是编译器的工作，如果一定要在源代码的层面上去体现这一点，如何做到？在此处贴 SICP 2.1.3 (Page 124) 的示例代码：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scheme" data-lang="scheme"><span class="line"><span class="cl"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nb">cons </span><span class="nv">x</span> <span class="nv">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">dispatch</span> <span class="nv">m</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nb">= </span><span class="nv">m</span> <span class="mi">0</span><span class="p">)</span> <span class="nv">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">              <span class="p">((</span><span class="nb">= </span><span class="nv">m</span> <span class="mi">1</span><span class="p">)</span> <span class="nv">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">              <span class="p">(</span><span class="k">else </span><span class="p">(</span><span class="nf">error</span> <span class="s">&#34;Argument not 0 or 1: CONS&#34;</span> <span class="nv">m</span><span class="p">))))</span>
+</span></span><span class="line"><span class="cl">    <span class="nv">dispatch</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nb">car </span><span class="nv">z</span><span class="p">)</span> <span class="p">(</span><span class="nf">z</span> <span class="mi">0</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nb">cdr </span><span class="nv">z</span><span class="p">)</span> <span class="p">(</span><span class="nf">z</span> <span class="mi">1</span><span class="p">))</span>
+</span></span></code></pre></div><p>Exercise 2.4 (Page 125) 中的通过 lambda 实现也很漂亮：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scheme" data-lang="scheme"><span class="line"><span class="cl"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nb">cons </span><span class="nv">x</span> <span class="nv">y</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">m</span><span class="p">)</span> <span class="p">(</span><span class="nf">m</span> <span class="nv">x</span> <span class="nv">y</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nb">car </span><span class="nv">z</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="nf">z</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">p</span> <span class="nv">q</span><span class="p">)</span> <span class="nv">p</span><span class="p">)))</span>
+</span></span></code></pre></div><p>SICP 这一章重点呈现的一个点是: 数据（data）与程序（procedure）的分界线并不是那么泾渭分明的. 以上的两个程序很准确地体现了这一点：列表的构造子返回的是一个 procedure，该 procedure 提供了访问<strong>组成列表的元素</strong>的接口，所以可以基于此定义 <code>car</code>/ <code>cdr</code>.</p>
+<!-- 作者补充说，出于效率的考量，真实的 `cons` / `car` / `cdr` 并不是这样实现的， -->
+<h3 id="haskell-pattern-match"><a href="#haskell-pattern-match" class="header-anchor"></a>Haskell: Pattern Match
+</h3><p>写过 Lisp 会更懂 Haskell 的好，就像写过 C 可以更好地体会 Python 开发的便捷，当然我只是考量语法的易用性，没有对于性能/应用场景等其他方面的比较.</p>
+<p>在 Scheme 中写 <code>(define (make-leaf symbol weight))</code>/ <code>(define (leaf? object )) </code> / <code>(define (weight tree))</code> 这样的构造子 / 提取子写得太多的时刻，会想 Haskell 中是如何应对这个问题（数据的构造和提取）的呢？</p>
+<p><span style="color: #888888; font-size: 0.85em;">（构造子 constructor， 构造 compound data 的函数，确实是有这个词；提取子，不知道是不是有这个词，我编的，意思是将组成的 compound data 的字段提取出来，一个例子是圆点/成员运算符 <code>person.age</code> ）</span></p>
+<ul>
+<li>
+<p>构造：</p>
+<p>声明一种组合数据的语法如下：<em>代数数据类型（Algebraic Data Types, ADTs）</em></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-hs" data-lang="hs"><span class="line"><span class="cl"><span class="kr">data</span> <span class="kt">Point</span> <span class="ow">=</span> <span class="kt">Point</span> <span class="kt">Int</span> <span class="kt">Int</span>
+</span></span></code></pre></div><p>定义了 <code>Point</code> 类型，对应一个构造子 <code>Point Int Int</code>，即后续可以通过此构造子构造 <code>Point</code> 类型的组合数据，比如 <code>p = Point 1 2</code>.</p>
+</li>
+<li>
+<p>提取：</p>
+<p><mark>Pattern Match.</mark></p>
+<p>一个简单的例子:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-hs" data-lang="hs"><span class="line"><span class="cl"><span class="nf">getX</span> <span class="ow">::</span> <span class="kt">Point</span> <span class="ow">-&gt;</span> <span class="kt">Int</span> 
+</span></span><span class="line"><span class="cl"><span class="nf">getX</span> <span class="p">(</span><span class="kt">Point</span> <span class="n">x</span> <span class="kr">_</span><span class="p">)</span> <span class="ow">=</span> <span class="n">x</span>
+</span></span></code></pre></div><p>值得注意的一点是：如何构造（<code>Point Int Int</code>）这个组合数据就如何去匹配它 （<code>Point x _</code>）. 如何构造，就如何解构.</p>
+</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/sicp/">SICP</a>
+        
+            <a href="/tags/haskell/">Haskell</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/sicp-2.2.3-nested-mappings-%E6%A1%88%E4%BE%8B%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-list-monad/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">SICP 2.2.3 Nested Mappings 案例的 Haskell 实现 (List Monad)</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/scheme-let-%E7%9A%84%E8%AF%AD%E4%B9%89-feat.-if-%E7%9A%84%E8%AF%AD%E4%B9%89/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Scheme: `let` 的语义 (feat. `if` 的语义)</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/mit-scheme-%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">mit-scheme 配置与基本使用</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/haskell%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Haskell开发环境 (GHCup &#43; HLS) 修复记录</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2024 fyshXplore
+    </section>
+    
+    <section class="powerby">
+        
+            Wish You a Nice Day! <br/>
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
