@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en-us" dir="ltr">
+<html lang="en" dir="ltr">
     <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="如何调试一个rust程序？ $ gdb excutable 简单的示例： 查看变量的地址： 格式化p s的输出： $17 = alloc::string::String { vec: alloc::vec::Vec&lt;u8, alloc::alloc::Global&gt; { buf: alloc::raw_vec::RawVec&lt;u8, alloc::alloc::Global&gt; { ptr: core::ptr::unique::Unique&lt;u8&gt; { pointer: core::ptr::non_null::NonNull&lt;u8&gt; { pointer: 0x5555555abb80 }, _marker: core::marker::PhantomData&lt;u8&gt; }, cap: alloc::raw_vec::Cap (16), alloc: alloc::alloc::Global }, len:">
 <title>Rust 基础与 gdb 使用拾遗</title>
 
 <link rel='canonical' href='http://localhost:1313/p/rust-%E5%9F%BA%E7%A1%80%E4%B8%8E-gdb-%E4%BD%BF%E7%94%A8%E6%8B%BE%E9%81%97/'>
 
-<link rel="stylesheet" href="/scss/style.min.779699777e744844f163cca3f24d7c291eb6c00251bff20ab15ac8d2427f6c35.css"><meta property='og:title' content="Rust 基础与 gdb 使用拾遗">
+<link rel="stylesheet" href="/scss/style.min.ddd6b0e853aada94c236a9ef110307b83f4a0e72cfee500ad284e68459bf8f92.css"><meta property='og:title' content="Rust 基础与 gdb 使用拾遗">
 <meta property='og:description' content="如何调试一个rust程序？ $ gdb excutable 简单的示例： 查看变量的地址： 格式化p s的输出： $17 = alloc::string::String { vec: alloc::vec::Vec&lt;u8, alloc::alloc::Global&gt; { buf: alloc::raw_vec::RawVec&lt;u8, alloc::alloc::Global&gt; { ptr: core::ptr::unique::Unique&lt;u8&gt; { pointer: core::ptr::non_null::NonNull&lt;u8&gt; { pointer: 0x5555555abb80 }, _marker: core::marker::PhantomData&lt;u8&gt; }, cap: alloc::raw_vec::Cap (16), alloc: alloc::alloc::Global }, len:">
 <meta property='og:url' content='http://localhost:1313/p/rust-%E5%9F%BA%E7%A1%80%E4%B8%8E-gdb-%E4%BD%BF%E7%94%A8%E6%8B%BE%E9%81%97/'>
 <meta property='og:site_name' content='fyshXplore'>
@@ -47,7 +47,7 @@
     })();
 </script>
 <div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
-    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
         <span class="hamburger-box">
             <span class="hamburger-inner"></span>
         </span>
@@ -184,7 +184,7 @@
 
 
 
-                        <span></span>
+                        <span>Dark Mode</span>
                     </li>
                 
             </ol>
@@ -209,7 +209,7 @@
 
 
         </div>
-        <h2 class="widget-title section-title"></h2>
+        <h2 class="widget-title section-title">&thinsp;Table of contents</h2>
         
         <div class="widget--toc">
             <nav id="TableOfContents">
@@ -276,6 +276,20 @@
             </div>
         
 
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    3 minute read
+                </time>
+            </div>
         
     </footer>
     
@@ -519,12 +533,9 @@
     
     <section class="powerby">
         
-            Wish you a nice day!<br/>
-                Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a><br/>
-                Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener">Stack </a></b>
-                designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> <br/>
-         <br />
-        
+            Wish you a nice day! <br/>
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
     </section>
 </footer>
 

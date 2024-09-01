@@ -1,24 +1,43 @@
 <!DOCTYPE html>
-<html lang="en-us" dir="ltr">
+<html lang="en" dir="ltr">
     <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="let 语义 结论: let scope 会直接求值 (包括绑定和绑定之后的表达式, 也就是 let 之外的一层括号所包裹的范围), 即使你把 let 嵌套在内层函数里而且这个函数还完全没">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="let 的语义 结论: let scope 会立即求值 (包括绑定和绑定之后的表达式, 也就是 let 之外的一层括号所包裹的范围), 即使你把 let 嵌套在内层函数里而且这个函数还完全">
 <title>Scheme: `let` 的语义 (feat. `if` 的语义)</title>
 
 <link rel='canonical' href='http://localhost:1313/p/scheme-let-%E7%9A%84%E8%AF%AD%E4%B9%89-feat.-if-%E7%9A%84%E8%AF%AD%E4%B9%89/'>
 
-<link rel="stylesheet" href="/scss/style.min.779699777e744844f163cca3f24d7c291eb6c00251bff20ab15ac8d2427f6c35.css"><meta property='og:title' content="Scheme: `let` 的语义 (feat. `if` 的语义)">
-<meta property='og:description' content="let 语义 结论: let scope 会直接求值 (包括绑定和绑定之后的表达式, 也就是 let 之外的一层括号所包裹的范围), 即使你把 let 嵌套在内层函数里而且这个函数还完全没">
+<link rel="stylesheet" href="/scss/style.min.acc7642a7755f3dd5bbef7fe572df4632982b02ef246214b854933b055a0119b.css"><meta property='og:title' content="Scheme: `let` 的语义 (feat. `if` 的语义)">
+<meta property='og:description' content="let 的语义 结论: let scope 会立即求值 (包括绑定和绑定之后的表达式, 也就是 let 之外的一层括号所包裹的范围), 即使你把 let 嵌套在内层函数里而且这个函数还完全">
 <meta property='og:url' content='http://localhost:1313/p/scheme-let-%E7%9A%84%E8%AF%AD%E4%B9%89-feat.-if-%E7%9A%84%E8%AF%AD%E4%B9%89/'>
 <meta property='og:site_name' content='fyshXplore'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='SICP' /><meta property='article:tag' content='Scheme' /><meta property='article:published_time' content='2024-08-29T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2024-08-29T00:00:00&#43;08:00'/>
 <meta name="twitter:title" content="Scheme: `let` 的语义 (feat. `if` 的语义)">
-<meta name="twitter:description" content="let 语义 结论: let scope 会直接求值 (包括绑定和绑定之后的表达式, 也就是 let 之外的一层括号所包裹的范围), 即使你把 let 嵌套在内层函数里而且这个函数还完全没">
+<meta name="twitter:description" content="let 的语义 结论: let scope 会立即求值 (包括绑定和绑定之后的表达式, 也就是 let 之外的一层括号所包裹的范围), 即使你把 let 嵌套在内层函数里而且这个函数还完全">
   
 
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/site.webmanifest">
+<style>
+  :root {
+     
+    --zh-font-family: "Noto Serif SC";
+     
+     
+    --code-font-family: Consolas, Menlo, Monaco, "Courier New", var(--zh-font-family), monospace;
+    --article-font-family: "Noto Serif SC";
+  }
+</style>
+
+<script>
+  (function () {
+    const customFont = document.createElement("link");
+    customFont.href =
+      "https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap";
+
+    customFont.type = "text/css";
+    customFont.rel = "stylesheet";
+
+    document.head.appendChild(customFont);
+  })();
+</script>
 
     </head>
     <body class="
@@ -47,7 +66,7 @@
     })();
 </script>
 <div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
-    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
         <span class="hamburger-box">
             <span class="hamburger-inner"></span>
         </span>
@@ -184,7 +203,7 @@
 
 
 
-                        <span></span>
+                        <span>Dark Mode</span>
                     </li>
                 
             </ol>
@@ -209,14 +228,14 @@
 
 
         </div>
-        <h2 class="widget-title section-title"></h2>
+        <h2 class="widget-title section-title">&thinsp;Table of contents</h2>
         
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#let-语义"><code>let</code> 语义</a></li>
-    <li><a href="#if-语义"><code>if</code> 语义</a></li>
-    <li><a href="#为什么会写这篇文本">为什么会写这篇文本</a></li>
+    <li><a href="#let-的语义"><code>let</code> 的语义</a></li>
+    <li><a href="#if-的语义"><code>if</code> 的语义</a></li>
+    <li><a href="#let-立即求值引发的错误实例"><code>let</code> 立即求值引发的错误实例</a></li>
   </ol>
 </nav>
         </div>
@@ -271,6 +290,20 @@
         
 
         
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    2 minute read
+                </time>
+            </div>
+        
     </footer>
     
 
@@ -282,8 +315,9 @@
     <section class="article-content">
     
     
-    <h2 id="let-语义"><a href="#let-%e8%af%ad%e4%b9%89" class="header-anchor"></a><code>let</code> 语义
-</h2><p>结论: <code>let</code> scope 会直接求值 (包括绑定和绑定之后的表达式, 也就是 <code>let</code> 之外的一层括号所包裹的范围), 即使你把 <code>let</code> 嵌套在内层函数里而且这个函数还完全没有被调用.</p>
+    <hr>
+<h2 id="let-的语义"><a href="#let-%e7%9a%84%e8%af%ad%e4%b9%89" class="header-anchor"></a><code>let</code> 的语义
+</h2><p><mark>结论</mark>: <code>let</code> scope 会立即求值 (包括绑定和绑定之后的表达式, 也就是 <code>let</code> 之外的一层括号所包裹的范围), 即使你把 <code>let</code> 嵌套在内层函数里而且这个函数还完全没有被调用.</p>
 <p>示例:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scheme" data-lang="scheme"><span class="line"><span class="cl"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">comp</span> <span class="nv">x</span><span class="p">)</span>  
 </span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&gt; </span><span class="mi">3</span> <span class="nv">x</span><span class="p">)</span>
@@ -293,13 +327,13 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="cm">#|
 </span></span></span><span class="line"><span class="cl"><span class="cm">    (define foo1
-</span></span></span><span class="line"><span class="cl"><span class="cm">        (let ((bar1 (/ 2 0)))    ; * evaluted conditionlessly
+</span></span></span><span class="line"><span class="cl"><span class="cm">        (let ((bar1 (/ 2 0)))    ; * evaluted immediately
 </span></span></span><span class="line"><span class="cl"><span class="cm">            (display &#34;should not be printed&#34;)
 </span></span></span><span class="line"><span class="cl"><span class="cm">        )
 </span></span></span><span class="line"><span class="cl"><span class="cm">    )
 </span></span></span><span class="line"><span class="cl"><span class="cm">|#</span>
 </span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="k">define </span><span class="nv">foo2</span>
-</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">bar2</span> <span class="p">(</span><span class="nb">/ </span><span class="mi">5</span> <span class="mi">2</span><span class="p">)))</span>    <span class="c1">; * evaluted conditionlessly</span>
+</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">bar2</span> <span class="p">(</span><span class="nb">/ </span><span class="mi">5</span> <span class="mi">2</span><span class="p">)))</span>    <span class="c1">; * evaluted immediately</span>
 </span></span><span class="line"><span class="cl">            <span class="p">(</span><span class="nf">newline</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">            <span class="p">(</span><span class="nb">display </span><span class="s">&#34;let in `foo2`, bar2: &#34;</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">            <span class="p">(</span><span class="nb">display </span><span class="nv">bar2</span><span class="p">)</span>
@@ -324,7 +358,7 @@
 </span></span><span class="line"><span class="cl"><span class="c1">;Unspecified return value</span>
 </span></span></code></pre></div></li>
 </ul>
-<h2 id="if-语义"><a href="#if-%e8%af%ad%e4%b9%89" class="header-anchor"></a><code>if</code> 语义
+<h2 id="if-的语义"><a href="#if-%e7%9a%84%e8%af%ad%e4%b9%89" class="header-anchor"></a><code>if</code> 的语义
 </h2><p><code>if</code>的语义: 根据对条件式进行求值，根据求值结果决定继续对 then/else 分支进行求值.</p>
 <p>可以与此对照参考的材料是 SICP (2nd Edition)  Exercise 1.6，此题中使用 abstraction ，通过 <code>cond</code> 定义了 <code>new-if</code>:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scheme" data-lang="scheme"><span class="line"><span class="cl"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">new-if</span> <span class="nv">predicate</span> <span class="nv">then-clause</span> <span class="nv">else-clause</span><span class="p">)</span>
@@ -333,7 +367,7 @@
 </span></span><span class="line"><span class="cl">    <span class="p">)</span>   
 </span></span><span class="line"><span class="cl"><span class="p">)</span>
 </span></span></code></pre></div><p>函数应用的语义是（applicative mode evaluation）：先对参数（比如这里的<code>then-clause</code> 和 <code>else-clause</code>）进行求值，然后进行函数应用，这也是为什么不能在<code>then-clause</code> 或 <code>else-clause</code>里写递归表达式，因为它们会先被求值，而不是根据 predicate 的值决定是否求值，于是递归就无穷无尽了. <code>if</code>/<code>cond</code>/&hellip; 是 special form, 相较于通过 <code>define</code> 定义的 abstraction, 语义是特殊的. 我喜欢 <code>new-if</code> 这个例子，它简洁而有力地体现了 lisp 元编程的特性，通过此例也可以更好地接纳 lisp 里大量的括号，根据 substitution model, 这里的 <code>predicate</code>, <code>then-clause</code>, <code>else-clause</code> 可以替换成你需要的表达式, 而表达式就是被括号包裹的, 即 括号是表达式的边界, 你可以把被括号包裹的表达式放在任意的参数位 (当然要符合 abstraction 隐式的对于参数的类型约束).</p>
-<h2 id="为什么会写这篇文本"><a href="#%e4%b8%ba%e4%bb%80%e4%b9%88%e4%bc%9a%e5%86%99%e8%bf%99%e7%af%87%e6%96%87%e6%9c%ac" class="header-anchor"></a>为什么会写这篇文本
+<h2 id="let-立即求值引发的错误实例"><a href="#let-%e7%ab%8b%e5%8d%b3%e6%b1%82%e5%80%bc%e5%bc%95%e5%8f%91%e7%9a%84%e9%94%99%e8%af%af%e5%ae%9e%e4%be%8b" class="header-anchor"></a><code>let</code> 立即求值引发的错误实例
 </h2><p>对于这样素数判断的一段代码：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scheme" data-lang="scheme"><span class="line"><span class="cl"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">prime?</span> <span class="nv">x</span><span class="p">)</span> 
 </span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="k">or </span><span class="p">(</span><span class="nb">= </span><span class="nv">x</span> <span class="mi">1</span><span class="p">)</span> <span class="p">(</span><span class="nb">= </span><span class="nv">x</span> <span class="mi">2</span><span class="p">))</span>
@@ -353,7 +387,7 @@
 </span></span><span class="line"><span class="cl">    <span class="p">)</span>
 </span></span><span class="line"><span class="cl">    
 </span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="k">define </span><span class="nv">test_prime</span>
-</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">biggest_divisor</span> <span class="p">(</span><span class="nf">iter_biggest_divisor</span> <span class="p">(</span><span class="nb">quotient </span><span class="nv">x</span> <span class="mi">2</span><span class="p">))</span> <span class="p">))</span>
+</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">biggest_divisor</span> <span class="p">(</span><span class="nf">iter_biggest_divisor</span> <span class="p">(</span><span class="nb">quotient </span><span class="nv">x</span> <span class="mi">2</span><span class="p">))</span> <span class="p">))</span> <span class="c1">; Notice</span>
 </span></span><span class="line"><span class="cl">             <span class="p">(</span><span class="nb">display </span><span class="nv">biggest_divisor</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">             <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">= </span><span class="nv">biggest_divisor</span> <span class="mi">1</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">                 <span class="no">#t</span>
@@ -433,7 +467,7 @@
     
 
 <aside class="related-content--wrapper">
-    <h2 class="section-title"></h2>
+    <h2 class="section-title">Related content</h2>
     <div class="related-content">
         <div class="flex article-list--tile">
             
@@ -494,12 +528,9 @@
     
     <section class="powerby">
         
-            Wish you a nice day!<br/>
-                Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a><br/>
-                Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener">Stack </a></b>
-                designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> <br/>
-         <br />
-        
+            Wish you a nice day! <br/>
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
     </section>
 </footer>
 

@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="en-us" dir="ltr">
+<html lang="en" dir="ltr">
     <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Problem: Given a positive integer $n$, find all ordered pairs of distinct positive integers $i$ and $j$, where $ 1 \\leq i \\leq j \\leq n $, such that $ i + j $ is prime. isDivisible :: Int -&gt; Int -&gt; Bool isDivisible x y | mod x y == 0 = True | otherwise = False isPrime :: Int -&gt; Bool isPrime x | x &lt;= 2 =">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="问题 Problem: Given a positive integer $n$, find all ordered pairs of distinct positive integers $i$ and $j$, where $ 1 \\leq i \\leq j \\leq n $, such that $ i + j $ is prime. Haskell 实现 isDivisible :: Int -&gt; Int -&gt; Bool isDivisible x y | mod x y == 0 = True | otherwise = False isPrime :: Int -&gt; Bool isPrime x">
 <title>SICP 2.2.3 Nested Mappings 案例的 Haskell 实现 (List Monad)</title>
 
 <link rel='canonical' href='http://localhost:1313/p/sicp-2.2.3-nested-mappings-%E6%A1%88%E4%BE%8B%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-list-monad/'>
 
-<link rel="stylesheet" href="/scss/style.min.779699777e744844f163cca3f24d7c291eb6c00251bff20ab15ac8d2427f6c35.css"><meta property='og:title' content="SICP 2.2.3 Nested Mappings 案例的 Haskell 实现 (List Monad)">
-<meta property='og:description' content="Problem: Given a positive integer $n$, find all ordered pairs of distinct positive integers $i$ and $j$, where $ 1 \\leq i \\leq j \\leq n $, such that $ i + j $ is prime. isDivisible :: Int -&gt; Int -&gt; Bool isDivisible x y | mod x y == 0 = True | otherwise = False isPrime :: Int -&gt; Bool isPrime x | x &lt;= 2 =">
+<link rel="stylesheet" href="/scss/style.min.ddd6b0e853aada94c236a9ef110307b83f4a0e72cfee500ad284e68459bf8f92.css"><meta property='og:title' content="SICP 2.2.3 Nested Mappings 案例的 Haskell 实现 (List Monad)">
+<meta property='og:description' content="问题 Problem: Given a positive integer $n$, find all ordered pairs of distinct positive integers $i$ and $j$, where $ 1 \\leq i \\leq j \\leq n $, such that $ i + j $ is prime. Haskell 实现 isDivisible :: Int -&gt; Int -&gt; Bool isDivisible x y | mod x y == 0 = True | otherwise = False isPrime :: Int -&gt; Bool isPrime x">
 <meta property='og:url' content='http://localhost:1313/p/sicp-2.2.3-nested-mappings-%E6%A1%88%E4%BE%8B%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-list-monad/'>
 <meta property='og:site_name' content='fyshXplore'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='SICP' /><meta property='article:tag' content='Haskell' /><meta property='article:published_time' content='2024-08-29T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2024-08-29T00:00:00&#43;08:00'/>
 <meta name="twitter:title" content="SICP 2.2.3 Nested Mappings 案例的 Haskell 实现 (List Monad)">
-<meta name="twitter:description" content="Problem: Given a positive integer $n$, find all ordered pairs of distinct positive integers $i$ and $j$, where $ 1 \\leq i \\leq j \\leq n $, such that $ i + j $ is prime. isDivisible :: Int -&gt; Int -&gt; Bool isDivisible x y | mod x y == 0 = True | otherwise = False isPrime :: Int -&gt; Bool isPrime x | x &lt;= 2 =">
+<meta name="twitter:description" content="问题 Problem: Given a positive integer $n$, find all ordered pairs of distinct positive integers $i$ and $j$, where $ 1 \\leq i \\leq j \\leq n $, such that $ i + j $ is prime. Haskell 实现 isDivisible :: Int -&gt; Int -&gt; Bool isDivisible x y | mod x y == 0 = True | otherwise = False isPrime :: Int -&gt; Bool isPrime x">
   
 
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
@@ -47,7 +47,7 @@
     })();
 </script>
 <div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
-    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
         <span class="hamburger-box">
             <span class="hamburger-inner"></span>
         </span>
@@ -184,7 +184,7 @@
 
 
 
-                        <span></span>
+                        <span>Dark Mode</span>
                     </li>
                 
             </ol>
@@ -192,7 +192,41 @@
     </ol>
 </aside>
 
-    
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">&thinsp;Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#问题">问题</a></li>
+    <li><a href="#haskell-实现">Haskell 实现</a></li>
+    <li><a href="#关于-list-monad-context-嵌套-lambda-与-do-notation">关于 List Monad: Context, 嵌套 lambda 与 do-notation</a></li>
+    <li><a href="#list-monad-实现全排列">List Monad 实现全排列</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
 
             <main class="main full-width">
     <article class="main-article">
@@ -238,6 +272,20 @@
         
 
         
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
+        
     </footer>
     
 
@@ -249,10 +297,12 @@
     <section class="article-content">
     
     
-    <blockquote>
+    <h2 id="问题"><a href="#%e9%97%ae%e9%a2%98" class="header-anchor"></a>问题
+</h2><blockquote>
 <p><strong>Problem</strong>: Given a positive integer $n$, find all ordered pairs of distinct positive integers $i$ and $j$, where $ 1 \leq i \leq j \leq n $, such that $ i + j $ is prime.</p>
 </blockquote>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-haskell" data-lang="haskell"><span class="line"><span class="cl"><span class="nf">isDivisible</span> <span class="ow">::</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="kt">Bool</span> 
+<h2 id="haskell-实现"><a href="#haskell-%e5%ae%9e%e7%8e%b0" class="header-anchor"></a>Haskell 实现
+</h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-haskell" data-lang="haskell"><span class="line"><span class="cl"><span class="nf">isDivisible</span> <span class="ow">::</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="kt">Bool</span> 
 </span></span><span class="line"><span class="cl"><span class="nf">isDivisible</span> <span class="n">x</span> <span class="n">y</span> 
 </span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="n">mod</span> <span class="n">x</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">0</span>  <span class="ow">=</span> <span class="kt">True</span> 
 </span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="n">otherwise</span>     <span class="ow">=</span> <span class="kt">False</span> 
@@ -271,14 +321,16 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nf">sumPrimePairs</span> <span class="ow">::</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="p">[((</span><span class="kt">Int</span><span class="p">,</span> <span class="kt">Int</span><span class="p">),</span> <span class="kt">Int</span><span class="p">)]</span>
 </span></span><span class="line"><span class="cl"><span class="nf">sumPrimePairs</span> <span class="ow">=</span> <span class="p">(</span><span class="n">filter</span> <span class="p">(</span><span class="nf">\</span><span class="p">(</span><span class="kr">_</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span> <span class="ow">-&gt;</span> <span class="p">(</span><span class="n">isPrime</span> <span class="n">s</span><span class="p">)))</span> <span class="o">.</span> <span class="n">genPairs</span>
-</span></span></code></pre></div><p>Context of <strong>List Monad</strong> : 不确定的结果.</p>
+</span></span></code></pre></div><h2 id="关于-list-monad-context-嵌套-lambda-与-do-notation"><a href="#%e5%85%b3%e4%ba%8e-list-monad-context-%e5%b5%8c%e5%a5%97-lambda-%e4%b8%8e-do-notation" class="header-anchor"></a>关于 List Monad: Context, 嵌套 lambda 与 do-notation
+</h2><p>Context of <strong>List Monad</strong> : 不确定的结果.</p>
 <!-- 今天吃饭回来想到 List Monad 的 Context 和这个问题的  -->
 <p>此章的标题是 Nested Mappings, 在代码层面的表现是嵌套的 lambda, Haskell 中的 do-notation 展开形式就是嵌套的 lambda, 前者是后者的语法糖.</p>
 <p>此章中定义的 <code>flatMap</code> 就是 Haskell 中的 <code>&gt;&gt;=</code> (bind).</p>
 <!-- 把 SICP 中的 scheme 代码用 Haskell 重写一遍应该也挺有意义的. -->
 <!-- 以一己之力发起 RIIH 运动, Rewrite it in Haskell! -->
 <hr>
-<p>2024-08-30 补充： SICP page 168 集合全排列的 Haskell 实现</p>
+<h2 id="list-monad-实现全排列"><a href="#list-monad-%e5%ae%9e%e7%8e%b0%e5%85%a8%e6%8e%92%e5%88%97" class="header-anchor"></a>List Monad 实现全排列
+</h2><p>2024-08-30 补充： SICP page 168 集合全排列的 Haskell 实现</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-haskell" data-lang="haskell"><span class="line"><span class="cl"><span class="nf">permutations</span> <span class="ow">::</span> <span class="kt">Eq</span> <span class="n">a</span> <span class="ow">=&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[[</span><span class="n">a</span><span class="p">]]</span>
 </span></span><span class="line"><span class="cl"><span class="nf">permutations</span> <span class="kt">[]</span> <span class="ow">=</span> <span class="p">[</span><span class="kt">[]</span><span class="p">]</span>
 </span></span><span class="line"><span class="cl"><span class="nf">permutations</span> <span class="n">xs</span> <span class="ow">=</span> <span class="kr">do</span>
@@ -351,7 +403,7 @@
     
 
 <aside class="related-content--wrapper">
-    <h2 class="section-title"></h2>
+    <h2 class="section-title">Related content</h2>
     <div class="related-content">
         <div class="flex article-list--tile">
             
@@ -412,12 +464,9 @@
     
     <section class="powerby">
         
-            Wish you a nice day!<br/>
-                Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a><br/>
-                Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener">Stack </a></b>
-                designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> <br/>
-         <br />
-        
+            Wish you a nice day! <br/>
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
     </section>
 </footer>
 

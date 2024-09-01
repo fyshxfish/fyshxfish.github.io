@@ -5,7 +5,7 @@
         <link>http://localhost:1313/categories/xplore/</link>
         <description>Recent content in Xplore on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
-        <language>en-us</language>
+        <language>en</language>
         <lastBuildDate>Mon, 05 Aug 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/categories/xplore/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Rust 基础与 gdb 使用拾遗</title>
         <link>http://localhost:1313/p/rust-%E5%9F%BA%E7%A1%80%E4%B8%8E-gdb-%E4%BD%BF%E7%94%A8%E6%8B%BE%E9%81%97/</link>

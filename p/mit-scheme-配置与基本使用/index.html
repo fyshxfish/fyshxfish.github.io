@@ -1,12 +1,12 @@
 <!DOCTYPE html>
-<html lang="en-us" dir="ltr">
+<html lang="en" dir="ltr">
     <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away. &ndash; Antoine de Saint-Exupéry 通过包管理器下载 mit-scheme MacOS: brew install mit-scheme Ubuntu: sudo apt-get update sudo apt-get install mit-scheme REPL 基本使用 （REPL: Read-Evaluate-Print L">
 <title>mit-scheme 配置与基本使用</title>
 
 <link rel='canonical' href='http://localhost:1313/p/mit-scheme-%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/'>
 
-<link rel="stylesheet" href="/scss/style.min.779699777e744844f163cca3f24d7c291eb6c00251bff20ab15ac8d2427f6c35.css"><meta property='og:title' content="mit-scheme 配置与基本使用">
+<link rel="stylesheet" href="/scss/style.min.acc7642a7755f3dd5bbef7fe572df4632982b02ef246214b854933b055a0119b.css"><meta property='og:title' content="mit-scheme 配置与基本使用">
 <meta property='og:description' content="Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away. &ndash; Antoine de Saint-Exupéry 通过包管理器下载 mit-scheme MacOS: brew install mit-scheme Ubuntu: sudo apt-get update sudo apt-get install mit-scheme REPL 基本使用 （REPL: Read-Evaluate-Print L">
 <meta property='og:url' content='http://localhost:1313/p/mit-scheme-%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/'>
 <meta property='og:site_name' content='fyshXplore'>
@@ -15,10 +15,29 @@
 <meta name="twitter:description" content="Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away. &ndash; Antoine de Saint-Exupéry 通过包管理器下载 mit-scheme MacOS: brew install mit-scheme Ubuntu: sudo apt-get update sudo apt-get install mit-scheme REPL 基本使用 （REPL: Read-Evaluate-Print L">
   
 
-<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-<link rel="manifest" href="/site.webmanifest">
+<style>
+  :root {
+     
+    --zh-font-family: "Noto Serif SC";
+     
+     
+    --code-font-family: Consolas, Menlo, Monaco, "Courier New", var(--zh-font-family), monospace;
+    --article-font-family: "Noto Serif SC";
+  }
+</style>
+
+<script>
+  (function () {
+    const customFont = document.createElement("link");
+    customFont.href =
+      "https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap";
+
+    customFont.type = "text/css";
+    customFont.rel = "stylesheet";
+
+    document.head.appendChild(customFont);
+  })();
+</script>
 
     </head>
     <body class="
@@ -47,7 +66,7 @@
     })();
 </script>
 <div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
-    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
         <span class="hamburger-box">
             <span class="hamburger-inner"></span>
         </span>
@@ -184,7 +203,7 @@
 
 
 
-                        <span></span>
+                        <span>Dark Mode</span>
                     </li>
                 
             </ol>
@@ -209,13 +228,14 @@
 
 
         </div>
-        <h2 class="widget-title section-title"></h2>
+        <h2 class="widget-title section-title">&thinsp;Table of contents</h2>
         
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
     <li><a href="#通过包管理器下载-mit-scheme">通过包管理器下载 mit-scheme</a></li>
     <li><a href="#repl-基本使用">REPL 基本使用</a></li>
+    <li><a href="#后记">后记</a></li>
   </ol>
 </nav>
         </div>
@@ -269,6 +289,20 @@
             </div>
         
 
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    1 minute read
+                </time>
+            </div>
         
     </footer>
     
@@ -372,6 +406,9 @@
 </li>
 </ol>
 <!-- 7. Press ^C once to get **help information**; Press ^C twice to goto the top level REPL.  -->
+<hr>
+<h2 id="后记"><a href="#%e5%90%8e%e8%ae%b0" class="header-anchor"></a>后记
+</h2><p>不知道是否有更好用的 Scheme REPL,</p>
 
 </section>
 
@@ -434,7 +471,7 @@
     
 
 <aside class="related-content--wrapper">
-    <h2 class="section-title"></h2>
+    <h2 class="section-title">Related content</h2>
     <div class="related-content">
         <div class="flex article-list--tile">
             
@@ -495,12 +532,9 @@
     
     <section class="powerby">
         
-            Wish you a nice day!<br/>
-                Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a><br/>
-                Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener">Stack </a></b>
-                designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a> <br/>
-         <br />
-        
+            Wish you a nice day! <br/>
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
     </section>
 </footer>
 
