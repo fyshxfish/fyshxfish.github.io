@@ -259,7 +259,12 @@
     </li>
     <li><a href="#组合数据-compound-data-的结构与解构-construct--extract">组合数据 (compound data) 的结构与解构 (construct / extract)</a>
       <ol>
-        <li><a href="#sicp-scheme-blur-the-barrier-of-data-and-procedure">SICP (Scheme): Blur the Barrier of Data and Procedure</a></li>
+        <li><a href="#sicp-scheme-blur-the-barrier-of-data-and-procedure--abstraction-barrier">SICP (Scheme): Blur the Barrier of Data and Procedure / abstraction barrier</a>
+          <ol>
+            <li><a href="#一致性">一致性</a></li>
+            <li><a href="#数据的组合与提取--程序的构造抽象层">数据的组合与提取 → 程序的构造：抽象层</a></li>
+          </ol>
+        </li>
         <li><a href="#haskell-pattern-match">Haskell: Pattern Match</a></li>
       </ol>
     </li>
@@ -498,8 +503,9 @@
 <!-- ## 随便聊聊 -->
 <!--  -->
 <h2 id="组合数据-compound-data-的结构与解构-construct--extract"><a href="#%e7%bb%84%e5%90%88%e6%95%b0%e6%8d%ae-compound-data-%e7%9a%84%e7%bb%93%e6%9e%84%e4%b8%8e%e8%a7%a3%e6%9e%84-construct--extract" class="header-anchor"></a>组合数据 (compound data) 的结构与解构 (construct / extract)
-</h2><h3 id="sicp-scheme-blur-the-barrier-of-data-and-procedure"><a href="#sicp-scheme-blur-the-barrier-of-data-and-procedure" class="header-anchor"></a>SICP (Scheme): Blur the Barrier of Data and Procedure
-</h3><p>我们希望将<strong>有结构</strong>的数据——而不是散落的变量——作为程序的组件，所以有了组合数据 (compound data)，比如 <code>struct</code> / <code>class</code>，于是出现的问题是，如何把用于构造 compound data 的字段重新提取出来，<strong>提取</strong>的行为需要保证的一件事情是：字段被提取前后行为是一致的，主要是编译器的工作，如果一定要在源代码的层面上去体现这一点，如何做到？在此处贴 SICP 2.1.3 (Page 124) 的示例代码：</p>
+</h2><h3 id="sicp-scheme-blur-the-barrier-of-data-and-procedure--abstraction-barrier"><a href="#sicp-scheme-blur-the-barrier-of-data-and-procedure--abstraction-barrier" class="header-anchor"></a>SICP (Scheme): Blur the Barrier of Data and Procedure / abstraction barrier
+</h3><h4 id="一致性"><a href="#%e4%b8%80%e8%87%b4%e6%80%a7" class="header-anchor"></a>一致性
+</h4><p>我们希望将<strong>有结构</strong>的数据——而不是散落的变量——作为程序的组件，所以有了组合数据 (compound data)，比如 <code>struct</code> / <code>class</code>，于是出现的问题是，如何把用于构造 compound data 的字段重新提取出来，<strong>提取</strong>的行为需要保证的一件事情是：字段被提取前后行为是一致的，主要是编译器的工作，如果一定要在源代码的层面上去体现这一点，如何做到？在此处贴 SICP 2.1.3 (Page 124) 的示例代码：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scheme" data-lang="scheme"><span class="line"><span class="cl"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nb">cons </span><span class="nv">x</span> <span class="nv">y</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">dispatch</span> <span class="nv">m</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nb">= </span><span class="nv">m</span> <span class="mi">0</span><span class="p">)</span> <span class="nv">x</span><span class="p">)</span>
@@ -516,6 +522,12 @@
 </span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="nf">z</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">p</span> <span class="nv">q</span><span class="p">)</span> <span class="nv">p</span><span class="p">)))</span>
 </span></span></code></pre></div><p>SICP 这一章重点呈现的一个点是: 数据（data）与程序（procedure）的分界线并不是那么泾渭分明的. 以上的两个程序很准确地体现了这一点：列表的构造子返回的是一个 procedure，该 procedure 提供了访问<strong>组成列表的元素</strong>的接口，所以可以基于此定义 <code>car</code>/ <code>cdr</code>.</p>
 <!-- 作者补充说，出于效率的考量，真实的 `cons` / `car` / `cdr` 并不是这样实现的， -->
+<h4 id="数据的组合与提取--程序的构造抽象层"><a href="#%e6%95%b0%e6%8d%ae%e7%9a%84%e7%bb%84%e5%90%88%e4%b8%8e%e6%8f%90%e5%8f%96--%e7%a8%8b%e5%ba%8f%e7%9a%84%e6%9e%84%e9%80%a0%e6%8a%bd%e8%b1%a1%e5%b1%82" class="header-anchor"></a>数据的组合与提取 → 程序的构造：抽象层
+</h4><p>组合这件事情在 LISP (LISt Programming) 中是简洁的，数据的组合方式就是构造列表，如 <code>(list 1 2 3)</code> / <code>(list 3 4 (list 9 7) 5)</code>.</p>
+<p>而处于程序之中的数据不可能直接以这样的形式在函数之间流转，所以有了抽象层:</p>
+<img src="abstraction_barrier.png" alt="abstraction barrier" style="zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);" />
+<!-- 抽象的一个意义是专注接口，忽视构建接口的细节. 从 基本类型 +  -->
+<p>constructor (<code>make-rat</code>) 和 selector (<code>denom</code>, <code>numer</code>) 是从基本类型 (primitive data type) 到组合数据 (compound data) 的一次抽象，给了程序（在此抽象层之上的函数，<code>add-rat</code> / <code>sub-rat</code>）一个更高的视角去看待数据，数据不再只是零散的整型/浮点型，而是可以被构造 / 提取 / 分析的 <code>rat</code>；在 <code>add-rat</code> / <code>sub-rat</code> 之上的函数无需关心 <code>rat</code> 的实现细节，只需使用 <code>add-rat</code> 等运算来解决问题即可. 程序的构造过程是抽象层次提升的过程.</p>
 <h3 id="haskell-pattern-match"><a href="#haskell-pattern-match" class="header-anchor"></a>Haskell: Pattern Match
 </h3><p>写过 Lisp 会更懂 Haskell 的好，就像写过 C 可以更好地体会 Python 开发的便捷，当然我只是考量语法的易用性，没有对于性能/应用场景等其他方面的比较.</p>
 <p>在 Scheme 中写 <code>(define (make-leaf symbol weight))</code>/ <code>(define (leaf? object )) </code> / <code>(define (weight tree))</code> 这样的函数写得太多的时刻，会想 Haskell 中是如何应对<strong>数据的构造和提取</strong>这个问题的呢？</p>
