@@ -535,9 +535,9 @@
 <p>很多语言都有 Pattern Match 的语法，但是 Haskell 设计得真的太丝滑，我写这篇博客的目的就在于呈现上面加黑的那句话.</p>
 <p>这个语法提供的一个优势是，可以对函数参数通过 Pattern Match 做解析，比如上面的例子：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-hs" data-lang="hs"><span class="line"><span class="cl"><span class="nf">constructHuffTree</span> <span class="ow">::</span> <span class="p">[</span><span class="kt">HuffmanTree</span> <span class="n">a</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="kt">HuffmanTree</span> <span class="n">a</span>
-</span></span><span class="line"><span class="cl"><span class="nf">constructHuffTree</span> <span class="kt">[]</span> <span class="ow">=</span> <span class="o">...</span>          <span class="c1">-- 空叶子列表 -&gt; 返回空树</span>
-</span></span><span class="line"><span class="cl"><span class="nf">constructHuffTree</span> <span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="ow">=</span> <span class="o">...</span>         <span class="c1">-- 只有一个叶子 -&gt; 返回只有根节点的树</span>
-</span></span><span class="line"><span class="cl"><span class="nf">constructHuffTree</span> <span class="p">(</span><span class="n">x</span><span class="kt">:</span><span class="n">y</span><span class="kt">:</span><span class="n">ts</span><span class="p">)</span> <span class="ow">=</span> <span class="o">...</span>    <span class="c1">-- 有两个及以上叶子 -&gt; 递归建立 Huffman 树</span>
+</span></span><span class="line"><span class="cl"><span class="nf">constructHuffTree</span> <span class="kt">[]</span> <span class="ow">=</span> <span class="o">...</span>          <span class="c1">-- 空叶子列表 → 返回空树</span>
+</span></span><span class="line"><span class="cl"><span class="nf">constructHuffTree</span> <span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="ow">=</span> <span class="o">...</span>         <span class="c1">-- 只有一个叶子 → 返回只有根节点的树</span>
+</span></span><span class="line"><span class="cl"><span class="nf">constructHuffTree</span> <span class="p">(</span><span class="n">x</span><span class="kt">:</span><span class="n">y</span><span class="kt">:</span><span class="n">ts</span><span class="p">)</span> <span class="ow">=</span> <span class="o">...</span>    <span class="c1">-- 有两个及以上叶子 → 递归建立 Huffman 树</span>
 </span></span></code></pre></div><!-- ```hs
 data Direction = L | R deriving (Show, Eq)
 type Directions = [Direction]
