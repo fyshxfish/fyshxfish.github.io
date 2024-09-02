@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="在看 SICP Section 2.3.4，对这节的组合 / 抽象有相当程度的参考. 其实我应该把代码放在某个仓库里，比如把一些数据结构的 Haskell 实现整合在一个仓库里，但是我还">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="在看 SICP Section 2.3.4，对这节中 Huffman 树的实现中使用的组合 / 抽象有相当程度的参考. 其实我应该把代码放在某个仓库里，比如把一些数据结构的 Haskell 实现整合在一">
 <title>Huffman 树的 Haskell 实现 - SICP § 2.3.4  | 组合数据的结构与解构</title>
 
 <link rel='canonical' href='http://fyshxfish.github.io/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.3.4-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/'>
 
 <link rel="stylesheet" href="/scss/style.min.b51788d43472ffad20b588167514427b70146d30bc2a1ee0490ab0db3b5da439.css"><meta property='og:title' content="Huffman 树的 Haskell 实现 - SICP § 2.3.4  | 组合数据的结构与解构">
-<meta property='og:description' content="在看 SICP Section 2.3.4，对这节的组合 / 抽象有相当程度的参考. 其实我应该把代码放在某个仓库里，比如把一些数据结构的 Haskell 实现整合在一个仓库里，但是我还">
+<meta property='og:description' content="在看 SICP Section 2.3.4，对这节中 Huffman 树的实现中使用的组合 / 抽象有相当程度的参考. 其实我应该把代码放在某个仓库里，比如把一些数据结构的 Haskell 实现整合在一">
 <meta property='og:url' content='http://fyshxfish.github.io/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.3.4-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/'>
 <meta property='og:site_name' content='fyshXplore'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='SICP' /><meta property='article:tag' content='Haskell' /><meta property='article:published_time' content='2024-09-02T01:53:00&#43;08:00'/><meta property='article:modified_time' content='2024-09-02T01:53:00&#43;08:00'/>
 <meta name="twitter:title" content="Huffman 树的 Haskell 实现 - SICP § 2.3.4  | 组合数据的结构与解构">
-<meta name="twitter:description" content="在看 SICP Section 2.3.4，对这节的组合 / 抽象有相当程度的参考. 其实我应该把代码放在某个仓库里，比如把一些数据结构的 Haskell 实现整合在一个仓库里，但是我还">
+<meta name="twitter:description" content="在看 SICP Section 2.3.4，对这节中 Huffman 树的实现中使用的组合 / 抽象有相当程度的参考. 其实我应该把代码放在某个仓库里，比如把一些数据结构的 Haskell 实现整合在一">
   
 
 <style>
@@ -242,18 +242,24 @@
             <li><a href="#huffmantree-的递归定义"><code>HuffmanTree</code> 的递归定义</a></li>
           </ol>
         </li>
-        <li><a href="#huffman-树的建立">Huffman 树的建立</a>
+        <li><a href="#huffman-树的构建">Huffman 树的构建</a>
           <ol>
             <li><a href="#权重获取">权重获取</a></li>
             <li><a href="#列表整理">列表整理</a></li>
             <li><a href="#树的建立">树的建立</a></li>
           </ol>
         </li>
+        <li><a href="#huffman-树的编解码">Huffman 树的编解码</a>
+          <ol>
+            <li><a href="#获取符号编码">获取符号编码</a></li>
+            <li><a href="#解码">解码</a></li>
+          </ol>
+        </li>
       </ol>
     </li>
     <li><a href="#组合数据-compound-data-的结构与解构-construct--extract">组合数据 (compound data) 的结构与解构 (construct / extract)</a>
       <ol>
-        <li><a href="#sicp-blur-the-barrier-of-data-and-procedure">SICP: Blur the Barrier of Data and Procedure</a></li>
+        <li><a href="#sicp-scheme-blur-the-barrier-of-data-and-procedure">SICP (Scheme): Blur the Barrier of Data and Procedure</a></li>
         <li><a href="#haskell-pattern-match">Haskell: Pattern Match</a></li>
       </ol>
     </li>
@@ -321,7 +327,7 @@
 
 
                 <time class="article-time--reading">
-                    5 minute read
+                    7 minute read
                 </time>
             </div>
         
@@ -336,11 +342,13 @@
     <section class="article-content">
     
     
-    <p>在看 SICP Section 2.3.4，对这节的组合 / 抽象有相当程度的参考.</p>
+    <p>在看 SICP Section 2.3.4，对这节中 Huffman 树的实现中使用的组合 / 抽象有相当程度的参考.</p>
 <p>其实我应该把代码放在某个仓库里，比如把一些数据结构的 Haskell 实现整合在一个仓库里，但是我还没有这么多可供整合的材料，所以以后再说吧.</p>
+<p>代码链接：<a class="link" href="https://github.com/fyshxfish/sicp-playground/blob/main/sicp-note/ch2/ch2-3-huffman_tree.hs"  target="_blank" rel="noopener"
+    >Huffman Tree in Haskell</a></p>
 <h2 id="huffman-树的-haskell-实现"><a href="#huffman-%e6%a0%91%e7%9a%84-haskell-%e5%ae%9e%e7%8e%b0" class="header-anchor"></a>Huffman 树的 Haskell 实现
 </h2><!-- (对照图示: SICP Figure 2.18) -->
-<img src="huffmantree.png" alt="huffmantree" style="zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);" />
+<img src="huffmantree_more_padding.png" alt="huffmantree" style="zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);" />
 <!-- <img src="huffmantree.png" alt="huffmantree" style="zoom:80%;" /> -->
 <h3 id="数据抽象"><a href="#%e6%95%b0%e6%8d%ae%e6%8a%bd%e8%b1%a1" class="header-anchor"></a>数据抽象
 </h3><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-haskell" data-lang="haskell"><span class="line"><span class="cl"><span class="kr">type</span> <span class="kt">Weight</span> <span class="ow">=</span> <span class="kt">Int</span> 
@@ -367,7 +375,7 @@
 <p><code>Node</code>: 包含左右子树 <code>(HuffmanTree a)</code>、子树符号并集 <code>[a]</code> 和子树总权重 <code>Weight</code> 的分支结点.</p>
 </li>
 </ul>
-<h3 id="huffman-树的建立"><a href="#huffman-%e6%a0%91%e7%9a%84%e5%bb%ba%e7%ab%8b" class="header-anchor"></a>Huffman 树的建立
+<h3 id="huffman-树的构建"><a href="#huffman-%e6%a0%91%e7%9a%84%e6%9e%84%e5%bb%ba" class="header-anchor"></a>Huffman 树的构建
 </h3><h4 id="权重获取"><a href="#%e6%9d%83%e9%87%8d%e8%8e%b7%e5%8f%96" class="header-anchor"></a>权重获取
 </h4><p>通过模式匹配获取 <code>Leaf</code>，<code>Node</code>的权重.</p>
 <p><em>这里没有考虑空树 <code>Empty</code> 的情况，如果考虑应该写 <code>getWeight :: HuffmanTree a -&gt; Maybe Weight</code>，匹配到 <code>Empty</code> 时返回 <code>Nothing</code>. 对一种类型做模式匹配时应该匹配到每一个构造子，这是标准的实践.</em></p>
@@ -376,9 +384,9 @@
 </span></span><span class="line"><span class="cl"><span class="nf">getWeight</span> <span class="p">(</span><span class="kt">Node</span> <span class="kr">_</span> <span class="kr">_</span> <span class="kr">_</span> <span class="n">w</span><span class="p">)</span> <span class="ow">=</span> <span class="n">w</span>
 </span></span></code></pre></div><h4 id="列表整理"><a href="#%e5%88%97%e8%a1%a8%e6%95%b4%e7%90%86" class="header-anchor"></a>列表整理
 </h4><p>Huffman 树建立的起点是一个有序的叶子列表，建立过程中也需要保持 [Huffman a] 列表的有序. 这一部分的函数的目标是将一个无序的列表整理成一个有序的列表.</p>
-<p><code>adjoinLeaf</code>: 根据权重将 <code>HuffmanTree a</code> 插入到已有的有序 <code>[HuffmanTree a]</code> 中. （升序排列）</p>
-<p><code>initLeafs</code>: 将已有的无序叶子列表整理成有序的叶子列表.</p>
-<p><code>moveFirstNode</code>: Huffman Tree 建立过程中的 Merge 操作将把权重最小的两个 <code>HuffmanTree (Leaf / Node)</code> ——也就是列表前两个元素——组成一个新的 <code>Node</code>，所以 Merge 后需要将新生成的 Node 重新放置，利用此函数实现这个重置.</p>
+<p>» <code>adjoinLeaf</code>: 根据权重将 <code>HuffmanTree a</code> 插入到已有的有序 <code>[HuffmanTree a]</code> 中. （升序排列）</p>
+<p>» <code>initLeafs</code>: 将已有的无序叶子列表整理成有序的叶子列表.</p>
+<p>» <code>moveFirstNode</code>: Huffman Tree 建立过程中的 Merge 操作将把权重最小的两个 <code>HuffmanTree (Leaf / Node)</code> ——也就是列表前两个元素——组成一个新的 <code>Node</code>，所以 Merge 后需要将新生成的 Node 重新放置，利用此函数实现这个重置.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-hs" data-lang="hs"><span class="line"><span class="cl"><span class="nf">adjoinTree</span> <span class="ow">::</span> <span class="kt">HuffmanTree</span> <span class="n">a</span>  <span class="ow">-&gt;</span> <span class="p">[</span><span class="kt">HuffmanTree</span> <span class="n">a</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="kt">HuffmanTree</span> <span class="n">a</span><span class="p">]</span>
 </span></span><span class="line"><span class="cl"><span class="nf">adjoinTree</span> <span class="n">t</span> <span class="kt">[]</span> <span class="ow">=</span> <span class="p">[</span><span class="n">t</span><span class="p">]</span>
 </span></span><span class="line"><span class="cl"><span class="nf">adjoinTree</span> <span class="n">t</span> <span class="p">(</span><span class="n">t&#39;</span><span class="kt">:</span><span class="n">ts</span><span class="p">)</span> 
@@ -394,8 +402,8 @@
 </span></span><span class="line"><span class="cl"><span class="nf">moveFirstNode</span> <span class="ow">::</span> <span class="p">[</span><span class="kt">HuffmanTree</span> <span class="n">a</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="kt">HuffmanTree</span> <span class="n">a</span><span class="p">]</span>
 </span></span><span class="line"><span class="cl"><span class="nf">moveFirstNode</span> <span class="p">(</span><span class="n">t</span><span class="kt">:</span><span class="n">ts</span><span class="p">)</span> <span class="ow">=</span><span class="n">adjoinLeaf</span> <span class="n">t</span> <span class="n">ts</span> 
 </span></span></code></pre></div><h4 id="树的建立"><a href="#%e6%a0%91%e7%9a%84%e5%bb%ba%e7%ab%8b" class="header-anchor"></a>树的建立
-</h4><p><code>makeNode</code>: 将两个 <code>HuffmanTree</code> 组合成一个 <code>Node</code>.</p>
-<p><code>constructHuffTree</code>: 树的自底向上建立，<strong>尾递归</strong>建立 Huffman Tree.</p>
+</h4><p>» <code>makeNode</code>: 将两个 <code>HuffmanTree</code> 组合成一个 <code>Node</code>.</p>
+<p>» <code>constructHuffTree</code>: 树的自底向上建立，<strong>尾递归</strong>建立 Huffman Tree.</p>
 <ul>
 <li>
 <p>递归步：将当前列表中的前两个元素通过 <code>makeNode</code> 合并成一个父结点 <code>Node</code>，移动父结点得到新的有序列表，对新列表执行递归;</p>
@@ -404,7 +412,7 @@
 <p>递归基：列表中只有一个元素，即根结点.</p>
 </li>
 </ul>
-<p><code>initAndConstructHuffTree</code>: 最后的封装，对叶子列表的初始化 <code>initLeafs</code> 和树的建立 <code>constructHuffTree</code> 进行 Point-less 的组合.</p>
+<p>» <code>initAndConstructHuffTree</code>: 最后的封装，对叶子列表的初始化 <code>initLeafs</code> 和树的建立 <code>constructHuffTree</code> 进行 Point-less 的组合.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-hs" data-lang="hs"><span class="line"><span class="cl"><span class="nf">makeNode</span> <span class="ow">::</span> <span class="kt">HuffmanTree</span> <span class="n">a</span> <span class="ow">-&gt;</span> <span class="kt">HuffmanTree</span> <span class="n">a</span> <span class="ow">-&gt;</span> <span class="kt">HuffmanTree</span> <span class="n">a</span> 
 </span></span><span class="line"><span class="cl"><span class="nf">makeNode</span> <span class="p">(</span><span class="kt">Leaf</span> <span class="n">s1</span> <span class="n">w1</span><span class="p">)</span> <span class="p">(</span><span class="kt">Leaf</span> <span class="n">s2</span> <span class="n">w2</span><span class="p">)</span> <span class="ow">=</span> <span class="kt">Node</span> <span class="p">(</span><span class="kt">Leaf</span> <span class="n">s1</span> <span class="n">w1</span><span class="p">)</span> <span class="p">(</span><span class="kt">Leaf</span> <span class="n">s2</span> <span class="n">w2</span><span class="p">)</span> <span class="p">[</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">]</span> <span class="p">(</span><span class="n">w1</span> <span class="o">+</span> <span class="n">w2</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="nf">makeNode</span> <span class="p">(</span><span class="kt">Leaf</span> <span class="n">s</span> <span class="n">w</span><span class="p">)</span> <span class="p">(</span><span class="kt">Node</span> <span class="n">l</span> <span class="n">r</span> <span class="n">ss</span> <span class="n">w&#39;</span><span class="p">)</span> <span class="ow">=</span> <span class="kt">Node</span> <span class="p">(</span><span class="kt">Leaf</span> <span class="n">s</span> <span class="n">w</span><span class="p">)</span> <span class="p">(</span><span class="kt">Node</span> <span class="n">l</span> <span class="n">r</span> <span class="n">ss</span> <span class="n">w&#39;</span><span class="p">)</span> <span class="p">(</span><span class="n">s</span><span class="kt">:</span><span class="n">ss</span><span class="p">)</span> <span class="p">(</span><span class="n">w</span> <span class="o">+</span> <span class="n">w&#39;</span><span class="p">)</span>  
@@ -418,12 +426,79 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nf">initAndConstructHuffTree</span> <span class="ow">::</span> <span class="p">[</span><span class="kt">HuffmanTree</span> <span class="n">a</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="kt">HuffmanTree</span> <span class="n">a</span>
 </span></span><span class="line"><span class="cl"><span class="nf">initAndConstructHuffTree</span> <span class="ow">=</span> <span class="n">constructHuffTree</span> <span class="o">.</span> <span class="n">initLeafs</span> 
-</span></span></code></pre></div><p>[TODO: 编码获取，解码]</p>
+</span></span></code></pre></div><h3 id="huffman-树的编解码"><a href="#huffman-%e6%a0%91%e7%9a%84%e7%bc%96%e8%a7%a3%e7%a0%81" class="header-anchor"></a>Huffman 树的编解码
+</h3><h4 id="获取符号编码"><a href="#%e8%8e%b7%e5%8f%96%e7%ac%a6%e5%8f%b7%e7%bc%96%e7%a0%81" class="header-anchor"></a>获取符号编码
+</h4><p>Huffman 树的建立过程就是编码过程，这里只是将编码用另一种形式呈现出来.</p>
+<p>此处的编码表示：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-hs" data-lang="hs"><span class="line"><span class="cl"><span class="kr">data</span> <span class="kt">Bit</span> <span class="ow">=</span> <span class="kt">L</span> <span class="o">|</span> <span class="kt">R</span> <span class="kr">deriving</span> <span class="kt">Show</span> 
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="kt">Bits</span> <span class="ow">=</span> <span class="p">[</span><span class="kt">Bit</span><span class="p">]</span> 
+</span></span></code></pre></div><p><code>L</code> 对应二进制 <code>0</code>，<code>R</code> 对应二进制 <code>1</code>.</p>
+<p>编码的获取过程就是对 Huffman 树进行遍历与记录的过程：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-hs" data-lang="hs"><span class="line"><span class="cl"><span class="nf">getCode&#39;</span> <span class="ow">::</span> <span class="kt">HuffmanTree</span> <span class="n">a</span> <span class="ow">-&gt;</span> <span class="kt">Bits</span> <span class="ow">-&gt;</span> <span class="p">[(</span><span class="n">a</span><span class="p">,</span> <span class="kt">Bits</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl"><span class="nf">getCode&#39;</span> <span class="p">(</span><span class="kt">Node</span> <span class="p">(</span><span class="kt">Leaf</span> <span class="n">s1</span> <span class="kr">_</span><span class="p">)</span> <span class="p">(</span><span class="kt">Leaf</span> <span class="n">s2</span> <span class="kr">_</span><span class="p">)</span> <span class="kr">_</span> <span class="kr">_</span><span class="p">)</span> <span class="n">rec</span> <span class="ow">=</span> <span class="p">[(</span><span class="n">s1</span><span class="p">,</span> <span class="n">rec</span> <span class="o">++</span> <span class="p">[</span><span class="kt">L</span><span class="p">]),</span> <span class="p">(</span><span class="n">s2</span><span class="p">,</span> <span class="n">rec</span> <span class="o">++</span> <span class="p">[</span><span class="kt">R</span><span class="p">])]</span>
+</span></span><span class="line"><span class="cl"><span class="nf">getCode&#39;</span> <span class="p">(</span><span class="kt">Node</span> <span class="p">(</span><span class="kt">Leaf</span> <span class="n">s&#39;</span> <span class="kr">_</span><span class="p">)</span> <span class="n">node</span> <span class="kr">_</span> <span class="kr">_</span><span class="p">)</span> <span class="n">rec</span> <span class="ow">=</span> <span class="p">[(</span><span class="n">s&#39;</span><span class="p">,</span> <span class="n">rec</span> <span class="o">++</span> <span class="p">[</span><span class="kt">L</span><span class="p">])]</span> <span class="o">++</span> <span class="n">getCode&#39;</span> <span class="n">node</span> <span class="p">(</span><span class="n">rec</span><span class="o">++</span><span class="p">[</span><span class="kt">R</span><span class="p">])</span> 
+</span></span><span class="line"><span class="cl"><span class="nf">getCode&#39;</span> <span class="p">(</span><span class="kt">Node</span> <span class="n">node</span> <span class="p">(</span><span class="kt">Leaf</span> <span class="n">s&#39;</span> <span class="kr">_</span><span class="p">)</span> <span class="kr">_</span> <span class="kr">_</span><span class="p">)</span> <span class="n">rec</span> <span class="ow">=</span>  <span class="n">getCode&#39;</span> <span class="n">node</span> <span class="p">(</span><span class="n">rec</span><span class="o">++</span><span class="p">[</span><span class="kt">L</span><span class="p">])</span> <span class="o">++</span> <span class="p">[(</span><span class="n">s&#39;</span><span class="p">,</span> <span class="n">rec</span> <span class="o">++</span> <span class="p">[</span><span class="kt">R</span><span class="p">])]</span>
+</span></span><span class="line"><span class="cl"><span class="nf">getCode&#39;</span> <span class="p">(</span><span class="kt">Node</span> <span class="n">nodel</span> <span class="n">noder</span>  <span class="kr">_</span> <span class="kr">_</span><span class="p">)</span> <span class="n">rec</span> <span class="ow">=</span> <span class="n">getCode&#39;</span> <span class="n">nodel</span> <span class="p">(</span><span class="n">rec</span><span class="o">++</span><span class="p">[</span><span class="kt">L</span><span class="p">])</span> <span class="o">++</span> <span class="n">getCode&#39;</span> <span class="n">noder</span> <span class="p">(</span><span class="n">rec</span><span class="o">++</span><span class="p">[</span><span class="kt">R</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">getCode</span> <span class="ow">::</span> <span class="kt">HuffmanTree</span> <span class="n">a</span> <span class="ow">-&gt;</span> <span class="p">[(</span><span class="n">a</span><span class="p">,</span> <span class="kt">Bits</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl"><span class="nf">getCode</span> <span class="n">t</span>  <span class="ow">=</span> <span class="n">getCode&#39;</span> <span class="n">t</span> <span class="kt">[]</span>
+</span></span></code></pre></div><p>» <code>getCode'</code>：实现对 Huffman 树的递归遍历</p>
+<ul>
+<li>
+<p>递归步：对于一个结点，对左右子树进行匹配，对非叶结点（<code>node</code>）继续递归遍历，在 <code>rec</code> 中记录途径的分叉方向.</p>
+</li>
+<li>
+<p>递归基：当对左/右子树匹配到 <code>Leaf</code> 时，表明已经抵达了一个 <code>Symbol</code>，此时的 <code>rec ++ [L]</code> / <code>rec ++ [R]</code> 就是 <code>Symbol</code> 对应的编码.</p>
+</li>
+<li>
+<p>模式匹配的解释：回顾 Huffman 树的构造过程，我们总是把<strong>两个结点</strong>合并成其父结点，所以不存在某个子树为 <code>Empty</code> 的情况，也即——每个分支结点的模式都是 <code>Node lhs rhs _ _</code>；同时，我们将 <code>Leaf</code> 作为递归基，不再对 <code>Leaf</code> 做递归，这就是为什么这里只对不同形态的 <code>Node</code> 构造子做模式匹配，并把含 <code>Leaf</code> 递归基的情形放在前面的原因.</p>
+</li>
+</ul>
+<p>» <code>getCode</code>：对 <code>getCode'</code> 做一个封装，给 <code>rec</code> 一个起始值 <code>[]</code>，即 在 Huffman 树的根节点，没有任何途径记录.</p>
+<h4 id="解码"><a href="#%e8%a7%a3%e7%a0%81" class="header-anchor"></a>解码
+</h4><p>基本思路：根据 <code>Bit</code> 在树上移动，<code>L</code> - 向左子树移动，<code>R</code> - 向右子树移动，抵达子树为 <code>Leaf</code> 时，完成一个字符的解码，此时回到根节点继续对下一个字符解码，直到 <code>Bit</code> 列表为空.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-hs" data-lang="hs"><span class="line"><span class="cl"><span class="c1">-- decode one symbol</span>
+</span></span><span class="line"><span class="cl"><span class="nf">decodeOne</span> <span class="ow">::</span> <span class="kt">HuffmanTree</span> <span class="n">a</span> <span class="ow">-&gt;</span> <span class="kt">Bits</span> <span class="ow">-&gt;</span> <span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="kt">Bits</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nf">decodeOne</span> <span class="p">(</span><span class="kt">Node</span> <span class="p">(</span><span class="kt">Leaf</span> <span class="n">s</span> <span class="kr">_</span><span class="p">)</span> <span class="kr">_</span> <span class="kr">_</span> <span class="kr">_</span><span class="p">)</span> <span class="p">(</span><span class="kt">L:</span><span class="n">bs</span><span class="p">)</span> <span class="ow">=</span> <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">bs</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="nf">decodeOne</span> <span class="p">(</span><span class="kt">Node</span> <span class="kr">_</span> <span class="p">(</span><span class="kt">Leaf</span> <span class="n">s</span> <span class="kr">_</span><span class="p">)</span> <span class="kr">_</span> <span class="kr">_</span><span class="p">)</span> <span class="p">(</span><span class="kt">R:</span><span class="n">bs</span><span class="p">)</span> <span class="ow">=</span> <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">bs</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl"><span class="nf">decodeOne</span> <span class="p">(</span><span class="kt">Node</span> <span class="n">node</span> <span class="kr">_</span> <span class="kr">_</span> <span class="kr">_</span><span class="p">)</span> <span class="p">(</span><span class="kt">L:</span><span class="n">bs</span><span class="p">)</span> <span class="ow">=</span> <span class="n">decodeOne</span> <span class="n">node</span> <span class="n">bs</span>
+</span></span><span class="line"><span class="cl"><span class="nf">decodeOne</span> <span class="p">(</span><span class="kt">Node</span> <span class="kr">_</span> <span class="n">node</span> <span class="kr">_</span> <span class="kr">_</span><span class="p">)</span> <span class="p">(</span><span class="kt">R:</span><span class="n">bs</span><span class="p">)</span> <span class="ow">=</span> <span class="n">decodeOne</span> <span class="n">node</span> <span class="n">bs</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">-- decode from scratch </span>
+</span></span><span class="line"><span class="cl"><span class="nf">decode</span> <span class="ow">::</span> <span class="kt">HuffmanTree</span> <span class="n">a</span> <span class="ow">-&gt;</span> <span class="kt">Bits</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nf">decode</span> <span class="kr">_</span> <span class="kt">[]</span> <span class="ow">=</span> <span class="kt">[]</span>
+</span></span><span class="line"><span class="cl"><span class="nf">decode</span> <span class="n">t</span> <span class="n">bs</span> <span class="ow">=</span> 
+</span></span><span class="line"><span class="cl">    <span class="kr">let</span> <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">remainBits</span><span class="p">)</span> <span class="ow">=</span> <span class="n">decodeOne</span> <span class="n">t</span> <span class="n">bs</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">in</span> <span class="n">s</span><span class="kt">:</span> <span class="n">decode</span> <span class="n">t</span> <span class="n">remainBits</span>
+</span></span></code></pre></div><p>» <code>decodeOne</code>:</p>
+<ul>
+<li>
+<p>递归基：当前 <code>Bit</code> 对应的子树为 <code>Leaf</code> ，即完成了一个字符的解码，将该字符和剩余的 <code>Bit</code> 返回</p>
+</li>
+<li>
+<p>递归步：当前 <code>Bit</code> 对应的子树为 <code>Node</code> ，继续在该 <code>Node</code> 上递归解码，直到遇到递归基的情况</p>
+</li>
+</ul>
+<p>» <code>decode</code>:</p>
+<ul>
+<li>
+<p>递归基：<code>Bit</code> 列表为空，代表解码完毕.</p>
+</li>
+<li>
+<p>递归步：<code>Bit</code> 列表非空，将根结点和当前 <code>Bit</code> 列表交给 <code>decodeOne</code> 进行单字符的解码，单字符解码完毕后，继续对剩余的 <code>Bit</code> 在根节点上做单字符解码，直到 <code>Bit</code> 列表空.</p>
+</li>
+</ul>
+<p>» 如何回到根节点：</p>
+<p>一开始写的函数类型签名是这样的 <code>decode :: HuffmanTree a -&gt; HuffmanTree a -&gt; Bits -&gt; [a]</code>，两个 <code>HuffmanTree</code> 分别是原始根节点和当前所在的根节点，实现大致如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-hs" data-lang="hs"><span class="line"><span class="cl"><span class="nf">decode&#39;</span> <span class="ow">::</span> <span class="kt">HuffmanTree</span> <span class="n">a</span> <span class="ow">-&gt;</span> <span class="kt">HuffmanTree</span> <span class="n">a</span> <span class="ow">-&gt;</span> <span class="kt">Bits</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nf">decode&#39;</span> <span class="n">originT</span> <span class="p">(</span><span class="kt">Node</span> <span class="p">(</span><span class="kt">Leaf</span> <span class="n">s</span> <span class="kr">_</span><span class="p">)</span> <span class="kr">_</span> <span class="kr">_</span> <span class="kr">_</span><span class="p">)</span> <span class="p">(</span><span class="kt">L:</span><span class="n">bs</span><span class="p">)</span> <span class="ow">=</span> <span class="n">s</span><span class="kt">:</span> <span class="p">(</span><span class="n">decode&#39;</span> <span class="n">originT</span> <span class="n">originT</span> <span class="n">bs</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="c1">--snip--</span>
+</span></span></code></pre></div><p>看着不是很舒服，因为 <code>originT</code> 这个参数在递归过程中没有变过，所以稍稍改变了递归结构，写了上面的 <code>decode</code> 和 <code>decodeOne</code>. SICP 中使用闭包来记忆初始根节点.</p>
 <hr>
 <!-- ## 随便聊聊 -->
 <!--  -->
 <h2 id="组合数据-compound-data-的结构与解构-construct--extract"><a href="#%e7%bb%84%e5%90%88%e6%95%b0%e6%8d%ae-compound-data-%e7%9a%84%e7%bb%93%e6%9e%84%e4%b8%8e%e8%a7%a3%e6%9e%84-construct--extract" class="header-anchor"></a>组合数据 (compound data) 的结构与解构 (construct / extract)
-</h2><h3 id="sicp-blur-the-barrier-of-data-and-procedure"><a href="#sicp-blur-the-barrier-of-data-and-procedure" class="header-anchor"></a>SICP: Blur the Barrier of Data and Procedure
+</h2><h3 id="sicp-scheme-blur-the-barrier-of-data-and-procedure"><a href="#sicp-scheme-blur-the-barrier-of-data-and-procedure" class="header-anchor"></a>SICP (Scheme): Blur the Barrier of Data and Procedure
 </h3><p>我们希望将<strong>有结构</strong>的数据——而不是散落的变量——作为程序的组件，所以有了组合数据 (compound data)，比如 <code>struct</code> / <code>class</code>，于是出现的问题是，如何把用于构造 compound data 的字段重新提取出来，<strong>提取</strong>的行为需要保证的一件事情是：字段被提取前后行为是一致的，主要是编译器的工作，如果一定要在源代码的层面上去体现这一点，如何做到？在此处贴 SICP 2.1.3 (Page 124) 的示例代码：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scheme" data-lang="scheme"><span class="line"><span class="cl"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nb">cons </span><span class="nv">x</span> <span class="nv">y</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">dispatch</span> <span class="nv">m</span><span class="p">)</span>
