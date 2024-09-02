@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Haskell on fyshXplore</title>
-        <link>http://fyshxfish.github.io/tags/haskell/</link>
+        <link>http://localhost:1313/tags/haskell/</link>
         <description>Recent content in Haskell on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Mon, 02 Sep 2024 01:53:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/tags/haskell/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 02 Sep 2024 01:53:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/haskell/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Huffman 树的 Haskell 实现 - SICP § 2.3.4  | 组合数据的结构与解构</title>
-        <link>http://fyshxfish.github.io/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.3.4-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/</link>
+        <link>http://localhost:1313/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.3.4-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/</link>
         <pubDate>Mon, 02 Sep 2024 01:53:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.3.4-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/</guid>
+        <guid>http://localhost:1313/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.3.4-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/</guid>
         <description>&lt;p&gt;在看 SICP Section 2.3.4，对这节的组合 / 抽象有相当程度的参考.&lt;/p&gt;
 &lt;p&gt;其实我应该把代码放在某个仓库里，比如把一些数据结构的 Haskell 实现整合在一个仓库里，但是我还没有这么多可供整合的材料，所以以后再说吧.&lt;/p&gt;
 &lt;h2 id=&#34;huffman-树的-haskell-实现&#34;&gt;&lt;a href=&#34;#huffman-%e6%a0%91%e7%9a%84-haskell-%e5%ae%9e%e7%8e%b0&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Huffman 树的 Haskell 实现
@@ -43,7 +43,7 @@
 &lt;p&gt;&lt;code&gt;Node&lt;/code&gt;: 包含左右子树 &lt;code&gt;(HuffmanTree a)&lt;/code&gt;、子树符号并集 &lt;code&gt;[a]&lt;/code&gt; 和子树总权重 &lt;code&gt;Weight&lt;/code&gt; 的分支结点.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;huffman-树的操作&#34;&gt;&lt;a href=&#34;#huffman-%e6%a0%91%e7%9a%84%e6%93%8d%e4%bd%9c&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;&lt;strong&gt;Huffman 树的操作&lt;/strong&gt;
+&lt;h3 id=&#34;huffman-树的建立&#34;&gt;&lt;a href=&#34;#huffman-%e6%a0%91%e7%9a%84%e5%bb%ba%e7%ab%8b&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Huffman 树的建立
 &lt;/h3&gt;&lt;h4 id=&#34;权重获取&#34;&gt;&lt;a href=&#34;#%e6%9d%83%e9%87%8d%e8%8e%b7%e5%8f%96&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;权重获取
 &lt;/h4&gt;&lt;p&gt;通过模式匹配获取 &lt;code&gt;Leaf&lt;/code&gt;，&lt;code&gt;Node&lt;/code&gt;的权重.&lt;/p&gt;
 &lt;p&gt;&lt;em&gt;这里没有考虑空树 &lt;code&gt;Empty&lt;/code&gt; 的情况，如果考虑应该写 &lt;code&gt;getWeight :: HuffmanTree a -&amp;gt; Maybe Weight&lt;/code&gt;，匹配到 &lt;code&gt;Empty&lt;/code&gt; 时返回 &lt;code&gt;Nothing&lt;/code&gt;. 对一种类型做模式匹配时应该匹配到每一个构造子，这是标准的实践.&lt;/em&gt;&lt;/p&gt;
@@ -94,7 +94,8 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;initAndConstructHuffTree&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;::&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;HuffmanTree&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;HuffmanTree&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;initAndConstructHuffTree&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;constructHuffTree&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;.&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;initLeafs&lt;/span&gt; 
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;[TODO: 编码获取，解码]&lt;/p&gt;
+&lt;hr&gt;
 &lt;!-- ## 随便聊聊 --&gt;
 &lt;!--  --&gt;
 &lt;h2 id=&#34;组合数据-compound-data-的结构与解构-construct--extract&#34;&gt;&lt;a href=&#34;#%e7%bb%84%e5%90%88%e6%95%b0%e6%8d%ae-compound-data-%e7%9a%84%e7%bb%93%e6%9e%84%e4%b8%8e%e8%a7%a3%e6%9e%84-construct--extract&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;组合数据 (compound data) 的结构与解构 (construct / extract)
@@ -171,10 +172,10 @@ elemAt (Node _ _ r) (R:ds) = elemAt r ds
         </item>
         <item>
         <title>Nested Mappings 案例的 Haskell 实现 - SICP § 2.2.3  | List Monad </title>
-        <link>http://fyshxfish.github.io/p/nested-mappings-%E6%A1%88%E4%BE%8B%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.2.3-list-monad/</link>
+        <link>http://localhost:1313/p/nested-mappings-%E6%A1%88%E4%BE%8B%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.2.3-list-monad/</link>
         <pubDate>Thu, 29 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/p/nested-mappings-%E6%A1%88%E4%BE%8B%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.2.3-list-monad/</guid>
+        <guid>http://localhost:1313/p/nested-mappings-%E6%A1%88%E4%BE%8B%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.2.3-list-monad/</guid>
         <description>&lt;h2 id=&#34;问题&#34;&gt;&lt;a href=&#34;#%e9%97%ae%e9%a2%98&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;问题
 &lt;/h2&gt;&lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Problem&lt;/strong&gt;: Given a positive integer $n$, find all ordered pairs of distinct positive integers $i$ and $j$, where $ 1 \leq i \leq j \leq n $, such that $ i + j $ is prime.&lt;/p&gt;
@@ -223,10 +224,10 @@ elemAt (Node _ _ r) (R:ds) = elemAt r ds
         </item>
         <item>
         <title>Haskell开发环境 (GHCup &#43; HLS) 修复记录</title>
-        <link>http://fyshxfish.github.io/p/haskell%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</link>
+        <link>http://localhost:1313/p/haskell%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</link>
         <pubDate>Fri, 16 Aug 2024 00:00:00 +0000</pubDate>
         
-        <guid>http://fyshxfish.github.io/p/haskell%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</guid>
+        <guid>http://localhost:1313/p/haskell%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</guid>
         <description>&lt;!-- *不知不觉我已经在MacOS, Windows, Linux三种平台上配置过Haskell环境了，我觉得我已经是环境配置大师了，POWER!* --&gt;
 &lt;!-- # Mac上重新配置Haskell开发环境记录 --&gt;
 &lt;h2 id=&#34;ghcup-修复&#34;&gt;&lt;a href=&#34;#ghcup-%e4%bf%ae%e5%a4%8d&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;ghcup 修复

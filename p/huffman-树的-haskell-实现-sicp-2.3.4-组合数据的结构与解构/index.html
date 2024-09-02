@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-    <head><meta charset='utf-8'>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="在看 SICP Section 2.3.4，对这节的组合 / 抽象有相当程度的参考. 其实我应该把代码放在某个仓库里，比如把一些数据结构的 Haskell 实现整合在一个仓库里，但是我还">
 <title>Huffman 树的 Haskell 实现 - SICP § 2.3.4  | 组合数据的结构与解构</title>
 
-<link rel='canonical' href='http://fyshxfish.github.io/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.3.4-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/'>
+<link rel='canonical' href='http://localhost:1313/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.3.4-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/'>
 
 <link rel="stylesheet" href="/scss/style.min.b51788d43472ffad20b588167514427b70146d30bc2a1ee0490ab0db3b5da439.css"><meta property='og:title' content="Huffman 树的 Haskell 实现 - SICP § 2.3.4  | 组合数据的结构与解构">
 <meta property='og:description' content="在看 SICP Section 2.3.4，对这节的组合 / 抽象有相当程度的参考. 其实我应该把代码放在某个仓库里，比如把一些数据结构的 Haskell 实现整合在一个仓库里，但是我还">
-<meta property='og:url' content='http://fyshxfish.github.io/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.3.4-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/'>
+<meta property='og:url' content='http://localhost:1313/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.3.4-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/'>
 <meta property='og:site_name' content='fyshXplore'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='SICP' /><meta property='article:tag' content='Haskell' /><meta property='article:published_time' content='2024-09-02T01:53:00&#43;08:00'/><meta property='article:modified_time' content='2024-09-02T01:53:00&#43;08:00'/>
 <meta name="twitter:title" content="Huffman 树的 Haskell 实现 - SICP § 2.3.4  | 组合数据的结构与解构">
@@ -242,7 +242,7 @@
             <li><a href="#huffmantree-的递归定义"><code>HuffmanTree</code> 的递归定义</a></li>
           </ol>
         </li>
-        <li><a href="#huffman-树的操作"><strong>Huffman 树的操作</strong></a>
+        <li><a href="#huffman-树的建立">Huffman 树的建立</a>
           <ol>
             <li><a href="#权重获取">权重获取</a></li>
             <li><a href="#列表整理">列表整理</a></li>
@@ -367,7 +367,7 @@
 <p><code>Node</code>: 包含左右子树 <code>(HuffmanTree a)</code>、子树符号并集 <code>[a]</code> 和子树总权重 <code>Weight</code> 的分支结点.</p>
 </li>
 </ul>
-<h3 id="huffman-树的操作"><a href="#huffman-%e6%a0%91%e7%9a%84%e6%93%8d%e4%bd%9c" class="header-anchor"></a><strong>Huffman 树的操作</strong>
+<h3 id="huffman-树的建立"><a href="#huffman-%e6%a0%91%e7%9a%84%e5%bb%ba%e7%ab%8b" class="header-anchor"></a>Huffman 树的建立
 </h3><h4 id="权重获取"><a href="#%e6%9d%83%e9%87%8d%e8%8e%b7%e5%8f%96" class="header-anchor"></a>权重获取
 </h4><p>通过模式匹配获取 <code>Leaf</code>，<code>Node</code>的权重.</p>
 <p><em>这里没有考虑空树 <code>Empty</code> 的情况，如果考虑应该写 <code>getWeight :: HuffmanTree a -&gt; Maybe Weight</code>，匹配到 <code>Empty</code> 时返回 <code>Nothing</code>. 对一种类型做模式匹配时应该匹配到每一个构造子，这是标准的实践.</em></p>
@@ -418,7 +418,8 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nf">initAndConstructHuffTree</span> <span class="ow">::</span> <span class="p">[</span><span class="kt">HuffmanTree</span> <span class="n">a</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="kt">HuffmanTree</span> <span class="n">a</span>
 </span></span><span class="line"><span class="cl"><span class="nf">initAndConstructHuffTree</span> <span class="ow">=</span> <span class="n">constructHuffTree</span> <span class="o">.</span> <span class="n">initLeafs</span> 
-</span></span></code></pre></div><hr>
+</span></span></code></pre></div><p>[TODO: 编码获取，解码]</p>
+<hr>
 <!-- ## 随便聊聊 -->
 <!--  -->
 <h2 id="组合数据-compound-data-的结构与解构-construct--extract"><a href="#%e7%bb%84%e5%90%88%e6%95%b0%e6%8d%ae-compound-data-%e7%9a%84%e7%bb%93%e6%9e%84%e4%b8%8e%e8%a7%a3%e6%9e%84-construct--extract" class="header-anchor"></a>组合数据 (compound data) 的结构与解构 (construct / extract)
