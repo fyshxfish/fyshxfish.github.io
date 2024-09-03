@@ -388,7 +388,7 @@
 </span></span><span class="line"><span class="cl"><span class="nf">getWeight</span> <span class="p">(</span><span class="kt">Leaf</span> <span class="kr">_</span> <span class="n">w</span><span class="p">)</span> <span class="ow">=</span> <span class="n">w</span> 
 </span></span><span class="line"><span class="cl"><span class="nf">getWeight</span> <span class="p">(</span><span class="kt">Node</span> <span class="kr">_</span> <span class="kr">_</span> <span class="kr">_</span> <span class="n">w</span><span class="p">)</span> <span class="ow">=</span> <span class="n">w</span>
 </span></span></code></pre></div><h4 id="列表整理"><a href="#%e5%88%97%e8%a1%a8%e6%95%b4%e7%90%86" class="header-anchor"></a>列表整理
-</h4><p>Huffman 树建立的起点是一个有序的叶子列表，建立过程中也需要保持 [Huffman a] 列表的有序. 这一部分的函数的目标是将一个无序的列表整理成一个有序的列表.</p>
+</h4><p>Huffman 树建立的起点是一个有序的叶子列表，建立过程中也需要保持 <code>[HuffmanTree a]</code> 列表的有序. 这一部分的函数的目标是将一个无序的列表整理成一个有序的列表.</p>
 <p>» <code>adjoinLeaf</code>: 根据权重将 <code>HuffmanTree a</code> 插入到已有的有序 <code>[HuffmanTree a]</code> 中. （升序排列）</p>
 <p>» <code>initLeafs</code>: 将已有的无序叶子列表整理成有序的叶子列表.</p>
 <p>» <code>moveFirstNode</code>: Huffman Tree 建立过程中的 Merge 操作将把权重最小的两个 <code>HuffmanTree (Leaf / Node)</code> ——也就是列表前两个元素——组成一个新的 <code>Node</code>，所以 Merge 后需要将新生成的 Node 重新放置，利用此函数实现这个重置.</p>
@@ -529,7 +529,7 @@
 <!-- 抽象的一个意义是专注接口，忽视构建接口的细节. 从 基本类型 +  -->
 <p>constructor (<code>make-rat</code>) 和 selector (<code>denom</code>, <code>numer</code>) 是从基本类型 (primitive data type) 到组合数据 (compound data) 的一次抽象，给了程序（在此抽象层之上的函数，<code>add-rat</code> / <code>sub-rat</code>）一个更高的视角去看待数据，数据不再只是零散的整型/浮点型，而是可以被构造 / 提取 / 分析的 <code>rat</code>；在 <code>add-rat</code> / <code>sub-rat</code> 之上的函数无需关心 <code>rat</code> 的实现细节，只需使用 <code>add-rat</code> 等运算来解决问题即可. 程序的构造过程是抽象层次提升的过程.</p>
 <h3 id="haskell-pattern-match"><a href="#haskell-pattern-match" class="header-anchor"></a>Haskell: Pattern Match
-</h3><p>写过 Lisp 会更懂 Haskell 的好，就像写过 C 可以更好地体会 Python 开发的便捷，当然我只是考量语法的易用性，没有对于性能/应用场景等其他方面的比较.</p>
+</h3><p>写过 Lisp 会更懂 Haskell 的好，就像写过 C 可以更好地体会 Python 开发的便捷，这里只是考量语法的易用性，没有对于性能/应用场景等其他方面的比较.</p>
 <p>在 Scheme 中写 <code>(define (make-leaf symbol weight))</code>/ <code>(define (leaf? object )) </code> / <code>(define (weight tree))</code> 这样的函数写得太多的时刻，会想 Haskell 中是如何应对<strong>数据的构造和提取</strong>这个问题的呢？</p>
 <!-- <span style="color: #888888; font-size: 0.85em;">（构造子 constructor， 构造 compound data 的函数，确实是有这个词；提取子，不知道是不是有这个词，我编的，意思是将组成的 compound data 的字段提取出来，一个例子是圆点/成员运算符 `person.age` ）</span> -->
 <p><strong>构造：</strong></p>
@@ -538,7 +538,7 @@
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-hs" data-lang="hs"><span class="line"><span class="cl"><span class="kr">data</span> <span class="kt">Point</span> <span class="ow">=</span> <span class="kt">Point</span> <span class="kt">Int</span> <span class="kt">Int</span>
 </span></span></code></pre></div><p>定义了 <code>Point</code> 类型，对应一个构造子 <code>Point Int Int</code>，即后续可以通过此构造子构造 <code>Point</code> 类型的组合数据，比如 <code>p = Point 1 2</code>.</p>
 <p><strong>提取：</strong></p>
-<p><strong>模式匹配 Pattern Match.</strong></p>
+<p><mark><strong>模式匹配 Pattern Match</strong></mark></p>
 <p>一个简单的例子:</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-hs" data-lang="hs"><span class="line"><span class="cl"><span class="nf">getX</span> <span class="ow">::</span> <span class="kt">Point</span> <span class="ow">-&gt;</span> <span class="kt">Int</span> 
 </span></span><span class="line"><span class="cl"><span class="nf">getX</span> <span class="p">(</span><span class="kt">Point</span> <span class="n">x</span> <span class="kr">_</span><span class="p">)</span> <span class="ow">=</span> <span class="n">x</span>
