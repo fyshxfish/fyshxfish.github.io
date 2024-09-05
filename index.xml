@@ -291,6 +291,9 @@ elemAt (Node _ _ r) (R:ds) = elemAt r ds
 &lt;p&gt;此章中定义的 &lt;code&gt;flatMap&lt;/code&gt; 就是 Haskell 中的 &lt;code&gt;&amp;gt;&amp;gt;=&lt;/code&gt; (bind).&lt;/p&gt;
 &lt;!-- 把 SICP 中的 scheme 代码用 Haskell 重写一遍应该也挺有意义的. --&gt;
 &lt;!-- 以一己之力发起 RIIH 运动, Rewrite it in Haskell! --&gt;
+&lt;p&gt;参考 &lt;a class=&#34;link&#34; href=&#34;https://learnyouahaskell.github.io/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Learn You a Haskell for Great Good&lt;/a&gt; 中的相关内容：&lt;a class=&#34;link&#34; href=&#34;https://learnyouahaskell.github.io/a-fistful-of-monads.html#the-list-monad&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;A Fistful of Monads - the List Monad&lt;/a&gt;&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;list-monad-实现全排列&#34;&gt;&lt;a href=&#34;#list-monad-%e5%ae%9e%e7%8e%b0%e5%85%a8%e6%8e%92%e5%88%97&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;List Monad 实现全排列
 &lt;/h2&gt;&lt;p&gt;2024-08-30 补充： SICP page 168 集合全排列的 Haskell 实现&lt;/p&gt;
@@ -844,6 +847,15 @@ elemAt (Node _ _ r) (R:ds) = elemAt r ds
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;fm&#34;&gt;panic!&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;si&#34;&gt;{msg}&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;: &lt;/span&gt;&lt;span class=&#34;si&#34;&gt;{error:?}&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+        </item>
+        <item>
+        <title>Links</title>
+        <link>http://fyshxfish.github.io/links/</link>
+        <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+        
+        <guid>http://fyshxfish.github.io/links/</guid>
+        <description>&lt;p&gt;.~:^.+* 🫧 Friends Here 🫧 *+.^;~`&lt;/p&gt;
+</description>
         </item>
         <item>
         <title>Search</title>
