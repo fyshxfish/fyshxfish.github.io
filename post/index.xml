@@ -400,12 +400,12 @@ elemAt (Node _ _ r) (R:ds) = elemAt r ds
 </description>
         </item>
         <item>
-        <title>VSCode 配置与使用记录</title>
-        <link>http://fyshxfish.github.io/p/vscode-%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/</link>
+        <title>VSCode 配置记录</title>
+        <link>http://fyshxfish.github.io/p/vscode-%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95/</link>
         <pubDate>Mon, 26 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/p/vscode-%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/</guid>
-        <description>&lt;img src="http://fyshxfish.github.io/p/vscode-%E9%85%8D%E7%BD%AE%E4%B8%8E%E4%BD%BF%E7%94%A8%E8%AE%B0%E5%BD%95/cover.png" alt="Featured image of post VSCode 配置与使用记录" /&gt;&lt;p&gt;包含对于 VSCode 作为文本编辑器的配置，不包含对语言环境的配置.&lt;/p&gt;
+        <guid>http://fyshxfish.github.io/p/vscode-%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95/</guid>
+        <description>&lt;img src="http://fyshxfish.github.io/p/vscode-%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95/cover.png" alt="Featured image of post VSCode 配置记录" /&gt;&lt;p&gt;包含对于 VSCode 作为文本编辑器的配置，不包含对语言环境的配置.&lt;/p&gt;
 &lt;!-- 不严肃的随手记录，希望我能记得持续更新，因为我经常把一些记录扔在零零散散的位置，然后忘记这个记录的存在。 --&gt;
 &lt;h2 id=&#34;about-command-palette--ctrl--shift--p&#34;&gt;&lt;a href=&#34;#about-command-palette--ctrl--shift--p&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;About: Command Palette &amp;amp; Ctrl + Shift + P
 &lt;/h2&gt;&lt;p&gt;关于 &lt;mark&gt;&lt;strong&gt;Ctrl + Shift + P&lt;/strong&gt;&lt;/mark&gt;: 首先在这里贴蒋炎岩老师的&lt;a class=&#34;link&#34; href=&#34;https://www.bilibili.com/video/BV1y2421w7NK/?spm_id_from=333.999.0.0&amp;amp;vd_source=6a9d230feb804002a202ce26ff40a4cc&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -630,11 +630,11 @@ elemAt (Node _ _ r) (R:ds) = elemAt r ds
 </description>
         </item>
         <item>
-        <title>Haskell开发环境 (GHCup &#43; HLS) 修复记录</title>
-        <link>http://fyshxfish.github.io/p/haskell%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</link>
+        <title>Haskell 开发环境 (VSCode &#43; GHCup &#43; HLS) 修复记录</title>
+        <link>http://fyshxfish.github.io/p/haskell-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-vscode--ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</link>
         <pubDate>Fri, 16 Aug 2024 00:00:00 +0000</pubDate>
         
-        <guid>http://fyshxfish.github.io/p/haskell%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</guid>
+        <guid>http://fyshxfish.github.io/p/haskell-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-vscode--ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</guid>
         <description>&lt;!-- *不知不觉我已经在MacOS, Windows, Linux三种平台上配置过Haskell环境了，我觉得我已经是环境配置大师了，POWER!* --&gt;
 &lt;!-- # Mac上重新配置Haskell开发环境记录 --&gt;
 &lt;h2 id=&#34;ghcup-修复&#34;&gt;&lt;a href=&#34;#ghcup-%e4%bf%ae%e5%a4%8d&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;ghcup 修复
