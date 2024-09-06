@@ -312,23 +312,23 @@ elemAt (Node _ _ r) (R:ds) = elemAt r ds
 &lt;h2 id=&#34;ghcup-修复&#34;&gt;&lt;a href=&#34;#ghcup-%e4%bf%ae%e5%a4%8d&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;ghcup 修复
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;终端使用&lt;code&gt;ghcup&lt;/code&gt;直接被杀进程，输出大致如：&lt;code&gt;ghcup terminated by SIGKILL&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;终端使用 &lt;code&gt;ghcup&lt;/code&gt; 直接被杀进程，输出大致如：&lt;code&gt;ghcup terminated by SIGKILL&lt;/code&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;使用ghcup官网上的命令通过curl重新安装，会得到一句红色的报错信息&lt;code&gt;&amp;quot;ghcup --metadata-fetching-mode=Strict upgrade&amp;quot; failed!&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;使用 ghcup 官网上的命令通过 curl 重新安装，会得到一句红色的报错信息&lt;code&gt;&amp;quot;ghcup --metadata-fetching-mode=Strict upgrade&amp;quot; failed!&lt;/code&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;不知道是不是因为太久没打开了，&lt;strong&gt;解决方式&lt;/strong&gt;是清除缓存：&lt;code&gt;rm -rf ~/.ghcup/cache&lt;/code&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;ghcup-配置环境&#34;&gt;&lt;a href=&#34;#ghcup-%e9%85%8d%e7%bd%ae%e7%8e%af%e5%a2%83&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;ghcup 配置环境
-&lt;/h2&gt;&lt;p&gt;&lt;code&gt;ghcup tui&lt;/code&gt;下载和设置HLS和ghc（以及stack, cabal）版本，&lt;/p&gt;
+&lt;/h2&gt;&lt;p&gt;&lt;code&gt;ghcup tui&lt;/code&gt;下载和设置 HLS 和 ghc（以及 stack, cabal）版本，&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;ghc版本：注意ghc的备注信息中需要有hls-powered，不知道为什么我的mac上的版本是9.4.7，正好没有hls支持（9.8.4是有hls支持的），当时下载的时机这么刚好吗。&lt;/p&gt;
+&lt;p&gt;ghc 版本：注意 ghc 的备注信息中需要有 hls-powered，不知道为什么我的 mac 上的版本是 9.4.7，正好没有 hls 支持（9.8.4是有 hls 支持的），当时下载的时机这么刚好吗。&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;HLS版本：VSCode的Haskell插件会要求HLS是最新的版本，所以就直接下最新的版本吧，VSCode弹出提示&amp;quot;Haskell插件需要2.9.0.1的HLS，是否下载&amp;quot;，这里的下载比较慢，而且看不到进度，所以可以直接在终端的ghcup下载，然后回到VSC（重启？反正我重启了），插件就可以正常使用了。&lt;/p&gt;
+&lt;p&gt;HLS 版本：VSCode 的 Haskell 插件会要求 HLS 是最新的版本，所以就直接下最新的版本吧，VSCode 弹出提示&amp;quot; Haskell 插件需要 2.9.0.1 的 HLS，是否下载&amp;quot;，这里的下载比较慢，而且看不到进度，所以可以直接在终端的 ghcup 下载，然后回到VSC（重启？反正我重启了），插件就可以正常使用了。&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;HLS 无法正常工作也可以尝试通过 &lt;code&gt;ghcup tui&lt;/code&gt; 下载并切换 HLS 的版本。&lt;/p&gt;
@@ -337,13 +337,13 @@ elemAt (Node _ _ r) (R:ds) = elemAt r ds
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;一个网络问题&#34;&gt;&lt;a href=&#34;#%e4%b8%80%e4%b8%aa%e7%bd%91%e7%bb%9c%e9%97%ae%e9%a2%98&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;一个网络问题
-&lt;/h2&gt;&lt;p&gt;在第一步中修复ghcup之后，使用ghcup会遇到这样的报错：&lt;/p&gt;
+&lt;/h2&gt;&lt;p&gt;在第一步中修复 ghcup 之后，使用 ghcup 会遇到这样的报错：&lt;/p&gt;
 &lt;img src=&#34;curl_error.png&#34; alt=&#34;curl_error&#34; style=&#34;zoom:75%;  box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7)&#34; /&gt;
-&lt;p&gt;根据提示执行：&lt;code&gt;ghcup config set downloader Wget&lt;/code&gt;，再次使用ghcup，得到差不多一样的报错：&lt;/p&gt;
+&lt;p&gt;根据提示执行：&lt;code&gt;ghcup config set downloader Wget&lt;/code&gt;，再次使用 ghcup，得到差不多一样的报错：&lt;/p&gt;
 &lt;!-- ![](https://pic.imge.cc/2024/08/16/66bf0ff6054ff.png) --&gt;
 &lt;img src=&#34;wget_error.png&#34; alt=&#34;wget_error&#34; style=&#34;zoom:75%;  box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7)&#34; /&gt;
-&lt;p&gt;关于yaml：尝试过最后一行的removing &amp;hellip;yaml，结果为本机中确实不存在这个文件，所以不是这里的问题。&lt;/p&gt;
-&lt;p&gt;解决方式：复制clash的终端代理命令，就不会报这个错了，同时下载速度得到了极大提升。&lt;/p&gt;
+&lt;p&gt;关于 yaml：尝试过最后一行的 removing &amp;hellip;yaml，结果为本机中确实不存在这个文件，所以不是这里的问题。&lt;/p&gt;
+&lt;p&gt;解决方式：复制 clash 的终端代理命令，就不会报这个错了，同时下载速度得到了极大提升。&lt;/p&gt;
 </description>
         </item>
         
