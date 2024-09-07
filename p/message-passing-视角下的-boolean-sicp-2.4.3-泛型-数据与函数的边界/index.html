@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-    <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="问题 Problem: Given a positive integer $n$, find all ordered pairs of distinct positive integers $i$ and $j$, where $ 1 \\leq i \\leq j \\leq n $, such that $ i + j $ is prime.\n">
-<title>Nested Mappings 案例的 Haskell 实现 - SICP § 2.2.3  | List Monad </title>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="关于泛型 在 2.4.3 这一节中，作者构建了一个泛型系统，泛型是什么呢，是一种抽象；对于具备某种类似特性的若干个类型，如果我们可以对于某个类型，依赖这个特性写一个函数，那么我们希望将这个函数推广到具备这个特性的其他类型，例如：对于两个 Int 类型的值，我可以对其最大值进行计算（max Int Int），因为 Int 是可以比较（Orderable）的，即，Int 类型提供了 &gt; / &lt; / &hellip; 等比较函数的实现，那么，对于其他可比的（提供比较函数实现的）类型，我们希望可以将 max 推广到这些类型：\n">
+<title>Message Passing 视角下的 Boolean - SICP § 2.4.3 | 泛型 | 数据与函数的边界 </title>
 
-<link rel='canonical' href='http://fyshxfish.github.io/p/nested-mappings-%E6%A1%88%E4%BE%8B%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.2.3-list-monad/'>
+<link rel='canonical' href='http://localhost:1313/p/message-passing-%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84-boolean-sicp-2.4.3-%E6%B3%9B%E5%9E%8B-%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9A%84%E8%BE%B9%E7%95%8C/'>
 
-<link rel="stylesheet" href="/scss/style.min.b51788d43472ffad20b588167514427b70146d30bc2a1ee0490ab0db3b5da439.css"><meta property='og:title' content="Nested Mappings 案例的 Haskell 实现 - SICP § 2.2.3  | List Monad ">
-<meta property='og:description' content="问题 Problem: Given a positive integer $n$, find all ordered pairs of distinct positive integers $i$ and $j$, where $ 1 \\leq i \\leq j \\leq n $, such that $ i + j $ is prime.\n">
-<meta property='og:url' content='http://fyshxfish.github.io/p/nested-mappings-%E6%A1%88%E4%BE%8B%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.2.3-list-monad/'>
+<link rel="stylesheet" href="/scss/style.min.b51788d43472ffad20b588167514427b70146d30bc2a1ee0490ab0db3b5da439.css"><meta property='og:title' content="Message Passing 视角下的 Boolean - SICP § 2.4.3 | 泛型 | 数据与函数的边界 ">
+<meta property='og:description' content="关于泛型 在 2.4.3 这一节中，作者构建了一个泛型系统，泛型是什么呢，是一种抽象；对于具备某种类似特性的若干个类型，如果我们可以对于某个类型，依赖这个特性写一个函数，那么我们希望将这个函数推广到具备这个特性的其他类型，例如：对于两个 Int 类型的值，我可以对其最大值进行计算（max Int Int），因为 Int 是可以比较（Orderable）的，即，Int 类型提供了 &gt; / &lt; / &hellip; 等比较函数的实现，那么，对于其他可比的（提供比较函数实现的）类型，我们希望可以将 max 推广到这些类型：\n">
+<meta property='og:url' content='http://localhost:1313/p/message-passing-%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84-boolean-sicp-2.4.3-%E6%B3%9B%E5%9E%8B-%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9A%84%E8%BE%B9%E7%95%8C/'>
 <meta property='og:site_name' content='fyshXplore'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='SICP' /><meta property='article:tag' content='Haskell' /><meta property='article:published_time' content='2024-08-29T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2024-08-29T00:00:00&#43;08:00'/>
-<meta name="twitter:title" content="Nested Mappings 案例的 Haskell 实现 - SICP § 2.2.3  | List Monad ">
-<meta name="twitter:description" content="问题 Problem: Given a positive integer $n$, find all ordered pairs of distinct positive integers $i$ and $j$, where $ 1 \\leq i \\leq j \\leq n $, such that $ i + j $ is prime.\n"><style>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='SICP' /><meta property='article:tag' content='Scheme' /><meta property='article:tag' content='Haskell' /><meta property='article:tag' content='λ calculus' /><meta property='article:published_time' content='2024-09-07T23:18:00&#43;08:00'/><meta property='article:modified_time' content='2024-09-07T23:18:00&#43;08:00'/>
+<meta name="twitter:title" content="Message Passing 视角下的 Boolean - SICP § 2.4.3 | 泛型 | 数据与函数的边界 ">
+<meta name="twitter:description" content="关于泛型 在 2.4.3 这一节中，作者构建了一个泛型系统，泛型是什么呢，是一种抽象；对于具备某种类似特性的若干个类型，如果我们可以对于某个类型，依赖这个特性写一个函数，那么我们希望将这个函数推广到具备这个特性的其他类型，例如：对于两个 Int 类型的值，我可以对其最大值进行计算（max Int Int），因为 Int 是可以比较（Orderable）的，即，Int 类型提供了 &gt; / &lt; / &hellip; 等比较函数的实现，那么，对于其他可比的（提供比较函数实现的）类型，我们希望可以将 max 推广到这些类型：\n"><style>
   :root {
      
     --zh-font-family: "Noto Serif SC";
@@ -250,10 +250,8 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#问题">问题</a></li>
-    <li><a href="#haskell-实现">Haskell 实现</a></li>
-    <li><a href="#关于-list-monad-context-嵌套-lambda-与-do-notation">关于 List Monad: Context, 嵌套 lambda 与 do-notation</a></li>
-    <li><a href="#list-monad-实现全排列">List Monad 实现全排列</a></li>
+    <li><a href="#关于泛型">关于泛型</a></li>
+    <li><a href="#intelligent-operations-vs-intelligent-data-objects">Intelligent Operations V.S. Intelligent Data Objects</a></li>
   </ol>
 </nav>
         </div>
@@ -281,7 +279,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/nested-mappings-%E6%A1%88%E4%BE%8B%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.2.3-list-monad/">Nested Mappings 案例的 Haskell 实现 - SICP § 2.2.3  | List Monad </a>
+            <a href="/p/message-passing-%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84-boolean-sicp-2.4.3-%E6%B3%9B%E5%9E%8B-%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9A%84%E8%BE%B9%E7%95%8C/">Message Passing 视角下的 Boolean - SICP § 2.4.3 | 泛型 | 数据与函数的边界 </a>
         </h2>
     
         
@@ -303,7 +301,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Aug 29, 2024</time>
+                <time class="article-time--published">Sep 7, 2024</time>
             </div>
         
 
@@ -333,54 +331,16 @@
     <section class="article-content">
     
     
-    <h2 id="问题"><a href="#%e9%97%ae%e9%a2%98" class="header-anchor"></a>问题
-</h2><blockquote>
-<p><strong>Problem</strong>: Given a positive integer $n$, find all ordered pairs of distinct positive integers $i$ and $j$, where $ 1 \leq i \leq j \leq n $, such that $ i + j $ is prime.</p>
-</blockquote>
-<h2 id="haskell-实现"><a href="#haskell-%e5%ae%9e%e7%8e%b0" class="header-anchor"></a>Haskell 实现
-</h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-haskell" data-lang="haskell"><span class="line"><span class="cl"><span class="nf">isDivisible</span> <span class="ow">::</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="kt">Bool</span> 
-</span></span><span class="line"><span class="cl"><span class="nf">isDivisible</span> <span class="n">x</span> <span class="n">y</span> 
-</span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="n">mod</span> <span class="n">x</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">0</span>  <span class="ow">=</span> <span class="kt">True</span> 
-</span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="n">otherwise</span>     <span class="ow">=</span> <span class="kt">False</span> 
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nf">isPrime</span> <span class="ow">::</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="kt">Bool</span>
-</span></span><span class="line"><span class="cl"><span class="nf">isPrime</span> <span class="n">x</span> 
-</span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="mi">2</span>    <span class="ow">=</span> <span class="kt">True</span> 
-</span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="n">otherwise</span> <span class="ow">=</span> <span class="n">not</span> <span class="p">(</span><span class="n">foldr</span> <span class="p">(</span><span class="o">||</span><span class="p">)</span> <span class="kt">False</span> <span class="p">(</span><span class="n">map</span> <span class="p">(</span><span class="n">isDivisible</span> <span class="n">x</span><span class="p">)</span> <span class="p">[</span><span class="mi">2</span><span class="o">..</span><span class="p">((</span><span class="n">floor</span> <span class="o">.</span> <span class="n">sqrt</span> <span class="o">.</span> <span class="n">fromIntegral</span><span class="p">)</span> <span class="n">x</span><span class="p">)]))</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nf">genPairs</span> <span class="ow">::</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="p">[((</span><span class="kt">Int</span><span class="p">,</span> <span class="kt">Int</span><span class="p">),</span> <span class="kt">Int</span><span class="p">)]</span>
-</span></span><span class="line"><span class="cl"><span class="nf">genPairs</span> <span class="n">n</span> <span class="ow">=</span> <span class="kr">do</span> 
-</span></span><span class="line"><span class="cl">    <span class="n">x</span> <span class="ow">&lt;-</span> <span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="n">n</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">    <span class="n">y</span> <span class="ow">&lt;-</span> <span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span>
-</span></span><span class="line"><span class="cl">    <span class="n">return</span> <span class="p">((</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nf">sumPrimePairs</span> <span class="ow">::</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="p">[((</span><span class="kt">Int</span><span class="p">,</span> <span class="kt">Int</span><span class="p">),</span> <span class="kt">Int</span><span class="p">)]</span>
-</span></span><span class="line"><span class="cl"><span class="nf">sumPrimePairs</span> <span class="ow">=</span> <span class="p">(</span><span class="n">filter</span> <span class="p">(</span><span class="nf">\</span><span class="p">(</span><span class="kr">_</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span> <span class="ow">-&gt;</span> <span class="p">(</span><span class="n">isPrime</span> <span class="n">s</span><span class="p">)))</span> <span class="o">.</span> <span class="n">genPairs</span>
-</span></span></code></pre></div><h2 id="关于-list-monad-context-嵌套-lambda-与-do-notation"><a href="#%e5%85%b3%e4%ba%8e-list-monad-context-%e5%b5%8c%e5%a5%97-lambda-%e4%b8%8e-do-notation" class="header-anchor"></a>关于 List Monad: Context, 嵌套 lambda 与 do-notation
-</h2><p>Context of <strong>List Monad</strong> : 不确定的结果.</p>
-<!-- 今天吃饭回来想到 List Monad 的 Context 和这个问题的  -->
-<p>此章的标题是 Nested Mappings, 在代码层面的表现是嵌套的 lambda, Haskell 中的 do-notation 展开形式就是嵌套的 lambda, 前者是后者的语法糖.</p>
-<p>此章中定义的 <code>flatMap</code> 就是 Haskell 中的 <code>&gt;&gt;=</code> (bind).</p>
-<!-- 把 SICP 中的 scheme 代码用 Haskell 重写一遍应该也挺有意义的. -->
-<!-- 以一己之力发起 RIIH 运动, Rewrite it in Haskell! -->
-<p>参考 <a class="link" href="https://learnyouahaskell.github.io/"  target="_blank" rel="noopener"
-    >Learn You a Haskell for Great Good</a> 中的相关内容：<a class="link" href="https://learnyouahaskell.github.io/a-fistful-of-monads.html#the-list-monad"  target="_blank" rel="noopener"
-    >A Fistful of Monads - the List Monad</a></p>
-<hr>
-<h2 id="list-monad-实现全排列"><a href="#list-monad-%e5%ae%9e%e7%8e%b0%e5%85%a8%e6%8e%92%e5%88%97" class="header-anchor"></a>List Monad 实现全排列
-</h2><p>2024-08-30 补充： SICP page 168 集合全排列的 Haskell 实现</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-haskell" data-lang="haskell"><span class="line"><span class="cl"><span class="nf">permutations</span> <span class="ow">::</span> <span class="kt">Eq</span> <span class="n">a</span> <span class="ow">=&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[[</span><span class="n">a</span><span class="p">]]</span>
-</span></span><span class="line"><span class="cl"><span class="nf">permutations</span> <span class="kt">[]</span> <span class="ow">=</span> <span class="p">[</span><span class="kt">[]</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nf">permutations</span> <span class="n">xs</span> <span class="ow">=</span> <span class="kr">do</span>
-</span></span><span class="line"><span class="cl">    <span class="n">x</span> <span class="ow">&lt;-</span> <span class="n">xs</span> 
-</span></span><span class="line"><span class="cl">    <span class="n">perm</span> <span class="ow">&lt;-</span> <span class="n">permutations</span> <span class="o">$</span> <span class="n">removeByElem</span> <span class="n">x</span> <span class="n">xs</span>
-</span></span><span class="line"><span class="cl">    <span class="n">return</span> <span class="p">(</span><span class="n">x</span><span class="kt">:</span> <span class="n">perm</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nf">removeByElem</span> <span class="ow">::</span> <span class="kt">Eq</span> <span class="n">a</span> <span class="ow">=&gt;</span> <span class="n">a</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nf">removeByElem</span> <span class="n">x</span> <span class="ow">=</span> <span class="n">filter</span> <span class="p">(</span><span class="o">/=</span> <span class="n">x</span><span class="p">)</span>
-</span></span></code></pre></div><!-- 从 scheme 实现， 到 Haskell `map + lambda` 实现，到 List Monad `do-notation` 实现，  -->
-
+    <h2 id="关于泛型"><a href="#%e5%85%b3%e4%ba%8e%e6%b3%9b%e5%9e%8b" class="header-anchor"></a>关于泛型
+</h2><p>在 2.4.3 这一节中，作者构建了一个泛型系统，泛型是什么呢，是一种抽象；对于具备某种类似<strong>特性</strong>的若干个类型，如果我们可以对于某个类型，依赖这个<strong>特性</strong>写一个函数，那么我们希望将这个函数推广到具备这个<strong>特性</strong>的其他类型，例如：对于两个 <code>Int</code> 类型的值，我可以对其最大值进行计算（<code>max Int Int</code>），因为 <code>Int</code> 是<strong>可以比较（Orderable）<strong>的，即，<code>Int</code> 类型提供了 <code>&gt;</code> / <code>&lt;</code> / &hellip; 等比较函数的实现，那么，对于其他</strong>可比</strong>的（提供比较函数实现的）类型，我们希望可以将 <code>max</code> 推广到这些类型：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-hs" data-lang="hs"><span class="line"><span class="cl"><span class="nf">max</span> <span class="ow">::</span> <span class="p">(</span><span class="kt">Ord</span> <span class="n">a</span><span class="p">)</span> <span class="ow">=&gt;</span> <span class="n">a</span> <span class="ow">-&gt;</span> <span class="n">a</span> <span class="ow">-&gt;</span> <span class="n">a</span>
+</span></span><span class="line"><span class="cl"><span class="nf">max</span> <span class="n">x</span> <span class="n">y</span> <span class="ow">=</span> <span class="kr">if</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="n">y</span> <span class="kr">then</span> <span class="n">x</span> <span class="kr">else</span> <span class="n">y</span>
+</span></span></code></pre></div><p>我们将<strong>可比</strong>这个特性抽象成 <code>Ord</code> 类型类（type class），<code>max</code> 函数可以作用于任意该类的成员类型， .</p>
+<p>当我们在任意 <code>Ord</code> 类的类型上应用 <code>max</code> 函数时，编译器会帮我们<u>找到</u>对应类型的 <code>&gt;=</code> 的具体实现.</p>
+<p>那么如何<u>找到</u>？一种答案是：查表. 当我需要对 <code>Float</code> (type) 执行 <code>max</code> (operation) ，那么我在 type × operation 的笛卡尔积中找到 (<code>Float</code>, <code>max</code>) 对应的表项就可以了.</p>
+<img src="generic_table.png" alt="generic_table" style="zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);" />
+<h2 id="intelligent-operations-vs-intelligent-data-objects"><a href="#intelligent-operations-vs-intelligent-data-objects" class="header-anchor"></a>Intelligent Operations V.S. Intelligent Data Objects
+</h2>
 </section>
 
 
@@ -390,7 +350,11 @@
         
             <a href="/tags/sicp/">SICP</a>
         
+            <a href="/tags/scheme/">Scheme</a>
+        
             <a href="/tags/haskell/">Haskell</a>
+        
+            <a href="/tags/%CE%BB-calculus/">Λ Calculus</a>
         
     </section>
 
@@ -448,12 +412,12 @@
             
                 
 <article class="">
-    <a href="/p/message-passing-%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84-bool-sicp-2.4.3-%E6%B3%9B%E5%9E%8B-%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9A%84%E8%BE%B9%E7%95%8C/">
+    <a href="/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.3.4-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">Message Passing 视角下的 Bool - SICP § 2.4.3 | 泛型 | 数据与函数的边界 </h2>
+            <h2 class="article-title">Huffman 树的 Haskell 实现 - SICP § 2.3.4  | 组合数据的结构与解构</h2>
         </div>
     </a>
 </article>
@@ -461,12 +425,12 @@
             
                 
 <article class="">
-    <a href="/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.3.4-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/">
+    <a href="/p/nested-mappings-%E6%A1%88%E4%BE%8B%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.2.3-list-monad/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">Huffman 树的 Haskell 实现 - SICP § 2.3.4  | 组合数据的结构与解构</h2>
+            <h2 class="article-title">Nested Mappings 案例的 Haskell 实现 - SICP § 2.2.3  | List Monad </h2>
         </div>
     </a>
 </article>

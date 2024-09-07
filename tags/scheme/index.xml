@@ -6,7 +6,76 @@
         <description>Recent content in Scheme on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Thu, 29 Aug 2024 00:00:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/tags/scheme/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 07 Sep 2024 23:18:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/tags/scheme/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Message Passing 视角下的 Bool - SICP § 2.4.3 | 泛型 | 数据与函数的边界 </title>
+        <link>http://fyshxfish.github.io/p/message-passing-%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84-bool-sicp-2.4.3-%E6%B3%9B%E5%9E%8B-%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9A%84%E8%BE%B9%E7%95%8C/</link>
+        <pubDate>Sat, 07 Sep 2024 23:18:00 +0800</pubDate>
+        
+        <guid>http://fyshxfish.github.io/p/message-passing-%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84-bool-sicp-2.4.3-%E6%B3%9B%E5%9E%8B-%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9A%84%E8%BE%B9%E7%95%8C/</guid>
+        <description>&lt;h2 id=&#34;关于泛型&#34;&gt;&lt;a href=&#34;#%e5%85%b3%e4%ba%8e%e6%b3%9b%e5%9e%8b&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;关于泛型
+&lt;/h2&gt;&lt;p&gt;在 2.4.3 这一节中，作者构建了一个泛型系统，泛型是什么呢，是一种抽象；对于具备某种类似&lt;strong&gt;特性&lt;/strong&gt;的若干个类型，如果我们可以对于某个类型，依赖这个&lt;strong&gt;特性&lt;/strong&gt;写一个函数，那么我们希望将这个函数推广到具备这个&lt;strong&gt;特性&lt;/strong&gt;的其他类型，例如：对于两个 &lt;code&gt;Int&lt;/code&gt; 类型的值，我可以对其最大值进行计算（&lt;code&gt;max Int Int&lt;/code&gt;），因为 &lt;code&gt;Int&lt;/code&gt; 是&lt;strong&gt;可以比较 (Orderable)&lt;/strong&gt; 的，即，&lt;code&gt;Int&lt;/code&gt; 类型提供了 &lt;code&gt;&amp;gt;&lt;/code&gt; / &lt;code&gt;&amp;lt;&lt;/code&gt; / &amp;hellip; 等比较函数的实现，那么，对于其他&lt;strong&gt;可比&lt;/strong&gt;的（提供比较函数实现的）类型，我们希望可以将 &lt;code&gt;max&lt;/code&gt; 推广到这些类型：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-haskell&#34; data-lang=&#34;haskell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;max&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;::&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;Ord&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;max&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;y&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;y&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;then&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;y&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;我们将&lt;strong&gt;可比&lt;/strong&gt;这个特性抽象成 &lt;code&gt;Ord&lt;/code&gt; 类型类（type class），&lt;code&gt;max&lt;/code&gt; 函数可以作用于任意该类的成员类型， .&lt;/p&gt;
+&lt;p&gt;当我们在任意 &lt;code&gt;Ord&lt;/code&gt; 类的类型上应用 &lt;code&gt;max&lt;/code&gt; 函数时，编译器会帮我们&lt;u&gt;找到&lt;/u&gt;对应类型的 &lt;code&gt;&amp;gt;=&lt;/code&gt; 的具体实现.&lt;/p&gt;
+&lt;p&gt;那么如何&lt;u&gt;找到&lt;/u&gt;？一种答案是：查表. 当我需要对 &lt;code&gt;Float&lt;/code&gt; (type) 执行 &lt;code&gt;max&lt;/code&gt; (operation) ，那么我在 type × operation 的笛卡尔积中找到 (&lt;code&gt;Float&lt;/code&gt;, &lt;code&gt;max&lt;/code&gt;) 对应的函数 (也就是 &lt;code&gt;Float&lt;/code&gt; 对应的 &lt;code&gt;max&lt;/code&gt; 非泛型具体实现) 就可以了.&lt;/p&gt;
+&lt;img src=&#34;generic_table.png&#34; alt=&#34;generic_table&#34; style=&#34;zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
+&lt;!-- ## Intelligent Operations V.S. Intelligent Data Objects --&gt;
+&lt;h2 id=&#34;intelligent-data-objects&#34;&gt;&lt;a href=&#34;#intelligent-data-objects&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Intelligent Data Objects
+&lt;/h2&gt;&lt;p&gt;在本文上一节中提到的泛型中，数据作为被操作的客体存在，数据的工作就是&lt;strong&gt;被&lt;/strong&gt;函数作用，我们的泛型针对的是函数（operation），在我们的预期中，我们希望函数是聪明的，比如 &lt;code&gt;max :: (Ord a) =&amp;gt; a -&amp;gt; a -&amp;gt; a&lt;/code&gt; 是聪明的，对于它所作用的具体类型，它可以&amp;quot;自动&amp;quot;转变成该类型对应的非泛型具体实现 &lt;code&gt;max :: Int -&amp;gt; Int -&amp;gt; Int&lt;/code&gt;. 而数据只需要等待被作用就可以了.&lt;/p&gt;
+&lt;p&gt;𝐖𝐡𝐚𝐭 𝐢𝐟: 让泛型函数找到数据对应的具体实现 → 让数据找到函数对应的具体实现？这样如何呢？&lt;/p&gt;
+&lt;p&gt;示例：让 &lt;code&gt;Bool&lt;/code&gt; (&lt;code&gt;tru&lt;/code&gt; / &lt;code&gt;fls&lt;/code&gt;) 找到 &lt;code&gt;and&lt;/code&gt; / &lt;code&gt;or&lt;/code&gt; 的具体实现：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-scheme&#34; data-lang=&#34;scheme&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;define &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;tru&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;lambda &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;op&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;cond &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;eq? &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;op&lt;/span&gt; &lt;span class=&#34;ss&#34;&gt;&amp;#39;and&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;tru_logic_and&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;              &lt;span class=&#34;p&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;eq? &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;op&lt;/span&gt; &lt;span class=&#34;ss&#34;&gt;&amp;#39;or&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;  &lt;span class=&#34;nv&#34;&gt;tru_logic_or&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;define &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;fls&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;lambda &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;op&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;cond &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;eq? &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;op&lt;/span&gt; &lt;span class=&#34;ss&#34;&gt;&amp;#39;and&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;fls_logic_and&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;              &lt;span class=&#34;p&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;eq? &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;op&lt;/span&gt; &lt;span class=&#34;ss&#34;&gt;&amp;#39;or&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;  &lt;span class=&#34;nv&#34;&gt;fls_logic_or&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;define &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;logic&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;op&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;x&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;x&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;op&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在 REPL 中运行：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1 ]=&amp;gt; tru
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;;Value: #[compound-procedure 13 tru]
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1 ]=&amp;gt; fls
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;;Value: #[compound-procedure 12 fls]
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1 ]=&amp;gt; (logic &amp;#39;and tru fls)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;;Value: #[compound-procedure 12 fls]
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1 ]=&amp;gt; (logic &amp;#39;or (logic &amp;#39;and fls fls) tru)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;;Value: #[compound-procedure 13 tru]
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;陈述待补充&lt;/p&gt;
+&lt;hr&gt;
+&lt;p&gt;睡觉了 Sun Sep  8 00:30:22 CST 2024&lt;/p&gt;
+&lt;p&gt;[TODO]:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Haskell 中的 &lt;code&gt;$&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;丘奇数&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;看待数据的视角有很多，内存与指针、代数数据类型、数据即程序（也就是 SICP / 本文中想陈述的视角）&amp;hellip; 对于 # 数据即程序 # 这样的情况，也许我们更加关注的是:数据可以为我们提供什么方法 / 函数&lt;/p&gt;
+</description>
+        </item>
+        <item>
         <title>Scheme: `let` 的语义 (feat. `if` 的语义)</title>
         <link>http://fyshxfish.github.io/p/scheme-let-%E7%9A%84%E8%AF%AD%E4%B9%89-feat.-if-%E7%9A%84%E8%AF%AD%E4%B9%89/</link>
         <pubDate>Thu, 29 Aug 2024 00:00:00 +0800</pubDate>
