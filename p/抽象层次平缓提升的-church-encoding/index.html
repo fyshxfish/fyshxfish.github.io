@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" let 的语义 结论: let scope 会立即求值 (包括绑定和绑定之后的表达式, 也就是 let 之外的一层括号所包裹的范围), 即使你把 let 嵌套在内层函数里而且这个函数还完全没有被调用.\n">
-<title>Scheme: `let` 的语义 (feat. `if` 的语义)</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" Motivation: Abstraction Level Up! 对 2 应用 $3$ 次 square\n1 ]=&gt; (square (square (square 2))) ;Value: 256 2 → x: 对某个数 x 应用 $3$ 次 square\n">
+<title>抽象层次平缓提升的 Church Encoding</title>
 
-<link rel='canonical' href='http://fyshxfish.github.io/p/scheme-let-%E7%9A%84%E8%AF%AD%E4%B9%89-feat.-if-%E7%9A%84%E8%AF%AD%E4%B9%89/'>
+<link rel='canonical' href='http://fyshxfish.github.io/p/%E6%8A%BD%E8%B1%A1%E5%B1%82%E6%AC%A1%E5%B9%B3%E7%BC%93%E6%8F%90%E5%8D%87%E7%9A%84-church-encoding/'>
 
-<link rel="stylesheet" href="/scss/style.min.b51788d43472ffad20b588167514427b70146d30bc2a1ee0490ab0db3b5da439.css"><meta property='og:title' content="Scheme: `let` 的语义 (feat. `if` 的语义)">
-<meta property='og:description' content=" let 的语义 结论: let scope 会立即求值 (包括绑定和绑定之后的表达式, 也就是 let 之外的一层括号所包裹的范围), 即使你把 let 嵌套在内层函数里而且这个函数还完全没有被调用.\n">
-<meta property='og:url' content='http://fyshxfish.github.io/p/scheme-let-%E7%9A%84%E8%AF%AD%E4%B9%89-feat.-if-%E7%9A%84%E8%AF%AD%E4%B9%89/'>
+<link rel="stylesheet" href="/scss/style.min.b51788d43472ffad20b588167514427b70146d30bc2a1ee0490ab0db3b5da439.css"><meta property='og:title' content="抽象层次平缓提升的 Church Encoding">
+<meta property='og:description' content=" Motivation: Abstraction Level Up! 对 2 应用 $3$ 次 square\n1 ]=&gt; (square (square (square 2))) ;Value: 256 2 → x: 对某个数 x 应用 $3$ 次 square\n">
+<meta property='og:url' content='http://fyshxfish.github.io/p/%E6%8A%BD%E8%B1%A1%E5%B1%82%E6%AC%A1%E5%B9%B3%E7%BC%93%E6%8F%90%E5%8D%87%E7%9A%84-church-encoding/'>
 <meta property='og:site_name' content='fyshXplore'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='SICP' /><meta property='article:tag' content='Scheme' /><meta property='article:published_time' content='2024-08-29T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2024-08-29T00:00:00&#43;08:00'/>
-<meta name="twitter:title" content="Scheme: `let` 的语义 (feat. `if` 的语义)">
-<meta name="twitter:description" content=" let 的语义 结论: let scope 会立即求值 (包括绑定和绑定之后的表达式, 也就是 let 之外的一层括号所包裹的范围), 即使你把 let 嵌套在内层函数里而且这个函数还完全没有被调用.\n"><style>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Scheme' /><meta property='article:tag' content='lambda calculus' /><meta property='article:published_time' content='2024-09-08T20:13:00&#43;08:00'/><meta property='article:modified_time' content='2024-09-08T20:13:00&#43;08:00'/>
+<meta name="twitter:title" content="抽象层次平缓提升的 Church Encoding">
+<meta name="twitter:description" content=" Motivation: Abstraction Level Up! 对 2 应用 $3$ 次 square\n1 ]=&gt; (square (square (square 2))) ;Value: 256 2 → x: 对某个数 x 应用 $3$ 次 square\n"><style>
   :root {
      
     --zh-font-family: "Noto Serif SC";
@@ -250,9 +250,12 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#let-的语义"><code>let</code> 的语义</a></li>
-    <li><a href="#if-的语义"><code>if</code> 的语义</a></li>
-    <li><a href="#let-立即求值引发的错误实例"><code>let</code> 立即求值引发的错误实例</a></li>
+    <li><a href="#motivation-abstraction-level-up">Motivation: Abstraction Level Up!</a></li>
+    <li><a href="#理解-church-encoding">理解 Church Encoding</a></li>
+    <li><a href="#church-encoding-in-scheme">Church Encoding in Scheme</a></li>
+    <li><a href="#应用举例">应用举例</a></li>
+    <li><a href="#参考资料">参考资料</a></li>
+    <li><a href="#后记">后记</a></li>
   </ol>
 </nav>
         </div>
@@ -280,7 +283,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/scheme-let-%E7%9A%84%E8%AF%AD%E4%B9%89-feat.-if-%E7%9A%84%E8%AF%AD%E4%B9%89/">Scheme: `let` 的语义 (feat. `if` 的语义)</a>
+            <a href="/p/%E6%8A%BD%E8%B1%A1%E5%B1%82%E6%AC%A1%E5%B9%B3%E7%BC%93%E6%8F%90%E5%8D%87%E7%9A%84-church-encoding/">抽象层次平缓提升的 Church Encoding</a>
         </h2>
     
         
@@ -302,7 +305,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Aug 29, 2024</time>
+                <time class="article-time--published">Sep 8, 2024</time>
             </div>
         
 
@@ -317,7 +320,7 @@
 
 
                 <time class="article-time--reading">
-                    2 minute read
+                    3 minute read
                 </time>
             </div>
         
@@ -332,96 +335,126 @@
     <section class="article-content">
     
     
-    <hr>
-<h2 id="let-的语义"><a href="#let-%e7%9a%84%e8%af%ad%e4%b9%89" class="header-anchor"></a><code>let</code> 的语义
-</h2><p><mark>结论</mark>: <code>let</code> scope 会立即求值 (包括绑定和绑定之后的表达式, 也就是 <code>let</code> 之外的一层括号所包裹的范围), 即使你把 <code>let</code> 嵌套在内层函数里而且这个函数还完全没有被调用.</p>
-<p>示例:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scheme" data-lang="scheme"><span class="line"><span class="cl"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">comp</span> <span class="nv">x</span><span class="p">)</span>  
-</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">&gt; </span><span class="mi">3</span> <span class="nv">x</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="nb">display </span><span class="s">&#34;then-clause&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="nb">display </span><span class="s">&#34;else-clause&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+    <!-- $$
+$$ -->
+<h2 id="motivation-abstraction-level-up"><a href="#motivation-abstraction-level-up" class="header-anchor"></a>Motivation: Abstraction Level Up!
+</h2><ol>
+<li>
+<p>对 <code>2</code> 应用 $3$ 次 <code>square</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scm" data-lang="scm"><span class="line"><span class="cl"><span class="mi">1</span> <span class="p">]</span><span class="k">=&gt; </span><span class="p">(</span><span class="nf">square</span> <span class="p">(</span><span class="nf">square</span> <span class="p">(</span><span class="nf">square</span> <span class="mi">2</span><span class="p">)))</span>
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="cm">#|
-</span></span></span><span class="line"><span class="cl"><span class="cm">    (define foo1
-</span></span></span><span class="line"><span class="cl"><span class="cm">        (let ((bar1 (/ 2 0)))    ; * evaluted immediately
-</span></span></span><span class="line"><span class="cl"><span class="cm">            (display &#34;should not be printed&#34;)
-</span></span></span><span class="line"><span class="cl"><span class="cm">        )
-</span></span></span><span class="line"><span class="cl"><span class="cm">    )
-</span></span></span><span class="line"><span class="cl"><span class="cm">|#</span>
-</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="k">define </span><span class="nv">foo2</span>
-</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">bar2</span> <span class="p">(</span><span class="nb">/ </span><span class="mi">5</span> <span class="mi">2</span><span class="p">)))</span>    <span class="c1">; * evaluted immediately</span>
-</span></span><span class="line"><span class="cl">            <span class="p">(</span><span class="nf">newline</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">            <span class="p">(</span><span class="nb">display </span><span class="s">&#34;let in `foo2`, bar2: &#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">            <span class="p">(</span><span class="nb">display </span><span class="nv">bar2</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span>
-</span></span></code></pre></div><p>运行示例:</p>
+</span></span><span class="line"><span class="cl"><span class="c1">;Value: 256</span>
+</span></span></code></pre></div></li>
+<li>
+<p><code>2</code> → <code>x</code>: 对某个数 <code>x</code> 应用 $3$ 次 <code>square</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scm" data-lang="scm"><span class="line"><span class="cl"><span class="p">(</span><span class="k">define </span><span class="nv">square3</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">x</span><span class="p">)</span> <span class="p">(</span><span class="nf">square</span> <span class="p">(</span><span class="nf">square</span> <span class="p">(</span><span class="nf">square</span> <span class="nv">x</span><span class="p">))))</span> <span class="p">)</span>
+</span></span></code></pre></div></li>
+<li>
+<p><code>square</code> → <code>f</code>: 对某个值 <code>x</code> 应用 $3$ 次某个函数 <code>f</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scm" data-lang="scm"><span class="line"><span class="cl"><span class="p">(</span><span class="k">define </span><span class="nv">three_times_f</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span> <span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nf">f</span> <span class="p">(</span><span class="nf">f</span> <span class="p">(</span><span class="nf">f</span> <span class="nv">x</span><span class="p">)))))</span>
+</span></span></code></pre></div></li>
+<li>
+<p>$3 → i$ : 对某个值 <code>x</code> 应用 $i$ 次某个函数 <code>f</code> $(i \in \mathbb{N})$</p>
 <ul>
 <li>
-<p><code>foo1</code>: 可以看到 <code>let</code> 绑定被求值了, 否则不会抛出除零异常.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scheme" data-lang="scheme"><span class="line"><span class="cl"><span class="nv">prompt&gt;</span> <span class="p">(</span><span class="nf">comp</span> <span class="mi">4</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nv">else-clause</span>
-</span></span><span class="line"><span class="cl"><span class="c1">;Division by zero signalled by /.</span>
-</span></span><span class="line"><span class="cl"><span class="c1">;To continue, call RESTART with an option number:</span>
-</span></span><span class="line"><span class="cl"><span class="c1">;snip</span>
+<p>$i=0$</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scm" data-lang="scm"><span class="line"><span class="cl"><span class="p">(</span><span class="k">define </span><span class="nv">zero_time_f</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span> <span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nf">x</span><span class="p">)))</span>
 </span></span></code></pre></div></li>
 <li>
-<p><code>foo2</code>: 可以看到 <code>let</code> 绑定后的表达式被求值了, 否则不会有 <code>display</code> 的输出</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scheme" data-lang="scheme"><span class="line"><span class="cl"><span class="nv">prompt&gt;</span> <span class="p">(</span><span class="nf">comp</span> <span class="mi">2</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nv">then-clause</span>
-</span></span><span class="line"><span class="cl"><span class="k">let </span><span class="nv">in</span> <span class="o">`</span><span class="nv">foo2</span><span class="o">`,</span> <span class="nv">bar2:</span> <span class="mi">5</span><span class="nv">/2</span>
-</span></span><span class="line"><span class="cl"><span class="c1">;Unspecified return value</span>
+<p>$i=1$</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scm" data-lang="scm"><span class="line"><span class="cl"><span class="p">(</span><span class="k">define </span><span class="nv">one_time_f</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span> <span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nf">f</span> <span class="nv">x</span><span class="p">)))</span>
+</span></span></code></pre></div></li>
+<li>
+<p>$i=2$</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scm" data-lang="scm"><span class="line"><span class="cl"><span class="p">(</span><span class="k">define </span><span class="nv">two_times_f</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span> <span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nf">f</span> <span class="p">(</span><span class="nf">f</span> <span class="nv">x</span><span class="p">))))</span>
+</span></span></code></pre></div></li>
+<li>
+<p>递归定义 $i$ 次应用</p>
+<ul>
+<li>
+<p>递归基：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scm" data-lang="scm"><span class="line"><span class="cl"><span class="p">(</span><span class="k">define </span><span class="nv">zero_time_f</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span> <span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nf">x</span><span class="p">)))</span>
+</span></span></code></pre></div></li>
+<li>
+<p>递归步：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scm" data-lang="scm"><span class="line"><span class="cl"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">succ</span> <span class="nv">z</span><span class="p">)</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span> <span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nf">f</span> <span class="p">(</span><span class="nf">z</span> <span class="nv">f</span> <span class="nv">x</span><span class="p">))))</span>
+</span></span></code></pre></div></li>
+<li>
+<p>递归求解 $i$ 对应的 $i$ 次应用：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scm" data-lang="scm"><span class="line"><span class="cl"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">church</span> <span class="nv">n</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">= </span><span class="nv">n</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">zero_time_f</span>
+</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="nf">succ</span> <span class="p">(</span><span class="nf">church</span> <span class="p">(</span><span class="nb">- </span><span class="nv">n</span> <span class="mi">1</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>     
+</span></span></code></pre></div><p>这就是自然数 $i$ 对应的 <mark>Church Encoding</mark>.</p>
+<p>在 REPL 中简单做一个测试：对 <code>3</code> 应用 $2$ 次 <code>cube</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1 ]=&gt; (church 2)
+</span></span><span class="line"><span class="cl">;Value: #[compound-procedure 15]
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">1 ]=&gt; ( #[compound-procedure 15] cube 3)
+</span></span><span class="line"><span class="cl">;Value: 19683
 </span></span></code></pre></div></li>
 </ul>
-<h2 id="if-的语义"><a href="#if-%e7%9a%84%e8%af%ad%e4%b9%89" class="header-anchor"></a><code>if</code> 的语义
-</h2><p><code>if</code>的语义: 根据对条件式进行求值，根据求值结果决定继续对 then/else 分支进行求值.</p>
-<p>可以与此对照参考的材料是 SICP (2nd Edition)  Exercise 1.6，此题中使用 abstraction ，通过 <code>cond</code> 定义了 <code>new-if</code>:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scheme" data-lang="scheme"><span class="line"><span class="cl"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">new-if</span> <span class="nv">predicate</span> <span class="nv">then-clause</span> <span class="nv">else-clause</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="k">cond </span><span class="p">(</span><span class="nf">predicate</span> <span class="nv">then-clause</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">          <span class="p">(</span><span class="k">else </span><span class="nv">else-clause</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">)</span>   
-</span></span><span class="line"><span class="cl"><span class="p">)</span>
-</span></span></code></pre></div><p>函数应用的语义是（applicative mode evaluation）：先对参数（比如这里的<code>then-clause</code> 和 <code>else-clause</code>）进行求值，然后进行函数应用，这也是为什么不能在<code>then-clause</code> 或 <code>else-clause</code>里写递归表达式，因为它们会先被求值，而不是根据 predicate 的值决定是否求值，于是递归就无穷无尽了. <code>if</code>/<code>cond</code>/&hellip; 是 special form, 相较于通过 <code>define</code> 定义的 abstraction, 语义是特殊的. 我喜欢 <code>new-if</code> 这个例子，它简洁而有力地体现了 lisp 元编程的特性，通过此例也可以更好地接纳 lisp 里大量的括号，根据 substitution model, 这里的 <code>predicate</code>, <code>then-clause</code>, <code>else-clause</code> 可以替换成你需要的表达式, 而表达式就是被括号包裹的, 即 括号是表达式的边界, 你可以把被括号包裹的表达式放在任意的参数位 (当然要符合 abstraction 隐式的对于参数的类型约束).</p>
-<h2 id="let-立即求值引发的错误实例"><a href="#let-%e7%ab%8b%e5%8d%b3%e6%b1%82%e5%80%bc%e5%bc%95%e5%8f%91%e7%9a%84%e9%94%99%e8%af%af%e5%ae%9e%e4%be%8b" class="header-anchor"></a><code>let</code> 立即求值引发的错误实例
-</h2><p>对于这样素数判断的一段代码：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scheme" data-lang="scheme"><span class="line"><span class="cl"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">prime?</span> <span class="nv">x</span><span class="p">)</span> 
-</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="k">or </span><span class="p">(</span><span class="nb">= </span><span class="nv">x</span> <span class="mi">1</span><span class="p">)</span> <span class="p">(</span><span class="nb">= </span><span class="nv">x</span> <span class="mi">2</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">        <span class="no">#t</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">test_prime</span>   
-</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="理解-church-encoding"><a href="#%e7%90%86%e8%a7%a3-church-encoding" class="header-anchor"></a>理解 Church Encoding
+</h2><p>Church Encoding <strong><span style="color: darkred;">不是</span></strong>：</p>
+<ul>
+<li>
+<p>可以被存储在物理存储器中的，可以用 bit 表示的数字</p>
+</li>
+<li>
+<p>为了算数运算而设计</p>
+</li>
+</ul>
+<p>Church Encoding 是：</p>
+<ul>
+<li>对 &quot; <strong>计数</strong> &quot; 的<strong>抽象</strong></li>
+</ul>
+<p>Church Encoding 是对计数过程的一种抽象，在 Lambda Calculus 的语境里，归纳定义 $λ-term$ 的三条规则分别涉及了 $atom$, $abstraction$, $application$，Church Encoding 可以理解为：有一个起始的 $atom$ 和一个 $abstraction$ ，我们希望对这个 $atom$ 进行<strong>若干次</strong> $abstraction$ 的应用，我们使用更高一层的 $abstraction$ 来抽象对 &quot; <strong>若干次</strong> &quot; 进行计数的过程，这一层对于计数过程的抽象就是 Church Encoding.</p>
+<h2 id="church-encoding-in-scheme"><a href="#church-encoding-in-scheme" class="header-anchor"></a>Church Encoding in Scheme
+</h2><p>$zero：λf.λx.x$</p>
+<p>对某个 $atom$ 进行 0 次任意 abstraction 的应用，返回值依然是原来的 $atom$.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scm" data-lang="scm"><span class="line"><span class="cl"><span class="p">(</span><span class="k">define </span><span class="nv">zero</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span> <span class="nv">x</span><span class="p">)</span> <span class="nv">x</span><span class="p">))</span>
+</span></span></code></pre></div><p>$one：λf.λx.(f x)$</br>
+$two：λf.λx.(f (f x))$</br>
+$three: λf.λx.(f (f (f x)))$</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scm" data-lang="scm"><span class="line"><span class="cl"><span class="p">(</span><span class="k">define </span><span class="nv">one</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span> <span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nf">f</span> <span class="nv">x</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="k">define </span><span class="nv">two</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span> <span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nf">f</span> <span class="p">(</span><span class="nf">f</span> <span class="nv">x</span><span class="p">))))</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="k">define </span><span class="nv">thr</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span> <span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nf">f</span> <span class="p">(</span><span class="nf">f</span> <span class="p">(</span><span class="nf">f</span> <span class="nv">x</span><span class="p">)))))</span>
+</span></span></code></pre></div><p>写到 <code>thr</code> 的时候注意到这里的递归结构，递归基毫无疑问是 <code>zero</code>，递归步 <code>succ</code> 如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scm" data-lang="scm"><span class="line"><span class="cl"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">succ</span> <span class="nv">z</span><span class="p">)</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span> <span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nf">f</span> <span class="p">(</span><span class="nf">z</span> <span class="nv">f</span> <span class="nv">x</span><span class="p">)))</span> <span class="p">)</span>
+</span></span></code></pre></div><!-- `z` 的后继是 -->
+<!-- （如果觉得直接写 `succ z` 不好写，可以先不考虑 `lambda`，假设 f x 是和 z 同位置的参数，先写一个 (succ_result z f x) 
+        (define (succ_result z f x) (f (z f x)) )
+      ） -->
+<h2 id="应用举例"><a href="#%e5%ba%94%e7%94%a8%e4%b8%be%e4%be%8b" class="header-anchor"></a>应用举例
+</h2><p>Church Encoding 是对计数的抽象，如果我们希望对 <code>2</code> 进行 3 次平方（<code>square</code>）操作：(((2 ^ 2) ^ 2) ^ 2) = 256</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1 ]=&gt; (thr square 2)
+</span></span><span class="line"><span class="cl">;Value: 256
+</span></span></code></pre></div><p>验证 <code>succ</code> 的正确性：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1 ]=&gt; (succ (succ (succ zero)))
+</span></span><span class="line"><span class="cl">;Value: #[compound-procedure 17]
 </span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">divisible?</span> <span class="nv">y</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="nb">= </span><span class="mi">0</span> <span class="p">(</span><span class="nb">remainder </span><span class="nv">x</span> <span class="nv">y</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">    <span class="p">)</span>
-</span></span><span class="line"><span class="cl">   
-</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">iter_biggest_divisor</span> <span class="nv">y</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="k">cond </span><span class="p">((</span><span class="nb">= </span><span class="nv">y</span> <span class="mi">1</span><span class="p">)</span> <span class="mi">1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">              <span class="p">((</span><span class="nf">divisible?</span> <span class="nv">y</span><span class="p">)</span> <span class="nv">y</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">              <span class="p">(</span><span class="k">else </span><span class="p">(</span><span class="nf">iter_biggest_divisor</span> <span class="p">(</span><span class="nb">- </span><span class="nv">y</span> <span class="mi">1</span><span class="p">)))</span>
-</span></span><span class="line"><span class="cl">        <span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">)</span>
-</span></span><span class="line"><span class="cl">    
-</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="k">define </span><span class="nv">test_prime</span>
-</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="k">let </span><span class="p">((</span><span class="nf">biggest_divisor</span> <span class="p">(</span><span class="nf">iter_biggest_divisor</span> <span class="p">(</span><span class="nb">quotient </span><span class="nv">x</span> <span class="mi">2</span><span class="p">))</span> <span class="p">))</span> <span class="c1">; Notice</span>
-</span></span><span class="line"><span class="cl">             <span class="p">(</span><span class="nb">display </span><span class="nv">biggest_divisor</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">             <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">= </span><span class="nv">biggest_divisor</span> <span class="mi">1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">                 <span class="no">#t</span>
-</span></span><span class="line"><span class="cl">                 <span class="no">#f</span>
-</span></span><span class="line"><span class="cl">             <span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span>
-</span></span></code></pre></div><p>运行的结果是:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scheme" data-lang="scheme"><span class="line"><span class="cl"><span class="nv">prompt&gt;</span> <span class="p">(</span><span class="nf">prime?</span> <span class="mi">1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">;The object 0, passed as the second argument to integer-remainder, is not in the correct range.</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nv">prompt&gt;</span> <span class="p">(</span><span class="nf">prime?</span> <span class="mi">2</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="mi">1</span>
-</span></span><span class="line"><span class="cl"><span class="c1">;Value: #t</span>
-</span></span></code></pre></div><p>按照预期, <code>(prime? 1)</code> 和 <code>(prime? 2)</code> 都应该直接返回 <code>#t</code>, 而不是前者报错, 后者呈现出 <code>(display biggest_divisor)</code> 的行为. 根据前文的陈述, 原因是: 整个 <code>let</code> scope 都被求值了.</p>
+</span></span><span class="line"><span class="cl">1 ]=&gt; (#[compound-procedure 17] square 2)
+</span></span><span class="line"><span class="cl">;Value: 256
+</span></span></code></pre></div><h2 id="参考资料"><a href="#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99" class="header-anchor"></a>参考资料
+</h2><ul>
+<li>
+<p><a class="link" href="https://en.wikipedia.org/wiki/Church_encoding"  target="_blank" rel="noopener"
+    >Church Encoding wiki</a></p>
+</li>
+<li>
+<p>给了我很大启发的一则<a class="link" href="https://www.zhihu.com/question/39930042/answer/2415190431?utm_psn=1816166240617631745"  target="_blank" rel="noopener"
+    >知乎回答</a></p>
+</li>
+</ul>
+<h2 id="后记"><a href="#%e5%90%8e%e8%ae%b0" class="header-anchor"></a>后记
+</h2><p>Church Encoding 让我困惑了很久，每次我听到一些视频 / 博客里说 &ldquo;zero 就是把函数应用 0 次，one 就是把函数应用 1 次&rdquo;，我都感觉是不是我的直觉太差了，不是很能懂得这句话的意思，至于 $two：λf.λx.(f (f x))$ 更是拆开都认识，合起来不知道它是如何 make sense 的. 我想应该是我潜意识里一直试图把它和算术运算挂靠在一起，所以一直不理解. Church Encoding 被翻译成丘奇<strong>数</strong>，我觉得这个翻译也给我造成了某种困扰，这也是前文完全不提供翻译的原因. 很多材料（比如 SICP ）谈及丘奇数给出的例子是：把 <code>add-1</code> 作用于 <code>0</code>，我觉得这个例子也是容易给人造成误会的，好吧其实是给我造成误会了，让我觉得 <code>1</code>,<code>2</code>,<code>3</code> 和 <code>one</code>, <code>two</code>, <code>thr</code> 之间有某种 Church Encoding 设计上的必然的联系，所以我给出的例子是对<code>2</code>应用 3 次 <code>square</code>. 接触以 lambda calculus 为起点的 FP 内容，尽量避免过拟合，甚至最好不要试图去拟合，很多困扰可能是 过往的经验 / 经验所塑造的潜意识 带给你的.</p>
 
 </section>
 
@@ -430,9 +463,9 @@
     
     <section class="article-tags">
         
-            <a href="/tags/sicp/">SICP</a>
-        
             <a href="/tags/scheme/">Scheme</a>
+        
+            <a href="/tags/lambda-calculus/">Lambda Calculus</a>
         
     </section>
 
@@ -503,12 +536,12 @@
             
                 
 <article class="">
-    <a href="/p/mit-scheme-%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/">
+    <a href="/p/scheme-let-%E7%9A%84%E8%AF%AD%E4%B9%89-feat.-if-%E7%9A%84%E8%AF%AD%E4%B9%89/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">mit-scheme 配置与基本使用</h2>
+            <h2 class="article-title">Scheme: `let` 的语义 (feat. `if` 的语义)</h2>
         </div>
     </a>
 </article>
@@ -516,12 +549,12 @@
             
                 
 <article class="">
-    <a href="/p/%E6%8A%BD%E8%B1%A1%E5%B1%82%E6%AC%A1%E5%B9%B3%E7%BC%93%E6%8F%90%E5%8D%87%E7%9A%84-church-encoding/">
+    <a href="/p/mit-scheme-%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">抽象层次平缓提升的 Church Encoding</h2>
+            <h2 class="article-title">mit-scheme 配置与基本使用</h2>
         </div>
     </a>
 </article>

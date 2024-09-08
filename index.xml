@@ -7,11 +7,11 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
         <lastBuildDate>Sun, 08 Sep 2024 20:13:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Scheme 呈现 Church Encoding</title>
-        <link>http://fyshxfish.github.io/p/scheme-%E5%91%88%E7%8E%B0-church-encoding/</link>
+        <title>抽象层次平缓提升的 Church Encoding</title>
+        <link>http://fyshxfish.github.io/p/%E6%8A%BD%E8%B1%A1%E5%B1%82%E6%AC%A1%E5%B9%B3%E7%BC%93%E6%8F%90%E5%8D%87%E7%9A%84-church-encoding/</link>
         <pubDate>Sun, 08 Sep 2024 20:13:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/p/scheme-%E5%91%88%E7%8E%B0-church-encoding/</guid>
+        <guid>http://fyshxfish.github.io/p/%E6%8A%BD%E8%B1%A1%E5%B1%82%E6%AC%A1%E5%B9%B3%E7%BC%93%E6%8F%90%E5%8D%87%E7%9A%84-church-encoding/</guid>
         <description>&lt;!-- $$
 $$ --&gt;
 &lt;h2 id=&#34;motivation-abstraction-level-up&#34;&gt;&lt;a href=&#34;#motivation-abstraction-level-up&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Motivation: Abstraction Level Up!
