@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away. &ndash; Antoine de Saint-Exupéry\n通过包管理器下载 mit-scheme MacOS:\n">
-<title>mit-scheme 配置与基本使用</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="理解 Church Encoding Church Encoding 不是：\n">
+<title>Scheme 呈现 Church Encoding</title>
 
-<link rel='canonical' href='http://fyshxfish.github.io/p/mit-scheme-%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/'>
+<link rel='canonical' href='http://fyshxfish.github.io/p/scheme-%E5%91%88%E7%8E%B0-church-encoding/'>
 
-<link rel="stylesheet" href="/scss/style.min.b51788d43472ffad20b588167514427b70146d30bc2a1ee0490ab0db3b5da439.css"><meta property='og:title' content="mit-scheme 配置与基本使用">
-<meta property='og:description' content=" Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away. &ndash; Antoine de Saint-Exupéry\n通过包管理器下载 mit-scheme MacOS:\n">
-<meta property='og:url' content='http://fyshxfish.github.io/p/mit-scheme-%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/'>
+<link rel="stylesheet" href="/scss/style.min.b51788d43472ffad20b588167514427b70146d30bc2a1ee0490ab0db3b5da439.css"><meta property='og:title' content="Scheme 呈现 Church Encoding">
+<meta property='og:description' content="理解 Church Encoding Church Encoding 不是：\n">
+<meta property='og:url' content='http://fyshxfish.github.io/p/scheme-%E5%91%88%E7%8E%B0-church-encoding/'>
 <meta property='og:site_name' content='fyshXplore'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='SICP' /><meta property='article:tag' content='Scheme' /><meta property='article:published_time' content='2024-08-24T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2024-08-24T00:00:00&#43;08:00'/>
-<meta name="twitter:title" content="mit-scheme 配置与基本使用">
-<meta name="twitter:description" content=" Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away. &ndash; Antoine de Saint-Exupéry\n通过包管理器下载 mit-scheme MacOS:\n"><style>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Scheme' /><meta property='article:tag' content='lambda calculus' /><meta property='article:published_time' content='2024-09-08T20:13:00&#43;08:00'/><meta property='article:modified_time' content='2024-09-08T20:13:00&#43;08:00'/>
+<meta name="twitter:title" content="Scheme 呈现 Church Encoding">
+<meta name="twitter:description" content="理解 Church Encoding Church Encoding 不是：\n"><style>
   :root {
      
     --zh-font-family: "Noto Serif SC";
@@ -250,8 +250,10 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#通过包管理器下载-mit-scheme">通过包管理器下载 mit-scheme</a></li>
-    <li><a href="#repl-基本使用">REPL 基本使用</a></li>
+    <li><a href="#理解-church-encoding">理解 Church Encoding</a></li>
+    <li><a href="#church-encoding-in-scheme">Church Encoding in Scheme</a></li>
+    <li><a href="#应用举例">应用举例</a></li>
+    <li><a href="#参考资料">参考资料</a></li>
     <li><a href="#后记">后记</a></li>
   </ol>
 </nav>
@@ -280,7 +282,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/mit-scheme-%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/">mit-scheme 配置与基本使用</a>
+            <a href="/p/scheme-%E5%91%88%E7%8E%B0-church-encoding/">Scheme 呈现 Church Encoding</a>
         </h2>
     
         
@@ -302,7 +304,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Aug 24, 2024</time>
+                <time class="article-time--published">Sep 8, 2024</time>
             </div>
         
 
@@ -332,100 +334,63 @@
     <section class="article-content">
     
     
-    <blockquote>
-<p>Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away.
-<br>&ndash; Antoine de Saint-Exupéry</p>
-</blockquote>
-<h2 id="通过包管理器下载-mit-scheme"><a href="#%e9%80%9a%e8%bf%87%e5%8c%85%e7%ae%a1%e7%90%86%e5%99%a8%e4%b8%8b%e8%bd%bd-mit-scheme" class="header-anchor"></a>通过包管理器下载 mit-scheme
-</h2><p>MacOS:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">brew install mit-scheme
-</span></span></code></pre></div><p>Ubuntu:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt-get update 
-</span></span><span class="line"><span class="cl">sudo apt-get install mit-scheme
-</span></span></code></pre></div><h2 id="repl-基本使用"><a href="#repl-%e5%9f%ba%e6%9c%ac%e4%bd%bf%e7%94%a8" class="header-anchor"></a>REPL 基本使用
-</h2><p>（REPL: <strong>R</strong>ead-<strong>E</strong>valuate-<strong>P</strong>rint Loop）</p>
-<ol>
-<li>
-<p>进入 REPL:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mit-scheme
-</span></span></code></pre></div></li>
-<li>
-<p>在 REPL 加载中加载 scheme 代码:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="mi">1</span> <span class="p">]</span> <span class="o">=&gt;</span> <span class="p">(</span><span class="nb">load</span> <span class="s2">&#34;path/to/file.scm&#34;</span><span class="p">)</span>
-</span></span></code></pre></div><p>(后缀 <code>.scm</code> 可以省略.)</p>
-</li>
-<li>
-<p>查看手册:</p>
-<ol>
-<li>
-<p><code>man mit-scheme</code> 命令行查看 mit-scheme CLI 手册, 很简短, 可以通过命令行参数指定堆栈大小 / 加载文件 / 同时打开编辑器/ &hellip;</p>
-</li>
-<li>
-<p>按下 Ctrl-C 后键入 <code>H</code> 查看中断手册:</p>
+    <h2 id="理解-church-encoding"><a href="#%e7%90%86%e8%a7%a3-church-encoding" class="header-anchor"></a>理解 Church Encoding
+</h2><p>Church Encoding <strong><span style="color: darkred;">不是</span></strong>：</p>
 <ul>
 <li>
-<p>Ctrl-C: 接收下一个键盘输入, 决定中断行为.</p>
+<p>可以被存储在物理存储器中的，可以用 bit 表示的数字</p>
 </li>
 <li>
-<p>Ctrl-G: 回到 top-level</p>
-</li>
-<li>
-<p>Ctrl-Z: 挂起当前 mit-scheme 进程</p>
+<p>为了算数运算而设计</p>
 </li>
 </ul>
+<p>Church Encoding 是：</p>
+<ul>
+<li>对 &quot; <strong>计数</strong> &quot; 的<strong>抽象</strong></li>
+</ul>
+<p>Church Encoding 是对计数过程的一种抽象，在 Lambda Calculus 的语境里，归纳定义 $λ-term$ 的三条规则分别涉及了 $atom$, $abstraction$, $application$，Church Encoding 可以理解为：有一个起始的 $atom$ 和一个 $abstraction$ ，我们希望对这个 $atom$ 进行<strong>若干次</strong> $abstraction$ 的应用，我们使用更高一层的 $abstraction$ 来抽象对 &quot; <strong>若干次</strong> &quot; 进行计数的过程，这一层对于计数过程的抽象就是 Church Encoding.</p>
+<h2 id="church-encoding-in-scheme"><a href="#church-encoding-in-scheme" class="header-anchor"></a>Church Encoding in Scheme
+</h2><p>$zero：λf.λx.x$</p>
+<p>对某个 $atom$ 进行 0 次任意 abstraction 的应用，返回值依然是原来的 $atom$.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scm" data-lang="scm"><span class="line"><span class="cl"><span class="p">(</span><span class="k">define </span><span class="nv">zero</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span> <span class="nv">x</span><span class="p">)</span> <span class="nv">x</span><span class="p">))</span>
+</span></span></code></pre></div><p>$one：λf.λx.(f x)$</br>
+$two：λf.λx.(f (f x))$</br>
+$three: λf.λx.(f (f (f x)))$</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scm" data-lang="scm"><span class="line"><span class="cl"><span class="p">(</span><span class="k">define </span><span class="nv">one</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span> <span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nf">f</span> <span class="nv">x</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="k">define </span><span class="nv">two</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span> <span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nf">f</span> <span class="p">(</span><span class="nf">f</span> <span class="nv">x</span><span class="p">))))</span>
+</span></span><span class="line"><span class="cl"><span class="p">(</span><span class="k">define </span><span class="nv">thr</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span> <span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nf">f</span> <span class="p">(</span><span class="nf">f</span> <span class="p">(</span><span class="nf">f</span> <span class="nv">x</span><span class="p">)))))</span>
+</span></span></code></pre></div><p>写到 <code>thr</code> 的时候注意到这里的递归结构，递归基毫无疑问是 <code>zero</code>，递归步 <code>succ</code> 如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scm" data-lang="scm"><span class="line"><span class="cl"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">succ</span> <span class="nv">z</span><span class="p">)</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span> <span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="nf">f</span> <span class="p">(</span><span class="nf">z</span> <span class="nv">f</span> <span class="nv">x</span><span class="p">)))</span> <span class="p">)</span>
+</span></span></code></pre></div><!-- `z` 的后继是 -->
+<!-- （如果觉得直接写 `succ z` 不好写，可以先不考虑 `lambda`，假设 f x 是和 z 同位置的参数，先写一个 (succ_result z f x) 
+        (define (succ_result z f x) (f (z f x)) )
+      ） -->
+<h2 id="应用举例"><a href="#%e5%ba%94%e7%94%a8%e4%b8%be%e4%be%8b" class="header-anchor"></a>应用举例
+</h2><p>Church Encoding 是对计数的抽象，如果我们希望对 <code>2</code> 进行 3 次平方（<code>square</code>）操作：(((2 ^ 2) ^ 2) ^ 2) = 256</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1 ]=&gt; (thr square 2)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">;Value: 256
+</span></span></code></pre></div><p>验证 <code>succ</code> 的正确性：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1 ]=&gt; (succ (succ (succ zero)))
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">;Value: #[compound-procedure 17]
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">1 ]=&gt; (#[compound-procedure 17] square 2)
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">;Value: 256
+</span></span></code></pre></div><h2 id="参考资料"><a href="#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99" class="header-anchor"></a>参考资料
+</h2><ul>
+<li>
+<p><a class="link" href="https://en.wikipedia.org/wiki/Church_encoding"  target="_blank" rel="noopener"
+    >Church Encoding wiki</a></p>
 </li>
 <li>
-<p>按下 Ctrl-C 后键入 <code>?</code> 查看手册: 下一键盘输入 (option) 与 REPL 行为 (清屏 / 挂起 / 退出 / 忽略中断 / &hellip;) 的对应关系;</p>
+<p>给了我很大启发的一则<a class="link" href="https://www.zhihu.com/question/39930042/answer/2415190431?utm_psn=1816166240617631745"  target="_blank" rel="noopener"
+    >知乎回答</a></p>
 </li>
-</ol>
-</li>
-</ol>
-<!-- 4. You don't have to RESTART if enter an illegal statement in REPL.  
-    
-    You can keep going despite the error. -->
-<ol start="4">
-<li>
-<p>如果 REPL 没有反应:</p>
-<ol>
-<li>
-<p>检查括号是否逐对匹配;</p>
-</li>
-<li>
-<p>Ctrl-C 中断后回到 REPL, 提示符 (<code>1 ] =&gt;</code> / <code>2 error&gt;</code>) 不会重新显示.</p>
-</li>
-<li>
-<p>担心递归太深? 递归深度超限时, REPL 会提示 <code>Recursion depth limit exceeded. Aborting!</code> (3.1 中提到可以通过 CLI 参数指定堆栈大小, 即, mit-scheme使用的堆栈资源是有限的.)</p>
-</li>
-</ol>
-</li>
-<li>
-<p><del>ScHeMe</del> Scheme 是大小写不敏感的语言.</p>
-<p>所以 <code>(LoAd &quot;path/to/file.scm&quot;)</code>/<code>(DEFINE x 1)</code>/<code>(define x 1)</code>/<code>(defiNE x 1)</code>/&hellip; 都不会引发错误.</p>
-</li>
-<li>
-<p>History variable (procedure): 重用 REPL 求值后返回的 procedure:</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scheme" data-lang="scheme"><span class="line"><span class="cl"><span class="mi">1</span> <span class="p">]</span><span class="k">=&gt; </span><span class="p">(</span><span class="nf">average-dump</span> <span class="nv">square</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">;Value: #[compound-procedure 12]    ; 可以在后续表达式中重用, 就像 gdb 中的 history variable `$1`</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="mi">1</span> <span class="p">]</span><span class="k">=&gt; </span><span class="p">(</span><span class="o">#</span><span class="p">[</span><span class="nv">compound-procedure</span> <span class="mi">12</span><span class="p">]</span> <span class="mi">10</span><span class="p">)</span> <span class="c1">; 虽然也不是很方便直接使用, 但是确实是能用</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">;Value: 55</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="mi">1</span> <span class="p">]</span><span class="k">=&gt; </span><span class="p">(</span><span class="k">define </span><span class="nv">newfunc</span> <span class="o">#</span><span class="p">[</span><span class="nv">compound-procedure</span> <span class="mi">12</span><span class="p">])</span>   <span class="c1">; 可以绑定到一个标识符上, 再复用</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">;Value: newfunc</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="mi">1</span> <span class="p">]</span><span class="k">=&gt; </span><span class="p">(</span><span class="nf">newfunc</span> <span class="mi">10</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">;Value: 55</span>
-</span></span></code></pre></div> <!-- (So what exactly is this compound-procedure? machine code, code evaluated by means of substitute model, or something?) -->
-</li>
-</ol>
-<!-- 7. Press ^C once to get **help information**; Press ^C twice to goto the top level REPL.  -->
-<hr>
+</ul>
 <h2 id="后记"><a href="#%e5%90%8e%e8%ae%b0" class="header-anchor"></a>后记
-</h2><p>不知道是否有更好用的 Scheme REPL，这个 REPL 确实是比较原始，不支持历史表达式的回溯，不支持光标移动，但是一想到 lisp 历史这么悠久，语法本身十分简洁纯净，我就接受了一切。<span style="color: #888888; font-size: 0.85em;">（不像写 Haskell 的时候 LSP 出了问题，我必通过重启 VSCode / 重启电脑 / 更改 LSP 版本先把 LSP 重新拉起来，而不是先把代码写了。）</span></p>
+</h2><p>Church Encoding 让我困惑了很久，每次我听到一些视频 / 博客里说 &ldquo;zero 就是把函数应用 0 次，one 就是把函数应用 1 次&rdquo;，我都感觉是不是我的直觉太差了，不是很能懂得这句话的意思，至于 $two：λf.λx.(f (f x))$ 更是拆开都认识，合起来不知道它是如何 make sense 的. 我想应该是我潜意识里一直试图把它和算术运算挂靠在一起，所以一直不理解. Church Encoding 被翻译成丘奇<strong>数</strong>，我觉得这个翻译也给我造成了某种困扰，这也是前文完全不提供翻译的原因. 很多材料（比如 SICP ）谈及丘奇数给出的例子是：把 <code>add-1</code> 作用于 <code>0</code>，我觉得这个例子也是容易给人造成误会的，好吧其实是给我造成误会了，让我觉得 <code>1</code>,<code>2</code>,<code>3</code> 和 <code>one</code>, <code>two</code>, <code>thr</code> 之间有某种 Church Encoding 设计上的必然的联系，所以我给出的例子是对<code>2</code>应用 3 次 <code>square</code>. 接触以 lambda calculus 为起点的 FP 内容，尽量避免过拟合，甚至最好不要试图去拟合，很多困扰可能是 过往的经验 / 经验所塑造的潜意识 带给你的.</p>
 
 </section>
 
@@ -434,9 +399,9 @@
     
     <section class="article-tags">
         
-            <a href="/tags/sicp/">SICP</a>
-        
             <a href="/tags/scheme/">Scheme</a>
+        
+            <a href="/tags/lambda-calculus/">Lambda Calculus</a>
         
     </section>
 
@@ -520,12 +485,12 @@
             
                 
 <article class="">
-    <a href="/p/scheme-%E5%91%88%E7%8E%B0-church-encoding/">
+    <a href="/p/mit-scheme-%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">Scheme 呈现 Church Encoding</h2>
+            <h2 class="article-title">mit-scheme 配置与基本使用</h2>
         </div>
     </a>
 </article>

@@ -6,18 +6,10 @@
         <description>Recent content in Tags on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Sat, 07 Sep 2024 23:18:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Haskell</title>
-        <link>http://fyshxfish.github.io/tags/haskell/</link>
-        <pubDate>Sat, 07 Sep 2024 23:18:00 +0800</pubDate>
-        
-        <guid>http://fyshxfish.github.io/tags/haskell/</guid>
-        <description></description>
-        </item>
-        <item>
+        <lastBuildDate>Sun, 08 Sep 2024 20:13:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Lambda Calculus</title>
         <link>http://fyshxfish.github.io/tags/lambda-calculus/</link>
-        <pubDate>Sat, 07 Sep 2024 23:18:00 +0800</pubDate>
+        <pubDate>Sun, 08 Sep 2024 20:13:00 +0800</pubDate>
         
         <guid>http://fyshxfish.github.io/tags/lambda-calculus/</guid>
         <description></description>
@@ -25,9 +17,17 @@
         <item>
         <title>Scheme</title>
         <link>http://fyshxfish.github.io/tags/scheme/</link>
-        <pubDate>Sat, 07 Sep 2024 23:18:00 +0800</pubDate>
+        <pubDate>Sun, 08 Sep 2024 20:13:00 +0800</pubDate>
         
         <guid>http://fyshxfish.github.io/tags/scheme/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>Haskell</title>
+        <link>http://fyshxfish.github.io/tags/haskell/</link>
+        <pubDate>Sat, 07 Sep 2024 23:18:00 +0800</pubDate>
+        
+        <guid>http://fyshxfish.github.io/tags/haskell/</guid>
         <description></description>
         </item>
         <item>
