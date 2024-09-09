@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>fyshXplore</title>
-        <link>http://localhost:1313/</link>
+        <link>http://fyshxfish.github.io/</link>
         <description>Recent content on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Sun, 08 Sep 2024 20:13:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 08 Sep 2024 20:13:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>抽象层次平缓提升的 Church Encoding</title>
-        <link>http://localhost:1313/p/%E6%8A%BD%E8%B1%A1%E5%B1%82%E6%AC%A1%E5%B9%B3%E7%BC%93%E6%8F%90%E5%8D%87%E7%9A%84-church-encoding/</link>
+        <link>http://fyshxfish.github.io/p/%E6%8A%BD%E8%B1%A1%E5%B1%82%E6%AC%A1%E5%B9%B3%E7%BC%93%E6%8F%90%E5%8D%87%E7%9A%84-church-encoding/</link>
         <pubDate>Sun, 08 Sep 2024 20:13:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/%E6%8A%BD%E8%B1%A1%E5%B1%82%E6%AC%A1%E5%B9%B3%E7%BC%93%E6%8F%90%E5%8D%87%E7%9A%84-church-encoding/</guid>
+        <guid>http://fyshxfish.github.io/p/%E6%8A%BD%E8%B1%A1%E5%B1%82%E6%AC%A1%E5%B9%B3%E7%BC%93%E6%8F%90%E5%8D%87%E7%9A%84-church-encoding/</guid>
         <description>&lt;!-- $$
 $$ --&gt;
 &lt;h2 id=&#34;motivation-abstraction-level-up&#34;&gt;&lt;a href=&#34;#motivation-abstraction-level-up&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Motivation: Abstraction Level Up!
@@ -24,7 +24,7 @@ $$ --&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;code&gt;2&lt;/code&gt; → &lt;code&gt;x&lt;/code&gt;: 对某个数 &lt;code&gt;x&lt;/code&gt; 应用 $3$ 次 &lt;code&gt;square&lt;/code&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-scm&#34; data-lang=&#34;scm&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;define &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;square3&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;lambda &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;square&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;square&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;square&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))))&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-scm&#34; data-lang=&#34;scm&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;define &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;square3&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;lambda &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;square&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;square&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;square&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)))))&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;code&gt;square&lt;/code&gt; → &lt;code&gt;f&lt;/code&gt;: 对某个值 &lt;code&gt;x&lt;/code&gt; 应用 $3$ 次某个函数 &lt;code&gt;f&lt;/code&gt;&lt;/p&gt;
@@ -58,14 +58,14 @@ $$ --&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;递归求解 $i$ 对应的 $i$ 次应用：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-scm&#34; data-lang=&#34;scm&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;define &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;church&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; 
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;= &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-scm&#34; data-lang=&#34;scm&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;define &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;church&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;i&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;= &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;nv&#34;&gt;zero_time_f&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;succ&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;church&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;- &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;succ&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;church&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;- &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;i&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)))&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;     
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这就是自然数 $i$ 对应的 &lt;mark&gt;Church Encoding&lt;/mark&gt;.&lt;/p&gt;
-&lt;p&gt;在 REPL 中简单做一个测试：对 &lt;code&gt;3&lt;/code&gt; 应用 $2$ 次 &lt;code&gt;cube&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;在 REPL 中简单做一个测试：对 &lt;code&gt;3&lt;/code&gt; 应用 $2$ 次 &lt;code&gt;cube&lt;/code&gt; $((3^3)^3=19683)$&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1 ]=&amp;gt; (church 2)
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;;Value: #[compound-procedure 15]
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
@@ -85,17 +85,17 @@ $$ --&gt;
 &lt;p&gt;可以被存储在物理存储器中的，可以用 bit 表示的数字&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;为了算数运算而设计&lt;/p&gt;
+&lt;p&gt;为了算数运算（类似 $3.14 × 2.17$ ）而设计&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;Church Encoding 是：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;对 &amp;quot; &lt;strong&gt;计数&lt;/strong&gt; &amp;quot; 的&lt;strong&gt;抽象&lt;/strong&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Church Encoding 是对计数过程的一种抽象，在 Lambda Calculus 的语境里，归纳定义 $λ-term$ 的三条规则分别涉及了 $atom$, $abstraction$, $application$，Church Encoding 可以理解为：有一个起始的 $atom$ 和一个 $abstraction$ ，我们希望对这个 $atom$ 进行&lt;strong&gt;若干次&lt;/strong&gt; $abstraction$ 的应用，我们使用更高一层的 $abstraction$ 来抽象对 &amp;quot; &lt;strong&gt;若干次&lt;/strong&gt; &amp;quot; 进行计数的过程，这一层对于计数过程的抽象就是 Church Encoding.&lt;/p&gt;
+&lt;p&gt;Church Encoding 是对计数过程的一种抽象，在 Lambda Calculus 的语境里，归纳定义 $λ-term$ 的三条规则分别涉及了 $atom$, $abstraction$, $application$，Church Encoding 可以理解为：有一个起始的 $atom$ 和一个 $abstraction$ ，我们希望对这个 $atom$ 进行&lt;strong&gt;若干次&lt;/strong&gt; $abstraction$ 的应用（$apply$），我们使用更高一层的 $abstraction$ 来抽象对 &amp;quot; &lt;strong&gt;若干次&lt;/strong&gt; &amp;quot; 进行计数的过程，这一层对于计数过程的抽象就是 Church Encoding.&lt;/p&gt;
 &lt;h2 id=&#34;church-encoding-in-scheme&#34;&gt;&lt;a href=&#34;#church-encoding-in-scheme&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Church Encoding in Scheme
 &lt;/h2&gt;&lt;p&gt;$zero：λf.λx.x$&lt;/p&gt;
-&lt;p&gt;对某个 $atom$ 进行 0 次任意 abstraction 的应用，返回值依然是原来的 $atom$.&lt;/p&gt;
+&lt;p&gt;对某个 $atom$ 进行 $0$ 次任意 $abstraction$ 的应用，返回值依然是原来的 $atom$.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-scm&#34; data-lang=&#34;scm&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;define &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;zero&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;lambda &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;f&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;$one：λf.λx.(f x)$&lt;/br&gt;
 $two：λf.λx.(f (f x))$&lt;/br&gt;
@@ -110,7 +110,7 @@ $three: λf.λx.(f (f (f x)))$&lt;/p&gt;
         (define (succ_result z f x) (f (z f x)) )
       ） --&gt;
 &lt;h2 id=&#34;应用举例&#34;&gt;&lt;a href=&#34;#%e5%ba%94%e7%94%a8%e4%b8%be%e4%be%8b&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;应用举例
-&lt;/h2&gt;&lt;p&gt;Church Encoding 是对计数的抽象，如果我们希望对 &lt;code&gt;2&lt;/code&gt; 进行 3 次平方（&lt;code&gt;square&lt;/code&gt;）操作：(((2 ^ 2) ^ 2) ^ 2) = 256&lt;/p&gt;
+&lt;/h2&gt;&lt;p&gt;Church Encoding 是对计数的抽象，如果我们希望对 &lt;code&gt;2&lt;/code&gt; 进行 3 次平方（&lt;code&gt;square&lt;/code&gt;）操作： $((2^2)^2)^2=256$&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1 ]=&amp;gt; (thr square 2)
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;;Value: 256
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;验证 &lt;code&gt;succ&lt;/code&gt; 的正确性：&lt;/p&gt;
@@ -131,23 +131,23 @@ $three: λf.λx.(f (f (f x)))$&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;后记&#34;&gt;&lt;a href=&#34;#%e5%90%8e%e8%ae%b0&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;后记
-&lt;/h2&gt;&lt;p&gt;Church Encoding 让我困惑了很久，每次我听到一些视频 / 博客里说 &amp;ldquo;zero 就是把函数应用 0 次，one 就是把函数应用 1 次&amp;rdquo;，我都感觉是不是我的直觉太差了，不是很能懂得这句话的意思，至于 $two：λf.λx.(f (f x))$ 更是拆开都认识，合起来不知道它是如何 make sense 的. 我想应该是我潜意识里一直试图把它和算术运算挂靠在一起，所以一直不理解. Church Encoding 被翻译成丘奇&lt;strong&gt;数&lt;/strong&gt;，我觉得这个翻译也给我造成了某种困扰，这也是前文完全不提供翻译的原因. 很多材料（比如 SICP ）谈及丘奇数给出的例子是：把 &lt;code&gt;add-1&lt;/code&gt; 作用于 &lt;code&gt;0&lt;/code&gt;，我觉得这个例子也是容易给人造成误会的，好吧其实是给我造成误会了，让我觉得 &lt;code&gt;1&lt;/code&gt;,&lt;code&gt;2&lt;/code&gt;,&lt;code&gt;3&lt;/code&gt; 和 &lt;code&gt;one&lt;/code&gt;, &lt;code&gt;two&lt;/code&gt;, &lt;code&gt;thr&lt;/code&gt; 之间有某种 Church Encoding 设计上的必然的联系，所以我给出的例子是对&lt;code&gt;2&lt;/code&gt;应用 3 次 &lt;code&gt;square&lt;/code&gt;. 接触以 lambda calculus 为起点的 FP 内容，尽量避免过拟合，甚至最好不要试图去拟合，很多困扰可能是 过往的经验 / 经验所塑造的潜意识 带给你的.&lt;/p&gt;
+&lt;/h2&gt;&lt;p&gt;Church Encoding 让我困惑了很久，每次我听到一些视频 / 博客里说 &amp;ldquo;zero 就是把函数应用 0 次，one 就是把函数应用 1 次&amp;rdquo;，我都感觉是不是我的直觉太差了，不是很能懂得这句话的意思，至于 $two：λf.λx.(f (f x))$ 更是拆开都认识，合起来不知道它是如何 make sense 的. 我想应该是我潜意识里一直试图把它和算术运算挂靠在一起，所以一直不理解. Church Encoding 被翻译成丘奇&lt;strong&gt;数&lt;/strong&gt;，我觉得这个翻译也给我造成了某种困扰，这也是前文完全不提供翻译的原因. 很多材料（比如 SICP ）谈及丘奇数给出的例子是：把 &lt;code&gt;add-1&lt;/code&gt; 作用于 &lt;code&gt;0&lt;/code&gt;，我觉得这个例子也是容易给人造成误会的，好吧其实是给我造成误会了，让我觉得 &lt;code&gt;1&lt;/code&gt;,&lt;code&gt;2&lt;/code&gt;,&lt;code&gt;3&lt;/code&gt; 和 &lt;code&gt;one&lt;/code&gt;, &lt;code&gt;two&lt;/code&gt;, &lt;code&gt;thr&lt;/code&gt; 之间有某种 Church Encoding 设计上的必然的联系，所以我给出的例子是对&lt;code&gt;2&lt;/code&gt;应用 3 次 &lt;code&gt;square&lt;/code&gt;. 接触以 Lambda Calculus 为起点的 FP 内容，尽量避免过拟合，甚至最好不要试图去拟合，很多困扰可能是 过往的经验 / 经验所塑造的潜意识 带给你的.&lt;/p&gt;
 </description>
         </item>
         <item>
         <title>Message Passing 视角下的 Bool - SICP § 2.4.3 | 泛型 | 数据与函数的边界 </title>
-        <link>http://localhost:1313/p/message-passing-%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84-bool-sicp-2.4.3-%E6%B3%9B%E5%9E%8B-%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9A%84%E8%BE%B9%E7%95%8C/</link>
+        <link>http://fyshxfish.github.io/p/message-passing-%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84-bool-sicp-2.4.3-%E6%B3%9B%E5%9E%8B-%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9A%84%E8%BE%B9%E7%95%8C/</link>
         <pubDate>Sat, 07 Sep 2024 23:18:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/message-passing-%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84-bool-sicp-2.4.3-%E6%B3%9B%E5%9E%8B-%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9A%84%E8%BE%B9%E7%95%8C/</guid>
+        <guid>http://fyshxfish.github.io/p/message-passing-%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84-bool-sicp-2.4.3-%E6%B3%9B%E5%9E%8B-%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9A%84%E8%BE%B9%E7%95%8C/</guid>
         <description>&lt;h2 id=&#34;本文概述&#34;&gt;&lt;a href=&#34;#%e6%9c%ac%e6%96%87%e6%a6%82%e8%bf%b0&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;本文概述
 &lt;/h2&gt;&lt;p&gt;SICP § 2.4.3 中描述了以查表（ type × operation 二维表）为实现方式的泛型系统，具体函数被隐藏在泛型函数 + Selector 这样的抽象之下，那么如果将具体函数放在数据 + Selector 这样的抽象之下是什么样的呢，本文呈现了符合此抽象（SICP 中称为 Message Passing）的 Boolean.  接下来从 Message Passing，Haskell 中的 &lt;code&gt;$&lt;/code&gt; 和 Haskell 中的代数数据类型 三个角度聊聊数据与函数之间的关系.  Message Passing - 让数据自己携带函数；Haskell &lt;code&gt;$&lt;/code&gt;的应用 - 将数据变成某种函数；Haskell中的代数数据类型 - 使用函数构造数据.&lt;/p&gt;
-&lt;h2 id=&#34;关于泛型&#34;&gt;&lt;a href=&#34;#%e5%85%b3%e4%ba%8e%e6%b3%9b%e5%9e%8b&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;关于泛型
-&lt;/h2&gt;&lt;p&gt;在 2.4.3 这一节中，作者构建了一个泛型系统，泛型是什么呢，是一种抽象；对于具备某种类似&lt;strong&gt;特性&lt;/strong&gt;的若干个类型，如果我们可以对于某个类型，依赖这个&lt;strong&gt;特性&lt;/strong&gt;写一个函数，那么我们希望将这个函数推广到具备这个&lt;strong&gt;特性&lt;/strong&gt;的其他类型，例如：对于两个 &lt;code&gt;Int&lt;/code&gt; 类型的值，我可以对其最大值进行计算（&lt;code&gt;max Int Int&lt;/code&gt;），因为 &lt;code&gt;Int&lt;/code&gt; 是&lt;strong&gt;可以比较 (Orderable)&lt;/strong&gt; 的，即，&lt;code&gt;Int&lt;/code&gt; 类型提供了 &lt;code&gt;&amp;gt;&lt;/code&gt; / &lt;code&gt;&amp;lt;&lt;/code&gt; / &amp;hellip; 等比较函数的实现，那么，对于其他&lt;strong&gt;可比&lt;/strong&gt;的（提供比较函数实现的）类型，我们希望可以将 &lt;code&gt;max&lt;/code&gt; 推广到这些类型：&lt;/p&gt;
+&lt;h2 id=&#34;泛型函数intelligent-operations&#34;&gt;&lt;a href=&#34;#%e6%b3%9b%e5%9e%8b%e5%87%bd%e6%95%b0intelligent-operations&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;泛型函数：Intelligent Operations
+&lt;/h2&gt;&lt;p&gt;在 2.4.3 这一节中，作者构建了一个泛型系统，泛型是什么呢，是一种抽象；对于若干个具备某种相同&lt;strong&gt;特性&lt;/strong&gt;的类型，如果我们可以对于其中某个类型，依赖这个&lt;strong&gt;特性&lt;/strong&gt;写一个函数，那么我们希望将这个函数推广到具备这个&lt;strong&gt;特性&lt;/strong&gt;的其他类型，例如：对于两个 &lt;code&gt;Int&lt;/code&gt; 类型的值，我可以对其最大值进行计算（&lt;code&gt;max Int Int&lt;/code&gt;），因为 &lt;code&gt;Int&lt;/code&gt; 是&lt;strong&gt;可以比较 (Orderable)&lt;/strong&gt; 的，即，&lt;code&gt;Int&lt;/code&gt; 类型提供了 &lt;code&gt;&amp;gt;&lt;/code&gt; / &lt;code&gt;&amp;lt;&lt;/code&gt; / &amp;hellip; 等比较函数的实现，那么，对于其他&lt;strong&gt;可比&lt;/strong&gt;的（提供比较函数实现的）类型，我们希望可以将 &lt;code&gt;max&lt;/code&gt; 推广到这些类型：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-haskell&#34; data-lang=&#34;haskell&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;max&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;::&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;Ord&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;max&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;y&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;y&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;then&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;y&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;我们将&lt;strong&gt;可比&lt;/strong&gt;这个特性抽象成 &lt;code&gt;Ord&lt;/code&gt; 类型类（type class），&lt;code&gt;max&lt;/code&gt; 函数可以作用于任意该类的成员类型， .&lt;/p&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;我们将&lt;strong&gt;可比&lt;/strong&gt;这个特性抽象成 &lt;code&gt;Ord&lt;/code&gt; 类型类（type class），&lt;code&gt;max&lt;/code&gt; 函数可以作用于任意该类的成员类型.&lt;/p&gt;
 &lt;p&gt;当我们在任意 &lt;code&gt;Ord&lt;/code&gt; 类的类型上应用 &lt;code&gt;max&lt;/code&gt; 函数时，编译器会帮我们&lt;u&gt;找到&lt;/u&gt;对应类型的 &lt;code&gt;&amp;gt;=&lt;/code&gt; 的具体实现.&lt;/p&gt;
 &lt;p&gt;那么如何&lt;u&gt;找到&lt;/u&gt;？一种答案是：查表. 当我需要对 &lt;code&gt;Float&lt;/code&gt; (type) 执行 &lt;code&gt;max&lt;/code&gt; (operation) ，那么我在 type × operation 的笛卡尔积中找到 (&lt;code&gt;Float&lt;/code&gt;, &lt;code&gt;max&lt;/code&gt;) 对应的函数 (也就是 &lt;code&gt;Float&lt;/code&gt; 对应的 &lt;code&gt;max&lt;/code&gt; 非泛型具体实现) 就可以了.&lt;/p&gt;
 &lt;img src=&#34;generic_table.png&#34; alt=&#34;generic_table&#34; style=&#34;zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
@@ -158,16 +158,16 @@ $three: λf.λx.(f (f (f x)))$&lt;/p&gt;
 &lt;h2 id=&#34;数据与函数的边界&#34;&gt;&lt;a href=&#34;#%e6%95%b0%e6%8d%ae%e4%b8%8e%e5%87%bd%e6%95%b0%e7%9a%84%e8%be%b9%e7%95%8c&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;数据与函数的边界
 &lt;/h2&gt;&lt;h3 id=&#34;intelligent-operation-what-if-intelligent-data-objects&#34;&gt;&lt;a href=&#34;#intelligent-operation-what-if-intelligent-data-objects&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Intelligent Operation? WHAT IF Intelligent Data Objects?
 &lt;/h3&gt;&lt;p&gt;在本文上一节中提到的泛型（泛型函数）中，数据作为被操作的客体存在，数据的工作就是&lt;strong&gt;被&lt;/strong&gt;函数作用，我们的泛型针对的是函数（operation），在我们的预期中，我们希望函数是聪明的，比如 &lt;code&gt;max :: (Ord a) =&amp;gt; a -&amp;gt; a -&amp;gt; a&lt;/code&gt; 是聪明的，对于它所作用的具体类型，它可以&amp;quot;自动&amp;quot;转变成该类型对应的非泛型具体实现 &lt;code&gt;max :: Int -&amp;gt; Int -&amp;gt; Int&lt;/code&gt;. 而数据只需要等待被作用就可以了.&lt;/p&gt;
-&lt;p&gt;𝐖𝐡𝐚𝐭 𝐢𝐟: 让泛型函数找到数据对应的具体实现 → 让数据找到函数对应的具体实现？从分解 type × operation 表的角度说，将这张表分解成一列一列的，让某种数据（对应generic operation，暂且称之为 genetic? data）代表一列，这样如何呢？&lt;/p&gt;
+&lt;p&gt;𝐖𝐡𝐚𝐭 𝐢𝐟: 让泛型函数找到数据对应的具体实现 → 让数据找到函数对应的具体实现？从分解 type × operation 表的角度说，将这张表分解成一列一列的，让某种数据（对应generic operation，暂且称之为 generic? data）代表一列，这样如何呢？&lt;/p&gt;
 &lt;img src=&#34;table_cols.png&#34; alt=&#34;table_cols&#34; style=&#34;zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
 &lt;p&gt;在 SICP 2.1.3 中谈及组合数据的提取时对此就有所呈现，本站的&lt;a class=&#34;link&#34; href=&#34;https://fyshxfish.github.io/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.3.4-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/#%e4%b8%80%e8%87%b4%e6%80%a7&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;上一篇博客&lt;/a&gt;也有提到. 在 SICP 2.1.3 中的侧重点还是在对组合数据本身的操作（提取字段）上：为了保证列表元素存取前后的一致性，我们将列表写成一个 procedure 向外提供，此 procedure 接收参数，并根据参数返回对应的列表元素.&lt;/p&gt;
-&lt;p&gt;这里我们关心的是数据在程序中的行为，即 数据如何与函数、其他数据进行交互，我们希望&lt;strong&gt;数据自己携带与其他数据的交互方式&lt;/strong&gt;，而不是让数据作为只能被其他函数作用的静态实体. 基于这样的想法，尝试着写一个这样符合这样的行为规范的Bool.&lt;/p&gt;
+    &gt;上一篇博客&lt;/a&gt;也有提到. 在 SICP 2.1.3 中的侧重点在对组合数据本身的操作（提取字段）上：为了保证列表元素存取前后的一致性，我们将列表写成一个 procedure 向外提供，此 procedure 接收参数，并根据参数返回对应的列表元素.&lt;/p&gt;
+&lt;p&gt;这里我们关心的是数据在程序中的行为，即 数据如何与函数、其他数据进行交互，我们希望&lt;strong&gt;数据自己携带与其他数据的交互方式&lt;/strong&gt;，而不是让数据作为只能被其他函数作用的静态实体. 基于这样的想法，尝试着写一个这样符合这样的行为规范的 Boolean.&lt;/p&gt;
 &lt;h3 id=&#34;携带函数的-boolean&#34;&gt;&lt;a href=&#34;#%e6%90%ba%e5%b8%a6%e5%87%bd%e6%95%b0%e7%9a%84-boolean&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;携带函数的 Boolean
 &lt;/h3&gt;&lt;!-- 示例：让 `Bool` (`tru` / `fls`) 找到 `and` / `or` 的具体实现： --&gt;
-&lt;p&gt;首先给出类似的 type × operation 二维表，只是简单建模，所以就只考虑与或两种运算：&lt;/p&gt;
+&lt;p&gt;首先给出类似的 type × operation 二维表，只是简单建模，所以只考虑与（&lt;code&gt;logic_and&lt;/code&gt;）或（&lt;code&gt;logic_or&lt;/code&gt;）两种运算：&lt;/p&gt;
 &lt;img src=&#34;tf_table.png&#34; alt=&#34;tf_table&#34; style=&#34;zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
-&lt;p&gt;类似于代表一行的泛型函数，写一个可以代表一列的&amp;quot;数据&amp;quot;，&lt;code&gt;TRUE&lt;/code&gt;, &lt;code&gt;FALSE&lt;/code&gt;列对应的标识符分别为 &lt;code&gt;tru&lt;/code&gt;, &lt;code&gt;fls&lt;/code&gt;，如何让数据携带函数，一种答案是 让数据本身就是一个可以接收参数的函数，由参数来提取数据内禀的函数：&lt;/p&gt;
+&lt;p&gt;类似于代表一行的泛型函数，写一个可以代表一列的&amp;quot;数据&amp;quot;，&lt;code&gt;TRUE&lt;/code&gt;, &lt;code&gt;FALSE&lt;/code&gt;列对应的标识符分别为 &lt;code&gt;tru&lt;/code&gt;, &lt;code&gt;fls&lt;/code&gt;，如何让数据携带函数，一种答案是 让数据本身就是一个可以接收参数的函数，由参数来提取数据携带的函数：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-scheme&#34; data-lang=&#34;scheme&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;define &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;tru&lt;/span&gt;                                   &lt;span class=&#34;c1&#34;&gt;; (define tru (lambda ...))&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;lambda &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;op&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; 
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;cond &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;eq? &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;op&lt;/span&gt; &lt;span class=&#34;ss&#34;&gt;&amp;#39;and&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;tru_logic_and&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
@@ -225,19 +225,25 @@ $three: λf.λx.(f (f (f x)))$&lt;/p&gt;
 &lt;/h3&gt;&lt;p&gt;上面这种构建 Boolean 的编程风格被称为 Message Passing：一个数据是一个接收操作名（message）的实体，例如：&lt;code&gt;tru&lt;/code&gt; 可以接收 &lt;code&gt;&#39;and&lt;/code&gt; / &lt;code&gt;&#39;or&lt;/code&gt; 这样的 Message 并返回对应的柯里化函数供我们后续使用. 在这样的视角下，数据本身和&lt;strong&gt;数据所携带的方法&lt;/strong&gt;一样重要，也是&amp;quot;数据即程序&amp;quot;的一种体现. 不知道看到这里的你是否也在此处察觉到了一些面向对象的风味.&lt;/p&gt;
 &lt;!-- 面向对象？ --&gt;
 &lt;h3 id=&#34;haskell-中的-&#34;&gt;&lt;a href=&#34;#haskell-%e4%b8%ad%e7%9a%84-&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Haskell 中的 &lt;code&gt;$&lt;/code&gt;
-&lt;/h3&gt;&lt;p&gt;&lt;code&gt;$&lt;/code&gt; 的作用是改变表达式求值顺序，从而减少代码中的括号量，从类型签名上去观察，可以看到，&lt;code&gt;$&lt;/code&gt; 把一个数据变成了一个函数：&lt;/p&gt;
+&lt;/h3&gt;&lt;p&gt;&lt;code&gt;$&lt;/code&gt; 是一个中缀调用的函数，其类型签名和优先级如下，它的作用是改变表达式求值顺序，一个客观结果是 &lt;code&gt;$&lt;/code&gt; 的使用减少了代码中的括号量，&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ghci&amp;gt; :i ($)
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;($) :: (a -&amp;gt; b) -&amp;gt; a -&amp;gt; b       -- Defined in ‘GHC.Base’
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;infixr 0 $
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;将 &lt;code&gt;$&lt;/code&gt; （柯里化）应用于一个&lt;strong&gt;值&lt;/strong&gt;，返回值是一个&lt;strong&gt;函数&lt;/strong&gt;：&lt;/p&gt;
+&lt;!-- 从类型签名上去观察，可以看到，`$` 把一个数据变成了一个函数： --&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ghci&amp;gt; x = 5 :: Int
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ghci&amp;gt; :t ($ x)
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;($ x) :: (Int -&amp;gt; b) -&amp;gt; b
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- `($ x)`是一个可以被其他函数（也就是类型签名中的 `Int -&gt; b` ）作用的一个函数. --&gt;
-&lt;p&gt;&lt;code&gt;($ x)&lt;/code&gt; 把 &lt;code&gt;x&lt;/code&gt; 从静态数据，变成了一个等待被函数 &lt;code&gt;Int -&amp;gt; b&lt;/code&gt; 作用的数据（从类型签名上看，这是一个函数）. 基于这种理解，可以写这样的代码：&lt;/p&gt;
+&lt;p&gt;一种理解是：&lt;code&gt;($ x)&lt;/code&gt; 把 &lt;code&gt;x&lt;/code&gt; 从静态数据，变成了一个等待被函数 &lt;code&gt;Int -&amp;gt; b&lt;/code&gt; 作用的数据&lt;span style=&#34;color: #888888; font-size: 0.85em;&#34;&gt;（从类型签名上看，这是一个函数）&lt;/span&gt;. 基于这种理解，可以写这样的代码：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ghci&amp;gt; map ($ 5) [(* 2), (+ 10), (^ 3)]
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;[10,15,125]
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;haskell-中的代数数据类型&#34;&gt;&lt;a href=&#34;#haskell-%e4%b8%ad%e7%9a%84%e4%bb%a3%e6%95%b0%e6%95%b0%e6%8d%ae%e7%b1%bb%e5%9e%8b&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Haskell 中的代数数据类型
-&lt;/h3&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-hs&#34; data-lang=&#34;hs&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kr&#34;&gt;data&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Tree&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Empty&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Node&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;Tree&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;Tree&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/h3&gt;&lt;p&gt;经典的代数数据类型对二叉树进行递归定义：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-hs&#34; data-lang=&#34;hs&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kr&#34;&gt;data&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Tree&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Empty&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Node&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;Tree&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;Tree&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;Empty&lt;/code&gt; 和 &lt;code&gt;Node&lt;/code&gt; 是 &lt;code&gt;Tree a&lt;/code&gt; 的值构造子，值构造子就是返回某种类型的&lt;strong&gt;值&lt;/strong&gt;的&lt;strong&gt;函数&lt;/strong&gt;. &lt;code&gt;Empty&lt;/code&gt; 是无参构造子，&lt;code&gt;Node&lt;/code&gt; 接受 &lt;code&gt;a&lt;/code&gt;，&lt;code&gt;Tree a&lt;/code&gt;，&lt;code&gt;Tree a&lt;/code&gt;三个&lt;strong&gt;值&lt;/strong&gt;参数.&lt;/p&gt;
 &lt;p&gt;&lt;code&gt;Tree a&lt;/code&gt; 是类型构造子，类型构造子是返回某种&lt;strong&gt;具体类型&lt;/strong&gt;的函数，&lt;code&gt;Tree a&lt;/code&gt; 接受 &lt;code&gt;a&lt;/code&gt; 一个类型参数，返回相应的具体的 &lt;code&gt;Tree&lt;/code&gt; 类型. 例如 &lt;code&gt;Tree Int&lt;/code&gt;，&lt;code&gt;Tree Char&lt;/code&gt; 分别是结点数据类型为 &lt;code&gt;Int&lt;/code&gt;, &lt;code&gt;Char&lt;/code&gt; 的 &lt;code&gt;Tree&lt;/code&gt;.&lt;/p&gt;
-&lt;p&gt;这里可以看出 Haskell 非常漂亮的语言设计上的一致性.&lt;/p&gt;
+&lt;p&gt;这里可以看出 Haskell 非常漂亮的语言设计上的一致性，没有特殊的泛型语法，只有函数贯穿始终.&lt;/p&gt;
 &lt;!-- ### Church Encoding  --&gt;
 &lt;!-- 如何在 lambda 演算中表示自然数？ --&gt;
 &lt;!-- 从丘奇数出现在我的世界里的那一刻起，这个 --&gt;
@@ -268,10 +274,10 @@ $three: λf.λx.(f (f (f x)))$&lt;/p&gt;
         </item>
         <item>
         <title>Huffman 树的 Haskell 实现 - SICP § 2.3.4  | 组合数据的结构与解构</title>
-        <link>http://localhost:1313/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.3.4-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/</link>
+        <link>http://fyshxfish.github.io/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.3.4-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/</link>
         <pubDate>Mon, 02 Sep 2024 01:53:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.3.4-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/</guid>
+        <guid>http://fyshxfish.github.io/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.3.4-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/</guid>
         <description>&lt;p&gt;在看 SICP Section 2.3.4，对这节中 Huffman 树的实现中使用的组合 / 抽象有相当程度的参考.&lt;/p&gt;
 &lt;p&gt;其实我应该把代码放在某个仓库里，比如把一些数据结构的 Haskell 实现整合在一个仓库里，但是我还没有这么多可供整合的材料，所以以后再说吧.&lt;/p&gt;
 &lt;p&gt;代码链接：&lt;a class=&#34;link&#34; href=&#34;https://github.com/fyshxfish/sicp-playground/blob/main/sicp-note/ch2/ch2-3-huffman_tree.hs&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -508,18 +514,18 @@ elemAt (Node _ _ r) (R:ds) = elemAt r ds
         </item>
         <item>
         <title>Archives</title>
-        <link>http://localhost:1313/archives/</link>
+        <link>http://fyshxfish.github.io/archives/</link>
         <pubDate>Sat, 31 Aug 2024 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/archives/</guid>
+        <guid>http://fyshxfish.github.io/archives/</guid>
         <description></description>
         </item>
         <item>
         <title>Nested Mappings 案例的 Haskell 实现 - SICP § 2.2.3  | List Monad </title>
-        <link>http://localhost:1313/p/nested-mappings-%E6%A1%88%E4%BE%8B%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.2.3-list-monad/</link>
+        <link>http://fyshxfish.github.io/p/nested-mappings-%E6%A1%88%E4%BE%8B%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.2.3-list-monad/</link>
         <pubDate>Thu, 29 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/nested-mappings-%E6%A1%88%E4%BE%8B%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.2.3-list-monad/</guid>
+        <guid>http://fyshxfish.github.io/p/nested-mappings-%E6%A1%88%E4%BE%8B%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.2.3-list-monad/</guid>
         <description>&lt;h2 id=&#34;问题&#34;&gt;&lt;a href=&#34;#%e9%97%ae%e9%a2%98&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;问题
 &lt;/h2&gt;&lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Problem&lt;/strong&gt;: Given a positive integer $n$, find all ordered pairs of distinct positive integers $i$ and $j$, where $ 1 \leq i \leq j \leq n $, such that $ i + j $ is prime.&lt;/p&gt;
@@ -571,10 +577,10 @@ elemAt (Node _ _ r) (R:ds) = elemAt r ds
         </item>
         <item>
         <title>Scheme: `let` 的语义 (feat. `if` 的语义)</title>
-        <link>http://localhost:1313/p/scheme-let-%E7%9A%84%E8%AF%AD%E4%B9%89-feat.-if-%E7%9A%84%E8%AF%AD%E4%B9%89/</link>
+        <link>http://fyshxfish.github.io/p/scheme-let-%E7%9A%84%E8%AF%AD%E4%B9%89-feat.-if-%E7%9A%84%E8%AF%AD%E4%B9%89/</link>
         <pubDate>Thu, 29 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/scheme-let-%E7%9A%84%E8%AF%AD%E4%B9%89-feat.-if-%E7%9A%84%E8%AF%AD%E4%B9%89/</guid>
+        <guid>http://fyshxfish.github.io/p/scheme-let-%E7%9A%84%E8%AF%AD%E4%B9%89-feat.-if-%E7%9A%84%E8%AF%AD%E4%B9%89/</guid>
         <description>&lt;hr&gt;
 &lt;h2 id=&#34;let-的语义&#34;&gt;&lt;a href=&#34;#let-%e7%9a%84%e8%af%ad%e4%b9%89&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;&lt;code&gt;let&lt;/code&gt; 的语义
 &lt;/h2&gt;&lt;p&gt;&lt;mark&gt;结论&lt;/mark&gt;: &lt;code&gt;let&lt;/code&gt; scope 会立即求值 (包括绑定和绑定之后的表达式, 也就是 &lt;code&gt;let&lt;/code&gt; 之外的一层括号所包裹的范围), 即使你把 &lt;code&gt;let&lt;/code&gt; 嵌套在内层函数里而且这个函数还完全没有被调用.&lt;/p&gt;
@@ -669,11 +675,11 @@ elemAt (Node _ _ r) (R:ds) = elemAt r ds
         </item>
         <item>
         <title>VSCode 配置记录</title>
-        <link>http://localhost:1313/p/vscode-%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95/</link>
+        <link>http://fyshxfish.github.io/p/vscode-%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95/</link>
         <pubDate>Mon, 26 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/vscode-%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95/</guid>
-        <description>&lt;img src="http://localhost:1313/p/vscode-%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95/cover.png" alt="Featured image of post VSCode 配置记录" /&gt;&lt;p&gt;包含对于 VSCode 作为文本编辑器的配置，不包含对语言环境的配置.&lt;/p&gt;
+        <guid>http://fyshxfish.github.io/p/vscode-%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95/</guid>
+        <description>&lt;img src="http://fyshxfish.github.io/p/vscode-%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95/cover.png" alt="Featured image of post VSCode 配置记录" /&gt;&lt;p&gt;包含对于 VSCode 作为文本编辑器的配置，不包含对语言环境的配置.&lt;/p&gt;
 &lt;!-- 不严肃的随手记录，希望我能记得持续更新，因为我经常把一些记录扔在零零散散的位置，然后忘记这个记录的存在。 --&gt;
 &lt;h2 id=&#34;about-command-palette--ctrl--shift--p&#34;&gt;&lt;a href=&#34;#about-command-palette--ctrl--shift--p&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;About: Command Palette &amp;amp; Ctrl + Shift + P
 &lt;/h2&gt;&lt;p&gt;关于 &lt;mark&gt;&lt;strong&gt;Ctrl + Shift + P&lt;/strong&gt;&lt;/mark&gt;: 首先在这里贴蒋炎岩老师的&lt;a class=&#34;link&#34; href=&#34;https://www.bilibili.com/video/BV1y2421w7NK/?spm_id_from=333.999.0.0&amp;amp;vd_source=6a9d230feb804002a202ce26ff40a4cc&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -797,10 +803,10 @@ elemAt (Node _ _ r) (R:ds) = elemAt r ds
         </item>
         <item>
         <title>mit-scheme 配置与基本使用</title>
-        <link>http://localhost:1313/p/mit-scheme-%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</link>
+        <link>http://fyshxfish.github.io/p/mit-scheme-%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</link>
         <pubDate>Sat, 24 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/mit-scheme-%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</guid>
+        <guid>http://fyshxfish.github.io/p/mit-scheme-%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</guid>
         <description>&lt;blockquote&gt;
 &lt;p&gt;Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away.
 &lt;br&gt;&amp;ndash; Antoine de Saint-Exupéry&lt;/p&gt;
@@ -899,10 +905,10 @@ elemAt (Node _ _ r) (R:ds) = elemAt r ds
         </item>
         <item>
         <title>Haskell 开发环境 (VSCode &#43; GHCup &#43; HLS) 修复记录</title>
-        <link>http://localhost:1313/p/haskell-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-vscode--ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</link>
+        <link>http://fyshxfish.github.io/p/haskell-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-vscode--ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</link>
         <pubDate>Fri, 16 Aug 2024 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/p/haskell-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-vscode--ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</guid>
+        <guid>http://fyshxfish.github.io/p/haskell-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-vscode--ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</guid>
         <description>&lt;!-- *不知不觉我已经在MacOS, Windows, Linux三种平台上配置过Haskell环境了，我觉得我已经是环境配置大师了，POWER!* --&gt;
 &lt;!-- # Mac上重新配置Haskell开发环境记录 --&gt;
 &lt;h2 id=&#34;ghcup-修复&#34;&gt;&lt;a href=&#34;#ghcup-%e4%bf%ae%e5%a4%8d&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;ghcup 修复
@@ -944,10 +950,10 @@ elemAt (Node _ _ r) (R:ds) = elemAt r ds
         </item>
         <item>
         <title>Rust 基础与 gdb 使用拾遗</title>
-        <link>http://localhost:1313/p/rust-%E5%9F%BA%E7%A1%80%E4%B8%8E-gdb-%E4%BD%BF%E7%94%A8%E6%8B%BE%E9%81%97/</link>
+        <link>http://fyshxfish.github.io/p/rust-%E5%9F%BA%E7%A1%80%E4%B8%8E-gdb-%E4%BD%BF%E7%94%A8%E6%8B%BE%E9%81%97/</link>
         <pubDate>Mon, 05 Aug 2024 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/p/rust-%E5%9F%BA%E7%A1%80%E4%B8%8E-gdb-%E4%BD%BF%E7%94%A8%E6%8B%BE%E9%81%97/</guid>
+        <guid>http://fyshxfish.github.io/p/rust-%E5%9F%BA%E7%A1%80%E4%B8%8E-gdb-%E4%BD%BF%E7%94%A8%E6%8B%BE%E9%81%97/</guid>
         <description>&lt;p&gt; &lt;/p&gt;
 &lt;h2 id=&#34;如何调试一个rust程序&#34;&gt;&lt;a href=&#34;#%e5%a6%82%e4%bd%95%e8%b0%83%e8%af%95%e4%b8%80%e4%b8%aarust%e7%a8%8b%e5%ba%8f&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;如何调试一个rust程序？
 &lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ gdb excutable
@@ -1110,19 +1116,19 @@ elemAt (Node _ _ r) (R:ds) = elemAt r ds
         </item>
         <item>
         <title>Links</title>
-        <link>http://localhost:1313/links/</link>
+        <link>http://fyshxfish.github.io/links/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/links/</guid>
+        <guid>http://fyshxfish.github.io/links/</guid>
         <description>&lt;p&gt;✨ &lt;strong&gt;Friends Here&lt;/strong&gt; ✨&lt;/p&gt;
 </description>
         </item>
         <item>
         <title>Search</title>
-        <link>http://localhost:1313/search/</link>
+        <link>http://fyshxfish.github.io/search/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/search/</guid>
+        <guid>http://fyshxfish.github.io/search/</guid>
         <description></description>
         </item>
         

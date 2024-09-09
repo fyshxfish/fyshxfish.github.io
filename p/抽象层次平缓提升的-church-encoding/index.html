@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" Motivation: Abstraction Level Up! 对 2 应用 $3$ 次 square\n1 ]=&gt; (square (square (square 2))) ;Value: 256 2 → x: 对某个数 x 应用 $3$ 次 square\n">
 <title>抽象层次平缓提升的 Church Encoding</title>
 
-<link rel='canonical' href='http://localhost:1313/p/%E6%8A%BD%E8%B1%A1%E5%B1%82%E6%AC%A1%E5%B9%B3%E7%BC%93%E6%8F%90%E5%8D%87%E7%9A%84-church-encoding/'>
+<link rel='canonical' href='http://fyshxfish.github.io/p/%E6%8A%BD%E8%B1%A1%E5%B1%82%E6%AC%A1%E5%B9%B3%E7%BC%93%E6%8F%90%E5%8D%87%E7%9A%84-church-encoding/'>
 
 <link rel="stylesheet" href="/scss/style.min.b51788d43472ffad20b588167514427b70146d30bc2a1ee0490ab0db3b5da439.css"><meta property='og:title' content="抽象层次平缓提升的 Church Encoding">
 <meta property='og:description' content=" Motivation: Abstraction Level Up! 对 2 应用 $3$ 次 square\n1 ]=&gt; (square (square (square 2))) ;Value: 256 2 → x: 对某个数 x 应用 $3$ 次 square\n">
-<meta property='og:url' content='http://localhost:1313/p/%E6%8A%BD%E8%B1%A1%E5%B1%82%E6%AC%A1%E5%B9%B3%E7%BC%93%E6%8F%90%E5%8D%87%E7%9A%84-church-encoding/'>
+<meta property='og:url' content='http://fyshxfish.github.io/p/%E6%8A%BD%E8%B1%A1%E5%B1%82%E6%AC%A1%E5%B9%B3%E7%BC%93%E6%8F%90%E5%8D%87%E7%9A%84-church-encoding/'>
 <meta property='og:site_name' content='fyshXplore'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Scheme' /><meta property='article:tag' content='lambda calculus' /><meta property='article:published_time' content='2024-09-08T20:13:00&#43;08:00'/><meta property='article:modified_time' content='2024-09-08T20:13:00&#43;08:00'/>
 <meta name="twitter:title" content="抽象层次平缓提升的 Church Encoding">
@@ -347,7 +347,7 @@ $$ -->
 </span></span></code></pre></div></li>
 <li>
 <p><code>2</code> → <code>x</code>: 对某个数 <code>x</code> 应用 $3$ 次 <code>square</code></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scm" data-lang="scm"><span class="line"><span class="cl"><span class="p">(</span><span class="k">define </span><span class="nv">square3</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">x</span><span class="p">)</span> <span class="p">(</span><span class="nf">square</span> <span class="p">(</span><span class="nf">square</span> <span class="p">(</span><span class="nf">square</span> <span class="nv">x</span><span class="p">))))</span> <span class="p">)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scm" data-lang="scm"><span class="line"><span class="cl"><span class="p">(</span><span class="k">define </span><span class="nv">square3</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">x</span><span class="p">)</span> <span class="p">(</span><span class="nf">square</span> <span class="p">(</span><span class="nf">square</span> <span class="p">(</span><span class="nf">square</span> <span class="nv">x</span><span class="p">)))))</span>
 </span></span></code></pre></div></li>
 <li>
 <p><code>square</code> → <code>f</code>: 对某个值 <code>x</code> 应用 $3$ 次某个函数 <code>f</code></p>
@@ -381,14 +381,14 @@ $$ -->
 </span></span></code></pre></div></li>
 <li>
 <p>递归求解 $i$ 对应的 $i$ 次应用：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scm" data-lang="scm"><span class="line"><span class="cl"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">church</span> <span class="nv">n</span><span class="p">)</span> 
-</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">= </span><span class="nv">n</span> <span class="mi">0</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scm" data-lang="scm"><span class="line"><span class="cl"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">church</span> <span class="nv">i</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">= </span><span class="nv">i</span> <span class="mi">0</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">        <span class="nv">zero_time_f</span>
-</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="nf">succ</span> <span class="p">(</span><span class="nf">church</span> <span class="p">(</span><span class="nb">- </span><span class="nv">n</span> <span class="mi">1</span><span class="p">)))</span>
+</span></span><span class="line"><span class="cl">        <span class="p">(</span><span class="nf">succ</span> <span class="p">(</span><span class="nf">church</span> <span class="p">(</span><span class="nb">- </span><span class="nv">i</span> <span class="mi">1</span><span class="p">)))</span>
 </span></span><span class="line"><span class="cl">    <span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">)</span>     
 </span></span></code></pre></div><p>这就是自然数 $i$ 对应的 <mark>Church Encoding</mark>.</p>
-<p>在 REPL 中简单做一个测试：对 <code>3</code> 应用 $2$ 次 <code>cube</code></p>
+<p>在 REPL 中简单做一个测试：对 <code>3</code> 应用 $2$ 次 <code>cube</code> $((3^3)^3=19683)$</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1 ]=&gt; (church 2)
 </span></span><span class="line"><span class="cl">;Value: #[compound-procedure 15]
 </span></span><span class="line"><span class="cl">
@@ -408,17 +408,17 @@ $$ -->
 <p>可以被存储在物理存储器中的，可以用 bit 表示的数字</p>
 </li>
 <li>
-<p>为了算数运算而设计</p>
+<p>为了算数运算（类似 $3.14 × 2.17$ ）而设计</p>
 </li>
 </ul>
 <p>Church Encoding 是：</p>
 <ul>
 <li>对 &quot; <strong>计数</strong> &quot; 的<strong>抽象</strong></li>
 </ul>
-<p>Church Encoding 是对计数过程的一种抽象，在 Lambda Calculus 的语境里，归纳定义 $λ-term$ 的三条规则分别涉及了 $atom$, $abstraction$, $application$，Church Encoding 可以理解为：有一个起始的 $atom$ 和一个 $abstraction$ ，我们希望对这个 $atom$ 进行<strong>若干次</strong> $abstraction$ 的应用，我们使用更高一层的 $abstraction$ 来抽象对 &quot; <strong>若干次</strong> &quot; 进行计数的过程，这一层对于计数过程的抽象就是 Church Encoding.</p>
+<p>Church Encoding 是对计数过程的一种抽象，在 Lambda Calculus 的语境里，归纳定义 $λ-term$ 的三条规则分别涉及了 $atom$, $abstraction$, $application$，Church Encoding 可以理解为：有一个起始的 $atom$ 和一个 $abstraction$ ，我们希望对这个 $atom$ 进行<strong>若干次</strong> $abstraction$ 的应用（$apply$），我们使用更高一层的 $abstraction$ 来抽象对 &quot; <strong>若干次</strong> &quot; 进行计数的过程，这一层对于计数过程的抽象就是 Church Encoding.</p>
 <h2 id="church-encoding-in-scheme"><a href="#church-encoding-in-scheme" class="header-anchor"></a>Church Encoding in Scheme
 </h2><p>$zero：λf.λx.x$</p>
-<p>对某个 $atom$ 进行 0 次任意 abstraction 的应用，返回值依然是原来的 $atom$.</p>
+<p>对某个 $atom$ 进行 $0$ 次任意 $abstraction$ 的应用，返回值依然是原来的 $atom$.</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scm" data-lang="scm"><span class="line"><span class="cl"><span class="p">(</span><span class="k">define </span><span class="nv">zero</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">f</span> <span class="nv">x</span><span class="p">)</span> <span class="nv">x</span><span class="p">))</span>
 </span></span></code></pre></div><p>$one：λf.λx.(f x)$</br>
 $two：λf.λx.(f (f x))$</br>
@@ -433,7 +433,7 @@ $three: λf.λx.(f (f (f x)))$</p>
         (define (succ_result z f x) (f (z f x)) )
       ） -->
 <h2 id="应用举例"><a href="#%e5%ba%94%e7%94%a8%e4%b8%be%e4%be%8b" class="header-anchor"></a>应用举例
-</h2><p>Church Encoding 是对计数的抽象，如果我们希望对 <code>2</code> 进行 3 次平方（<code>square</code>）操作：(((2 ^ 2) ^ 2) ^ 2) = 256</p>
+</h2><p>Church Encoding 是对计数的抽象，如果我们希望对 <code>2</code> 进行 3 次平方（<code>square</code>）操作： $((2^2)^2)^2=256$</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1 ]=&gt; (thr square 2)
 </span></span><span class="line"><span class="cl">;Value: 256
 </span></span></code></pre></div><p>验证 <code>succ</code> 的正确性：</p>
@@ -454,7 +454,7 @@ $three: λf.λx.(f (f (f x)))$</p>
 </li>
 </ul>
 <h2 id="后记"><a href="#%e5%90%8e%e8%ae%b0" class="header-anchor"></a>后记
-</h2><p>Church Encoding 让我困惑了很久，每次我听到一些视频 / 博客里说 &ldquo;zero 就是把函数应用 0 次，one 就是把函数应用 1 次&rdquo;，我都感觉是不是我的直觉太差了，不是很能懂得这句话的意思，至于 $two：λf.λx.(f (f x))$ 更是拆开都认识，合起来不知道它是如何 make sense 的. 我想应该是我潜意识里一直试图把它和算术运算挂靠在一起，所以一直不理解. Church Encoding 被翻译成丘奇<strong>数</strong>，我觉得这个翻译也给我造成了某种困扰，这也是前文完全不提供翻译的原因. 很多材料（比如 SICP ）谈及丘奇数给出的例子是：把 <code>add-1</code> 作用于 <code>0</code>，我觉得这个例子也是容易给人造成误会的，好吧其实是给我造成误会了，让我觉得 <code>1</code>,<code>2</code>,<code>3</code> 和 <code>one</code>, <code>two</code>, <code>thr</code> 之间有某种 Church Encoding 设计上的必然的联系，所以我给出的例子是对<code>2</code>应用 3 次 <code>square</code>. 接触以 lambda calculus 为起点的 FP 内容，尽量避免过拟合，甚至最好不要试图去拟合，很多困扰可能是 过往的经验 / 经验所塑造的潜意识 带给你的.</p>
+</h2><p>Church Encoding 让我困惑了很久，每次我听到一些视频 / 博客里说 &ldquo;zero 就是把函数应用 0 次，one 就是把函数应用 1 次&rdquo;，我都感觉是不是我的直觉太差了，不是很能懂得这句话的意思，至于 $two：λf.λx.(f (f x))$ 更是拆开都认识，合起来不知道它是如何 make sense 的. 我想应该是我潜意识里一直试图把它和算术运算挂靠在一起，所以一直不理解. Church Encoding 被翻译成丘奇<strong>数</strong>，我觉得这个翻译也给我造成了某种困扰，这也是前文完全不提供翻译的原因. 很多材料（比如 SICP ）谈及丘奇数给出的例子是：把 <code>add-1</code> 作用于 <code>0</code>，我觉得这个例子也是容易给人造成误会的，好吧其实是给我造成误会了，让我觉得 <code>1</code>,<code>2</code>,<code>3</code> 和 <code>one</code>, <code>two</code>, <code>thr</code> 之间有某种 Church Encoding 设计上的必然的联系，所以我给出的例子是对<code>2</code>应用 3 次 <code>square</code>. 接触以 Lambda Calculus 为起点的 FP 内容，尽量避免过拟合，甚至最好不要试图去拟合，很多困扰可能是 过往的经验 / 经验所塑造的潜意识 带给你的.</p>
 
 </section>
 
