@@ -389,12 +389,12 @@ $$ -->
 </span></span><span class="line"><span class="cl"><span class="p">)</span>     
 </span></span></code></pre></div><p>这就是自然数 $i$ 对应的 <mark>Church Encoding</mark>.</p>
 <p>在 REPL 中简单做一个测试：对 <code>3</code> 应用 $2$ 次 <code>cube</code> $((3^3)^3=19683)$</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1 ]=&gt; (church 2)
-</span></span><span class="line"><span class="cl">;Value: #[compound-procedure 15]
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">1 ]=&gt; ( #[compound-procedure 15] cube 3)
-</span></span><span class="line"><span class="cl">;Value: 19683
-</span></span></code></pre></div></li>
+<pre tabindex="0"><code>1 ]=&gt; (church 2)
+;Value: #[compound-procedure 15]
+
+1 ]=&gt; ( #[compound-procedure 15] cube 3)
+;Value: 19683
+</code></pre></li>
 </ul>
 </li>
 </ul>
@@ -434,15 +434,15 @@ $three: λf.λx.(f (f (f x)))$</p>
       ） -->
 <h2 id="应用举例"><a href="#%e5%ba%94%e7%94%a8%e4%b8%be%e4%be%8b" class="header-anchor"></a>应用举例
 </h2><p>Church Encoding 是对计数的抽象，如果我们希望对 <code>2</code> 进行 3 次平方（<code>square</code>）操作： $((2^2)^2)^2=256$</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1 ]=&gt; (thr square 2)
-</span></span><span class="line"><span class="cl">;Value: 256
-</span></span></code></pre></div><p>验证 <code>succ</code> 的正确性：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1 ]=&gt; (succ (succ (succ zero)))
-</span></span><span class="line"><span class="cl">;Value: #[compound-procedure 17]
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">1 ]=&gt; (#[compound-procedure 17] square 2)
-</span></span><span class="line"><span class="cl">;Value: 256
-</span></span></code></pre></div><h2 id="参考资料"><a href="#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99" class="header-anchor"></a>参考资料
+<pre tabindex="0"><code>1 ]=&gt; (thr square 2)
+;Value: 256
+</code></pre><p>验证 <code>succ</code> 的正确性：</p>
+<pre tabindex="0"><code>1 ]=&gt; (succ (succ (succ zero)))
+;Value: #[compound-procedure 17]
+
+1 ]=&gt; (#[compound-procedure 17] square 2)
+;Value: 256
+</code></pre><h2 id="参考资料"><a href="#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99" class="header-anchor"></a>参考资料
 </h2><ul>
 <li>
 <p><a class="link" href="https://en.wikipedia.org/wiki/Church_encoding"  target="_blank" rel="noopener"
@@ -540,6 +540,19 @@ $three: λf.λx.(f (f (f x)))$</p>
             
                 
 <article class="">
+    <a href="/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.3.4-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Huffman 树的 Haskell 实现 - SICP § 2.3.4  | 组合数据的结构与解构</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
     <a href="/p/scheme-let-%E7%9A%84%E8%AF%AD%E4%B9%89-feat.-if-%E7%9A%84%E8%AF%AD%E4%B9%89/">
         
         
@@ -559,19 +572,6 @@ $three: λf.λx.(f (f (f x)))$</p>
 
         <div class="article-details">
             <h2 class="article-title">mit-scheme 配置与基本使用</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.3.4-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">Huffman 树的 Haskell 实现 - SICP § 2.3.4  | 组合数据的结构与解构</h2>
         </div>
     </a>
 </article>

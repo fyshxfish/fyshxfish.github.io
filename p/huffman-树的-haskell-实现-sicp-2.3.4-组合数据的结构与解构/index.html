@@ -10,7 +10,7 @@
 <meta property='og:description' content="在看 SICP Section 2.3.4，对这节中 Huffman 树的实现中使用的组合 / 抽象有相当程度的参考.\n其实我应该把代码放在某个仓库里，比如把一些数据结构的 Haskell 实现整合在一个仓库里，但是我还没有这么多可供整合的材料，所以以后再说吧.\n">
 <meta property='og:url' content='http://fyshxfish.github.io/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.3.4-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/'>
 <meta property='og:site_name' content='fyshXplore'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='SICP' /><meta property='article:tag' content='Haskell' /><meta property='article:published_time' content='2024-09-02T01:53:00&#43;08:00'/><meta property='article:modified_time' content='2024-09-02T01:53:00&#43;08:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='SICP' /><meta property='article:tag' content='Haskell' /><meta property='article:tag' content='lambda calculus' /><meta property='article:published_time' content='2024-09-02T01:53:00&#43;08:00'/><meta property='article:modified_time' content='2024-09-02T01:53:00&#43;08:00'/>
 <meta name="twitter:title" content="Huffman 树的 Haskell 实现 - SICP § 2.3.4  | 组合数据的结构与解构">
 <meta name="twitter:description" content="在看 SICP Section 2.3.4，对这节中 Huffman 树的实现中使用的组合 / 抽象有相当程度的参考.\n其实我应该把代码放在某个仓库里，比如把一些数据结构的 Haskell 实现整合在一个仓库里，但是我还没有这么多可供整合的材料，所以以后再说吧.\n"><style>
   :root {
@@ -282,6 +282,7 @@
           </ol>
         </li>
         <li><a href="#haskell-pattern-match">Haskell: Pattern Match</a></li>
+        <li><a href="#lambda-calculus---pair-abstraction">Lambda Calculus - <code>pair</code> abstraction</a></li>
       </ol>
     </li>
   </ol>
@@ -348,7 +349,7 @@
 
 
                 <time class="article-time--reading">
-                    7 minute read
+                    8 minute read
                 </time>
             </div>
         
@@ -536,7 +537,9 @@
 </span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">m</span><span class="p">)</span> <span class="p">(</span><span class="nf">m</span> <span class="nv">x</span> <span class="nv">y</span><span class="p">)))</span>
 </span></span><span class="line"><span class="cl"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nb">car </span><span class="nv">z</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="p">(</span><span class="nf">z</span> <span class="p">(</span><span class="k">lambda </span><span class="p">(</span><span class="nf">p</span> <span class="nv">q</span><span class="p">)</span> <span class="nv">p</span><span class="p">)))</span>
-</span></span></code></pre></div><p>SICP 这一章重点呈现的一个点是: 数据（data）与程序（procedure）的分界线并不是那么泾渭分明的. 以上的两个程序很准确地体现了这一点：列表的构造子返回的是一个 procedure，该 procedure 提供了访问<strong>组成列表的元素</strong>的接口，所以可以基于此定义 <code>car</code>/ <code>cdr</code>.</p>
+</span></span></code></pre></div><p>（用 Pure Lambda Calculus 实现此例，参见本节的<a class="link" href="https://fyshxfish.github.io/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.3.4-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/#lambda-calculus---pair-abstraction"  target="_blank" rel="noopener"
+    >最后一小节</a>.）</p>
+<p>SICP 这一章重点呈现的一个点是: 数据（data）与程序（procedure）的分界线并不是那么泾渭分明的. 以上的两个程序很准确地体现了这一点：列表的构造子返回的是一个 procedure，该 procedure 提供了访问<strong>组成列表的元素</strong>的接口，所以可以基于此定义 <code>car</code>/ <code>cdr</code>.</p>
 <!-- 作者补充说，出于效率的考量，真实的 `cons` / `car` / `cdr` 并不是这样实现的， -->
 <h4 id="数据的组合与提取--程序的构造抽象层"><a href="#%e6%95%b0%e6%8d%ae%e7%9a%84%e7%bb%84%e5%90%88%e4%b8%8e%e6%8f%90%e5%8f%96--%e7%a8%8b%e5%ba%8f%e7%9a%84%e6%9e%84%e9%80%a0%e6%8a%bd%e8%b1%a1%e5%b1%82" class="header-anchor"></a>数据的组合与提取 → 程序的构造：抽象层
 </h4><p>组合这件事情在 LISP (LISt Programming) 中是简洁的，数据的组合方式就是构造列表，如 <code>(list 1 2 3)</code> / <code>(list 3 4 (list 9 7) 5)</code>.</p>
@@ -593,6 +596,27 @@ elemAt (Node _ _ r) (R:ds) = elemAt r ds
 </li>
 </ul>
 <p>数据的构造方式决定了我们对数据的处理方式，而在 Haskell 中，<strong>构造</strong>数据的形式和对数据进行<strong>模式匹配</strong>的形式是一致的，所以可以在函数参数位做模式匹配，一种模式对应一种函数行为.</p>
+<h3 id="lambda-calculus---pair-abstraction"><a href="#lambda-calculus---pair-abstraction" class="header-anchor"></a>Lambda Calculus - <code>pair</code> abstraction
+</h3><p>上面<a class="link" href="https://fyshxfish.github.io/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.3.4-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/#%E4%B8%80%E8%87%B4%E6%80%A7"  target="_blank" rel="noopener"
+    >一致性</a>这一节提到的例子，可以使用纯 Lambda Calculus 来实现：</p>
+<pre tabindex="0"><code>pair = λm λn λb. b m n
+pair v w = λb. b v w
+</code></pre><p>这样的 abstraction 提供的视角是：通过对 <code>pair</code> 的两次应用（application），对 <code>m</code>, <code>n</code> 进行实例化，即 确定 <code>pair</code> 中所含的元素，剩下的 <code>b</code> 为后续在 <code>pair</code> 元素上进行的操作留接口.  若想对 <code>pair</code> 中的元素进行按序提取，可定义 <code>fst</code> 和 <code>snd</code>：</p>
+<pre tabindex="0"><code>fst = λa λb. a
+snd = λa λb. b
+
+(pair v w) fst  → v     // 根据 left associativity convention，这里的括号是可以省略的
+(pair v w) snd  → w
+</code></pre><p>如果你更希望以 <code>fst (pair v w)</code> 这样的编程风格呈现，当然也可以做到：</p>
+<pre tabindex="0"><code class="language-block" data-lang="block">tru = λt λf. t      // α 等价于上一个代码段定义的 `fst`，我们可以对同一个抽象做不同的理解
+fls = λt λf. f      //                   ...    `snd`    ...
+
+fst = λp. p tru
+snd = λp. p fls
+
+fst (pair v w)  → v 
+snd (pair v w)  → w 
+</code></pre><p>再次审视这个 abstraction：<code>pair = λm λn λb. b m n</code>. Lambda Calculus 中将我们惯常称之为函数的结构称为 abstraction（抽象），这里的 <code>pair</code> abstraction 就对 <code>pair</code> 的构造与操作进行了抽象，我们首先通过外层参 <code>m</code>, <code>n</code> 确定包含的元素，构建 <code>pair</code>，最后通过内层参 <code>b</code> 来执行对已有元素的操作；在这样的视角下，<code>pair</code> 天然具备与 Lambda Calculus 体系内其他函数（abstraction）交互的属性，因为在实例化 <code>pair</code> 元素之后，它向外界提供 <code>b</code> 这个交互接口，等待其他 abstraction 与 <code>pair</code> 已有的元素通过应用（application）交互.</p>
 <!-- > meme:
 >  -->
 
@@ -606,6 +630,8 @@ elemAt (Node _ _ r) (R:ds) = elemAt r ds
             <a href="/tags/sicp/">SICP</a>
         
             <a href="/tags/haskell/">Haskell</a>
+        
+            <a href="/tags/lambda-calculus/">Lambda Calculus</a>
         
     </section>
 
@@ -689,6 +715,19 @@ elemAt (Node _ _ r) (R:ds) = elemAt r ds
             
                 
 <article class="">
+    <a href="/p/%E6%8A%BD%E8%B1%A1%E5%B1%82%E6%AC%A1%E5%B9%B3%E7%BC%93%E6%8F%90%E5%8D%87%E7%9A%84-church-encoding/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">抽象层次平缓提升的 Church Encoding</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
     <a href="/p/scheme-let-%E7%9A%84%E8%AF%AD%E4%B9%89-feat.-if-%E7%9A%84%E8%AF%AD%E4%B9%89/">
         
         
@@ -708,19 +747,6 @@ elemAt (Node _ _ r) (R:ds) = elemAt r ds
 
         <div class="article-details">
             <h2 class="article-title">mit-scheme 配置与基本使用</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/haskell-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-vscode--ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">Haskell 开发环境 (VSCode &#43; GHCup &#43; HLS) 修复记录</h2>
         </div>
     </a>
 </article>

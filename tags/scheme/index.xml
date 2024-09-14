@@ -66,12 +66,12 @@ $$ --&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;     
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这就是自然数 $i$ 对应的 &lt;mark&gt;Church Encoding&lt;/mark&gt;.&lt;/p&gt;
 &lt;p&gt;在 REPL 中简单做一个测试：对 &lt;code&gt;3&lt;/code&gt; 应用 $2$ 次 &lt;code&gt;cube&lt;/code&gt; $((3^3)^3=19683)$&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1 ]=&amp;gt; (church 2)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;;Value: #[compound-procedure 15]
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1 ]=&amp;gt; ( #[compound-procedure 15] cube 3)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;;Value: 19683
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;1 ]=&amp;gt; (church 2)
+;Value: #[compound-procedure 15]
+
+1 ]=&amp;gt; ( #[compound-procedure 15] cube 3)
+;Value: 19683
+&lt;/code&gt;&lt;/pre&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
@@ -111,15 +111,15 @@ $three: λf.λx.(f (f (f x)))$&lt;/p&gt;
       ） --&gt;
 &lt;h2 id=&#34;应用举例&#34;&gt;&lt;a href=&#34;#%e5%ba%94%e7%94%a8%e4%b8%be%e4%be%8b&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;应用举例
 &lt;/h2&gt;&lt;p&gt;Church Encoding 是对计数的抽象，如果我们希望对 &lt;code&gt;2&lt;/code&gt; 进行 3 次平方（&lt;code&gt;square&lt;/code&gt;）操作： $((2^2)^2)^2=256$&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1 ]=&amp;gt; (thr square 2)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;;Value: 256
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;验证 &lt;code&gt;succ&lt;/code&gt; 的正确性：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1 ]=&amp;gt; (succ (succ (succ zero)))
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;;Value: #[compound-procedure 17]
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1 ]=&amp;gt; (#[compound-procedure 17] square 2)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;;Value: 256
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;参考资料&#34;&gt;&lt;a href=&#34;#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;参考资料
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;1 ]=&amp;gt; (thr square 2)
+;Value: 256
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;验证 &lt;code&gt;succ&lt;/code&gt; 的正确性：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;1 ]=&amp;gt; (succ (succ (succ zero)))
+;Value: #[compound-procedure 17]
+
+1 ]=&amp;gt; (#[compound-procedure 17] square 2)
+;Value: 256
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;参考资料&#34;&gt;&lt;a href=&#34;#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;参考资料
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://en.wikipedia.org/wiki/Church_encoding&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -197,52 +197,52 @@ $three: λf.λx.(f (f (f x)))$&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;define &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;fls_logic_or&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;if &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;eq? &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;x&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;tru&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;tru&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;fls&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;      &lt;span class=&#34;c1&#34;&gt;; 0 OR x&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在 REPL 中查看 &lt;code&gt;tru&lt;/code&gt; &lt;code&gt;fls&lt;/code&gt;：毫无疑问两者都是 compound procedure&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1 ]=&amp;gt; tru
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;;Value: #[compound-procedure 13 tru]
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1 ]=&amp;gt; fls
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;;Value: #[compound-procedure 12 fls]
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;做一个简单的测试：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1 ]=&amp;gt; ((tru &amp;#39;and) fls)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;;Value: #[compound-procedure 12 fls]
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这里我们做了什么事情呢？首先 &lt;code&gt;tru&lt;/code&gt; 是接收符号参数的一个 &lt;code&gt;lambda&lt;/code&gt; 表达式，&lt;code&gt;(tru &#39;and)&lt;/code&gt; 得到的是 &lt;code&gt;tru_logic_and&lt;/code&gt; —— 一个柯里化的逻辑与（也就是已经传入了一个 &lt;code&gt;TRUE&lt;/code&gt; 的逻辑与），然后将 &lt;code&gt;tru_logic_and&lt;/code&gt; 应用于 &lt;code&gt;fls&lt;/code&gt; ，最后的返回值是 compound procedure &lt;code&gt;fls&lt;/code&gt;.&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;1 ]=&amp;gt; tru
+
+;Value: #[compound-procedure 13 tru]
+
+1 ]=&amp;gt; fls
+
+;Value: #[compound-procedure 12 fls]
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;做一个简单的测试：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;1 ]=&amp;gt; ((tru &amp;#39;and) fls)
+
+;Value: #[compound-procedure 12 fls]
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这里我们做了什么事情呢？首先 &lt;code&gt;tru&lt;/code&gt; 是接收符号参数的一个 &lt;code&gt;lambda&lt;/code&gt; 表达式，&lt;code&gt;(tru &#39;and)&lt;/code&gt; 得到的是 &lt;code&gt;tru_logic_and&lt;/code&gt; —— 一个柯里化的逻辑与（也就是已经传入了一个 &lt;code&gt;TRUE&lt;/code&gt; 的逻辑与），然后将 &lt;code&gt;tru_logic_and&lt;/code&gt; 应用于 &lt;code&gt;fls&lt;/code&gt; ，最后的返回值是 compound procedure &lt;code&gt;fls&lt;/code&gt;.&lt;/p&gt;
 &lt;p&gt;给出图示如下：&lt;/p&gt;
 &lt;img src=&#34;msg_pasing_tru.png&#34; alt=&#34;message passing `tru`&#34; style=&#34;zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
 &lt;p&gt;如果表达式长一些：如果忽略一部分括号，看起来就是中缀的逻辑表达式&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1 ]=&amp;gt; ((((fls &amp;#39;or) tru) &amp;#39;and) fls)      ; ((0 or 1) and 0)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;;Value: #[compound-procedure 12 fls]
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;如果更偏好前缀调用，可以做一层小封装：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;1 ]=&amp;gt; ((((fls &amp;#39;or) tru) &amp;#39;and) fls)      ; ((0 or 1) and 0)
+
+;Value: #[compound-procedure 12 fls]
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;如果更偏好前缀调用，可以做一层小封装：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-scm&#34; data-lang=&#34;scm&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;define &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;logic&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;op&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;x&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;x&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;op&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;对 &lt;code&gt;logic&lt;/code&gt; 进行测试：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1 ]=&amp;gt; (logic &amp;#39;and tru fls)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;;Value: #[compound-procedure 12 fls]
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;1 ]=&amp;gt; (logic &amp;#39;or (logic &amp;#39;and fls fls) tru)      ; (or (and 0 0) 1)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;;Value: #[compound-procedure 13 tru]
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;-message-passing-看待数据的另一种视角&#34;&gt;&lt;a href=&#34;#-message-passing-%e7%9c%8b%e5%be%85%e6%95%b0%e6%8d%ae%e7%9a%84%e5%8f%a6%e4%b8%80%e7%a7%8d%e8%a7%86%e8%a7%92&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;→ Message Passing: 看待数据的另一种视角
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;1 ]=&amp;gt; (logic &amp;#39;and tru fls)
+
+;Value: #[compound-procedure 12 fls]
+
+1 ]=&amp;gt; (logic &amp;#39;or (logic &amp;#39;and fls fls) tru)      ; (or (and 0 0) 1)
+
+;Value: #[compound-procedure 13 tru]
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;-message-passing-看待数据的另一种视角&#34;&gt;&lt;a href=&#34;#-message-passing-%e7%9c%8b%e5%be%85%e6%95%b0%e6%8d%ae%e7%9a%84%e5%8f%a6%e4%b8%80%e7%a7%8d%e8%a7%86%e8%a7%92&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;→ Message Passing: 看待数据的另一种视角
 &lt;/h3&gt;&lt;p&gt;上面这种构建 Boolean 的编程风格被称为 Message Passing：一个数据是一个接收操作名（message）的实体，例如：&lt;code&gt;tru&lt;/code&gt; 可以接收 &lt;code&gt;&#39;and&lt;/code&gt; / &lt;code&gt;&#39;or&lt;/code&gt; 这样的 Message 并返回对应的柯里化函数供我们后续使用. 在这样的视角下，数据本身和&lt;strong&gt;数据所携带的方法&lt;/strong&gt;一样重要，也是&amp;quot;数据即程序&amp;quot;的一种体现. 不知道看到这里的你是否也在此处察觉到了一些面向对象的风味.&lt;/p&gt;
 &lt;!-- 面向对象？ --&gt;
 &lt;h3 id=&#34;haskell-中的-&#34;&gt;&lt;a href=&#34;#haskell-%e4%b8%ad%e7%9a%84-&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Haskell 中的 &lt;code&gt;$&lt;/code&gt;
 &lt;/h3&gt;&lt;p&gt;&lt;code&gt;$&lt;/code&gt; 是一个中缀调用的函数，其类型签名和优先级如下，它的作用是改变表达式求值顺序，一个客观结果是 &lt;code&gt;$&lt;/code&gt; 的使用减少了代码中的括号量，&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ghci&amp;gt; :i ($)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;($) :: (a -&amp;gt; b) -&amp;gt; a -&amp;gt; b       -- Defined in ‘GHC.Base’
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;infixr 0 $
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;将 &lt;code&gt;$&lt;/code&gt; （柯里化）应用于一个&lt;strong&gt;值&lt;/strong&gt;，返回值是一个&lt;strong&gt;函数&lt;/strong&gt;：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;ghci&amp;gt; :i ($)
+($) :: (a -&amp;gt; b) -&amp;gt; a -&amp;gt; b       -- Defined in ‘GHC.Base’
+infixr 0 $
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;将 &lt;code&gt;$&lt;/code&gt; （柯里化）应用于一个&lt;strong&gt;值&lt;/strong&gt;，返回值是一个&lt;strong&gt;函数&lt;/strong&gt;：&lt;/p&gt;
 &lt;!-- 从类型签名上去观察，可以看到，`$` 把一个数据变成了一个函数： --&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ghci&amp;gt; x = 5 :: Int
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ghci&amp;gt; :t ($ x)
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;($ x) :: (Int -&amp;gt; b) -&amp;gt; b
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;!-- `($ x)`是一个可以被其他函数（也就是类型签名中的 `Int -&gt; b` ）作用的一个函数. --&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;ghci&amp;gt; x = 5 :: Int
+ghci&amp;gt; :t ($ x)
+($ x) :: (Int -&amp;gt; b) -&amp;gt; b
+&lt;/code&gt;&lt;/pre&gt;&lt;!-- `($ x)`是一个可以被其他函数（也就是类型签名中的 `Int -&gt; b` ）作用的一个函数. --&gt;
 &lt;p&gt;一种理解是：&lt;code&gt;($ x)&lt;/code&gt; 把 &lt;code&gt;x&lt;/code&gt; 从静态数据，变成了一个等待被函数 &lt;code&gt;Int -&amp;gt; b&lt;/code&gt; 作用的数据&lt;span style=&#34;color: #888888; font-size: 0.85em;&#34;&gt;（从类型签名上看，这是一个函数）&lt;/span&gt;. 基于这种理解，可以写这样的代码：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-fallback&#34; data-lang=&#34;fallback&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;ghci&amp;gt; map ($ 5) [(* 2), (+ 10), (^ 3)]
-&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;[10,15,125]
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;haskell-中的代数数据类型&#34;&gt;&lt;a href=&#34;#haskell-%e4%b8%ad%e7%9a%84%e4%bb%a3%e6%95%b0%e6%95%b0%e6%8d%ae%e7%b1%bb%e5%9e%8b&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Haskell 中的代数数据类型
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;ghci&amp;gt; map ($ 5) [(* 2), (+ 10), (^ 3)]
+[10,15,125]
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;haskell-中的代数数据类型&#34;&gt;&lt;a href=&#34;#haskell-%e4%b8%ad%e7%9a%84%e4%bb%a3%e6%95%b0%e6%95%b0%e6%8d%ae%e7%b1%bb%e5%9e%8b&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Haskell 中的代数数据类型
 &lt;/h3&gt;&lt;p&gt;经典的代数数据类型对二叉树进行递归定义：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-hs&#34; data-lang=&#34;hs&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kr&#34;&gt;data&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Tree&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Empty&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Node&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;Tree&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;Tree&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;Empty&lt;/code&gt; 和 &lt;code&gt;Node&lt;/code&gt; 是 &lt;code&gt;Tree a&lt;/code&gt; 的值构造子，值构造子就是返回某种类型的&lt;strong&gt;值&lt;/strong&gt;的&lt;strong&gt;函数&lt;/strong&gt;. &lt;code&gt;Empty&lt;/code&gt; 是无参构造子，&lt;code&gt;Node&lt;/code&gt; 接受 &lt;code&gt;a&lt;/code&gt;，&lt;code&gt;Tree a&lt;/code&gt;，&lt;code&gt;Tree a&lt;/code&gt;三个&lt;strong&gt;值&lt;/strong&gt;参数.&lt;/p&gt;
@@ -399,8 +399,8 @@ $three: λf.λx.(f (f (f x)))$&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;在 REPL 加载中加载 scheme 代码:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-gdscript3&#34; data-lang=&#34;gdscript3&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nb&#34;&gt;load&lt;/span&gt; &lt;span class=&#34;s2&#34;&gt;&amp;#34;path/to/file.scm&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;(后缀 &lt;code&gt;.scm&lt;/code&gt; 可以省略.)&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;1 ] =&amp;gt; (load &amp;#34;path/to/file.scm&amp;#34;)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;(后缀 &lt;code&gt;.scm&lt;/code&gt; 可以省略.)&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;查看手册:&lt;/p&gt;

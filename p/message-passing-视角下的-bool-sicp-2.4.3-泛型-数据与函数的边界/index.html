@@ -393,52 +393,52 @@
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">fls_logic_or</span> <span class="nv">x</span><span class="p">)</span> <span class="p">(</span><span class="k">if </span><span class="p">(</span><span class="nb">eq? </span><span class="nv">x</span> <span class="nv">tru</span><span class="p">)</span> <span class="nv">tru</span> <span class="nv">fls</span><span class="p">))</span>      <span class="c1">; 0 OR x</span>
 </span></span></code></pre></div><p>在 REPL 中查看 <code>tru</code> <code>fls</code>：毫无疑问两者都是 compound procedure</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1 ]=&gt; tru
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">;Value: #[compound-procedure 13 tru]
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">1 ]=&gt; fls
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">;Value: #[compound-procedure 12 fls]
-</span></span></code></pre></div><p>做一个简单的测试：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1 ]=&gt; ((tru &#39;and) fls)
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">;Value: #[compound-procedure 12 fls]
-</span></span></code></pre></div><p>这里我们做了什么事情呢？首先 <code>tru</code> 是接收符号参数的一个 <code>lambda</code> 表达式，<code>(tru 'and)</code> 得到的是 <code>tru_logic_and</code> —— 一个柯里化的逻辑与（也就是已经传入了一个 <code>TRUE</code> 的逻辑与），然后将 <code>tru_logic_and</code> 应用于 <code>fls</code> ，最后的返回值是 compound procedure <code>fls</code>.</p>
+<pre tabindex="0"><code>1 ]=&gt; tru
+
+;Value: #[compound-procedure 13 tru]
+
+1 ]=&gt; fls
+
+;Value: #[compound-procedure 12 fls]
+</code></pre><p>做一个简单的测试：</p>
+<pre tabindex="0"><code>1 ]=&gt; ((tru &#39;and) fls)
+
+;Value: #[compound-procedure 12 fls]
+</code></pre><p>这里我们做了什么事情呢？首先 <code>tru</code> 是接收符号参数的一个 <code>lambda</code> 表达式，<code>(tru 'and)</code> 得到的是 <code>tru_logic_and</code> —— 一个柯里化的逻辑与（也就是已经传入了一个 <code>TRUE</code> 的逻辑与），然后将 <code>tru_logic_and</code> 应用于 <code>fls</code> ，最后的返回值是 compound procedure <code>fls</code>.</p>
 <p>给出图示如下：</p>
 <img src="msg_pasing_tru.png" alt="message passing `tru`" style="zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);" />
 <p>如果表达式长一些：如果忽略一部分括号，看起来就是中缀的逻辑表达式</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1 ]=&gt; ((((fls &#39;or) tru) &#39;and) fls)      ; ((0 or 1) and 0)
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">;Value: #[compound-procedure 12 fls]
-</span></span></code></pre></div><p>如果更偏好前缀调用，可以做一层小封装：</p>
+<pre tabindex="0"><code>1 ]=&gt; ((((fls &#39;or) tru) &#39;and) fls)      ; ((0 or 1) and 0)
+
+;Value: #[compound-procedure 12 fls]
+</code></pre><p>如果更偏好前缀调用，可以做一层小封装：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-scm" data-lang="scm"><span class="line"><span class="cl"><span class="p">(</span><span class="k">define </span><span class="p">(</span><span class="nf">logic</span> <span class="nv">op</span> <span class="nv">x</span> <span class="nv">y</span><span class="p">)</span> <span class="p">((</span><span class="nf">x</span> <span class="nv">op</span><span class="p">)</span> <span class="nv">y</span><span class="p">))</span>
 </span></span></code></pre></div><p>对 <code>logic</code> 进行测试：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">1 ]=&gt; (logic &#39;and tru fls)
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">;Value: #[compound-procedure 12 fls]
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">1 ]=&gt; (logic &#39;or (logic &#39;and fls fls) tru)      ; (or (and 0 0) 1)
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">;Value: #[compound-procedure 13 tru]
-</span></span></code></pre></div><h3 id="-message-passing-看待数据的另一种视角"><a href="#-message-passing-%e7%9c%8b%e5%be%85%e6%95%b0%e6%8d%ae%e7%9a%84%e5%8f%a6%e4%b8%80%e7%a7%8d%e8%a7%86%e8%a7%92" class="header-anchor"></a>→ Message Passing: 看待数据的另一种视角
+<pre tabindex="0"><code>1 ]=&gt; (logic &#39;and tru fls)
+
+;Value: #[compound-procedure 12 fls]
+
+1 ]=&gt; (logic &#39;or (logic &#39;and fls fls) tru)      ; (or (and 0 0) 1)
+
+;Value: #[compound-procedure 13 tru]
+</code></pre><h3 id="-message-passing-看待数据的另一种视角"><a href="#-message-passing-%e7%9c%8b%e5%be%85%e6%95%b0%e6%8d%ae%e7%9a%84%e5%8f%a6%e4%b8%80%e7%a7%8d%e8%a7%86%e8%a7%92" class="header-anchor"></a>→ Message Passing: 看待数据的另一种视角
 </h3><p>上面这种构建 Boolean 的编程风格被称为 Message Passing：一个数据是一个接收操作名（message）的实体，例如：<code>tru</code> 可以接收 <code>'and</code> / <code>'or</code> 这样的 Message 并返回对应的柯里化函数供我们后续使用. 在这样的视角下，数据本身和<strong>数据所携带的方法</strong>一样重要，也是&quot;数据即程序&quot;的一种体现. 不知道看到这里的你是否也在此处察觉到了一些面向对象的风味.</p>
 <!-- 面向对象？ -->
 <h3 id="haskell-中的-"><a href="#haskell-%e4%b8%ad%e7%9a%84-" class="header-anchor"></a>Haskell 中的 <code>$</code>
 </h3><p><code>$</code> 是一个中缀调用的函数，其类型签名和优先级如下，它的作用是改变表达式求值顺序，一个客观结果是 <code>$</code> 的使用减少了代码中的括号量，</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ghci&gt; :i ($)
-</span></span><span class="line"><span class="cl">($) :: (a -&gt; b) -&gt; a -&gt; b       -- Defined in ‘GHC.Base’
-</span></span><span class="line"><span class="cl">infixr 0 $
-</span></span></code></pre></div><p>将 <code>$</code> （柯里化）应用于一个<strong>值</strong>，返回值是一个<strong>函数</strong>：</p>
+<pre tabindex="0"><code>ghci&gt; :i ($)
+($) :: (a -&gt; b) -&gt; a -&gt; b       -- Defined in ‘GHC.Base’
+infixr 0 $
+</code></pre><p>将 <code>$</code> （柯里化）应用于一个<strong>值</strong>，返回值是一个<strong>函数</strong>：</p>
 <!-- 从类型签名上去观察，可以看到，`$` 把一个数据变成了一个函数： -->
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ghci&gt; x = 5 :: Int
-</span></span><span class="line"><span class="cl">ghci&gt; :t ($ x)
-</span></span><span class="line"><span class="cl">($ x) :: (Int -&gt; b) -&gt; b
-</span></span></code></pre></div><!-- `($ x)`是一个可以被其他函数（也就是类型签名中的 `Int -> b` ）作用的一个函数. -->
+<pre tabindex="0"><code>ghci&gt; x = 5 :: Int
+ghci&gt; :t ($ x)
+($ x) :: (Int -&gt; b) -&gt; b
+</code></pre><!-- `($ x)`是一个可以被其他函数（也就是类型签名中的 `Int -> b` ）作用的一个函数. -->
 <p>一种理解是：<code>($ x)</code> 把 <code>x</code> 从静态数据，变成了一个等待被函数 <code>Int -&gt; b</code> 作用的数据<span style="color: #888888; font-size: 0.85em;">（从类型签名上看，这是一个函数）</span>. 基于这种理解，可以写这样的代码：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">ghci&gt; map ($ 5) [(* 2), (+ 10), (^ 3)]
-</span></span><span class="line"><span class="cl">[10,15,125]
-</span></span></code></pre></div><h3 id="haskell-中的代数数据类型"><a href="#haskell-%e4%b8%ad%e7%9a%84%e4%bb%a3%e6%95%b0%e6%95%b0%e6%8d%ae%e7%b1%bb%e5%9e%8b" class="header-anchor"></a>Haskell 中的代数数据类型
+<pre tabindex="0"><code>ghci&gt; map ($ 5) [(* 2), (+ 10), (^ 3)]
+[10,15,125]
+</code></pre><h3 id="haskell-中的代数数据类型"><a href="#haskell-%e4%b8%ad%e7%9a%84%e4%bb%a3%e6%95%b0%e6%95%b0%e6%8d%ae%e7%b1%bb%e5%9e%8b" class="header-anchor"></a>Haskell 中的代数数据类型
 </h3><p>经典的代数数据类型对二叉树进行递归定义：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-hs" data-lang="hs"><span class="line"><span class="cl"><span class="kr">data</span> <span class="kt">Tree</span> <span class="n">a</span> <span class="ow">=</span> <span class="kt">Empty</span> <span class="o">|</span> <span class="kt">Node</span> <span class="n">a</span> <span class="p">(</span><span class="kt">Tree</span> <span class="n">a</span><span class="p">)</span> <span class="p">(</span><span class="kt">Tree</span> <span class="n">a</span><span class="p">)</span>
 </span></span></code></pre></div><p><code>Empty</code> 和 <code>Node</code> 是 <code>Tree a</code> 的值构造子，值构造子就是返回某种类型的<strong>值</strong>的<strong>函数</strong>. <code>Empty</code> 是无参构造子，<code>Node</code> 接受 <code>a</code>，<code>Tree a</code>，<code>Tree a</code>三个<strong>值</strong>参数.</p>
