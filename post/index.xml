@@ -533,8 +533,9 @@ elemAt (Node _ _ r) (R:ds) = elemAt r ds
 &lt;/ul&gt;
 &lt;p&gt;数据的构造方式决定了我们对数据的处理方式，而在 Haskell 中，&lt;strong&gt;构造&lt;/strong&gt;数据的形式和对数据进行&lt;strong&gt;模式匹配&lt;/strong&gt;的形式是一致的，所以可以在函数参数位做模式匹配，一种模式对应一种函数行为.&lt;/p&gt;
 &lt;h3 id=&#34;lambda-calculus---pair-abstraction&#34;&gt;&lt;a href=&#34;#lambda-calculus---pair-abstraction&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Lambda Calculus - &lt;code&gt;pair&lt;/code&gt; abstraction
-&lt;/h3&gt;&lt;p&gt;上面&lt;a class=&#34;link&#34; href=&#34;https://fyshxfish.github.io/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.3.4-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/#%E4%B8%80%E8%87%B4%E6%80%A7&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;一致性&lt;/a&gt;这一节提到的例子，可以使用纯 Lambda Calculus 来实现：&lt;/p&gt;
+&lt;/h3&gt;&lt;h4 id=&#34;pure-lambda-calculus-中的-pair-abstraction&#34;&gt;&lt;a href=&#34;#pure-lambda-calculus-%e4%b8%ad%e7%9a%84-pair-abstraction&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Pure Lambda Calculus 中的 &lt;code&gt;pair&lt;/code&gt; abstraction
+&lt;/h4&gt;&lt;p&gt;上面&lt;a class=&#34;link&#34; href=&#34;https://fyshxfish.github.io/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.3.4-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/#%E4%B8%80%E8%87%B4%E6%80%A7&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;一致性&lt;/a&gt;这一节提到的例子，可以使用&lt;cite&gt;纯 Lambda Calculus 来实现&lt;sup id=&#34;fnref:1&#34;&gt;&lt;a href=&#34;#fn:1&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;/cite&gt;：&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;pair = λm λn λb. b m n
 pair v w = λb. b v w
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这样的 abstraction 提供的视角是：通过对 &lt;code&gt;pair&lt;/code&gt; 的两次应用（application），对 &lt;code&gt;m&lt;/code&gt;, &lt;code&gt;n&lt;/code&gt; 进行实例化，即 确定 &lt;code&gt;pair&lt;/code&gt; 中所含的元素，剩下的 &lt;code&gt;b&lt;/code&gt; 为后续在 &lt;code&gt;pair&lt;/code&gt; 元素上进行的操作留接口.  若想对 &lt;code&gt;pair&lt;/code&gt; 中的元素进行按序提取，可定义 &lt;code&gt;fst&lt;/code&gt; 和 &lt;code&gt;snd&lt;/code&gt;：&lt;/p&gt;
@@ -553,8 +554,27 @@ snd = λp. p fls
 fst (pair v w)  → v 
 snd (pair v w)  → w 
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;再次审视这个 abstraction：&lt;code&gt;pair = λm λn λb. b m n&lt;/code&gt;. Lambda Calculus 中将我们惯常称之为函数的结构称为 abstraction（抽象），这里的 &lt;code&gt;pair&lt;/code&gt; abstraction 就对 &lt;code&gt;pair&lt;/code&gt; 的构造与操作进行了抽象，我们首先通过外层参 &lt;code&gt;m&lt;/code&gt;, &lt;code&gt;n&lt;/code&gt; 确定包含的元素，构建 &lt;code&gt;pair&lt;/code&gt;，最后通过内层参 &lt;code&gt;b&lt;/code&gt; 来执行对已有元素的操作；在这样的视角下，&lt;code&gt;pair&lt;/code&gt; 天然具备与 Lambda Calculus 体系内其他函数（abstraction）交互的属性，因为在实例化 &lt;code&gt;pair&lt;/code&gt; 元素之后，它向外界提供 &lt;code&gt;b&lt;/code&gt; 这个交互接口，等待其他 abstraction 与 &lt;code&gt;pair&lt;/code&gt; 已有的元素通过应用（application）交互.&lt;/p&gt;
-&lt;!-- &gt; meme:
-&gt;  --&gt;
+&lt;!-- --- --&gt;
+&lt;h4 id=&#34;böhms-theorem&#34;&gt;&lt;a href=&#34;#b%c3%b6hms-theorem&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Böhm’s theorem
+&lt;/h4&gt;&lt;p&gt;对于 &lt;code&gt;(pair v w) fst&lt;/code&gt; 这样的结构，假定 &lt;code&gt;a&lt;/code&gt;,&lt;code&gt;b&lt;/code&gt;,&lt;code&gt;c&lt;/code&gt;,&lt;code&gt;d&lt;/code&gt; 是不同的四个符号，可以想见 &lt;code&gt;(pair a b) fst&lt;/code&gt; 和 &lt;code&gt;(pair c d) fst&lt;/code&gt; 的值必然是不同的，提高此观察的抽象程度，我们可以陈述：对于不同的抽象，应用相同的操作，得到的值不同.  Lambda Calculus 和 Combinator Logic 里的 &lt;cite&gt; Böhm&amp;rsquo;s theorem &lt;sup id=&#34;fnref:2&#34;&gt;&lt;a href=&#34;#fn:2&#34; class=&#34;footnote-ref&#34; role=&#34;doc-noteref&#34;&gt;2&lt;/a&gt;&lt;/sup&gt;&lt;/cite&gt; 如下：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;In λ and CL: let $M$ and $N$ be combinators, either in βη-normal form (in λ) or in strong normal form (in CL). If $M \not\equiv N$, then there exist $n ≥ 0$ and combinators $L_1$, &amp;hellip;, $L_n$ such that
+$$ ML_1 &amp;hellip;L_nxy \quad \rhd_{\beta,w} \quad x, $$
+$$ NL_1 &amp;hellip;L_nxy \quad \rhd_{\beta,w} \quad y. $$
+Roughly speaking, Böhm’s theorem says that $M$ and $N$ can be distinguished, not just by their structure, but by their &lt;strong&gt;behaviour&lt;/strong&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Böhm&amp;rsquo;s theorem 提供的视角是：在不等的两个组合子（即不含自由变量的 λ-term）上应用相同的操作，得到的值不同；即 我们可以通过组合子的&lt;strong&gt;行为&lt;/strong&gt;来对不同组合子进行区分. 上文提到的 &lt;code&gt;(pair v w) fst&lt;/code&gt; 就是一个简单的例子，&lt;code&gt;(pair a b)&lt;/code&gt; 和 &lt;code&gt;(pair c d)&lt;/code&gt;是不同的组合子，将此二者施以同样的操作 &lt;code&gt;fst&lt;/code&gt; ，得到的值不同. 我们在 Scheme 中实现的 &lt;code&gt;cons - dispatch&lt;/code&gt; 也可以用这个思路来理解.&lt;/p&gt;
+&lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
+&lt;hr&gt;
+&lt;ol&gt;
+&lt;li id=&#34;fn:1&#34;&gt;
+&lt;p&gt;Types and Programming Languages - Chapter 5 The Untyped Lambda-Calculus&amp;#160;&lt;a href=&#34;#fnref:1&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li id=&#34;fn:2&#34;&gt;
+&lt;p&gt;Lambda-calculus and Combinators, an introduction - 3C Theorem 3.11&amp;#160;&lt;a href=&#34;#fnref:2&#34; class=&#34;footnote-backref&#34; role=&#34;doc-backlink&#34;&gt;&amp;#x21a9;&amp;#xfe0e;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
 </description>
         </item>
         <item>

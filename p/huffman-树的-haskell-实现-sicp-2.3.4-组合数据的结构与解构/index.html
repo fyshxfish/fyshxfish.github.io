@@ -282,7 +282,12 @@
           </ol>
         </li>
         <li><a href="#haskell-pattern-match">Haskell: Pattern Match</a></li>
-        <li><a href="#lambda-calculus---pair-abstraction">Lambda Calculus - <code>pair</code> abstraction</a></li>
+        <li><a href="#lambda-calculus---pair-abstraction">Lambda Calculus - <code>pair</code> abstraction</a>
+          <ol>
+            <li><a href="#pure-lambda-calculus-中的-pair-abstraction">Pure Lambda Calculus 中的 <code>pair</code> abstraction</a></li>
+            <li><a href="#böhms-theorem">Böhm’s theorem</a></li>
+          </ol>
+        </li>
       </ol>
     </li>
   </ol>
@@ -349,7 +354,7 @@
 
 
                 <time class="article-time--reading">
-                    8 minute read
+                    9 minute read
                 </time>
             </div>
         
@@ -597,8 +602,9 @@ elemAt (Node _ _ r) (R:ds) = elemAt r ds
 </ul>
 <p>数据的构造方式决定了我们对数据的处理方式，而在 Haskell 中，<strong>构造</strong>数据的形式和对数据进行<strong>模式匹配</strong>的形式是一致的，所以可以在函数参数位做模式匹配，一种模式对应一种函数行为.</p>
 <h3 id="lambda-calculus---pair-abstraction"><a href="#lambda-calculus---pair-abstraction" class="header-anchor"></a>Lambda Calculus - <code>pair</code> abstraction
-</h3><p>上面<a class="link" href="https://fyshxfish.github.io/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.3.4-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/#%E4%B8%80%E8%87%B4%E6%80%A7"  target="_blank" rel="noopener"
-    >一致性</a>这一节提到的例子，可以使用纯 Lambda Calculus 来实现：</p>
+</h3><h4 id="pure-lambda-calculus-中的-pair-abstraction"><a href="#pure-lambda-calculus-%e4%b8%ad%e7%9a%84-pair-abstraction" class="header-anchor"></a>Pure Lambda Calculus 中的 <code>pair</code> abstraction
+</h4><p>上面<a class="link" href="https://fyshxfish.github.io/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.3.4-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/#%E4%B8%80%E8%87%B4%E6%80%A7"  target="_blank" rel="noopener"
+    >一致性</a>这一节提到的例子，可以使用<cite>纯 Lambda Calculus 来实现<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></cite>：</p>
 <pre tabindex="0"><code>pair = λm λn λb. b m n
 pair v w = λb. b v w
 </code></pre><p>这样的 abstraction 提供的视角是：通过对 <code>pair</code> 的两次应用（application），对 <code>m</code>, <code>n</code> 进行实例化，即 确定 <code>pair</code> 中所含的元素，剩下的 <code>b</code> 为后续在 <code>pair</code> 元素上进行的操作留接口.  若想对 <code>pair</code> 中的元素进行按序提取，可定义 <code>fst</code> 和 <code>snd</code>：</p>
@@ -617,8 +623,27 @@ snd = λp. p fls
 fst (pair v w)  → v 
 snd (pair v w)  → w 
 </code></pre><p>再次审视这个 abstraction：<code>pair = λm λn λb. b m n</code>. Lambda Calculus 中将我们惯常称之为函数的结构称为 abstraction（抽象），这里的 <code>pair</code> abstraction 就对 <code>pair</code> 的构造与操作进行了抽象，我们首先通过外层参 <code>m</code>, <code>n</code> 确定包含的元素，构建 <code>pair</code>，最后通过内层参 <code>b</code> 来执行对已有元素的操作；在这样的视角下，<code>pair</code> 天然具备与 Lambda Calculus 体系内其他函数（abstraction）交互的属性，因为在实例化 <code>pair</code> 元素之后，它向外界提供 <code>b</code> 这个交互接口，等待其他 abstraction 与 <code>pair</code> 已有的元素通过应用（application）交互.</p>
-<!-- > meme:
->  -->
+<!-- --- -->
+<h4 id="böhms-theorem"><a href="#b%c3%b6hms-theorem" class="header-anchor"></a>Böhm’s theorem
+</h4><p>对于 <code>(pair v w) fst</code> 这样的结构，假定 <code>a</code>,<code>b</code>,<code>c</code>,<code>d</code> 是不同的四个符号，可以想见 <code>(pair a b) fst</code> 和 <code>(pair c d) fst</code> 的值必然是不同的，提高此观察的抽象程度，我们可以陈述：对于不同的抽象，应用相同的操作，得到的值不同.  Lambda Calculus 和 Combinator Logic 里的 <cite> Böhm&rsquo;s theorem <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></cite> 如下：</p>
+<blockquote>
+<p>In λ and CL: let $M$ and $N$ be combinators, either in βη-normal form (in λ) or in strong normal form (in CL). If $M \not\equiv N$, then there exist $n ≥ 0$ and combinators $L_1$, &hellip;, $L_n$ such that
+$$ ML_1 &hellip;L_nxy \quad \rhd_{\beta,w} \quad x, $$
+$$ NL_1 &hellip;L_nxy \quad \rhd_{\beta,w} \quad y. $$
+Roughly speaking, Böhm’s theorem says that $M$ and $N$ can be distinguished, not just by their structure, but by their <strong>behaviour</strong>.</p>
+</blockquote>
+<p>Böhm&rsquo;s theorem 提供的视角是：在不等的两个组合子（即不含自由变量的 λ-term）上应用相同的操作，得到的值不同；即 我们可以通过组合子的<strong>行为</strong>来对不同组合子进行区分. 上文提到的 <code>(pair v w) fst</code> 就是一个简单的例子，<code>(pair a b)</code> 和 <code>(pair c d)</code>是不同的组合子，将此二者施以同样的操作 <code>fst</code> ，得到的值不同. 我们在 Scheme 中实现的 <code>cons - dispatch</code> 也可以用这个思路来理解.</p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>Types and Programming Languages - Chapter 5 The Untyped Lambda-Calculus&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p>Lambda-calculus and Combinators, an introduction - 3C Theorem 3.11&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
 
 </section>
 
