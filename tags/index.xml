@@ -6,20 +6,28 @@
         <description>Recent content in Tags on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Tue, 10 Sep 2024 14:10:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 17 Sep 2024 23:48:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Lambda Calculus</title>
+        <link>http://fyshxfish.github.io/tags/lambda-calculus/</link>
+        <pubDate>Tue, 17 Sep 2024 23:48:00 +0800</pubDate>
+        
+        <guid>http://fyshxfish.github.io/tags/lambda-calculus/</guid>
+        <description></description>
+        </item>
+        <item>
+        <title>LCaC</title>
+        <link>http://fyshxfish.github.io/tags/lcac/</link>
+        <pubDate>Tue, 17 Sep 2024 23:48:00 +0800</pubDate>
+        
+        <guid>http://fyshxfish.github.io/tags/lcac/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>TaPL</title>
         <link>http://fyshxfish.github.io/tags/tapl/</link>
         <pubDate>Tue, 10 Sep 2024 14:10:00 +0800</pubDate>
         
         <guid>http://fyshxfish.github.io/tags/tapl/</guid>
-        <description></description>
-        </item>
-        <item>
-        <title>Lambda Calculus</title>
-        <link>http://fyshxfish.github.io/tags/lambda-calculus/</link>
-        <pubDate>Sun, 08 Sep 2024 20:13:00 +0800</pubDate>
-        
-        <guid>http://fyshxfish.github.io/tags/lambda-calculus/</guid>
         <description></description>
         </item>
         <item>
