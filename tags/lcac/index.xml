@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>LCaC on fyshXplore</title>
+        <link>http://localhost:1313/tags/lcac/</link>
+        <description>Recent content in LCaC on fyshXplore</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en</language>
+        <lastBuildDate>Tue, 17 Sep 2024 23:48:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/lcac/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>LCaC § 4C - 迭代组合子的构造</title>
+        <link>http://localhost:1313/p/lcac-4c-%E8%BF%AD%E4%BB%A3%E7%BB%84%E5%90%88%E5%AD%90%E7%9A%84%E6%9E%84%E9%80%A0/</link>
+        <pubDate>Tue, 17 Sep 2024 23:48:00 +0800</pubDate>
+        
+        <guid>http://localhost:1313/p/lcac-4c-%E8%BF%AD%E4%BB%A3%E7%BB%84%E5%90%88%E5%AD%90%E7%9A%84%E6%9E%84%E9%80%A0/</guid>
+        <description>&lt;p&gt;来自 Lambda-Calculus and Combinator § 4C Theorem 4.20 的 proof 部分，整体意图是证明符合 Definition 4.18 的全称递归函数可以用组合子来表示. 这里对该证明的关键部分，即迭代组合子的构造，做简要的陈述. 也可以理解为：在 Lambda Calculus 中编写一个具有特定终止条件的迭代程序. 如果你好奇 &amp;quot; 如何在 Lambda Calculus 中编写一个指定&lt;strong&gt;迭代 / 递归次数&lt;/strong&gt;的迭代 / 递归函数 &amp;quot; ，可以参考 Lambda-Calculus and Combinator § 4B Theorem 4.11 的 proof 中 $R_{ Bernays}$ 组合子的构造，这个构造过程也十分精巧.&lt;/p&gt;
+&lt;h2 id=&#34;构造目标&#34;&gt;&lt;a href=&#34;#%e6%9e%84%e9%80%a0%e7%9b%ae%e6%a0%87&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;构造目标
+&lt;/h2&gt;&lt;p&gt;假设有一个检查函数 $X$, 迭代的终止条件为 $XY=_{\beta,w}\bar{0}$, 我们希望构造一个组合子 $P$,得到最小的符合终止条件的 $Y$，我们预期 $P$ 的行为如下:&lt;/p&gt;
+&lt;p&gt;$$ PXY =_{\beta,w}Y \quad \quad \text{         , if } XY=\bar{0};$$&lt;/p&gt;
+&lt;p&gt;$$ PXY =_{\beta,w}PX(\bar{\sigma}Y), \text{    otherwise} $$&lt;/p&gt;
+&lt;!-- 用伪代码表示：
+
+```
+combinator p(x,y):
+    if (xy == 0):
+        y
+    else:
+        p(x, σ y)
+``` --&gt;
+&lt;!-- 从 $\bar{0}$ 开始迭代，检查 $XY=_{\beta,w}\bar{0}$ 是否成立，是则输出此时的 $Y$ , 否则 --&gt;
+&lt;!-- $$ PXY =_{\beta,w} Y, if XY=_{\beta,w}\bar{0}, $$ --&gt;
+&lt;p&gt;完全尊重预期，写一个 $P$ 组合子：$P = \lambda xy.\textbf{D}y(Px(\bar{\sigma}y))(xy)$，其中 $\textbf{D}=\lambda xyz.z(\textbf{K}y)x$, 可以用 $\bf{Y}$&lt;/p&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>
