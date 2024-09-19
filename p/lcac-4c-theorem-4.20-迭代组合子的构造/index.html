@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-    <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" ghcup 修复 终端使用 ghcup 直接被杀进程，输出大致如：ghcup terminated by SIGKILL\n">
-<title>Haskell 开发环境 (VSCode &#43; GHCup &#43; HLS) 修复记录</title>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="来自 Lambda-Calculus and Combinator § 4C Theorem 4.20 的 proof 部分，整体意图是证明符合 Definition 4.18 的全称递归函数可以用组合子来表示.\u2002这里对该证明的关键部分，即迭代组合子的构造，做简要的陈述. 也可以理解为：在 Pure Lambda Calculus 中编写一个具有特定终止条件的迭代程序. 如果你好奇 &quot; 如何在 Lambda Calculus 中编写一个指定迭代 / 递归次数的迭代 / 递归函数 &quot; ，可以参考 Lambda-Calculus and Combinator § 4B Theorem 4.11 的 proof 中 $R_{ Bernays}$ 组合子的构造，这个构造过程也十分精巧.\n">
+<title>LCaC § 4C Theorem 4.20 - 迭代组合子的构造</title>
 
-<link rel='canonical' href='http://fyshxfish.github.io/p/haskell-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-vscode--ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/'>
+<link rel='canonical' href='http://localhost:1313/p/lcac-4c-theorem-4.20-%E8%BF%AD%E4%BB%A3%E7%BB%84%E5%90%88%E5%AD%90%E7%9A%84%E6%9E%84%E9%80%A0/'>
 
-<link rel="stylesheet" href="/scss/style.min.b51788d43472ffad20b588167514427b70146d30bc2a1ee0490ab0db3b5da439.css"><meta property='og:title' content="Haskell 开发环境 (VSCode + GHCup + HLS) 修复记录">
-<meta property='og:description' content=" ghcup 修复 终端使用 ghcup 直接被杀进程，输出大致如：ghcup terminated by SIGKILL\n">
-<meta property='og:url' content='http://fyshxfish.github.io/p/haskell-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-vscode--ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/'>
+<link rel="stylesheet" href="/scss/style.min.b51788d43472ffad20b588167514427b70146d30bc2a1ee0490ab0db3b5da439.css"><meta property='og:title' content="LCaC § 4C Theorem 4.20 - 迭代组合子的构造">
+<meta property='og:description' content="来自 Lambda-Calculus and Combinator § 4C Theorem 4.20 的 proof 部分，整体意图是证明符合 Definition 4.18 的全称递归函数可以用组合子来表示.\u2002这里对该证明的关键部分，即迭代组合子的构造，做简要的陈述. 也可以理解为：在 Pure Lambda Calculus 中编写一个具有特定终止条件的迭代程序. 如果你好奇 &quot; 如何在 Lambda Calculus 中编写一个指定迭代 / 递归次数的迭代 / 递归函数 &quot; ，可以参考 Lambda-Calculus and Combinator § 4B Theorem 4.11 的 proof 中 $R_{ Bernays}$ 组合子的构造，这个构造过程也十分精巧.\n">
+<meta property='og:url' content='http://localhost:1313/p/lcac-4c-theorem-4.20-%E8%BF%AD%E4%BB%A3%E7%BB%84%E5%90%88%E5%AD%90%E7%9A%84%E6%9E%84%E9%80%A0/'>
 <meta property='og:site_name' content='fyshXplore'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Haskell' /><meta property='article:published_time' content='2024-08-16T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-08-16T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="Haskell 开发环境 (VSCode + GHCup + HLS) 修复记录">
-<meta name="twitter:description" content=" ghcup 修复 终端使用 ghcup 直接被杀进程，输出大致如：ghcup terminated by SIGKILL\n"><style>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='LCaC' /><meta property='article:tag' content='lambda calculus' /><meta property='article:published_time' content='2024-09-17T23:48:00&#43;08:00'/><meta property='article:modified_time' content='2024-09-17T23:48:00&#43;08:00'/>
+<meta name="twitter:title" content="LCaC § 4C Theorem 4.20 - 迭代组合子的构造">
+<meta name="twitter:description" content="来自 Lambda-Calculus and Combinator § 4C Theorem 4.20 的 proof 部分，整体意图是证明符合 Definition 4.18 的全称递归函数可以用组合子来表示.\u2002这里对该证明的关键部分，即迭代组合子的构造，做简要的陈述. 也可以理解为：在 Pure Lambda Calculus 中编写一个具有特定终止条件的迭代程序. 如果你好奇 &quot; 如何在 Lambda Calculus 中编写一个指定迭代 / 递归次数的迭代 / 递归函数 &quot; ，可以参考 Lambda-Calculus and Combinator § 4B Theorem 4.11 的 proof 中 $R_{ Bernays}$ 组合子的构造，这个构造过程也十分精巧.\n"><style>
   :root {
      
     --zh-font-family: "Noto Serif SC";
@@ -250,9 +250,21 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#ghcup-修复">ghcup 修复</a></li>
-    <li><a href="#ghcup-配置环境">ghcup 配置环境</a></li>
-    <li><a href="#一个网络问题">一个网络问题</a></li>
+    <li><a href="#构造目标">构造目标</a></li>
+    <li><a href="#构造过程">构造过程</a>
+      <ol>
+        <li><a href="#基本结构">基本结构</a></li>
+        <li><a href="#具体细节">具体细节</a>
+          <ol>
+            <li><a href="#递归迭代分支的构造">递归（迭代）分支的构造</a></li>
+            <li><a href="#迭代终止分支的构造">迭代终止分支的构造</a></li>
+            <li><a href="#完整-lambda">完整 $\lambda$</a></li>
+            <li><a href="#lcac-theorem-420-中的-p-简述">LCaC Theorem 4.20 中的 $P$ 简述</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#其他">其他</a></li>
   </ol>
 </nav>
         </div>
@@ -275,16 +287,12 @@
                 FP
             </a>
         
-            <a href="/categories/enviroment_setup/" style="background-color: #9ec4cd; color: #fff;">
-                Enviroment Setup
-            </a>
-        
     </header>
     
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/haskell-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-vscode--ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/">Haskell 开发环境 (VSCode &#43; GHCup &#43; HLS) 修复记录</a>
+            <a href="/p/lcac-4c-theorem-4.20-%E8%BF%AD%E4%BB%A3%E7%BB%84%E5%90%88%E5%AD%90%E7%9A%84%E6%9E%84%E9%80%A0/">LCaC § 4C Theorem 4.20 - 迭代组合子的构造</a>
         </h2>
     
         
@@ -306,7 +314,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Aug 16, 2024</time>
+                <time class="article-time--published">Sep 17, 2024</time>
             </div>
         
 
@@ -321,7 +329,7 @@
 
 
                 <time class="article-time--reading">
-                    2 minute read
+                    5 minute read
                 </time>
             </div>
         
@@ -336,43 +344,101 @@
     <section class="article-content">
     
     
-    <!-- *不知不觉我已经在MacOS, Windows, Linux三种平台上配置过Haskell环境了，我觉得我已经是环境配置大师了，POWER!* -->
-<!-- # Mac上重新配置Haskell开发环境记录 -->
-<h2 id="ghcup-修复"><a href="#ghcup-%e4%bf%ae%e5%a4%8d" class="header-anchor"></a>ghcup 修复
-</h2><ul>
-<li>
-<p>终端使用 <code>ghcup</code> 直接被杀进程，输出大致如：<code>ghcup terminated by SIGKILL</code></p>
-</li>
-<li>
-<p>使用 ghcup 官网上的命令通过 curl 重新安装，会得到一句红色的报错信息<code>&quot;ghcup --metadata-fetching-mode=Strict upgrade&quot; failed!</code></p>
-</li>
-<li>
-<p>不知道是不是因为太久没打开了，<strong>解决方式</strong>是清除缓存：<code>rm -rf ~/.ghcup/cache</code></p>
-</li>
-</ul>
-<h2 id="ghcup-配置环境"><a href="#ghcup-%e9%85%8d%e7%bd%ae%e7%8e%af%e5%a2%83" class="header-anchor"></a>ghcup 配置环境
-</h2><p><code>ghcup tui</code>下载和设置 HLS 和 ghc（以及 stack, cabal）版本，</p>
-<ul>
-<li>
-<p>ghc 版本：注意 ghc 的备注信息中需要有 hls-powered，不知道为什么我的 mac 上的版本是 9.4.7，正好没有 hls 支持（9.8.4是有 hls 支持的），当时下载的时机这么刚好吗。</p>
-</li>
-<li>
-<p>HLS 版本：VSCode 的 Haskell 插件会要求 HLS 是最新的版本，所以就直接下最新的版本吧，VSCode 弹出提示&quot; Haskell 插件需要 2.9.0.1 的 HLS，是否下载&quot;，这里的下载比较慢，而且看不到进度，所以可以直接在终端的 ghcup 下载，然后回到VSC（重启？反正我重启了），插件就可以正常使用了。</p>
-</li>
-<li>
-<p>HLS 无法正常工作也可以尝试通过 <code>ghcup tui</code> 下载并切换 HLS 的版本。</p>
-  <img src="ghcup_tui.png" alt="ghcup_tui" style="zoom:75%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7)" />
-  <!-- <img src="ghcup_tui.png" alt="ghcup_tui" style="box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7)" /> -->
-</li>
-</ul>
-<h2 id="一个网络问题"><a href="#%e4%b8%80%e4%b8%aa%e7%bd%91%e7%bb%9c%e9%97%ae%e9%a2%98" class="header-anchor"></a>一个网络问题
-</h2><p>在第一步中修复 ghcup 之后，使用 ghcup 会遇到这样的报错：</p>
-<img src="curl_error.png" alt="curl_error" style="zoom:75%;  box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7)" />
-<p>根据提示执行：<code>ghcup config set downloader Wget</code>，再次使用 ghcup，得到差不多一样的报错：</p>
-<!-- ![](https://pic.imge.cc/2024/08/16/66bf0ff6054ff.png) -->
-<img src="wget_error.png" alt="wget_error" style="zoom:75%;  box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7)" />
-<p>关于 yaml：尝试过最后一行的 removing &hellip;yaml，结果为本机中确实不存在这个文件，所以不是这里的问题。</p>
-<p>解决方式：复制 clash 的终端代理命令，就不会报这个错了，同时下载速度得到了极大提升。</p>
+    <p>来自 Lambda-Calculus and Combinator § 4C Theorem 4.20 的 proof 部分，整体意图是证明符合 Definition 4.18 的全称递归函数可以用组合子来表示. 这里对该证明的关键部分，即迭代组合子的构造，做简要的陈述. 也可以理解为：<strong>在 Pure Lambda Calculus 中编写一个具有特定终止条件的迭代程序.</strong> 如果你好奇 &quot; 如何在 Lambda Calculus 中编写一个指定<strong>迭代 / 递归次数</strong>的迭代 / 递归函数 &quot; ，可以参考 Lambda-Calculus and Combinator § 4B Theorem 4.11 的 proof 中 $R_{ Bernays}$ 组合子的构造，这个构造过程也十分精巧.</p>
+<p>递归与迭代：在 $R_{ Bernays}$ 递归组合子的构造中，求解某个递归函数 $\phi $ 的值 $ \phi(n) $，用的方法就是从 $ \phi(0) $ 开始，做 $n$ 次迭代得到的（大致如下：记递归步更新函数为 $\chi$，$\phi(n) = \chi^n \phi(0)$）. 迭代和递归是正向与逆向的区别. 本文中的&quot;递归&quot;意在描述&quot;<strong>调用自身</strong>&quot; 的结构特点，探讨的中心问题还是对迭代（$0 \rightarrow 1 \rightarrow  &hellip;  \rightarrow n$）问题的求解.</p>
+<h2 id="构造目标"><a href="#%e6%9e%84%e9%80%a0%e7%9b%ae%e6%a0%87" class="header-anchor"></a>构造目标
+</h2><p>假设有一个检查函数 $X$，迭代的终止条件为 $XY=_{\beta,w}\bar{0}$, 我们希望构造一个组合子 $P$,得到最小的符合终止条件的 $Y$. 即从 $Y = \bar{0}$ 开始，检查 $(XY) = _{\beta,w}? \bar{0}$ ，若条件满足，则返回值为此 $Y$，否则继续检查 $X(\bar{\sigma}Y)$，我们希望构造一个组合子 $P$ 自动化此检查过程，形式化地，我们预期 $P$ 的行为如下:</p>
+<p>$$ PXY =_{\beta,w}Y \quad \text{, if } XY = _{\beta,w}\bar{0};$$</p>
+<p>$$ PXY =_{\beta,w}PX(\bar{\sigma}Y), \text{    otherwise} $$</p>
+<!-- 用伪代码表示：
+
+```
+combinator p(x,y):
+    if (xy == 0):
+        y
+    else:
+        p(x, σ y)
+``` -->
+<!-- 从 $\bar{0}$ 开始迭代，检查 $XY=_{\beta,w}\bar{0}$ 是否成立，是则输出此时的 $Y$ , 否则 -->
+<!-- $$ PXY =_{\beta,w} Y, if XY=_{\beta,w}\bar{0}, $$ -->
+<p>完全尊重预期，写一个 $P$ 组合子：$P \equiv \lambda xy.\textbf{D}y(Px(\bar{\sigma}y))(xy)$，其中 $\textbf{D}=\lambda xyz.z(\textbf{K}y)x$, 可以用 $\textbf{Y}$ 对这个递归的 $P$ 组合子进行求解（$P = \textbf{Y}(\lambda uxy.\textbf{D}y(ux(\bar{\sigma}y))(xy))$），使用 $\textbf{Y} $ 组合子求解出的 $P$ 没有 normal form，这里不采用此 $P$，我们尝试逐层构造一个具备 normal form 的 $P$ 组合子.</p>
+<h2 id="构造过程"><a href="#%e6%9e%84%e9%80%a0%e8%bf%87%e7%a8%8b" class="header-anchor"></a>构造过程
+</h2><h3 id="基本结构"><a href="#%e5%9f%ba%e6%9c%ac%e7%bb%93%e6%9e%84" class="header-anchor"></a>基本结构
+</h3><p>用高级语言的伪代码表示现有的 $P$:</p>
+<pre tabindex="0"><code>combinator p(x,y):            // L1: define p
+    if (xy == 0):
+        return const(y)                     
+    else:
+        return p(x, σ y)       // L5: call p
+</code></pre><p>递归的 $\lambda $，形如 $P \equiv \lambda x. MPN $，像这样的 $\lambda$-term，符合我们在高级语言程序设计的经验，但是不符合 Lambda Calculus 中的规范，因为 Lambda Calculus 对 $\lambda$-term 的归纳定义并不包含为 abstraction 赋标识符的规则，我们写 $P$ 等标识符的目的只在于提升可读性和明确表达式结构，而不是借助标识符的复用来像高级语言编程一样定义递归函数. 一个细节是，我们在书里看到的为某个 $\lambda$-term 记标识符用的符号是 $\equiv$ 而不是 $=$.</p>
+<p>我们不能通过标识符的复用定义递归不意味着我们不能定义递归，只是我们需要依赖<strong>多一层的抽象</strong>来构造出 形式上的非递归，事实意义上的递归.</p>
+<p>从高级语言编程的角度出发，如果我们希望用某种方式取代 L5 中对 <code>p</code> 自身的调用，我们可以如下修改我们的代码. 为了两个分支的结构一致，我们设计一个函数列表 <code>t</code>，<code>t</code> 中的两个函数对应两个分支，函数 <code>getCurrentY</code> 将返回当前 <code>y</code> 值，<code>recursion_p</code> 将承担递归的工作：（这里先不考虑函数的具体结构和参数设计/参数传递的问题，后面总有办法的，这里我们只关心整体结构）</p>
+<pre tabindex="0"><code>t = [getCurrentY, recursion_p]      // list of functions
+
+combinator p(x,y):            
+    if (xy == 0):
+        return t[0]                     
+    else:
+        return t[1]    
+</code></pre><p>如何在 Lambda Calculus 中表达以上的代码？为了专注于我们目前处理的抽象层次，先将 $P \equiv \lambda xy.\textbf{D}y(Px(\bar{\sigma}y))(xy)$ 的结构简化为 $P \equiv \lambda xy.\textbf{D}AB(xy)$</p>
+<!-- 语义上的解释是，根据 $(xy)$ 的检查结果决定走 $A$ 分支 / $B$ 分支， -->
+<p>根据预期 / 上面的伪代码，我们可以写出大致的 $\lambda $ 框架如下:</p>
+<p>$$ P \equiv \lambda xy. T(xy)[params] $$
+$$ T \equiv \textbf{D}AB $$
+$$ A \equiv \lambda [params]. \dots$$
+$$ B \equiv \lambda [params]. &hellip;$$</p>
+<p>此时 $PXY = _{\beta,w} T(XY) $，$ XY = _{\beta, w} \bar{0} \longrightarrow PXY = A; XY \neq _{\beta, w} \bar{0} \longrightarrow PXY = B  $ .</p>
+<p>我们预期：将<strong>分支的具体逻辑</strong>放在 $T$ 中，将<strong>分支的选择</strong>和分支函数参数传递放在 $P$ 中.</p>
+<h3 id="具体细节"><a href="#%e5%85%b7%e4%bd%93%e7%bb%86%e8%8a%82" class="header-anchor"></a>具体细节
+</h3><p>上面我们忽略了许多细节，现在是考虑细节的时候了 :)</p>
+<p>首先注意一个事实：我们将分支函数参数传递的工作放在 $P$ 中，意味着无论当前 $P$ 中的 $(xy)$ 将导向哪个分支，我们传递的参数列表都是一致的 / 都<strong>只能</strong>是一致的. 因为 $(xy) = _{\beta,w}\bar{0}$ 对应的情况更简单，只需返回当前 $y$，所以我们延后考虑这一情况，先考虑 $(xy) ≠ _{\beta,w}\bar{0}$ 的情况，让前者迁就后者（，因为两个分支都与 $y$ 有关，所以参数列表中必然有 $y$，在这一点上两个分支是有共性的；另一方面，我们甚至可以两个分支函数对应的参数并列传递，然后在 $A$,$B$ 的具体实现中 不对与本分支无关的参数进行绑定）.</p>
+<h4 id="递归迭代分支的构造"><a href="#%e9%80%92%e5%bd%92%e8%bf%ad%e4%bb%a3%e5%88%86%e6%94%af%e7%9a%84%e6%9e%84%e9%80%a0" class="header-anchor"></a>递归（迭代）分支的构造
+</h4><p>目标是：$XY \neq _{\beta, w} \bar{0} \longrightarrow PXY = B \xlongequal{\text{expected}} PX(\bar{\sigma}Y) $，我们希望函数 $B$ 与 $P$ 中传递的 $[params]$ <strong>应用后</strong>得到的 $\lambda$-term 和 $PXY$ 具备<strong>一样的结构</strong>（注意<strong>不是</strong> $B$ 和 $P$ 两个 abstraction 本身结构一致），只是 $Y$ 位置的值替换成了 $(\bar{\sigma}Y)$，为了得到和 $P$ 一样的结构，最简单的方法是——把 $P$ 现有的组件作为 $[params]$ 传递到 $B$（，当然也传递到了 $A$），然后在 $B$ 中把这些组件重组成 $P$ 的结构：</p>
+<p>$$ P \equiv \lambda xy. T(xy)Txy $$
+$$ T \equiv \textbf{D}AB $$
+$$ A \equiv \lambda tuv. \dots$$
+$$ B \equiv \lambda tuv. q(uv) $$</p>
+<p>（$ T \mapsto t, x \mapsto u, y \mapsto v$）</p>
+<p>由于 $[params]$ 的传递，现在 $P$ 的结构发生了改变，我们需要让 $B$ 与新的 $P$ 结构同步；另一方面，我们需要在 $B$ 的内部将传递进来的 $y$ （由 $v$ 绑定）变为 $\bar{\sigma}y$：</p>
+<p>$$ P \equiv \lambda xy. T(xy)Txy $$
+$$ T \equiv \textbf{D}AB $$
+$$ A \equiv \lambda tuv. \dots$$
+$$ B \equiv \lambda tuv. q(u(\bar{\sigma}v))qu(\bar{\sigma}v) $$</p>
+<p>做一个检查：当 $XY \neq _{\beta, w} \bar{0}$：</p>
+<p>$ \quad PXY $</br>
+$ = _{\beta,w} T(XY)TXY $ </br>
+$ = _{\beta,w} BTXY $</br>
+$ = _{\beta,w} T(X(\bar{\sigma}Y))TX(\bar{\sigma}Y) $</br>
+$ = _{\beta,w} PX(\bar{\sigma}Y) $ </br></p>
+<p>符合我们的预期，至此，迭代分支的构造就完成了.</p>
+<h4 id="迭代终止分支的构造"><a href="#%e8%bf%ad%e4%bb%a3%e7%bb%88%e6%ad%a2%e5%88%86%e6%94%af%e7%9a%84%e6%9e%84%e9%80%a0" class="header-anchor"></a>迭代终止分支的构造
+</h4><p>目标是：$XY = _{\beta, w} \bar{0} \longrightarrow PXY = A \xlongequal{\text{expected}} Y $，在 $B$ 的构造过程中，我们已有的参数列表是 $ t \mapsto T, u \mapsto x, v \mapsto y$，在 $A$ 中，我们只需要把 $y$ 提取出来即可，所以 $A = \lambda tuv.v$ ，如果你希望和 Definition 4.8 的记法保持一致，那么 $A = \Pi^3_3$.</p>
+<h4 id="完整-lambda"><a href="#%e5%ae%8c%e6%95%b4-lambda" class="header-anchor"></a>完整 $\lambda$
+</h4><p>$$ P \equiv \lambda xy. T(xy)Txy $$
+$$ T \equiv \textbf{D}AB $$
+$$ A \equiv \lambda tuv. v (= _{\beta,w} \Pi^3_3) $$
+$$ B \equiv \lambda tuv. q(u(\bar{\sigma}v))qu(\bar{\sigma}v) $$</p>
+<h4 id="lcac-theorem-420-中的-p-简述"><a href="#lcac-theorem-420-%e4%b8%ad%e7%9a%84-p-%e7%ae%80%e8%bf%b0" class="header-anchor"></a>LCaC Theorem 4.20 中的 $P$ 简述
+</h4><p>LCaC Theorem 4.20 中给出的 $P$ 定义如下：</p>
+<p>$$ T \equiv \lambda x.\textbf{D}\bar{0}(\lambda uv.u(x(\bar{\sigma}v))u(\bar{\sigma}v)) $$
+$$ P \equiv \lambda xy.Tx(xy)(Tx)y $$</p>
+<p>以与前文一致的格式转写：</p>
+<p>$$ P \equiv \lambda xy.Tx(xy)(Tx)y $$
+$$ T \equiv \lambda x.\textbf{D}AB $$
+$$ A \equiv \bar{0} $$
+$$ B \equiv \lambda uv.u(x(\bar{\sigma}v))u(\bar{\sigma}v) $$</p>
+<p>在一些时刻把 $(Tx)$ 作为一个整体，让表达式更简洁了一些，同时让 $x$ 和 $T$ 有绑定关系（$T \equiv \lambda x&hellip;.$），在 $T$ 的内部依然可以单独地拿出 $x$ 使用；$P$ 中的 $(Tx)$ 闭包，使得传参的形态是 $B(Tx)y$  —— 而不是 $BTxy$  ——让 $A$ 的设计更简洁了，$A \equiv \bar{0}$.</p>
+<p>虽然在细节上略有差别，但是整体结构与本文给出的 $P$ 是一致的，我觉得可能是包含一些直觉 / 灵感 / 优化上的差异.</p>
+<h2 id="其他"><a href="#%e5%85%b6%e4%bb%96" class="header-anchor"></a>其他
+</h2><p>尝试着展开上面的 $P$:</p>
+<p>$$ \lambda xy.\lambda x.\textbf{D}\bar{0}(\lambda uv.u(x(\bar{\sigma}v))u(\bar{\sigma}v))x(xy)(\lambda x.\textbf{D}\bar{0}(\lambda uv.u(x(\bar{\sigma}v))u(\bar{\sigma}v))x)y$$</p>
+<p>如果你愿意把以下也全部展开：</br>
+$ \textbf{D} = _{\beta, w} \lambda xyz.z(\textbf{K}y)x, \quad \textbf{K} = _{\beta, w} \lambda xy.x $ </br>
+$ \bar{0} = _{\beta, w} \lambda xy.y $ </br>
+$ \bar{\sigma} = _{\beta, w} \lambda nfz. f (n f z)$ </br></p>
+<p>$$ \lambda xy.\lambda x.(\lambda xyz.z((\lambda xy.x)y)x)(\lambda xy.y)(\lambda uv.u(x(\lambda nfz. f (n f z)))u(\lambda nfz. f (n f z)))x(xy)(\lambda x.(\lambda xyz.z((\lambda xy.x)y)x)(\lambda xy.y)(\lambda uv.u(x(\lambda nfz. f (n f z)))u(\lambda nfz. f (n f z)))x)y$$</p>
+<p>可以说，我们用这一堆符号 + Pure Lambda Culculus 的演算规则完成了一个迭代程序的构造——<mark>Programming in Pure Lambda Calculus.</mark></p>
+<!-- λxy.λx.D0(λuv.u(x(σˉv))u(σv))x(xy)(λx.D0(λuv.u(x(σv))u(σv))x)y -->
 
 </section>
 
@@ -381,7 +447,9 @@
     
     <section class="article-tags">
         
-            <a href="/tags/haskell/">Haskell</a>
+            <a href="/tags/lcac/">LCaC</a>
+        
+            <a href="/tags/lambda-calculus/">Lambda Calculus</a>
         
     </section>
 
@@ -439,12 +507,12 @@
             
                 
 <article class="">
-    <a href="/p/message-passing-%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84-bool-sicp-2.4.3-%E6%B3%9B%E5%9E%8B-%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9A%84%E8%BE%B9%E7%95%8C/">
+    <a href="/p/%E6%8A%BD%E8%B1%A1%E5%B1%82%E6%AC%A1%E5%B9%B3%E7%BC%93%E6%8F%90%E5%8D%87%E7%9A%84-church-encoding/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">Message Passing 视角下的 Bool - SICP § 2.4.3 | 泛型 | 数据与函数的边界 </h2>
+            <h2 class="article-title">抽象层次平缓提升的 Church Encoding</h2>
         </div>
     </a>
 </article>
@@ -465,6 +533,19 @@
             
                 
 <article class="">
+    <a href="/p/message-passing-%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84-bool-sicp-2.4.3-%E6%B3%9B%E5%9E%8B-%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9A%84%E8%BE%B9%E7%95%8C/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Message Passing 视角下的 Bool - SICP § 2.4.3 | 泛型 | 数据与函数的边界 </h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
     <a href="/p/nested-mappings-%E6%A1%88%E4%BE%8B%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.2.3-list-monad/">
         
         
@@ -478,25 +559,12 @@
             
                 
 <article class="">
-    <a href="/p/%E8%BF%AD%E4%BB%A3%E7%BB%84%E5%90%88%E5%AD%90%E7%9A%84%E6%9E%84%E9%80%A0-lcac-4c-theorem-4.20/">
+    <a href="/p/scheme-let-%E7%9A%84%E8%AF%AD%E4%B9%89-feat.-if-%E7%9A%84%E8%AF%AD%E4%B9%89/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">迭代组合子的构造 - LCaC § 4C Theorem 4.20</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/%E6%8A%BD%E8%B1%A1%E5%B1%82%E6%AC%A1%E5%B9%B3%E7%BC%93%E6%8F%90%E5%8D%87%E7%9A%84-church-encoding/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">抽象层次平缓提升的 Church Encoding</h2>
+            <h2 class="article-title">Scheme: `let` 的语义 (feat. `if` 的语义)</h2>
         </div>
     </a>
 </article>

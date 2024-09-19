@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="来自 Lambda-Calculus and Combinator § 4C Theorem 4.20 的 proof 部分，整体意图是证明符合 Definition 4.18 的全称递归函数可以用组合子来表示.\u2002这里对该证明的关键部分，即迭代组合子的构造，做简要的陈述. 也可以理解为：在 Pure Lambda Calculus 中编写一个具有特定终止条件的迭代程序. 如果你好奇 &quot; 如何在 Lambda Calculus 中编写一个指定迭代 / 递归次数的迭代 / 递归函数 &quot; ，可以参考 Lambda-Calculus and Combinator § 4B Theorem 4.11 的 proof 中 $R_{ Bernays}$ 组合子的构造，这个构造过程也十分精巧.\n">
-<title>LCaC § 4C - 迭代组合子的构造</title>
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="来自 Lambda-Calculus and Combinator § 4C Theorem 4.20 的 proof 部分，整体意图是证明符合 Definition 4.18 的全称递归函数可以用组合子来表示.\u2002这里对该证明的关键部分，即迭代组合子的构造，做简要的陈述. 也可以理解为：在 Pure Lambda Calculus 中编写一个具有特定终止条件的迭代程序. 如果你好奇 &quot; 如何在 Lambda Calculus 中编写一个指定迭代 / 递归次数的迭代 / 递归函数 &quot; ，可以参考 Lambda-Calculus and Combinator § 4B Theorem 4.11 的 proof 中 $R_{\\text{Bernays}}$ 组合子的构造，这个构造过程也十分精巧.\n">
+<title>迭代组合子的构造 - LCaC § 4C Theorem 4.20</title>
 
-<link rel='canonical' href='http://localhost:1313/p/lcac-4c-%E8%BF%AD%E4%BB%A3%E7%BB%84%E5%90%88%E5%AD%90%E7%9A%84%E6%9E%84%E9%80%A0/'>
+<link rel='canonical' href='http://fyshxfish.github.io/p/%E8%BF%AD%E4%BB%A3%E7%BB%84%E5%90%88%E5%AD%90%E7%9A%84%E6%9E%84%E9%80%A0-lcac-4c-theorem-4.20/'>
 
-<link rel="stylesheet" href="/scss/style.min.b51788d43472ffad20b588167514427b70146d30bc2a1ee0490ab0db3b5da439.css"><meta property='og:title' content="LCaC § 4C - 迭代组合子的构造">
-<meta property='og:description' content="来自 Lambda-Calculus and Combinator § 4C Theorem 4.20 的 proof 部分，整体意图是证明符合 Definition 4.18 的全称递归函数可以用组合子来表示.\u2002这里对该证明的关键部分，即迭代组合子的构造，做简要的陈述. 也可以理解为：在 Pure Lambda Calculus 中编写一个具有特定终止条件的迭代程序. 如果你好奇 &quot; 如何在 Lambda Calculus 中编写一个指定迭代 / 递归次数的迭代 / 递归函数 &quot; ，可以参考 Lambda-Calculus and Combinator § 4B Theorem 4.11 的 proof 中 $R_{ Bernays}$ 组合子的构造，这个构造过程也十分精巧.\n">
-<meta property='og:url' content='http://localhost:1313/p/lcac-4c-%E8%BF%AD%E4%BB%A3%E7%BB%84%E5%90%88%E5%AD%90%E7%9A%84%E6%9E%84%E9%80%A0/'>
+<link rel="stylesheet" href="/scss/style.min.b51788d43472ffad20b588167514427b70146d30bc2a1ee0490ab0db3b5da439.css"><meta property='og:title' content="迭代组合子的构造 - LCaC § 4C Theorem 4.20">
+<meta property='og:description' content="来自 Lambda-Calculus and Combinator § 4C Theorem 4.20 的 proof 部分，整体意图是证明符合 Definition 4.18 的全称递归函数可以用组合子来表示.\u2002这里对该证明的关键部分，即迭代组合子的构造，做简要的陈述. 也可以理解为：在 Pure Lambda Calculus 中编写一个具有特定终止条件的迭代程序. 如果你好奇 &quot; 如何在 Lambda Calculus 中编写一个指定迭代 / 递归次数的迭代 / 递归函数 &quot; ，可以参考 Lambda-Calculus and Combinator § 4B Theorem 4.11 的 proof 中 $R_{\\text{Bernays}}$ 组合子的构造，这个构造过程也十分精巧.\n">
+<meta property='og:url' content='http://fyshxfish.github.io/p/%E8%BF%AD%E4%BB%A3%E7%BB%84%E5%90%88%E5%AD%90%E7%9A%84%E6%9E%84%E9%80%A0-lcac-4c-theorem-4.20/'>
 <meta property='og:site_name' content='fyshXplore'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='LCaC' /><meta property='article:tag' content='lambda calculus' /><meta property='article:published_time' content='2024-09-17T23:48:00&#43;08:00'/><meta property='article:modified_time' content='2024-09-17T23:48:00&#43;08:00'/>
-<meta name="twitter:title" content="LCaC § 4C - 迭代组合子的构造">
-<meta name="twitter:description" content="来自 Lambda-Calculus and Combinator § 4C Theorem 4.20 的 proof 部分，整体意图是证明符合 Definition 4.18 的全称递归函数可以用组合子来表示.\u2002这里对该证明的关键部分，即迭代组合子的构造，做简要的陈述. 也可以理解为：在 Pure Lambda Calculus 中编写一个具有特定终止条件的迭代程序. 如果你好奇 &quot; 如何在 Lambda Calculus 中编写一个指定迭代 / 递归次数的迭代 / 递归函数 &quot; ，可以参考 Lambda-Calculus and Combinator § 4B Theorem 4.11 的 proof 中 $R_{ Bernays}$ 组合子的构造，这个构造过程也十分精巧.\n"><style>
+<meta name="twitter:title" content="迭代组合子的构造 - LCaC § 4C Theorem 4.20">
+<meta name="twitter:description" content="来自 Lambda-Calculus and Combinator § 4C Theorem 4.20 的 proof 部分，整体意图是证明符合 Definition 4.18 的全称递归函数可以用组合子来表示.\u2002这里对该证明的关键部分，即迭代组合子的构造，做简要的陈述. 也可以理解为：在 Pure Lambda Calculus 中编写一个具有特定终止条件的迭代程序. 如果你好奇 &quot; 如何在 Lambda Calculus 中编写一个指定迭代 / 递归次数的迭代 / 递归函数 &quot; ，可以参考 Lambda-Calculus and Combinator § 4B Theorem 4.11 的 proof 中 $R_{\\text{Bernays}}$ 组合子的构造，这个构造过程也十分精巧.\n"><style>
   :root {
      
     --zh-font-family: "Noto Serif SC";
@@ -292,7 +292,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/lcac-4c-%E8%BF%AD%E4%BB%A3%E7%BB%84%E5%90%88%E5%AD%90%E7%9A%84%E6%9E%84%E9%80%A0/">LCaC § 4C - 迭代组合子的构造</a>
+            <a href="/p/%E8%BF%AD%E4%BB%A3%E7%BB%84%E5%90%88%E5%AD%90%E7%9A%84%E6%9E%84%E9%80%A0-lcac-4c-theorem-4.20/">迭代组合子的构造 - LCaC § 4C Theorem 4.20</a>
         </h2>
     
         
@@ -329,7 +329,7 @@
 
 
                 <time class="article-time--reading">
-                    5 minute read
+                    6 minute read
                 </time>
             </div>
         
@@ -344,8 +344,8 @@
     <section class="article-content">
     
     
-    <p>来自 Lambda-Calculus and Combinator § 4C Theorem 4.20 的 proof 部分，整体意图是证明符合 Definition 4.18 的全称递归函数可以用组合子来表示. 这里对该证明的关键部分，即迭代组合子的构造，做简要的陈述. 也可以理解为：<strong>在 Pure Lambda Calculus 中编写一个具有特定终止条件的迭代程序.</strong> 如果你好奇 &quot; 如何在 Lambda Calculus 中编写一个指定<strong>迭代 / 递归次数</strong>的迭代 / 递归函数 &quot; ，可以参考 Lambda-Calculus and Combinator § 4B Theorem 4.11 的 proof 中 $R_{ Bernays}$ 组合子的构造，这个构造过程也十分精巧.</p>
-<p>递归与迭代：在 $R_{ Bernays}$ 递归组合子的构造中，求解某个递归函数 $\phi $ 的值 $ \phi(n) $，用的方法就是从 $ \phi(0) $ 开始，做 $n$ 次迭代得到的（大致如下：记递归步更新函数为 $\chi$，$\phi(n) = \chi^n \phi(0)$）. 迭代和递归是正向与逆向的区别. 本文中的&quot;递归&quot;意在描述&quot;<strong>调用自身</strong>&quot; 的结构特点，探讨的中心问题还是对迭代（$0 \rightarrow 1 \rightarrow  &hellip;  \rightarrow n$）问题的求解.</p>
+    <p>来自 Lambda-Calculus and Combinator § 4C Theorem 4.20 的 proof 部分，整体意图是证明符合 Definition 4.18 的全称递归函数可以用组合子来表示. 这里对该证明的关键部分，即迭代组合子的构造，做简要的陈述. 也可以理解为：<strong>在 Pure Lambda Calculus 中编写一个具有特定终止条件的迭代程序.</strong> 如果你好奇 &quot; 如何在 Lambda Calculus 中编写一个指定<strong>迭代 / 递归次数</strong>的迭代 / 递归函数 &quot; ，可以参考 Lambda-Calculus and Combinator § 4B Theorem 4.11 的 proof 中 $R_{\text{Bernays}}$ 组合子的构造，这个构造过程也十分精巧.</p>
+<p>递归与迭代：在 $R_{\text{Bernays}}$ 递归组合子的构造中，求解某个递归函数 $\phi $ 的值 $ \phi(n) $，用的方法就是从 $ \phi(0) $ 开始，做 $n$ 次迭代得到的（大致如下：记递归步更新函数为 $\chi$，$\phi(n) = \chi^n \phi(0)$）. 迭代和递归是正向与逆向的区别. 本文中的&quot;递归&quot;意在描述&quot;<strong>调用自身</strong>&quot; 的结构特点，探讨的中心问题还是对迭代（$0 \rightarrow 1 \rightarrow  &hellip;  \rightarrow n$）问题的求解.</p>
 <h2 id="构造目标"><a href="#%e6%9e%84%e9%80%a0%e7%9b%ae%e6%a0%87" class="header-anchor"></a>构造目标
 </h2><p>假设有一个检查函数 $X$，迭代的终止条件为 $XY=_{\beta,w}\bar{0}$, 我们希望构造一个组合子 $P$,得到最小的符合终止条件的 $Y$. 即从 $Y = \bar{0}$ 开始，检查 $(XY) = _{\beta,w}? \bar{0}$ ，若条件满足，则返回值为此 $Y$，否则继续检查 $X(\bar{\sigma}Y)$，我们希望构造一个组合子 $P$ 自动化此检查过程，形式化地，我们预期 $P$ 的行为如下:</p>
 <p>$$ PXY =_{\beta,w}Y \quad \text{, if } XY = _{\beta,w}\bar{0};$$</p>
@@ -439,6 +439,9 @@ $ \bar{\sigma} = _{\beta, w} \lambda nfz. f (n f z)$ </br></p>
 <p>$$ \lambda xy.\lambda x.(\lambda xyz.z((\lambda xy.x)y)x)(\lambda xy.y)(\lambda uv.u(x(\lambda nfz. f (n f z)))u(\lambda nfz. f (n f z)))x(xy)(\lambda x.(\lambda xyz.z((\lambda xy.x)y)x)(\lambda xy.y)(\lambda uv.u(x(\lambda nfz. f (n f z)))u(\lambda nfz. f (n f z)))x)y$$</p>
 <p>可以说，我们用这一堆符号 + Pure Lambda Culculus 的演算规则完成了一个迭代程序的构造——<mark>Programming in Pure Lambda Calculus.</mark></p>
 <!-- λxy.λx.D0(λuv.u(x(σˉv))u(σv))x(xy)(λx.D0(λuv.u(x(σv))u(σv))x)y -->
+<hr>
+<p><span style="color: #888888; font-size: 0.85em;">一周前看 SICP 觉得有点没劲了，于是又折回来看组合子逻辑，点开电子书，停在阅读进度的位置，右上角还有我自己留下的笔迹 &ldquo;2024-06-05 重回 combinatory logic&rdquo; 再往后翻了翻，好家伙，6月份只看了5页，暑假在忙别的事情，又一点没看；我意图在这里写点什么读后感性质的文字（，因为最近情绪有点上来了，但是只看了五分之一我什么资格写读<strong>后</strong>感:），其实我没有总结自己感受的习惯，想通了某个问题的细节 / 联系起两个自己接触过的东西（&ldquo;Connect the dots&rdquo;）这些醍醐灌顶的瞬间的感受是很难用语言来表述的. 最近看组合子时常有一些感激的情绪，感觉有机会看到这样漂亮的理论是一件相当幸运的事情. </span></p>
+<!-- 让我有了想接近、想习得的东西，在面对自己所处的评价体系万分拧巴的时刻有一些慰藉. -->
 
 </section>
 
