@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Compiler on fyshXplore</title>
-        <link>http://fyshxfish.github.io/tags/compiler/</link>
+        <link>http://localhost:1313/tags/compiler/</link>
         <description>Recent content in Compiler on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Fri, 20 Sep 2024 18:47:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/tags/compiler/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 20 Sep 2024 18:47:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/compiler/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>编译原理 × Haskell - NFA → DFA</title>
-        <link>http://fyshxfish.github.io/p/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86-haskell-nfa-dfa/</link>
+        <link>http://localhost:1313/p/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86-haskell-nfa-dfa/</link>
         <pubDate>Fri, 20 Sep 2024 18:47:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/p/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86-haskell-nfa-dfa/</guid>
+        <guid>http://localhost:1313/p/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86-haskell-nfa-dfa/</guid>
         <description>&lt;h2 id=&#34;talk-is-cheap&#34;&gt;&lt;a href=&#34;#talk-is-cheap&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Talk is Cheap
 &lt;/h2&gt;&lt;p&gt;这周上编译系统课，讲词法分析，讲到了很多归纳 / 递归 / 树形结构 / &amp;hellip; 相关的内容，这也太——适合放在 Haskell 里写了，加上这些函数这么纯，多适合用函数式的语言实现. 于是开始着手做这件事情，我们小组讨论的选题是 NFA （Nondeterministic Finite Automaton）转 DFA （Deterministic Finite Automaton），于是先从这里开始. &lt;/p&gt;
 &lt;h2 id=&#34;show-me-the-code&#34;&gt;&lt;a href=&#34;#show-me-the-code&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Show Me the Code
