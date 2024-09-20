@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" ghcup 修复 终端使用 ghcup 直接被杀进程，输出大致如：ghcup terminated by SIGKILL\n">
-<title>Haskell 开发环境 (VSCode &#43; GHCup &#43; HLS) 修复记录</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Talk is Cheap 这周上编译系统课，讲词法分析，讲到了很多归纳 / 递归 / 树形结构 / &hellip; 相关的内容，这也太——适合放在 Haskell 里写了，加上这些函数这么纯，多适合用函数式的语言实现.\u2002于是开始着手做这件事情，我们小组讨论的选题是 NFA （Nondeterministic Finite Automaton）转 DFA （Deterministic Finite Automaton），于是先从这里开始.\u2002">
+<title>编译原理 × Haskell - NFA → DFA</title>
 
-<link rel='canonical' href='http://fyshxfish.github.io/p/haskell-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-vscode--ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/'>
+<link rel='canonical' href='http://fyshxfish.github.io/p/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86-haskell-nfa-dfa/'>
 
-<link rel="stylesheet" href="/scss/style.min.b51788d43472ffad20b588167514427b70146d30bc2a1ee0490ab0db3b5da439.css"><meta property='og:title' content="Haskell 开发环境 (VSCode + GHCup + HLS) 修复记录">
-<meta property='og:description' content=" ghcup 修复 终端使用 ghcup 直接被杀进程，输出大致如：ghcup terminated by SIGKILL\n">
-<meta property='og:url' content='http://fyshxfish.github.io/p/haskell-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-vscode--ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/'>
+<link rel="stylesheet" href="/scss/style.min.b51788d43472ffad20b588167514427b70146d30bc2a1ee0490ab0db3b5da439.css"><meta property='og:title' content="编译原理 × Haskell - NFA → DFA">
+<meta property='og:description' content="Talk is Cheap 这周上编译系统课，讲词法分析，讲到了很多归纳 / 递归 / 树形结构 / &hellip; 相关的内容，这也太——适合放在 Haskell 里写了，加上这些函数这么纯，多适合用函数式的语言实现.\u2002于是开始着手做这件事情，我们小组讨论的选题是 NFA （Nondeterministic Finite Automaton）转 DFA （Deterministic Finite Automaton），于是先从这里开始.\u2002">
+<meta property='og:url' content='http://fyshxfish.github.io/p/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86-haskell-nfa-dfa/'>
 <meta property='og:site_name' content='fyshXplore'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Haskell' /><meta property='article:published_time' content='2024-08-16T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-08-16T00:00:00&#43;00:00'/>
-<meta name="twitter:title" content="Haskell 开发环境 (VSCode + GHCup + HLS) 修复记录">
-<meta name="twitter:description" content=" ghcup 修复 终端使用 ghcup 直接被杀进程，输出大致如：ghcup terminated by SIGKILL\n"><style>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Haskell' /><meta property='article:tag' content='Compiler' /><meta property='article:published_time' content='2024-09-20T18:47:00&#43;08:00'/><meta property='article:modified_time' content='2024-09-20T18:47:00&#43;08:00'/>
+<meta name="twitter:title" content="编译原理 × Haskell - NFA → DFA">
+<meta name="twitter:description" content="Talk is Cheap 这周上编译系统课，讲词法分析，讲到了很多归纳 / 递归 / 树形结构 / &hellip; 相关的内容，这也太——适合放在 Haskell 里写了，加上这些函数这么纯，多适合用函数式的语言实现.\u2002于是开始着手做这件事情，我们小组讨论的选题是 NFA （Nondeterministic Finite Automaton）转 DFA （Deterministic Finite Automaton），于是先从这里开始.\u2002"><style>
   :root {
      
     --zh-font-family: "Noto Serif SC";
@@ -250,9 +250,12 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
-    <li><a href="#ghcup-修复">ghcup 修复</a></li>
-    <li><a href="#ghcup-配置环境">ghcup 配置环境</a></li>
-    <li><a href="#一个网络问题">一个网络问题</a></li>
+    <li><a href="#talk-is-cheap">Talk is Cheap</a></li>
+    <li><a href="#show-me-the-code">Show Me the Code</a>
+      <ol>
+        <li><a href="#数据抽象">数据抽象</a></li>
+      </ol>
+    </li>
   </ol>
 </nav>
         </div>
@@ -275,16 +278,12 @@
                 FP
             </a>
         
-            <a href="/categories/enviroment_setup/" style="background-color: #9ec4cd; color: #fff;">
-                Enviroment Setup
-            </a>
-        
     </header>
     
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/haskell-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-vscode--ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/">Haskell 开发环境 (VSCode &#43; GHCup &#43; HLS) 修复记录</a>
+            <a href="/p/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86-haskell-nfa-dfa/">编译原理 × Haskell - NFA → DFA</a>
         </h2>
     
         
@@ -306,7 +305,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Aug 16, 2024</time>
+                <time class="article-time--published">Sep 20, 2024</time>
             </div>
         
 
@@ -321,7 +320,7 @@
 
 
                 <time class="article-time--reading">
-                    2 minute read
+                    1 minute read
                 </time>
             </div>
         
@@ -336,43 +335,50 @@
     <section class="article-content">
     
     
-    <!-- *不知不觉我已经在MacOS, Windows, Linux三种平台上配置过Haskell环境了，我觉得我已经是环境配置大师了，POWER!* -->
-<!-- # Mac上重新配置Haskell开发环境记录 -->
-<h2 id="ghcup-修复"><a href="#ghcup-%e4%bf%ae%e5%a4%8d" class="header-anchor"></a>ghcup 修复
-</h2><ul>
-<li>
-<p>终端使用 <code>ghcup</code> 直接被杀进程，输出大致如：<code>ghcup terminated by SIGKILL</code></p>
-</li>
-<li>
-<p>使用 ghcup 官网上的命令通过 curl 重新安装，会得到一句红色的报错信息<code>&quot;ghcup --metadata-fetching-mode=Strict upgrade&quot; failed!</code></p>
-</li>
-<li>
-<p>不知道是不是因为太久没打开了，<strong>解决方式</strong>是清除缓存：<code>rm -rf ~/.ghcup/cache</code></p>
-</li>
-</ul>
-<h2 id="ghcup-配置环境"><a href="#ghcup-%e9%85%8d%e7%bd%ae%e7%8e%af%e5%a2%83" class="header-anchor"></a>ghcup 配置环境
-</h2><p><code>ghcup tui</code>下载和设置 HLS 和 ghc（以及 stack, cabal）版本，</p>
-<ul>
-<li>
-<p>ghc 版本：注意 ghc 的备注信息中需要有 hls-powered，不知道为什么我的 mac 上的版本是 9.4.7，正好没有 hls 支持（9.8.4是有 hls 支持的），当时下载的时机这么刚好吗。</p>
-</li>
-<li>
-<p>HLS 版本：VSCode 的 Haskell 插件会要求 HLS 是最新的版本，所以就直接下最新的版本吧，VSCode 弹出提示&quot; Haskell 插件需要 2.9.0.1 的 HLS，是否下载&quot;，这里的下载比较慢，而且看不到进度，所以可以直接在终端的 ghcup 下载，然后回到VSC（重启？反正我重启了），插件就可以正常使用了。</p>
-</li>
-<li>
-<p>HLS 无法正常工作也可以尝试通过 <code>ghcup tui</code> 下载并切换 HLS 的版本。</p>
-  <img src="ghcup_tui.png" alt="ghcup_tui" style="zoom:75%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7)" />
-  <!-- <img src="ghcup_tui.png" alt="ghcup_tui" style="box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7)" /> -->
-</li>
-</ul>
-<h2 id="一个网络问题"><a href="#%e4%b8%80%e4%b8%aa%e7%bd%91%e7%bb%9c%e9%97%ae%e9%a2%98" class="header-anchor"></a>一个网络问题
-</h2><p>在第一步中修复 ghcup 之后，使用 ghcup 会遇到这样的报错：</p>
-<img src="curl_error.png" alt="curl_error" style="zoom:75%;  box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7)" />
-<p>根据提示执行：<code>ghcup config set downloader Wget</code>，再次使用 ghcup，得到差不多一样的报错：</p>
-<!-- ![](https://pic.imge.cc/2024/08/16/66bf0ff6054ff.png) -->
-<img src="wget_error.png" alt="wget_error" style="zoom:75%;  box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7)" />
-<p>关于 yaml：尝试过最后一行的 removing &hellip;yaml，结果为本机中确实不存在这个文件，所以不是这里的问题。</p>
-<p>解决方式：复制 clash 的终端代理命令，就不会报这个错了，同时下载速度得到了极大提升。</p>
+    <h2 id="talk-is-cheap"><a href="#talk-is-cheap" class="header-anchor"></a>Talk is Cheap
+</h2><p>这周上编译系统课，讲词法分析，讲到了很多归纳 / 递归 / 树形结构 / &hellip; 相关的内容，这也太——适合放在 Haskell 里写了，加上这些函数这么纯，多适合用函数式的语言实现. 于是开始着手做这件事情，我们小组讨论的选题是 NFA （Nondeterministic Finite Automaton）转 DFA （Deterministic Finite Automaton），于是先从这里开始. </p>
+<h2 id="show-me-the-code"><a href="#show-me-the-code" class="header-anchor"></a>Show Me the Code
+</h2><p>项目的 GitHub 地址：<a class="link" href="https://github.com/fyshxfish/compiler_in_hs"  target="_blank" rel="noopener"
+    >Compiler in HS</a></p>
+<p>希望后续可以多写点代码，不要让 <code>NFA2DFA</code> 成为留守模块.</p>
+<h3 id="数据抽象"><a href="#%e6%95%b0%e6%8d%ae%e6%8a%bd%e8%b1%a1" class="header-anchor"></a>数据抽象
+</h3><p>首先对 NFA, DFA 做数据抽象，根据两者的形式化定义，如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-hs" data-lang="hs"><span class="line"><span class="cl"><span class="kr">type</span> <span class="kt">Symbol</span> <span class="ow">=</span> <span class="kt">Char</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="kt">State</span> <span class="ow">=</span> <span class="kt">Int</span>
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="kt">StatesCollection</span> <span class="ow">=</span> <span class="kt">Set</span><span class="o">.</span><span class="kt">Set</span> <span class="kt">State</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="kt">NfaTransition</span> <span class="ow">=</span> <span class="kt">Map</span><span class="o">.</span><span class="kt">Map</span> <span class="p">(</span><span class="kt">State</span><span class="p">,</span> <span class="kt">Maybe</span> <span class="kt">Symbol</span><span class="p">)</span> <span class="p">(</span><span class="kt">Set</span><span class="o">.</span><span class="kt">Set</span> <span class="kt">State</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="kt">DfarTransition</span> <span class="ow">=</span> <span class="kt">Map</span><span class="o">.</span><span class="kt">Map</span> <span class="p">(</span><span class="kt">State</span><span class="p">,</span> <span class="kt">Maybe</span> <span class="kt">Symbol</span><span class="p">)</span> <span class="kt">State</span> 
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="kt">DfaTransition</span> <span class="ow">=</span> <span class="kt">Map</span><span class="o">.</span><span class="kt">Map</span> <span class="p">(</span><span class="kt">StatesCollection</span><span class="p">,</span> <span class="kt">Maybe</span> <span class="kt">Symbol</span><span class="p">)</span> <span class="kt">StatesCollection</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">data</span> <span class="kt">NFA</span> <span class="ow">=</span> <span class="kt">NFA</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">startState</span> <span class="ow">::</span> <span class="kt">State</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">stateSet</span>   <span class="ow">::</span> <span class="kt">Set</span><span class="o">.</span><span class="kt">Set</span> <span class="kt">State</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">acceptSet</span>  <span class="ow">::</span> <span class="kt">Set</span><span class="o">.</span><span class="kt">Set</span> <span class="kt">State</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">alphabet</span>   <span class="ow">::</span> <span class="kt">Set</span><span class="o">.</span><span class="kt">Set</span> <span class="kt">Symbol</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">transition</span> <span class="ow">::</span> <span class="kt">NfaTransition</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="kr">deriving</span> <span class="kt">Show</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">data</span> <span class="kt">DFA</span> <span class="ow">=</span> <span class="kt">DFA</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">startStates</span>     <span class="ow">::</span> <span class="kt">StatesCollection</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">alphabt</span>         <span class="ow">::</span> <span class="kt">Set</span><span class="o">.</span><span class="kt">Set</span> <span class="kt">Symbol</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">collectionSet</span>   <span class="ow">::</span> <span class="kt">Set</span><span class="o">.</span><span class="kt">Set</span> <span class="kt">StatesCollection</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">transitionRules</span> <span class="ow">::</span> <span class="kt">DfaTransition</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">-- acCollectionSet :: Set.Set StatesCollection</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="kr">deriving</span> <span class="kt">Show</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kr">data</span> <span class="kt">DFAr</span> <span class="ow">=</span> <span class="kt">DFAr</span> <span class="p">{</span>                  <span class="c1">-- simplified DFA</span>
+</span></span><span class="line"><span class="cl">    <span class="n">startNode</span>    <span class="ow">::</span> <span class="kt">State</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">nodeSet</span>      <span class="ow">::</span> <span class="kt">Set</span><span class="o">.</span><span class="kt">Set</span> <span class="kt">State</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">acceptNodes</span>  <span class="ow">::</span> <span class="kt">Set</span><span class="o">.</span><span class="kt">Set</span> <span class="kt">State</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">alphabat</span>     <span class="ow">::</span> <span class="kt">Set</span><span class="o">.</span><span class="kt">Set</span> <span class="kt">Symbol</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">rules</span>        <span class="ow">::</span> <span class="kt">DfarTransition</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="kr">deriving</span> <span class="kt">Show</span> 
+</span></span></code></pre></div><p><code>NFA</code> 就是 NFA 了，<code>DFAr</code> 是简化的 <code>DFA</code>，这样的设计和代码的结构有关系<span style="color: #888888; font-size: 0.85em;">（A.K.A. 想一出是一出，我对代码的结构并没有预先的宏观的设计:）</span>.</p>
+<p><mark>[TODO]</mark></p>
+<!-- ## Talk is Cheaper
+ -->
 
 </section>
 
@@ -382,6 +388,8 @@
     <section class="article-tags">
         
             <a href="/tags/haskell/">Haskell</a>
+        
+            <a href="/tags/compiler/">Compiler</a>
         
     </section>
 
@@ -439,19 +447,6 @@
             
                 
 <article class="">
-    <a href="/p/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86-haskell-nfa-dfa/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">编译原理 × Haskell - NFA → DFA</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
     <a href="/p/message-passing-%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84-bool-sicp-2.4.3-%E6%B3%9B%E5%9E%8B-%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9A%84%E8%BE%B9%E7%95%8C/">
         
         
@@ -484,6 +479,19 @@
 
         <div class="article-details">
             <h2 class="article-title">Nested Mappings 案例的 Haskell 实现 - SICP § 2.2.3  | List Monad </h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/haskell-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-vscode--ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Haskell 开发环境 (VSCode &#43; GHCup &#43; HLS) 修复记录</h2>
         </div>
     </a>
 </article>
