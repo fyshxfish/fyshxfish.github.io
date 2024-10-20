@@ -1,0 +1,677 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" 另一个视角的，对于性能的追求.\n过程式的 0-1 背包 int knapsack(int n, int* weight, int* value, int capacity) { int dp[n+1][capacity+1]; // INIT: BASE CASE// for (int j = 0; j &lt;= capacity; j++) dp[0][j] = 0; for (int i = 0;i &lt;= n;i++) dp[i][0] = 0; // DP // for (int i = 1; i &lt;= n;i++) { int w = weight[i], v = value[i]; for (int j = 1; j &lt;= capacity; j++) { if (j &lt; w) dp[i][j] = dp[i-1][j]; else dp[i][j] = max(dp[i-1][j], dp[i][j-w]+v); } } return dp[n][capacity]; } 1: 1 翻译成 Haskell ？:\n">
+<title>从 0-1 背包动态规划的 Haskell 实现出发</title>
+
+<link rel='canonical' href='http://fyshxfish.github.io/p/%E4%BB%8E-0-1-%E8%83%8C%E5%8C%85%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0%E5%87%BA%E5%8F%91/'>
+
+<link rel="stylesheet" href="/scss/style.min.b51788d43472ffad20b588167514427b70146d30bc2a1ee0490ab0db3b5da439.css"><meta property='og:title' content="从 0-1 背包动态规划的 Haskell 实现出发">
+<meta property='og:description' content=" 另一个视角的，对于性能的追求.\n过程式的 0-1 背包 int knapsack(int n, int* weight, int* value, int capacity) { int dp[n+1][capacity+1]; // INIT: BASE CASE// for (int j = 0; j &lt;= capacity; j++) dp[0][j] = 0; for (int i = 0;i &lt;= n;i++) dp[i][0] = 0; // DP // for (int i = 1; i &lt;= n;i++) { int w = weight[i], v = value[i]; for (int j = 1; j &lt;= capacity; j++) { if (j &lt; w) dp[i][j] = dp[i-1][j]; else dp[i][j] = max(dp[i-1][j], dp[i][j-w]+v); } } return dp[n][capacity]; } 1: 1 翻译成 Haskell ？:\n">
+<meta property='og:url' content='http://fyshxfish.github.io/p/%E4%BB%8E-0-1-%E8%83%8C%E5%8C%85%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0%E5%87%BA%E5%8F%91/'>
+<meta property='og:site_name' content='fyshXplore'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Haskell' /><meta property='article:published_time' content='2024-10-20T19:48:00&#43;08:00'/><meta property='article:modified_time' content='2024-10-20T19:48:00&#43;08:00'/>
+<meta name="twitter:title" content="从 0-1 背包动态规划的 Haskell 实现出发">
+<meta name="twitter:description" content=" 另一个视角的，对于性能的追求.\n过程式的 0-1 背包 int knapsack(int n, int* weight, int* value, int capacity) { int dp[n+1][capacity+1]; // INIT: BASE CASE// for (int j = 0; j &lt;= capacity; j++) dp[0][j] = 0; for (int i = 0;i &lt;= n;i++) dp[i][0] = 0; // DP // for (int i = 1; i &lt;= n;i++) { int w = weight[i], v = value[i]; for (int j = 1; j &lt;= capacity; j++) { if (j &lt; w) dp[i][j] = dp[i-1][j]; else dp[i][j] = max(dp[i-1][j], dp[i][j-w]+v); } } return dp[n][capacity]; } 1: 1 翻译成 Haskell ？:\n"><style>
+  :root {
+     
+    --zh-font-family: "Noto Serif SC";
+     
+     
+     
+    --code-font-family: Consolas, Menlo, Monaco, "Courier New", var(--zh-font-family), monospace;
+    --article-font-family: "Noto Serif SC";
+  }
+</style>
+
+<script>
+  (function () {
+    const customFont = document.createElement("link");
+    customFont.href =
+      "https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap";
+
+    customFont.type = "text/css";
+    customFont.rel = "stylesheet";
+
+    document.head.appendChild(customFont);
+  })();
+</script>
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/fyshx_avatar_hu134059368025567045.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🫧</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">fyshXplore</a></h1>
+            <h2 class="site-description">Just for 𝐅𝐮𝐧</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/fyshxfish'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">&thinsp;Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#过程式的-0-1-背包">过程式的 0-1 背包</a></li>
+    <li><a href="#函数式语言对于性能的追求">函数式<strong>语言</strong>对于性能的追求</a>
+      <ol>
+        <li><a href="#0-1-背包回到起点">0-1 背包：回到起点</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/fp/" style="background-color: #b7c9e2; color: #fff;">
+                FP
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/%E4%BB%8E-0-1-%E8%83%8C%E5%8C%85%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0%E5%87%BA%E5%8F%91/">从 0-1 背包动态规划的 Haskell 实现出发</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Oct 20, 2024</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    3 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <!-- 关键词：**纯**函数，求值策略，编程范式，抽象，递归，记忆化 -->
+<p>另一个视角的，对于性能的追求.</p>
+<h2 id="过程式的-0-1-背包"><a href="#%e8%bf%87%e7%a8%8b%e5%bc%8f%e7%9a%84-0-1-%e8%83%8c%e5%8c%85" class="header-anchor"></a>过程式的 0-1 背包
+</h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">knapsack</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span><span class="o">*</span> <span class="n">weight</span><span class="p">,</span> <span class="kt">int</span><span class="o">*</span> <span class="n">value</span><span class="p">,</span> <span class="kt">int</span> <span class="n">capacity</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">dp</span><span class="p">[</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">capacity</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// INIT: BASE CASE// 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">capacity</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl">        <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>  
+</span></span><span class="line"><span class="cl">        <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">// DP // 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">w</span> <span class="o">=</span> <span class="n">weight</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">v</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">capacity</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">j</span> <span class="o">&lt;</span> <span class="n">w</span><span class="p">)</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">],</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="o">-</span><span class="n">w</span><span class="p">]</span><span class="o">+</span><span class="n">v</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">n</span><span class="p">][</span><span class="n">capacity</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>1: 1 翻译成 Haskell ？:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-hs" data-lang="hs"><span class="line"><span class="cl"><span class="kr">import</span> <span class="nn">Data.Array</span>
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="kt">Value</span> <span class="ow">=</span> <span class="kt">Int</span> 
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="kt">Weight</span> <span class="ow">=</span> <span class="kt">Int</span> 
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="kt">Item</span> <span class="ow">=</span> <span class="p">(</span><span class="kt">Value</span><span class="p">,</span> <span class="kt">Weight</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">knapsack01</span> <span class="ow">::</span> <span class="kt">Weight</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="kt">Item</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="kt">Value</span>
+</span></span><span class="line"><span class="cl"><span class="nf">knapsack01</span> <span class="n">capacity</span> <span class="n">items</span> <span class="ow">=</span> <span class="n">dp</span> <span class="o">!</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">capacity</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl">    <span class="kr">where</span> 
+</span></span><span class="line"><span class="cl">        <span class="n">n</span> <span class="ow">=</span> <span class="n">length</span> <span class="n">items</span> 
+</span></span><span class="line"><span class="cl">        <span class="n">dp</span> <span class="ow">=</span> <span class="n">array</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">capacity</span><span class="p">))</span> 
+</span></span><span class="line"><span class="cl">             <span class="p">[((</span><span class="n">i</span><span class="p">,</span> <span class="n">w</span><span class="p">),</span> <span class="n">step</span> <span class="n">i</span> <span class="n">w</span><span class="p">)</span> <span class="o">|</span> <span class="n">i</span> <span class="ow">&lt;-</span> <span class="p">[</span><span class="mi">0</span><span class="o">..</span><span class="n">n</span><span class="p">],</span> <span class="n">w</span> <span class="ow">&lt;-</span> <span class="p">[</span><span class="mi">0</span><span class="o">..</span><span class="n">capacity</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="n">step</span> <span class="mi">0</span> <span class="kr">_</span> <span class="ow">=</span> <span class="mi">0</span> 
+</span></span><span class="line"><span class="cl">        <span class="n">step</span> <span class="kr">_</span> <span class="mi">0</span> <span class="ow">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">        <span class="n">step</span> <span class="n">i</span> <span class="n">w</span> 
+</span></span><span class="line"><span class="cl">            <span class="o">|</span> <span class="n">curWgt</span> <span class="o">&gt;</span> <span class="n">w</span> 
+</span></span><span class="line"><span class="cl">                <span class="ow">=</span> <span class="n">dp</span> <span class="o">!</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl">            <span class="o">|</span> <span class="n">otherwise</span>     
+</span></span><span class="line"><span class="cl">                <span class="ow">=</span> <span class="n">max</span> <span class="p">(</span><span class="n">dp</span> <span class="o">!</span> <span class="p">(</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">w</span><span class="p">))</span> <span class="p">(</span><span class="n">curVal</span> <span class="o">+</span> <span class="n">dp</span> <span class="o">!</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">w</span> <span class="o">-</span> <span class="n">curWgt</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">            <span class="kr">where</span> <span class="n">curVal</span> <span class="ow">=</span> <span class="n">fst</span> <span class="o">$</span> <span class="n">items</span> <span class="o">!!</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl">                  <span class="n">curWgt</span> <span class="ow">=</span> <span class="n">snd</span> <span class="o">$</span> <span class="n">items</span> <span class="o">!!</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+</span></span></code></pre></div><p>写的时候感觉不太对劲，第一感觉是：这两段代码没有区别. 这就是在函数式的语言里写命令式程序. 周五晚上我从炸鸡店走出来的时候，有了一些新的想法：</p>
+<h2 id="函数式语言对于性能的追求"><a href="#%e5%87%bd%e6%95%b0%e5%bc%8f%e8%af%ad%e8%a8%80%e5%af%b9%e4%ba%8e%e6%80%a7%e8%83%bd%e7%9a%84%e8%bf%bd%e6%b1%82" class="header-anchor"></a>函数式<strong>语言</strong>对于性能的追求
+</h2><p>当我们不能像过程式语言那样在内存条里随机存取，指哪打哪的时候，当我们建立起一层层抽象的时候，如何追求性能呢？除了在 CSAPP 第五章里学习利用局部性、循环展开、提高并行性等方法，还有什么方式可以提高程序的性能？除了程序员本身从源代码层面提高性能，还可以在哪里优化性能？编译器从程序员手上接管代码，编译器可以做什么？</p>
+<!-- 就 是 要 递 归 -->
+<h3 id="0-1-背包回到起点"><a href="#0-1-%e8%83%8c%e5%8c%85%e5%9b%9e%e5%88%b0%e8%b5%b7%e7%82%b9" class="header-anchor"></a>0-1 背包：回到起点
+</h3><p>所有物品为 $items$，规模为 $N$, 物品属性为价值 $v_i, w_i$，背包总容量为 $W$，定义 $z(i, j)$ 为可选物品为 $items[1..i]$，背包容量为 $j$ 时，可获得的最大价值，那么</p>
+<ul>
+<li>递推基：$\forall i, j,\quad z(i, 0) = 0, z(0,j) = 0;$<br></li>
+<li>递推步：$z(i,j) = max(z(i-1, j), v_i + z(i-1, j-w_i));$<br></li>
+<li>目标值：$z(N, W)$</li>
+</ul>
+<p>毫无疑问这是递归的结构，我们不用递归的理由是对于性能的追求，因而使用 <code>dp[i][j]</code> 用空间换时间，将递归中的重复计算转换为数组的索引访问. 这个<strong>记忆化</strong>的工作，除了我们自己做（也就是使用 <code>dp</code> 数组），还可以 —— 交给编译器. 当然这种形式的记忆化就不是在源代码层面上呈现一个数组了，而是通过求值策略来实现.</p>
+<p>首先这里有几个简单的讨论：</p>
+<ul>
+<li>
+<p>函数是什么？/ 函数的表示法 / 编译器行为 / 纯函数的求值策略</p>
+<p><em>—— 多年以后，面对 &ldquo;函数式程序设计&rdquo;，🐟将会回想起数学老师带她去见识函数的那节遥远的数学课.</em></p>
+<p>函数是一种映射关系. 体现这种关系的方式，即 函数的表示法，除了函数表达式、函数图像，还有<strong>表格</strong>.</p>
+<p>如果我们需要一台机器来执行约定了有限定义域的完全平方函数 <code>square(x, y) = x*x + y*y</code>，除了依赖加法器、乘法器构成的组合逻辑电路，我们还可以用 LUT（LookUp Table），虽然听起来有点离谱，但是你不能否认它的可行性.</p>
+<p>我们习惯的编译器的行为大致是：看到函数+参数 → 放入组合逻辑电路计算；如果利用纯表格（LUT），那么编译器的行为大致是：看到函数+参数 → 在 LUT 中查找对应输出，这需要 LUT 存储好所有函数输入对应的输出，于是压力给到 LUT；折中的策略是，第一次见到函数及其参数时，利用组合逻辑电路计算，并缓存到 LUT，再次见到这组函数+参数，在 LUT 中查找.</p>
+</li>
+<li>
+<p>子过程与函数，副作用与纯度</p>
+<p>使用 LUT 实现函数的前提是：函数是<strong>纯</strong>的.</p>
+<p>像 <code>func</code> 这样的函数就是不纯的，因为这个函数无法保证对于同样的 <code>a</code> 总是给出相同的输出，因为全局变量 <code>x</code> 可能随时被修改，导致修改前后 <code>a + x</code> 的值不同：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">func</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>[TODO]</p>
+</li>
+<li>
+<p>语法树与语法图</p>
+<p><a class="link" href="https://en.wikibooks.org/wiki/Haskell/Graph_reduction"  target="_blank" rel="noopener"
+    >Graph Reduction</a></p>
+<p>[TODO]</p>
+</li>
+</ul>
+<!-- ###  -->
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/haskell/">Haskell</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/message-passing-%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84-bool-sicp-2.4.3-%E6%B3%9B%E5%9E%8B-%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9A%84%E8%BE%B9%E7%95%8C/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Message Passing 视角下的 Bool - SICP § 2.4.3 | 泛型 | 数据与函数的边界 </h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.3.4-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Huffman 树的 Haskell 实现 - SICP § 2.3.4  | 组合数据的结构与解构</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/nested-mapping-examples-implemented-in-haskell-sicp-2.2.3-list-monad/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Nested Mapping Examples Implemented in Haskell - SICP § 2.2.3  | List Monad </h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/haskell-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-vscode--ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Haskell 开发环境 (VSCode &#43; GHCup &#43; HLS) 修复记录</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/%E8%BF%AD%E4%BB%A3%E7%BB%84%E5%90%88%E5%AD%90%E7%9A%84%E6%9E%84%E9%80%A0-lcac-4c-theorem-4.20/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">迭代组合子的构造 - LCaC § 4C, Theorem 4.20</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+        2024 fyshXplore
+    </section>
+    
+    <section class="powerby">
+        
+            Wish You a Nice Day! <br/>
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
