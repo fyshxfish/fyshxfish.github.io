@@ -1,17 +1,17 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="来自 Lambda-Calculus and Combinator § 4C Theorem 4.20 的 proof 部分，整体意图是证明符合 Definition 4.18 的全称递归函数可以用组合子来表示.\u2002这里对该证明的关键部分，即迭代组合子的构造，做简要的陈述. 也可以理解为：在 Pure Lambda Calculus 中编写一个具有特定终止条件的迭代程序. 如果你好奇 &quot; 如何在 Lambda Calculus 中编写一个指定迭代 / 递归次数的迭代 / 递归函数 &quot; ，可以参考 Lambda-Calculus and Combinator § 4B Theorem 4.11 的 proof 中 $R_{\\text{Bernays}}$ 组合子的构造，这个构造过程也十分精巧.\n">
-<title>迭代组合子的构造 - LCaC § 4C Theorem 4.20</title>
+<title>迭代组合子的构造 - LCaC § 4C, Theorem 4.20</title>
 
-<link rel='canonical' href='http://localhost:1313/p/%E8%BF%AD%E4%BB%A3%E7%BB%84%E5%90%88%E5%AD%90%E7%9A%84%E6%9E%84%E9%80%A0-lcac-4c-theorem-4.20/'>
+<link rel='canonical' href='http://fyshxfish.github.io/p/%E8%BF%AD%E4%BB%A3%E7%BB%84%E5%90%88%E5%AD%90%E7%9A%84%E6%9E%84%E9%80%A0-lcac-4c-theorem-4.20/'>
 
-<link rel="stylesheet" href="/scss/style.min.b51788d43472ffad20b588167514427b70146d30bc2a1ee0490ab0db3b5da439.css"><meta property='og:title' content="迭代组合子的构造 - LCaC § 4C Theorem 4.20">
+<link rel="stylesheet" href="/scss/style.min.b51788d43472ffad20b588167514427b70146d30bc2a1ee0490ab0db3b5da439.css"><meta property='og:title' content="迭代组合子的构造 - LCaC § 4C, Theorem 4.20">
 <meta property='og:description' content="来自 Lambda-Calculus and Combinator § 4C Theorem 4.20 的 proof 部分，整体意图是证明符合 Definition 4.18 的全称递归函数可以用组合子来表示.\u2002这里对该证明的关键部分，即迭代组合子的构造，做简要的陈述. 也可以理解为：在 Pure Lambda Calculus 中编写一个具有特定终止条件的迭代程序. 如果你好奇 &quot; 如何在 Lambda Calculus 中编写一个指定迭代 / 递归次数的迭代 / 递归函数 &quot; ，可以参考 Lambda-Calculus and Combinator § 4B Theorem 4.11 的 proof 中 $R_{\\text{Bernays}}$ 组合子的构造，这个构造过程也十分精巧.\n">
-<meta property='og:url' content='http://localhost:1313/p/%E8%BF%AD%E4%BB%A3%E7%BB%84%E5%90%88%E5%AD%90%E7%9A%84%E6%9E%84%E9%80%A0-lcac-4c-theorem-4.20/'>
+<meta property='og:url' content='http://fyshxfish.github.io/p/%E8%BF%AD%E4%BB%A3%E7%BB%84%E5%90%88%E5%AD%90%E7%9A%84%E6%9E%84%E9%80%A0-lcac-4c-theorem-4.20/'>
 <meta property='og:site_name' content='fyshXplore'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='LCaC' /><meta property='article:tag' content='lambda calculus' /><meta property='article:published_time' content='2024-09-17T23:48:00&#43;08:00'/><meta property='article:modified_time' content='2024-09-17T23:48:00&#43;08:00'/>
-<meta name="twitter:title" content="迭代组合子的构造 - LCaC § 4C Theorem 4.20">
+<meta name="twitter:title" content="迭代组合子的构造 - LCaC § 4C, Theorem 4.20">
 <meta name="twitter:description" content="来自 Lambda-Calculus and Combinator § 4C Theorem 4.20 的 proof 部分，整体意图是证明符合 Definition 4.18 的全称递归函数可以用组合子来表示.\u2002这里对该证明的关键部分，即迭代组合子的构造，做简要的陈述. 也可以理解为：在 Pure Lambda Calculus 中编写一个具有特定终止条件的迭代程序. 如果你好奇 &quot; 如何在 Lambda Calculus 中编写一个指定迭代 / 递归次数的迭代 / 递归函数 &quot; ，可以参考 Lambda-Calculus and Combinator § 4B Theorem 4.11 的 proof 中 $R_{\\text{Bernays}}$ 组合子的构造，这个构造过程也十分精巧.\n"><style>
   :root {
      
@@ -292,7 +292,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/p/%E8%BF%AD%E4%BB%A3%E7%BB%84%E5%90%88%E5%AD%90%E7%9A%84%E6%9E%84%E9%80%A0-lcac-4c-theorem-4.20/">迭代组合子的构造 - LCaC § 4C Theorem 4.20</a>
+            <a href="/p/%E8%BF%AD%E4%BB%A3%E7%BB%84%E5%90%88%E5%AD%90%E7%9A%84%E6%9E%84%E9%80%A0-lcac-4c-theorem-4.20/">迭代组合子的构造 - LCaC § 4C, Theorem 4.20</a>
         </h2>
     
         
@@ -536,12 +536,12 @@ $ \bar{\sigma} = _{\beta, w} \lambda nfz. f (n f z)$ </br></p>
             
                 
 <article class="">
-    <a href="/p/%E7%BC%96%E8%AF%91%E5%8E%9F%E7%90%86-haskell-nfa-dfa/">
+    <a href="/p/%E4%BB%8E-haskell-%E4%B8%AD%E7%9A%84-0-1-%E8%83%8C%E5%8C%85%E9%97%AE%E9%A2%98%E5%87%BA%E5%8F%91%E7%9A%84%E4%B8%80%E4%BA%9B%E8%AE%A8%E8%AE%BA/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">编译原理 × Haskell - NFA → DFA</h2>
+            <h2 class="article-title">从 Haskell 中的 0-1 背包问题出发的一些讨论</h2>
         </div>
     </a>
 </article>
@@ -562,12 +562,12 @@ $ \bar{\sigma} = _{\beta, w} \lambda nfz. f (n f z)$ </br></p>
             
                 
 <article class="">
-    <a href="/p/nested-mappings-%E6%A1%88%E4%BE%8B%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.2.3-list-monad/">
+    <a href="/p/nested-mapping-examples-implemented-in-haskell-sicp-2.2.3-list-monad/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">Nested Mappings 案例的 Haskell 实现 - SICP § 2.2.3  | List Monad </h2>
+            <h2 class="article-title">Nested Mapping Examples Implemented in Haskell - SICP § 2.2.3  | List Monad </h2>
         </div>
     </a>
 </article>
