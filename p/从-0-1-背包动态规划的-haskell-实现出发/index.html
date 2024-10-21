@@ -254,6 +254,9 @@
     <li><a href="#函数式语言对于性能的追求">函数式<strong>语言</strong>对于性能的追求</a>
       <ol>
         <li><a href="#0-1-背包回到起点">0-1 背包：回到起点</a></li>
+        <li><a href="#不递归的理由">不递归的理由</a></li>
+        <li><a href="#对于--纯--函数的讨论">对于 &quot; <strong>纯</strong> &quot; 函数的讨论</a></li>
+        <li><a href="#递归的理由">递归的理由</a></li>
       </ol>
     </li>
   </ol>
@@ -320,7 +323,7 @@
 
 
                 <time class="article-time--reading">
-                    3 minute read
+                    5 minute read
                 </time>
             </div>
         
@@ -384,7 +387,7 @@
 </span></span><span class="line"><span class="cl">                  <span class="n">curWgt</span> <span class="ow">=</span> <span class="n">snd</span> <span class="o">$</span> <span class="n">items</span> <span class="o">!!</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
 </span></span></code></pre></div><p>写的时候感觉不太对劲，第一感觉是：这两段代码没有区别. 这就是在函数式的语言里写命令式程序. 周五晚上我从炸鸡店走出来的时候，有了一些新的想法：</p>
 <h2 id="函数式语言对于性能的追求"><a href="#%e5%87%bd%e6%95%b0%e5%bc%8f%e8%af%ad%e8%a8%80%e5%af%b9%e4%ba%8e%e6%80%a7%e8%83%bd%e7%9a%84%e8%bf%bd%e6%b1%82" class="header-anchor"></a>函数式<strong>语言</strong>对于性能的追求
-</h2><p>当我们不能像过程式语言那样在内存条里随机存取，指哪打哪的时候，当我们建立起一层层抽象的时候，如何追求性能呢？除了在 CSAPP 第五章里学习利用局部性、循环展开、提高并行性等方法，还有什么方式可以提高程序的性能？除了程序员本身从源代码层面提高性能，还可以在哪里优化性能？编译器从程序员手上接管代码，编译器可以做什么？</p>
+</h2><p>当我们不能像过程式语言那样在内存条里随机存取的时候，当我们建立起一层层抽象的时候，如何追求性能呢？除了在 CSAPP 第五章里学习利用局部性、循环展开、提高并行性等方法，还有什么方式可以提高程序的性能？除了程序员本身从源代码层面提高性能，还可以在哪里优化性能？编译器从程序员手上接管代码，编译器可以做什么？</p>
 <!-- 就 是 要 递 归 -->
 <h3 id="0-1-背包回到起点"><a href="#0-1-%e8%83%8c%e5%8c%85%e5%9b%9e%e5%88%b0%e8%b5%b7%e7%82%b9" class="header-anchor"></a>0-1 背包：回到起点
 </h3><p>所有物品为 $items$，规模为 $N$, 物品属性为价值 $v_i, w_i$，背包总容量为 $W$，定义 $z(i, j)$ 为可选物品为 $items[1..i]$，背包容量为 $j$ 时，可获得的最大价值，那么</p>
@@ -393,34 +396,130 @@
 <li>递推步：$z(i,j) = max(z(i-1, j), v_i + z(i-1, j-w_i));$<br></li>
 <li>目标值：$z(N, W)$</li>
 </ul>
-<p>毫无疑问这是递归的结构，我们不用递归的理由是对于性能的追求，因而使用 <code>dp[i][j]</code> 用空间换时间，将递归中的重复计算转换为数组的索引访问. 这个<strong>记忆化</strong>的工作，除了我们自己做（也就是使用 <code>dp</code> 数组），还可以 —— 交给编译器. 当然这种形式的记忆化就不是在源代码层面上呈现一个数组了，而是通过求值策略来实现.</p>
-<p>首先这里有几个简单的讨论：</p>
-<ul>
+<p>毫无疑问这是递归的结构，在 Haskell 里写递归实现，如同呼吸般自然：<br><span style="color: gray; font-size: smaller;">（NOTE：1. 看到这里也许你已经开始担忧重复计算、内存占用的事情了 ；2. 值得稍稍注意的一点是，这一段代码完全不涉及基于索引的数据存取）</span></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-hs" data-lang="hs"><span class="line"><span class="cl"><span class="kr">type</span> <span class="kt">Item</span> <span class="ow">=</span> <span class="p">(</span><span class="kt">Value</span><span class="p">,</span> <span class="kt">Weight</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">knapsack</span> <span class="ow">::</span> <span class="p">[</span><span class="kt">Item</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="kt">Int</span>        <span class="c1">-- items + capacity -&gt; maximal value </span>
+</span></span><span class="line"><span class="cl"><span class="nf">knapsack</span> <span class="kr">_</span>  <span class="mi">0</span> <span class="ow">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="nf">knapsack</span> <span class="kt">[]</span> <span class="kr">_</span> <span class="ow">=</span> <span class="mi">0</span> 
+</span></span><span class="line"><span class="cl"><span class="nf">knapsack</span> <span class="p">((</span><span class="n">v</span><span class="p">,</span><span class="n">w</span><span class="p">)</span><span class="kt">:</span><span class="n">items</span><span class="p">)</span> <span class="n">c</span> <span class="ow">=</span> 
+</span></span><span class="line"><span class="cl">    <span class="kr">let</span> 
+</span></span><span class="line"><span class="cl">        <span class="n">choose</span> <span class="ow">=</span> <span class="n">v</span> <span class="o">+</span> <span class="n">knapsack</span> <span class="n">items</span> <span class="p">(</span><span class="n">c</span><span class="o">-</span><span class="n">w</span><span class="p">)</span>   <span class="c1">-- choose current item </span>
+</span></span><span class="line"><span class="cl">        <span class="n">chxxse</span> <span class="ow">=</span> <span class="n">knapsack</span> <span class="n">items</span> <span class="n">c</span>           <span class="c1">-- not choose current item</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">in</span> 
+</span></span><span class="line"><span class="cl">        <span class="kr">if</span> <span class="n">w</span> <span class="o">&gt;</span> <span class="n">c</span> <span class="kr">then</span> <span class="n">chxxse</span> <span class="kr">else</span> <span class="n">max</span> <span class="n">choose</span> <span class="n">chxxse</span> 
+</span></span></code></pre></div><h3 id="不递归的理由"><a href="#%e4%b8%8d%e9%80%92%e5%bd%92%e7%9a%84%e7%90%86%e7%94%b1" class="header-anchor"></a>不递归的理由
+</h3><p>在第一节的 CPP 实现中，我们不用递归的理由是对于性能的追求，因而使用 <code>dp[i][j]</code> 用空间换时间，将递归中的重复计算转换为数组的索引访问. 这个<strong>记忆化</strong>的工作，除了我们自己做（也就是使用 <code>dp</code> 数组），还可以 —— 交给编译器. 当然这种形式的记忆化就不是在源代码层面上呈现一个记忆数组了，而是通过求值策略来实现. 在讨论求值策略前，先看看什么是纯函数.</p>
+<h3 id="对于--纯--函数的讨论"><a href="#%e5%af%b9%e4%ba%8e--%e7%ba%af--%e5%87%bd%e6%95%b0%e7%9a%84%e8%ae%a8%e8%ae%ba" class="header-anchor"></a>对于 &quot; <strong>纯</strong> &quot; 函数的讨论
+</h3><ul>
 <li>
-<p>函数是什么？/ 函数的表示法 / 编译器行为 / 纯函数的求值策略</p>
+<p>函数是什么？/ 函数的表示法 / LUT 的类比 / 编译器行为 / 纯函数的求值策略</p>
 <p><em>—— 多年以后，面对 &ldquo;函数式程序设计&rdquo;，🐟将会回想起数学老师带她去见识函数的那节遥远的数学课.</em></p>
 <p>函数是一种映射关系. 体现这种关系的方式，即 函数的表示法，除了函数表达式、函数图像，还有<strong>表格</strong>.</p>
-<p>如果我们需要一台机器来执行约定了有限定义域的完全平方函数 <code>square(x, y) = x*x + y*y</code>，除了依赖加法器、乘法器构成的组合逻辑电路，我们还可以用 LUT（LookUp Table），虽然听起来有点离谱，但是你不能否认它的可行性.</p>
-<p>我们习惯的编译器的行为大致是：看到函数+参数 → 放入组合逻辑电路计算；如果利用纯表格（LUT），那么编译器的行为大致是：看到函数+参数 → 在 LUT 中查找对应输出，这需要 LUT 存储好所有函数输入对应的输出，于是压力给到 LUT；折中的策略是，第一次见到函数及其参数时，利用组合逻辑电路计算，并缓存到 LUT，再次见到这组函数+参数，在 LUT 中查找.</p>
+<p>如果我们需要一台机器来执行约定了有限定义域的完全平方函数 <code>square(x, y) = x*x + y*y</code>，除了依赖加法器、乘法器构成的组合逻辑电路，我们还可以用 LUT（LookUp Table），虽然听起来有点离谱，但是它的可行性是不可否认的.</p>
+  <img src="img/3-input-LUT.png" alt="3 input LUT" style="zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);" />
+<p>我们习惯的编译器的行为大致是：看到函数+参数 → 放入组合逻辑电路计算；如果<strong>只</strong>依赖映射表（LUT），那么编译器的行为大致是：看到函数+参数 → 在 LUT 中查找对应输出，这需要 LUT 存储好<strong>所有</strong>函数输入对应的输出，于是压力给到 LUT；折中的策略是，第一次见到函数+参数时，利用组合逻辑电路计算，并<strong>缓存</strong>到 LUT，再次见到这组函数+参数，直接在 LUT 中查找.（函数式有自己的高速缓存:）</p>
 </li>
 <li>
-<p>子过程与函数，副作用与纯度</p>
-<p>使用 LUT 实现函数的前提是：函数是<strong>纯</strong>的.</p>
-<p>像 <code>func</code> 这样的函数就是不纯的，因为这个函数无法保证对于同样的 <code>a</code> 总是给出相同的输出，因为全局变量 <code>x</code> 可能随时被修改，导致修改前后 <code>a + x</code> 的值不同：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-c" data-lang="c"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">x</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">func</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">){</span>
+<p>子过程与函数 / 副作用与纯度</p>
+<p>这里我们用函数指代“纯”函数（定义见下），将非纯的过程称为子过程.</p>
+<p>使用 LUT 实现函数的前提是：函数是<strong>纯</strong>的，即对相同的输入总是返回相同的输出，并且不产生副作用. 形象地说，我们希望 LUT 是严格的，IN / OUT 引脚保持干净，IN 接收函数参数，OUT 给出函数输出，不希望在 IN 之外，再从某个寄存器接进来一个输入，也不希望在 OUT 的旁边，多连接一个寄存器，把寄存器存储值的改变作为函数执行的结果；即 函数本身总是<strong>独立</strong>于程序的其他部分 - LUT 总是独立于电路的其他部分，不受其他部分影响.</p>
+<ul>
+<li>
+<p>输入输出的纯度：</p>
+<p><code>addx</code> 是不纯的，因为这个函数无法保证对于同样的 <code>a</code> 总是给出相同的输出，因为全局变量 <code>x</code> 可能随时被修改，导致修改前后 <code>a + x</code> 的值不同；<code>readOneWord</code> 是不纯的，因为无法保证对于同一个路径 <code>p</code>，始终返回同样的 <code>firstWord</code>，因为 <code>p</code> 对应的文件可能被其他程序随时修改.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">x</span><span class="p">;</span>              <span class="c1">// global 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">addx</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">){</span>    
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">x</span><span class="p">;</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span></code></pre></div><p>[TODO]</p>
-</li>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">string</span> <span class="nf">readOneWord</span><span class="p">(</span><span class="n">path</span> <span class="n">p</span><span class="p">)</span> <span class="p">{</span>    <span class="c1">// IO
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="n">head</span><span class="p">(</span><span class="n">getFile</span><span class="p">(</span><span class="n">p</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div></li>
 <li>
-<p>语法树与语法图</p>
-<p><a class="link" href="https://en.wikibooks.org/wiki/Haskell/Graph_reduction"  target="_blank" rel="noopener"
-    >Graph Reduction</a></p>
-<p>[TODO]</p>
+<p>副作用：</p>
+<p><code>greeting</code> 是不纯的，因为它产生了 <code>print</code> 的副作用； <code>write</code> 是不纯的，因为它造成了写文件的副作用.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">greeting</span><span class="p">(</span><span class="n">string</span> <span class="n">name</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">print</span><span class="p">(</span><span class="n">f</span><span class="s">&#34;Hello, {name}&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">writeLine</span><span class="p">(</span><span class="n">path</span> <span class="n">p</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">getFile</span><span class="p">(</span><span class="n">p</span><span class="p">).</span><span class="n">append</span><span class="p">(</span><span class="s">&#34;Append this line&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div></li>
+<li>
+<p>&ldquo;提纯&rdquo;？</p>
+<p>对于上述的非纯函数，我们可以<strong>将副作用分离</strong>，得到对应的纯函数如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">addx</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">string</span> <span class="nf">readOneWord</span><span class="p">(</span><span class="n">file</span> <span class="n">f</span><span class="p">)</span> <span class="p">{</span>    
+</span></span><span class="line"><span class="cl">    <span class="n">string</span> <span class="n">firstWord</span> <span class="o">=</span> <span class="n">head</span><span class="p">(</span><span class="n">f</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">firstWord</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">string</span> <span class="nf">greeting</span><span class="p">(</span><span class="n">string</span> <span class="n">name</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">f</span><span class="s">&#34;Hello, {name}&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">file</span> <span class="nf">writeLine</span><span class="p">(</span><span class="n">file</span> <span class="n">f</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">f</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#34;Append this line&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div></li>
+<li>
+<p>分离副作用的示例 / Imperative Shell, Functional Core</p>
+<p>提问：假设有两个类 <code>Camera</code>, <code>FaceRecognizer</code>，<code>Camera</code> 类有一个方法 <code>getFrame</code> 用于从物理摄像头捕获一帧图像，<code>FaceRecognizer</code> 类有一个方法 <code>recognizePerson</code> 用于识别一帧图像中的人脸并返回对应用户名. 若需要实现函数 <code>getFrameAndRecognize</code> 用于捕获当前帧、识别并返回用户名，如何组织程序结构？</p>
+<p>一种答案：将 <code>FaceRecognizer</code> 的实例作为 <code>Camera</code> 的成员，保证 <code>FaceRecognizer</code> 的纯度，即 <code>FaceRecognizer</code> 的方法总是对帧做计算，将 <code>getFrame</code> 这样的副作用分离、止步于 <code>Camera</code> 类.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Camera</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">face_recognizer</span> <span class="o">=</span> <span class="n">FaceRecognizer</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">getFrame</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># snip # </span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">frame</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">getFrameAndRecognize</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">        <span class="n">frame</span> <span class="o">=</span> <span class="n">getFrame</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">name</span> <span class="o">=</span> <span class="n">face_recognizer</span><span class="o">.</span><span class="n">recognizePerson</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">name</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">FaceRecognizer</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">recognizePerson</span><span class="p">(</span><span class="n">frame</span><span class="p">:</span> <span class="n">image</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># snip #</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">name</span>
+</span></span></code></pre></div><p>即：保证功能函数的纯度，并将其作为程序的核心，将 IO 等非纯操作分离到外层 ——  Imperative Shell, Functional Core. （此处应有一场 Simon Peyton Jones 的讲座链接，但我一时找不到了.）</p>
+  <div style="text-align: center;">
+      <img src="img/shellcore.png" alt="Imperative Shell, Functional Core" style="zoom:40%;" />
+  </div>
 </li>
 </ul>
+</li>
+<li>
+<p>追求纯度的理由</p>
+<ol>
+<li>
+<p>方便<strong>单元</strong>测试与维护.</p>
+</li>
+<li>
+<p>易于并行.</p>
+</li>
+<li>
+<p>可以用查表作为一种求值策略，或者作为求值策略的一部分，避免了重复计算带来的开销.</p>
+</li>
+</ol>
+</li>
+<li>
+<p>语法树与语法图 / 重复计算 / 求值策略</p>
+<p><a class="link" href="https://en.wikibooks.org/wiki/Haskell/Graph_reduction"  target="_blank" rel="noopener"
+    >Haskell Wiki - Graph Reduction</a></p>
+<p>从 Lambda Calculus 解释操作语义 call-by-value / call-by-name / call-by-need，可以参考 Types and Programming Language, Section 5.1</p>
+<p>[TODO] <span style="color: gray; font-size: smaller;"> 这里还没写的原因是：我 也 不 是 很 懂.</span></p>
+</li>
+</ul>
+<h3 id="递归的理由"><a href="#%e9%80%92%e5%bd%92%e7%9a%84%e7%90%86%e7%94%b1" class="header-anchor"></a>递归的理由
+</h3><p>照应本文 <a class="link" href="#%e4%b8%8d%e9%80%92%e5%bd%92%e7%9a%84%e7%90%86%e7%94%b1" >2.2 不递归的理由</a> 避免重复计算的方式除了通过记忆数组，还可以依赖编译器采取的求值策略（惰性求值），将语法树中的所有相同的表达式结点指向同一个结点，实现计算结果的复用.</p>
 <!-- ###  -->
 
 </section>
