@@ -7,17 +7,17 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
         <lastBuildDate>Sun, 20 Oct 2024 19:48:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/tags/haskell/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>简单聊聊纯函数及其求值策略</title>
-        <link>http://fyshxfish.github.io/p/%E7%AE%80%E5%8D%95%E8%81%8A%E8%81%8A%E7%BA%AF%E5%87%BD%E6%95%B0%E5%8F%8A%E5%85%B6%E6%B1%82%E5%80%BC%E7%AD%96%E7%95%A5/</link>
+        <title>如何避免重复计算 / 纯函数及其求值策略</title>
+        <link>http://fyshxfish.github.io/p/%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E9%87%8D%E5%A4%8D%E8%AE%A1%E7%AE%97-/-%E7%BA%AF%E5%87%BD%E6%95%B0%E5%8F%8A%E5%85%B6%E6%B1%82%E5%80%BC%E7%AD%96%E7%95%A5/</link>
         <pubDate>Sun, 20 Oct 2024 19:48:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/p/%E7%AE%80%E5%8D%95%E8%81%8A%E8%81%8A%E7%BA%AF%E5%87%BD%E6%95%B0%E5%8F%8A%E5%85%B6%E6%B1%82%E5%80%BC%E7%AD%96%E7%95%A5/</guid>
+        <guid>http://fyshxfish.github.io/p/%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E9%87%8D%E5%A4%8D%E8%AE%A1%E7%AE%97-/-%E7%BA%AF%E5%87%BD%E6%95%B0%E5%8F%8A%E5%85%B6%E6%B1%82%E5%80%BC%E7%AD%96%E7%95%A5/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;&lt;a href=&#34;#%e5%89%8d%e8%a8%80&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;前言
 &lt;/h2&gt;&lt;p&gt;这个学期包含编译系统和算法设计与分析两门专业课，遇到一些问题总会想着放在 Haskell 里实现一下，对于程序构造多少有点新的体会，也度过了对于 Haskell 不平静的狂热期，现在的我已经不会想着到处传教了（☺️）. 本来只是准备随便写写做 0-1 背包的 Haskell 实现中的一些小思考，不过真开始动笔了就越写越正式了，也算是接触 FP / Haskell 以来的一点点小总结. &lt;a class=&#34;link&#34; href=&#34;https://www.haskell.org/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Haskell 官网&lt;/a&gt; 对 Haskell 的描述是 &amp;ldquo;An advanced, purely functional programming language&amp;rdquo;，本文试图围绕 &amp;ldquo;purely&amp;rdquo; 做一些讨论：什么是纯，怎么样算不纯，追求纯度的理由是什么，纯度带来的效益是什么.&lt;/p&gt;
 &lt;!-- 另一个视角的，对于性能的追求. --&gt;
 &lt;p&gt;首先从 0-1 背包的过程式实现出发，我把过程式实现 1:1 投射到 Haskell 里，感觉这段代码不是很符合 Haskell 的气质（😯），于是回到了递推式，回到了算法课上一笔带过的递归实现，对过程式语言的递推实现和函数式语言的递归实现做了一些比较，看看两者对于“如何避免重复计算的开销”这个问题（不局限于 0-1 背包问题）给出的不同答案，前者利用源代码上的记忆数组，后者则可以利用纯函数的特性，通过求值策略实现减少重复计算.&lt;/p&gt;
-&lt;p&gt;&lt;span style = &#34;color:#565656;&#34; &gt; 一段算法设计与计算模型的讨论：从 0-1 背包问题这个例子里也可以看出&amp;quot;算法设计&amp;quot;其实是不完全独立于编程范式的，也许更合适的说法是，&amp;ldquo;算法设计&amp;quot;强相关于物理计算机的实际运行方式，毕竟算法设计除了解决问题，还有一个追求是降低在物理机上运行时的时空计算资源消耗，这和命令式语言的特性是相契合的，而函数式语言有点 Lambda Calculus 虚拟机的意思；比如复杂度的计算，直接把命令式程序的时间复杂度计算方式照搬给函数式程序是有问题的，前者的理论基础是图灵机 - 状态转移次数，后者的理论基础是 λ 演算 - 规约次数，计算模型的不同势必带来一些差异. 因为我们使用的计算机采取冯诺依曼体系结构，即 图灵机的物理实现，所以算法课也采用更接近硬件的命令式的编程范式，还是很合理的. 不由得想起大一上 CPP 程序设计时老师说 “只要冯诺依曼体系结构还存在，我们就&amp;hellip;(后半句忘了)”，不知不觉我已经尝试走了走另一条路. 说起函数式语言的机器这件事情，其实 1970s,1980s 有学者为函数式的语言设计过专门的非冯诺依曼机器（combinator machine, dataflow machine, etc.），后来大家发现在效率的方面，现有机器 + 好的编译器 &amp;gt; 专用机器，可参考 &lt;a class=&#34;link&#34; href=&#34;https://www.microsoft.com/en-us/research/wp-content/uploads/2016/07/history.pdf?from=https://research.microsoft.com/~simonpj/papers/history-of-haskell/history.pdf&amp;amp;type=exact&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+&lt;p&gt;&lt;span style = &#34;color:#565656;&#34; &gt; 一段算法设计与计算模型的讨论：从 0-1 背包问题这个例子里也可以看出&amp;quot;算法设计&amp;quot;其实是不完全独立于编程范式的，也许更合适的说法是，算法设计强相关于物理计算机的实际运行方式，毕竟算法设计除了解决问题，还有一个追求是降低在物理机上运行时的时空计算资源消耗，这和命令式语言的特性是相契合的，而函数式语言有点 Lambda Calculus 虚拟机的意思；比如复杂度的计算，直接把命令式程序的时间复杂度计算方式照搬给函数式程序是有问题的，前者的理论基础是图灵机 - 状态转移次数，后者的理论基础是 $λ$ 演算 - 规约次数，计算模型的不同势必带来一些差异. 因为我们使用的计算机采取冯诺依曼体系结构，即 图灵机的物理实现，所以算法课也采用更接近硬件的命令式的编程范式，还是很合理的. 不由得想起大一上 CPP 程序设计时老师说 “只要冯诺依曼体系结构还存在，我们就&amp;hellip;(后半句忘了)”，不知不觉我已经尝试走了走另一条路. 说起函数式语言的机器这件事情，其实 1970s,1980s 有学者为函数式的语言设计过专门的非冯诺依曼机器（combinator machine, dataflow machine, etc.），后来大家发现在效率的方面，现有机器 + 好的编译器 &amp;gt; 专用机器，可参考 &lt;a class=&#34;link&#34; href=&#34;https://www.microsoft.com/en-us/research/wp-content/uploads/2016/07/history.pdf?from=https://research.microsoft.com/~simonpj/papers/history-of-haskell/history.pdf&amp;amp;type=exact&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;A History of Haskell: Being Lazy With Class&lt;/a&gt;, Part I - 2.1&lt;/span&gt;&lt;/p&gt;
 &lt;h2 id=&#34;命令式程序如何避免重复计算&#34;&gt;&lt;a href=&#34;#%e5%91%bd%e4%bb%a4%e5%bc%8f%e7%a8%8b%e5%ba%8f%e5%a6%82%e4%bd%95%e9%81%bf%e5%85%8d%e9%87%8d%e5%a4%8d%e8%ae%a1%e7%ae%97&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;命令式程序如何避免重复计算
 &lt;/h2&gt;&lt;p&gt;关于过程式的 0-1 背包，你熟悉到几乎可以默写的一段程序：&lt;/p&gt;
@@ -100,7 +100,7 @@
 &lt;p&gt;&lt;em&gt;—— 多年以后，面对 &amp;ldquo;函数式程序设计&amp;rdquo;，🐟将会回想起数学老师带她去见识函数的那节遥远的数学课.&lt;/em&gt;&lt;/p&gt;
 &lt;p&gt;函数是一种映射关系. 体现这种关系的方式，即 函数的表示法，除了函数表达式、函数图像，还有&lt;strong&gt;表格&lt;/strong&gt;.&lt;/p&gt;
 &lt;p&gt;如果我们需要一台机器来执行定义域为某有穷集的完全平方函数 &lt;code&gt;f(x, y) = x*x + y*y&lt;/code&gt;，除了依赖加法器、乘法器构成的组合逻辑电路，我们还可以用 LUT（LookUp Table），虽然听起来有点离谱，但是它的可行性是不可否认的.&lt;/p&gt;
-&lt;p&gt;&lt;span style=&#34;color:gray&#34;&gt;&lt;b&gt;NOTE: &lt;/b&gt; 可能产生的疑惑 - 如何确定 / 如何描述电路实现的函数与我们预期的函数之间的等价性？或者说，我们预期的是函数 $f$，电路实现的是函数 $f&amp;rsquo;$，如何确定 $f&amp;rsquo; \equiv f$？如果你对 λ演算（逻辑学）中函数等价的形式化理论感兴趣，可以参看 &lt;i&gt;Lambda Calculus and Combinators, an introduction - Chapter 5~8&lt;/i&gt;. 这里 LUT 实现的函数 $f_1&amp;rsquo;$ 与预期函数 $f$ 外延等价（extensional equivalence），组合逻辑实现的函数 $f_2&amp;rsquo;$ 与预期函数 $f$ 内涵等价（intensional equivalence）.&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style=&#34;color:gray&#34;&gt;&lt;b&gt;NOTE: &lt;/b&gt; 可能产生的疑惑 - 如何确定 / 如何描述电路实现的函数与我们预期的函数之间的等价性？或者说，我们预期的是函数 $f$，电路实现的是函数 $f&amp;rsquo;$，如何确定 $f&amp;rsquo; \equiv f$？如果你对 $λ$ 演算（逻辑学）中函数等价的形式化理论感兴趣，可以参看 &lt;i&gt;Lambda Calculus and Combinators, an introduction - Chapter 5~8&lt;/i&gt;. 这里 LUT 实现的函数 $f_1&amp;rsquo;$ 与预期函数 $f$ 外延等价（extensional equivalence），组合逻辑实现的函数 $f_2&amp;rsquo;$ 与预期函数 $f$ 内涵等价（intensional equivalence）.&lt;/span&gt;&lt;/p&gt;
   &lt;img src=&#34;img/3-input-LUT.png&#34; alt=&#34;3 input LUT&#34; style=&#34;zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
 &lt;p&gt;我们习惯的编译器的行为大致是：看到函数+参数 → 放入组合逻辑电路计算；如果&lt;strong&gt;只&lt;/strong&gt;依赖映射表（LUT），那么编译器的行为大致是：看到函数+参数 → 在 LUT 中查找对应输出，这需要 LUT 存储好&lt;strong&gt;所有&lt;/strong&gt;函数输入对应的输出，于是压力给到 LUT；折中的策略是，第一次见到函数+参数时，利用组合逻辑电路计算，并&lt;strong&gt;缓存&lt;/strong&gt;到 LUT，再次见到这组函数+参数，直接在 LUT 中查找.（函数式有自己的高速缓存:）&lt;/p&gt;
 &lt;/li&gt;
