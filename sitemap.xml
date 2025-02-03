@@ -2,98 +2,101 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://fyshxfish.github.io/</loc>
+    <loc>http://localhost:1313/</loc>
+    <lastmod>2025-02-02T21:29:00+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/categories/</loc>
+    <lastmod>2025-02-02T21:29:00+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/categories/fp/</loc>
+    <lastmod>2025-02-02T21:29:00+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/p/functional-on-steam-solutions/</loc>
+    <lastmod>2025-02-02T21:29:00+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/lambda-calculus/</loc>
+    <lastmod>2025-02-02T21:29:00+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/post/</loc>
+    <lastmod>2025-02-02T21:29:00+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/</loc>
+    <lastmod>2025-02-02T21:29:00+08:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/tags/haskell/</loc>
     <lastmod>2024-10-20T19:48:00+08:00</lastmod>
   </url><url>
-    <loc>http://fyshxfish.github.io/categories/</loc>
+    <loc>http://localhost:1313/p/%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E9%87%8D%E5%A4%8D%E8%AE%A1%E7%AE%97-/-%E7%BA%AF%E5%87%BD%E6%95%B0%E5%8F%8A%E5%85%B6%E6%B1%82%E5%80%BC%E7%AD%96%E7%95%A5/</loc>
     <lastmod>2024-10-20T19:48:00+08:00</lastmod>
   </url><url>
-    <loc>http://fyshxfish.github.io/categories/fp/</loc>
-    <lastmod>2024-10-20T19:48:00+08:00</lastmod>
-  </url><url>
-    <loc>http://fyshxfish.github.io/tags/haskell/</loc>
-    <lastmod>2024-10-20T19:48:00+08:00</lastmod>
-  </url><url>
-    <loc>http://fyshxfish.github.io/post/</loc>
-    <lastmod>2024-10-20T19:48:00+08:00</lastmod>
-  </url><url>
-    <loc>http://fyshxfish.github.io/tags/</loc>
-    <lastmod>2024-10-20T19:48:00+08:00</lastmod>
-  </url><url>
-    <loc>http://fyshxfish.github.io/p/%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E9%87%8D%E5%A4%8D%E8%AE%A1%E7%AE%97-/-%E7%BA%AF%E5%87%BD%E6%95%B0%E5%8F%8A%E5%85%B6%E6%B1%82%E5%80%BC%E7%AD%96%E7%95%A5/</loc>
-    <lastmod>2024-10-20T19:48:00+08:00</lastmod>
-  </url><url>
-    <loc>http://fyshxfish.github.io/tags/lambda-calculus/</loc>
+    <loc>http://localhost:1313/tags/lcac/</loc>
     <lastmod>2024-09-17T23:48:00+08:00</lastmod>
   </url><url>
-    <loc>http://fyshxfish.github.io/tags/lcac/</loc>
+    <loc>http://localhost:1313/p/%E8%BF%AD%E4%BB%A3%E7%BB%84%E5%90%88%E5%AD%90%E7%9A%84%E6%9E%84%E9%80%A0-lcac-4c-theorem-4.20/</loc>
     <lastmod>2024-09-17T23:48:00+08:00</lastmod>
   </url><url>
-    <loc>http://fyshxfish.github.io/p/%E8%BF%AD%E4%BB%A3%E7%BB%84%E5%90%88%E5%AD%90%E7%9A%84%E6%9E%84%E9%80%A0-lcac-4c-theorem-4.20/</loc>
-    <lastmod>2024-09-17T23:48:00+08:00</lastmod>
-  </url><url>
-    <loc>http://fyshxfish.github.io/categories/pl/</loc>
+    <loc>http://localhost:1313/categories/pl/</loc>
     <lastmod>2024-09-10T14:10:00+08:00</lastmod>
   </url><url>
-    <loc>http://fyshxfish.github.io/tags/tapl/</loc>
+    <loc>http://localhost:1313/tags/tapl/</loc>
     <lastmod>2024-09-10T14:10:00+08:00</lastmod>
   </url><url>
-    <loc>http://fyshxfish.github.io/p/types-and-programming-languages-%E6%91%98%E5%BD%95/</loc>
+    <loc>http://localhost:1313/p/types-and-programming-languages-%E6%91%98%E5%BD%95/</loc>
     <lastmod>2024-09-10T14:10:00+08:00</lastmod>
   </url><url>
-    <loc>http://fyshxfish.github.io/tags/scheme/</loc>
+    <loc>http://localhost:1313/tags/scheme/</loc>
     <lastmod>2024-09-08T20:13:00+08:00</lastmod>
   </url><url>
-    <loc>http://fyshxfish.github.io/p/%E6%8A%BD%E8%B1%A1%E5%B1%82%E6%AC%A1%E5%B9%B3%E7%BC%93%E6%8F%90%E5%8D%87%E7%9A%84-church-encoding/</loc>
+    <loc>http://localhost:1313/p/%E6%8A%BD%E8%B1%A1%E5%B1%82%E6%AC%A1%E5%B9%B3%E7%BC%93%E6%8F%90%E5%8D%87%E7%9A%84-church-encoding/</loc>
     <lastmod>2024-09-08T20:13:00+08:00</lastmod>
   </url><url>
-    <loc>http://fyshxfish.github.io/p/message-passing-%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84-bool-sicp-2.4.3-%E6%B3%9B%E5%9E%8B-%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9A%84%E8%BE%B9%E7%95%8C/</loc>
+    <loc>http://localhost:1313/p/message-passing-%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84-bool-sicp-2.4.3-%E6%B3%9B%E5%9E%8B-%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9A%84%E8%BE%B9%E7%95%8C/</loc>
     <lastmod>2024-09-07T23:18:00+08:00</lastmod>
   </url><url>
-    <loc>http://fyshxfish.github.io/tags/sicp/</loc>
+    <loc>http://localhost:1313/tags/sicp/</loc>
     <lastmod>2024-09-07T23:18:00+08:00</lastmod>
   </url><url>
-    <loc>http://fyshxfish.github.io/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.3.4-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/</loc>
+    <loc>http://localhost:1313/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.3.4-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/</loc>
     <lastmod>2024-09-02T01:53:00+08:00</lastmod>
   </url><url>
-    <loc>http://fyshxfish.github.io/archives/</loc>
+    <loc>http://localhost:1313/archives/</loc>
     <lastmod>2024-08-31T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://fyshxfish.github.io/page/</loc>
+    <loc>http://localhost:1313/page/</loc>
     <lastmod>2024-08-31T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://fyshxfish.github.io/p/nested-mapping-examples-implemented-in-haskell-sicp-2.2.3-list-monad/</loc>
+    <loc>http://localhost:1313/p/nested-mapping-examples-implemented-in-haskell-sicp-2.2.3-list-monad/</loc>
     <lastmod>2024-08-29T00:00:00+08:00</lastmod>
   </url><url>
-    <loc>http://fyshxfish.github.io/p/scheme-let-%E7%9A%84%E8%AF%AD%E4%B9%89-feat.-if-%E7%9A%84%E8%AF%AD%E4%B9%89/</loc>
+    <loc>http://localhost:1313/p/scheme-let-%E7%9A%84%E8%AF%AD%E4%B9%89-feat.-if-%E7%9A%84%E8%AF%AD%E4%B9%89/</loc>
     <lastmod>2024-08-29T00:00:00+08:00</lastmod>
   </url><url>
-    <loc>http://fyshxfish.github.io/categories/enviroment_setup/</loc>
+    <loc>http://localhost:1313/categories/enviroment_setup/</loc>
     <lastmod>2024-08-26T00:00:00+08:00</lastmod>
   </url><url>
-    <loc>http://fyshxfish.github.io/tags/vscode/</loc>
+    <loc>http://localhost:1313/tags/vscode/</loc>
     <lastmod>2024-08-26T00:00:00+08:00</lastmod>
   </url><url>
-    <loc>http://fyshxfish.github.io/p/vscode-%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95/</loc>
+    <loc>http://localhost:1313/p/vscode-%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95/</loc>
     <lastmod>2024-08-26T00:00:00+08:00</lastmod>
   </url><url>
-    <loc>http://fyshxfish.github.io/p/mit-scheme-%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</loc>
+    <loc>http://localhost:1313/p/mit-scheme-%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</loc>
     <lastmod>2024-08-24T00:00:00+08:00</lastmod>
   </url><url>
-    <loc>http://fyshxfish.github.io/p/haskell-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-vscode--ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</loc>
+    <loc>http://localhost:1313/p/haskell-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-vscode--ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</loc>
     <lastmod>2024-08-16T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://fyshxfish.github.io/tags/rust/</loc>
+    <loc>http://localhost:1313/tags/rust/</loc>
     <lastmod>2024-08-05T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://fyshxfish.github.io/p/rust-%E5%9F%BA%E7%A1%80%E4%B8%8E-gdb-%E4%BD%BF%E7%94%A8%E6%8B%BE%E9%81%97/</loc>
+    <loc>http://localhost:1313/p/rust-%E5%9F%BA%E7%A1%80%E4%B8%8E-gdb-%E4%BD%BF%E7%94%A8%E6%8B%BE%E9%81%97/</loc>
     <lastmod>2024-08-05T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://fyshxfish.github.io/categories/xplore/</loc>
+    <loc>http://localhost:1313/categories/xplore/</loc>
     <lastmod>2024-08-05T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://fyshxfish.github.io/links/</loc>
+    <loc>http://localhost:1313/links/</loc>
   </url><url>
-    <loc>http://fyshxfish.github.io/search/</loc>
+    <loc>http://localhost:1313/search/</loc>
   </url>
 </urlset>

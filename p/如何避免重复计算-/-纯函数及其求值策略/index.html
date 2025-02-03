@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-    <head><meta charset='utf-8'>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="前言 这个学期包含编译系统和算法设计与分析两门专业课，遇到一些问题总会想着放在 Haskell 里实现一下，对于程序构造多少有点新的体会，也度过了对于 Haskell 不平静的狂热期，现在的我已经不会想着到处传教了（☺️）. 本来只是准备随便写写做 0-1 背包的 Haskell 实现中的一些小思考，不过真开始动笔了就越写越正式了，也算是接触 FP / Haskell 以来的一点点小总结. Haskell 官网 对 Haskell 的描述是 &ldquo;An advanced, purely functional programming language&rdquo;，本文试图围绕 &ldquo;purely&rdquo; 做一些讨论：什么是纯，怎么样算不纯，追求纯度的理由是什么，纯度带来的效益是什么.\n">
 <title>如何避免重复计算 / 纯函数及其求值策略</title>
 
-<link rel='canonical' href='http://fyshxfish.github.io/p/%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E9%87%8D%E5%A4%8D%E8%AE%A1%E7%AE%97-/-%E7%BA%AF%E5%87%BD%E6%95%B0%E5%8F%8A%E5%85%B6%E6%B1%82%E5%80%BC%E7%AD%96%E7%95%A5/'>
+<link rel='canonical' href='http://localhost:1313/p/%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E9%87%8D%E5%A4%8D%E8%AE%A1%E7%AE%97-/-%E7%BA%AF%E5%87%BD%E6%95%B0%E5%8F%8A%E5%85%B6%E6%B1%82%E5%80%BC%E7%AD%96%E7%95%A5/'>
 
 <link rel="stylesheet" href="/scss/style.min.b51788d43472ffad20b588167514427b70146d30bc2a1ee0490ab0db3b5da439.css"><meta property='og:title' content="如何避免重复计算 / 纯函数及其求值策略">
 <meta property='og:description' content="前言 这个学期包含编译系统和算法设计与分析两门专业课，遇到一些问题总会想着放在 Haskell 里实现一下，对于程序构造多少有点新的体会，也度过了对于 Haskell 不平静的狂热期，现在的我已经不会想着到处传教了（☺️）. 本来只是准备随便写写做 0-1 背包的 Haskell 实现中的一些小思考，不过真开始动笔了就越写越正式了，也算是接触 FP / Haskell 以来的一点点小总结. Haskell 官网 对 Haskell 的描述是 &ldquo;An advanced, purely functional programming language&rdquo;，本文试图围绕 &ldquo;purely&rdquo; 做一些讨论：什么是纯，怎么样算不纯，追求纯度的理由是什么，纯度带来的效益是什么.\n">
-<meta property='og:url' content='http://fyshxfish.github.io/p/%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E9%87%8D%E5%A4%8D%E8%AE%A1%E7%AE%97-/-%E7%BA%AF%E5%87%BD%E6%95%B0%E5%8F%8A%E5%85%B6%E6%B1%82%E5%80%BC%E7%AD%96%E7%95%A5/'>
+<meta property='og:url' content='http://localhost:1313/p/%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E9%87%8D%E5%A4%8D%E8%AE%A1%E7%AE%97-/-%E7%BA%AF%E5%87%BD%E6%95%B0%E5%8F%8A%E5%85%B6%E6%B1%82%E5%80%BC%E7%AD%96%E7%95%A5/'>
 <meta property='og:site_name' content='fyshXplore'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Haskell' /><meta property='article:published_time' content='2024-10-20T19:48:00&#43;08:00'/><meta property='article:modified_time' content='2024-10-20T19:48:00&#43;08:00'/>
 <meta name="twitter:title" content="如何避免重复计算 / 纯函数及其求值策略">
@@ -80,7 +80,7 @@
                     
                     
                         
-                        <img src="/img/fyshx_avatar_hu134059368025567045.jpg" width="300"
+                        <img src="/img/fyshx_avatar_hu_4b64fe58c612edf3.jpg" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -261,7 +261,6 @@
       </ol>
     </li>
     <li><a href="#其他">其他</a></li>
-    <li><a href="#todo">[TODO]</a></li>
   </ol>
 </nav>
         </div>
@@ -326,7 +325,7 @@
 
 
                 <time class="article-time--reading">
-                    9 minute read
+                    8 minute read
                 </time>
             </div>
         
@@ -563,19 +562,18 @@
 </h3><p>照应本文 <a class="link" href="#%e4%b8%8d%e9%80%92%e5%bd%92%e7%9a%84%e7%90%86%e7%94%b1" >3.2 不递归的理由</a> 避免重复计算的方式除了通过显式缓存（记忆数组），还可以依赖编译器采取的求值策略（惰性求值 Lazy Evaluation），将语法树中的所有相同的表达式结点指向同一个结点，实现计算结果的复用.</p>
 <h2 id="其他"><a href="#%e5%85%b6%e4%bb%96" class="header-anchor"></a>其他
 </h2><p>前文试图在 命令式语言 / 函数式语言，递归 / 非递归 之间做比较明确的区分，其实，当然递归不是 FP 的专利，记忆化数组也不只是在命令式程序里好用，只是不同语言 / 编程范式本身的特性（例如 C++ 的严格求值 / Haskell 的惰性求值），使得我们对于程序产生了不一样的思考和不一样的惯性. 对于纯度与惰性求值，命令式语言也可以有灵活的求值策略，比如判断函数的纯度，对非纯函数严格求值，对纯函数惰性求值.</p>
-<h2 id="todo"><a href="#todo" class="header-anchor"></a>[TODO]
-</h2><ul>
-<li>
-<p>Haskell 程序对应的指令，反汇编 / Core 代码结果？惰性求值机制的底层表现？</p>
-<p><span style="color: gray; font-size: smaller;">不是完全没做过，当时编译然后反汇编，得到的代码长得不得了，然后暂时放弃了.</span></p>
-</li>
-<li>
-<p>组合子机器的原理？</p>
-<p><span style="color: gray; font-size: smaller;">好奇心. <br>顺便国庆的时候接触了 uiua 语言，听说了 BQN 语言，然后发现 BQN 语言里真的有活的组合子（W combinator, B combinator, etc.），没想到有一天我也可以有在 CS 领域有先接触理论（Combinatory Logic），再偶遇其实践的体验，神奇神奇. 看到这里就是缘分，不日这段[TODO]文本估计会被我删掉，向看到这里的你介绍 uiua, Stack-Based Array-Oriented Language, 很有意思，掌握了它你就是编程界的符文法师，APL 系语言——由于其对于 glyph 的使用——堪称所谓中英文编程之争的版本答案，不妨抽出 10 分钟看看语言官网，真的很吸引人：<a class="link" href="https://www.uiua.org/"  target="_blank" rel="noopener"
-    >uiua lang</a></span></p>
-</li>
-</ul>
-<!-- ###  -->
+<!-- ## [TODO]
+
+- Haskell 程序对应的指令，反汇编 / Core 代码结果？惰性求值机制的底层表现？
+    
+    <span style="color: gray; font-size: smaller;">不是完全没做过，当时编译然后反汇编，得到的代码长得不得了，然后暂时放弃了.</span>
+
+- 组合子机器的原理？
+
+    <span style="color: gray; font-size: smaller;">好奇心. <br>顺便国庆的时候接触了 uiua 语言，听说了 BQN 语言，然后发现 BQN 语言里真的有活的组合子（W combinator, B combinator, etc.），没想到有一天我也可以有在 CS 领域有先接触理论（Combinatory Logic），再偶遇其实践的体验，神奇神奇. 看到这里就是缘分，不日这段[TODO]文本估计会被我删掉，向看到这里的你介绍 uiua, Stack-Based Array-Oriented Language, 很有意思，掌握了它你就是编程界的符文法师，APL 系语言——由于其对于 glyph 的使用——堪称所谓中英文编程之争的版本答案，不妨抽出 10 分钟看看语言官网，真的很吸引人：[uiua lang](https://www.uiua.org/)</span>
+
+
+###  -->
 
 </section>
 
@@ -694,12 +692,12 @@
             
                 
 <article class="">
-    <a href="/p/%E8%BF%AD%E4%BB%A3%E7%BB%84%E5%90%88%E5%AD%90%E7%9A%84%E6%9E%84%E9%80%A0-lcac-4c-theorem-4.20/">
+    <a href="/p/functional-on-steam-solutions/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">迭代组合子的构造 - LCaC § 4C, Theorem 4.20</h2>
+            <h2 class="article-title">functional on Steam - Solutions</h2>
         </div>
     </a>
 </article>
@@ -718,7 +716,9 @@
     <section class="copyright">
         &copy; 
         
-        2024 fyshXplore
+            2024 - 
+        
+        2025 fyshXplore
     </section>
     
     <section class="powerby">

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-    <head><meta charset='utf-8'>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Problem Description Problem: Given a positive integer $n$, find all ordered pairs of distinct positive integers $i$ and $j$, where $ 1 \\leq i \\leq j \\leq n $, such that $ i + j $ is prime.\nImplementation in Haskell isDivisible :: Int -&gt; Int -&gt; Bool isDivisible x y | mod x y == 0 = True | otherwise = False isPrime :: Int -&gt; Bool isPrime x | x &lt;= 2 = True | otherwise = not (foldr (||) False (map (isDivisible x) [2..((floor . sqrt . fromIntegral) x)])) genPairs :: Int -&gt; [((Int, Int), Int)] genPairs n = do x &lt;- [1..n] y &lt;- [1..(x-1)] return ((y, x), (x + y)) sumPrimePairs :: Int -&gt; [((Int, Int), Int)] sumPrimePairs = (filter (\\(_, s) -&gt; (isPrime s))) . genPairs About List Monad: Context, Nested lambda and do-notation Context of List Monad : nondeterministic result.\n">
 <title>Nested Mapping Examples Implemented in Haskell - SICP § 2.2.3  | List Monad </title>
 
-<link rel='canonical' href='http://fyshxfish.github.io/p/nested-mapping-examples-implemented-in-haskell-sicp-2.2.3-list-monad/'>
+<link rel='canonical' href='http://localhost:1313/p/nested-mapping-examples-implemented-in-haskell-sicp-2.2.3-list-monad/'>
 
 <link rel="stylesheet" href="/scss/style.min.b51788d43472ffad20b588167514427b70146d30bc2a1ee0490ab0db3b5da439.css"><meta property='og:title' content="Nested Mapping Examples Implemented in Haskell - SICP § 2.2.3  | List Monad ">
 <meta property='og:description' content="Problem Description Problem: Given a positive integer $n$, find all ordered pairs of distinct positive integers $i$ and $j$, where $ 1 \\leq i \\leq j \\leq n $, such that $ i + j $ is prime.\nImplementation in Haskell isDivisible :: Int -&gt; Int -&gt; Bool isDivisible x y | mod x y == 0 = True | otherwise = False isPrime :: Int -&gt; Bool isPrime x | x &lt;= 2 = True | otherwise = not (foldr (||) False (map (isDivisible x) [2..((floor . sqrt . fromIntegral) x)])) genPairs :: Int -&gt; [((Int, Int), Int)] genPairs n = do x &lt;- [1..n] y &lt;- [1..(x-1)] return ((y, x), (x + y)) sumPrimePairs :: Int -&gt; [((Int, Int), Int)] sumPrimePairs = (filter (\\(_, s) -&gt; (isPrime s))) . genPairs About List Monad: Context, Nested lambda and do-notation Context of List Monad : nondeterministic result.\n">
-<meta property='og:url' content='http://fyshxfish.github.io/p/nested-mapping-examples-implemented-in-haskell-sicp-2.2.3-list-monad/'>
+<meta property='og:url' content='http://localhost:1313/p/nested-mapping-examples-implemented-in-haskell-sicp-2.2.3-list-monad/'>
 <meta property='og:site_name' content='fyshXplore'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='SICP' /><meta property='article:tag' content='Haskell' /><meta property='article:published_time' content='2024-08-29T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2024-08-29T00:00:00&#43;08:00'/>
 <meta name="twitter:title" content="Nested Mapping Examples Implemented in Haskell - SICP § 2.2.3  | List Monad ">
@@ -80,7 +80,7 @@
                     
                     
                         
-                        <img src="/img/fyshx_avatar_hu134059368025567045.jpg" width="300"
+                        <img src="/img/fyshx_avatar_hu_4b64fe58c612edf3.jpg" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -527,7 +527,9 @@ Title of this section is *Nested Mappings*, which represented in code with neste
     <section class="copyright">
         &copy; 
         
-        2024 fyshXplore
+            2024 - 
+        
+        2025 fyshXplore
     </section>
     
     <section class="powerby">
