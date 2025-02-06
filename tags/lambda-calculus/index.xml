@@ -2,24 +2,462 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Lambda Calculus on fyshXplore</title>
-        <link>http://localhost:1313/tags/lambda-calculus/</link>
+        <link>http://fyshxfish.github.io/tags/lambda-calculus/</link>
         <description>Recent content in Lambda Calculus on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Sun, 02 Feb 2025 21:29:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/lambda-calculus/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>functional on Steam - Solutions</title>
-        <link>http://localhost:1313/p/functional-on-steam-solutions/</link>
+        <lastBuildDate>Sun, 02 Feb 2025 21:29:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/tags/lambda-calculus/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>functional on Steam / λ 习题集 - Solutions</title>
+        <link>http://fyshxfish.github.io/p/functional-on-steam-/-%CE%BB-%E4%B9%A0%E9%A2%98%E9%9B%86-solutions/</link>
         <pubDate>Sun, 02 Feb 2025 21:29:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/functional-on-steam-solutions/</guid>
-        <description></description>
+        <guid>http://fyshxfish.github.io/p/functional-on-steam-/-%CE%BB-%E4%B9%A0%E9%A2%98%E9%9B%86-solutions/</guid>
+        <description>&lt;p&gt;&lt;strong&gt;&lt;em&gt;&amp;ndash; NOT COMPLETED &amp;ndash;&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;functional，发售于 Steam (29 CNY).&lt;/p&gt;
+&lt;p&gt;可以说是 Lambda Calculus 习题集，非常纯的 LC，纯到甚至不能做 name binding.&lt;/p&gt;
+&lt;p&gt;一点建议：可以先在比较现代的编辑器里编辑，然后复制进来.&lt;/p&gt;
+&lt;h2 id=&#34;basic&#34;&gt;&lt;a href=&#34;#basic&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Basic
+&lt;/h2&gt;&lt;h3 id=&#34;anything&#34;&gt;&lt;a href=&#34;#anything&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;anything
+&lt;/h3&gt;&lt;p&gt;写出任意一个符合 Lambda Calculus 语法 (1. variable 2. abstraction 3. application) 的 term 即可.&lt;/p&gt;
+&lt;h3 id=&#34;identity&#34;&gt;&lt;a href=&#34;#identity&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;identity
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-lambda&#34; data-lang=&#34;lambda&#34;&gt;x: x
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;two-arguments&#34;&gt;&lt;a href=&#34;#two-arguments&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;two arguments
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;x:y: y x
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;squaring&#34;&gt;&lt;a href=&#34;#squaring&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;squaring
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;f:x: f (f x) 
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;indirection&#34;&gt;&lt;a href=&#34;#indirection&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;indirection
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;f:x:y: f y x
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;boolean&#34;&gt;&lt;a href=&#34;#boolean&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Boolean
+&lt;/h2&gt;&lt;p&gt;定义：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;TRUE = t:f: t
+FALSE = t:f: f
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;if&#34;&gt;&lt;a href=&#34;#if&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;IF
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;p:t:f: p t f
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Simple LC 没有类型系统，所以编程者需要自己确保 &lt;code&gt;p&lt;/code&gt; 一定能求值到 &lt;code&gt;TRUE&lt;/code&gt; / &lt;code&gt;FALSE&lt;/code&gt;，然后 &lt;code&gt;p t f&lt;/code&gt; 进一步求值到 &lt;code&gt;t&lt;/code&gt;/ &lt;code&gt;f&lt;/code&gt;，如果 &lt;code&gt;p&lt;/code&gt; 不能被求值到 &lt;code&gt;TRUE&lt;/code&gt; / &lt;code&gt;FALSE&lt;/code&gt;，那么 &lt;code&gt;p t f&lt;/code&gt; 会被保留下来或者产生预期外的求值行为.&lt;/p&gt;
+&lt;p&gt;你可以轻松注意到的一点是：&lt;code&gt;IF P A B ≡ P A B&lt;/code&gt;，你完全可以在所有使用 &lt;code&gt;IF&lt;/code&gt; 的场合省略掉 &lt;code&gt;IF&lt;/code&gt;，这不改变语义，同时可以减少一次 reduction，不过为了保证可读性，还是有理由在有点复杂的程序里保留 &lt;code&gt;IF&lt;/code&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;not&#34;&gt;&lt;a href=&#34;#not&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;NOT
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;b: b FALSE TRUE
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;这个看着有点隐隐约约的巧妙. 可以直白地通过 &lt;code&gt;b: IF b FALSE TRUE → b FALSE TRUE&lt;/code&gt; 得到，或者利用 &lt;code&gt;TRUE&lt;/code&gt; / &lt;code&gt;FALSE&lt;/code&gt; 的意义——选第一个 / 第二个——直接得到.&lt;/p&gt;
+&lt;h3 id=&#34;and&#34;&gt;&lt;a href=&#34;#and&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;AND
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;p:q: p q p
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;如果 &lt;code&gt;p = TRUE&lt;/code&gt;，那么 &lt;code&gt;AND p q ≡ q&lt;/code&gt;；如果 &lt;code&gt;p = FALSE&lt;/code&gt;，那么 &lt;code&gt;AND p q ≡ FALSE ≡ p&lt;/code&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;or&#34;&gt;&lt;a href=&#34;#or&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;OR
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;p:q: p p q
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;如果 &lt;code&gt;p = TRUE&lt;/code&gt;，那么 &lt;code&gt;OR p q ≡ p ≡ TRUE&lt;/code&gt;；如果 &lt;code&gt;p = FALSE&lt;/code&gt;，那么 &lt;code&gt;OR p q ≡ q&lt;/code&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;xor&#34;&gt;&lt;a href=&#34;#xor&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;XOR
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;p:q: p (NOT q) q
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;类似 &lt;code&gt;AND&lt;/code&gt;, &lt;code&gt;OR&lt;/code&gt;，可以画个真值表整理思绪.&lt;/p&gt;
+&lt;h2 id=&#34;pair-and-list&#34;&gt;&lt;a href=&#34;#pair-and-list&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Pair and List
+&lt;/h2&gt;&lt;h3 id=&#34;pair&#34;&gt;&lt;a href=&#34;#pair&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;PAIR
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;x:y:f: f x y
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;PAIR A B → (x:y:f: f x y) A B → (f: f A B)&lt;/code&gt; 是一个这样的抽象：有序地内涵 &lt;code&gt;A&lt;/code&gt;, &lt;code&gt;B&lt;/code&gt;，等待一个函数 &lt;code&gt;f&lt;/code&gt; 作用于内涵的 &lt;code&gt;A&lt;/code&gt;, &lt;code&gt;B&lt;/code&gt;，比如当 &lt;code&gt;A&lt;/code&gt;, &lt;code&gt;B&lt;/code&gt; 是 Boolean，那么，&lt;code&gt;f&lt;/code&gt; 可以是 &lt;code&gt;AND&lt;/code&gt; / &lt;code&gt;OR&lt;/code&gt; / &amp;hellip;（当然语法并不约束 &lt;code&gt;f&lt;/code&gt;,&lt;code&gt;A&lt;/code&gt;,&lt;code&gt;B&lt;/code&gt; 的形状，如果你想写 &lt;code&gt;PAIR TRUE 0 PAIR&lt;/code&gt; 解释器不会拦你）&lt;/p&gt;
+&lt;h3 id=&#34;fst&#34;&gt;&lt;a href=&#34;#fst&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;FST
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;p: p TRUE
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;当 &lt;code&gt;p = PAIR A B&lt;/code&gt; 时, &lt;code&gt;p TRUE → (PAIR A B) TRUE → (f: f A B) TRUE → TRUE A B → A&lt;/code&gt;，注意 &lt;code&gt;p&lt;/code&gt; 是一个可以接收一个参数 &lt;code&gt;f&lt;/code&gt; 的函数，这里我们让它接收 &lt;code&gt;TRUE&lt;/code&gt; 函数来选取第一个元素. 在 LC 里，&lt;code&gt;TRUE&lt;/code&gt; / &lt;code&gt;FALSE&lt;/code&gt; 更恰当的解释是&lt;strong&gt;选取&lt;/strong&gt;其后跟随的第一 / 二个项，而不是表达某个命题的真 / 假，这是有意义的，因为我们写其他高级语言程序的时候，如果我们需要一个 Boolean 值 &lt;code&gt;X&lt;/code&gt; ，&lt;code&gt;X&lt;/code&gt; 最终的效用往往还是发挥在 &lt;code&gt;then-clause&lt;/code&gt; / &lt;code&gt;else-clause&lt;/code&gt; 的&lt;strong&gt;选择&lt;/strong&gt;上.&lt;/p&gt;
+&lt;h3 id=&#34;snd&#34;&gt;&lt;a href=&#34;#snd&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;SND
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;p: p FALSE
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;类似 &lt;code&gt;FST&lt;/code&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;simple-list&#34;&gt;&lt;a href=&#34;#simple-list&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;simple list
+&lt;/h3&gt;&lt;p&gt;取出列表的第 3 项 (1-indexed)：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;l: FST ( SND ( SND l ) )
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;列表是一种简单的递归结构，递归基是空列表，这里用 &lt;code&gt;FALSE&lt;/code&gt; 表示，递归步是向某个列表添加元素，这里用 &lt;code&gt;PAIR&lt;/code&gt; 实现，e.g. &lt;code&gt;[] ↦ FALSE&lt;/code&gt;, &lt;code&gt;1 ↦ (PAIR 1 FALSE)&lt;/code&gt;, &lt;code&gt;[1,3] ↦ (PAIR 1 (PAIR 3 FALSE))&lt;/code&gt;，&lt;span style=&#34;color: gray&#34;&gt;注意 &lt;code&gt;[1,3]&lt;/code&gt;的例子，如果从&lt;strong&gt;向列表添加元素&lt;/strong&gt;的视角看，表头是最接近 &lt;code&gt;FALSE&lt;/code&gt; 的项，越接近 &lt;code&gt;FALSE&lt;/code&gt; 的元素索引越小，因为它比较早地被添加进来，在这种解释下，&lt;code&gt;[1,3] ↦ (PAIR 3 (PAIR 1 FALSE))&lt;/code&gt;，&lt;/span&gt;然而游戏里不采取这个解释，而是和我们熟悉的 &lt;code&gt;[a,b,..]&lt;/code&gt; 保持视觉上的对齐，将最晚被添加的项——最左的项——作为表头，在后续涉及升降序的问题的时候记得留意这一点.&lt;/p&gt;
+&lt;h3 id=&#34;any&#34;&gt;&lt;a href=&#34;#any&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;ANY
+&lt;/h3&gt;&lt;p&gt;对一个含 3 个 Boolean 的列表，若任一项为 &lt;code&gt;TRUE&lt;/code&gt;，返回 &lt;code&gt;TRUE&lt;/code&gt;，否则返回 &lt;code&gt;FALSE&lt;/code&gt;：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(l: IF 
+    (OR 
+        (FST (SND (SND l))) 
+        (OR 
+            (FST l) 
+            (FST (SND l))
+        )
+    )
+    TRUE FALSE
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;直白地按逻辑写即可. 这里的列表是定长的，比较方便，非定长列表就需要递归，见后.&lt;/p&gt;
+&lt;h3 id=&#34;push&#34;&gt;&lt;a href=&#34;#push&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;PUSH
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(m:l: PAIR m l)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;用 &lt;code&gt;PUSH&lt;/code&gt; 向列表 &lt;code&gt;l&lt;/code&gt; 添加新项 &lt;code&gt;m&lt;/code&gt;，根据 $\eta$-reduction，&lt;code&gt;PUSH ≡ PAIR&lt;/code&gt;，所以这里直接写 &lt;code&gt;PAIR&lt;/code&gt; 也足够了.&lt;/p&gt;
+&lt;h3 id=&#34;pop&#34;&gt;&lt;a href=&#34;#pop&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;POP
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;SND
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;弹出最外层的项.&lt;/p&gt;
+&lt;h3 id=&#34;empty&#34;&gt;&lt;a href=&#34;#empty&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;EMPTY
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;l: l (t:x:y: FALSE) TRUE
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;首先 &lt;code&gt;EMPTY&lt;/code&gt; 要接收一个列表，所以它的基本形状是 &lt;code&gt;EMPTY = l: ...&lt;/code&gt;，考虑 &lt;code&gt;l&#39; = FALSE&lt;/code&gt; 的情形，&lt;code&gt;EMPTY l&#39; ~ᴇxᴘᴇᴄᴛᴇᴅ→ TRUE&lt;/code&gt;，根据 &lt;code&gt;FALSE&lt;/code&gt; 的选择能力，我们使 &lt;code&gt;EMPTY = l: l 𝕏 TRUE&lt;/code&gt;；考虑 &lt;code&gt;l* = PAIR a (PAIR b (...)) = (f: f a (PAIR b (...))) ≈ (f: f a _tail)&lt;/code&gt;，把 &lt;code&gt;l*&lt;/code&gt; 视作接收一个参数的函数，&lt;code&gt;EMPTY l* = (f: f a _tail) 𝕏 TRUE → 𝕏 a _tail TRUE ~ᴇxᴘᴇᴄᴛᴇᴅ→ FALSE&lt;/code&gt;, 那么 &lt;code&gt;𝕏&lt;/code&gt; 的工作就是接收后面的 3 项，然后返回 &lt;code&gt;FALSE&lt;/code&gt;，所以 &lt;code&gt;𝕏 = (t:x:y: FALSE)&lt;/code&gt;，综合以上得到最终的解 &lt;code&gt;EMPTY = l: l (t:x:y: FALSE) TRUE&lt;/code&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;recursion&#34;&gt;&lt;a href=&#34;#recursion&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Recursion
+&lt;/h2&gt;&lt;h3 id=&#34;create-recursion---y-combinator&#34;&gt;&lt;a href=&#34;#create-recursion---y-combinator&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;create recursion - Y combinator
+&lt;/h3&gt;&lt;h4 id=&#34;动机lc-中的递归&#34;&gt;&lt;a href=&#34;#%e5%8a%a8%e6%9c%balc-%e4%b8%ad%e7%9a%84%e9%80%92%e5%bd%92&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;动机：LC 中的递归
+&lt;/h4&gt;&lt;p&gt;尝试着在 LC 中定义递归的阶乘函数：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;f = a: IF (EQ a 1)
+       1
+       (a * f (a - 1))
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;上述的定义是不符合 LC 的语法的，因为 LC 的函数都是匿名函数，不支持通过名称来调用函数（如上面的 &lt;code&gt;f&lt;/code&gt;），而递归函数不可避免的需要自指，如何解决这个问题？&lt;/p&gt;
+&lt;p&gt;将函数 $F$ 应用于参数 $A$，可以这样表达 $F A$，也可以利用高阶函数这样表达：$(\lambda fa.\ f\ a) F A$，在此基础上，添加一些逻辑，比如表达&amp;quot;参数为 $a$ 和 $p$，函数为 $f$，若 $p\ a$ 为真，那么返回 $f\ a$，否则直接返回 $a$ 本身&amp;quot;：$(\lambda fap.\ IF\ (p\ a)\ (f\ a)\ a)$. 根据这个想法，假设我们的目标阶乘函数为 &lt;code&gt;F&lt;/code&gt;，那么 &lt;code&gt;F&lt;/code&gt; 满足这个等式，将 &lt;code&gt;(f:a: ..)&lt;/code&gt; 记作 &lt;code&gt;F&#39;&lt;/code&gt;：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;F = (f:a: IF (EQ a 1)
+          1 
+          (a * f (a - 1))
+    )  F 
+  ≡ F&amp;#39; F 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;看等式的右侧，&lt;code&gt;F&#39;&lt;/code&gt; 的涵义是，接收函数 &lt;code&gt;f&lt;/code&gt; 和参数 &lt;code&gt;a&lt;/code&gt;，若 &lt;code&gt;EQ a 1&lt;/code&gt; 那么返回 &lt;code&gt;1&lt;/code&gt;，否则返回返回 &lt;code&gt;a * f (a - 1)&lt;/code&gt;. 向 &lt;code&gt;F&#39;&lt;/code&gt; 传递递归函数 &lt;code&gt;F&lt;/code&gt;，由此得到的函数 &lt;code&gt;F&#39; F&lt;/code&gt; 的行为和我们目标的阶乘函数 &lt;code&gt;F&lt;/code&gt; 是一致的，从语义上来讲，左右侧相等.&lt;/p&gt;
+&lt;p&gt;目前我们有的等式是 &lt;code&gt;F = F&#39; F&lt;/code&gt; ①，其中 &lt;code&gt;F&#39;&lt;/code&gt; 是已知的 closed term，因为 &lt;code&gt;F&lt;/code&gt; 涉及自引，所以不存在 normal form，于是考虑是否存在某个 &lt;code&gt;Y&lt;/code&gt; s.t. &lt;code&gt;Y F&#39; = F&lt;/code&gt;②，将 ② 代入 ①，&lt;code&gt;Y F&#39; = F&#39; (Y F&#39;)&lt;/code&gt;，接下来的目标就是解出 &lt;code&gt;Y&lt;/code&gt; 的 normal form，得到 &lt;code&gt;Y&lt;/code&gt; 之后，目标递归函数 &lt;code&gt;F = Y F&#39;&lt;/code&gt; 也随之得到了.&lt;/p&gt;
+&lt;span style=&#34;color: gray&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;为什么要试图将 &lt;code&gt;F&lt;/code&gt; 分解成 &lt;code&gt;Y F&#39;&lt;/code&gt;？&lt;/p&gt;
+&lt;p&gt;不严谨地说，从方程的角度看 &lt;code&gt;F = F&#39; F&lt;/code&gt; 只有一个未知量 &lt;code&gt;F&lt;/code&gt;，将 &lt;code&gt;F&lt;/code&gt; 转化成 &lt;code&gt;Y F&#39;&lt;/code&gt;，同样只含一个未知量 &lt;code&gt;Y&lt;/code&gt;，而 &lt;code&gt;F&#39;&lt;/code&gt;已知且和我们的求解目标（递归函数 &lt;code&gt;F&lt;/code&gt;）紧密相关.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/span&gt;
+&lt;h4 id=&#34;y-combinator-设计&#34;&gt;&lt;a href=&#34;#y-combinator-%e8%ae%be%e8%ae%a1&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Y combinator 设计
+&lt;/h4&gt;&lt;p&gt;&lt;code&gt;Y&lt;/code&gt; 是一个这样的 term：&lt;code&gt;Y F = F (Y F) = F (F (Y F)) = ...&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;为设计满足以上目标的 &lt;code&gt;Y&lt;/code&gt; ，做出如下的初步分析：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;根据 inversion lemma，&lt;code&gt;Y&lt;/code&gt; 的形状毫无疑问是 &lt;code&gt;(f: ...)&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;Y&lt;/code&gt; 的自指？—— 我们需要重复 &lt;code&gt;Y&lt;/code&gt;，或者说&lt;strong&gt;构建&lt;/strong&gt;右侧的 &lt;code&gt;Y&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Function / Abstraction is All You Need —— 因为 LC 没有存储，所以 &lt;code&gt;Y F  = F (Y F)&lt;/code&gt;，等号左右的 &lt;code&gt;Y&lt;/code&gt; 并不是同一个 &lt;code&gt;Y&lt;/code&gt;，不是值拷贝或者地址拷贝（因为 LC 不提供存储的概念，无处安放值或者地址，这里只有函数），右侧的 &lt;code&gt;Y&lt;/code&gt; 需要通过构建得到，与左侧的 &lt;code&gt;Y&lt;/code&gt; &lt;strong&gt;在 alpha-conversion 的意义下相等&lt;/strong&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;!-- 3. 一个观察：注意到 `Y F` 规约之后的项更长了，而不是更短，如何做到这一点？ --&gt;
+&lt;ol start=&#34;3&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;如何重复 &lt;code&gt;F&lt;/code&gt;？这很简单，&lt;code&gt;Y = (f: ...)&lt;/code&gt; 接收参数 &lt;code&gt;F&lt;/code&gt;，在 &lt;code&gt;Y&lt;/code&gt; 的函数体内，想怎么重复就怎么重复.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;设计一个 abstraction &lt;code&gt;M&lt;/code&gt; 做构建，&lt;code&gt;M&lt;/code&gt; 将接收一些必要的参数，在函数体内组织这些参数，形成和 &lt;code&gt;Y&lt;/code&gt; 一样的结构.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;Y = f: M f ...&lt;/code&gt; ~ᴇxᴘᴇᴄᴛᴇᴅ→ &lt;code&gt;M = f: f (Wai f)&lt;/code&gt;：毫无疑问，&lt;code&gt;M&lt;/code&gt; 需要拿到 &lt;code&gt;Y&lt;/code&gt; 的参数 &lt;code&gt;f&lt;/code&gt;，&lt;code&gt;M&lt;/code&gt; 内部需要建立起和 &lt;code&gt;Y F&lt;/code&gt; 一致的结构；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Y = f: M f M ...&lt;/code&gt; ~ᴇxᴘᴇᴄᴛᴇᴅ→ &lt;code&gt;M = f:m: f (m f m)&lt;/code&gt;：因为我们希望 &lt;code&gt;M&lt;/code&gt; 可以建立起和 &lt;code&gt;Y F&lt;/code&gt; 一致的结构，而 &lt;code&gt;Y&lt;/code&gt; 包含了 &lt;code&gt;M&lt;/code&gt;，那么 &lt;code&gt;M&lt;/code&gt; 也需要包含 &lt;code&gt;M&lt;/code&gt;，所以通过参数 &lt;code&gt;m&lt;/code&gt; 将 &lt;code&gt;M&lt;/code&gt; 原封不动地传进 &lt;code&gt;M&lt;/code&gt;. &lt;code&gt;M&lt;/code&gt; 的函数体中，最左的 &lt;code&gt;f&lt;/code&gt; 实现 &lt;code&gt;f&lt;/code&gt; 的再次应用，&lt;code&gt;(m f m)&lt;/code&gt; 构建了和左侧的 &lt;code&gt;Y F&lt;/code&gt; alpha 等价的结构.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Y = f: M f M, 其中 M = f:m: f (m f m)&lt;/code&gt;，可以验证这已经是一个可行的 &lt;code&gt;Y&lt;/code&gt; 组合子了，&lt;code&gt;Y F = M F M = (f:m: f (m f m)) F M = F (M F M) = F (M F M) = F (Y F)&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;Y&lt;/code&gt; 组合子可以有无数种，比如 (a) &lt;code&gt;Y = f: M M f, M = m:f: f (m m f)&lt;/code&gt; 这和上文所呈现的 &lt;code&gt;Y&lt;/code&gt; 组合子是几乎一样的，只是改变了 &lt;code&gt;M, f&lt;/code&gt; 参数的顺序，利用一步 $\eta$ 规约，使之更简洁——&lt;code&gt;Y = M M, M = ...&lt;/code&gt;，这也是图灵给出的 &lt;code&gt;Y&lt;/code&gt; 组合子；(b) &lt;code&gt;Y = f: E (E f) E f, E = r:s:f: f (s r s f)&lt;/code&gt; 也是可以的，看起来不够简洁，但是理念和上面的陈述是一致的，用 &lt;code&gt;E&lt;/code&gt; 接收需要知道的参数，然后做构建，你会发现 &lt;code&gt;E&lt;/code&gt; 接收了 &lt;code&gt;E&lt;/code&gt; 和 &lt;code&gt;f&lt;/code&gt;，又多余地接收了 &lt;code&gt;(E f)&lt;/code&gt;，把 &lt;code&gt;(E f)&lt;/code&gt; 拿掉并做相应的修改，就得到了本段落陈述的第一种 &lt;code&gt;Y&lt;/code&gt; 组合子；(c) 最简洁的 &lt;code&gt;Y = f: (x: f (x x)) (x: f (x x))&lt;/code&gt;，它和前面提到的 Y 组合子的区别在于，前面的 Y 组合子是用组合子组成的，比如 4 中的 &lt;code&gt;Y = f: M f M&lt;/code&gt; 中的 &lt;code&gt;M&lt;/code&gt; 本身也是组合子，而这个 &lt;code&gt;Y&lt;/code&gt; 组合子不包含组合子子项.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;小练习：如何实现满足双边延展的 &lt;code&gt;D F D = D (D F D) D = ...&lt;/code&gt; 的组合子 &lt;code&gt;D&lt;/code&gt;？&lt;/p&gt;
+&lt;p&gt;一种解法可以是 &lt;code&gt;D = f:d: d (d f d) d&lt;/code&gt;，道理和之前所说的是一致的.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;Y&lt;/code&gt; 一定要是组合子吗，可以引入自由变量吗？&lt;/p&gt;
+&lt;p&gt;假设 &lt;code&gt;Y&lt;/code&gt; 包含自由变量 &lt;code&gt;z&lt;/code&gt;，因为 &lt;code&gt;Y&lt;/code&gt; 包含 &lt;code&gt;z&lt;/code&gt;，那么用 &lt;code&gt;M&lt;/code&gt; 构建 &lt;code&gt;Y&lt;/code&gt; 时也要考虑到 &lt;code&gt;z&lt;/code&gt;：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;closed &lt;code&gt;M&lt;/code&gt;：将 &lt;code&gt;z&lt;/code&gt; 作为参数传给 &lt;code&gt;M&lt;/code&gt;，那么可以在之前的 Y 组合子的基础上修改，得到 &lt;code&gt;Y = f: M f c M, M = f:c:m: f (m f c m)&lt;/code&gt;，可以验证，这可以达成 &lt;code&gt;Y F = F (Y F) = ... &lt;/code&gt; 的目标，同时你可以注意到引入 &lt;code&gt;z&lt;/code&gt; 并没有什么意义，只是平添负担;&lt;/li&gt;
+&lt;li&gt;open &lt;code&gt;M&lt;/code&gt;：即 &lt;code&gt;M&lt;/code&gt; 本身包含了自由 &lt;code&gt;z&lt;/code&gt;，可以尝试 &lt;code&gt;Y = f: K f K z, K = f:k: f (k f k z)&lt;/code&gt;这个例子，你会发现这是行不通的： &lt;code&gt;Y F = F (K F K z) z = F (Y F) z = F (F (Y F) z) z&lt;/code&gt;，这个 &lt;code&gt;Y&lt;/code&gt; 的效果是在左侧不断做 &lt;code&gt;F&lt;/code&gt; 的应用，右侧不断产生新的 &lt;code&gt;z&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;根据以上的讨论，这个问题的答案是：可以，但没必要. 且从直觉上去理解，随意地引入自由变量也没有意义. 我提出这个问题的原因是，有一瞬间突然觉得 Y 组合子太熟悉了，第一次在 LC 里见到 Y 这个大写字母后面接的就是&amp;quot;组合子&amp;quot;三个字，所以开始考虑，如果不是组合子是否可以.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- - 关于自指，命令式与 LC (Y 组合子) 的比较：
+
+    简单的递归函数 `void func() { func(); } `，它的汇编代码大约如下：
+
+    ```
+    0x1a00: func:
+          :   push    rbp
+          :   mov     rbp, rsp
+          :   call    func          # self-reference 
+          :   pop     rbp
+          :   ret
+    ```
+
+    运行程序时，其代码段（当然也包括程序的其他部分）将被加载到内存，执行到 `call func` 时，程序计数器将被置为 0x1a00，下一个周期将从 0x1a00 （即 `func` 的入口）开始继续顺序执行代码段中的指令，这里 `func` 的递归符合我们对&#34;自指&#34;这个词的直觉，因为计算机把函数（的机器码）加载到存储空间中，`call func` 调用的就是之前被加载好的 `func`.
+
+    对于 Y 组合子而言，`Y F = F (Y F) = ...`，`Y F` 的定义依赖于其自身，这也是一种自指，LC 没有存储，所有的函数都是匿名函数，不支持通过名称调用自身实现直接递归， --&gt;
+&lt;h4 id=&#34;y-combinator-使用&#34;&gt;&lt;a href=&#34;#y-combinator-%e4%bd%bf%e7%94%a8&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Y combinator 使用
+&lt;/h4&gt;&lt;p&gt;承接动机部分，我们用 &lt;code&gt;F&#39; = f:a: ...&lt;/code&gt; 表达递归函数 &lt;code&gt;f&lt;/code&gt; 与其参数 &lt;code&gt;a&lt;/code&gt; 之间的应用逻辑，将目标递归函数为 &lt;code&gt;F&lt;/code&gt;，那么 &lt;code&gt;F = F&#39; F&lt;/code&gt;，因为自引的不合法，考虑用 &lt;code&gt;Y F&#39;&lt;/code&gt; 来表示 &lt;code&gt;F&lt;/code&gt;，在上一节中我们涉及出了可行的 &lt;code&gt;Y&lt;/code&gt;，于是 &lt;code&gt;F = Y F&#39;&lt;/code&gt; 就是我们希望得到的目标函数.&lt;/p&gt;
+&lt;!-- TL;DR: 如果希望实现 `f` 的递归，`f` 的参数为 `a`，Y  --&gt;
+&lt;p&gt;想明白 Y 组合子的使用，本 section 的关卡都很简单了，唯一值得提示的是 1. 使用以往关卡已定义过的函数时，注意函数的参数顺序，例如 &lt;code&gt;FILTER&lt;/code&gt; 先传列表，再传过滤依赖的函数，因为 Simple LC 语法层面的约束很少，所以编程者自己要多当心一些 2. 有若干个关卡可能涉及列表反转，所以 &lt;code&gt;REVERSE&lt;/code&gt; 可以先写，然后直接拿来用 3. 注意括号配对，可以现在先进的编辑器里先写，确保不犯低级错误，再复制进来评测. 下面给出的答案仅供参考~可以过评测，但未必最简.&lt;/p&gt;
+&lt;h3 id=&#34;strip-prefix&#34;&gt;&lt;a href=&#34;#strip-prefix&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;strip prefix
+&lt;/h3&gt;&lt;p&gt;去除不定长列表前缀的 &lt;code&gt;FALSE&lt;/code&gt;：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Y (f:l:
+      IF 
+      (FST l)
+      l 
+      (f (SND l))
+  )
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;acc&#34;&gt;&lt;a href=&#34;#acc&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;ACC
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Y  (a:l:f:i: 
+      IF (EMPTY l)
+      i 
+      (a (SND l) f (f i (FST l))) 
+   )
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;all&#34;&gt;&lt;a href=&#34;#all&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;ALL
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;l: ACC l AND TRUE
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;reverse&#34;&gt;&lt;a href=&#34;#reverse&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;REVERSE
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Y 
+  (i:c:l: 
+    IF 
+      (EMPTY l) 
+      c 
+      (i (PAIR (FST l) c) (SND l))
+  ) 
+  FALSE 
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;map&#34;&gt;&lt;a href=&#34;#map&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;MAP
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Y  (m:c:l:f:
+        IF 
+        (EMPTY l)
+        (REVERSE c)
+        (m (PAIR (f (FST l)) c)  (SND l) f) 
+    )
+FALSE
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;none&#34;&gt;&lt;a href=&#34;#none&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;NONE
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(l: ALL (MAP l NOT))
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;filter&#34;&gt;&lt;a href=&#34;#filter&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;FILTER
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Y (m:c:l:f:
+        IF 
+        (EMPTY l)
+        (REVERSE c)
+        (   IF 
+            (f (FST l))
+            (m (PAIR (FST l) c) (SND l) f) 
+            (m c (SND l) f)
+        )
+  )
+  FALSE
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;zip&#34;&gt;&lt;a href=&#34;#zip&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;ZIP
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Y (z:c:m:n:
+    IF 
+    (EMPTY m)
+    (REVERSE c)    
+    (z (PAIR (PAIR (FST m) (FST n)) c) (SND m) (SND n)) 
+  ) 
+  FALSE
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;eqblist&#34;&gt;&lt;a href=&#34;#eqblist&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;EQBLIST
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(m:n: ALL 
+      (MAP 
+         (MAP 
+            (ZIP m n) 
+            (p: XOR (FST p) (SND p))
+         ) 
+         NOT
+      ) 
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;concat&#34;&gt;&lt;a href=&#34;#concat&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;CONCAT
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(m:n: 
+    (Y (g:c:r:
+        IF (EMPTY r)
+        c
+        (g (PAIR (FST r) c) (SND r))
+       )
+    )
+    n (REVERSE m) 
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;numerals&#34;&gt;&lt;a href=&#34;#numerals&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Numerals
+&lt;/h2&gt;&lt;p&gt;Church Numeral 用函数表达自然数，两个关键点是 1. 基 (&lt;code&gt;0 := f:x: x&lt;/code&gt;) 2. 后继 (&lt;code&gt;SUC&lt;/code&gt;)，在基之上不断做后继，就可以得到所有 Church Numeral.&lt;/p&gt;
+&lt;h3 id=&#34;suc&#34;&gt;&lt;a href=&#34;#suc&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;SUC
+&lt;/h3&gt;&lt;p&gt;给定 Church Numeral &lt;code&gt;n&lt;/code&gt;，&lt;code&gt;n&lt;/code&gt; 是一个函数，参数为 &lt;code&gt;f&lt;/code&gt;, &lt;code&gt;x&lt;/code&gt;，&lt;code&gt;n f x&lt;/code&gt; 表示将 &lt;code&gt;f&lt;/code&gt; 应用于 &lt;code&gt;x&lt;/code&gt; $n$ 次，&lt;code&gt;SUC n&lt;/code&gt; 是一个函数，这个函数的能力是接收 &lt;code&gt;f&lt;/code&gt;, &lt;code&gt;x&lt;/code&gt;，将 &lt;code&gt;f&lt;/code&gt; 应用于 &lt;code&gt;x&lt;/code&gt; $(n+1)$ 次.&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(n: (f:x: f (n f x) ) )
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;zero&#34;&gt;&lt;a href=&#34;#zero&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;ZERO
+&lt;/h3&gt;&lt;p&gt;利用逻辑运算来判断给定的 &lt;code&gt;n&lt;/code&gt; 是不是 &lt;code&gt;f:x: x&lt;/code&gt;.&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(n: n (x: AND FALSE x) TRUE)
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;pre&#34;&gt;&lt;a href=&#34;#pre&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;PRE
+&lt;/h3&gt;&lt;p&gt;一个基本的观察是 &lt;code&gt;n = n SUC 0&lt;/code&gt;，这里的等号表示内涵等价（intensional equality），那么在 &lt;code&gt;PAIR 0 0&lt;/code&gt; 上做 $n$ 次迭代，一轮迭代的工作是：1. 右侧数对齐左侧数 2. 左侧数做一次后继，那么右侧数始终慢左侧数一步，即 $n$ 轮迭代后，左侧数是 &lt;code&gt;n&lt;/code&gt;，右侧数是左侧数的后继.&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(n: SND (n (p: PAIR (SUC (FST p)) (FST p)) (PAIR 0 0) ) )
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;[* 以下部分的说明文本将在日后补上]&lt;/p&gt;
+&lt;h3 id=&#34;add&#34;&gt;&lt;a href=&#34;#add&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;ADD
+&lt;/h3&gt;&lt;!-- 给定 `x`, `y`，目标是给出 `x+y`， --&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(x:y: (f:z: y f (x f z)) )
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;sub&#34;&gt;&lt;a href=&#34;#sub&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;SUB
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(x:y: (f:z: (y PRE x) f z))
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;mul&#34;&gt;&lt;a href=&#34;#mul&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;MUL
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(x:y:f:z: y (x f) z  )
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;div&#34;&gt;&lt;a href=&#34;#div&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;DIV
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(Y (d:c:x:y:
+        IF (ZERO x)
+        0    
+        ( 
+          IF (ZERO (y PRE x))
+          (SUC c)
+          (d (SUC c) (y PRE x) y)
+        ) 
+   ) 
+) 0
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;eq&#34;&gt;&lt;a href=&#34;#eq&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;EQ
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(x:y: AND (ZERO (x PRE y)) (ZERO (y PRE x)))
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;min&#34;&gt;&lt;a href=&#34;#min&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;MIN
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(x:y: IF (ZERO (x PRE y))
+      y
+      x
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;max&#34;&gt;&lt;a href=&#34;#max&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;MAX
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(x:y: IF (ZERO (x PRE y))
+      x
+      y
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;more-numerals&#34;&gt;&lt;a href=&#34;#more-numerals&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;More Numerals
+&lt;/h2&gt;&lt;h3 id=&#34;is-odd&#34;&gt;&lt;a href=&#34;#is-odd&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;is odd
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(n: (n NOT FALSE))
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;increasing-list&#34;&gt;&lt;a href=&#34;#increasing-list&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;increasing list
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(Y (f:c:n: IF (ZERO n)
+           (PAIR 0 c)
+           (f (PAIR n c) (PRE n))
+   ) 
+) FALSE
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;decomposition&#34;&gt;&lt;a href=&#34;#decomposition&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;decomposition
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(Y (f:c:k:n:
+     IF (ZERO n)
+     c
+     (IF (AND (EQ n (MIN k n)) (NOT (EQ k n)))  
+         (f c (DIV k 2) n)
+         (f (PAIR k c) (DIV k 2) (SUB n k) )
+     )
+   )
+) FALSE 8
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;* primes 和 sort 都需要大把时间运行（本机测试两关各自耗时都在 30min 左右）&lt;/p&gt;
+&lt;h3 id=&#34;primes&#34;&gt;&lt;a href=&#34;#primes&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;primes
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Y (f:l:p:n: 
+     IF (EQ n (FST p)) 
+     (PAIR n l)
+     (IF (EQ (FST p) (MAX n (FST p)))
+      (f l (SND p) n)
+      ( IF (
+            (Y (f:n:p:
+                IF (EQ n (MIN n p) )
+                (IF (EQ n p) TRUE FALSE )
+                (f (SUB n p) p)   
+              )
+            ) n (FST p)
+          )
+        (f (PAIR (FST p) l) p (DIV n (FST p)))
+        (f l (SND p) n)
+      )
+     )
+  )
+  FALSE
+  (PAIR 47 (PAIR 43 (PAIR 41 (PAIR 37 (PAIR 31 (PAIR 29 
+  (PAIR 23 (PAIR 19 (PAIR 17 (PAIR 13 (PAIR 11 (PAIR 7 
+  (PAIR 3 (PAIR 2 FALSE))))))))))))))
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;sort&#34;&gt;&lt;a href=&#34;#sort&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;sort
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Y (f:c:l: 
+    IF (EMPTY l)
+    c
+    (
+        (m: (f (PAIR m c) (FILTER l (x: NOT (EQ x m)) )) ) 
+        (ACC l MAX 0)
+    )
+  ) FALSE
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;trees&#34;&gt;&lt;a href=&#34;#trees&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;trees
+&lt;/h2&gt;&lt;p&gt;* 本 section 需要单独购买（免费）&lt;/p&gt;
+&lt;h3 id=&#34;node&#34;&gt;&lt;a href=&#34;#node&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;NODE
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;l:v:r:f: f l v r
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;lef&#34;&gt;&lt;a href=&#34;#lef&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;LEF
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;t: t (l:v:r: l) 
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;rig&#34;&gt;&lt;a href=&#34;#rig&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;RIG
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;t: t (l:v:r: r)
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;val&#34;&gt;&lt;a href=&#34;#val&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;VAL
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;t: t (l:v:r: v)
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;bempty&#34;&gt;&lt;a href=&#34;#bempty&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;BEMPTY
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(t: t (l:v:r:x:FALSE) TRUE )
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;find&#34;&gt;&lt;a href=&#34;#find&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;FIND
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Y (f:t:v:
+    IF (BEMPTY t)
+    FALSE
+    (IF (EQ (VAL t) v)
+     TRUE
+     (OR (f (LEF t) v) (f (RIG t) v))    
+    )
+  )
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;bsize&#34;&gt;&lt;a href=&#34;#bsize&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;BSIZE
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Y (f:t:
+    IF (BEMPTY t)
+    0
+    (SUC (ADD (f (LEF t)) (f (RIG t))))
+  )
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;build&#34;&gt;&lt;a href=&#34;#build&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;BUILD
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Y (f:c:l:
+    IF (EMPTY l)
+    c
+    (   f
+        (
+          (
+          Y (f:v:t:
+              IF (BEMPTY t)
+              (NODE FALSE v FALSE)
+              ( IF (EQ v (MIN v (VAL t)))
+                (NODE (f v (LEF t)) (VAL t) (RIG t))
+                (NODE (LEF t) (VAL t) (f v (RIG t)))
+              )
+            )
+          )           
+          (FST l) c)
+        (SND l)
+    ) 
+  ) FALSE
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;preorder&#34;&gt;&lt;a href=&#34;#preorder&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;PREORDER
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Y (f:t: 
+    IF (BEMPTY t)
+    FALSE
+    (CONCAT (f (LEF t))
+        (PUSH (VAL t)  
+              (f (RIG t))
+        )
+    )
+  )
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;inorder&#34;&gt;&lt;a href=&#34;#inorder&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;INORDER
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Y (f:t: 
+    IF (BEMPTY t)
+    FALSE
+    (PUSH (VAL t)
+        (CONCAT (f (LEF t)) 
+                (f (RIG t))
+        )
+    )
+  )
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;split&#34;&gt;&lt;a href=&#34;#split&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;SPLIT
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Y (f:t:v:
+    IF (BEMPTY t)
+    (PAIR FALSE FALSE)
+    (
+      IF (EQ v (MAX v (VAL t)))
+      (
+        (p: PAIR (NODE (LEF t) (VAL t) (FST p)) (SND p)) 
+        (f (RIG t) v)
+      )
+      (
+        (p: (PAIR (FST p) (NODE (SND p) (VAL t) (RIG t) ))) 
+        (f (LEF t) v)
+      )
+    )
+  )
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;kth&#34;&gt;&lt;a href=&#34;#kth&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;KTH
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(t:k: 
+    Y (f:c:l:
+        IF (EQ c 0)
+        (FST l)
+        (f (PRE c) (SND l) )
+    ) k (PREORDER t)
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;inverse-6&#34;&gt;&lt;a href=&#34;#inverse-6&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;inverse 6
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;t: 
+  IF (BEMPTY t)
+  (PAIR 1 (PAIR 2 (PAIR 3 (PAIR 4 (PAIR 5 (PAIR 6 FALSE))))))
+  (
+   Y (f:c:m:n:
+        IF (EMPTY n)
+        (REVERSE c)
+        (
+          IF (EQ (FST m) (FST n))
+          (f c (SND m) (SND n))
+          (f (PAIR (FST n) c) m (SND n))
+        )
+    ) 
+    FALSE
+    (PREORDER t)
+    (PAIR 1 (PAIR 2 (PAIR 3 (PAIR 4 (PAIR 5 (PAIR 6 FALSE))))))
+  )
+&lt;/code&gt;&lt;/pre&gt;</description>
         </item>
         <item>
         <title>迭代组合子的构造 - LCaC § 4C, Theorem 4.20</title>
-        <link>http://localhost:1313/p/%E8%BF%AD%E4%BB%A3%E7%BB%84%E5%90%88%E5%AD%90%E7%9A%84%E6%9E%84%E9%80%A0-lcac-4c-theorem-4.20/</link>
+        <link>http://fyshxfish.github.io/p/%E8%BF%AD%E4%BB%A3%E7%BB%84%E5%90%88%E5%AD%90%E7%9A%84%E6%9E%84%E9%80%A0-lcac-4c-theorem-4.20/</link>
         <pubDate>Tue, 17 Sep 2024 23:48:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/%E8%BF%AD%E4%BB%A3%E7%BB%84%E5%90%88%E5%AD%90%E7%9A%84%E6%9E%84%E9%80%A0-lcac-4c-theorem-4.20/</guid>
+        <guid>http://fyshxfish.github.io/p/%E8%BF%AD%E4%BB%A3%E7%BB%84%E5%90%88%E5%AD%90%E7%9A%84%E6%9E%84%E9%80%A0-lcac-4c-theorem-4.20/</guid>
         <description>&lt;p&gt;来自 Lambda-Calculus and Combinator § 4C Theorem 4.20 的 proof 部分，整体意图是证明符合 Definition 4.18 的全称递归函数可以用组合子来表示. 这里对该证明的关键部分，即迭代组合子的构造，做简要的陈述. 也可以理解为：&lt;strong&gt;在 Pure Lambda Calculus 中编写一个具有特定终止条件的迭代程序.&lt;/strong&gt; 如果你好奇 &amp;quot; 如何在 Lambda Calculus 中编写一个指定&lt;strong&gt;迭代 / 递归次数&lt;/strong&gt;的迭代 / 递归函数 &amp;quot; ，可以参考 Lambda-Calculus and Combinator § 4B Theorem 4.11 的 proof 中 $R_{\text{Bernays}}$ 组合子的构造，这个构造过程也十分精巧.&lt;/p&gt;
 &lt;p&gt;递归与迭代：在 $R_{\text{Bernays}}$ 递归组合子的构造中，求解某个递归函数 $\phi $ 的值 $ \phi(n) $，用的方法就是从 $ \phi(0) $ 开始，做 $n$ 次迭代得到的（大致如下：记递归步更新函数为 $\chi$，$\phi(n) = \chi^n \phi(0)$）. 迭代和递归是正向与逆向的区别. 本文中的&amp;quot;递归&amp;quot;意在描述&amp;quot;&lt;strong&gt;调用自身&lt;/strong&gt;&amp;quot; 的结构特点，探讨的中心问题还是对迭代（$0 \rightarrow 1 \rightarrow  &amp;hellip;  \rightarrow n$）问题的求解.&lt;/p&gt;
 &lt;h2 id=&#34;构造目标&#34;&gt;&lt;a href=&#34;#%e6%9e%84%e9%80%a0%e7%9b%ae%e6%a0%87&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;构造目标
@@ -122,10 +560,10 @@ $ \bar{\sigma} = _{\beta, w} \lambda nfz. f (n f z)$ &lt;/br&gt;&lt;/p&gt;
         </item>
         <item>
         <title>抽象层次平缓提升的 Church Encoding</title>
-        <link>http://localhost:1313/p/%E6%8A%BD%E8%B1%A1%E5%B1%82%E6%AC%A1%E5%B9%B3%E7%BC%93%E6%8F%90%E5%8D%87%E7%9A%84-church-encoding/</link>
+        <link>http://fyshxfish.github.io/p/%E6%8A%BD%E8%B1%A1%E5%B1%82%E6%AC%A1%E5%B9%B3%E7%BC%93%E6%8F%90%E5%8D%87%E7%9A%84-church-encoding/</link>
         <pubDate>Sun, 08 Sep 2024 20:13:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/%E6%8A%BD%E8%B1%A1%E5%B1%82%E6%AC%A1%E5%B9%B3%E7%BC%93%E6%8F%90%E5%8D%87%E7%9A%84-church-encoding/</guid>
+        <guid>http://fyshxfish.github.io/p/%E6%8A%BD%E8%B1%A1%E5%B1%82%E6%AC%A1%E5%B9%B3%E7%BC%93%E6%8F%90%E5%8D%87%E7%9A%84-church-encoding/</guid>
         <description>&lt;h2 id=&#34;motivation-abstraction-level-up&#34;&gt;&lt;a href=&#34;#motivation-abstraction-level-up&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Motivation: Abstraction Level Up!
 &lt;/h2&gt;&lt;ol&gt;
 &lt;li&gt;
@@ -252,10 +690,10 @@ $three: λf.λx.(f (f (f x)))$&lt;/p&gt;
         </item>
         <item>
         <title>Huffman 树的 Haskell 实现 - SICP § 2.3.4  | 组合数据的结构与解构</title>
-        <link>http://localhost:1313/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.3.4-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/</link>
+        <link>http://fyshxfish.github.io/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.3.4-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/</link>
         <pubDate>Mon, 02 Sep 2024 01:53:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.3.4-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/</guid>
+        <guid>http://fyshxfish.github.io/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.3.4-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/</guid>
         <description>&lt;p&gt;在看 SICP Section 2.3.4，对这节中 Huffman 树的实现中使用的组合 / 抽象有相当程度的参考.&lt;/p&gt;
 &lt;p&gt;其实我应该把代码放在某个仓库里，比如把一些数据结构的 Haskell 实现整合在一个仓库里，但是我还没有这么多可供整合的材料，所以以后再说吧.&lt;/p&gt;
 &lt;p&gt;代码链接：&lt;a class=&#34;link&#34; href=&#34;https://github.com/fyshxfish/sicp-playground/blob/main/sicp-note/ch2/ch2-3-huffman_tree.hs&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -517,8 +955,7 @@ snd (pair v w)  → w
 &lt;p&gt;In λ and CL: let $M$ and $N$ be combinators, either in βη-normal form (in λ) or in strong normal form (in CL). If $M \not\equiv N$, then there exist $n ≥ 0$ and combinators $L_1$, &amp;hellip;, $L_n$ such that
 $$ ML_1 &amp;hellip;L_nxy \quad \rhd_{\beta,w} \quad x, $$
 $$ NL_1 &amp;hellip;L_nxy \quad \rhd_{\beta,w} \quad y. $$
-Roughly speaking, Böhm’s theorem says that $M$ and $N$ can be distinguished, not just by their structure, but by their &lt;strong&gt;behaviour&lt;/strong&gt;.&lt;/p&gt;
-&lt;/blockquote&gt;
+Roughly speaking, Böhm’s theorem says that $M$ and $N$ can be distinguished, not just by their structure, but by their &lt;strong&gt;behaviour&lt;/strong&gt;.&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;Böhm&amp;rsquo;s theorem 提供的视角是：在不等的两个组合子（即不含自由变量的 λ-term）上应用相同的操作，得到的值不同；即 我们可以通过组合子的&lt;strong&gt;行为&lt;/strong&gt;来对不同组合子进行区分. 上文提到的 &lt;code&gt;(pair v w) fst&lt;/code&gt; 就是一个简单的例子，&lt;code&gt;(pair a b)&lt;/code&gt; 和 &lt;code&gt;(pair c d)&lt;/code&gt;是不同的组合子，将此二者施以同样的操作 &lt;code&gt;fst&lt;/code&gt; ，得到的值不同. 我们在 Scheme 中实现的 &lt;code&gt;cons - dispatch&lt;/code&gt; 也可以用这个思路来理解.&lt;/p&gt;
 &lt;div class=&#34;footnotes&#34; role=&#34;doc-endnotes&#34;&gt;
 &lt;hr&gt;

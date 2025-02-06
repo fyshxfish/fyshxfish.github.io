@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Rust on fyshXplore</title>
-        <link>http://localhost:1313/tags/rust/</link>
+        <link>http://fyshxfish.github.io/tags/rust/</link>
         <description>Recent content in Rust on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Mon, 05 Aug 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/rust/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 05 Aug 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://fyshxfish.github.io/tags/rust/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Rust 基础与 gdb 使用拾遗</title>
-        <link>http://localhost:1313/p/rust-%E5%9F%BA%E7%A1%80%E4%B8%8E-gdb-%E4%BD%BF%E7%94%A8%E6%8B%BE%E9%81%97/</link>
+        <link>http://fyshxfish.github.io/p/rust-%E5%9F%BA%E7%A1%80%E4%B8%8E-gdb-%E4%BD%BF%E7%94%A8%E6%8B%BE%E9%81%97/</link>
         <pubDate>Mon, 05 Aug 2024 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/p/rust-%E5%9F%BA%E7%A1%80%E4%B8%8E-gdb-%E4%BD%BF%E7%94%A8%E6%8B%BE%E9%81%97/</guid>
+        <guid>http://fyshxfish.github.io/p/rust-%E5%9F%BA%E7%A1%80%E4%B8%8E-gdb-%E4%BD%BF%E7%94%A8%E6%8B%BE%E9%81%97/</guid>
         <description>&lt;p&gt; &lt;/p&gt;
 &lt;h2 id=&#34;如何调试一个rust程序&#34;&gt;&lt;a href=&#34;#%e5%a6%82%e4%bd%95%e8%b0%83%e8%af%95%e4%b8%80%e4%b8%aarust%e7%a8%8b%e5%ba%8f&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;如何调试一个rust程序？
 &lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;$ gdb excutable
@@ -63,8 +63,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;w&#34;&gt;    &lt;/span&gt;&lt;span class=&#34;fm&#34;&gt;println!&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;The first element is: &lt;/span&gt;&lt;span class=&#34;si&#34;&gt;{first}&lt;/span&gt;&lt;span class=&#34;s&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;);&lt;/span&gt;&lt;span class=&#34;w&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
-&lt;p&gt;The code in Listing 8-6 might look like it should work: &lt;em&gt;&lt;strong&gt;why should a reference to the first element care about changes at the end of the vector?&lt;/strong&gt;&lt;/em&gt; This error is due to the way vectors work: because vectors put the values next to each other in memory, adding a new element onto the end of the vector might &lt;u&gt;require allocating new memory and copying the old elements to the new space&lt;/u&gt;, if there isn’t enough room to put all the elements next to each other where the vector is currently stored. In that case, the reference to the first element would be pointing to &lt;u&gt;deallocated memory&lt;/u&gt;. The borrowing rules prevent programs from ending up in that situation.&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;The code in Listing 8-6 might look like it should work: &lt;em&gt;&lt;strong&gt;why should a reference to the first element care about changes at the end of the vector?&lt;/strong&gt;&lt;/em&gt; This error is due to the way vectors work: because vectors put the values next to each other in memory, adding a new element onto the end of the vector might &lt;u&gt;require allocating new memory and copying the old elements to the new space&lt;/u&gt;, if there isn’t enough room to put all the elements next to each other where the vector is currently stored. In that case, the reference to the first element would be pointing to &lt;u&gt;deallocated memory&lt;/u&gt;. The borrowing rules prevent programs from ending up in that situation.&lt;/p&gt;&lt;/blockquote&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;一个问题如何让一个vector看起来存储了多种类型的数据&#34;&gt;&lt;a href=&#34;#%e4%b8%80%e4%b8%aa%e9%97%ae%e9%a2%98%e5%a6%82%e4%bd%95%e8%ae%a9%e4%b8%80%e4%b8%aavector%e7%9c%8b%e8%b5%b7%e6%9d%a5%e5%ad%98%e5%82%a8%e4%ba%86%e5%a4%9a%e7%a7%8d%e7%b1%bb%e5%9e%8b%e7%9a%84%e6%95%b0%e6%8d%ae&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;一个问题：如何让一个Vector看起来存储了多种类型的数据？

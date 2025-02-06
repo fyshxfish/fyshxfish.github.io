@@ -2,24 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>PL on fyshXplore</title>
-        <link>http://localhost:1313/categories/pl/</link>
+        <link>http://fyshxfish.github.io/categories/pl/</link>
         <description>Recent content in PL on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Tue, 10 Sep 2024 14:10:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/categories/pl/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 10 Sep 2024 14:10:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/categories/pl/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Types and Programming Languages 摘录</title>
-        <link>http://localhost:1313/p/types-and-programming-languages-%E6%91%98%E5%BD%95/</link>
+        <link>http://fyshxfish.github.io/p/types-and-programming-languages-%E6%91%98%E5%BD%95/</link>
         <pubDate>Tue, 10 Sep 2024 14:10:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/types-and-programming-languages-%E6%91%98%E5%BD%95/</guid>
+        <guid>http://fyshxfish.github.io/p/types-and-programming-languages-%E6%91%98%E5%BD%95/</guid>
         <description>&lt;h2 id=&#34;-12-what-type-systems-are-good-for&#34;&gt;&lt;a href=&#34;#-12-what-type-systems-are-good-for&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;§ 1.2 What Type Systems Are Good For
 &lt;/h2&gt;&lt;blockquote&gt;
-&lt;p&gt;A safe language is one that protects its own &lt;strong&gt;abstractions&lt;/strong&gt;.&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;A safe language is one that protects its own &lt;strong&gt;abstractions&lt;/strong&gt;.&lt;/p&gt;&lt;/blockquote&gt;
 &lt;!-- &lt;/br&gt; --&gt;
 &lt;blockquote&gt;
-&lt;p&gt;A safe language is completely defined by its programmer&amp;rsquo;s manual.&lt;/p&gt;
-&lt;/blockquote&gt;
+&lt;p&gt;A safe language is completely defined by its programmer&amp;rsquo;s manual.&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;完备的&lt;strong&gt;抽象&lt;/strong&gt;意味着使用者可以完全信赖语言设计，&lt;strong&gt;只&lt;/strong&gt;关心高级语言这一抽象层，而无需关心硬件层的具体实现.&lt;/p&gt;
 &lt;p&gt;高级语言提供对物理设备的抽象，数组是对于内存的抽象，程序员对于数组的预期是：数组&lt;strong&gt;只能&lt;/strong&gt;通过&lt;strong&gt;显式&lt;/strong&gt;的更新操作（如 &lt;code&gt;arr[1] = 1024&lt;/code&gt; ）修改，&amp;ldquo;修改了某个变量，数组元素也莫名其妙地改变了&amp;rdquo;（e.g. 缓冲区溢出攻击）是抽象被破坏的一种表现，这意味着程序员必须对&lt;strong&gt;变量&lt;/strong&gt;（高级语言提供的抽象）在&lt;strong&gt;内存&lt;/strong&gt;（真实存在的物理设备）中的布局有详细了解，才能写出符合预期的程序.&lt;/p&gt;
 &lt;!-- 抽象与效率： --&gt;
