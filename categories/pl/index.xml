@@ -2,9 +2,9 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>PL on fyshXplore</title>
-        <link>http://fyshxfish.github.io/categories/pl/</link>
+        <link>http://localhost:1313/categories/pl/</link>
         <description>Recent content in PL on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
-        <language>en</language><atom:link href="http://fyshxfish.github.io/categories/pl/index.xml" rel="self" type="application/rss+xml" />
+        <language>en</language><atom:link href="http://localhost:1313/categories/pl/index.xml" rel="self" type="application/rss+xml" />
     </channel>
 </rss>

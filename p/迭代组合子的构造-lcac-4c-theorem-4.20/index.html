@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-    <head><meta charset='utf-8'>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="来自 Lambda-Calculus and Combinator § 4C Theorem 4.20 的 proof 部分，整体意图是证明符合 Definition 4.18 的全称递归函数可以用组合子来表示.\u2002这里对该证明的关键部分，即迭代组合子的构造，做简要的陈述. 也可以理解为：在 Pure Lambda Calculus 中编写一个具有特定终止条件的迭代程序. 如果你好奇 &quot; 如何在 Lambda Calculus 中编写一个指定迭代 / 递归次数的迭代 / 递归函数 &quot; ，可以参考 Lambda-Calculus and Combinator § 4B Theorem 4.11 的 proof 中 $R_{\\text{Bernays}}$ 组合子的构造，这个构造过程也十分精巧.\n">
 <title>迭代组合子的构造 - LCaC § 4C, Theorem 4.20</title>
 
-<link rel='canonical' href='http://fyshxfish.github.io/p/%E8%BF%AD%E4%BB%A3%E7%BB%84%E5%90%88%E5%AD%90%E7%9A%84%E6%9E%84%E9%80%A0-lcac-4c-theorem-4.20/'>
+<link rel='canonical' href='http://localhost:1313/p/%E8%BF%AD%E4%BB%A3%E7%BB%84%E5%90%88%E5%AD%90%E7%9A%84%E6%9E%84%E9%80%A0-lcac-4c-theorem-4.20/'>
 
 <link rel="stylesheet" href="/scss/style.min.b51788d43472ffad20b588167514427b70146d30bc2a1ee0490ab0db3b5da439.css"><meta property='og:title' content="迭代组合子的构造 - LCaC § 4C, Theorem 4.20">
 <meta property='og:description' content="来自 Lambda-Calculus and Combinator § 4C Theorem 4.20 的 proof 部分，整体意图是证明符合 Definition 4.18 的全称递归函数可以用组合子来表示.\u2002这里对该证明的关键部分，即迭代组合子的构造，做简要的陈述. 也可以理解为：在 Pure Lambda Calculus 中编写一个具有特定终止条件的迭代程序. 如果你好奇 &quot; 如何在 Lambda Calculus 中编写一个指定迭代 / 递归次数的迭代 / 递归函数 &quot; ，可以参考 Lambda-Calculus and Combinator § 4B Theorem 4.11 的 proof 中 $R_{\\text{Bernays}}$ 组合子的构造，这个构造过程也十分精巧.\n">
-<meta property='og:url' content='http://fyshxfish.github.io/p/%E8%BF%AD%E4%BB%A3%E7%BB%84%E5%90%88%E5%AD%90%E7%9A%84%E6%9E%84%E9%80%A0-lcac-4c-theorem-4.20/'>
+<meta property='og:url' content='http://localhost:1313/p/%E8%BF%AD%E4%BB%A3%E7%BB%84%E5%90%88%E5%AD%90%E7%9A%84%E6%9E%84%E9%80%A0-lcac-4c-theorem-4.20/'>
 <meta property='og:site_name' content='fyshXplore'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='LCaC' /><meta property='article:tag' content='lambda calculus' /><meta property='article:published_time' content='2024-09-17T23:48:00&#43;08:00'/><meta property='article:modified_time' content='2024-09-17T23:48:00&#43;08:00'/>
 <meta name="twitter:title" content="迭代组合子的构造 - LCaC § 4C, Theorem 4.20">
