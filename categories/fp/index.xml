@@ -12,10 +12,7 @@
         <pubDate>Sun, 02 Feb 2025 21:29:00 +0800</pubDate>
         
         <guid>http://fyshxfish.github.io/p/functional-on-steam-/-%CE%BB-%E4%B9%A0%E9%A2%98%E9%9B%86-solutions/</guid>
-        <description>&lt;p&gt;&lt;strong&gt;&lt;em&gt;&amp;ndash; NOT COMPLETED &amp;ndash;&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;functional，发售于 Steam (29 CNY).&lt;/p&gt;
-&lt;p&gt;可以说是 Lambda Calculus 习题集，非常纯的 LC，纯到甚至不能做 name binding.&lt;/p&gt;
-&lt;p&gt;一点建议：可以先在比较现代的编辑器里编辑，然后复制进来.&lt;/p&gt;
+        <description>&lt;p&gt;functional，发售于 Steam (29 CNY)，可以说是 Lambda Calculus 应用习题集.&lt;/p&gt;
 &lt;h2 id=&#34;basic&#34;&gt;&lt;a href=&#34;#basic&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Basic
 &lt;/h2&gt;&lt;h3 id=&#34;anything&#34;&gt;&lt;a href=&#34;#anything&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;anything
 &lt;/h3&gt;&lt;p&gt;写出任意一个符合 Lambda Calculus 语法 (1. variable 2. abstraction 3. application) 的 term 即可.&lt;/p&gt;
@@ -171,7 +168,7 @@ FALSE = t:f: f
 &lt;h4 id=&#34;y-combinator-使用&#34;&gt;&lt;a href=&#34;#y-combinator-%e4%bd%bf%e7%94%a8&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Y combinator 使用
 &lt;/h4&gt;&lt;p&gt;承接动机部分，我们用 &lt;code&gt;F&#39; = f:a: ...&lt;/code&gt; 表达递归函数 &lt;code&gt;f&lt;/code&gt; 与其参数 &lt;code&gt;a&lt;/code&gt; 之间的应用逻辑，将目标递归函数为 &lt;code&gt;F&lt;/code&gt;，那么 &lt;code&gt;F = F&#39; F&lt;/code&gt;，因为自引的不合法，考虑用 &lt;code&gt;Y F&#39;&lt;/code&gt; 来表示 &lt;code&gt;F&lt;/code&gt;，在上一节中我们涉及出了可行的 &lt;code&gt;Y&lt;/code&gt;，于是 &lt;code&gt;F = Y F&#39;&lt;/code&gt; 就是我们希望得到的目标函数.&lt;/p&gt;
 &lt;!-- TL;DR: 如果希望实现 `f` 的递归，`f` 的参数为 `a`，Y  --&gt;
-&lt;p&gt;想明白 Y 组合子的使用，本 section 的关卡都很简单了，唯一值得提示的是 1. 使用以往关卡已定义过的函数时，注意函数的参数顺序，例如 &lt;code&gt;FILTER&lt;/code&gt; 先传列表，再传过滤依赖的函数，因为 Simple LC 语法层面的约束很少，所以编程者自己要多当心一些 2. 有若干个关卡可能涉及列表反转，所以 &lt;code&gt;REVERSE&lt;/code&gt; 可以先写，然后直接拿来用 3. 注意括号配对，可以现在先进的编辑器里先写，确保不犯低级错误，再复制进来评测. 下面给出的答案仅供参考~可以过评测，但未必最简.&lt;/p&gt;
+&lt;p&gt;想明白 Y 组合子的使用，本 section 的关卡都很简单了，唯一值得提示的是 1. 使用以往关卡已定义过的函数时，注意函数的参数顺序，例如 &lt;code&gt;FILTER&lt;/code&gt; 先传列表，再传过滤依赖的函数，因为 Simple LC 语法层面的约束很少，所以编程者自己要多当心一些 2. 有若干个关卡可能涉及列表反转，所以 &lt;code&gt;REVERSE&lt;/code&gt; 可以先写，然后直接拿来用 3. 注意括号配对，可以现在先进的编辑器里先写，确保不犯低级错误，再复制进来评测. 下面给出的答案仅供参考，可以过评测，但未必最简.&lt;/p&gt;
 &lt;h3 id=&#34;strip-prefix&#34;&gt;&lt;a href=&#34;#strip-prefix&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;strip prefix
 &lt;/h3&gt;&lt;p&gt;去除不定长列表前缀的 &lt;code&gt;FALSE&lt;/code&gt;：&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Y (f:l:
@@ -189,8 +186,7 @@ FALSE = t:f: f
 &lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;all&#34;&gt;&lt;a href=&#34;#all&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;ALL
 &lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;l: ACC l AND TRUE
 &lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;reverse&#34;&gt;&lt;a href=&#34;#reverse&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;REVERSE
-&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Y 
-  (i:c:l: 
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Y (i:c:l: 
     IF 
       (EMPTY l) 
       c 
@@ -258,14 +254,13 @@ FALSE
 &lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;pre&#34;&gt;&lt;a href=&#34;#pre&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;PRE
 &lt;/h3&gt;&lt;p&gt;一个基本的观察是 &lt;code&gt;n = n SUC 0&lt;/code&gt;，这里的等号表示内涵等价（intensional equality），那么在 &lt;code&gt;PAIR 0 0&lt;/code&gt; 上做 $n$ 次迭代，一轮迭代的工作是：1. 右侧数对齐左侧数 2. 左侧数做一次后继，那么右侧数始终慢左侧数一步，即 $n$ 轮迭代后，左侧数是 &lt;code&gt;n&lt;/code&gt;，右侧数是左侧数的后继.&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(n: SND (n (p: PAIR (SUC (FST p)) (FST p)) (PAIR 0 0) ) )
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;[* 以下部分的说明文本将在日后补上]&lt;/p&gt;
-&lt;h3 id=&#34;add&#34;&gt;&lt;a href=&#34;#add&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;ADD
-&lt;/h3&gt;&lt;!-- 给定 `x`, `y`，目标是给出 `x+y`， --&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;add&#34;&gt;&lt;a href=&#34;#add&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;ADD
+&lt;/h3&gt;&lt;p&gt;给定 &lt;code&gt;x&lt;/code&gt;, &lt;code&gt;y&lt;/code&gt;，目标是给出 &lt;code&gt;x+y&lt;/code&gt;，&lt;code&gt;x+y&lt;/code&gt; 的含义是：预备接收 &lt;code&gt;f&lt;/code&gt;, &lt;code&gt;z&lt;/code&gt;，将 &lt;code&gt;f&lt;/code&gt; 应用于 &lt;code&gt;z&lt;/code&gt; $(x+y)$ 次. 先将 &lt;code&gt;f&lt;/code&gt; 应用于 &lt;code&gt;z&lt;/code&gt; $x$ 次，得到结果 &lt;code&gt;x f z&lt;/code&gt;，再将 &lt;code&gt;f&lt;/code&gt; 应用于 &lt;code&gt;(x f z)&lt;/code&gt; $y$ 次.&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(x:y: (f:z: y f (x f z)) )
 &lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;sub&#34;&gt;&lt;a href=&#34;#sub&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;SUB
 &lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(x:y: (f:z: (y PRE x) f z))
 &lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;mul&#34;&gt;&lt;a href=&#34;#mul&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;MUL
-&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(x:y:f:z: y (x f) z  )
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(x:y:f:z: y (x f) z )
 &lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;div&#34;&gt;&lt;a href=&#34;#div&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;DIV
 &lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(Y (d:c:x:y:
         IF (ZERO x)
@@ -278,7 +273,10 @@ FALSE
    ) 
 ) 0
 &lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;eq&#34;&gt;&lt;a href=&#34;#eq&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;EQ
-&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(x:y: AND (ZERO (x PRE y)) (ZERO (y PRE x)))
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(x:y: AND 
+        (ZERO (x PRE y)) 
+        (ZERO (y PRE x))
+)
 &lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;min&#34;&gt;&lt;a href=&#34;#min&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;MIN
 &lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(x:y: IF (ZERO (x PRE y))
       y
@@ -292,14 +290,34 @@ FALSE
 &lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;more-numerals&#34;&gt;&lt;a href=&#34;#more-numerals&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;More Numerals
 &lt;/h2&gt;&lt;h3 id=&#34;is-odd&#34;&gt;&lt;a href=&#34;#is-odd&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;is odd
 &lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(n: (n NOT FALSE))
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;increasing-list&#34;&gt;&lt;a href=&#34;#increasing-list&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;increasing list
-&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(Y (f:c:n: IF (ZERO n)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;顺便想起了判断奇偶的递归方法：（看起来还挺有意思的，比熟悉的 &lt;code&gt;mod 2&lt;/code&gt; 新鲜一些）&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-hs&#34; data-lang=&#34;hs&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;isEven&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;::&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Int&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Bool&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;isEven&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;True&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;isEven&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;isOdd&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;isOdd&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;::&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Int&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Bool&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;isOdd&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;False&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;isOdd&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;x&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;isEven&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;o&#34;&gt;-&lt;/span&gt;&lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;increasing-list&#34;&gt;&lt;a href=&#34;#increasing-list&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;increasing list
+&lt;/h3&gt;&lt;p&gt;尾递归：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(Y (f:c:n: IF (ZERO n)
            (PAIR 0 c)
            (f (PAIR n c) (PRE n))
    ) 
 ) FALSE
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;非尾递归：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(n: REVERSE 
+    ( 
+     (Y (f:x: 
+            IF (ZERO x)
+            (PAIR 0 FALSE)
+            (PAIR x (f (PRE x))))
+     ) n
+    )
+)
 &lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;decomposition&#34;&gt;&lt;a href=&#34;#decomposition&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;decomposition
-&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(Y (f:c:k:n:
+&lt;/h3&gt;&lt;p&gt;将给定数分解成 2 的幂之和：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(Y (f:c:k:n:
      IF (ZERO n)
      c
      (IF (AND (EQ n (MIN k n)) (NOT (EQ k n)))  
@@ -308,7 +326,7 @@ FALSE
      )
    )
 ) FALSE 8
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;* primes 和 sort 都需要大把时间运行（本机测试两关各自耗时都在 30min 左右）&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;*&lt;/strong&gt; primes 和 sort 都需要大把时间运行（本机测试两关各自耗时都在 30min 左右）&lt;/p&gt;
 &lt;h3 id=&#34;primes&#34;&gt;&lt;a href=&#34;#primes&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;primes
 &lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Y (f:l:p:n: 
      IF (EQ n (FST p)) 
@@ -320,9 +338,9 @@ FALSE
                 IF (EQ n (MIN n p) )
                 (IF (EQ n p) TRUE FALSE )
                 (f (SUB n p) p)   
-              )
+               )
             ) n (FST p)
-          )
+           )
         (f (PAIR (FST p) l) p (DIV n (FST p)))
         (f l (SND p) n)
       )
@@ -331,9 +349,10 @@ FALSE
   FALSE
   (PAIR 47 (PAIR 43 (PAIR 41 (PAIR 37 (PAIR 31 (PAIR 29 
   (PAIR 23 (PAIR 19 (PAIR 17 (PAIR 13 (PAIR 11 (PAIR 7 
-  (PAIR 3 (PAIR 2 FALSE))))))))))))))
+  (PAIR 3  (PAIR 2 FALSE))))))))))))))
 &lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;sort&#34;&gt;&lt;a href=&#34;#sort&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;sort
-&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Y (f:c:l: 
+&lt;/h3&gt;&lt;p&gt;选择排序：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Y (f:c:l: 
     IF (EMPTY l)
     c
     (
@@ -342,8 +361,7 @@ FALSE
     )
   ) FALSE
 &lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;trees&#34;&gt;&lt;a href=&#34;#trees&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;trees
-&lt;/h2&gt;&lt;p&gt;* 本 section 需要单独购买（免费）&lt;/p&gt;
-&lt;h3 id=&#34;node&#34;&gt;&lt;a href=&#34;#node&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;NODE
+&lt;/h2&gt;&lt;h3 id=&#34;node&#34;&gt;&lt;a href=&#34;#node&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;NODE
 &lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;l:v:r:f: f l v r
 &lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;lef&#34;&gt;&lt;a href=&#34;#lef&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;LEF
 &lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;t: t (l:v:r: l) 
@@ -352,9 +370,11 @@ FALSE
 &lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;val&#34;&gt;&lt;a href=&#34;#val&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;VAL
 &lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;t: t (l:v:r: v)
 &lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;bempty&#34;&gt;&lt;a href=&#34;#bempty&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;BEMPTY
-&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(t: t (l:v:r:x:FALSE) TRUE )
+&lt;/h3&gt;&lt;p&gt;类似于列表判空，&lt;code&gt;NODE l v r = f: f l v r&lt;/code&gt;，空树用 &lt;code&gt;FALSE := a:b: b&lt;/code&gt;，将一个树 &lt;code&gt;t&lt;/code&gt; 作为函数使用，若是空树，&lt;code&gt;t A B = FALSE A B = B ~ᴇxᴘᴇᴄᴛᴇᴅ→ TRUE&lt;/code&gt;，若不是空树 &lt;code&gt;t A B = (f: f l v r) A B = A l v r B ~ᴇxᴘᴇᴄᴛᴇᴅ→ FALSE&lt;/code&gt;，根据以上，&lt;code&gt;B = TRUE, A = l:v:r:x FALSE&lt;/code&gt;，所以：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(t: t (l:v:r:x: FALSE) TRUE )
 &lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;find&#34;&gt;&lt;a href=&#34;#find&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;FIND
-&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Y (f:t:v:
+&lt;/h3&gt;&lt;p&gt;判断树 &lt;code&gt;t&lt;/code&gt; 中是否存在值为 &lt;code&gt;v&lt;/code&gt; 的结点：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Y (f:t:v:
     IF (BEMPTY t)
     FALSE
     (IF (EQ (VAL t) v)
@@ -363,13 +383,15 @@ FALSE
     )
   )
 &lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;bsize&#34;&gt;&lt;a href=&#34;#bsize&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;BSIZE
-&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Y (f:t:
+&lt;/h3&gt;&lt;p&gt;计算树的规模：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Y (f:t:
     IF (BEMPTY t)
     0
     (SUC (ADD (f (LEF t)) (f (RIG t))))
   )
 &lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;build&#34;&gt;&lt;a href=&#34;#build&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;BUILD
-&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Y (f:c:l:
+&lt;/h3&gt;&lt;p&gt;二叉搜索树的构造：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Y (f:c:l:
     IF (EMPTY l)
     c
     (   f
@@ -388,8 +410,10 @@ FALSE
         (SND l)
     ) 
   ) FALSE
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;preorder&#34;&gt;&lt;a href=&#34;#preorder&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;PREORDER
-&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Y (f:t: 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;em&gt;[ 游戏里的 PREORDER 和 INORDER 两个函数似乎反了？ ]&lt;/em&gt;&lt;/p&gt;
+&lt;h3 id=&#34;preorder&#34;&gt;&lt;a href=&#34;#preorder&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;PREORDER
+&lt;/h3&gt;&lt;p&gt;二叉树的中序遍历：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Y (f:t: 
     IF (BEMPTY t)
     FALSE
     (CONCAT (f (LEF t))
@@ -399,7 +423,8 @@ FALSE
     )
   )
 &lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;inorder&#34;&gt;&lt;a href=&#34;#inorder&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;INORDER
-&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Y (f:t: 
+&lt;/h3&gt;&lt;p&gt;二叉树的前序遍历：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Y (f:t: 
     IF (BEMPTY t)
     FALSE
     (PUSH (VAL t)
@@ -409,7 +434,8 @@ FALSE
     )
   )
 &lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;split&#34;&gt;&lt;a href=&#34;#split&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;SPLIT
-&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Y (f:t:v:
+&lt;/h3&gt;&lt;p&gt;树 &lt;code&gt;t&lt;/code&gt; 以 &lt;code&gt;v&lt;/code&gt; 为界进行分割：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Y (f:t:v:
     IF (BEMPTY t)
     (PAIR FALSE FALSE)
     (
@@ -425,7 +451,8 @@ FALSE
     )
   )
 &lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;kth&#34;&gt;&lt;a href=&#34;#kth&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;KTH
-&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(t:k: 
+&lt;/h3&gt;&lt;p&gt;对给定的二叉搜索树，给出其中第 &lt;code&gt;k&lt;/code&gt; 大的元素，取出树的中序遍历列表中的第 &lt;code&gt;k&lt;/code&gt; 项即可：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(t:k: 
     Y (f:c:l:
         IF (EQ c 0)
         (FST l)
@@ -433,7 +460,8 @@ FALSE
     ) k (PREORDER t)
 )
 &lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;inverse-6&#34;&gt;&lt;a href=&#34;#inverse-6&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;inverse 6
-&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;t: 
+&lt;/h3&gt;&lt;p&gt;对给定的二叉搜索树 &lt;code&gt;t&lt;/code&gt;，找出 &lt;code&gt;[1..6]&lt;/code&gt; 中的若干个缺席者，升序排列：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;t: 
   IF (BEMPTY t)
   (PAIR 1 (PAIR 2 (PAIR 3 (PAIR 4 (PAIR 5 (PAIR 6 FALSE))))))
   (
@@ -450,7 +478,166 @@ FALSE
     (PREORDER t)
     (PAIR 1 (PAIR 2 (PAIR 3 (PAIR 4 (PAIR 5 (PAIR 6 FALSE))))))
   )
-&lt;/code&gt;&lt;/pre&gt;</description>
+&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
+</description>
+        </item>
+        <item>
+        <title>搜索算法的抽象</title>
+        <link>http://fyshxfish.github.io/p/%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95%E7%9A%84%E6%8A%BD%E8%B1%A1/</link>
+        <pubDate>Sun, 24 Nov 2024 12:09:00 +0800</pubDate>
+        
+        <guid>http://fyshxfish.github.io/p/%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95%E7%9A%84%E6%8A%BD%E8%B1%A1/</guid>
+        <description>&lt;h2 id=&#34;前言&#34;&gt;&lt;a href=&#34;#%e5%89%8d%e8%a8%80&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;前言
+&lt;/h2&gt;&lt;p&gt;在这个学期的算法课中，我们重点学习了回溯法和分支限界法两大类搜索算法，过去我总是把DFS、BFS等各种搜索算法分开来，比较其差异，在本文中，我希望对搜索算法做一个抽象，预期可以由一个简洁的抽象模型延伸出我们熟悉的具体的搜索策略。&lt;/p&gt;
+&lt;h2 id=&#34;搜索模型与搜索过程的抽象&#34;&gt;&lt;a href=&#34;#%e6%90%9c%e7%b4%a2%e6%a8%a1%e5%9e%8b%e4%b8%8e%e6%90%9c%e7%b4%a2%e8%bf%87%e7%a8%8b%e7%9a%84%e6%8a%bd%e8%b1%a1&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;搜索模型与搜索过程的抽象
+&lt;/h2&gt;&lt;p&gt;用 Haskell 语言展示我总结出的模型：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-hs&#34; data-lang=&#34;hs&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kr&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;Ord&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;node&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&amp;gt;&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Search&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;env&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;node&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;where&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;initN&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;::&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;env&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;node&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;check&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;::&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;env&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;node&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Bool&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;child&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;::&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;env&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;node&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;node&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;  
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;search&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;::&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;env&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;node&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;Search env node&lt;/code&gt;: 搜索需要两个要素，搜索环境 &lt;code&gt;env&lt;/code&gt; 和搜索结点 &lt;code&gt;node&lt;/code&gt;，且我们需要根据 &lt;code&gt;node&lt;/code&gt; 的优先级来决定扩展顺序，那么我们希望 &lt;code&gt;node&lt;/code&gt; 之间是可比的（orderable）所以需要给 &lt;code&gt;node&lt;/code&gt; 加以 &lt;code&gt;Ord&lt;/code&gt; 约束；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;initN :: env -&amp;gt; node&lt;/code&gt;: 搜索需要初始化，搜索树需要有根节点，所以我们希望可以根据搜索环境 &lt;code&gt;env&lt;/code&gt; 生成一个简单的搜索根结点 &lt;code&gt;node&lt;/code&gt; ；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;check :: env -&amp;gt; node -&amp;gt; Bool&lt;/code&gt;: 搜索需要停止，所以我们需要有一个函数可以根据搜索环境 &lt;code&gt;env&lt;/code&gt; 的性质，判断当前 &lt;code&gt;node&lt;/code&gt; 是否是问题的解；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;child :: env -&amp;gt; node -&amp;gt; [node]&lt;/code&gt;: 搜素需要可继续，搜索树的活结点是可扩展的，所以我们需要函数 &lt;code&gt;child&lt;/code&gt; 根据环境 &lt;code&gt;env&lt;/code&gt; 和当前扩展结点 &lt;code&gt;node&lt;/code&gt;，生成一系列子结点 &lt;code&gt;[node]&lt;/code&gt;；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;search :: env -&amp;gt; node&lt;/code&gt;: 搜索的主函数，它的目标是在搜索环境中搜索，最终得到终止结点 &lt;code&gt;node&lt;/code&gt; ，&lt;code&gt;node&lt;/code&gt; 是我们需要的最优解。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;如果我们需要写一个具体问题的搜索算法，我们需要给出搜索环境 &lt;code&gt;env&lt;/code&gt; 的抽象，结点 &lt;code&gt;node&lt;/code&gt; 的设计、并且实现以上的 &lt;code&gt;initN&lt;/code&gt;, &lt;code&gt;check&lt;/code&gt;, &lt;code&gt;child&lt;/code&gt;, &lt;code&gt;search&lt;/code&gt; 函数。&lt;/p&gt;
+&lt;p&gt;搜索模型可以被抽象，搜索过程也可以，于是我提供了 &lt;code&gt;search&lt;/code&gt; 函数的默认实现（因为 &lt;code&gt;initN&lt;/code&gt;, &lt;code&gt;check&lt;/code&gt;, &lt;code&gt;child&lt;/code&gt; 往往和具体的问题本身强相关，所以需要实例化的时候提供，无法依赖默认实现）。该函数抽象了搜索的基本过程——搜索总是从根节点（&lt;code&gt;initN&lt;/code&gt;）出发，每次检查（&lt;code&gt;check&lt;/code&gt;）当前优先级最高的结点是否是问题的一个解，是则返回此结点并结束搜索，否则拓展（&lt;code&gt;child&lt;/code&gt;）出其子结点，根据优先级，对活结点列表进行重排，重复迭代此过程：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-hs&#34; data-lang=&#34;hs&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;search&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;e&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;kr&#34;&gt;let&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;step&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;::&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;node&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;node&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;step&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ns&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;check&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;e&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt;   &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;otherwise&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;step&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;$&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sort&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;ns&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;++&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;child&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;e&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;kr&#34;&gt;in&lt;/span&gt;  &lt;span class=&#34;n&#34;&gt;step&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;initN&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;e&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;示例由模型实例化出的tsp搜索&#34;&gt;&lt;a href=&#34;#%e7%a4%ba%e4%be%8b%e7%94%b1%e6%a8%a1%e5%9e%8b%e5%ae%9e%e4%be%8b%e5%8c%96%e5%87%ba%e7%9a%84tsp%e6%90%9c%e7%b4%a2&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;示例：由模型实例化出的TSP搜索
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;搜索环境，即有向带权图 &lt;code&gt;Graph&lt;/code&gt; ，抽象如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-hs&#34; data-lang=&#34;hs&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kr&#34;&gt;type&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Vertex&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Int&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kr&#34;&gt;type&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Distance&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Int&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kr&#34;&gt;type&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Edge&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;Vertex&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Vertex&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Distance&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kr&#34;&gt;data&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Graph&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Graph&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;vertices&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;::&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;Vertex&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;edges&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;::&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;Edge&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;另外搜索过程还需依赖图的函数，如 &lt;code&gt;minOut&lt;/code&gt;, &lt;code&gt;distance&lt;/code&gt;：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-hs&#34; data-lang=&#34;hs&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;minOut&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;::&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Graph&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;Vertex&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Distance&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)]&lt;/span&gt;      
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;minOut&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;Graph&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;vs&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;es&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;v&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;minimum&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ds&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                            &lt;span class=&#34;n&#34;&gt;v&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;vs&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;  
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                            &lt;span class=&#34;kr&#34;&gt;let&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;es&amp;#39;&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;filter&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;\&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;v1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;_&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;_&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;v1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;v&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;es&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                            &lt;span class=&#34;kr&#34;&gt;let&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;ds&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;d&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kr&#34;&gt;_&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;_&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;es&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;distance&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;::&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Graph&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;Int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Maybe&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Distance&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;distance&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;Graph&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;_&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;[]&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;_&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Nothing&lt;/span&gt;       
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;distance&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;Graph&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;vs&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;v1&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;v2&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;:&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;es&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;v1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;v2&lt;/span&gt;    &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Just&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;d&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;otherwise&lt;/span&gt;             &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;distance&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;Graph&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;vs&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;es&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;t&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;结点设计 &lt;code&gt;TspNode&lt;/code&gt;：&lt;/p&gt;
+&lt;p&gt;一个结点需要保存的信息有当前开销 &lt;code&gt;cost&lt;/code&gt;，已访问的顶点列表，启发值（总开销上界）：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-hs&#34; data-lang=&#34;hs&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kr&#34;&gt;data&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;TspNode&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;TspNode&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;cost&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;::&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;visited&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;::&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;Vertex&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;],&lt;/span&gt;        &lt;span class=&#34;c1&#34;&gt;-- reverse &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;heuristic&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;::&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Int&lt;/span&gt;    &lt;span class=&#34;c1&#34;&gt;-- heuristic / priority &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;deriving&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;Show&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;结点 &lt;code&gt;heuristic&lt;/code&gt; 值越低，其扩展优先级越高：（注意这里的 &lt;code&gt;GT&lt;/code&gt;,&lt;code&gt;LT&lt;/code&gt;,&lt;code&gt;EQ&lt;/code&gt; 不是优先级的大小，而是 &lt;code&gt;heuristic&lt;/code&gt; 值的大小，排序函数 &lt;code&gt;sort&lt;/code&gt; 将对 &lt;code&gt;node&lt;/code&gt; 按 &lt;code&gt;heuristic&lt;/code&gt; 升序排列）&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-hs&#34; data-lang=&#34;hs&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kr&#34;&gt;instance&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Ord&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;TspNode&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;where&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;compare&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;::&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;TspNode&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;TspNode&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Ordering&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;compare&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n1&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n2&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;heuristic&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;heuristic&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n2&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;GT&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;heuristic&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;heuristic&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n2&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;LT&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;otherwise&lt;/span&gt;                   &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;EQ&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;搜索函数实例化：&lt;/p&gt;
+&lt;p&gt;我们需要让 &lt;code&gt;Graph TspNode&lt;/code&gt; 成为 &lt;code&gt;Search&lt;/code&gt; 类型类的实例，&lt;code&gt;search&lt;/code&gt; 可以使用默认实现，所以还需要实现 &lt;code&gt;initN&lt;/code&gt;, &lt;code&gt;check&lt;/code&gt;, &lt;code&gt;child&lt;/code&gt; 函数：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;initN&lt;/code&gt;:&lt;/p&gt;
+&lt;p&gt;根节点开销 &lt;code&gt;cost&lt;/code&gt; 为 &lt;code&gt;0&lt;/code&gt;, 已访问结点列表 &lt;code&gt;visited&lt;/code&gt; 为空，开销上界 &lt;code&gt;heuristic&lt;/code&gt; 不重要，因为根节点总会被第一个检查并移出活结点列表，永远不会参与排序，所以 &lt;code&gt;heuristic&lt;/code&gt; 置 &lt;code&gt;0&lt;/code&gt; 即可：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-hs&#34; data-lang=&#34;hs&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;initN&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;::&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Graph&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;TspNode&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;initN&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;_&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;TspNode&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;[]&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;check&lt;/code&gt;:&lt;/p&gt;
+&lt;p&gt;如果当前结点已访问了所有顶点（从起点出发，遍历一圈，回到起点），那么判定这是问题的一个解：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-hs&#34; data-lang=&#34;hs&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;check&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;::&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Graph&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;TspNode&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Bool&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;check&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;g&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;TspNode&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;_&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;vs&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;_&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;length&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;vs&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;length&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;vertices&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;g&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;    &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;True&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;otherwise&lt;/span&gt;                           &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;False&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;child&lt;/code&gt;:&lt;/p&gt;
+&lt;p&gt;总体逻辑与课堂上讲的一致，根据visited列表计算未被访问的相邻结点，若已访问所有其他顶点，那么尝试回到起点：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-hs&#34; data-lang=&#34;hs&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;child&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;::&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Graph&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;TspNode&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;TspNode&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;nf&#34;&gt;child&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;g&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;kr&#34;&gt;let&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;upBound&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;::&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;Vertex&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Int&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;upBound&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;vs&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;sum&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;d&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;s&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;d&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;minOut&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;g&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;s&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;`&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;notElem&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;`&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;vs&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;at&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;null&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;visited&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;then&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;head&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;visited&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt;   &lt;span class=&#34;c1&#34;&gt;-- then-clause only for initNode&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;nodes&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;TspNode&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cost&amp;#39;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;visited&amp;#39;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;heuristic&amp;#39;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                &lt;span class=&#34;n&#34;&gt;v&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;filter&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                    &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;\&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;v&amp;#39;&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;v&amp;#39;&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;`&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;notElem&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;`&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;visited&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;isJust&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;distance&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;g&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;at&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;v&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)))&lt;/span&gt; &lt;span class=&#34;c1&#34;&gt;-- or abstract this function to `checkChildValid`&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                    &lt;span class=&#34;p&#34;&gt;((&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;tail&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;.&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;vertices&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;g&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;    &lt;span class=&#34;c1&#34;&gt;-- `tail` for drop the origin vertex (0 here) &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                &lt;span class=&#34;kr&#34;&gt;let&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;way&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;fromJust&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;$&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;distance&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;g&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;at&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;v&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;),&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                &lt;span class=&#34;kr&#34;&gt;let&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cost&amp;#39;&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cost&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;way&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                &lt;span class=&#34;kr&#34;&gt;let&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;visited&amp;#39;&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;v&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;visited&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                &lt;span class=&#34;kr&#34;&gt;let&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;heuristic&amp;#39;&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;upBound&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;visited&amp;#39;&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cost&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;n&#34;&gt;back&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;            &lt;span class=&#34;kr&#34;&gt;case&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;distance&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;g&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;at&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;of&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                &lt;span class=&#34;kt&#34;&gt;Just&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;wayback&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;let&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cost&amp;#39;&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cost&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;+&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;wayback&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                                    &lt;span class=&#34;n&#34;&gt;visited&amp;#39;&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;visited&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                                    &lt;span class=&#34;n&#34;&gt;heuristic&amp;#39;&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cost&amp;#39;&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                                &lt;span class=&#34;kr&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;TspNode&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;cost&amp;#39;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;visited&amp;#39;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;heuristic&amp;#39;&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;                &lt;span class=&#34;kt&#34;&gt;Nothing&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;[]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;kr&#34;&gt;in&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;if&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;length&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;visited&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;==&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;length&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;n&#34;&gt;vertices&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;g&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;mi&#34;&gt;1&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;then&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;back&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;else&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;nodes&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;程序总体框架：&lt;/p&gt;
+&lt;img src=&#34;view1.png&#34; alt=&#34;huffmantree&#34; style=&#34;zoom:80%; &#34; /&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;其他实例简述&#34;&gt;&lt;a href=&#34;#%e5%85%b6%e4%bb%96%e5%ae%9e%e4%be%8b%e7%ae%80%e8%bf%b0&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;其他实例简述
+&lt;/h2&gt;&lt;p&gt;我们可以把 DFS 和 BFS 也通过此模型来表现，在数据结构的课上，我们往往分别使用递归、队列+迭代这样两种不一样的程序结构来做实现，那么在这个模型下，改变结点的优先级依据，就改变了搜索拓展结点的选择策略，即改变搜索行为。&lt;/p&gt;
+&lt;p&gt;假设有这样的一个结点：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-hs&#34; data-lang=&#34;hs&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kr&#34;&gt;data&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Node&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Node&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;info&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;::&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;          &lt;span class=&#34;c1&#34;&gt;-- 问题相关的具体结点信息&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;level&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;::&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Int&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;,&lt;/span&gt;       &lt;span class=&#34;c1&#34;&gt;-- 结点所在的搜索树的层次&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;order&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;::&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Int&lt;/span&gt;        &lt;span class=&#34;c1&#34;&gt;-- 结点被产生的次序&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;深搜总是拓展当前搜索树中最深的活结点，如果要使用此结点在任意搜索环境下进行&lt;strong&gt;深度优先&lt;/strong&gt;搜索，那么需要将结点的优先级设置为 &lt;code&gt;level&lt;/code&gt; ：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-hs&#34; data-lang=&#34;hs&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kr&#34;&gt;instance&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Ord&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;Node&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;where&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;compare&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;::&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Node&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Node&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Ordering&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;compare&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n1&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;level&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;level&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n2&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;LT&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;-- DEPTH first &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;level&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;level&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n2&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;LT&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;otherwise&lt;/span&gt;           &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;EQ&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;宽搜总是拓展当前搜索树中最早被生成的活结点，如果要使用此结点在任意搜索环境下进行宽度优先搜索，那么需要将结点的优先级设置为 &lt;code&gt;order&lt;/code&gt;：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-hs&#34; data-lang=&#34;hs&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;kr&#34;&gt;instance&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Ord&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;kt&#34;&gt;Node&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;kr&#34;&gt;where&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;compare&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;::&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Node&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Node&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;a&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;Ordering&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;    &lt;span class=&#34;n&#34;&gt;compare&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n1&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;order&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;order&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n2&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;LT&lt;/span&gt;  &lt;span class=&#34;c1&#34;&gt;-- BREADTH first &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;order&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n1&lt;/span&gt; &lt;span class=&#34;o&#34;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;order&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;n2&lt;/span&gt; &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;LT&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;        &lt;span class=&#34;o&#34;&gt;|&lt;/span&gt; &lt;span class=&#34;n&#34;&gt;otherwise&lt;/span&gt;           &lt;span class=&#34;ow&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;kt&#34;&gt;EQ&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;不足之处&#34;&gt;&lt;a href=&#34;#%e4%b8%8d%e8%b6%b3%e4%b9%8b%e5%a4%84&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;不足之处
+&lt;/h2&gt;&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;没有将该搜索抽象应用于更多的具体问题：&lt;/p&gt;
+&lt;p&gt;本来是准备把课本的经典案例都用基于此模型实现一遍，但是——时间不够了，DDL就在眼前，所以只提供了TSP问题在该模型下的实例化；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;解的数量：&lt;/p&gt;
+&lt;p&gt;这里我将解的数量限制为1，默认将第一个解作为问题的解，这在部分情况下是有效的，例如这里实现的TSP问题，因为heuristic的计算逻辑保证了首解就是最优解，但是也可能存在其他情况，(a) 首解只是最优解的近似，最优解可能在后面产生，(b) 需要保留多个解，这些情况都是目前的模型无法处理的。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;!-- 3. 抽象程度与效率的平衡 --&gt;
+</description>
         </item>
         <item>
         <title>如何避免重复计算 / 纯函数及其求值策略</title>
@@ -801,11 +988,11 @@ $ \bar{\sigma} = _{\beta, w} \lambda nfz. f (n f z)$ &lt;/br&gt;&lt;/p&gt;
 </description>
         </item>
         <item>
-        <title>抽象层次平缓提升的 Church Encoding</title>
-        <link>http://fyshxfish.github.io/p/%E6%8A%BD%E8%B1%A1%E5%B1%82%E6%AC%A1%E5%B9%B3%E7%BC%93%E6%8F%90%E5%8D%87%E7%9A%84-church-encoding/</link>
+        <title>Church Encoding Note</title>
+        <link>http://fyshxfish.github.io/p/church-encoding-note/</link>
         <pubDate>Sun, 08 Sep 2024 20:13:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/p/%E6%8A%BD%E8%B1%A1%E5%B1%82%E6%AC%A1%E5%B9%B3%E7%BC%93%E6%8F%90%E5%8D%87%E7%9A%84-church-encoding/</guid>
+        <guid>http://fyshxfish.github.io/p/church-encoding-note/</guid>
         <description>&lt;h2 id=&#34;motivation-abstraction-level-up&#34;&gt;&lt;a href=&#34;#motivation-abstraction-level-up&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Motivation: Abstraction Level Up!
 &lt;/h2&gt;&lt;ol&gt;
 &lt;li&gt;
@@ -887,7 +1074,7 @@ $ \bar{\sigma} = _{\beta, w} \lambda nfz. f (n f z)$ &lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;Church Encoding 是对计数过程的一种抽象，在 Lambda Calculus 的语境里，归纳定义 $λ-term$ 的三条规则分别涉及了 $atom$, $abstraction$, $application$，Church Encoding 可以理解为：有一个起始的 $atom$ 和一个 $abstraction$ ，我们希望对这个 $atom$ 进行&lt;strong&gt;若干次&lt;/strong&gt; $abstraction$ 的应用（$apply$），我们使用更高一层的 $abstraction$ 来抽象对 &amp;quot; &lt;strong&gt;若干次&lt;/strong&gt; &amp;quot; 进行计数的过程，这一层对于计数过程的抽象就是 Church Encoding.&lt;/p&gt;
 &lt;h2 id=&#34;church-encoding-in-scheme&#34;&gt;&lt;a href=&#34;#church-encoding-in-scheme&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Church Encoding in Scheme
 &lt;/h2&gt;&lt;p&gt;$zero：λf.λx.x$&lt;/p&gt;
-&lt;p&gt;对某个 $atom$ 进行 $0$ 次任意 $abstraction$ 的应用，返回值依然是原来的 $atom$.&lt;/p&gt;
+&lt;p&gt;对某个 $term$ 进行 $0$ 次任意 $abstraction$ 的应用，返回值依然是原来的 $term$.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-scm&#34; data-lang=&#34;scm&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;define &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;zero&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;lambda &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;f&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;$one：λf.λx.(f x)$&lt;/br&gt;
 $two：λf.λx.(f (f x))$&lt;/br&gt;
@@ -922,12 +1109,13 @@ $three: λf.λx.(f (f (f x)))$&lt;/p&gt;
   &lt;!-- 见证 Lambda-Calculus 的强大魅力 --&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;给了我很大启发的一则&lt;a class=&#34;link&#34; href=&#34;https://www.zhihu.com/question/39930042/answer/2415190431?utm_psn=1816166240617631745&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+&lt;p&gt;一则&lt;a class=&#34;link&#34; href=&#34;https://www.zhihu.com/question/39930042/answer/2415190431?utm_psn=1816166240617631745&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;知乎回答&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;后记&#34;&gt;&lt;a href=&#34;#%e5%90%8e%e8%ae%b0&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;后记
-&lt;/h2&gt;&lt;p&gt;Church Encoding 让我困惑了很久，每次我听到一些视频 / 博客里说 &amp;ldquo;zero 就是把函数应用 0 次，one 就是把函数应用 1 次&amp;rdquo;，我都感觉是不是我的直觉太差了，不是很能懂得这句话的意思，至于 $two：λf.λx.(f (f x))$ 更是拆开都认识，合起来不知道它是如何 make sense 的. 我想应该是我潜意识里一直试图把它和算术运算挂靠在一起，所以一直不理解. Church Encoding 被翻译成丘奇&lt;strong&gt;数&lt;/strong&gt;，我觉得这个翻译也给我造成了某种困扰，这也是前文完全不提供翻译的原因. 很多材料（比如 SICP ）谈及丘奇数给出的例子是：把 &lt;code&gt;add-1&lt;/code&gt; 作用于 &lt;code&gt;0&lt;/code&gt;，我觉得这个例子也是容易给人造成误会的，好吧其实是给我造成误会了，让我觉得 &lt;code&gt;1&lt;/code&gt;,&lt;code&gt;2&lt;/code&gt;,&lt;code&gt;3&lt;/code&gt; 和 &lt;code&gt;one&lt;/code&gt;, &lt;code&gt;two&lt;/code&gt;, &lt;code&gt;thr&lt;/code&gt; 之间有某种 Church Encoding 设计上的必然的联系，所以我给出的例子是对&lt;code&gt;2&lt;/code&gt;应用 3 次 &lt;code&gt;square&lt;/code&gt;. 接触以 Lambda Calculus 为起点的 FP 内容，尽量避免过拟合，甚至最好不要试图去拟合，很多困扰可能是 过往的经验 / 经验所塑造的潜意识 带给你的.&lt;/p&gt;
+&lt;!-- ## 后记
+
+Church Encoding 让我困惑了很久，每次我听到一些视频 / 博客里说 &#34;zero 就是把函数应用 0 次，one 就是把函数应用 1 次&#34;，我都感觉是不是我的直觉太差了，不是很能懂得这句话的意思，至于 $two：λf.λx.(f&amp;thinsp;(f&amp;thinsp;x))$ 更是拆开都认识，合起来不知道它是如何 make sense 的. 我想应该是我潜意识里一直试图把它和算术运算挂靠在一起，所以一直不理解. Church Encoding 被翻译成丘奇**数**，我觉得这个翻译也给我造成了某种困扰，这也是前文完全不提供翻译的原因. 很多材料（比如 SICP ）谈及丘奇数给出的例子是：把 `add-1` 作用于 `0`，我觉得这个例子也是容易给人造成误会的，好吧其实是给我造成误会了，让我觉得 `1`,`2`,`3` 和 `one`, `two`, `thr` 之间有某种 Church Encoding 设计上的必然的联系，所以我给出的例子是对`2`应用 3 次 `square`. 接触以 Lambda Calculus 为起点的 FP 内容，尽量避免过拟合，甚至最好不要试图去拟合，很多困扰可能是 过往的经验 / 经验所塑造的潜意识 带给你的. --&gt;
 </description>
         </item>
         <item>

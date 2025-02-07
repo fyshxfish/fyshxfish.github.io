@@ -7,11 +7,11 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
         <lastBuildDate>Sun, 08 Sep 2024 20:13:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/tags/scheme/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>抽象层次平缓提升的 Church Encoding</title>
-        <link>http://fyshxfish.github.io/p/%E6%8A%BD%E8%B1%A1%E5%B1%82%E6%AC%A1%E5%B9%B3%E7%BC%93%E6%8F%90%E5%8D%87%E7%9A%84-church-encoding/</link>
+        <title>Church Encoding Note</title>
+        <link>http://fyshxfish.github.io/p/church-encoding-note/</link>
         <pubDate>Sun, 08 Sep 2024 20:13:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/p/%E6%8A%BD%E8%B1%A1%E5%B1%82%E6%AC%A1%E5%B9%B3%E7%BC%93%E6%8F%90%E5%8D%87%E7%9A%84-church-encoding/</guid>
+        <guid>http://fyshxfish.github.io/p/church-encoding-note/</guid>
         <description>&lt;h2 id=&#34;motivation-abstraction-level-up&#34;&gt;&lt;a href=&#34;#motivation-abstraction-level-up&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Motivation: Abstraction Level Up!
 &lt;/h2&gt;&lt;ol&gt;
 &lt;li&gt;
@@ -93,7 +93,7 @@
 &lt;p&gt;Church Encoding 是对计数过程的一种抽象，在 Lambda Calculus 的语境里，归纳定义 $λ-term$ 的三条规则分别涉及了 $atom$, $abstraction$, $application$，Church Encoding 可以理解为：有一个起始的 $atom$ 和一个 $abstraction$ ，我们希望对这个 $atom$ 进行&lt;strong&gt;若干次&lt;/strong&gt; $abstraction$ 的应用（$apply$），我们使用更高一层的 $abstraction$ 来抽象对 &amp;quot; &lt;strong&gt;若干次&lt;/strong&gt; &amp;quot; 进行计数的过程，这一层对于计数过程的抽象就是 Church Encoding.&lt;/p&gt;
 &lt;h2 id=&#34;church-encoding-in-scheme&#34;&gt;&lt;a href=&#34;#church-encoding-in-scheme&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Church Encoding in Scheme
 &lt;/h2&gt;&lt;p&gt;$zero：λf.λx.x$&lt;/p&gt;
-&lt;p&gt;对某个 $atom$ 进行 $0$ 次任意 $abstraction$ 的应用，返回值依然是原来的 $atom$.&lt;/p&gt;
+&lt;p&gt;对某个 $term$ 进行 $0$ 次任意 $abstraction$ 的应用，返回值依然是原来的 $term$.&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; class=&#34;chroma&#34;&gt;&lt;code class=&#34;language-scm&#34; data-lang=&#34;scm&#34;&gt;&lt;span class=&#34;line&#34;&gt;&lt;span class=&#34;cl&#34;&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;define &lt;/span&gt;&lt;span class=&#34;nv&#34;&gt;zero&lt;/span&gt; &lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;k&#34;&gt;lambda &lt;/span&gt;&lt;span class=&#34;p&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;nf&#34;&gt;f&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;)&lt;/span&gt; &lt;span class=&#34;nv&#34;&gt;x&lt;/span&gt;&lt;span class=&#34;p&#34;&gt;))&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;$one：λf.λx.(f x)$&lt;/br&gt;
 $two：λf.λx.(f (f x))$&lt;/br&gt;
@@ -128,12 +128,13 @@ $three: λf.λx.(f (f (f x)))$&lt;/p&gt;
   &lt;!-- 见证 Lambda-Calculus 的强大魅力 --&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;给了我很大启发的一则&lt;a class=&#34;link&#34; href=&#34;https://www.zhihu.com/question/39930042/answer/2415190431?utm_psn=1816166240617631745&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+&lt;p&gt;一则&lt;a class=&#34;link&#34; href=&#34;https://www.zhihu.com/question/39930042/answer/2415190431?utm_psn=1816166240617631745&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;知乎回答&lt;/a&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;后记&#34;&gt;&lt;a href=&#34;#%e5%90%8e%e8%ae%b0&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;后记
-&lt;/h2&gt;&lt;p&gt;Church Encoding 让我困惑了很久，每次我听到一些视频 / 博客里说 &amp;ldquo;zero 就是把函数应用 0 次，one 就是把函数应用 1 次&amp;rdquo;，我都感觉是不是我的直觉太差了，不是很能懂得这句话的意思，至于 $two：λf.λx.(f (f x))$ 更是拆开都认识，合起来不知道它是如何 make sense 的. 我想应该是我潜意识里一直试图把它和算术运算挂靠在一起，所以一直不理解. Church Encoding 被翻译成丘奇&lt;strong&gt;数&lt;/strong&gt;，我觉得这个翻译也给我造成了某种困扰，这也是前文完全不提供翻译的原因. 很多材料（比如 SICP ）谈及丘奇数给出的例子是：把 &lt;code&gt;add-1&lt;/code&gt; 作用于 &lt;code&gt;0&lt;/code&gt;，我觉得这个例子也是容易给人造成误会的，好吧其实是给我造成误会了，让我觉得 &lt;code&gt;1&lt;/code&gt;,&lt;code&gt;2&lt;/code&gt;,&lt;code&gt;3&lt;/code&gt; 和 &lt;code&gt;one&lt;/code&gt;, &lt;code&gt;two&lt;/code&gt;, &lt;code&gt;thr&lt;/code&gt; 之间有某种 Church Encoding 设计上的必然的联系，所以我给出的例子是对&lt;code&gt;2&lt;/code&gt;应用 3 次 &lt;code&gt;square&lt;/code&gt;. 接触以 Lambda Calculus 为起点的 FP 内容，尽量避免过拟合，甚至最好不要试图去拟合，很多困扰可能是 过往的经验 / 经验所塑造的潜意识 带给你的.&lt;/p&gt;
+&lt;!-- ## 后记
+
+Church Encoding 让我困惑了很久，每次我听到一些视频 / 博客里说 &#34;zero 就是把函数应用 0 次，one 就是把函数应用 1 次&#34;，我都感觉是不是我的直觉太差了，不是很能懂得这句话的意思，至于 $two：λf.λx.(f&amp;thinsp;(f&amp;thinsp;x))$ 更是拆开都认识，合起来不知道它是如何 make sense 的. 我想应该是我潜意识里一直试图把它和算术运算挂靠在一起，所以一直不理解. Church Encoding 被翻译成丘奇**数**，我觉得这个翻译也给我造成了某种困扰，这也是前文完全不提供翻译的原因. 很多材料（比如 SICP ）谈及丘奇数给出的例子是：把 `add-1` 作用于 `0`，我觉得这个例子也是容易给人造成误会的，好吧其实是给我造成误会了，让我觉得 `1`,`2`,`3` 和 `one`, `two`, `thr` 之间有某种 Church Encoding 设计上的必然的联系，所以我给出的例子是对`2`应用 3 次 `square`. 接触以 Lambda Calculus 为起点的 FP 内容，尽量避免过拟合，甚至最好不要试图去拟合，很多困扰可能是 过往的经验 / 经验所塑造的潜意识 带给你的. --&gt;
 </description>
         </item>
         <item>

@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="&ndash; NOT COMPLETED &ndash;\nfunctional，发售于 Steam (29 CNY).\n可以说是 Lambda Calculus 习题集，非常纯的 LC，纯到甚至不能做 name binding.\n一点建议：可以先在比较现代的编辑器里编辑，然后复制进来.\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="functional，发售于 Steam (29 CNY)，可以说是 Lambda Calculus 应用习题集.\nBasic anything 写出任意一个符合 Lambda Calculus 语法 (1. variable 2. abstraction 3. application) 的 term 即可.\nidentity x: x two arguments x:y: y x squaring f:x: f (f x) indirection f:x:y: f y x Boolean 定义：\n">
 <title>functional on Steam / λ 习题集 - Solutions</title>
 
 <link rel='canonical' href='http://fyshxfish.github.io/p/functional-on-steam-/-%CE%BB-%E4%B9%A0%E9%A2%98%E9%9B%86-solutions/'>
 
 <link rel="stylesheet" href="/scss/style.min.b51788d43472ffad20b588167514427b70146d30bc2a1ee0490ab0db3b5da439.css"><meta property='og:title' content="functional on Steam / λ 习题集 - Solutions">
-<meta property='og:description' content="&ndash; NOT COMPLETED &ndash;\nfunctional，发售于 Steam (29 CNY).\n可以说是 Lambda Calculus 习题集，非常纯的 LC，纯到甚至不能做 name binding.\n一点建议：可以先在比较现代的编辑器里编辑，然后复制进来.\n">
+<meta property='og:description' content="functional，发售于 Steam (29 CNY)，可以说是 Lambda Calculus 应用习题集.\nBasic anything 写出任意一个符合 Lambda Calculus 语法 (1. variable 2. abstraction 3. application) 的 term 即可.\nidentity x: x two arguments x:y: y x squaring f:x: f (f x) indirection f:x:y: f y x Boolean 定义：\n">
 <meta property='og:url' content='http://fyshxfish.github.io/p/functional-on-steam-/-%CE%BB-%E4%B9%A0%E9%A2%98%E9%9B%86-solutions/'>
 <meta property='og:site_name' content='fyshXplore'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='lambda calculus' /><meta property='article:published_time' content='2025-02-02T21:29:00&#43;08:00'/><meta property='article:modified_time' content='2025-02-02T21:29:00&#43;08:00'/>
 <meta name="twitter:title" content="functional on Steam / λ 习题集 - Solutions">
-<meta name="twitter:description" content="&ndash; NOT COMPLETED &ndash;\nfunctional，发售于 Steam (29 CNY).\n可以说是 Lambda Calculus 习题集，非常纯的 LC，纯到甚至不能做 name binding.\n一点建议：可以先在比较现代的编辑器里编辑，然后复制进来.\n"><style>
+<meta name="twitter:description" content="functional，发售于 Steam (29 CNY)，可以说是 Lambda Calculus 应用习题集.\nBasic anything 写出任意一个符合 Lambda Calculus 语法 (1. variable 2. abstraction 3. application) 的 term 即可.\nidentity x: x two arguments x:y: y x squaring f:x: f (f x) indirection f:x:y: f y x Boolean 定义：\n"><style>
   :root {
      
     --zh-font-family: "Noto Serif SC";
@@ -423,7 +423,7 @@
 
 
                 <time class="article-time--reading">
-                    10 minute read
+                    11 minute read
                 </time>
             </div>
         
@@ -438,10 +438,7 @@
     <section class="article-content">
     
     
-    <p><strong><em>&ndash; NOT COMPLETED &ndash;</em></strong></p>
-<p>functional，发售于 Steam (29 CNY).</p>
-<p>可以说是 Lambda Calculus 习题集，非常纯的 LC，纯到甚至不能做 name binding.</p>
-<p>一点建议：可以先在比较现代的编辑器里编辑，然后复制进来.</p>
+    <p>functional，发售于 Steam (29 CNY)，可以说是 Lambda Calculus 应用习题集.</p>
 <h2 id="basic"><a href="#basic" class="header-anchor"></a>Basic
 </h2><h3 id="anything"><a href="#anything" class="header-anchor"></a>anything
 </h3><p>写出任意一个符合 Lambda Calculus 语法 (1. variable 2. abstraction 3. application) 的 term 即可.</p>
@@ -597,7 +594,7 @@ FALSE = t:f: f
 <h4 id="y-combinator-使用"><a href="#y-combinator-%e4%bd%bf%e7%94%a8" class="header-anchor"></a>Y combinator 使用
 </h4><p>承接动机部分，我们用 <code>F' = f:a: ...</code> 表达递归函数 <code>f</code> 与其参数 <code>a</code> 之间的应用逻辑，将目标递归函数为 <code>F</code>，那么 <code>F = F' F</code>，因为自引的不合法，考虑用 <code>Y F'</code> 来表示 <code>F</code>，在上一节中我们涉及出了可行的 <code>Y</code>，于是 <code>F = Y F'</code> 就是我们希望得到的目标函数.</p>
 <!-- TL;DR: 如果希望实现 `f` 的递归，`f` 的参数为 `a`，Y  -->
-<p>想明白 Y 组合子的使用，本 section 的关卡都很简单了，唯一值得提示的是 1. 使用以往关卡已定义过的函数时，注意函数的参数顺序，例如 <code>FILTER</code> 先传列表，再传过滤依赖的函数，因为 Simple LC 语法层面的约束很少，所以编程者自己要多当心一些 2. 有若干个关卡可能涉及列表反转，所以 <code>REVERSE</code> 可以先写，然后直接拿来用 3. 注意括号配对，可以现在先进的编辑器里先写，确保不犯低级错误，再复制进来评测. 下面给出的答案仅供参考~可以过评测，但未必最简.</p>
+<p>想明白 Y 组合子的使用，本 section 的关卡都很简单了，唯一值得提示的是 1. 使用以往关卡已定义过的函数时，注意函数的参数顺序，例如 <code>FILTER</code> 先传列表，再传过滤依赖的函数，因为 Simple LC 语法层面的约束很少，所以编程者自己要多当心一些 2. 有若干个关卡可能涉及列表反转，所以 <code>REVERSE</code> 可以先写，然后直接拿来用 3. 注意括号配对，可以现在先进的编辑器里先写，确保不犯低级错误，再复制进来评测. 下面给出的答案仅供参考，可以过评测，但未必最简.</p>
 <h3 id="strip-prefix"><a href="#strip-prefix" class="header-anchor"></a>strip prefix
 </h3><p>去除不定长列表前缀的 <code>FALSE</code>：</p>
 <pre tabindex="0"><code>Y (f:l:
@@ -615,8 +612,7 @@ FALSE = t:f: f
 </code></pre><h3 id="all"><a href="#all" class="header-anchor"></a>ALL
 </h3><pre tabindex="0"><code>l: ACC l AND TRUE
 </code></pre><h3 id="reverse"><a href="#reverse" class="header-anchor"></a>REVERSE
-</h3><pre tabindex="0"><code>Y 
-  (i:c:l: 
+</h3><pre tabindex="0"><code>Y (i:c:l: 
     IF 
       (EMPTY l) 
       c 
@@ -684,14 +680,13 @@ FALSE
 </code></pre><h3 id="pre"><a href="#pre" class="header-anchor"></a>PRE
 </h3><p>一个基本的观察是 <code>n = n SUC 0</code>，这里的等号表示内涵等价（intensional equality），那么在 <code>PAIR 0 0</code> 上做 $n$ 次迭代，一轮迭代的工作是：1. 右侧数对齐左侧数 2. 左侧数做一次后继，那么右侧数始终慢左侧数一步，即 $n$ 轮迭代后，左侧数是 <code>n</code>，右侧数是左侧数的后继.</p>
 <pre tabindex="0"><code>(n: SND (n (p: PAIR (SUC (FST p)) (FST p)) (PAIR 0 0) ) )
-</code></pre><p>[* 以下部分的说明文本将在日后补上]</p>
-<h3 id="add"><a href="#add" class="header-anchor"></a>ADD
-</h3><!-- 给定 `x`, `y`，目标是给出 `x+y`， -->
+</code></pre><h3 id="add"><a href="#add" class="header-anchor"></a>ADD
+</h3><p>给定 <code>x</code>, <code>y</code>，目标是给出 <code>x+y</code>，<code>x+y</code> 的含义是：预备接收 <code>f</code>, <code>z</code>，将 <code>f</code> 应用于 <code>z</code> $(x+y)$ 次. 先将 <code>f</code> 应用于 <code>z</code> $x$ 次，得到结果 <code>x f z</code>，再将 <code>f</code> 应用于 <code>(x f z)</code> $y$ 次.</p>
 <pre tabindex="0"><code>(x:y: (f:z: y f (x f z)) )
 </code></pre><h3 id="sub"><a href="#sub" class="header-anchor"></a>SUB
 </h3><pre tabindex="0"><code>(x:y: (f:z: (y PRE x) f z))
 </code></pre><h3 id="mul"><a href="#mul" class="header-anchor"></a>MUL
-</h3><pre tabindex="0"><code>(x:y:f:z: y (x f) z  )
+</h3><pre tabindex="0"><code>(x:y:f:z: y (x f) z )
 </code></pre><h3 id="div"><a href="#div" class="header-anchor"></a>DIV
 </h3><pre tabindex="0"><code>(Y (d:c:x:y:
         IF (ZERO x)
@@ -704,7 +699,10 @@ FALSE
    ) 
 ) 0
 </code></pre><h3 id="eq"><a href="#eq" class="header-anchor"></a>EQ
-</h3><pre tabindex="0"><code>(x:y: AND (ZERO (x PRE y)) (ZERO (y PRE x)))
+</h3><pre tabindex="0"><code>(x:y: AND 
+        (ZERO (x PRE y)) 
+        (ZERO (y PRE x))
+)
 </code></pre><h3 id="min"><a href="#min" class="header-anchor"></a>MIN
 </h3><pre tabindex="0"><code>(x:y: IF (ZERO (x PRE y))
       y
@@ -718,14 +716,34 @@ FALSE
 </code></pre><h2 id="more-numerals"><a href="#more-numerals" class="header-anchor"></a>More Numerals
 </h2><h3 id="is-odd"><a href="#is-odd" class="header-anchor"></a>is odd
 </h3><pre tabindex="0"><code>(n: (n NOT FALSE))
-</code></pre><h3 id="increasing-list"><a href="#increasing-list" class="header-anchor"></a>increasing list
-</h3><pre tabindex="0"><code>(Y (f:c:n: IF (ZERO n)
+</code></pre><p>顺便想起了判断奇偶的递归方法：（看起来还挺有意思的，比熟悉的 <code>mod 2</code> 新鲜一些）</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-hs" data-lang="hs"><span class="line"><span class="cl"><span class="nf">isEven</span> <span class="ow">::</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="kt">Bool</span> 
+</span></span><span class="line"><span class="cl"><span class="nf">isEven</span> <span class="mi">0</span> <span class="ow">=</span> <span class="kt">True</span> 
+</span></span><span class="line"><span class="cl"><span class="nf">isEven</span> <span class="n">x</span> <span class="ow">=</span> <span class="n">isOdd</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">isOdd</span> <span class="ow">::</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="kt">Bool</span>
+</span></span><span class="line"><span class="cl"><span class="nf">isOdd</span> <span class="mi">0</span> <span class="ow">=</span> <span class="kt">False</span>
+</span></span><span class="line"><span class="cl"><span class="nf">isOdd</span> <span class="n">x</span> <span class="ow">=</span> <span class="n">isEven</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span></span></code></pre></div><h3 id="increasing-list"><a href="#increasing-list" class="header-anchor"></a>increasing list
+</h3><p>尾递归：</p>
+<pre tabindex="0"><code>(Y (f:c:n: IF (ZERO n)
            (PAIR 0 c)
            (f (PAIR n c) (PRE n))
    ) 
 ) FALSE
+</code></pre><p>非尾递归：</p>
+<pre tabindex="0"><code>(n: REVERSE 
+    ( 
+     (Y (f:x: 
+            IF (ZERO x)
+            (PAIR 0 FALSE)
+            (PAIR x (f (PRE x))))
+     ) n
+    )
+)
 </code></pre><h3 id="decomposition"><a href="#decomposition" class="header-anchor"></a>decomposition
-</h3><pre tabindex="0"><code>(Y (f:c:k:n:
+</h3><p>将给定数分解成 2 的幂之和：</p>
+<pre tabindex="0"><code>(Y (f:c:k:n:
      IF (ZERO n)
      c
      (IF (AND (EQ n (MIN k n)) (NOT (EQ k n)))  
@@ -734,7 +752,7 @@ FALSE
      )
    )
 ) FALSE 8
-</code></pre><p>* primes 和 sort 都需要大把时间运行（本机测试两关各自耗时都在 30min 左右）</p>
+</code></pre><p><strong>*</strong> primes 和 sort 都需要大把时间运行（本机测试两关各自耗时都在 30min 左右）</p>
 <h3 id="primes"><a href="#primes" class="header-anchor"></a>primes
 </h3><pre tabindex="0"><code>Y (f:l:p:n: 
      IF (EQ n (FST p)) 
@@ -746,9 +764,9 @@ FALSE
                 IF (EQ n (MIN n p) )
                 (IF (EQ n p) TRUE FALSE )
                 (f (SUB n p) p)   
-              )
+               )
             ) n (FST p)
-          )
+           )
         (f (PAIR (FST p) l) p (DIV n (FST p)))
         (f l (SND p) n)
       )
@@ -757,9 +775,10 @@ FALSE
   FALSE
   (PAIR 47 (PAIR 43 (PAIR 41 (PAIR 37 (PAIR 31 (PAIR 29 
   (PAIR 23 (PAIR 19 (PAIR 17 (PAIR 13 (PAIR 11 (PAIR 7 
-  (PAIR 3 (PAIR 2 FALSE))))))))))))))
+  (PAIR 3  (PAIR 2 FALSE))))))))))))))
 </code></pre><h3 id="sort"><a href="#sort" class="header-anchor"></a>sort
-</h3><pre tabindex="0"><code>Y (f:c:l: 
+</h3><p>选择排序：</p>
+<pre tabindex="0"><code>Y (f:c:l: 
     IF (EMPTY l)
     c
     (
@@ -768,8 +787,7 @@ FALSE
     )
   ) FALSE
 </code></pre><h2 id="trees"><a href="#trees" class="header-anchor"></a>trees
-</h2><p>* 本 section 需要单独购买（免费）</p>
-<h3 id="node"><a href="#node" class="header-anchor"></a>NODE
+</h2><h3 id="node"><a href="#node" class="header-anchor"></a>NODE
 </h3><pre tabindex="0"><code>l:v:r:f: f l v r
 </code></pre><h3 id="lef"><a href="#lef" class="header-anchor"></a>LEF
 </h3><pre tabindex="0"><code>t: t (l:v:r: l) 
@@ -778,9 +796,11 @@ FALSE
 </code></pre><h3 id="val"><a href="#val" class="header-anchor"></a>VAL
 </h3><pre tabindex="0"><code>t: t (l:v:r: v)
 </code></pre><h3 id="bempty"><a href="#bempty" class="header-anchor"></a>BEMPTY
-</h3><pre tabindex="0"><code>(t: t (l:v:r:x:FALSE) TRUE )
+</h3><p>类似于列表判空，<code>NODE l v r = f: f l v r</code>，空树用 <code>FALSE := a:b: b</code>，将一个树 <code>t</code> 作为函数使用，若是空树，<code>t A B = FALSE A B = B ~ᴇxᴘᴇᴄᴛᴇᴅ→ TRUE</code>，若不是空树 <code>t A B = (f: f l v r) A B = A l v r B ~ᴇxᴘᴇᴄᴛᴇᴅ→ FALSE</code>，根据以上，<code>B = TRUE, A = l:v:r:x FALSE</code>，所以：</p>
+<pre tabindex="0"><code>(t: t (l:v:r:x: FALSE) TRUE )
 </code></pre><h3 id="find"><a href="#find" class="header-anchor"></a>FIND
-</h3><pre tabindex="0"><code>Y (f:t:v:
+</h3><p>判断树 <code>t</code> 中是否存在值为 <code>v</code> 的结点：</p>
+<pre tabindex="0"><code>Y (f:t:v:
     IF (BEMPTY t)
     FALSE
     (IF (EQ (VAL t) v)
@@ -789,13 +809,15 @@ FALSE
     )
   )
 </code></pre><h3 id="bsize"><a href="#bsize" class="header-anchor"></a>BSIZE
-</h3><pre tabindex="0"><code>Y (f:t:
+</h3><p>计算树的规模：</p>
+<pre tabindex="0"><code>Y (f:t:
     IF (BEMPTY t)
     0
     (SUC (ADD (f (LEF t)) (f (RIG t))))
   )
 </code></pre><h3 id="build"><a href="#build" class="header-anchor"></a>BUILD
-</h3><pre tabindex="0"><code>Y (f:c:l:
+</h3><p>二叉搜索树的构造：</p>
+<pre tabindex="0"><code>Y (f:c:l:
     IF (EMPTY l)
     c
     (   f
@@ -814,8 +836,10 @@ FALSE
         (SND l)
     ) 
   ) FALSE
-</code></pre><h3 id="preorder"><a href="#preorder" class="header-anchor"></a>PREORDER
-</h3><pre tabindex="0"><code>Y (f:t: 
+</code></pre><p><em>[ 游戏里的 PREORDER 和 INORDER 两个函数似乎反了？ ]</em></p>
+<h3 id="preorder"><a href="#preorder" class="header-anchor"></a>PREORDER
+</h3><p>二叉树的中序遍历：</p>
+<pre tabindex="0"><code>Y (f:t: 
     IF (BEMPTY t)
     FALSE
     (CONCAT (f (LEF t))
@@ -825,7 +849,8 @@ FALSE
     )
   )
 </code></pre><h3 id="inorder"><a href="#inorder" class="header-anchor"></a>INORDER
-</h3><pre tabindex="0"><code>Y (f:t: 
+</h3><p>二叉树的前序遍历：</p>
+<pre tabindex="0"><code>Y (f:t: 
     IF (BEMPTY t)
     FALSE
     (PUSH (VAL t)
@@ -835,7 +860,8 @@ FALSE
     )
   )
 </code></pre><h3 id="split"><a href="#split" class="header-anchor"></a>SPLIT
-</h3><pre tabindex="0"><code>Y (f:t:v:
+</h3><p>树 <code>t</code> 以 <code>v</code> 为界进行分割：</p>
+<pre tabindex="0"><code>Y (f:t:v:
     IF (BEMPTY t)
     (PAIR FALSE FALSE)
     (
@@ -851,7 +877,8 @@ FALSE
     )
   )
 </code></pre><h3 id="kth"><a href="#kth" class="header-anchor"></a>KTH
-</h3><pre tabindex="0"><code>(t:k: 
+</h3><p>对给定的二叉搜索树，给出其中第 <code>k</code> 大的元素，取出树的中序遍历列表中的第 <code>k</code> 项即可：</p>
+<pre tabindex="0"><code>(t:k: 
     Y (f:c:l:
         IF (EQ c 0)
         (FST l)
@@ -859,7 +886,8 @@ FALSE
     ) k (PREORDER t)
 )
 </code></pre><h3 id="inverse-6"><a href="#inverse-6" class="header-anchor"></a>inverse 6
-</h3><pre tabindex="0"><code>t: 
+</h3><p>对给定的二叉搜索树 <code>t</code>，找出 <code>[1..6]</code> 中的若干个缺席者，升序排列：</p>
+<pre tabindex="0"><code>t: 
   IF (BEMPTY t)
   (PAIR 1 (PAIR 2 (PAIR 3 (PAIR 4 (PAIR 5 (PAIR 6 FALSE))))))
   (
@@ -876,7 +904,8 @@ FALSE
     (PREORDER t)
     (PAIR 1 (PAIR 2 (PAIR 3 (PAIR 4 (PAIR 5 (PAIR 6 FALSE))))))
   )
-</code></pre>
+</code></pre><hr>
+
 </section>
 
 
@@ -955,12 +984,12 @@ FALSE
             
                 
 <article class="">
-    <a href="/p/%E6%8A%BD%E8%B1%A1%E5%B1%82%E6%AC%A1%E5%B9%B3%E7%BC%93%E6%8F%90%E5%8D%87%E7%9A%84-church-encoding/">
+    <a href="/p/church-encoding-note/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">抽象层次平缓提升的 Church Encoding</h2>
+            <h2 class="article-title">Church Encoding Note</h2>
         </div>
     </a>
 </article>
@@ -981,12 +1010,12 @@ FALSE
             
                 
 <article class="">
-    <a href="/p/%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E9%87%8D%E5%A4%8D%E8%AE%A1%E7%AE%97-/-%E7%BA%AF%E5%87%BD%E6%95%B0%E5%8F%8A%E5%85%B6%E6%B1%82%E5%80%BC%E7%AD%96%E7%95%A5/">
+    <a href="/p/%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95%E7%9A%84%E6%8A%BD%E8%B1%A1/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">如何避免重复计算 / 纯函数及其求值策略</h2>
+            <h2 class="article-title">搜索算法的抽象</h2>
         </div>
     </a>
 </article>
@@ -994,12 +1023,12 @@ FALSE
             
                 
 <article class="">
-    <a href="/p/message-passing-%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84-bool-sicp-2.4.3-%E6%B3%9B%E5%9E%8B-%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9A%84%E8%BE%B9%E7%95%8C/">
+    <a href="/p/%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E9%87%8D%E5%A4%8D%E8%AE%A1%E7%AE%97-/-%E7%BA%AF%E5%87%BD%E6%95%B0%E5%8F%8A%E5%85%B6%E6%B1%82%E5%80%BC%E7%AD%96%E7%95%A5/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">Message Passing 视角下的 Bool - SICP § 2.4.3 | 泛型 | 数据与函数的边界 </h2>
+            <h2 class="article-title">如何避免重复计算 / 纯函数及其求值策略</h2>
         </div>
     </a>
 </article>
