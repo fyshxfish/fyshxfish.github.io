@@ -272,24 +272,24 @@
     <li><a href="#效果展示">效果展示</a></li>
     <li><a href="#具体实现">具体实现</a>
       <ol>
-        <li><a href="#整体框架">整体框架</a></li>
+        <li><a href="#整体框架">整体框架</a>
+          <ol>
+            <li><a href="#目录">目录</a></li>
+            <li><a href="#启动器">启动器</a></li>
+          </ol>
+        </li>
         <li><a href="#单页展示">单页展示</a></li>
-        <li><a href="#页间切换">页间切换</a></li>
-        <li><a href="#图片展示">图片展示</a></li>
+        <li><a href="#图片展示与外部程序调用">图片展示与外部程序调用</a></li>
         <li><a href="#文本渲染">文本渲染</a>
           <ol>
-            <li><a href="#033-转义"><code>\033</code> 转义</a></li>
-            <li><a href="#ascii-art">ASCII Art</a></li>
-            <li><a href="#glow">glow</a></li>
+            <li><a href="#适用于封面页的-ascii-art">适用于封面页的 ASCII Art</a></li>
+            <li><a href="#esc-转义">ESC 转义</a></li>
+            <li><a href="#markdown-渲染">Markdown 渲染</a></li>
           </ol>
         </li>
       </ol>
     </li>
-    <li><a href="#其他">其他</a>
-      <ol>
-        <li><a href="#有趣的命令行工具">有趣的命令行工具</a></li>
-      </ol>
-    </li>
+    <li><a href="#其他有趣的命令行工具">其他有趣的命令行工具</a></li>
   </ol>
 </nav>
         </div>
@@ -354,7 +354,7 @@
 
 
                 <time class="article-time--reading">
-                    1 minute read
+                    3 minute read
                 </time>
             </div>
         
@@ -383,63 +383,116 @@
 <img src="7.png" alt="7" style="zoom:80%;" />
 <h2 id="具体实现"><a href="#%e5%85%b7%e4%bd%93%e5%ae%9e%e7%8e%b0" class="header-anchor"></a>具体实现
 </h2><h3 id="整体框架"><a href="#%e6%95%b4%e4%bd%93%e6%a1%86%e6%9e%b6" class="header-anchor"></a>整体框架
-</h3><img src="dir.png" alt="directory" style="zoom:80%;" />
+</h3><h4 id="目录"><a href="#%e7%9b%ae%e5%bd%95" class="header-anchor"></a>目录
+</h4><img src="dir1.png" alt="directory" style="zoom:80%;" />
+<p>.sh 为展示一张幻灯片的 bash 脚本，.md 为需要渲染的 Markdown，.png 为待展示的图片.</p>
+<h4 id="启动器"><a href="#%e5%90%af%e5%8a%a8%e5%99%a8" class="header-anchor"></a>启动器
+</h4><p>首先打印封面（本质上是在终端输出一页渲染过的文本），然后通过 <code>read</code> 读入文本，控制幻灯片的行为，如换页、图片展示、退出等.</p>
+<p>0_flow.sh：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
 </span></span></span><span class="line"><span class="cl"><span class="cp"></span>
-</span></span><span class="line"><span class="cl">bash ./1_banner.sh
+</span></span><span class="line"><span class="cl">bash ./1_banner.sh         <span class="c1">## 打印封面</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="nv">pc</span><span class="o">=</span>1	<span class="c1"># counter</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="k">while</span> <span class="nb">true</span> 
 </span></span><span class="line"><span class="cl"><span class="k">do</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">read</span> -p <span class="s2">&#34;:&#34;</span> choice 
+</span></span><span class="line"><span class="cl">    <span class="nb">read</span> -p <span class="s2">&#34;:&#34;</span> choice     <span class="c1">## 读取文本，控制翻页、图片展示、退出等</span>
 </span></span><span class="line"><span class="cl">        
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$choice</span><span class="s2">&#34;</span> <span class="o">==</span> <span class="s2">&#34;p&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>	<span class="c1"># previous page</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$choice</span><span class="s2">&#34;</span> <span class="o">==</span> <span class="s2">&#34;p&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>           <span class="c1"># previous page</span>
 </span></span><span class="line"><span class="cl">        <span class="o">((</span>pc--<span class="o">))</span>
 </span></span><span class="line"><span class="cl">        bash ./<span class="si">${</span><span class="nv">pc</span><span class="si">}</span>*
-</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$choice</span><span class="s2">&#34;</span> <span class="o">==</span> <span class="s2">&#34;g&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>	<span class="c1"># show initial of a state machine</span>
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$choice</span><span class="s2">&#34;</span> <span class="o">==</span> <span class="s2">&#34;g&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>         <span class="c1"># show initial of a state machine</span>
 </span></span><span class="line"><span class="cl">        xdg-open ./load_init.png
-</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$choice</span><span class="s2">&#34;</span> <span class="o">==</span> <span class="s2">&#34;b&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>	<span class="c1"># show initial of a state machine</span>
-</span></span><span class="line"><span class="cl">        xdg-open ./bios.png
-</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="o">[[</span> <span class="nv">$choice</span> <span class="o">=</span>~ ^<span class="o">[</span>1-7<span class="o">]</span>$ <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>	<span class="c1"># jump</span>
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="o">[[</span> <span class="nv">$choice</span> <span class="o">=</span>~ ^<span class="o">[</span>1-7<span class="o">]</span>$ <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>     <span class="c1"># jump</span>
 </span></span><span class="line"><span class="cl">        <span class="nv">pc</span><span class="o">=</span><span class="nv">$choice</span>
 </span></span><span class="line"><span class="cl">        bash ./<span class="si">${</span><span class="nv">pc</span><span class="si">}</span>*
-</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$choice</span><span class="s2">&#34;</span> <span class="o">==</span> <span class="s2">&#34;R&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>	<span class="c1"># Restart , same as `:1`</span>
-</span></span><span class="line"><span class="cl">        <span class="nv">pc</span><span class="o">=</span><span class="m">1</span>
-</span></span><span class="line"><span class="cl">        bash ./<span class="si">${</span><span class="nv">pc</span><span class="si">}</span>*
-</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$choice</span><span class="s2">&#34;</span> <span class="o">==</span> <span class="s2">&#34;E&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>	<span class="c1"># exit the script</span>
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$choice</span><span class="s2">&#34;</span> <span class="o">==</span> <span class="s2">&#34;E&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>         <span class="c1"># exit the script</span>
 </span></span><span class="line"><span class="cl">        <span class="nb">break</span>
-</span></span><span class="line"><span class="cl">    <span class="k">else</span>				<span class="c1"># default:next page</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>                                    <span class="c1"># default: next page</span>
 </span></span><span class="line"><span class="cl">        <span class="o">((</span>pc++<span class="o">))</span>
 </span></span><span class="line"><span class="cl">        bash ./<span class="si">${</span><span class="nv">pc</span><span class="si">}</span>*
 </span></span><span class="line"><span class="cl">    <span class="k">fi</span>
 </span></span><span class="line"><span class="cl"><span class="k">done</span>
-</span></span></code></pre></div><p>[TODO]</p>
-<h3 id="单页展示"><a href="#%e5%8d%95%e9%a1%b5%e5%b1%95%e7%a4%ba" class="header-anchor"></a>单页展示
-</h3><p>[TODO]</p>
-<h3 id="页间切换"><a href="#%e9%a1%b5%e9%97%b4%e5%88%87%e6%8d%a2" class="header-anchor"></a>页间切换
-</h3><p>[TODO]</p>
-<h3 id="图片展示"><a href="#%e5%9b%be%e7%89%87%e5%b1%95%e7%a4%ba" class="header-anchor"></a>图片展示
+</span></span></code></pre></div><h3 id="单页展示"><a href="#%e5%8d%95%e9%a1%b5%e5%b1%95%e7%a4%ba" class="header-anchor"></a>单页展示
+</h3><p>单页展示，说到底，就是展示出一页的文本，基本步骤如下：</p>
+<ol>
+<li>通过 <code>clear</code> 清空上一页的内容；</li>
+<li>计算渲染后的文本的总行数；</li>
+<li>为了将内容居于竖直方向的中心，计算上下的空行 padding 数量；</li>
+<li>先打印上部的 padding，再渲染并打印内容文本，最后打印下部的 padding.</li>
+</ol>
+<p>比如：（2_question.sh）</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">clear
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">length</span><span class="o">=</span><span class="sb">`</span>python3 renderer.py question.md <span class="p">|</span> wc -l<span class="sb">`</span>
+</span></span><span class="line"><span class="cl"><span class="nv">total</span><span class="o">=</span><span class="sb">`</span>tput lines<span class="sb">`</span>
+</span></span><span class="line"><span class="cl"><span class="nv">sus</span><span class="o">=</span><span class="k">$((</span><span class="o">(</span><span class="nv">$total</span><span class="o">-</span><span class="nv">$length</span><span class="o">)/</span><span class="m">2</span><span class="k">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="o">((</span><span class="nv">i</span><span class="o">=</span>1<span class="p">;</span> i&lt;<span class="o">=</span><span class="nv">$sus</span><span class="p">;</span> i++<span class="o">))</span>
+</span></span><span class="line"><span class="cl"><span class="k">do</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> 
+</span></span><span class="line"><span class="cl"><span class="k">done</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">python3 renderer.py question.md
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="o">((</span><span class="nv">i</span><span class="o">=</span>1<span class="p">;</span> i&lt;<span class="nv">$sus</span><span class="p">;</span> i++<span class="o">))</span>
+</span></span><span class="line"><span class="cl"><span class="k">do</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> 
+</span></span><span class="line"><span class="cl"><span class="k">done</span>
+</span></span></code></pre></div><h3 id="图片展示与外部程序调用"><a href="#%e5%9b%be%e7%89%87%e5%b1%95%e7%a4%ba%e4%b8%8e%e5%a4%96%e9%83%a8%e7%a8%8b%e5%ba%8f%e8%b0%83%e7%94%a8" class="header-anchor"></a>图片展示与外部程序调用
 </h3><img src="show_pic.png" alt="show picture" style="zoom:80%;" />
-<p>[TODO]</p>
+<p>通过 <code>read</code> 接收输入，当输入为指定字符时，通过 <code>xdg-open</code> 打开特定图片，展示完毕后通过 ESC 键关闭即可.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">read</span> -p <span class="s2">&#34;:&#34;</span> choice     
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$choice</span><span class="s2">&#34;</span> <span class="o">==</span> <span class="s2">&#34;g&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>         
+</span></span><span class="line"><span class="cl">    xdg-open ./picture.png
+</span></span><span class="line"><span class="cl"><span class="k">fi</span> 
+</span></span></code></pre></div><p>类似地，将 <code>xdg-open ...</code> 改成其他命令，可以播放音视频，执行各种程序.</p>
 <h3 id="文本渲染"><a href="#%e6%96%87%e6%9c%ac%e6%b8%b2%e6%9f%93" class="header-anchor"></a>文本渲染
-</h3><p>[TODO]</p>
-<h4 id="033-转义"><a href="#033-%e8%bd%ac%e4%b9%89" class="header-anchor"></a><code>\033</code> 转义
-</h4><p>[TODO]</p>
-<h4 id="ascii-art"><a href="#ascii-art" class="header-anchor"></a>ASCII Art
-</h4><p>[TODO]</p>
-<h4 id="glow"><a href="#glow" class="header-anchor"></a>glow
-</h4><p>[TODO]</p>
-<h2 id="其他"><a href="#%e5%85%b6%e4%bb%96" class="header-anchor"></a>其他
-</h2><h3 id="有趣的命令行工具"><a href="#%e6%9c%89%e8%b6%a3%e7%9a%84%e5%91%bd%e4%bb%a4%e8%a1%8c%e5%b7%a5%e5%85%b7" class="header-anchor"></a>有趣的命令行工具
-</h3><ul>
-<li>asciiquarium
-  <!-- 利用 perl 脚本（terminal animation 库）做终端动画? -->
-</li>
-<li>oneko （很萌）</li>
-<li>cowsay</li>
+</h3><h4 id="适用于封面页的-ascii-art"><a href="#%e9%80%82%e7%94%a8%e4%ba%8e%e5%b0%81%e9%9d%a2%e9%a1%b5%e7%9a%84-ascii-art" class="header-anchor"></a>适用于封面页的 ASCII Art
+</h4><p>使用 <code>figlet</code> 展现主题词，并使用 <code>lolcat</code> 改色. 除了 <code>figlet</code> 下载时自带的字体样式之外，还可以在<a class="link" href="https://github.com/xero/figlet-fonts"  target="_blank" rel="noopener"
+    >Github 上的 figlet-fonts 项目</a>找到并下载更多的字体样式. 上面的展示的&quot;Boot&quot;对应的命令是 <code>figlet &quot; Boot&quot; -f roman | lolcat -S 30</code>. （另外可选的同类命令行工具为 <code>toilet</code>）</p>
+<img src="boot.png" alt="boot" style="zoom:80%;" />
+<h4 id="esc-转义"><a href="#esc-%e8%bd%ac%e4%b9%89" class="header-anchor"></a>ESC 转义
+</h4><p><code>printf</code> 命令，通过 <code>\033</code> 转义可以在终端输出更花哨的文字，可以做简单的效果，如彩色、加粗、斜体等，可以多个效果叠加使用，如下图中最后一行对应的命令是<code>printf &quot;\033[2;34;01;21;09myour text\033[0m\n&quot;</code>.（此条同样适用于其他编程语言的输出，033 是 ESC 的八进制 ASCII 编码. 呈现的具体颜色和终端的配色方案有关.）</p>
+<img src="escape1.png" alt="escape" style="zoom:80%;" />
+<h4 id="markdown-渲染"><a href="#markdown-%e6%b8%b2%e6%9f%93" class="header-anchor"></a>Markdown 渲染
+</h4><ul>
+<li>glow: <code>glow</code> 是命令行工具，用法为 <code>glow foo.md</code>.</li>
+<li>rich: rich 是一个可以用来渲染 Markdown 的 python 库.</li>
 </ul>
-<p>[TODO]</p>
+<h2 id="其他有趣的命令行工具"><a href="#%e5%85%b6%e4%bb%96%e6%9c%89%e8%b6%a3%e7%9a%84%e5%91%bd%e4%bb%a4%e8%a1%8c%e5%b7%a5%e5%85%b7" class="header-anchor"></a>其他有趣的命令行工具
+</h2><ul>
+<li>
+<p>asciiquarium</p>
+<p>ASCII Art 水族馆，非常漂亮，我的头像的 ASCII 鱼就是从这里挖来的，在下图的从左往右数第三个海草上方：</p>
+  <img src="ascii.png" alt="asciiquarium" style="zoom:80%;box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);" />
+</li>
+<li>
+<p>oneko</p>
+<p>呼出一只小猫，非常可爱：</p>
+  <img src="oneko.png" alt="oneko" style="display: block; margin: auto; zoom:60%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);" />
+</li>
+<li>
+<p>cowsay</p>
+  <img src="cowsay1.png" alt="cowsay" style="zoom:80%;box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);" />
+</li>
+<li>
+<p>dialog</p>
+  <img src="dialog1.png" alt="dialog" style="zoom:80%;box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);" />
+<p>可交互的 TUI 对话框，这个用来做单页的幻灯片呈现也是非常合适的，比如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nv">choice</span><span class="o">=</span><span class="k">$(</span>dialog --clear --title <span class="s2">&#34;Menu&#34;</span> --menu <span class="s2">&#34;Make Your Choice&#34;</span> <span class="m">10</span> <span class="m">40</span> <span class="m">3</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>         <span class="m">1</span> <span class="s2">&#34;Show Greeting&#34;</span> <span class="m">2</span> <span class="s2">&#34;Enter Something&#34;</span> <span class="m">3</span> <span class="s2">&#34;Show Figure&#34;</span>  2&gt;<span class="p">&amp;</span><span class="m">1</span> &gt;/dev/tty<span class="k">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">case</span> <span class="nv">$choice</span> in
+</span></span><span class="line"><span class="cl">    3<span class="o">)</span> 
+</span></span><span class="line"><span class="cl">        xdg-open ./figure_1.png
+</span></span><span class="line"><span class="cl">        <span class="p">;;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># SNIP # </span>
+</span></span><span class="line"><span class="cl"><span class="k">esac</span>
+</span></span></code></pre></div></li>
+</ul>
 
 </section>
 
