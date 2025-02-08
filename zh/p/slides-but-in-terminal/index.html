@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="zh" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="前言 灵感来自蒋炎岩老师的一次讲座：[算法竞赛入门] 为什么要逼大家用 NOILinux？，有参考，但不完全一样.\n掌握此技能，你将可以——在终端展示幻灯片，实用性一般，但是可以玩一玩 ·^v^·\n">
+<title>Slides, But in Terminal</title>
+
+<link rel='canonical' href='http://fyshxfish.github.io/zh/p/slides-but-in-terminal/'>
+
+<link rel="stylesheet" href="/scss/style.min.47ac80bd6ec45b271188f04491fa8bc23b22060dfe68b4c309fccb144e0721fc.css"><meta property='og:title' content="Slides, But in Terminal">
+<meta property='og:description' content="前言 灵感来自蒋炎岩老师的一次讲座：[算法竞赛入门] 为什么要逼大家用 NOILinux？，有参考，但不完全一样.\n掌握此技能，你将可以——在终端展示幻灯片，实用性一般，但是可以玩一玩 ·^v^·\n">
+<meta property='og:url' content='http://fyshxfish.github.io/zh/p/slides-but-in-terminal/'>
+<meta property='og:site_name' content='fyshXplore'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-02-07T22:52:00&#43;08:00'/><meta property='article:modified_time' content='2025-02-07T22:52:00&#43;08:00'/>
+<meta name="twitter:title" content="Slides, But in Terminal">
+<meta name="twitter:description" content="前言 灵感来自蒋炎岩老师的一次讲座：[算法竞赛入门] 为什么要逼大家用 NOILinux？，有参考，但不完全一样.\n掌握此技能，你将可以——在终端展示幻灯片，实用性一般，但是可以玩一玩 ·^v^·\n"><style>
+  :root {
+     
+    --zh-font-family: "Noto Serif SC";
+     
+     
+     
+    --code-font-family: Consolas, Menlo, Monaco, "Courier New", var(--zh-font-family), monospace;
+    --article-font-family: "Noto Serif SC";
+  }
+</style>
+
+<script>
+  (function () {
+    const customFont = document.createElement("link");
+    customFont.href =
+      "https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap";
+
+    customFont.type = "text/css";
+    customFont.rel = "stylesheet";
+
+    document.head.appendChild(customFont);
+  })();
+</script>
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/zh/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/fyshx_avatar_hu_4b64fe58c612edf3.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🫧</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/zh">fyshXplore</a></h1>
+            <h2 class="site-description">Just for 𝐅𝐮𝐧</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/fyshxfish'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/zh/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/zh/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-infinity" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M9.828 9.172a4 4 0 1 0 0 5.656 a10 10 0 0 0 2.172 -2.828a10 10 0 0 1 2.172 -2.828 a4 4 0 1 1 0 5.656a10 10 0 0 1 -2.172 -2.828a10 10 0 0 0 -2.172 -2.828" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/zh/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/zh/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/zh/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="http://fyshxfish.github.io/zh/" selected>中文</option>
+                                
+                                    <option value="http://fyshxfish.github.io/" >English</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">&thinsp;Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#效果展示">效果展示</a></li>
+    <li><a href="#具体实现">具体实现</a>
+      <ol>
+        <li><a href="#整体框架">整体框架</a>
+          <ol>
+            <li><a href="#目录">目录</a></li>
+            <li><a href="#启动器">启动器</a></li>
+          </ol>
+        </li>
+        <li><a href="#单页展示">单页展示</a></li>
+        <li><a href="#图片展示与外部程序调用">图片展示与外部程序调用</a></li>
+        <li><a href="#文本渲染">文本渲染</a>
+          <ol>
+            <li><a href="#适用于封面页的-ascii-art">适用于封面页的 ASCII Art</a></li>
+            <li><a href="#esc-转义">ESC 转义</a></li>
+            <li><a href="#markdown-渲染">Markdown 渲染</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#其他有趣的命令行工具">其他有趣的命令行工具</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/zh/categories/xplore/" style="background-color: #92af88; color: #fff;">
+                Xplore
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/zh/p/slides-but-in-terminal/">Slides, But in Terminal</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Feb 7, 2025</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    3 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+        <footer class="article-translations">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+            <div>
+                
+                    <a href="http://fyshxfish.github.io/p/slides-but-in-terminal/" class="link">English</a>
+                
+            </div>
+        </footer>
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="前言"><a href="#%e5%89%8d%e8%a8%80" class="header-anchor"></a>前言
+</h2><p>灵感来自蒋炎岩老师的一次讲座：<a class="link" href="https://www.bilibili.com/video/BV1MV411F738/?share_source=copy_web&amp;vd_source=09e32470959b198a596693ee5235cca9"  target="_blank" rel="noopener"
+    >[算法竞赛入门] 为什么要逼大家用 NOILinux？</a>，有参考，但不完全一样.</p>
+<p>掌握此技能，你将可以——在终端展示幻灯片，实用性一般，但是可以玩一玩 <code>·^v^·</code></p>
+<h2 id="效果展示"><a href="#%e6%95%88%e6%9e%9c%e5%b1%95%e7%a4%ba" class="header-anchor"></a>效果展示
+</h2><img src="1.png" alt="1" style="zoom:80%;" />
+<img src="2.png" alt="2" style="zoom:80%;" />
+<img src="3.png" alt="3" style="zoom:80%;" />
+<img src="4.png" alt="4" style="zoom:80%;" />
+<img src="5.png" alt="5" style="zoom:80%;" />
+<img src="6.png" alt="6" style="zoom:80%;" />
+<img src="7.png" alt="7" style="zoom:80%;" />
+<h2 id="具体实现"><a href="#%e5%85%b7%e4%bd%93%e5%ae%9e%e7%8e%b0" class="header-anchor"></a>具体实现
+</h2><h3 id="整体框架"><a href="#%e6%95%b4%e4%bd%93%e6%a1%86%e6%9e%b6" class="header-anchor"></a>整体框架
+</h3><h4 id="目录"><a href="#%e7%9b%ae%e5%bd%95" class="header-anchor"></a>目录
+</h4><img src="dir1.png" alt="directory" style="zoom:80%;" />
+<p>.sh 为展示一张幻灯片的 bash 脚本，.md 为需要渲染的 Markdown，.png 为待展示的图片.</p>
+<h4 id="启动器"><a href="#%e5%90%af%e5%8a%a8%e5%99%a8" class="header-anchor"></a>启动器
+</h4><p>首先打印封面（本质上是在终端输出一页渲染过的文本），然后通过 <code>read</code> 读入文本，控制幻灯片的行为，如换页、图片展示、退出等.</p>
+<p>0_flow.sh：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span>
+</span></span><span class="line"><span class="cl">bash ./1_banner.sh         <span class="c1">## 打印封面</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">pc</span><span class="o">=</span>1	<span class="c1"># counter</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">while</span> <span class="nb">true</span> 
+</span></span><span class="line"><span class="cl"><span class="k">do</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">read</span> -p <span class="s2">&#34;:&#34;</span> choice     <span class="c1">## 读取文本，控制翻页、图片展示、退出等</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$choice</span><span class="s2">&#34;</span> <span class="o">==</span> <span class="s2">&#34;p&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>           <span class="c1"># previous page</span>
+</span></span><span class="line"><span class="cl">        <span class="o">((</span>pc--<span class="o">))</span>
+</span></span><span class="line"><span class="cl">        bash ./<span class="si">${</span><span class="nv">pc</span><span class="si">}</span>*
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$choice</span><span class="s2">&#34;</span> <span class="o">==</span> <span class="s2">&#34;g&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>         <span class="c1"># show initial of a state machine</span>
+</span></span><span class="line"><span class="cl">        xdg-open ./load_init.png
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="o">[[</span> <span class="nv">$choice</span> <span class="o">=</span>~ ^<span class="o">[</span>1-7<span class="o">]</span>$ <span class="o">]]</span><span class="p">;</span> <span class="k">then</span>     <span class="c1"># jump</span>
+</span></span><span class="line"><span class="cl">        <span class="nv">pc</span><span class="o">=</span><span class="nv">$choice</span>
+</span></span><span class="line"><span class="cl">        bash ./<span class="si">${</span><span class="nv">pc</span><span class="si">}</span>*
+</span></span><span class="line"><span class="cl">    <span class="k">elif</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$choice</span><span class="s2">&#34;</span> <span class="o">==</span> <span class="s2">&#34;E&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>         <span class="c1"># exit the script</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">break</span>
+</span></span><span class="line"><span class="cl">    <span class="k">else</span>                                    <span class="c1"># default: next page</span>
+</span></span><span class="line"><span class="cl">        <span class="o">((</span>pc++<span class="o">))</span>
+</span></span><span class="line"><span class="cl">        bash ./<span class="si">${</span><span class="nv">pc</span><span class="si">}</span>*
+</span></span><span class="line"><span class="cl">    <span class="k">fi</span>
+</span></span><span class="line"><span class="cl"><span class="k">done</span>
+</span></span></code></pre></div><h3 id="单页展示"><a href="#%e5%8d%95%e9%a1%b5%e5%b1%95%e7%a4%ba" class="header-anchor"></a>单页展示
+</h3><p>单页展示，说到底，就是展示出一页的文本，基本步骤如下：</p>
+<ol>
+<li>通过 <code>clear</code> 清空上一页的内容；</li>
+<li>计算渲染后的文本的总行数；</li>
+<li>为了将内容居于竖直方向的中心，计算上下的空行 padding 数量；</li>
+<li>先打印上部的 padding，再渲染并打印内容文本，最后打印下部的 padding.</li>
+</ol>
+<p>比如：（2_question.sh）</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">clear
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nv">length</span><span class="o">=</span><span class="sb">`</span>python3 renderer.py question.md <span class="p">|</span> wc -l<span class="sb">`</span>
+</span></span><span class="line"><span class="cl"><span class="nv">total</span><span class="o">=</span><span class="sb">`</span>tput lines<span class="sb">`</span>
+</span></span><span class="line"><span class="cl"><span class="nv">sus</span><span class="o">=</span><span class="k">$((</span><span class="o">(</span><span class="nv">$total</span><span class="o">-</span><span class="nv">$length</span><span class="o">)/</span><span class="m">2</span><span class="k">))</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="o">((</span><span class="nv">i</span><span class="o">=</span>1<span class="p">;</span> i&lt;<span class="o">=</span><span class="nv">$sus</span><span class="p">;</span> i++<span class="o">))</span>
+</span></span><span class="line"><span class="cl"><span class="k">do</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> 
+</span></span><span class="line"><span class="cl"><span class="k">done</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">python3 renderer.py question.md
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="o">((</span><span class="nv">i</span><span class="o">=</span>1<span class="p">;</span> i&lt;<span class="nv">$sus</span><span class="p">;</span> i++<span class="o">))</span>
+</span></span><span class="line"><span class="cl"><span class="k">do</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">echo</span> 
+</span></span><span class="line"><span class="cl"><span class="k">done</span>
+</span></span></code></pre></div><h3 id="图片展示与外部程序调用"><a href="#%e5%9b%be%e7%89%87%e5%b1%95%e7%a4%ba%e4%b8%8e%e5%a4%96%e9%83%a8%e7%a8%8b%e5%ba%8f%e8%b0%83%e7%94%a8" class="header-anchor"></a>图片展示与外部程序调用
+</h3><img src="show_pic.png" alt="show picture" style="zoom:80%;" />
+<p>通过 <code>read</code> 接收输入，当输入为指定字符时，通过 <code>xdg-open</code> 打开特定图片，展示完毕后通过 ESC 键关闭即可.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">read</span> -p <span class="s2">&#34;:&#34;</span> choice     
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> <span class="s2">&#34;</span><span class="nv">$choice</span><span class="s2">&#34;</span> <span class="o">==</span> <span class="s2">&#34;g&#34;</span> <span class="o">]</span><span class="p">;</span> <span class="k">then</span>         
+</span></span><span class="line"><span class="cl">    xdg-open ./picture.png
+</span></span><span class="line"><span class="cl"><span class="k">fi</span> 
+</span></span></code></pre></div><p>类似地，将 <code>xdg-open ...</code> 改成其他命令，可以播放音视频，执行各种程序.</p>
+<h3 id="文本渲染"><a href="#%e6%96%87%e6%9c%ac%e6%b8%b2%e6%9f%93" class="header-anchor"></a>文本渲染
+</h3><h4 id="适用于封面页的-ascii-art"><a href="#%e9%80%82%e7%94%a8%e4%ba%8e%e5%b0%81%e9%9d%a2%e9%a1%b5%e7%9a%84-ascii-art" class="header-anchor"></a>适用于封面页的 ASCII Art
+</h4><p>使用 <code>figlet</code> 展现主题词，并使用 <code>lolcat</code> 改色. 除了 <code>figlet</code> 下载时自带的字体样式之外，还可以在<a class="link" href="https://github.com/xero/figlet-fonts"  target="_blank" rel="noopener"
+    >Github 上的 figlet-fonts 项目</a>找到并下载更多的字体样式. 上面的展示的&quot;Boot&quot;对应的命令是 <code>figlet &quot; Boot&quot; -f roman | lolcat -S 30</code>. （另外可选的同类命令行工具为 <code>toilet</code>）</p>
+<img src="boot.png" alt="boot" style="zoom:80%;" />
+<h4 id="esc-转义"><a href="#esc-%e8%bd%ac%e4%b9%89" class="header-anchor"></a>ESC 转义
+</h4><p><code>printf</code> 命令，通过 <code>\033</code> 转义可以在终端输出更花哨的文字，可以做简单的效果，如彩色、加粗、斜体等，可以多个效果叠加使用，如下图中最后一行对应的命令是<code>printf &quot;\033[2;34;01;21;09myour text\033[0m\n&quot;</code>.（此条同样适用于其他编程语言的输出，033 是 ESC 的八进制 ASCII 编码. 呈现的具体颜色和终端的配色方案有关.）</p>
+<img src="escape1.png" alt="escape" style="zoom:80%;" />
+<h4 id="markdown-渲染"><a href="#markdown-%e6%b8%b2%e6%9f%93" class="header-anchor"></a>Markdown 渲染
+</h4><ul>
+<li>glow: <code>glow</code> 是命令行工具，用法为 <code>glow foo.md</code>.</li>
+<li>rich: rich 是一个可以用来渲染 Markdown 的 python 库.</li>
+</ul>
+<h2 id="其他有趣的命令行工具"><a href="#%e5%85%b6%e4%bb%96%e6%9c%89%e8%b6%a3%e7%9a%84%e5%91%bd%e4%bb%a4%e8%a1%8c%e5%b7%a5%e5%85%b7" class="header-anchor"></a>其他有趣的命令行工具
+</h2><ul>
+<li>
+<p>asciiquarium</p>
+<p>ASCII Art 水族馆，非常漂亮，我的头像的 ASCII 鱼就是从这里挖来的，在下图的从左往右数第三个海草上方：</p>
+  <img src="ascii.png" alt="asciiquarium" style="zoom:80%;box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);" />
+</li>
+<li>
+<p>oneko</p>
+<p>呼出一只小猫，非常可爱：</p>
+  <img src="oneko.png" alt="oneko" style="display: block; margin: auto; zoom:60%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);" />
+</li>
+<li>
+<p>cowsay</p>
+  <img src="cowsay1.png" alt="cowsay" style="zoom:80%;box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);" />
+</li>
+<li>
+<p>dialog</p>
+  <img src="dialog1.png" alt="dialog" style="zoom:80%;box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);" />
+<p>可交互的 TUI 对话框，这个用来做单页的幻灯片呈现也是非常合适的，比如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nv">choice</span><span class="o">=</span><span class="k">$(</span>dialog --clear --title <span class="s2">&#34;Menu&#34;</span> --menu <span class="s2">&#34;Make Your Choice&#34;</span> <span class="m">10</span> <span class="m">40</span> <span class="m">3</span> <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>         <span class="m">1</span> <span class="s2">&#34;Show Greeting&#34;</span> <span class="m">2</span> <span class="s2">&#34;Enter Something&#34;</span> <span class="m">3</span> <span class="s2">&#34;Show Figure&#34;</span>  2&gt;<span class="p">&amp;</span><span class="m">1</span> &gt;/dev/tty<span class="k">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">case</span> <span class="nv">$choice</span> in
+</span></span><span class="line"><span class="cl">    3<span class="o">)</span> 
+</span></span><span class="line"><span class="cl">        xdg-open ./figure_1.png
+</span></span><span class="line"><span class="cl">        <span class="p">;;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1"># SNIP # </span>
+</span></span><span class="line"><span class="cl"><span class="k">esac</span>
+</span></span></code></pre></div></li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2024 - 
+        
+        2025 fyshXplore
+    </section>
+    
+    <section class="powerby">
+        
+            Wish You a Nice Day! <br/>
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

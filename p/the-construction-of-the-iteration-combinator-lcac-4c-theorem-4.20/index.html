@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="来自 Lambda-Calculus and Combinator § 4C Theorem 4.20 的 proof 部分，整体意图是证明符合 Definition 4.18 的全称递归函数可以用组合子来表示.\u2002这里对该证明的关键部分，即迭代组合子的构造，做简要的陈述. 也可以理解为：在 Pure Lambda Calculus 中编写一个具有特定终止条件的迭代程序. 如果你好奇 &quot; 如何在 Lambda Calculus 中编写一个指定迭代 / 递归次数的迭代 / 递归函数 &quot; ，可以参考 Lambda-Calculus and Combinator § 4B Theorem 4.11 的 proof 中 $R_{\\text{Bernays}}$ 组合子的构造，这个构造过程也十分精巧.\n">
 <title>The Construction of the Iteration Combinator - LCaC § 4C, Theorem 4.20</title>
 
-<link rel='canonical' href='http://localhost:1313/p/the-construction-of-the-iteration-combinator-lcac-4c-theorem-4.20/'>
+<link rel='canonical' href='http://fyshxfish.github.io/p/the-construction-of-the-iteration-combinator-lcac-4c-theorem-4.20/'>
 
-<link rel="stylesheet" href="/scss/style.min.b51788d43472ffad20b588167514427b70146d30bc2a1ee0490ab0db3b5da439.css"><meta property='og:title' content="The Construction of the Iteration Combinator - LCaC § 4C, Theorem 4.20">
+<link rel="stylesheet" href="/scss/style.min.47ac80bd6ec45b271188f04491fa8bc23b22060dfe68b4c309fccb144e0721fc.css"><meta property='og:title' content="The Construction of the Iteration Combinator - LCaC § 4C, Theorem 4.20">
 <meta property='og:description' content="来自 Lambda-Calculus and Combinator § 4C Theorem 4.20 的 proof 部分，整体意图是证明符合 Definition 4.18 的全称递归函数可以用组合子来表示.\u2002这里对该证明的关键部分，即迭代组合子的构造，做简要的陈述. 也可以理解为：在 Pure Lambda Calculus 中编写一个具有特定终止条件的迭代程序. 如果你好奇 &quot; 如何在 Lambda Calculus 中编写一个指定迭代 / 递归次数的迭代 / 递归函数 &quot; ，可以参考 Lambda-Calculus and Combinator § 4B Theorem 4.11 的 proof 中 $R_{\\text{Bernays}}$ 组合子的构造，这个构造过程也十分精巧.\n">
-<meta property='og:url' content='http://localhost:1313/p/the-construction-of-the-iteration-combinator-lcac-4c-theorem-4.20/'>
+<meta property='og:url' content='http://fyshxfish.github.io/p/the-construction-of-the-iteration-combinator-lcac-4c-theorem-4.20/'>
 <meta property='og:site_name' content='fyshXplore'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='LCaC' /><meta property='article:tag' content='lambda calculus' /><meta property='article:published_time' content='2024-09-17T23:48:00&#43;08:00'/><meta property='article:modified_time' content='2024-09-17T23:48:00&#43;08:00'/>
 <meta name="twitter:title" content="The Construction of the Iteration Combinator - LCaC § 4C, Theorem 4.20">
@@ -80,7 +80,7 @@
                     
                     
                         
-                        <img src="/img/fyshx_avatar_hu134059368025567045.jpg" width="300"
+                        <img src="/img/fyshx_avatar_hu_4b64fe58c612edf3.jpg" width="300"
                             height="300" class="site-logo" loading="lazy" alt="Avatar">
                     
                 
@@ -138,6 +138,24 @@
 
                 
                 <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-infinity" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M9.828 9.172a4 4 0 1 0 0 5.656 a10 10 0 0 0 2.172 -2.828a10 10 0 0 1 2.172 -2.828 a4 4 0 1 1 0 5.656a10 10 0 0 1 -2.172 -2.828a10 10 0 0 0 -2.172 -2.828" />
+</svg>
+
+
+
+                
+                <span>About</span>
             </a>
         </li>
         
@@ -201,6 +219,29 @@
         
         <li class="menu-bottom-section">
             <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="http://fyshxfish.github.io/zh/" >中文</option>
+                                
+                                    <option value="http://fyshxfish.github.io/" selected>English</option>
+                                
+                            </select>
+                        </li>
+                    
+                
 
                 
                     <li id="dark-mode-toggle">
@@ -336,6 +377,25 @@
     </footer>
     
 
+    
+        <footer class="article-translations">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+            <div>
+                
+                    <a href="http://fyshxfish.github.io/zh/p/%E8%BF%AD%E4%BB%A3%E7%BB%84%E5%90%88%E5%AD%90%E7%9A%84%E6%9E%84%E9%80%A0-lcac-4c-theorem-4.20/" class="link">中文</a>
+                
+            </div>
+        </footer>
     
 </div>
 
@@ -510,12 +570,12 @@ $ \bar{\sigma} = _{\beta, w} \lambda nfz. f (n f z)$ </br></p>
             
                 
 <article class="">
-    <a href="/p/%E6%8A%BD%E8%B1%A1%E5%B1%82%E6%AC%A1%E5%B9%B3%E7%BC%93%E6%8F%90%E5%8D%87%E7%9A%84-church-encoding/">
+    <a href="/p/functional-on-steam-/-%CE%BB-exercises-solutions/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">抽象层次平缓提升的 Church Encoding</h2>
+            <h2 class="article-title">functional on Steam / λ Exercises - Solutions</h2>
         </div>
     </a>
 </article>
@@ -523,12 +583,12 @@ $ \bar{\sigma} = _{\beta, w} \lambda nfz. f (n f z)$ </br></p>
             
                 
 <article class="">
-    <a href="/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.3.4-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/">
+    <a href="/p/church-encoding-note/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">Huffman 树的 Haskell 实现 - SICP § 2.3.4  | 组合数据的结构与解构</h2>
+            <h2 class="article-title">Church Encoding Note</h2>
         </div>
     </a>
 </article>
@@ -536,12 +596,12 @@ $ \bar{\sigma} = _{\beta, w} \lambda nfz. f (n f z)$ </br></p>
             
                 
 <article class="">
-    <a href="/p/message-passing-%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84-bool-sicp-2.4.3-%E6%B3%9B%E5%9E%8B-%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9A%84%E8%BE%B9%E7%95%8C/">
+    <a href="/p/huffman-tree-implementation-in-haskell-sicp-2.3.4-structuring-and-destructuring-of-composed-data/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">Message Passing 视角下的 Bool - SICP § 2.4.3 | 泛型 | 数据与函数的边界 </h2>
+            <h2 class="article-title">Huffman Tree Implementation in Haskell - SICP § 2.3.4 | Structuring and Destructuring of Composed Data</h2>
         </div>
     </a>
 </article>
@@ -549,12 +609,12 @@ $ \bar{\sigma} = _{\beta, w} \lambda nfz. f (n f z)$ </br></p>
             
                 
 <article class="">
-    <a href="/p/nested-mapping-examples-implemented-in-haskell-sicp-2.2.3-list-monad/">
+    <a href="/p/abstractions-for-search-algorithm/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">Nested Mapping Examples Implemented in Haskell - SICP § 2.2.3  | List Monad </h2>
+            <h2 class="article-title">Abstractions for Search Algorithm</h2>
         </div>
     </a>
 </article>
@@ -562,12 +622,12 @@ $ \bar{\sigma} = _{\beta, w} \lambda nfz. f (n f z)$ </br></p>
             
                 
 <article class="">
-    <a href="/p/scheme-let-%E7%9A%84%E8%AF%AD%E4%B9%89-feat.-if-%E7%9A%84%E8%AF%AD%E4%B9%89/">
+    <a href="/p/how-to-avoid-redundant-computations--pure-functions-and-their-evaluation-strategies/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">Scheme: `let` 的语义 (feat. `if` 的语义)</h2>
+            <h2 class="article-title">How to Avoid Redundant Computations &#43; Pure Functions and Their Evaluation Strategies</h2>
         </div>
     </a>
 </article>
@@ -586,7 +646,9 @@ $ \bar{\sigma} = _{\beta, w} \lambda nfz. f (n f z)$ </br></p>
     <section class="copyright">
         &copy; 
         
-        2024 fyshXplore
+            2024 - 
+        
+        2025 fyshXplore
     </section>
     
     <section class="powerby">

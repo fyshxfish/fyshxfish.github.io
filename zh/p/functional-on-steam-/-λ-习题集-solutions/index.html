@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="zh" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="functional，发售于 Steam (29 CNY)，可以说是 Lambda Calculus 应用习题集.\nBasic anything 写出任意一个符合 Lambda Calculus 语法 (1. variable 2. abstraction 3. application) 的 term 即可.\nidentity x: x two arguments x:y: y x squaring f:x: f (f x) indirection f:x:y: f y x Boolean 定义：\n">
+<title>functional on Steam / λ 习题集 - Solutions</title>
+
+<link rel='canonical' href='http://fyshxfish.github.io/zh/p/functional-on-steam-/-%CE%BB-%E4%B9%A0%E9%A2%98%E9%9B%86-solutions/'>
+
+<link rel="stylesheet" href="/scss/style.min.47ac80bd6ec45b271188f04491fa8bc23b22060dfe68b4c309fccb144e0721fc.css"><meta property='og:title' content="functional on Steam / λ 习题集 - Solutions">
+<meta property='og:description' content="functional，发售于 Steam (29 CNY)，可以说是 Lambda Calculus 应用习题集.\nBasic anything 写出任意一个符合 Lambda Calculus 语法 (1. variable 2. abstraction 3. application) 的 term 即可.\nidentity x: x two arguments x:y: y x squaring f:x: f (f x) indirection f:x:y: f y x Boolean 定义：\n">
+<meta property='og:url' content='http://fyshxfish.github.io/zh/p/functional-on-steam-/-%CE%BB-%E4%B9%A0%E9%A2%98%E9%9B%86-solutions/'>
+<meta property='og:site_name' content='fyshXplore'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='lambda calculus' /><meta property='article:published_time' content='2025-02-02T21:29:00&#43;08:00'/><meta property='article:modified_time' content='2025-02-02T21:29:00&#43;08:00'/>
+<meta name="twitter:title" content="functional on Steam / λ 习题集 - Solutions">
+<meta name="twitter:description" content="functional，发售于 Steam (29 CNY)，可以说是 Lambda Calculus 应用习题集.\nBasic anything 写出任意一个符合 Lambda Calculus 语法 (1. variable 2. abstraction 3. application) 的 term 即可.\nidentity x: x two arguments x:y: y x squaring f:x: f (f x) indirection f:x:y: f y x Boolean 定义：\n"><style>
+  :root {
+     
+    --zh-font-family: "Noto Serif SC";
+     
+     
+     
+    --code-font-family: Consolas, Menlo, Monaco, "Courier New", var(--zh-font-family), monospace;
+    --article-font-family: "Noto Serif SC";
+  }
+</style>
+
+<script>
+  (function () {
+    const customFont = document.createElement("link");
+    customFont.href =
+      "https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap";
+
+    customFont.type = "text/css";
+    customFont.rel = "stylesheet";
+
+    document.head.appendChild(customFont);
+  })();
+</script>
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/zh/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/fyshx_avatar_hu_4b64fe58c612edf3.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🫧</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/zh">fyshXplore</a></h1>
+            <h2 class="site-description">Just for 𝐅𝐮𝐧</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/fyshxfish'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/zh/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/zh/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-infinity" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M9.828 9.172a4 4 0 1 0 0 5.656 a10 10 0 0 0 2.172 -2.828a10 10 0 0 1 2.172 -2.828 a4 4 0 1 1 0 5.656a10 10 0 0 1 -2.172 -2.828a10 10 0 0 0 -2.172 -2.828" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/zh/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/zh/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/zh/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="http://fyshxfish.github.io/zh/" selected>中文</option>
+                                
+                                    <option value="http://fyshxfish.github.io/" >English</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">&thinsp;Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#basic">Basic</a>
+      <ol>
+        <li><a href="#anything">anything</a></li>
+        <li><a href="#identity">identity</a></li>
+        <li><a href="#two-arguments">two arguments</a></li>
+        <li><a href="#squaring">squaring</a></li>
+        <li><a href="#indirection">indirection</a></li>
+      </ol>
+    </li>
+    <li><a href="#boolean">Boolean</a>
+      <ol>
+        <li><a href="#if">IF</a></li>
+        <li><a href="#not">NOT</a></li>
+        <li><a href="#and">AND</a></li>
+        <li><a href="#or">OR</a></li>
+        <li><a href="#xor">XOR</a></li>
+      </ol>
+    </li>
+    <li><a href="#pair-and-list">Pair and List</a>
+      <ol>
+        <li><a href="#pair">PAIR</a></li>
+        <li><a href="#fst">FST</a></li>
+        <li><a href="#snd">SND</a></li>
+        <li><a href="#simple-list">simple list</a></li>
+        <li><a href="#any">ANY</a></li>
+        <li><a href="#push">PUSH</a></li>
+        <li><a href="#pop">POP</a></li>
+        <li><a href="#empty">EMPTY</a></li>
+      </ol>
+    </li>
+    <li><a href="#recursion">Recursion</a>
+      <ol>
+        <li><a href="#create-recursion---y-combinator">create recursion - Y combinator</a>
+          <ol>
+            <li><a href="#动机lc-中的递归">动机：LC 中的递归</a></li>
+            <li><a href="#y-combinator-设计">Y combinator 设计</a></li>
+            <li><a href="#y-combinator-使用">Y combinator 使用</a></li>
+          </ol>
+        </li>
+        <li><a href="#strip-prefix">strip prefix</a></li>
+        <li><a href="#acc">ACC</a></li>
+        <li><a href="#all">ALL</a></li>
+        <li><a href="#reverse">REVERSE</a></li>
+        <li><a href="#map">MAP</a></li>
+        <li><a href="#none">NONE</a></li>
+        <li><a href="#filter">FILTER</a></li>
+        <li><a href="#zip">ZIP</a></li>
+        <li><a href="#eqblist">EQBLIST</a></li>
+        <li><a href="#concat">CONCAT</a></li>
+      </ol>
+    </li>
+    <li><a href="#numerals">Numerals</a>
+      <ol>
+        <li><a href="#suc">SUC</a></li>
+        <li><a href="#zero">ZERO</a></li>
+        <li><a href="#pre">PRE</a></li>
+        <li><a href="#add">ADD</a></li>
+        <li><a href="#sub">SUB</a></li>
+        <li><a href="#mul">MUL</a></li>
+        <li><a href="#div">DIV</a></li>
+        <li><a href="#eq">EQ</a></li>
+        <li><a href="#min">MIN</a></li>
+        <li><a href="#max">MAX</a></li>
+      </ol>
+    </li>
+    <li><a href="#more-numerals">More Numerals</a>
+      <ol>
+        <li><a href="#is-odd">is odd</a></li>
+        <li><a href="#increasing-list">increasing list</a></li>
+        <li><a href="#decomposition">decomposition</a></li>
+        <li><a href="#primes">primes</a></li>
+        <li><a href="#sort">sort</a></li>
+      </ol>
+    </li>
+    <li><a href="#trees">trees</a>
+      <ol>
+        <li><a href="#node">NODE</a></li>
+        <li><a href="#lef">LEF</a></li>
+        <li><a href="#rig">RIG</a></li>
+        <li><a href="#val">VAL</a></li>
+        <li><a href="#bempty">BEMPTY</a></li>
+        <li><a href="#find">FIND</a></li>
+        <li><a href="#bsize">BSIZE</a></li>
+        <li><a href="#build">BUILD</a></li>
+        <li><a href="#preorder">PREORDER</a></li>
+        <li><a href="#inorder">INORDER</a></li>
+        <li><a href="#split">SPLIT</a></li>
+        <li><a href="#kth">KTH</a></li>
+        <li><a href="#inverse-6">inverse 6</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/zh/categories/fp/" style="background-color: #b7c9e2; color: #fff;">
+                FP
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/zh/p/functional-on-steam-/-%CE%BB-%E4%B9%A0%E9%A2%98%E9%9B%86-solutions/">functional on Steam / λ 习题集 - Solutions</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Feb 2, 2025</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    11 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+        <footer class="article-translations">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+            <div>
+                
+                    <a href="http://fyshxfish.github.io/p/functional-on-steam-/-%CE%BB-exercises-solutions/" class="link">English</a>
+                
+            </div>
+        </footer>
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>functional，发售于 Steam (29 CNY)，可以说是 Lambda Calculus 应用习题集.</p>
+<h2 id="basic"><a href="#basic" class="header-anchor"></a>Basic
+</h2><h3 id="anything"><a href="#anything" class="header-anchor"></a>anything
+</h3><p>写出任意一个符合 Lambda Calculus 语法 (1. variable 2. abstraction 3. application) 的 term 即可.</p>
+<h3 id="identity"><a href="#identity" class="header-anchor"></a>identity
+</h3><pre tabindex="0"><code class="language-lambda" data-lang="lambda">x: x
+</code></pre><h3 id="two-arguments"><a href="#two-arguments" class="header-anchor"></a>two arguments
+</h3><pre tabindex="0"><code>x:y: y x
+</code></pre><h3 id="squaring"><a href="#squaring" class="header-anchor"></a>squaring
+</h3><pre tabindex="0"><code>f:x: f (f x) 
+</code></pre><h3 id="indirection"><a href="#indirection" class="header-anchor"></a>indirection
+</h3><pre tabindex="0"><code>f:x:y: f y x
+</code></pre><h2 id="boolean"><a href="#boolean" class="header-anchor"></a>Boolean
+</h2><p>定义：</p>
+<pre tabindex="0"><code>TRUE = t:f: t
+FALSE = t:f: f
+</code></pre><h3 id="if"><a href="#if" class="header-anchor"></a>IF
+</h3><pre tabindex="0"><code>p:t:f: p t f
+</code></pre><p>Simple LC 没有类型系统，所以编程者需要自己确保 <code>p</code> 一定能求值到 <code>TRUE</code> / <code>FALSE</code>，然后 <code>p t f</code> 进一步求值到 <code>t</code>/ <code>f</code>，如果 <code>p</code> 不能被求值到 <code>TRUE</code> / <code>FALSE</code>，那么 <code>p t f</code> 会被保留下来或者产生预期外的求值行为.</p>
+<p>你可以轻松注意到的一点是：<code>IF P A B ≡ P A B</code>，你完全可以在所有使用 <code>IF</code> 的场合省略掉 <code>IF</code>，这不改变语义，同时可以减少一次 reduction，不过为了保证可读性，还是有理由在有点复杂的程序里保留 <code>IF</code>.</p>
+<h3 id="not"><a href="#not" class="header-anchor"></a>NOT
+</h3><pre tabindex="0"><code>b: b FALSE TRUE
+</code></pre><p>这个看着有点隐隐约约的巧妙. 可以直白地通过 <code>b: IF b FALSE TRUE → b FALSE TRUE</code> 得到，或者利用 <code>TRUE</code> / <code>FALSE</code> 的意义——选第一个 / 第二个——直接得到.</p>
+<h3 id="and"><a href="#and" class="header-anchor"></a>AND
+</h3><pre tabindex="0"><code>p:q: p q p
+</code></pre><p>如果 <code>p = TRUE</code>，那么 <code>AND p q ≡ q</code>；如果 <code>p = FALSE</code>，那么 <code>AND p q ≡ FALSE ≡ p</code>.</p>
+<h3 id="or"><a href="#or" class="header-anchor"></a>OR
+</h3><pre tabindex="0"><code>p:q: p p q
+</code></pre><p>如果 <code>p = TRUE</code>，那么 <code>OR p q ≡ p ≡ TRUE</code>；如果 <code>p = FALSE</code>，那么 <code>OR p q ≡ q</code>.</p>
+<h3 id="xor"><a href="#xor" class="header-anchor"></a>XOR
+</h3><pre tabindex="0"><code>p:q: p (NOT q) q
+</code></pre><p>类似 <code>AND</code>, <code>OR</code>，可以画个真值表整理思绪.</p>
+<h2 id="pair-and-list"><a href="#pair-and-list" class="header-anchor"></a>Pair and List
+</h2><h3 id="pair"><a href="#pair" class="header-anchor"></a>PAIR
+</h3><pre tabindex="0"><code>x:y:f: f x y
+</code></pre><p><code>PAIR A B → (x:y:f: f x y) A B → (f: f A B)</code> 是一个这样的抽象：有序地内涵 <code>A</code>, <code>B</code>，等待一个函数 <code>f</code> 作用于内涵的 <code>A</code>, <code>B</code>，比如当 <code>A</code>, <code>B</code> 是 Boolean，那么，<code>f</code> 可以是 <code>AND</code> / <code>OR</code> / &hellip;（当然语法并不约束 <code>f</code>,<code>A</code>,<code>B</code> 的形状，如果你想写 <code>PAIR TRUE 0 PAIR</code> 解释器不会拦你）</p>
+<h3 id="fst"><a href="#fst" class="header-anchor"></a>FST
+</h3><pre tabindex="0"><code>p: p TRUE
+</code></pre><p>当 <code>p = PAIR A B</code> 时, <code>p TRUE → (PAIR A B) TRUE → (f: f A B) TRUE → TRUE A B → A</code>，注意 <code>p</code> 是一个可以接收一个参数 <code>f</code> 的函数，这里我们让它接收 <code>TRUE</code> 函数来选取第一个元素. 在 LC 里，<code>TRUE</code> / <code>FALSE</code> 更恰当的解释是<strong>选取</strong>其后跟随的第一 / 二个项，而不是表达某个命题的真 / 假，这是有意义的，因为我们写其他高级语言程序的时候，如果我们需要一个 Boolean 值 <code>X</code> ，<code>X</code> 最终的效用往往还是发挥在 <code>then-clause</code> / <code>else-clause</code> 的<strong>选择</strong>上.</p>
+<h3 id="snd"><a href="#snd" class="header-anchor"></a>SND
+</h3><pre tabindex="0"><code>p: p FALSE
+</code></pre><p>类似 <code>FST</code>.</p>
+<h3 id="simple-list"><a href="#simple-list" class="header-anchor"></a>simple list
+</h3><p>取出列表的第 3 项 (1-indexed)：</p>
+<pre tabindex="0"><code>l: FST ( SND ( SND l ) )
+</code></pre><p>列表是一种简单的递归结构，递归基是空列表，这里用 <code>FALSE</code> 表示，递归步是向某个列表添加元素，这里用 <code>PAIR</code> 实现，e.g. <code>[] ↦ FALSE</code>, <code>1 ↦ (PAIR 1 FALSE)</code>, <code>[1,3] ↦ (PAIR 1 (PAIR 3 FALSE))</code>，<span style="color: gray">注意 <code>[1,3]</code>的例子，如果从<strong>向列表添加元素</strong>的视角看，表头是最接近 <code>FALSE</code> 的项，越接近 <code>FALSE</code> 的元素索引越小，因为它比较早地被添加进来，在这种解释下，<code>[1,3] ↦ (PAIR 3 (PAIR 1 FALSE))</code>，</span>然而游戏里不采取这个解释，而是和我们熟悉的 <code>[a,b,..]</code> 保持视觉上的对齐，将最晚被添加的项——最左的项——作为表头，在后续涉及升降序的问题的时候记得留意这一点.</p>
+<h3 id="any"><a href="#any" class="header-anchor"></a>ANY
+</h3><p>对一个含 3 个 Boolean 的列表，若任一项为 <code>TRUE</code>，返回 <code>TRUE</code>，否则返回 <code>FALSE</code>：</p>
+<pre tabindex="0"><code>(l: IF 
+    (OR 
+        (FST (SND (SND l))) 
+        (OR 
+            (FST l) 
+            (FST (SND l))
+        )
+    )
+    TRUE FALSE
+)
+</code></pre><p>直白地按逻辑写即可. 这里的列表是定长的，比较方便，非定长列表就需要递归，见后.</p>
+<h3 id="push"><a href="#push" class="header-anchor"></a>PUSH
+</h3><pre tabindex="0"><code>(m:l: PAIR m l)
+</code></pre><p>用 <code>PUSH</code> 向列表 <code>l</code> 添加新项 <code>m</code>，根据 $\eta$-reduction，<code>PUSH ≡ PAIR</code>，所以这里直接写 <code>PAIR</code> 也足够了.</p>
+<h3 id="pop"><a href="#pop" class="header-anchor"></a>POP
+</h3><pre tabindex="0"><code>SND
+</code></pre><p>弹出最外层的项.</p>
+<h3 id="empty"><a href="#empty" class="header-anchor"></a>EMPTY
+</h3><pre tabindex="0"><code>l: l (t:x:y: FALSE) TRUE
+</code></pre><p>首先 <code>EMPTY</code> 要接收一个列表，所以它的基本形状是 <code>EMPTY = l: ...</code>，考虑 <code>l' = FALSE</code> 的情形，<code>EMPTY l' ~ᴇxᴘᴇᴄᴛᴇᴅ→ TRUE</code>，根据 <code>FALSE</code> 的选择能力，我们使 <code>EMPTY = l: l 𝕏 TRUE</code>；考虑 <code>l* = PAIR a (PAIR b (...)) = (f: f a (PAIR b (...))) ≈ (f: f a _tail)</code>，把 <code>l*</code> 视作接收一个参数的函数，<code>EMPTY l* = (f: f a _tail) 𝕏 TRUE → 𝕏 a _tail TRUE ~ᴇxᴘᴇᴄᴛᴇᴅ→ FALSE</code>, 那么 <code>𝕏</code> 的工作就是接收后面的 3 项，然后返回 <code>FALSE</code>，所以 <code>𝕏 = (t:x:y: FALSE)</code>，综合以上得到最终的解 <code>EMPTY = l: l (t:x:y: FALSE) TRUE</code></p>
+<hr>
+<h2 id="recursion"><a href="#recursion" class="header-anchor"></a>Recursion
+</h2><h3 id="create-recursion---y-combinator"><a href="#create-recursion---y-combinator" class="header-anchor"></a>create recursion - Y combinator
+</h3><h4 id="动机lc-中的递归"><a href="#%e5%8a%a8%e6%9c%balc-%e4%b8%ad%e7%9a%84%e9%80%92%e5%bd%92" class="header-anchor"></a>动机：LC 中的递归
+</h4><p>尝试着在 LC 中定义递归的阶乘函数：</p>
+<pre tabindex="0"><code>f = a: IF (EQ a 1)
+       1
+       (a * f (a - 1))
+</code></pre><p>上述的定义是不符合 LC 的语法的，因为 LC 的函数都是匿名函数，不支持通过名称来调用函数（如上面的 <code>f</code>），而递归函数不可避免的需要自指，如何解决这个问题？</p>
+<p>将函数 $F$ 应用于参数 $A$，可以这样表达 $F A$，也可以利用高阶函数这样表达：$(\lambda fa.\ f\ a) F A$，在此基础上，添加一些逻辑，比如表达&quot;参数为 $a$ 和 $p$，函数为 $f$，若 $p\ a$ 为真，那么返回 $f\ a$，否则直接返回 $a$ 本身&quot;：$(\lambda fap.\ IF\ (p\ a)\ (f\ a)\ a)$. 根据这个想法，假设我们的目标阶乘函数为 <code>F</code>，那么 <code>F</code> 满足这个等式，将 <code>(f:a: ..)</code> 记作 <code>F'</code>：</p>
+<pre tabindex="0"><code>F = (f:a: IF (EQ a 1)
+          1 
+          (a * f (a - 1))
+    )  F 
+  ≡ F&#39; F 
+</code></pre><p>看等式的右侧，<code>F'</code> 的涵义是，接收函数 <code>f</code> 和参数 <code>a</code>，若 <code>EQ a 1</code> 那么返回 <code>1</code>，否则返回返回 <code>a * f (a - 1)</code>. 向 <code>F'</code> 传递递归函数 <code>F</code>，由此得到的函数 <code>F' F</code> 的行为和我们目标的阶乘函数 <code>F</code> 是一致的，从语义上来讲，左右侧相等.</p>
+<p>目前我们有的等式是 <code>F = F' F</code> ①，其中 <code>F'</code> 是已知的 closed term，因为 <code>F</code> 涉及自引，所以不存在 normal form，于是考虑是否存在某个 <code>Y</code> s.t. <code>Y F' = F</code>②，将 ② 代入 ①，<code>Y F' = F' (Y F')</code>，接下来的目标就是解出 <code>Y</code> 的 normal form，得到 <code>Y</code> 之后，目标递归函数 <code>F = Y F'</code> 也随之得到了.</p>
+<span style="color: gray">
+<ul>
+<li>
+<p>为什么要试图将 <code>F</code> 分解成 <code>Y F'</code>？</p>
+<p>不严谨地说，从方程的角度看 <code>F = F' F</code> 只有一个未知量 <code>F</code>，将 <code>F</code> 转化成 <code>Y F'</code>，同样只含一个未知量 <code>Y</code>，而 <code>F'</code>已知且和我们的求解目标（递归函数 <code>F</code>）紧密相关.</p>
+</li>
+</ul>
+</span>
+<h4 id="y-combinator-设计"><a href="#y-combinator-%e8%ae%be%e8%ae%a1" class="header-anchor"></a>Y combinator 设计
+</h4><p><code>Y</code> 是一个这样的 term：<code>Y F = F (Y F) = F (F (Y F)) = ...</code>.</p>
+<p>为设计满足以上目标的 <code>Y</code> ，做出如下的初步分析：</p>
+<ol>
+<li>
+<p>根据 inversion lemma，<code>Y</code> 的形状毫无疑问是 <code>(f: ...)</code>.</p>
+</li>
+<li>
+<p><code>Y</code> 的自指？—— 我们需要重复 <code>Y</code>，或者说<strong>构建</strong>右侧的 <code>Y</code>.</p>
+<p>Function / Abstraction is All You Need —— 因为 LC 没有存储，所以 <code>Y F  = F (Y F)</code>，等号左右的 <code>Y</code> 并不是同一个 <code>Y</code>，不是值拷贝或者地址拷贝（因为 LC 不提供存储的概念，无处安放值或者地址，这里只有函数），右侧的 <code>Y</code> 需要通过构建得到，与左侧的 <code>Y</code> <strong>在 alpha-conversion 的意义下相等</strong>.</p>
+</li>
+</ol>
+<!-- 3. 一个观察：注意到 `Y F` 规约之后的项更长了，而不是更短，如何做到这一点？ -->
+<ol start="3">
+<li>
+<p>如何重复 <code>F</code>？这很简单，<code>Y = (f: ...)</code> 接收参数 <code>F</code>，在 <code>Y</code> 的函数体内，想怎么重复就怎么重复.</p>
+</li>
+<li>
+<p>设计一个 abstraction <code>M</code> 做构建，<code>M</code> 将接收一些必要的参数，在函数体内组织这些参数，形成和 <code>Y</code> 一样的结构.</p>
+<ol>
+<li><code>Y = f: M f ...</code> ~ᴇxᴘᴇᴄᴛᴇᴅ→ <code>M = f: f (Wai f)</code>：毫无疑问，<code>M</code> 需要拿到 <code>Y</code> 的参数 <code>f</code>，<code>M</code> 内部需要建立起和 <code>Y F</code> 一致的结构；</li>
+<li><code>Y = f: M f M ...</code> ~ᴇxᴘᴇᴄᴛᴇᴅ→ <code>M = f:m: f (m f m)</code>：因为我们希望 <code>M</code> 可以建立起和 <code>Y F</code> 一致的结构，而 <code>Y</code> 包含了 <code>M</code>，那么 <code>M</code> 也需要包含 <code>M</code>，所以通过参数 <code>m</code> 将 <code>M</code> 原封不动地传进 <code>M</code>. <code>M</code> 的函数体中，最左的 <code>f</code> 实现 <code>f</code> 的再次应用，<code>(m f m)</code> 构建了和左侧的 <code>Y F</code> alpha 等价的结构.</li>
+<li><code>Y = f: M f M, 其中 M = f:m: f (m f m)</code>，可以验证这已经是一个可行的 <code>Y</code> 组合子了，<code>Y F = M F M = (f:m: f (m f m)) F M = F (M F M) = F (M F M) = F (Y F)</code>.</li>
+</ol>
+</li>
+<li>
+<p><code>Y</code> 组合子可以有无数种，比如 (a) <code>Y = f: M M f, M = m:f: f (m m f)</code> 这和上文所呈现的 <code>Y</code> 组合子是几乎一样的，只是改变了 <code>M, f</code> 参数的顺序，利用一步 $\eta$ 规约，使之更简洁——<code>Y = M M, M = ...</code>，这也是图灵给出的 <code>Y</code> 组合子；(b) <code>Y = f: E (E f) E f, E = r:s:f: f (s r s f)</code> 也是可以的，看起来不够简洁，但是理念和上面的陈述是一致的，用 <code>E</code> 接收需要知道的参数，然后做构建，你会发现 <code>E</code> 接收了 <code>E</code> 和 <code>f</code>，又多余地接收了 <code>(E f)</code>，把 <code>(E f)</code> 拿掉并做相应的修改，就得到了本段落陈述的第一种 <code>Y</code> 组合子；(c) 最简洁的 <code>Y = f: (x: f (x x)) (x: f (x x))</code>，它和前面提到的 Y 组合子的区别在于，前面的 Y 组合子是用组合子组成的，比如 4 中的 <code>Y = f: M f M</code> 中的 <code>M</code> 本身也是组合子，而这个 <code>Y</code> 组合子不包含组合子子项.</p>
+</li>
+</ol>
+<ul>
+<li>
+<p>小练习：如何实现满足双边延展的 <code>D F D = D (D F D) D = ...</code> 的组合子 <code>D</code>？</p>
+<p>一种解法可以是 <code>D = f:d: d (d f d) d</code>，道理和之前所说的是一致的.</p>
+</li>
+<li>
+<p><code>Y</code> 一定要是组合子吗，可以引入自由变量吗？</p>
+<p>假设 <code>Y</code> 包含自由变量 <code>z</code>，因为 <code>Y</code> 包含 <code>z</code>，那么用 <code>M</code> 构建 <code>Y</code> 时也要考虑到 <code>z</code>：</p>
+<ol>
+<li>closed <code>M</code>：将 <code>z</code> 作为参数传给 <code>M</code>，那么可以在之前的 Y 组合子的基础上修改，得到 <code>Y = f: M f c M, M = f:c:m: f (m f c m)</code>，可以验证，这可以达成 <code>Y F = F (Y F) = ... </code> 的目标，同时你可以注意到引入 <code>z</code> 并没有什么意义，只是平添负担;</li>
+<li>open <code>M</code>：即 <code>M</code> 本身包含了自由 <code>z</code>，可以尝试 <code>Y = f: K f K z, K = f:k: f (k f k z)</code>这个例子，你会发现这是行不通的： <code>Y F = F (K F K z) z = F (Y F) z = F (F (Y F) z) z</code>，这个 <code>Y</code> 的效果是在左侧不断做 <code>F</code> 的应用，右侧不断产生新的 <code>z</code>.</li>
+</ol>
+<p>根据以上的讨论，这个问题的答案是：可以，但没必要. 且从直觉上去理解，随意地引入自由变量也没有意义. 我提出这个问题的原因是，有一瞬间突然觉得 Y 组合子太熟悉了，第一次在 LC 里见到 Y 这个大写字母后面接的就是&quot;组合子&quot;三个字，所以开始考虑，如果不是组合子是否可以.</p>
+</li>
+</ul>
+<!-- - 关于自指，命令式与 LC (Y 组合子) 的比较：
+
+    简单的递归函数 `void func() { func(); } `，它的汇编代码大约如下：
+
+    ```
+    0x1a00: func:
+          :   push    rbp
+          :   mov     rbp, rsp
+          :   call    func          # self-reference 
+          :   pop     rbp
+          :   ret
+    ```
+
+    运行程序时，其代码段（当然也包括程序的其他部分）将被加载到内存，执行到 `call func` 时，程序计数器将被置为 0x1a00，下一个周期将从 0x1a00 （即 `func` 的入口）开始继续顺序执行代码段中的指令，这里 `func` 的递归符合我们对"自指"这个词的直觉，因为计算机把函数（的机器码）加载到存储空间中，`call func` 调用的就是之前被加载好的 `func`.
+
+    对于 Y 组合子而言，`Y F = F (Y F) = ...`，`Y F` 的定义依赖于其自身，这也是一种自指，LC 没有存储，所有的函数都是匿名函数，不支持通过名称调用自身实现直接递归， -->
+<h4 id="y-combinator-使用"><a href="#y-combinator-%e4%bd%bf%e7%94%a8" class="header-anchor"></a>Y combinator 使用
+</h4><p>承接动机部分，我们用 <code>F' = f:a: ...</code> 表达递归函数 <code>f</code> 与其参数 <code>a</code> 之间的应用逻辑，将目标递归函数为 <code>F</code>，那么 <code>F = F' F</code>，因为自引的不合法，考虑用 <code>Y F'</code> 来表示 <code>F</code>，在上一节中我们涉及出了可行的 <code>Y</code>，于是 <code>F = Y F'</code> 就是我们希望得到的目标函数.</p>
+<!-- TL;DR: 如果希望实现 `f` 的递归，`f` 的参数为 `a`，Y  -->
+<p>想明白 Y 组合子的使用，本 section 的关卡都很简单了，唯一值得提示的是 1. 使用以往关卡已定义过的函数时，注意函数的参数顺序，例如 <code>FILTER</code> 先传列表，再传过滤依赖的函数，因为 Simple LC 语法层面的约束很少，所以编程者自己要多当心一些 2. 有若干个关卡可能涉及列表反转，所以 <code>REVERSE</code> 可以先写，然后直接拿来用 3. 注意括号配对，可以现在先进的编辑器里先写，确保不犯低级错误，再复制进来评测. 下面给出的答案仅供参考，可以过评测，但未必最简.</p>
+<h3 id="strip-prefix"><a href="#strip-prefix" class="header-anchor"></a>strip prefix
+</h3><p>去除不定长列表前缀的 <code>FALSE</code>：</p>
+<pre tabindex="0"><code>Y (f:l:
+      IF 
+      (FST l)
+      l 
+      (f (SND l))
+  )
+</code></pre><h3 id="acc"><a href="#acc" class="header-anchor"></a>ACC
+</h3><pre tabindex="0"><code>Y  (a:l:f:i: 
+      IF (EMPTY l)
+      i 
+      (a (SND l) f (f i (FST l))) 
+   )
+</code></pre><h3 id="all"><a href="#all" class="header-anchor"></a>ALL
+</h3><pre tabindex="0"><code>l: ACC l AND TRUE
+</code></pre><h3 id="reverse"><a href="#reverse" class="header-anchor"></a>REVERSE
+</h3><pre tabindex="0"><code>Y (i:c:l: 
+    IF 
+      (EMPTY l) 
+      c 
+      (i (PAIR (FST l) c) (SND l))
+  ) 
+  FALSE 
+</code></pre><h3 id="map"><a href="#map" class="header-anchor"></a>MAP
+</h3><pre tabindex="0"><code>Y  (m:c:l:f:
+        IF 
+        (EMPTY l)
+        (REVERSE c)
+        (m (PAIR (f (FST l)) c)  (SND l) f) 
+    )
+FALSE
+</code></pre><h3 id="none"><a href="#none" class="header-anchor"></a>NONE
+</h3><pre tabindex="0"><code>(l: ALL (MAP l NOT))
+</code></pre><h3 id="filter"><a href="#filter" class="header-anchor"></a>FILTER
+</h3><pre tabindex="0"><code>Y (m:c:l:f:
+        IF 
+        (EMPTY l)
+        (REVERSE c)
+        (   IF 
+            (f (FST l))
+            (m (PAIR (FST l) c) (SND l) f) 
+            (m c (SND l) f)
+        )
+  )
+  FALSE
+</code></pre><h3 id="zip"><a href="#zip" class="header-anchor"></a>ZIP
+</h3><pre tabindex="0"><code>Y (z:c:m:n:
+    IF 
+    (EMPTY m)
+    (REVERSE c)    
+    (z (PAIR (PAIR (FST m) (FST n)) c) (SND m) (SND n)) 
+  ) 
+  FALSE
+</code></pre><h3 id="eqblist"><a href="#eqblist" class="header-anchor"></a>EQBLIST
+</h3><pre tabindex="0"><code>(m:n: ALL 
+      (MAP 
+         (MAP 
+            (ZIP m n) 
+            (p: XOR (FST p) (SND p))
+         ) 
+         NOT
+      ) 
+)
+</code></pre><h3 id="concat"><a href="#concat" class="header-anchor"></a>CONCAT
+</h3><pre tabindex="0"><code>(m:n: 
+    (Y (g:c:r:
+        IF (EMPTY r)
+        c
+        (g (PAIR (FST r) c) (SND r))
+       )
+    )
+    n (REVERSE m) 
+)
+</code></pre><h2 id="numerals"><a href="#numerals" class="header-anchor"></a>Numerals
+</h2><p>Church Numeral 用函数表达自然数，两个关键点是 1. 基 (<code>0 := f:x: x</code>) 2. 后继 (<code>SUC</code>)，在基之上不断做后继，就可以得到所有 Church Numeral.</p>
+<h3 id="suc"><a href="#suc" class="header-anchor"></a>SUC
+</h3><p>给定 Church Numeral <code>n</code>，<code>n</code> 是一个函数，参数为 <code>f</code>, <code>x</code>，<code>n f x</code> 表示将 <code>f</code> 应用于 <code>x</code> $n$ 次，<code>SUC n</code> 是一个函数，这个函数的能力是接收 <code>f</code>, <code>x</code>，将 <code>f</code> 应用于 <code>x</code> $(n+1)$ 次.</p>
+<pre tabindex="0"><code>(n: (f:x: f (n f x) ) )
+</code></pre><h3 id="zero"><a href="#zero" class="header-anchor"></a>ZERO
+</h3><p>利用逻辑运算来判断给定的 <code>n</code> 是不是 <code>f:x: x</code>.</p>
+<pre tabindex="0"><code>(n: n (x: AND FALSE x) TRUE)
+</code></pre><h3 id="pre"><a href="#pre" class="header-anchor"></a>PRE
+</h3><p>一个基本的观察是 <code>n = n SUC 0</code>，这里的等号表示内涵等价（intensional equality），那么在 <code>PAIR 0 0</code> 上做 $n$ 次迭代，一轮迭代的工作是：1. 右侧数对齐左侧数 2. 左侧数做一次后继，那么右侧数始终慢左侧数一步，即 $n$ 轮迭代后，左侧数是 <code>n</code>，右侧数是左侧数的后继.</p>
+<pre tabindex="0"><code>(n: SND (n (p: PAIR (SUC (FST p)) (FST p)) (PAIR 0 0) ) )
+</code></pre><h3 id="add"><a href="#add" class="header-anchor"></a>ADD
+</h3><p>给定 <code>x</code>, <code>y</code>，目标是给出 <code>x+y</code>，<code>x+y</code> 的含义是：预备接收 <code>f</code>, <code>z</code>，将 <code>f</code> 应用于 <code>z</code> $(x+y)$ 次. 先将 <code>f</code> 应用于 <code>z</code> $x$ 次，得到结果 <code>x f z</code>，再将 <code>f</code> 应用于 <code>(x f z)</code> $y$ 次.</p>
+<pre tabindex="0"><code>(x:y: (f:z: y f (x f z)) )
+</code></pre><h3 id="sub"><a href="#sub" class="header-anchor"></a>SUB
+</h3><pre tabindex="0"><code>(x:y: (f:z: (y PRE x) f z))
+</code></pre><h3 id="mul"><a href="#mul" class="header-anchor"></a>MUL
+</h3><pre tabindex="0"><code>(x:y:f:z: y (x f) z )
+</code></pre><h3 id="div"><a href="#div" class="header-anchor"></a>DIV
+</h3><pre tabindex="0"><code>(Y (d:c:x:y:
+        IF (ZERO x)
+        0    
+        ( 
+          IF (ZERO (y PRE x))
+          (SUC c)
+          (d (SUC c) (y PRE x) y)
+        ) 
+   ) 
+) 0
+</code></pre><h3 id="eq"><a href="#eq" class="header-anchor"></a>EQ
+</h3><pre tabindex="0"><code>(x:y: AND 
+        (ZERO (x PRE y)) 
+        (ZERO (y PRE x))
+)
+</code></pre><h3 id="min"><a href="#min" class="header-anchor"></a>MIN
+</h3><pre tabindex="0"><code>(x:y: IF (ZERO (x PRE y))
+      y
+      x
+)
+</code></pre><h3 id="max"><a href="#max" class="header-anchor"></a>MAX
+</h3><pre tabindex="0"><code>(x:y: IF (ZERO (x PRE y))
+      x
+      y
+)
+</code></pre><h2 id="more-numerals"><a href="#more-numerals" class="header-anchor"></a>More Numerals
+</h2><h3 id="is-odd"><a href="#is-odd" class="header-anchor"></a>is odd
+</h3><pre tabindex="0"><code>(n: (n NOT FALSE))
+</code></pre><p>顺便想起了判断奇偶的递归方法：（看起来还挺有意思的，比熟悉的 <code>mod 2</code> 新鲜一些）</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-hs" data-lang="hs"><span class="line"><span class="cl"><span class="nf">isEven</span> <span class="ow">::</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="kt">Bool</span> 
+</span></span><span class="line"><span class="cl"><span class="nf">isEven</span> <span class="mi">0</span> <span class="ow">=</span> <span class="kt">True</span> 
+</span></span><span class="line"><span class="cl"><span class="nf">isEven</span> <span class="n">x</span> <span class="ow">=</span> <span class="n">isOdd</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">isOdd</span> <span class="ow">::</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="kt">Bool</span>
+</span></span><span class="line"><span class="cl"><span class="nf">isOdd</span> <span class="mi">0</span> <span class="ow">=</span> <span class="kt">False</span>
+</span></span><span class="line"><span class="cl"><span class="nf">isOdd</span> <span class="n">x</span> <span class="ow">=</span> <span class="n">isEven</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span></span></code></pre></div><h3 id="increasing-list"><a href="#increasing-list" class="header-anchor"></a>increasing list
+</h3><p>尾递归：</p>
+<pre tabindex="0"><code>(Y (f:c:n: IF (ZERO n)
+           (PAIR 0 c)
+           (f (PAIR n c) (PRE n))
+   ) 
+) FALSE
+</code></pre><p>非尾递归：</p>
+<pre tabindex="0"><code>(n: REVERSE 
+    ( 
+     (Y (f:x: 
+            IF (ZERO x)
+            (PAIR 0 FALSE)
+            (PAIR x (f (PRE x))))
+     ) n
+    )
+)
+</code></pre><h3 id="decomposition"><a href="#decomposition" class="header-anchor"></a>decomposition
+</h3><p>将给定数分解成 2 的幂之和：</p>
+<pre tabindex="0"><code>(Y (f:c:k:n:
+     IF (ZERO n)
+     c
+     (IF (AND (EQ n (MIN k n)) (NOT (EQ k n)))  
+         (f c (DIV k 2) n)
+         (f (PAIR k c) (DIV k 2) (SUB n k) )
+     )
+   )
+) FALSE 8
+</code></pre><p><strong>*</strong> primes 和 sort 都需要大把时间运行（本机测试两关各自耗时都在 30min 左右）</p>
+<h3 id="primes"><a href="#primes" class="header-anchor"></a>primes
+</h3><pre tabindex="0"><code>Y (f:l:p:n: 
+     IF (EQ n (FST p)) 
+     (PAIR n l)
+     (IF (EQ (FST p) (MAX n (FST p)))
+      (f l (SND p) n)
+      ( IF (
+            (Y (f:n:p:
+                IF (EQ n (MIN n p) )
+                (IF (EQ n p) TRUE FALSE )
+                (f (SUB n p) p)   
+               )
+            ) n (FST p)
+           )
+        (f (PAIR (FST p) l) p (DIV n (FST p)))
+        (f l (SND p) n)
+      )
+     )
+  )
+  FALSE
+  (PAIR 47 (PAIR 43 (PAIR 41 (PAIR 37 (PAIR 31 (PAIR 29 
+  (PAIR 23 (PAIR 19 (PAIR 17 (PAIR 13 (PAIR 11 (PAIR 7 
+  (PAIR 3  (PAIR 2 FALSE))))))))))))))
+</code></pre><h3 id="sort"><a href="#sort" class="header-anchor"></a>sort
+</h3><p>选择排序：</p>
+<pre tabindex="0"><code>Y (f:c:l: 
+    IF (EMPTY l)
+    c
+    (
+        (m: (f (PAIR m c) (FILTER l (x: NOT (EQ x m)) )) ) 
+        (ACC l MAX 0)
+    )
+  ) FALSE
+</code></pre><h2 id="trees"><a href="#trees" class="header-anchor"></a>trees
+</h2><h3 id="node"><a href="#node" class="header-anchor"></a>NODE
+</h3><pre tabindex="0"><code>l:v:r:f: f l v r
+</code></pre><h3 id="lef"><a href="#lef" class="header-anchor"></a>LEF
+</h3><pre tabindex="0"><code>t: t (l:v:r: l) 
+</code></pre><h3 id="rig"><a href="#rig" class="header-anchor"></a>RIG
+</h3><pre tabindex="0"><code>t: t (l:v:r: r)
+</code></pre><h3 id="val"><a href="#val" class="header-anchor"></a>VAL
+</h3><pre tabindex="0"><code>t: t (l:v:r: v)
+</code></pre><h3 id="bempty"><a href="#bempty" class="header-anchor"></a>BEMPTY
+</h3><p>类似于列表判空，<code>NODE l v r = f: f l v r</code>，空树用 <code>FALSE := a:b: b</code>，将一个树 <code>t</code> 作为函数使用，若是空树，<code>t A B = FALSE A B = B ~ᴇxᴘᴇᴄᴛᴇᴅ→ TRUE</code>，若不是空树 <code>t A B = (f: f l v r) A B = A l v r B ~ᴇxᴘᴇᴄᴛᴇᴅ→ FALSE</code>，根据以上，<code>B = TRUE, A = l:v:r:x FALSE</code>，所以：</p>
+<pre tabindex="0"><code>(t: t (l:v:r:x: FALSE) TRUE )
+</code></pre><h3 id="find"><a href="#find" class="header-anchor"></a>FIND
+</h3><p>判断树 <code>t</code> 中是否存在值为 <code>v</code> 的结点：</p>
+<pre tabindex="0"><code>Y (f:t:v:
+    IF (BEMPTY t)
+    FALSE
+    (IF (EQ (VAL t) v)
+     TRUE
+     (OR (f (LEF t) v) (f (RIG t) v))    
+    )
+  )
+</code></pre><h3 id="bsize"><a href="#bsize" class="header-anchor"></a>BSIZE
+</h3><p>计算树的规模：</p>
+<pre tabindex="0"><code>Y (f:t:
+    IF (BEMPTY t)
+    0
+    (SUC (ADD (f (LEF t)) (f (RIG t))))
+  )
+</code></pre><h3 id="build"><a href="#build" class="header-anchor"></a>BUILD
+</h3><p>二叉搜索树的构造：</p>
+<pre tabindex="0"><code>Y (f:c:l:
+    IF (EMPTY l)
+    c
+    (   f
+        (
+          (
+          Y (f:v:t:
+              IF (BEMPTY t)
+              (NODE FALSE v FALSE)
+              ( IF (EQ v (MIN v (VAL t)))
+                (NODE (f v (LEF t)) (VAL t) (RIG t))
+                (NODE (LEF t) (VAL t) (f v (RIG t)))
+              )
+            )
+          )           
+          (FST l) c)
+        (SND l)
+    ) 
+  ) FALSE
+</code></pre><p><em>[ 游戏里的 PREORDER 和 INORDER 两个函数似乎反了？ ]</em></p>
+<h3 id="preorder"><a href="#preorder" class="header-anchor"></a>PREORDER
+</h3><p>二叉树的中序遍历：</p>
+<pre tabindex="0"><code>Y (f:t: 
+    IF (BEMPTY t)
+    FALSE
+    (CONCAT (f (LEF t))
+        (PUSH (VAL t)  
+              (f (RIG t))
+        )
+    )
+  )
+</code></pre><h3 id="inorder"><a href="#inorder" class="header-anchor"></a>INORDER
+</h3><p>二叉树的前序遍历：</p>
+<pre tabindex="0"><code>Y (f:t: 
+    IF (BEMPTY t)
+    FALSE
+    (PUSH (VAL t)
+        (CONCAT (f (LEF t)) 
+                (f (RIG t))
+        )
+    )
+  )
+</code></pre><h3 id="split"><a href="#split" class="header-anchor"></a>SPLIT
+</h3><p>树 <code>t</code> 以 <code>v</code> 为界进行分割：</p>
+<pre tabindex="0"><code>Y (f:t:v:
+    IF (BEMPTY t)
+    (PAIR FALSE FALSE)
+    (
+      IF (EQ v (MAX v (VAL t)))
+      (
+        (p: PAIR (NODE (LEF t) (VAL t) (FST p)) (SND p)) 
+        (f (RIG t) v)
+      )
+      (
+        (p: (PAIR (FST p) (NODE (SND p) (VAL t) (RIG t) ))) 
+        (f (LEF t) v)
+      )
+    )
+  )
+</code></pre><h3 id="kth"><a href="#kth" class="header-anchor"></a>KTH
+</h3><p>对给定的二叉搜索树，给出其中第 <code>k</code> 大的元素，取出树的中序遍历列表中的第 <code>k</code> 项即可：</p>
+<pre tabindex="0"><code>(t:k: 
+    Y (f:c:l:
+        IF (EQ c 0)
+        (FST l)
+        (f (PRE c) (SND l) )
+    ) k (PREORDER t)
+)
+</code></pre><h3 id="inverse-6"><a href="#inverse-6" class="header-anchor"></a>inverse 6
+</h3><p>对给定的二叉搜索树 <code>t</code>，找出 <code>[1..6]</code> 中的若干个缺席者，升序排列：</p>
+<pre tabindex="0"><code>t: 
+  IF (BEMPTY t)
+  (PAIR 1 (PAIR 2 (PAIR 3 (PAIR 4 (PAIR 5 (PAIR 6 FALSE))))))
+  (
+   Y (f:c:m:n:
+        IF (EMPTY n)
+        (REVERSE c)
+        (
+          IF (EQ (FST m) (FST n))
+          (f c (SND m) (SND n))
+          (f (PAIR (FST n) c) m (SND n))
+        )
+    ) 
+    FALSE
+    (PREORDER t)
+    (PAIR 1 (PAIR 2 (PAIR 3 (PAIR 4 (PAIR 5 (PAIR 6 FALSE))))))
+  )
+</code></pre><hr>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/zh/tags/lambda-calculus/">Lambda Calculus</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/zh/p/%E8%BF%AD%E4%BB%A3%E7%BB%84%E5%90%88%E5%AD%90%E7%9A%84%E6%9E%84%E9%80%A0-lcac-4c-theorem-4.20/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">迭代组合子的构造 - LCaC § 4C, Theorem 4.20</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/zh/p/church-encoding-note/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Church Encoding Note</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/zh/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.3.4-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Huffman 树的 Haskell 实现 - SICP § 2.3.4  | 组合数据的结构与解构</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/zh/p/%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95%E7%9A%84%E6%8A%BD%E8%B1%A1/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">搜索算法的抽象</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/zh/p/%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E9%87%8D%E5%A4%8D%E8%AE%A1%E7%AE%97-/-%E7%BA%AF%E5%87%BD%E6%95%B0%E5%8F%8A%E5%85%B6%E6%B1%82%E5%80%BC%E7%AD%96%E7%95%A5/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">如何避免重复计算 / 纯函数及其求值策略</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2024 - 
+        
+        2025 fyshXplore
+    </section>
+    
+    <section class="powerby">
+        
+            Wish You a Nice Day! <br/>
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="zh" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="前言 在这个学期的算法课中，我们重点学习了回溯法和分支限界法两大类搜索算法，过去我总是把DFS、BFS等各种搜索算法分开来，比较其差异，在本文中，我希望对搜索算法做一个抽象，预期可以由一个简洁的抽象模型延伸出我们熟悉的具体的搜索策略。\n">
+<title>搜索算法的抽象</title>
+
+<link rel='canonical' href='http://fyshxfish.github.io/zh/p/%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95%E7%9A%84%E6%8A%BD%E8%B1%A1/'>
+
+<link rel="stylesheet" href="/scss/style.min.47ac80bd6ec45b271188f04491fa8bc23b22060dfe68b4c309fccb144e0721fc.css"><meta property='og:title' content="搜索算法的抽象">
+<meta property='og:description' content="前言 在这个学期的算法课中，我们重点学习了回溯法和分支限界法两大类搜索算法，过去我总是把DFS、BFS等各种搜索算法分开来，比较其差异，在本文中，我希望对搜索算法做一个抽象，预期可以由一个简洁的抽象模型延伸出我们熟悉的具体的搜索策略。\n">
+<meta property='og:url' content='http://fyshxfish.github.io/zh/p/%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95%E7%9A%84%E6%8A%BD%E8%B1%A1/'>
+<meta property='og:site_name' content='fyshXplore'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='haskell' /><meta property='article:published_time' content='2024-11-24T12:09:00&#43;08:00'/><meta property='article:modified_time' content='2024-11-24T12:09:00&#43;08:00'/>
+<meta name="twitter:title" content="搜索算法的抽象">
+<meta name="twitter:description" content="前言 在这个学期的算法课中，我们重点学习了回溯法和分支限界法两大类搜索算法，过去我总是把DFS、BFS等各种搜索算法分开来，比较其差异，在本文中，我希望对搜索算法做一个抽象，预期可以由一个简洁的抽象模型延伸出我们熟悉的具体的搜索策略。\n"><style>
+  :root {
+     
+    --zh-font-family: "Noto Serif SC";
+     
+     
+     
+    --code-font-family: Consolas, Menlo, Monaco, "Courier New", var(--zh-font-family), monospace;
+    --article-font-family: "Noto Serif SC";
+  }
+</style>
+
+<script>
+  (function () {
+    const customFont = document.createElement("link");
+    customFont.href =
+      "https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap";
+
+    customFont.type = "text/css";
+    customFont.rel = "stylesheet";
+
+    document.head.appendChild(customFont);
+  })();
+</script>
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/zh/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/fyshx_avatar_hu_4b64fe58c612edf3.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🫧</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/zh">fyshXplore</a></h1>
+            <h2 class="site-description">Just for 𝐅𝐮𝐧</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/fyshxfish'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/zh/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/zh/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-infinity" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M9.828 9.172a4 4 0 1 0 0 5.656 a10 10 0 0 0 2.172 -2.828a10 10 0 0 1 2.172 -2.828 a4 4 0 1 1 0 5.656a10 10 0 0 1 -2.172 -2.828a10 10 0 0 0 -2.172 -2.828" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/zh/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/zh/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/zh/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="http://fyshxfish.github.io/zh/" selected>中文</option>
+                                
+                                    <option value="http://fyshxfish.github.io/" >English</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">&thinsp;Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#搜索模型与搜索过程的抽象">搜索模型与搜索过程的抽象</a></li>
+    <li><a href="#示例由模型实例化出的tsp搜索">示例：由模型实例化出的TSP搜索</a></li>
+    <li><a href="#其他实例简述">其他实例简述</a></li>
+    <li><a href="#不足之处">不足之处</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/zh/categories/fp/" style="background-color: #b7c9e2; color: #fff;">
+                FP
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/zh/p/%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95%E7%9A%84%E6%8A%BD%E8%B1%A1/">搜索算法的抽象</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Nov 24, 2024</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    5 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+        <footer class="article-translations">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+            <div>
+                
+                    <a href="http://fyshxfish.github.io/p/abstractions-for-search-algorithm/" class="link">English</a>
+                
+            </div>
+        </footer>
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="前言"><a href="#%e5%89%8d%e8%a8%80" class="header-anchor"></a>前言
+</h2><p>在这个学期的算法课中，我们重点学习了回溯法和分支限界法两大类搜索算法，过去我总是把DFS、BFS等各种搜索算法分开来，比较其差异，在本文中，我希望对搜索算法做一个抽象，预期可以由一个简洁的抽象模型延伸出我们熟悉的具体的搜索策略。</p>
+<h2 id="搜索模型与搜索过程的抽象"><a href="#%e6%90%9c%e7%b4%a2%e6%a8%a1%e5%9e%8b%e4%b8%8e%e6%90%9c%e7%b4%a2%e8%bf%87%e7%a8%8b%e7%9a%84%e6%8a%bd%e8%b1%a1" class="header-anchor"></a>搜索模型与搜索过程的抽象
+</h2><p>用 Haskell 语言展示我总结出的模型：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-hs" data-lang="hs"><span class="line"><span class="cl"><span class="kr">class</span> <span class="p">(</span><span class="kt">Ord</span> <span class="n">node</span><span class="p">)</span> <span class="ow">=&gt;</span> <span class="kt">Search</span> <span class="n">env</span> <span class="n">node</span> <span class="kr">where</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">initN</span> <span class="ow">::</span> <span class="n">env</span> <span class="ow">-&gt;</span> <span class="n">node</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">check</span> <span class="ow">::</span> <span class="n">env</span> <span class="ow">-&gt;</span> <span class="n">node</span> <span class="ow">-&gt;</span> <span class="kt">Bool</span>
+</span></span><span class="line"><span class="cl">    <span class="n">child</span> <span class="ow">::</span> <span class="n">env</span> <span class="ow">-&gt;</span> <span class="n">node</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">node</span><span class="p">]</span>  
+</span></span><span class="line"><span class="cl">    <span class="n">search</span> <span class="ow">::</span> <span class="n">env</span> <span class="ow">-&gt;</span> <span class="n">node</span> 
+</span></span></code></pre></div><ol>
+<li><code>Search env node</code>: 搜索需要两个要素，搜索环境 <code>env</code> 和搜索结点 <code>node</code>，且我们需要根据 <code>node</code> 的优先级来决定扩展顺序，那么我们希望 <code>node</code> 之间是可比的（orderable）所以需要给 <code>node</code> 加以 <code>Ord</code> 约束；</li>
+<li><code>initN :: env -&gt; node</code>: 搜索需要初始化，搜索树需要有根节点，所以我们希望可以根据搜索环境 <code>env</code> 生成一个简单的搜索根结点 <code>node</code> ；</li>
+<li><code>check :: env -&gt; node -&gt; Bool</code>: 搜索需要停止，所以我们需要有一个函数可以根据搜索环境 <code>env</code> 的性质，判断当前 <code>node</code> 是否是问题的解；</li>
+<li><code>child :: env -&gt; node -&gt; [node]</code>: 搜素需要可继续，搜索树的活结点是可扩展的，所以我们需要函数 <code>child</code> 根据环境 <code>env</code> 和当前扩展结点 <code>node</code>，生成一系列子结点 <code>[node]</code>；</li>
+<li><code>search :: env -&gt; node</code>: 搜索的主函数，它的目标是在搜索环境中搜索，最终得到终止结点 <code>node</code> ，<code>node</code> 是我们需要的最优解。</li>
+</ol>
+<p>如果我们需要写一个具体问题的搜索算法，我们需要给出搜索环境 <code>env</code> 的抽象，结点 <code>node</code> 的设计、并且实现以上的 <code>initN</code>, <code>check</code>, <code>child</code>, <code>search</code> 函数。</p>
+<p>搜索模型可以被抽象，搜索过程也可以，于是我提供了 <code>search</code> 函数的默认实现（因为 <code>initN</code>, <code>check</code>, <code>child</code> 往往和具体的问题本身强相关，所以需要实例化的时候提供，无法依赖默认实现）。该函数抽象了搜索的基本过程——搜索总是从根节点（<code>initN</code>）出发，每次检查（<code>check</code>）当前优先级最高的结点是否是问题的一个解，是则返回此结点并结束搜索，否则拓展（<code>child</code>）出其子结点，根据优先级，对活结点列表进行重排，重复迭代此过程：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-hs" data-lang="hs"><span class="line"><span class="cl"><span class="nf">search</span> <span class="n">e</span> <span class="ow">=</span> 
+</span></span><span class="line"><span class="cl">    <span class="kr">let</span> 
+</span></span><span class="line"><span class="cl">        <span class="n">step</span> <span class="ow">::</span> <span class="p">[</span><span class="n">node</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="n">node</span>
+</span></span><span class="line"><span class="cl">        <span class="n">step</span> <span class="p">(</span><span class="n">n</span><span class="kt">:</span><span class="n">ns</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl">            <span class="o">|</span> <span class="n">check</span> <span class="n">e</span> <span class="n">n</span>   <span class="ow">=</span> <span class="n">n</span>    
+</span></span><span class="line"><span class="cl">            <span class="o">|</span> <span class="n">otherwise</span> <span class="ow">=</span> <span class="n">step</span> <span class="o">$</span> <span class="n">sort</span> <span class="p">(</span><span class="n">ns</span> <span class="o">++</span> <span class="n">child</span> <span class="n">e</span> <span class="n">n</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl">    <span class="kr">in</span>  <span class="n">step</span> <span class="p">[</span><span class="n">initN</span> <span class="n">e</span><span class="p">]</span>
+</span></span></code></pre></div><h2 id="示例由模型实例化出的tsp搜索"><a href="#%e7%a4%ba%e4%be%8b%e7%94%b1%e6%a8%a1%e5%9e%8b%e5%ae%9e%e4%be%8b%e5%8c%96%e5%87%ba%e7%9a%84tsp%e6%90%9c%e7%b4%a2" class="header-anchor"></a>示例：由模型实例化出的TSP搜索
+</h2><ol>
+<li>
+<p>搜索环境，即有向带权图 <code>Graph</code> ，抽象如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-hs" data-lang="hs"><span class="line"><span class="cl"><span class="kr">type</span> <span class="kt">Vertex</span> <span class="ow">=</span> <span class="kt">Int</span>
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="kt">Distance</span> <span class="ow">=</span> <span class="kt">Int</span> 
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="kt">Edge</span> <span class="ow">=</span> <span class="p">(</span><span class="kt">Vertex</span><span class="p">,</span> <span class="kt">Vertex</span><span class="p">,</span> <span class="kt">Distance</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kr">data</span> <span class="kt">Graph</span> <span class="ow">=</span> <span class="kt">Graph</span> <span class="p">{</span> <span class="n">vertices</span> <span class="ow">::</span> <span class="p">[</span><span class="kt">Vertex</span><span class="p">],</span> <span class="n">edges</span> <span class="ow">::</span> <span class="p">[</span><span class="kt">Edge</span><span class="p">]</span> <span class="p">}</span>    
+</span></span></code></pre></div><p>另外搜索过程还需依赖图的函数，如 <code>minOut</code>, <code>distance</code>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-hs" data-lang="hs"><span class="line"><span class="cl"><span class="nf">minOut</span> <span class="ow">::</span> <span class="kt">Graph</span> <span class="ow">-&gt;</span> <span class="p">[(</span><span class="kt">Vertex</span><span class="p">,</span> <span class="kt">Distance</span><span class="p">)]</span>      
+</span></span><span class="line"><span class="cl"><span class="nf">minOut</span> <span class="p">(</span><span class="kt">Graph</span> <span class="n">vs</span> <span class="n">es</span><span class="p">)</span> <span class="ow">=</span> <span class="p">[</span> <span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="n">minimum</span> <span class="n">ds</span><span class="p">)</span> <span class="o">|</span> 
+</span></span><span class="line"><span class="cl">                            <span class="n">v</span> <span class="ow">&lt;-</span> <span class="n">vs</span><span class="p">,</span>  
+</span></span><span class="line"><span class="cl">                            <span class="kr">let</span> <span class="n">es&#39;</span> <span class="ow">=</span> <span class="n">filter</span> <span class="p">(</span><span class="nf">\</span><span class="p">(</span><span class="n">v1</span><span class="p">,</span> <span class="kr">_</span><span class="p">,</span> <span class="kr">_</span><span class="p">)</span> <span class="ow">-&gt;</span> <span class="n">v1</span> <span class="o">==</span> <span class="n">v</span><span class="p">)</span> <span class="n">es</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                            <span class="kr">let</span> <span class="n">ds</span> <span class="ow">=</span> <span class="p">[</span> <span class="n">d</span> <span class="o">|</span> <span class="p">(</span><span class="kr">_</span><span class="p">,</span> <span class="kr">_</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span> <span class="ow">&lt;-</span> <span class="n">es&#39;</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">distance</span> <span class="ow">::</span> <span class="kt">Graph</span> <span class="ow">-&gt;</span> <span class="p">(</span><span class="kt">Int</span><span class="p">,</span> <span class="kt">Int</span><span class="p">)</span> <span class="ow">-&gt;</span> <span class="kt">Maybe</span> <span class="kt">Distance</span>
+</span></span><span class="line"><span class="cl"><span class="nf">distance</span> <span class="p">(</span><span class="kt">Graph</span> <span class="kr">_</span> <span class="kt">[]</span><span class="p">)</span> <span class="kr">_</span> <span class="ow">=</span> <span class="kt">Nothing</span>       
+</span></span><span class="line"><span class="cl"><span class="nf">distance</span> <span class="p">(</span><span class="kt">Graph</span> <span class="n">vs</span> <span class="p">((</span><span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span><span class="kt">:</span><span class="n">es</span><span class="p">))</span> <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="n">s</span> <span class="o">==</span> <span class="n">v1</span> <span class="o">&amp;&amp;</span> <span class="n">t</span> <span class="o">==</span> <span class="n">v2</span>    <span class="ow">=</span> <span class="kt">Just</span> <span class="n">d</span> 
+</span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="n">otherwise</span>             <span class="ow">=</span> <span class="n">distance</span> <span class="p">(</span><span class="kt">Graph</span> <span class="n">vs</span> <span class="n">es</span><span class="p">)</span> <span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+</span></span></code></pre></div></li>
+<li>
+<p>结点设计 <code>TspNode</code>：</p>
+<p>一个结点需要保存的信息有当前开销 <code>cost</code>，已访问的顶点列表，启发值（总开销上界）：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-hs" data-lang="hs"><span class="line"><span class="cl"><span class="kr">data</span> <span class="kt">TspNode</span> <span class="ow">=</span> <span class="kt">TspNode</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cost</span> <span class="ow">::</span> <span class="kt">Int</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="n">visited</span> <span class="ow">::</span> <span class="p">[</span><span class="kt">Vertex</span><span class="p">],</span>        <span class="c1">-- reverse </span>
+</span></span><span class="line"><span class="cl">    <span class="n">heuristic</span> <span class="ow">::</span> <span class="kt">Int</span>    <span class="c1">-- heuristic / priority </span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="kr">deriving</span> <span class="p">(</span><span class="kt">Show</span><span class="p">)</span>
+</span></span></code></pre></div><p>结点 <code>heuristic</code> 值越低，其扩展优先级越高：（注意这里的 <code>GT</code>,<code>LT</code>,<code>EQ</code> 不是优先级的大小，而是 <code>heuristic</code> 值的大小，排序函数 <code>sort</code> 将对 <code>node</code> 按 <code>heuristic</code> 升序排列）</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-hs" data-lang="hs"><span class="line"><span class="cl"><span class="kr">instance</span> <span class="kt">Ord</span> <span class="kt">TspNode</span> <span class="kr">where</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">compare</span> <span class="ow">::</span> <span class="kt">TspNode</span> <span class="ow">-&gt;</span> <span class="kt">TspNode</span> <span class="ow">-&gt;</span> <span class="kt">Ordering</span>
+</span></span><span class="line"><span class="cl">    <span class="n">compare</span> <span class="n">n1</span> <span class="n">n2</span> 
+</span></span><span class="line"><span class="cl">        <span class="o">|</span> <span class="n">heuristic</span> <span class="n">n1</span> <span class="o">&gt;</span> <span class="n">heuristic</span> <span class="n">n2</span> <span class="ow">=</span> <span class="kt">GT</span>
+</span></span><span class="line"><span class="cl">        <span class="o">|</span> <span class="n">heuristic</span> <span class="n">n1</span> <span class="o">&lt;</span> <span class="n">heuristic</span> <span class="n">n2</span> <span class="ow">=</span> <span class="kt">LT</span>
+</span></span><span class="line"><span class="cl">        <span class="o">|</span> <span class="n">otherwise</span>                   <span class="ow">=</span> <span class="kt">EQ</span>
+</span></span></code></pre></div></li>
+<li>
+<p>搜索函数实例化：</p>
+<p>我们需要让 <code>Graph TspNode</code> 成为 <code>Search</code> 类型类的实例，<code>search</code> 可以使用默认实现，所以还需要实现 <code>initN</code>, <code>check</code>, <code>child</code> 函数：</p>
+<ul>
+<li>
+<p><code>initN</code>:</p>
+<p>根节点开销 <code>cost</code> 为 <code>0</code>, 已访问结点列表 <code>visited</code> 为空，开销上界 <code>heuristic</code> 不重要，因为根节点总会被第一个检查并移出活结点列表，永远不会参与排序，所以 <code>heuristic</code> 置 <code>0</code> 即可：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-hs" data-lang="hs"><span class="line"><span class="cl"><span class="nf">initN</span> <span class="ow">::</span> <span class="kt">Graph</span> <span class="ow">-&gt;</span> <span class="kt">TspNode</span>
+</span></span><span class="line"><span class="cl"><span class="nf">initN</span> <span class="kr">_</span> <span class="ow">=</span> <span class="kt">TspNode</span> <span class="mi">0</span> <span class="kt">[]</span> <span class="mi">0</span>
+</span></span></code></pre></div></li>
+<li>
+<p><code>check</code>:</p>
+<p>如果当前结点已访问了所有顶点（从起点出发，遍历一圈，回到起点），那么判定这是问题的一个解：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-hs" data-lang="hs"><span class="line"><span class="cl"><span class="nf">check</span> <span class="ow">::</span> <span class="kt">Graph</span> <span class="ow">-&gt;</span> <span class="kt">TspNode</span> <span class="ow">-&gt;</span> <span class="kt">Bool</span>
+</span></span><span class="line"><span class="cl"><span class="nf">check</span> <span class="n">g</span> <span class="p">(</span><span class="kt">TspNode</span> <span class="kr">_</span> <span class="n">vs</span> <span class="kr">_</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="n">length</span> <span class="n">vs</span> <span class="o">==</span> <span class="n">length</span> <span class="p">(</span><span class="n">vertices</span> <span class="n">g</span><span class="p">)</span>    <span class="ow">=</span> <span class="kt">True</span>
+</span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="n">otherwise</span>                           <span class="ow">=</span> <span class="kt">False</span> 
+</span></span></code></pre></div></li>
+<li>
+<p><code>child</code>:</p>
+<p>总体逻辑与课堂上讲的一致，根据visited列表计算未被访问的相邻结点，若已访问所有其他顶点，那么尝试回到起点：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-hs" data-lang="hs"><span class="line"><span class="cl"><span class="nf">child</span> <span class="ow">::</span> <span class="kt">Graph</span> <span class="ow">-&gt;</span> <span class="kt">TspNode</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="kt">TspNode</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nf">child</span> <span class="n">g</span> <span class="n">n</span> <span class="ow">=</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">let</span> 
+</span></span><span class="line"><span class="cl">        <span class="n">upBound</span> <span class="ow">::</span> <span class="p">[</span><span class="kt">Vertex</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="kt">Int</span>
+</span></span><span class="line"><span class="cl">        <span class="n">upBound</span> <span class="n">vs</span> <span class="ow">=</span> <span class="n">sum</span> <span class="p">[</span> <span class="n">d</span> <span class="o">|</span> <span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="n">d</span><span class="p">)</span> <span class="ow">&lt;-</span> <span class="n">minOut</span> <span class="n">g</span> <span class="p">,</span> <span class="n">s</span> <span class="p">`</span><span class="n">notElem</span><span class="p">`</span> <span class="n">vs</span> <span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="n">at</span> <span class="ow">=</span> <span class="kr">if</span> <span class="n">null</span> <span class="p">(</span><span class="n">visited</span> <span class="n">n</span><span class="p">)</span> <span class="kr">then</span> <span class="mi">0</span> <span class="kr">else</span> <span class="n">head</span> <span class="p">(</span><span class="n">visited</span> <span class="n">n</span><span class="p">)</span>   <span class="c1">-- then-clause only for initNode</span>
+</span></span><span class="line"><span class="cl">        <span class="n">nodes</span> <span class="ow">=</span> 
+</span></span><span class="line"><span class="cl">            <span class="p">[</span><span class="kt">TspNode</span> <span class="n">cost&#39;</span> <span class="n">visited&#39;</span> <span class="n">heuristic&#39;</span> <span class="o">|</span> 
+</span></span><span class="line"><span class="cl">                <span class="n">v</span> <span class="ow">&lt;-</span> <span class="n">filter</span> 
+</span></span><span class="line"><span class="cl">                    <span class="p">(</span><span class="nf">\</span><span class="n">v&#39;</span> <span class="ow">-&gt;</span> <span class="n">v&#39;</span> <span class="p">`</span><span class="n">notElem</span><span class="p">`</span> <span class="n">visited</span> <span class="n">n</span> <span class="o">&amp;&amp;</span> <span class="n">isJust</span> <span class="p">(</span><span class="n">distance</span> <span class="n">g</span> <span class="p">(</span><span class="n">at</span><span class="p">,</span> <span class="n">v&#39;</span><span class="p">)))</span> <span class="c1">-- or abstract this function to `checkChildValid`</span>
+</span></span><span class="line"><span class="cl">                    <span class="p">((</span><span class="n">tail</span> <span class="o">.</span> <span class="n">vertices</span><span class="p">)</span> <span class="n">g</span><span class="p">),</span>    <span class="c1">-- `tail` for drop the origin vertex (0 here) </span>
+</span></span><span class="line"><span class="cl">                <span class="kr">let</span> <span class="n">way</span> <span class="ow">=</span> <span class="n">fromJust</span> <span class="o">$</span> <span class="n">distance</span> <span class="n">g</span> <span class="p">(</span><span class="n">at</span><span class="p">,</span> <span class="n">v</span><span class="p">),</span>
+</span></span><span class="line"><span class="cl">                <span class="kr">let</span> <span class="n">cost&#39;</span> <span class="ow">=</span> <span class="n">cost</span> <span class="n">n</span> <span class="o">+</span> <span class="n">way</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="kr">let</span> <span class="n">visited&#39;</span> <span class="ow">=</span> <span class="n">v</span><span class="kt">:</span> <span class="n">visited</span> <span class="n">n</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">                <span class="kr">let</span> <span class="n">heuristic&#39;</span> <span class="ow">=</span> <span class="n">upBound</span> <span class="n">visited&#39;</span> <span class="o">+</span> <span class="n">cost&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">back</span> <span class="ow">=</span> 
+</span></span><span class="line"><span class="cl">            <span class="kr">case</span> <span class="n">distance</span> <span class="n">g</span> <span class="p">(</span><span class="n">at</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="kr">of</span> 
+</span></span><span class="line"><span class="cl">                <span class="kt">Just</span> <span class="n">wayback</span> <span class="ow">-&gt;</span> <span class="kr">let</span> <span class="n">cost&#39;</span> <span class="ow">=</span> <span class="n">cost</span> <span class="n">n</span> <span class="o">+</span> <span class="n">wayback</span> 
+</span></span><span class="line"><span class="cl">                                    <span class="n">visited&#39;</span> <span class="ow">=</span> <span class="mi">0</span><span class="kt">:</span> <span class="n">visited</span> <span class="n">n</span> 
+</span></span><span class="line"><span class="cl">                                    <span class="n">heuristic&#39;</span> <span class="ow">=</span> <span class="n">cost&#39;</span> 
+</span></span><span class="line"><span class="cl">                                <span class="kr">in</span> <span class="p">[</span><span class="kt">TspNode</span> <span class="n">cost&#39;</span> <span class="n">visited&#39;</span> <span class="n">heuristic&#39;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">                <span class="kt">Nothing</span> <span class="ow">-&gt;</span> <span class="kt">[]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kr">in</span> <span class="kr">if</span> <span class="n">length</span> <span class="p">(</span><span class="n">visited</span> <span class="n">n</span><span class="p">)</span> <span class="o">==</span> <span class="n">length</span> <span class="p">(</span><span class="n">vertices</span> <span class="n">g</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span> <span class="kr">then</span> <span class="n">back</span> <span class="kr">else</span> <span class="n">nodes</span>
+</span></span></code></pre></div></li>
+</ul>
+</li>
+<li>
+<p>程序总体框架：</p>
+<img src="view1.png" alt="framework" style="zoom:80%; " />
+</li>
+</ol>
+<h2 id="其他实例简述"><a href="#%e5%85%b6%e4%bb%96%e5%ae%9e%e4%be%8b%e7%ae%80%e8%bf%b0" class="header-anchor"></a>其他实例简述
+</h2><p>我们可以把 DFS 和 BFS 也通过此模型来表现，在数据结构的课上，我们往往分别使用递归、队列+迭代这样两种不一样的程序结构来做实现，那么在这个模型下，改变结点的优先级依据，就改变了搜索拓展结点的选择策略，即改变搜索行为。</p>
+<p>假设有这样的一个结点：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-hs" data-lang="hs"><span class="line"><span class="cl"><span class="kr">data</span> <span class="kt">Node</span> <span class="n">a</span> <span class="ow">=</span> <span class="kt">Node</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">info</span> <span class="ow">::</span> <span class="n">a</span><span class="p">,</span>          <span class="c1">-- 问题相关的具体结点信息</span>
+</span></span><span class="line"><span class="cl">    <span class="n">level</span> <span class="ow">::</span> <span class="kt">Int</span><span class="p">,</span>       <span class="c1">-- 结点所在的搜索树的层次</span>
+</span></span><span class="line"><span class="cl">    <span class="n">order</span> <span class="ow">::</span> <span class="kt">Int</span>        <span class="c1">-- 结点被产生的次序</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>深搜总是拓展当前搜索树中最深的活结点，如果要使用此结点在任意搜索环境下进行<strong>深度优先</strong>搜索，那么需要将结点的优先级设置为 <code>level</code> ：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-hs" data-lang="hs"><span class="line"><span class="cl"><span class="kr">instance</span> <span class="kt">Ord</span> <span class="p">(</span><span class="kt">Node</span> <span class="n">a</span><span class="p">)</span> <span class="kr">where</span>
+</span></span><span class="line"><span class="cl">    <span class="n">compare</span> <span class="ow">::</span> <span class="kt">Node</span> <span class="n">a</span> <span class="ow">-&gt;</span> <span class="kt">Node</span> <span class="n">a</span> <span class="ow">-&gt;</span> <span class="kt">Ordering</span>
+</span></span><span class="line"><span class="cl">    <span class="n">compare</span> <span class="n">n1</span> <span class="n">n2</span>
+</span></span><span class="line"><span class="cl">        <span class="o">|</span> <span class="n">level</span> <span class="n">n1</span> <span class="o">&gt;</span> <span class="n">level</span> <span class="n">n2</span> <span class="ow">=</span> <span class="kt">LT</span>  <span class="c1">-- DEPTH first </span>
+</span></span><span class="line"><span class="cl">        <span class="o">|</span> <span class="n">level</span> <span class="n">n1</span> <span class="o">&lt;</span> <span class="n">level</span> <span class="n">n2</span> <span class="ow">=</span> <span class="kt">LT</span>
+</span></span><span class="line"><span class="cl">        <span class="o">|</span> <span class="n">otherwise</span>           <span class="ow">=</span> <span class="kt">EQ</span> 
+</span></span></code></pre></div><p>宽搜总是拓展当前搜索树中最早被生成的活结点，如果要使用此结点在任意搜索环境下进行宽度优先搜索，那么需要将结点的优先级设置为 <code>order</code>：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-hs" data-lang="hs"><span class="line"><span class="cl"><span class="kr">instance</span> <span class="kt">Ord</span> <span class="p">(</span><span class="kt">Node</span> <span class="n">a</span><span class="p">)</span> <span class="kr">where</span>
+</span></span><span class="line"><span class="cl">    <span class="n">compare</span> <span class="ow">::</span> <span class="kt">Node</span> <span class="n">a</span> <span class="ow">-&gt;</span> <span class="kt">Node</span> <span class="n">a</span> <span class="ow">-&gt;</span> <span class="kt">Ordering</span>
+</span></span><span class="line"><span class="cl">    <span class="n">compare</span> <span class="n">n1</span> <span class="n">n2</span>
+</span></span><span class="line"><span class="cl">        <span class="o">|</span> <span class="n">order</span> <span class="n">n1</span> <span class="o">&gt;</span> <span class="n">order</span> <span class="n">n2</span> <span class="ow">=</span> <span class="kt">LT</span>  <span class="c1">-- BREADTH first </span>
+</span></span><span class="line"><span class="cl">        <span class="o">|</span> <span class="n">order</span> <span class="n">n1</span> <span class="o">&lt;</span> <span class="n">order</span> <span class="n">n2</span> <span class="ow">=</span> <span class="kt">LT</span>
+</span></span><span class="line"><span class="cl">        <span class="o">|</span> <span class="n">otherwise</span>           <span class="ow">=</span> <span class="kt">EQ</span> 
+</span></span></code></pre></div><h2 id="不足之处"><a href="#%e4%b8%8d%e8%b6%b3%e4%b9%8b%e5%a4%84" class="header-anchor"></a>不足之处
+</h2><ol>
+<li>
+<p>没有将该搜索抽象应用于更多的具体问题：</p>
+<p>本来是准备把课本的经典案例都用基于此模型实现一遍，但是——时间不够了，DDL就在眼前，所以只提供了TSP问题在该模型下的实例化；</p>
+</li>
+<li>
+<p>解的数量：</p>
+<p>这里我将解的数量限制为1，默认将第一个解作为问题的解，这在部分情况下是有效的，例如这里实现的TSP问题，因为heuristic的计算逻辑保证了首解就是最优解，但是也可能存在其他情况，(a) 首解只是最优解的近似，最优解可能在后面产生，(b) 需要保留多个解，这些情况都是目前的模型无法处理的。</p>
+</li>
+</ol>
+<!-- 3. 抽象程度与效率的平衡 -->
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/zh/tags/haskell/">Haskell</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/zh/p/functional-on-steam-/-%CE%BB-%E4%B9%A0%E9%A2%98%E9%9B%86-solutions/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">functional on Steam / λ 习题集 - Solutions</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/zh/p/%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E9%87%8D%E5%A4%8D%E8%AE%A1%E7%AE%97-/-%E7%BA%AF%E5%87%BD%E6%95%B0%E5%8F%8A%E5%85%B6%E6%B1%82%E5%80%BC%E7%AD%96%E7%95%A5/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">如何避免重复计算 / 纯函数及其求值策略</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/zh/p/%E8%BF%AD%E4%BB%A3%E7%BB%84%E5%90%88%E5%AD%90%E7%9A%84%E6%9E%84%E9%80%A0-lcac-4c-theorem-4.20/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">迭代组合子的构造 - LCaC § 4C, Theorem 4.20</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/zh/p/church-encoding-note/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Church Encoding Note</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/zh/p/message-passing-%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84-bool-sicp-2.4.3-%E6%B3%9B%E5%9E%8B-%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9A%84%E8%BE%B9%E7%95%8C/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Message Passing 视角下的 Bool - SICP § 2.4.3 | 泛型 | 数据与函数的边界 </h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2024 - 
+        
+        2025 fyshXplore
+    </section>
+    
+    <section class="powerby">
+        
+            Wish You a Nice Day! <br/>
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

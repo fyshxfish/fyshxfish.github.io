@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="前言 这个学期包含编译系统和算法设计与分析两门专业课，遇到一些问题总会想着放在 Haskell 里实现一下，对于程序构造多少有点新的体会，也度过了对于 Haskell 不平静的狂热期，现在的我已经不会想着到处传教了（☺️）. 本来只是准备随便写写做 0-1 背包的 Haskell 实现中的一些小思考，不过真开始动笔了就越写越正式了，也算是接触 FP / Haskell 以来的一点点小总结. Haskell 官网 对 Haskell 的描述是 &ldquo;An advanced, purely functional programming language&rdquo;，本文试图围绕 &ldquo;purely&rdquo; 做一些讨论：什么是纯，怎么样算不纯，追求纯度的理由是什么，纯度带来的效益是什么.\n">
+<title>How to Avoid Redundant Computations &#43; Pure Functions and Their Evaluation Strategies</title>
+
+<link rel='canonical' href='http://fyshxfish.github.io/p/how-to-avoid-redundant-computations--pure-functions-and-their-evaluation-strategies/'>
+
+<link rel="stylesheet" href="/scss/style.min.47ac80bd6ec45b271188f04491fa8bc23b22060dfe68b4c309fccb144e0721fc.css"><meta property='og:title' content="How to Avoid Redundant Computations + Pure Functions and Their Evaluation Strategies">
+<meta property='og:description' content="前言 这个学期包含编译系统和算法设计与分析两门专业课，遇到一些问题总会想着放在 Haskell 里实现一下，对于程序构造多少有点新的体会，也度过了对于 Haskell 不平静的狂热期，现在的我已经不会想着到处传教了（☺️）. 本来只是准备随便写写做 0-1 背包的 Haskell 实现中的一些小思考，不过真开始动笔了就越写越正式了，也算是接触 FP / Haskell 以来的一点点小总结. Haskell 官网 对 Haskell 的描述是 &ldquo;An advanced, purely functional programming language&rdquo;，本文试图围绕 &ldquo;purely&rdquo; 做一些讨论：什么是纯，怎么样算不纯，追求纯度的理由是什么，纯度带来的效益是什么.\n">
+<meta property='og:url' content='http://fyshxfish.github.io/p/how-to-avoid-redundant-computations--pure-functions-and-their-evaluation-strategies/'>
+<meta property='og:site_name' content='fyshXplore'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Haskell' /><meta property='article:published_time' content='2024-10-20T19:48:00&#43;08:00'/><meta property='article:modified_time' content='2024-10-20T19:48:00&#43;08:00'/>
+<meta name="twitter:title" content="How to Avoid Redundant Computations + Pure Functions and Their Evaluation Strategies">
+<meta name="twitter:description" content="前言 这个学期包含编译系统和算法设计与分析两门专业课，遇到一些问题总会想着放在 Haskell 里实现一下，对于程序构造多少有点新的体会，也度过了对于 Haskell 不平静的狂热期，现在的我已经不会想着到处传教了（☺️）. 本来只是准备随便写写做 0-1 背包的 Haskell 实现中的一些小思考，不过真开始动笔了就越写越正式了，也算是接触 FP / Haskell 以来的一点点小总结. Haskell 官网 对 Haskell 的描述是 &ldquo;An advanced, purely functional programming language&rdquo;，本文试图围绕 &ldquo;purely&rdquo; 做一些讨论：什么是纯，怎么样算不纯，追求纯度的理由是什么，纯度带来的效益是什么.\n"><style>
+  :root {
+     
+    --zh-font-family: "Noto Serif SC";
+     
+     
+     
+    --code-font-family: Consolas, Menlo, Monaco, "Courier New", var(--zh-font-family), monospace;
+    --article-font-family: "Noto Serif SC";
+  }
+</style>
+
+<script>
+  (function () {
+    const customFont = document.createElement("link");
+    customFont.href =
+      "https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap";
+
+    customFont.type = "text/css";
+    customFont.rel = "stylesheet";
+
+    document.head.appendChild(customFont);
+  })();
+</script>
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/fyshx_avatar_hu_4b64fe58c612edf3.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🫧</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">fyshXplore</a></h1>
+            <h2 class="site-description">Just for 𝐅𝐮𝐧</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/fyshxfish'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-infinity" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M9.828 9.172a4 4 0 1 0 0 5.656 a10 10 0 0 0 2.172 -2.828a10 10 0 0 1 2.172 -2.828 a4 4 0 1 1 0 5.656a10 10 0 0 1 -2.172 -2.828a10 10 0 0 0 -2.172 -2.828" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="http://fyshxfish.github.io/zh/" >中文</option>
+                                
+                                    <option value="http://fyshxfish.github.io/" selected>English</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">&thinsp;Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#命令式程序如何避免重复计算">命令式程序如何避免重复计算</a></li>
+    <li><a href="#函数式程序如何避免重复计算">函数式程序如何避免重复计算</a>
+      <ol>
+        <li><a href="#0-1-背包回到起点">0-1 背包：回到起点</a></li>
+        <li><a href="#严格求值---不递归的理由">严格求值 - 不递归的理由</a></li>
+        <li><a href="#对于--纯--函数的讨论">对于 &quot; <strong>纯</strong> &quot; 函数的讨论</a></li>
+        <li><a href="#惰性求值---递归的理由">惰性求值 - 递归的理由</a></li>
+      </ol>
+    </li>
+    <li><a href="#其他">其他</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/fp/" style="background-color: #b7c9e2; color: #fff;">
+                FP
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/how-to-avoid-redundant-computations--pure-functions-and-their-evaluation-strategies/">How to Avoid Redundant Computations &#43; Pure Functions and Their Evaluation Strategies</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Oct 20, 2024</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    8 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+        <footer class="article-translations">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+            <div>
+                
+                    <a href="http://fyshxfish.github.io/zh/p/%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E9%87%8D%E5%A4%8D%E8%AE%A1%E7%AE%97-/-%E7%BA%AF%E5%87%BD%E6%95%B0%E5%8F%8A%E5%85%B6%E6%B1%82%E5%80%BC%E7%AD%96%E7%95%A5/" class="link">中文</a>
+                
+            </div>
+        </footer>
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="前言"><a href="#%e5%89%8d%e8%a8%80" class="header-anchor"></a>前言
+</h2><p>这个学期包含编译系统和算法设计与分析两门专业课，遇到一些问题总会想着放在 Haskell 里实现一下，对于程序构造多少有点新的体会，也度过了对于 Haskell 不平静的狂热期，现在的我已经不会想着到处传教了（☺️）. 本来只是准备随便写写做 0-1 背包的 Haskell 实现中的一些小思考，不过真开始动笔了就越写越正式了，也算是接触 FP / Haskell 以来的一点点小总结. <a class="link" href="https://www.haskell.org/"  target="_blank" rel="noopener"
+    >Haskell 官网</a> 对 Haskell 的描述是 &ldquo;An advanced, purely functional programming language&rdquo;，本文试图围绕 &ldquo;purely&rdquo; 做一些讨论：什么是纯，怎么样算不纯，追求纯度的理由是什么，纯度带来的效益是什么.</p>
+<!-- 另一个视角的，对于性能的追求. -->
+<p>首先从 0-1 背包的过程式实现出发，我把过程式实现 1:1 投射到 Haskell 里，感觉这段代码不是很符合 Haskell 的气质（😯），于是回到了递推式，回到了算法课上一笔带过的递归实现，对过程式语言的递推实现和函数式语言的递归实现做了一些比较，看看两者对于“如何避免重复计算的开销”这个问题（不局限于 0-1 背包问题）给出的不同答案，前者利用源代码上的记忆数组，后者则可以利用纯函数的特性，通过求值策略实现减少重复计算.</p>
+<p><span style = "color:#565656;" > 一段算法设计与计算模型的讨论：从 0-1 背包问题这个例子里也可以看出&quot;算法设计&quot;其实是不完全独立于编程范式的，也许更合适的说法是，算法设计强相关于物理计算机的实际运行方式，毕竟算法设计除了解决问题，还有一个追求是降低在物理机上运行时的时空计算资源消耗，这和命令式语言的特性是相契合的，而函数式语言有点 Lambda Calculus 虚拟机的意思；比如复杂度的计算，直接把命令式程序的时间复杂度计算方式照搬给函数式程序是有问题的，前者的理论基础是图灵机 - 状态转移次数，后者的理论基础是 $λ$ 演算 - 规约次数，计算模型的不同势必带来一些差异. 因为我们使用的计算机采取冯诺依曼体系结构，即 图灵机的物理实现，所以算法课也采用更接近硬件的命令式的编程范式，还是很合理的. 不由得想起大一上 CPP 程序设计时老师说 “只要冯诺依曼体系结构还存在，我们就&hellip;(后半句忘了)”，不知不觉我已经尝试走了走另一条路. 说起函数式语言的机器这件事情，其实 1970s,1980s 有学者为函数式的语言设计过专门的非冯诺依曼机器（combinator machine, dataflow machine, etc.），后来大家发现在效率的方面，现有机器 + 好的编译器 &gt; 专用机器，可参考 <a class="link" href="https://www.microsoft.com/en-us/research/wp-content/uploads/2016/07/history.pdf?from=https://research.microsoft.com/~simonpj/papers/history-of-haskell/history.pdf&amp;type=exact"  target="_blank" rel="noopener"
+    >A History of Haskell: Being Lazy With Class</a>, Part I - 2.1</span></p>
+<h2 id="命令式程序如何避免重复计算"><a href="#%e5%91%bd%e4%bb%a4%e5%bc%8f%e7%a8%8b%e5%ba%8f%e5%a6%82%e4%bd%95%e9%81%bf%e5%85%8d%e9%87%8d%e5%a4%8d%e8%ae%a1%e7%ae%97" class="header-anchor"></a>命令式程序如何避免重复计算
+</h2><p>关于过程式的 0-1 背包，你熟悉到几乎可以默写的一段程序：</p>
+<ul>
+<li>回忆：使用 <code>dp</code> 数组，而不是递归的原因是 —— 将递归转为迭代，避免重复计算；另一种陈述是将函数调用 <code>dp(i, j)</code> 的结果存储到内存中的数组 <code>dp[i][j]</code> 里，实现记忆化.</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">knapsack</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span><span class="o">*</span> <span class="n">weight</span><span class="p">,</span> <span class="kt">int</span><span class="o">*</span> <span class="n">value</span><span class="p">,</span> <span class="kt">int</span> <span class="n">capacity</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">dp</span><span class="p">[</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">capacity</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// INIT: BASE CASE// 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">capacity</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl">        <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>  
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>  
+</span></span><span class="line"><span class="cl">        <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> 
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">// DP // 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">w</span> <span class="o">=</span> <span class="n">weight</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">v</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">capacity</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">j</span> <span class="o">&lt;</span> <span class="n">w</span><span class="p">)</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl">            <span class="k">else</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">],</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="o">-</span><span class="n">w</span><span class="p">]</span><span class="o">+</span><span class="n">v</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">n</span><span class="p">][</span><span class="n">capacity</span><span class="p">];</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>将上述代码 1:1 翻译成 Haskell 程序，你将得到：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-hs" data-lang="hs"><span class="line"><span class="cl"><span class="kr">import</span> <span class="nn">Data.Array</span>
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="kt">Value</span> <span class="ow">=</span> <span class="kt">Int</span> 
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="kt">Weight</span> <span class="ow">=</span> <span class="kt">Int</span> 
+</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="kt">Item</span> <span class="ow">=</span> <span class="p">(</span><span class="kt">Value</span><span class="p">,</span> <span class="kt">Weight</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">knapsack01</span> <span class="ow">::</span> <span class="kt">Weight</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="kt">Item</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="kt">Value</span>
+</span></span><span class="line"><span class="cl"><span class="nf">knapsack01</span> <span class="n">capacity</span> <span class="n">items</span> <span class="ow">=</span> <span class="n">dp</span> <span class="o">!</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">capacity</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl">    <span class="kr">where</span> 
+</span></span><span class="line"><span class="cl">        <span class="n">n</span> <span class="ow">=</span> <span class="n">length</span> <span class="n">items</span> 
+</span></span><span class="line"><span class="cl">        <span class="n">dp</span> <span class="ow">=</span> <span class="n">array</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">capacity</span><span class="p">))</span> 
+</span></span><span class="line"><span class="cl">             <span class="p">[((</span><span class="n">i</span><span class="p">,</span> <span class="n">w</span><span class="p">),</span> <span class="n">step</span> <span class="n">i</span> <span class="n">w</span><span class="p">)</span> <span class="o">|</span> <span class="n">i</span> <span class="ow">&lt;-</span> <span class="p">[</span><span class="mi">0</span><span class="o">..</span><span class="n">n</span><span class="p">],</span> <span class="n">w</span> <span class="ow">&lt;-</span> <span class="p">[</span><span class="mi">0</span><span class="o">..</span><span class="n">capacity</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">        <span class="n">step</span> <span class="mi">0</span> <span class="kr">_</span> <span class="ow">=</span> <span class="mi">0</span> 
+</span></span><span class="line"><span class="cl">        <span class="n">step</span> <span class="kr">_</span> <span class="mi">0</span> <span class="ow">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">        <span class="n">step</span> <span class="n">i</span> <span class="n">w</span> 
+</span></span><span class="line"><span class="cl">            <span class="o">|</span> <span class="n">curWgt</span> <span class="o">&gt;</span> <span class="n">w</span> 
+</span></span><span class="line"><span class="cl">                <span class="ow">=</span> <span class="n">dp</span> <span class="o">!</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl">            <span class="o">|</span> <span class="n">otherwise</span>     
+</span></span><span class="line"><span class="cl">                <span class="ow">=</span> <span class="n">max</span> <span class="p">(</span><span class="n">dp</span> <span class="o">!</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">w</span><span class="p">))</span> <span class="p">(</span><span class="n">curVal</span> <span class="o">+</span> <span class="n">dp</span> <span class="o">!</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">w</span> <span class="o">-</span> <span class="n">curWgt</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">            <span class="kr">where</span> <span class="n">curVal</span> <span class="ow">=</span> <span class="n">fst</span> <span class="o">$</span> <span class="n">items</span> <span class="o">!!</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> 
+</span></span><span class="line"><span class="cl">                  <span class="n">curWgt</span> <span class="ow">=</span> <span class="n">snd</span> <span class="o">$</span> <span class="n">items</span> <span class="o">!!</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+</span></span></code></pre></div><p>写的时候感觉不太对劲，第一感觉是：这两段代码没有区别. 这就是在函数式的语言里写命令式程序. 周五晚上我从炸鸡店走出来的时候，有了一些新的想法：</p>
+<h2 id="函数式程序如何避免重复计算"><a href="#%e5%87%bd%e6%95%b0%e5%bc%8f%e7%a8%8b%e5%ba%8f%e5%a6%82%e4%bd%95%e9%81%bf%e5%85%8d%e9%87%8d%e5%a4%8d%e8%ae%a1%e7%ae%97" class="header-anchor"></a>函数式程序如何避免重复计算
+</h2><p>当我们不能像过程式语言那样在内存条里随机存取的时候，当我们建立起一层层抽象的时候，如何追求性能呢？除了在 CSAPP 第五章里学习利用局部性、循环展开、提高并行性等方法，还有什么方式可以提高程序的性能？除了程序员本身从源代码层面提高性能，还可以在哪里优化性能？编译器从程序员手上接管代码，编译器可以做什么？</p>
+<!-- 就 是 要 递 归 -->
+<h3 id="0-1-背包回到起点"><a href="#0-1-%e8%83%8c%e5%8c%85%e5%9b%9e%e5%88%b0%e8%b5%b7%e7%82%b9" class="header-anchor"></a>0-1 背包：回到起点
+</h3><p>所有物品为 $items$，规模为 $N$, 物品属性为价值 $v_i, w_i$，背包总容量为 $W$，定义 $z(i, j)$ 为可选物品为 $items[1..i]$，背包容量为 $j$ 时，可获得的最大价值，那么</p>
+<ul>
+<li>递推基：$\forall i, j,\quad z(i, 0) = 0, z(0,j) = 0;$<br></li>
+<li>递推步：$z(i,j) = max(z(i-1, j), v_i + z(i-1, j-w_i));$<br></li>
+<li>目标值：$z(N, W)$</li>
+</ul>
+<p>毫无疑问这是递归的结构，在 Haskell 里写递归实现，如同呼吸般自然：<br><span style="color: gray; font-size: smaller;">（NOTE：1. 看到这里也许你已经开始担忧重复计算、内存占用的事情了 ；2. 值得稍稍注意的一点是，这一段代码完全不涉及基于索引的数据存取）</span></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-hs" data-lang="hs"><span class="line"><span class="cl"><span class="kr">type</span> <span class="kt">Item</span> <span class="ow">=</span> <span class="p">(</span><span class="kt">Value</span><span class="p">,</span> <span class="kt">Weight</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nf">knapsack</span> <span class="ow">::</span> <span class="p">[</span><span class="kt">Item</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="kt">Int</span>        <span class="c1">-- items + capacity -&gt; maximal value </span>
+</span></span><span class="line"><span class="cl"><span class="nf">knapsack</span> <span class="kr">_</span>  <span class="mi">0</span> <span class="ow">=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl"><span class="nf">knapsack</span> <span class="kt">[]</span> <span class="kr">_</span> <span class="ow">=</span> <span class="mi">0</span> 
+</span></span><span class="line"><span class="cl"><span class="nf">knapsack</span> <span class="p">((</span><span class="n">v</span><span class="p">,</span><span class="n">w</span><span class="p">)</span><span class="kt">:</span><span class="n">items</span><span class="p">)</span> <span class="n">c</span> <span class="ow">=</span> 
+</span></span><span class="line"><span class="cl">    <span class="kr">let</span> 
+</span></span><span class="line"><span class="cl">        <span class="n">choose</span> <span class="ow">=</span> <span class="n">v</span> <span class="o">+</span> <span class="n">knapsack</span> <span class="n">items</span> <span class="p">(</span><span class="n">c</span><span class="o">-</span><span class="n">w</span><span class="p">)</span>   <span class="c1">-- choose current item </span>
+</span></span><span class="line"><span class="cl">        <span class="n">chxxse</span> <span class="ow">=</span> <span class="n">knapsack</span> <span class="n">items</span> <span class="n">c</span>           <span class="c1">-- not choose current item</span>
+</span></span><span class="line"><span class="cl">    <span class="kr">in</span> 
+</span></span><span class="line"><span class="cl">        <span class="kr">if</span> <span class="n">w</span> <span class="o">&gt;</span> <span class="n">c</span> <span class="kr">then</span> <span class="n">chxxse</span> <span class="kr">else</span> <span class="n">max</span> <span class="n">choose</span> <span class="n">chxxse</span> 
+</span></span></code></pre></div><h3 id="严格求值---不递归的理由"><a href="#%e4%b8%a5%e6%a0%bc%e6%b1%82%e5%80%bc---%e4%b8%8d%e9%80%92%e5%bd%92%e7%9a%84%e7%90%86%e7%94%b1" class="header-anchor"></a>严格求值 - 不递归的理由
+</h3><p>在背包问题的 C++ （<strong>严格求值语言</strong>）实现中，我们不用递归的理由是对于性能的追求，因而使用 <code>dp[i][j]</code> 用空间换时间，将递归中的重复计算转换为数组的索引访问. 这个<strong>记忆化</strong>的工作，除了我们自己做（也就是使用 <code>dp</code> 数组），还可以 —— 交给编译器. 当然这种形式的记忆化就不是在源代码层面上呈现一个记忆数组了，而是通过求值策略来实现. 在讨论求值策略前，先看看什么是纯函数.</p>
+<h3 id="对于--纯--函数的讨论"><a href="#%e5%af%b9%e4%ba%8e--%e7%ba%af--%e5%87%bd%e6%95%b0%e7%9a%84%e8%ae%a8%e8%ae%ba" class="header-anchor"></a>对于 &quot; <strong>纯</strong> &quot; 函数的讨论
+</h3><ul>
+<li>
+<p>函数是什么？/ 函数的表示法 / LUT 的类比 / 编译器行为 / 纯函数的求值策略</p>
+<p><em>—— 多年以后，面对 &ldquo;函数式程序设计&rdquo;，🐟将会回想起数学老师带她去见识函数的那节遥远的数学课.</em></p>
+<p>函数是一种映射关系. 体现这种关系的方式，即 函数的表示法，除了函数表达式、函数图像，还有<strong>表格</strong>.</p>
+<p>如果我们需要一台机器来执行定义域为某有穷集的完全平方函数 <code>f(x, y) = x*x + y*y</code>，除了依赖加法器、乘法器构成的组合逻辑电路，我们还可以用 LUT（LookUp Table），虽然听起来有点离谱，但是它的可行性是不可否认的.</p>
+<p><span style="color:gray"><b>NOTE: </b> 可能产生的疑惑 - 如何确定 / 如何描述电路实现的函数与我们预期的函数之间的等价性？或者说，我们预期的是函数 $f$，电路实现的是函数 $f&rsquo;$，如何确定 $f&rsquo; \equiv f$？如果你对 $λ$ 演算（逻辑学）中函数等价的形式化理论感兴趣，可以参看 <i>Lambda Calculus and Combinators, an introduction - Chapter 5~8</i>. 这里 LUT 实现的函数 $f_1&rsquo;$ 与预期函数 $f$ 外延等价（extensional equivalence），组合逻辑实现的函数 $f_2&rsquo;$ 与预期函数 $f$ 内涵等价（intensional equivalence）.</span></p>
+  <img src="img/3-input-LUT.png" alt="3 input LUT" style="zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);" />
+<p>我们习惯的编译器的行为大致是：看到函数+参数 → 放入组合逻辑电路计算；如果<strong>只</strong>依赖映射表（LUT），那么编译器的行为大致是：看到函数+参数 → 在 LUT 中查找对应输出，这需要 LUT 存储好<strong>所有</strong>函数输入对应的输出，于是压力给到 LUT；折中的策略是，第一次见到函数+参数时，利用组合逻辑电路计算，并<strong>缓存</strong>到 LUT，再次见到这组函数+参数，直接在 LUT 中查找.（函数式有自己的高速缓存:）</p>
+</li>
+<li>
+<p>子过程与函数 / 副作用与纯度</p>
+<p>这里我们用函数指代“纯”函数（定义见下），将非纯的过程称为子过程.</p>
+<p>使用 LUT 实现函数的前提是：函数是<strong>纯</strong>的，即对相同的输入总是返回相同的输出，并且不产生副作用. 形象地说，我们希望 LUT 是严格的，IN / OUT 引脚保持干净，IN 接收函数参数，OUT 给出函数输出，不希望在 IN 之外，再从某个寄存器接进来一个输入，也不希望在 OUT 的旁边，多连接一个寄存器，把寄存器存储值的改变作为函数执行的结果；即 函数本身总是<strong>独立</strong>于程序的其他部分 - LUT 总是独立于电路的其他部分，不受其他部分影响.</p>
+<ul>
+<li>
+<p>输入输出的纯度：</p>
+<p><code>addx</code> 是不纯的，因为这个函数无法保证对于同样的 <code>a</code> 总是给出相同的输出，因为全局变量 <code>x</code> 可能随时被修改，导致修改前后 <code>a + x</code> 的值不同；<code>readOneWord</code> 是不纯的，因为无法保证对于同一个路径 <code>p</code>，始终返回同样的 <code>firstWord</code>，因为 <code>p</code> 对应的文件可能被其他程序随时修改.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">x</span><span class="p">;</span>              <span class="c1">// global 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">addx</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">){</span>    
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">string</span> <span class="nf">readOneWord</span><span class="p">(</span><span class="n">path</span> <span class="n">p</span><span class="p">)</span> <span class="p">{</span>    <span class="c1">// IO
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="n">head</span><span class="p">(</span><span class="n">getFile</span><span class="p">(</span><span class="n">p</span><span class="p">));</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div></li>
+<li>
+<p>副作用：</p>
+<p><code>greeting</code> 是不纯的，因为它产生了 <code>print</code> 的副作用； <code>write</code> 是不纯的，因为它造成了写文件的副作用.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">greeting</span><span class="p">(</span><span class="n">string</span> <span class="n">name</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="n">print</span><span class="p">(</span><span class="n">f</span><span class="s">&#34;Hello, {name}&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">writeLine</span><span class="p">(</span><span class="n">path</span> <span class="n">p</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">getFile</span><span class="p">(</span><span class="n">p</span><span class="p">).</span><span class="n">append</span><span class="p">(</span><span class="s">&#34;Append this line&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div></li>
+<li>
+<p>&ldquo;提纯&rdquo;？</p>
+<p>对于上述的非纯函数，我们可以<strong>将副作用分离</strong>，得到对应的纯函数如下：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">addx</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">x</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">string</span> <span class="nf">readOneWord</span><span class="p">(</span><span class="n">file</span> <span class="n">f</span><span class="p">)</span> <span class="p">{</span>    
+</span></span><span class="line"><span class="cl">    <span class="n">string</span> <span class="n">firstWord</span> <span class="o">=</span> <span class="n">head</span><span class="p">(</span><span class="n">f</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">firstWord</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">string</span> <span class="nf">greeting</span><span class="p">(</span><span class="n">string</span> <span class="n">name</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">f</span><span class="s">&#34;Hello, {name}&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">file</span> <span class="nf">writeLine</span><span class="p">(</span><span class="n">file</span> <span class="n">f</span><span class="p">){</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">f</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#34;Append this line&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div></li>
+<li>
+<p>分离副作用的示例 / Imperative Shell, Functional Core</p>
+<p>提问：假设有两个类 <code>Camera</code>, <code>FaceRecognizer</code>，<code>Camera</code> 类有一个方法 <code>getFrame</code> 用于从物理摄像头捕获一帧图像，<code>FaceRecognizer</code> 类有一个方法 <code>recognizePerson</code> 用于识别一帧图像中的人脸并返回对应用户名. 若需要实现函数 <code>getFrameAndRecognize</code> 用于捕获当前帧、识别并返回用户名，如何组织程序结构？</p>
+<p>一种答案：将 <code>FaceRecognizer</code> 的实例作为 <code>Camera</code> 的成员，保证 <code>FaceRecognizer</code> 的纯度，即 <code>FaceRecognizer</code> 的方法总是对帧做计算，将 <code>getFrame</code> 这样的副作用分离、止步于 <code>Camera</code> 类.</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Camera</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">face_recognizer</span> <span class="o">=</span> <span class="n">FaceRecognizer</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">getFrame</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># snip # </span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">frame</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">getFrameAndRecognize</span><span class="p">():</span>
+</span></span><span class="line"><span class="cl">        <span class="n">frame</span> <span class="o">=</span> <span class="n">getFrame</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">        <span class="n">name</span> <span class="o">=</span> <span class="n">face_recognizer</span><span class="o">.</span><span class="n">recognizePerson</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">name</span> 
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">FaceRecognizer</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">recognizePerson</span><span class="p">(</span><span class="n">frame</span><span class="p">:</span> <span class="n">image</span><span class="p">):</span>
+</span></span><span class="line"><span class="cl">        <span class="c1"># snip #</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">name</span>
+</span></span></code></pre></div><p>即：保证功能函数的纯度，并将其作为程序的核心，将 IO 等非纯操作分离到外层 ——  Imperative Shell, Functional Core. （此处应有一场 Simon Peyton Jones 的讲座链接，但我一时找不到了.）</p>
+  <div style="text-align: center;">
+      <img src="img/shellcore.png" alt="Imperative Shell, Functional Core" style="zoom:40%;" />
+  </div>
+</li>
+</ul>
+</li>
+<li>
+<p>追求纯度的理由</p>
+<ol>
+<li>
+<p>方便<strong>单元</strong>测试与维护；</p>
+</li>
+<li>
+<p>易于并行；</p>
+</li>
+<li>
+<p>可以用查表作为一种求值策略，或者作为求值策略的一部分，避免了重复计算带来的开销.</p>
+</li>
+</ol>
+</li>
+<li>
+<p>语法树与语法图 / 重复计算 / 求值策略</p>
+<ul>
+<li>
+<p>一些参考资料</p>
+<ol>
+<li>
+<p><a class="link" href="https://en.wikibooks.org/wiki/Haskell/Graph_reduction"  target="_blank" rel="noopener"
+    >Haskell Wiki - Graph Reduction</a></p>
+</li>
+<li>
+<p>从 Lambda Calculus 角度解释操作语义 call-by-value / call-by-name / call-by-need，可以参考 Types and Programming Language, Section 5.1</p>
+</li>
+</ol>
+</li>
+<li>
+<p>[TODO]</p>
+<p><span style="color: gray; font-size: smaller;">  这一节还没写的原因是：我 也 不 是 很 懂.</span></p>
+<ol>
+<li>
+<p>graph reduction 的图示</p>
+</li>
+<li>
+<p>语法树与语法图比较</p>
+</li>
+<li>
+<p><code>let</code> 对应的语法图（及其 Core 解释？）</p>
+</li>
+<li>
+<p>&hellip;</p>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="惰性求值---递归的理由"><a href="#%e6%83%b0%e6%80%a7%e6%b1%82%e5%80%bc---%e9%80%92%e5%bd%92%e7%9a%84%e7%90%86%e7%94%b1" class="header-anchor"></a>惰性求值 - 递归的理由
+</h3><p>照应本文 <a class="link" href="#%e4%b8%8d%e9%80%92%e5%bd%92%e7%9a%84%e7%90%86%e7%94%b1" >3.2 不递归的理由</a> 避免重复计算的方式除了通过显式缓存（记忆数组），还可以依赖编译器采取的求值策略（惰性求值 Lazy Evaluation），将语法树中的所有相同的表达式结点指向同一个结点，实现计算结果的复用.</p>
+<h2 id="其他"><a href="#%e5%85%b6%e4%bb%96" class="header-anchor"></a>其他
+</h2><p>前文试图在 命令式语言 / 函数式语言，递归 / 非递归 之间做比较明确的区分，其实，当然递归不是 FP 的专利，记忆化数组也不只是在命令式程序里好用，只是不同语言 / 编程范式本身的特性（例如 C++ 的严格求值 / Haskell 的惰性求值），使得我们对于程序产生了不一样的思考和不一样的惯性. 对于纯度与惰性求值，命令式语言也可以有灵活的求值策略，比如判断函数的纯度，对非纯函数严格求值，对纯函数惰性求值.</p>
+<!-- ## [TODO]
+
+- Haskell 程序对应的指令，反汇编 / Core 代码结果？惰性求值机制的底层表现？
+    
+    <span style="color: gray; font-size: smaller;">不是完全没做过，当时编译然后反汇编，得到的代码长得不得了，然后暂时放弃了.</span>
+
+- 组合子机器的原理？
+
+    <span style="color: gray; font-size: smaller;">好奇心. <br>顺便国庆的时候接触了 uiua 语言，听说了 BQN 语言，然后发现 BQN 语言里真的有活的组合子（W combinator, B combinator, etc.），没想到有一天我也可以有在 CS 领域有先接触理论（Combinatory Logic），再偶遇其实践的体验，神奇神奇. 看到这里就是缘分，不日这段[TODO]文本估计会被我删掉，向看到这里的你介绍 uiua, Stack-Based Array-Oriented Language, 很有意思，掌握了它你就是编程界的符文法师，APL 系语言——由于其对于 glyph 的使用——堪称所谓中英文编程之争的版本答案，不妨抽出 10 分钟看看语言官网，真的很吸引人：[uiua lang](https://www.uiua.org/)</span>
+
+
+###  -->
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/haskell/">Haskell</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/boolean-from-a-message-passing-perspective-sicp-2.4.3-generics-boundaries-of-data-and-functions/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Boolean from a Message Passing Perspective - SICP § 2.4.3 | Generics | Boundaries of Data and Functions</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/huffman-tree-implementation-in-haskell-sicp-2.3.4-structuring-and-destructuring-of-composed-data/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Huffman Tree Implementation in Haskell - SICP § 2.3.4 | Structuring and Destructuring of Composed Data</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/nested-mapping-examples-implemented-in-haskell-sicp-2.2.3-list-monad/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Nested Mapping Examples Implemented in Haskell - SICP § 2.2.3  | List Monad </h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/fix-haskell-development-environment-vscode--ghcup--hls/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Fix Haskell Development Environment (VSCode &#43; GHCup &#43; HLS)</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/functional-on-steam-/-%CE%BB-exercises-solutions/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">functional on Steam / λ Exercises - Solutions</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2024 - 
+        
+        2025 fyshXplore
+    </section>
+    
+    <section class="powerby">
+        
+            Wish You a Nice Day! <br/>
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

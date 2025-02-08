@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="包含对于 VSCode 作为文本编辑器的配置，不包含对语言环境的配置.\nAbout: Command Palette &amp; Ctrl + Shift + P 关于 Ctrl + Shift + P: 首先在这里贴蒋炎岩老师的一场与VSCode相关的讲座，Ctrl+Shift+P：如果需要做某些事情，可以先尝试用 Ctrl+Shift+P 打开命令面板搜索（比如也许你想重新加载 VSCode 窗口，就可以 Ctrl+Shift+P 打开命令面板，然后搜索 &ldquo;reload window&rdquo; ），如果发现自己需要经常做这个动作，那么就 Ctrl+K Ctrl+S 进入 Keyboard Shortcuts 为这个操作绑定快捷键吧，配置快捷键的哲学在于：发现自己经常重复做某件事情，有一个瞬间发现自己不想用鼠标再次重复这个过程，于是去检索记忆 / 配置这个热键。\n">
+<title>VSCode 配置记录</title>
+
+<link rel='canonical' href='http://localhost:1313/en/p/vscode-%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95/'>
+
+<link rel="stylesheet" href="/scss/style.min.b51788d43472ffad20b588167514427b70146d30bc2a1ee0490ab0db3b5da439.css"><meta property='og:title' content="VSCode 配置记录">
+<meta property='og:description' content="包含对于 VSCode 作为文本编辑器的配置，不包含对语言环境的配置.\nAbout: Command Palette &amp; Ctrl + Shift + P 关于 Ctrl + Shift + P: 首先在这里贴蒋炎岩老师的一场与VSCode相关的讲座，Ctrl+Shift+P：如果需要做某些事情，可以先尝试用 Ctrl+Shift+P 打开命令面板搜索（比如也许你想重新加载 VSCode 窗口，就可以 Ctrl+Shift+P 打开命令面板，然后搜索 &ldquo;reload window&rdquo; ），如果发现自己需要经常做这个动作，那么就 Ctrl+K Ctrl+S 进入 Keyboard Shortcuts 为这个操作绑定快捷键吧，配置快捷键的哲学在于：发现自己经常重复做某件事情，有一个瞬间发现自己不想用鼠标再次重复这个过程，于是去检索记忆 / 配置这个热键。\n">
+<meta property='og:url' content='http://localhost:1313/en/p/vscode-%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95/'>
+<meta property='og:site_name' content='fyshXplore'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='VSCode' /><meta property='article:published_time' content='2024-08-26T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2024-08-26T00:00:00&#43;08:00'/>
+<meta name="twitter:title" content="VSCode 配置记录">
+<meta name="twitter:description" content="包含对于 VSCode 作为文本编辑器的配置，不包含对语言环境的配置.\nAbout: Command Palette &amp; Ctrl + Shift + P 关于 Ctrl + Shift + P: 首先在这里贴蒋炎岩老师的一场与VSCode相关的讲座，Ctrl+Shift+P：如果需要做某些事情，可以先尝试用 Ctrl+Shift+P 打开命令面板搜索（比如也许你想重新加载 VSCode 窗口，就可以 Ctrl+Shift+P 打开命令面板，然后搜索 &ldquo;reload window&rdquo; ），如果发现自己需要经常做这个动作，那么就 Ctrl+K Ctrl+S 进入 Keyboard Shortcuts 为这个操作绑定快捷键吧，配置快捷键的哲学在于：发现自己经常重复做某件事情，有一个瞬间发现自己不想用鼠标再次重复这个过程，于是去检索记忆 / 配置这个热键。\n"><style>
+  :root {
+     
+    --zh-font-family: "Noto Serif SC";
+     
+     
+     
+    --code-font-family: Consolas, Menlo, Monaco, "Courier New", var(--zh-font-family), monospace;
+    --article-font-family: "Noto Serif SC";
+  }
+</style>
+
+<script>
+  (function () {
+    const customFont = document.createElement("link");
+    customFont.href =
+      "https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap";
+
+    customFont.type = "text/css";
+    customFont.rel = "stylesheet";
+
+    document.head.appendChild(customFont);
+  })();
+</script>
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            if(!localStorage.getItem(colorSchemeKey)){
+                localStorage.setItem(colorSchemeKey, "auto");
+            }
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/en/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/fyshx_avatar_hu_4b64fe58c612edf3.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🫧</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/en">fyshXplore</a></h1>
+            <h2 class="site-description">Just for 𝐅𝐮𝐧</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/fyshxfish'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/en/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/en/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-infinity" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M9.828 9.172a4 4 0 1 0 0 5.656 a10 10 0 0 0 2.172 -2.828a10 10 0 0 1 2.172 -2.828 a4 4 0 1 1 0 5.656a10 10 0 0 1 -2.172 -2.828a10 10 0 0 0 -2.172 -2.828" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/en/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/en/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/en/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="http://localhost:1313/" >中文</option>
+                                
+                                    <option value="http://localhost:1313/en/" selected>English</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+                    <li id="dark-mode-toggle">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="8" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="16" cy="12" r="2" />
+  <rect x="2" y="6" width="20" height="12" rx="6" />
+</svg>
+
+
+
+                        <span>Dark Mode</span>
+                    </li>
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">&thinsp;Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#about-command-palette--ctrl--shift--p">About: Command Palette &amp; Ctrl + Shift + P</a></li>
+    <li><a href="#layout">Layout</a>
+      <ol>
+        <li><a href="#让-vscode-的界面更简洁隐藏-activity-bar-和-status-bar">让 VSCode 的界面更简洁：隐藏 Activity Bar 和 Status Bar</a></li>
+        <li><a href="#terminal-move-terminal-to-editor-area">Terminal: Move Terminal to Editor Area</a></li>
+      </ol>
+    </li>
+    <li><a href="#editor-area">Editor Area</a>
+      <ol>
+        <li><a href="#rainbow-brackets">Rainbow Brackets</a></li>
+      </ol>
+    </li>
+    <li><a href="#hotkey">HotKey</a></li>
+    <li><a href="#extensions">Extensions</a></li>
+    <li><a href="#misc">Misc</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/en/categories/enviroment_setup/" style="background-color: #9ec4cd; color: #fff;">
+                Enviroment Setup
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/en/p/vscode-%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95/">VSCode 配置记录</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Aug 26, 2024</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    5 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+        <footer class="article-translations">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+            <div>
+                
+                    <a href="http://localhost:1313/p/vscode-%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95/" class="link">中文</a>
+                
+            </div>
+        </footer>
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>包含对于 VSCode 作为文本编辑器的配置，不包含对语言环境的配置.</p>
+<!-- 不严肃的随手记录，希望我能记得持续更新，因为我经常把一些记录扔在零零散散的位置，然后忘记这个记录的存在。 -->
+<h2 id="about-command-palette--ctrl--shift--p"><a href="#about-command-palette--ctrl--shift--p" class="header-anchor"></a>About: Command Palette &amp; Ctrl + Shift + P
+</h2><p>关于 <mark><strong>Ctrl + Shift + P</strong></mark>: 首先在这里贴蒋炎岩老师的<a class="link" href="https://www.bilibili.com/video/BV1y2421w7NK/?spm_id_from=333.999.0.0&amp;vd_source=6a9d230feb804002a202ce26ff40a4cc"  target="_blank" rel="noopener"
+    >一场与VSCode相关的讲座</a>，<strong>Ctrl+Shift+P</strong>：如果需要做某些事情，可以先尝试用 Ctrl+Shift+P 打开命令面板搜索（比如也许你想重新加载 VSCode 窗口，就可以 Ctrl+Shift+P 打开命令面板，然后搜索 &ldquo;reload window&rdquo; ），如果发现自己需要经常做这个动作，那么就 Ctrl+K Ctrl+S 进入 Keyboard Shortcuts 为这个操作绑定快捷键吧，配置快捷键的哲学在于：发现自己经常重复做某件事情，有一个瞬间发现自己不想用鼠标再次重复这个过程，于是去检索记忆 / 配置这个热键。</p>
+<!-- (如果后续VSCode Command Palette接入了语言模型，可以进行自然语言的模糊搜素，那应该会很不错。) -->
+<hr>
+<h2 id="layout"><a href="#layout" class="header-anchor"></a>Layout
+</h2><h3 id="让-vscode-的界面更简洁隐藏-activity-bar-和-status-bar"><a href="#%e8%ae%a9-vscode-%e7%9a%84%e7%95%8c%e9%9d%a2%e6%9b%b4%e7%ae%80%e6%b4%81%e9%9a%90%e8%97%8f-activity-bar-%e5%92%8c-status-bar" class="header-anchor"></a>让 VSCode 的界面更简洁：隐藏 Activity Bar 和 Status Bar
+</h3><p>其实并不是时时刻刻都需要看到 Activity Bar 和 Status Bar，如果你也觉得它们占用了宝贵的屏幕空间，那么可以绑定以下快捷键：</p>
+<p>View: Toggle Activity Bar Visibility - Ctrl+Shift+9</p>
+<p>View: Toggle Status Bar Visibility - Ctrl+Shift+8</p>
+<p>为什么是 Ctrl+Shift+8/9：因为 Shift+9 对应的字符是左括号，和 Activity Bar 在形态上略有相似，顺手把 Status Bar 对应的快捷键设置为 Ctrl+Shift+8，键位近比较顺手，因为我总是同时关闭此二者的可见性；想快捷键还是一个不那么容易的事情，一方面这里的快捷键语义含量没有那么高，另一方面容易和已有的键位绑定冲突，设置完了一段时间不用又会忘记，然后发现 Ctrl+Shift+P 检索才是永远的家.</p>
+<h3 id="terminal-move-terminal-to-editor-area"><a href="#terminal-move-terminal-to-editor-area" class="header-anchor"></a>Terminal: Move Terminal to Editor Area
+</h3><p>并置终端 tab 和代码 tab.</p>
+<!-- 之前看蒋炎岩老师的课的时候发现他的终端tab和代码tab的形态是一致的，现在我也知道怎么做了，先 -->
+<p>Ctrl+Shift+P → 在命令面板中检索 <code>Terminal: Move Terminal to Editor Area</code> ，即可将终端放置到 Editor Area，其他类似操作还有 <code>Move Terminal to Panel</code>, <code>Create New Terminal in Editor Area</code>&hellip;当然，可以为你经常使用的操作绑定快捷键。</p>
+<p>一种适用的场景是：如果你在学习某种编程语言，而这种语言（比如 Haskell, Lisp, Python&hellip;）刚好有REPL，你就可以在 Editor Area 切分，一半放代码，一半放 Terminal REPL，如果需要，可以编辑文件，然后在 REPL 中导入代码文件（像Haskell ghci中的<code>:l foo.hs</code>），这样就很方便，可以通过 Ctrl+1/Ctrl+2 在代码 tab 和终端 tab 之间做 Focus 的切换；视觉上我认为这样的体验也一些，比默认的上下分屏更好（毕竟更多情况下电脑的屏幕水平边比竖直边长，这也是为什么我喜欢竖直向的浏览器标签栏）.</p>
+<p>还有一种类似的实现：通过 Ctrl+Shift+B 打开 Secondary Side Bar，把终端拖到 Secondary Side Bar.</p>
+<!-- ，不过在我的Windows的VScode上，我不能把终端拖到Secondary Side Bar展示，很奇怪，之前在Linux虚拟机上是可以的。 -->
+<img src="vscode_layout.png" alt="vscode_layout" style="zoom:80%;box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);" />
+<h2 id="editor-area"><a href="#editor-area" class="header-anchor"></a>Editor Area
+</h2><h3 id="rainbow-brackets"><a href="#rainbow-brackets" class="header-anchor"></a>Rainbow Brackets
+</h3><p>在Settings(GUI)中键入 <code>@id:editor.bracketPairColorization.enabled @id:editor.guides.bracketPairs</code>，选择你需要的选项，<code>editor.bracketPairColorization.enabled</code> 是默认启用的，<code>editor.guides.bracketPairs</code>是默认关闭(<code>false</code>)的，可以选择 <code>true</code> 或者 <code>active</code> 启用， <code>true</code> 的效果是所有括号都有引导线， <code>active</code> 的效果是只有最接近光标的外层括号有引导线，我觉得 <code>active</code> 就足够了，效果如下：</p>
+<img src="rainbow_guideline.png" alt="rainbow_guideline" style="zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);" />
+<p>顺便一个快捷键：Ctrl+Shift+\，可以在当前文本对应的左右括号之间跳转，可以用来检查表达式嵌套的层级，对应 Vim Normal Mode 下的%.(P.S. 此快捷键在 Terminal 中使用，可以用来在不同的 Terminal tab 中跳转)</p>
+<p>起因是我最近在看 SICP ，这本书使用的语言是 lisp (scheme)，这门语言的括号实在是多(，真的有其他语言的语言设计中具备比lisp更多的括号吗？) 于是我在 Extensions 中搜索 Rainbow Brackets ，对应插件表示项目已放弃维护，因为此特性已由 VSCode 内置，并为我指路至 Settings(GUI) 的配置具体位置。</p>
+<h2 id="hotkey"><a href="#hotkey" class="header-anchor"></a>HotKey
+</h2><!-- ### >> 快捷键  -->
+<ol start="0">
+<li>
+<p><strong>Baseline</strong></p>
+<p>将光标悬停在 GUI 的 button 上，如果该 button 有对应的快捷键，弹出的悬窗会呈现快捷键信息（很多程序都遵循这个设计哲学），所以如果发现自己经常点击某个键，不妨停下来看看它对应的热键是什么.</p>
+</li>
+<li>
+<p><strong>Ctrl-b</strong>：toggle side bar.</p>
+<p>这里对应的一个故事是，有人给 VSCode 提了一个<a class="link" href="https://github.com/Microsoft/vscode/issues/12983"  target="_blank" rel="noopener"
+    >issue</a>，希望 VSCode 提供一个类似 <code>toggleExplorerVisibility</code> 配置项，然后一个用户回复 &ldquo;Ctrl-B to toggle side bar&rdquo; 并关闭了此issue. 为什么我会知道这件事情，因为我也以为我的需求是 <code>toggleExplorerVisibility</code>，结论是：明确每个组件的称呼很重要。(但是，一个热键对应 toggle，两个热键分别对应 show / hide，前者应该更合理一些.)</p>
+</li>
+<li>
+<p><strong>Alt-left/right Arrow</strong>：回退到上一光标位置/前进到下一光标位置</p>
+<p>比较有用的一个情景是：和 F12 配合，在函数的调用链里导航.</p>
+</li>
+<li>
+<p><strong>Ctrl-[/]</strong>：对光标所在行左移/右移缩进。</p>
+<p>同 Vim Visual Mode 下的 <code>&gt;/&lt;</code>. Vim 的这个键位我用着一直不是很顺，因为选中之后只能进行一次操作，如果想再做一次缩进，那要再选一次，虽然是可以<code>2 &gt;</code>这样向右缩进两个tab，但是对我来说还是没有那么顺，自从发现在编辑中使用 Ctrl/Shift/Alt 可以做一些跳转/选中等操作，我就很少离开Vim Insert Mode了，当然这些热键在语义化的方面是比不过 Vim 的键位.</p>
+</li>
+<li>
+<p><strong>Alt-up/down Arrow</strong>：上移/下移光标所在行.</p>
+</li>
+<li>
+<p><strong>Shift-Alt-f</strong>: format 代码，前提是配置好了 formatter.</p>
+<p>于是我不再需要手动调空格/空行的数量，Ctrl + V 的时候也不必担心光标所在列，粘贴完一键 format 完事，很可惜像 Python 这样强制缩进的语言不太好 format.</p>
+</li>
+<li>
+<p><strong>Ctrl-(Shift-)Enter</strong>: 在当前光标所在行下(上)方新建一行，光标跳转到新行行首.</p>
+<p>同 Vim Normal Mode 下的 <code>o(O)</code>.</p>
+</li>
+</ol>
+<h2 id="extensions"><a href="#extensions" class="header-anchor"></a>Extensions
+</h2><ol>
+<li>
+<p>Bluloco Light Theme (Author: Umut Topuzoğlu)</p>
+<p>非常漂亮的主题，我的 Wezterm 使用的也是这个主题.</p>
+</li>
+<li>
+<p>Remove empty lines (Author: Alexander)</p>
+<p>删除选区内的所有空行. 可以通过 Ctrl + Shift + P 调用，也可以为其绑定快捷键.</p>
+</li>
+</ol>
+<h2 id="misc"><a href="#misc" class="header-anchor"></a>Misc
+</h2><p>一些写在 User Settings (JSON) 里的小配置，包含:</p>
+<ul>
+<li>
+<p>配置 VSCode-Vim 插件:</p>
+<ul>
+<li>
+<p>与 VSCode 默认键位冲突处理</p>
+</li>
+<li>
+<p>使用系统剪切板</p>
+</li>
+<li>
+<p>智能相对行号（只在 Insert Mode 使用绝对行号）</p>
+</li>
+</ul>
+</li>
+<li>
+<p>改变悬停窗口（如 Language Server 提供的函数描述）的背景色;</p>
+</li>
+<li>
+<p>默认缩放等级，因为我之前打开 VSCode 做的第一件事总是 ^+ 调大一次 Zoom Level;</p>
+</li>
+<li>
+<p>彩虹括号引导线设置.</p>
+</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;vim.smartRelativeLine&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;vim.useSystemClipboard&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;vim.handleKeys&#34;</span><span class="p">:</span> <span class="p">{</span>                <span class="c1">// 如你所见，我是一个非常不纯的 Vim 用户
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nt">&#34;&lt;C-c&gt;&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;&lt;C-x&gt;&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;&lt;C-a&gt;&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;&lt;C-s&gt;&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>     <span class="c1">// save
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nt">&#34;&lt;C-z&gt;&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>     <span class="c1">// undo
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nt">&#34;&lt;C-[&gt;&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>     <span class="c1">// outdent line 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nt">&#34;&lt;C-]&gt;&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>     <span class="c1">// indent line
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nt">&#34;&lt;C-b&gt;&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>     <span class="c1">// toggle side bar
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nt">&#34;&lt;C-o&gt;&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>     <span class="c1">// open files
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nt">&#34;&lt;C-k&gt;&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>     <span class="c1">// leading key for ...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;workbench.colorCustomizations&#34;</span><span class="p">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&#34;editorHoverWidget.background&#34;</span><span class="p">:</span> <span class="s2">&#34;#edeeee&#34;</span><span class="p">,</span> <span class="c1">// 设置悬停提示的背景颜色
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;window.zoomLevel&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&#34;editor.guides.bracketPairs&#34;</span><span class="p">:</span> <span class="s2">&#34;active&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div>
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/en/tags/vscode/">VSCode</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/en/p/haskell-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-vscode--ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Haskell 开发环境 (VSCode &#43; GHCup &#43; HLS) 修复记录</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2024 - 
+        
+        2025 fyshXplore
+    </section>
+    
+    <section class="powerby">
+        
+            Wish You a Nice Day! <br/>
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
