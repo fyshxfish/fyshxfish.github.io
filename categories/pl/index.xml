@@ -5,6 +5,22 @@
         <link>http://fyshxfish.github.io/categories/pl/</link>
         <description>Recent content in PL on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
-        <language>en</language><atom:link href="http://fyshxfish.github.io/categories/pl/index.xml" rel="self" type="application/rss+xml" />
+        <language>en</language>
+        <lastBuildDate>Tue, 10 Sep 2024 14:10:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/categories/pl/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Safety &amp; Abstraction</title>
+        <link>http://fyshxfish.github.io/p/safety-abstraction/</link>
+        <pubDate>Tue, 10 Sep 2024 14:10:00 +0800</pubDate>
+        
+        <guid>http://fyshxfish.github.io/p/safety-abstraction/</guid>
+        <description>&lt;p&gt;From &lt;em&gt;Types and Programming Languages § 1.2 What Type Systems Are Good For&lt;/em&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;A safe language is one that protects its own &lt;strong&gt;abstractions&lt;/strong&gt;.
+&lt;br&gt;A safe language is completely defined by its programmer&amp;rsquo;s manual.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;Complete &lt;strong&gt;abstraction&lt;/strong&gt; means that users can fully trust the language design, focusing &lt;strong&gt;only&lt;/strong&gt; on the high-level language abstraction layer, without needing to concern themselves with the specific implementation at the hardware level.&lt;/p&gt;
+&lt;p&gt;High-level languages provide abstractions over physical devices. For example, arrays are abstractions over memory. Programmers expect that arrays can &lt;strong&gt;only&lt;/strong&gt; be modified through &lt;strong&gt;explicit&lt;/strong&gt; update operations (e.g., &lt;code&gt;arr[1] = 1024&lt;/code&gt;). &amp;ldquo;Modifying a variable, and some elements in an array are inexplicably changed&amp;rdquo; (e.g., buffer overflow attacks) is a manifestation of broken abstraction. This means that programmers must have a detailed understanding of the layout of variables (abstractions provided by high-level languages) in memory (real physical devices) to write programs that meet expectations.&lt;/p&gt;
+&lt;p&gt;This reminds me of a series of experiments in CSAPP. Since the goal of CSAPP is to examine computer systems from the programmer&amp;rsquo;s perspective, i.e., viewing hardware from a software perspective, if the programming language used is safe, then we can fully trust the abstractions it provides. Consequently, we cannot see the hardware through the software. If C were safe, then the experiments in CSAPP couldn&amp;rsquo;t be done 🧐.&lt;/p&gt;
+</description>
+        </item>
+        
     </channel>
 </rss>

@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='http://fyshxfish.github.io/p/explore-rust-basic/'>
 
-<link rel="stylesheet" href="/scss/style.min.47ac80bd6ec45b271188f04491fa8bc23b22060dfe68b4c309fccb144e0721fc.css"><meta property='og:title' content="Explore Rust (Basic)">
+<link rel="stylesheet" href="/scss/style.min.ba5cc34af4430963fcfe2f9afd2fb80f7251aa5d621efcdd72c32002a6e56cae.css"><meta property='og:title' content="Explore Rust (Basic)">
 <meta property='og:description' content="\u2003如何调试一个rust程序？ $ gdb excutable 简单的示例：\n查看变量的地址：\n格式化p s的输出：\n$17 = alloc::string::String { vec: alloc::vec::Vec&lt;u8, alloc::alloc::Global&gt; { buf: alloc::raw_vec::RawVec&lt;u8, alloc::alloc::Global&gt; { ptr: core::ptr::unique::Unique&lt;u8&gt; { pointer: core::ptr::non_null::NonNull&lt;u8&gt; { pointer: 0x5555555abb80 }, _marker: core::marker::PhantomData&lt;u8&gt; }, cap: alloc::raw_vec::Cap (16), alloc: alloc::alloc::Global }, len: 16 } } 提要：p &lt;variable&gt; p &amp;&lt;variable&gt; ptype &lt;variable&gt;\n">
 <meta property='og:url' content='http://fyshxfish.github.io/p/explore-rust-basic/'>
 <meta property='og:site_name' content='fyshXplore'>
@@ -44,9 +44,7 @@
     <script>
         (function() {
             const colorSchemeKey = 'StackColorScheme';
-            if(!localStorage.getItem(colorSchemeKey)){
-                localStorage.setItem(colorSchemeKey, "auto");
-            }
+            localStorage.setItem(colorSchemeKey, "auto");
         })();
     </script><script>
     (function() {
@@ -244,26 +242,6 @@
                 
 
                 
-                    <li id="dark-mode-toggle">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="8" cy="12" r="2" />
-  <rect x="2" y="6" width="20" height="12" rx="6" />
-</svg>
-
-
-
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="16" cy="12" r="2" />
-  <rect x="2" y="6" width="20" height="12" rx="6" />
-</svg>
-
-
-
-                        <span>Dark Mode</span>
-                    </li>
-                
             </ol>
         </li>
     </ol>
@@ -400,39 +378,39 @@
     
     <p> </p>
 <h2 id="如何调试一个rust程序"><a href="#%e5%a6%82%e4%bd%95%e8%b0%83%e8%af%95%e4%b8%80%e4%b8%aarust%e7%a8%8b%e5%ba%8f" class="header-anchor"></a>如何调试一个rust程序？
-</h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ gdb excutable
+</h2><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ gdb excutable
 </span></span></code></pre></div><p>简单的示例：</p>
 <!-- ![gdb_debug](gdb_debug.png) -->
 <img src="gdb_debug.png" alt="gdb_debug" style="zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);" />
 <p>查看变量的地址：</p>
 <img src="mem_check.png" alt="mem_check" style="zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);" />
 <p>格式化<code>p s</code>的输出：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="cp">$</span><span class="mi">17</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">alloc</span>::<span class="n">string</span>::<span class="nb">String</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">vec</span>: <span class="nc">alloc</span>::<span class="n">vec</span>::<span class="nb">Vec</span><span class="o">&lt;</span><span class="kt">u8</span><span class="p">,</span><span class="w"> </span><span class="n">alloc</span>::<span class="n">alloc</span>::<span class="n">Global</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">buf</span>: <span class="nc">alloc</span>::<span class="n">raw_vec</span>::<span class="n">RawVec</span><span class="o">&lt;</span><span class="kt">u8</span><span class="p">,</span><span class="w"> </span><span class="n">alloc</span>::<span class="n">alloc</span>::<span class="n">Global</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">ptr</span>: <span class="nc">core</span>::<span class="n">ptr</span>::<span class="n">unique</span>::<span class="n">Unique</span><span class="o">&lt;</span><span class="kt">u8</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">pointer</span>: <span class="nc">core</span>::<span class="n">ptr</span>::<span class="n">non_null</span>::<span class="n">NonNull</span><span class="o">&lt;</span><span class="kt">u8</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">                    </span><span class="n">pointer</span>: <span class="mh">0x5555555abb80</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">},</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">_marker</span>: <span class="nc">core</span>::<span class="n">marker</span>::<span class="n">PhantomData</span><span class="o">&lt;</span><span class="kt">u8</span><span class="o">&gt;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="p">},</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">cap</span>: <span class="nc">alloc</span>::<span class="n">raw_vec</span>::<span class="n">Cap</span><span class="w"> </span><span class="p">(</span><span class="mi">16</span><span class="p">),</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">alloc</span>: <span class="nc">alloc</span>::<span class="n">alloc</span>::<span class="n">Global</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">},</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">len</span>: <span class="mi">16</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#57606a">$</span><span style="color:#0550ae">17</span><span style="color:#fff"> </span><span style="color:#0550ae">=</span><span style="color:#fff"> </span>alloc::string::<span style="color:#6639ba">String</span><span style="color:#fff"> </span><span style="color:#1f2328">{</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span>vec: <span style="color:#1f2328">alloc</span>::vec::<span style="color:#6639ba">Vec</span><span style="color:#0550ae">&lt;</span><span style="color:#cf222e">u8</span><span style="color:#1f2328">,</span><span style="color:#fff"> </span>alloc::alloc::Global<span style="color:#0550ae">&gt;</span><span style="color:#fff"> </span><span style="color:#1f2328">{</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">        </span>buf: <span style="color:#1f2328">alloc</span>::raw_vec::RawVec<span style="color:#0550ae">&lt;</span><span style="color:#cf222e">u8</span><span style="color:#1f2328">,</span><span style="color:#fff"> </span>alloc::alloc::Global<span style="color:#0550ae">&gt;</span><span style="color:#fff"> </span><span style="color:#1f2328">{</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">            </span>ptr: <span style="color:#1f2328">core</span>::ptr::unique::Unique<span style="color:#0550ae">&lt;</span><span style="color:#cf222e">u8</span><span style="color:#0550ae">&gt;</span><span style="color:#fff"> </span><span style="color:#1f2328">{</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">                </span>pointer: <span style="color:#1f2328">core</span>::ptr::non_null::NonNull<span style="color:#0550ae">&lt;</span><span style="color:#cf222e">u8</span><span style="color:#0550ae">&gt;</span><span style="color:#fff"> </span><span style="color:#1f2328">{</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">                    </span>pointer: <span style="color:#0550ae">0x5555555abb80</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">                </span><span style="color:#1f2328">},</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">                </span>_marker: <span style="color:#1f2328">core</span>::marker::PhantomData<span style="color:#0550ae">&lt;</span><span style="color:#cf222e">u8</span><span style="color:#0550ae">&gt;</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">            </span><span style="color:#1f2328">},</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">            </span>cap: <span style="color:#1f2328">alloc</span>::raw_vec::Cap<span style="color:#fff"> </span><span style="color:#1f2328">(</span><span style="color:#0550ae">16</span><span style="color:#1f2328">),</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">            </span>alloc: <span style="color:#1f2328">alloc</span>::alloc::Global<span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">        </span><span style="color:#1f2328">},</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">        </span>len: <span style="color:#0550ae">16</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span><span style="color:#1f2328">}</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff"></span><span style="color:#1f2328">}</span><span style="color:#fff">
 </span></span></span></code></pre></div><p>提要：<code>p &lt;variable&gt;</code>  <code>p &amp;&lt;variable&gt;</code>  <code>ptype &lt;variable&gt;</code></p>
 <h2 id="dbg-辅助输出调试信息中的所有权问题"><a href="#dbg-%e8%be%85%e5%8a%a9%e8%be%93%e5%87%ba%e8%b0%83%e8%af%95%e4%bf%a1%e6%81%af%e4%b8%ad%e7%9a%84%e6%89%80%e6%9c%89%e6%9d%83%e9%97%ae%e9%a2%98" class="header-anchor"></a><code>dbg!</code> 辅助输出调试信息中的所有权问题
 </h2><p>错误的：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="fm">dbg!</span><span class="p">(</span><span class="n">var</span><span class="p">);</span><span class="w">      </span><span class="c1">// move
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="fm">dbg!</span><span class="p">(</span><span class="n">var</span><span class="p">);</span><span class="w">      </span><span class="c1">// invalid reference
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span>dbg!<span style="color:#1f2328">(</span>var<span style="color:#1f2328">);</span><span style="color:#fff">      </span><span style="color:#57606a">// move
+</span></span></span><span style="display:flex;"><span><span style="color:#57606a"></span>dbg!<span style="color:#1f2328">(</span>var<span style="color:#1f2328">);</span><span style="color:#fff">      </span><span style="color:#57606a">// invalid reference
 </span></span></span></code></pre></div><p><code>dbg!</code>将拿走<code>var</code>的所有权(<strong>Move</strong>)，<code>var</code>就不能再用了。</p>
 <p>正确的：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="fm">dbg!</span><span class="p">(</span><span class="o">&amp;</span><span class="n">var</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c1">// or
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">let</span><span class="w"> </span><span class="n">new_var</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="fm">dbg!</span><span class="p">(</span><span class="n">var</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="fm">dbg!</span><span class="p">(</span><span class="o">&amp;</span><span class="n">new_var</span><span class="p">);</span><span class="w"> </span><span class="c1">// if u will 
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span>dbg!<span style="color:#1f2328">(</span><span style="color:#0550ae">&amp;</span>var<span style="color:#1f2328">);</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff"></span><span style="color:#57606a">// or
+</span></span></span><span style="display:flex;"><span><span style="color:#57606a"></span><span style="color:#cf222e">let</span><span style="color:#fff"> </span>new_var<span style="color:#fff"> </span><span style="color:#0550ae">=</span><span style="color:#fff"> </span>dbg!<span style="color:#1f2328">(</span>var<span style="color:#1f2328">);</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff"></span>dbg!<span style="color:#1f2328">(</span><span style="color:#0550ae">&amp;</span>new_var<span style="color:#1f2328">);</span><span style="color:#fff"> </span><span style="color:#57606a">// if u will 
 </span></span></span></code></pre></div><h2 id="关于-gdb"><a href="#%e5%85%b3%e4%ba%8e-gdb" class="header-anchor"></a>关于 gdb
 </h2><p>对于想探究的东西，使用gdb去进行探索，例如：[<code>enum</code>的底层表示？] -&gt; 写一个简单的例程，编译成可执行文件，然后进行gdb，使用<code>print var</code> <code>print &amp;var</code> <code>x/x &lt;addr&gt;</code>进行探索。</p>
 <h2 id="关于对-vector-的引用"><a href="#%e5%85%b3%e4%ba%8e%e5%af%b9-vector-%e7%9a%84%e5%bc%95%e7%94%a8" class="header-anchor"></a>关于对 vector 的引用
@@ -440,53 +418,53 @@
 <li>
 <p>一个摘录</p>
 <p>ch08-01</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/* CANNOT COMPILE */</span><span class="w">    
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="k">mut</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="fm">vec!</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">];</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">first</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">v</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="mi">6</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;The first element is: </span><span class="si">{first}</span><span class="s">&#34;</span><span class="p">);</span><span class="w">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#fff">    </span><span style="color:#57606a">/* CANNOT COMPILE */</span><span style="color:#fff">    
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span><span style="color:#cf222e">let</span><span style="color:#fff"> </span><span style="color:#cf222e">mut</span><span style="color:#fff"> </span>v<span style="color:#fff"> </span><span style="color:#0550ae">=</span><span style="color:#fff"> </span>vec!<span style="color:#1f2328">[</span><span style="color:#0550ae">1</span><span style="color:#1f2328">,</span><span style="color:#fff"> </span><span style="color:#0550ae">2</span><span style="color:#1f2328">,</span><span style="color:#fff"> </span><span style="color:#0550ae">3</span><span style="color:#1f2328">,</span><span style="color:#fff"> </span><span style="color:#0550ae">4</span><span style="color:#1f2328">,</span><span style="color:#fff"> </span><span style="color:#0550ae">5</span><span style="color:#1f2328">];</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span><span style="color:#cf222e">let</span><span style="color:#fff"> </span>first<span style="color:#fff"> </span><span style="color:#0550ae">=</span><span style="color:#fff"> </span><span style="color:#0550ae">&amp;</span>v<span style="color:#1f2328">[</span><span style="color:#0550ae">0</span><span style="color:#1f2328">];</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span>v<span style="color:#1f2328">.</span>push<span style="color:#1f2328">(</span><span style="color:#0550ae">6</span><span style="color:#1f2328">);</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span>println!<span style="color:#1f2328">(</span><span style="color:#0a3069">&#34;The first element is: </span><span style="color:#0a3069">{first}</span><span style="color:#0a3069">&#34;</span><span style="color:#1f2328">);</span><span style="color:#fff">
 </span></span></span></code></pre></div><blockquote>
 <p>The code in Listing 8-6 might look like it should work: <em><strong>why should a reference to the first element care about changes at the end of the vector?</strong></em> This error is due to the way vectors work: because vectors put the values next to each other in memory, adding a new element onto the end of the vector might <u>require allocating new memory and copying the old elements to the new space</u>, if there isn’t enough room to put all the elements next to each other where the vector is currently stored. In that case, the reference to the first element would be pointing to <u>deallocated memory</u>. The borrowing rules prevent programs from ending up in that situation.</p></blockquote>
 </li>
 </ul>
 <h2 id="一个问题如何让一个vector看起来存储了多种类型的数据"><a href="#%e4%b8%80%e4%b8%aa%e9%97%ae%e9%a2%98%e5%a6%82%e4%bd%95%e8%ae%a9%e4%b8%80%e4%b8%aavector%e7%9c%8b%e8%b5%b7%e6%9d%a5%e5%ad%98%e5%82%a8%e4%ba%86%e5%a4%9a%e7%a7%8d%e7%b1%bb%e5%9e%8b%e7%9a%84%e6%95%b0%e6%8d%ae" class="header-anchor"></a>一个问题：如何让一个Vector看起来存储了多种类型的数据？
 </h2><p>答案：让Vector存储enum，enum含有多种类型的variant，在某种程度上可以说Vector存储了多种类型的数据。</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">fn</span> <span class="nf">main</span><span class="p">(){</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">v</span>: <span class="nb">Vec</span><span class="o">&lt;</span><span class="n">CellType</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="fm">vec!</span><span class="p">[</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">CellType</span>::<span class="n">Int</span><span class="p">(</span><span class="mi">12</span><span class="p">),</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">CellType</span>::<span class="n">Text</span><span class="p">(</span><span class="nb">String</span>::<span class="n">from</span><span class="p">(</span><span class="s">&#34;word&#34;</span><span class="p">)),</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">CellType</span>::<span class="n">Float</span><span class="p">(</span><span class="mf">3.14</span><span class="p">),</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">];</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">v1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">enum</span> <span class="nc">CellType</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Int</span><span class="p">(</span><span class="kt">i32</span><span class="p">),</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Float</span><span class="p">(</span><span class="kt">f64</span><span class="p">),</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Text</span><span class="p">(</span><span class="nb">String</span><span class="p">),</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#cf222e">fn</span> <span style="color:#6639ba">main</span><span style="color:#1f2328">(){</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span><span style="color:#cf222e">let</span><span style="color:#fff"> </span>v: <span style="color:#6639ba">Vec</span><span style="color:#0550ae">&lt;</span>CellType<span style="color:#0550ae">&gt;</span><span style="color:#fff"> </span><span style="color:#0550ae">=</span><span style="color:#fff"> </span>vec!<span style="color:#1f2328">[</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">        </span>CellType::Int<span style="color:#1f2328">(</span><span style="color:#0550ae">12</span><span style="color:#1f2328">),</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">        </span>CellType::Text<span style="color:#1f2328">(</span><span style="color:#6639ba">String</span>::from<span style="color:#1f2328">(</span><span style="color:#0a3069">&#34;word&#34;</span><span style="color:#1f2328">)),</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">        </span>CellType::Float<span style="color:#1f2328">(</span><span style="color:#0550ae">3.14</span><span style="color:#1f2328">),</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span><span style="color:#1f2328">];</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span><span style="color:#cf222e">let</span><span style="color:#fff"> </span>v1<span style="color:#fff"> </span><span style="color:#0550ae">=</span><span style="color:#fff"> </span><span style="color:#0550ae">&amp;</span>v<span style="color:#1f2328">[</span><span style="color:#0550ae">0</span><span style="color:#1f2328">];</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff"></span><span style="color:#1f2328">}</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff"></span><span style="color:#cf222e">enum</span> <span style="color:#1f2328">CellType</span><span style="color:#fff"> </span><span style="color:#1f2328">{</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span>Int<span style="color:#1f2328">(</span><span style="color:#cf222e">i32</span><span style="color:#1f2328">),</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span>Float<span style="color:#1f2328">(</span><span style="color:#cf222e">f64</span><span style="color:#1f2328">),</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span>Text<span style="color:#1f2328">(</span><span style="color:#6639ba">String</span><span style="color:#1f2328">),</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff"></span><span style="color:#1f2328">}</span><span style="color:#fff">
 </span></span></span></code></pre></div><h2 id="gdb-调试-enum-示例与-gdb以及其他repl中的-history-variable"><a href="#gdb-%e8%b0%83%e8%af%95-enum-%e7%a4%ba%e4%be%8b%e4%b8%8e-gdb%e4%bb%a5%e5%8f%8a%e5%85%b6%e4%bb%96repl%e4%b8%ad%e7%9a%84-history-variable" class="header-anchor"></a>gdb 调试 enum 示例与 gdb（以及其他REPL）中的 history variable
 </h2><p><strong>源代码：</strong></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">fn</span> <span class="nf">main</span><span class="p">(){</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">v</span>: <span class="nb">Vec</span><span class="o">&lt;</span><span class="n">CellType</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="fm">vec!</span><span class="p">[</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">CellType</span>::<span class="n">Int</span><span class="p">(</span><span class="mi">12</span><span class="p">),</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">CellType</span>::<span class="n">Float</span><span class="p">(</span><span class="mf">3.14</span><span class="p">),</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">];</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">v1</span>: <span class="kp">&amp;</span><span class="nc">CellType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">v</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">let</span><span class="w"> </span><span class="n">v2</span>: <span class="kp">&amp;</span><span class="nc">CellType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">v</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;END&#34;</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">enum</span> <span class="nc">CellType</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Int</span><span class="p">(</span><span class="kt">i32</span><span class="p">),</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Float</span><span class="p">(</span><span class="kt">f64</span><span class="p">),</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#cf222e">fn</span> <span style="color:#6639ba">main</span><span style="color:#1f2328">(){</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span><span style="color:#cf222e">let</span><span style="color:#fff"> </span>v: <span style="color:#6639ba">Vec</span><span style="color:#0550ae">&lt;</span>CellType<span style="color:#0550ae">&gt;</span><span style="color:#fff"> </span><span style="color:#0550ae">=</span><span style="color:#fff"> </span>vec!<span style="color:#1f2328">[</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">        </span>CellType::Int<span style="color:#1f2328">(</span><span style="color:#0550ae">12</span><span style="color:#1f2328">),</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">        </span>CellType::Float<span style="color:#1f2328">(</span><span style="color:#0550ae">3.14</span><span style="color:#1f2328">),</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span><span style="color:#1f2328">];</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span><span style="color:#cf222e">let</span><span style="color:#fff"> </span>v1: <span style="color:#cf222e">&amp;</span><span style="color:#1f2328">CellType</span><span style="color:#fff"> </span><span style="color:#0550ae">=</span><span style="color:#fff"> </span><span style="color:#0550ae">&amp;</span>v<span style="color:#1f2328">[</span><span style="color:#0550ae">0</span><span style="color:#1f2328">];</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span><span style="color:#cf222e">let</span><span style="color:#fff"> </span>v2: <span style="color:#cf222e">&amp;</span><span style="color:#1f2328">CellType</span><span style="color:#fff"> </span><span style="color:#0550ae">=</span><span style="color:#fff"> </span><span style="color:#0550ae">&amp;</span>v<span style="color:#1f2328">[</span><span style="color:#0550ae">1</span><span style="color:#1f2328">];</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span>println!<span style="color:#1f2328">(</span><span style="color:#0a3069">&#34;END&#34;</span><span style="color:#1f2328">);</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff"></span><span style="color:#1f2328">}</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff"></span><span style="color:#cf222e">enum</span> <span style="color:#1f2328">CellType</span><span style="color:#fff"> </span><span style="color:#1f2328">{</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span>Int<span style="color:#1f2328">(</span><span style="color:#cf222e">i32</span><span style="color:#1f2328">),</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span>Float<span style="color:#1f2328">(</span><span style="color:#cf222e">f64</span><span style="color:#1f2328">),</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff"></span><span style="color:#1f2328">}</span><span style="color:#fff">
 </span></span></span></code></pre></div><p><strong>调试实录：</strong></p>
 <img src="gdb_enum.png" alt="gdb_enum" style="zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);" />
 <ol>
@@ -511,11 +489,11 @@
 </li>
 </ul>
 <h2 id="rust_backtrace-与命令行拾遗"><a href="#rust_backtrace-%e4%b8%8e%e5%91%bd%e4%bb%a4%e8%a1%8c%e6%8b%be%e9%81%97" class="header-anchor"></a>RUST_BACKTRACE 与命令行拾遗
-</h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ <span class="nv">RUST_BACKTRACE</span><span class="o">=</span><span class="m">1</span> cargo run
-</span></span><span class="line"><span class="cl">$ <span class="nv">A</span><span class="o">=</span><span class="m">12</span> <span class="nv">B</span><span class="o">=</span><span class="m">23</span> <span class="nb">echo</span> <span class="s2">&#34;</span><span class="nv">$A</span><span class="s2"> </span><span class="nv">$B</span><span class="s2">&#34;</span>
+</h2><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span>$ <span style="color:#953800">RUST_BACKTRACE</span><span style="color:#0550ae">=</span><span style="color:#0550ae">1</span> cargo run
+</span></span><span style="display:flex;"><span>$ <span style="color:#953800">A</span><span style="color:#0550ae">=</span><span style="color:#0550ae">12</span> <span style="color:#953800">B</span><span style="color:#0550ae">=</span><span style="color:#0550ae">23</span> <span style="color:#6639ba">echo</span> <span style="color:#0a3069">&#34;</span><span style="color:#953800">$A</span><span style="color:#0a3069"> </span><span style="color:#953800">$B</span><span style="color:#0a3069">&#34;</span>
 </span></span></code></pre></div><p>在命令的最左可以写临时的环境变量。</p>
 <h2 id="花里胡哨的技术rust的println的色彩转义"><a href="#%e8%8a%b1%e9%87%8c%e8%83%a1%e5%93%a8%e7%9a%84%e6%8a%80%e6%9c%afrust%e7%9a%84println%e7%9a%84%e8%89%b2%e5%bd%a9%e8%bd%ac%e4%b9%89" class="header-anchor"></a>花里胡哨的技术：rust的<code>println</code>的色彩转义
-</h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="fm">println!</span><span class="p">(</span><span class="s">&#34;</span><span class="se">\x1b</span><span class="s">[34mMESSAGE</span><span class="se">\x1b</span><span class="s">[0m&#34;</span><span class="p">);</span><span class="w">
+</h2><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span>println!<span style="color:#1f2328">(</span><span style="color:#0a3069">&#34;</span><span style="color:#0a3069">\x1b</span><span style="color:#0a3069">[34mMESSAGE</span><span style="color:#0a3069">\x1b</span><span style="color:#0a3069">[0m&#34;</span><span style="color:#1f2328">);</span><span style="color:#fff">
 </span></span></span></code></pre></div><ul>
 <li>
 <p>使用<code>\x1b[34m</code>进行转义</p>
@@ -528,33 +506,33 @@
 </ul>
 <h2 id="resultt-e的unwrap和expect-之间的区别"><a href="#resultt-e%e7%9a%84unwrap%e5%92%8cexpect-%e4%b9%8b%e9%97%b4%e7%9a%84%e5%8c%ba%e5%88%ab" class="header-anchor"></a><code>Result&lt;T, E&gt;</code>的<code>unwrap</code>和<code>expect</code> 之间的区别：
 </h2><p>适当地看一些库函数的实现，可以对封装好的函数有更具体的了解，例如<code>Result&lt;T, E&gt;</code>的<code>unwrap</code>和<code>expect</code>，看过源码就可以知道这两者的区别在于何处（只在于<code>unwrap_failed</code>的<code>msg</code>参数，至于<code>unwrap_failed</code>只是一个对<code>panic!</code>的封装）：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-rust" data-lang="rust"><span class="line"><span class="cl"><span class="k">impl</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">E</span><span class="o">&gt;</span><span class="w"> </span><span class="nb">Result</span><span class="o">&lt;</span><span class="nb">Result</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span><span class="w"> </span><span class="n">E</span><span class="o">&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">E</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">..</span><span class="p">.</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">expect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="w"> </span><span class="n">msg</span>: <span class="kp">&amp;</span><span class="kt">str</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">T</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">where</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">E</span>: <span class="nc">fmt</span>::<span class="n">Debug</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">match</span><span class="w"> </span><span class="bp">self</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nb">Ok</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">t</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nb">Err</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">unwrap_failed</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">e</span><span class="p">),</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">pub</span><span class="w"> </span><span class="k">fn</span> <span class="nf">unwrap</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="nc">T</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">where</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">E</span>: <span class="nc">fmt</span>::<span class="n">Debug</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">match</span><span class="w"> </span><span class="bp">self</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nb">Ok</span><span class="p">(</span><span class="n">t</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">t</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nb">Err</span><span class="p">(</span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">unwrap_failed</span><span class="p">(</span><span class="s">&#34;called `Result::unwrap()` on an `Err` value&#34;</span><span class="p">,</span><span class="w"> </span><span class="o">&amp;</span><span class="n">e</span><span class="p">),</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="o">..</span><span class="p">.</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">fn</span> <span class="nf">unwrap_failed</span><span class="p">(</span><span class="n">msg</span>: <span class="kp">&amp;</span><span class="kt">str</span><span class="p">,</span><span class="w"> </span><span class="n">error</span>: <span class="kp">&amp;</span><span class="nc">dyn</span><span class="w"> </span><span class="n">fmt</span>::<span class="n">Debug</span><span class="p">)</span><span class="w"> </span>-&gt; <span class="o">!</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="fm">panic!</span><span class="p">(</span><span class="s">&#34;</span><span class="si">{msg}</span><span class="s">: </span><span class="si">{error:?}</span><span class="s">&#34;</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-rust" data-lang="rust"><span style="display:flex;"><span><span style="color:#cf222e">impl</span><span style="color:#0550ae">&lt;</span>T<span style="color:#1f2328">,</span><span style="color:#fff"> </span>E<span style="color:#0550ae">&gt;</span><span style="color:#fff"> </span><span style="color:#6639ba">Result</span><span style="color:#0550ae">&lt;</span><span style="color:#6639ba">Result</span><span style="color:#0550ae">&lt;</span>T<span style="color:#1f2328">,</span><span style="color:#fff"> </span>E<span style="color:#0550ae">&gt;</span><span style="color:#1f2328">,</span><span style="color:#fff"> </span>E<span style="color:#0550ae">&gt;</span><span style="color:#fff"> </span><span style="color:#1f2328">{</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span><span style="color:#0550ae">..</span><span style="color:#1f2328">.</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span><span style="color:#cf222e">pub</span><span style="color:#fff"> </span><span style="color:#cf222e">fn</span> <span style="color:#6639ba">expect</span><span style="color:#1f2328">(</span><span style="color:#6a737d">self</span><span style="color:#1f2328">,</span><span style="color:#fff"> </span>msg: <span style="color:#cf222e">&amp;</span><span style="color:#cf222e">str</span><span style="color:#1f2328">)</span><span style="color:#fff"> </span>-&gt; <span style="color:#1f2328">T</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span><span style="color:#cf222e">where</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">        </span>E: <span style="color:#1f2328">fmt</span>::Debug<span style="color:#1f2328">,</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span><span style="color:#1f2328">{</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">        </span><span style="color:#cf222e">match</span><span style="color:#fff"> </span><span style="color:#6a737d">self</span><span style="color:#fff"> </span><span style="color:#1f2328">{</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">            </span><span style="color:#6639ba">Ok</span><span style="color:#1f2328">(</span>t<span style="color:#1f2328">)</span><span style="color:#fff"> </span><span style="color:#0550ae">=&gt;</span><span style="color:#fff"> </span>t<span style="color:#1f2328">,</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">            </span><span style="color:#6639ba">Err</span><span style="color:#1f2328">(</span>e<span style="color:#1f2328">)</span><span style="color:#fff"> </span><span style="color:#0550ae">=&gt;</span><span style="color:#fff"> </span>unwrap_failed<span style="color:#1f2328">(</span>msg<span style="color:#1f2328">,</span><span style="color:#fff"> </span><span style="color:#0550ae">&amp;</span>e<span style="color:#1f2328">),</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">        </span><span style="color:#1f2328">}</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span><span style="color:#1f2328">}</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span><span style="color:#cf222e">pub</span><span style="color:#fff"> </span><span style="color:#cf222e">fn</span> <span style="color:#6639ba">unwrap</span><span style="color:#1f2328">(</span><span style="color:#6a737d">self</span><span style="color:#1f2328">)</span><span style="color:#fff"> </span>-&gt; <span style="color:#1f2328">T</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span><span style="color:#cf222e">where</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">        </span>E: <span style="color:#1f2328">fmt</span>::Debug<span style="color:#1f2328">,</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span><span style="color:#1f2328">{</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">        </span><span style="color:#cf222e">match</span><span style="color:#fff"> </span><span style="color:#6a737d">self</span><span style="color:#fff"> </span><span style="color:#1f2328">{</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">            </span><span style="color:#6639ba">Ok</span><span style="color:#1f2328">(</span>t<span style="color:#1f2328">)</span><span style="color:#fff"> </span><span style="color:#0550ae">=&gt;</span><span style="color:#fff"> </span>t<span style="color:#1f2328">,</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">            </span><span style="color:#6639ba">Err</span><span style="color:#1f2328">(</span>e<span style="color:#1f2328">)</span><span style="color:#fff"> </span><span style="color:#0550ae">=&gt;</span><span style="color:#fff"> </span>unwrap_failed<span style="color:#1f2328">(</span><span style="color:#0a3069">&#34;called `Result::unwrap()` on an `Err` value&#34;</span><span style="color:#1f2328">,</span><span style="color:#fff"> </span><span style="color:#0550ae">&amp;</span>e<span style="color:#1f2328">),</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">        </span><span style="color:#1f2328">}</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span><span style="color:#1f2328">}</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span><span style="color:#0550ae">..</span><span style="color:#1f2328">.</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff"></span><span style="color:#1f2328">}</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff"></span><span style="color:#cf222e">fn</span> <span style="color:#6639ba">unwrap_failed</span><span style="color:#1f2328">(</span>msg: <span style="color:#cf222e">&amp;</span><span style="color:#cf222e">str</span><span style="color:#1f2328">,</span><span style="color:#fff"> </span>error: <span style="color:#cf222e">&amp;</span><span style="color:#1f2328">dyn</span><span style="color:#fff"> </span>fmt::Debug<span style="color:#1f2328">)</span><span style="color:#fff"> </span>-&gt; <span style="color:#0550ae">!</span><span style="color:#fff"> </span><span style="color:#1f2328">{</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff">    </span>panic!<span style="color:#1f2328">(</span><span style="color:#0a3069">&#34;</span><span style="color:#0a3069">{msg}</span><span style="color:#0a3069">: </span><span style="color:#0a3069">{error:?}</span><span style="color:#0a3069">&#34;</span><span style="color:#1f2328">)</span><span style="color:#fff">
+</span></span></span><span style="display:flex;"><span><span style="color:#fff"></span><span style="color:#1f2328">}</span><span style="color:#fff">
 </span></span></span></code></pre></div>
 </section>
 

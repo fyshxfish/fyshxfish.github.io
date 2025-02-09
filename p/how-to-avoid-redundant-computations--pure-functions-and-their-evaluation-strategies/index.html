@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='http://fyshxfish.github.io/p/how-to-avoid-redundant-computations--pure-functions-and-their-evaluation-strategies/'>
 
-<link rel="stylesheet" href="/scss/style.min.47ac80bd6ec45b271188f04491fa8bc23b22060dfe68b4c309fccb144e0721fc.css"><meta property='og:title' content="How to Avoid Redundant Computations + Pure Functions and Their Evaluation Strategies">
+<link rel="stylesheet" href="/scss/style.min.ba5cc34af4430963fcfe2f9afd2fb80f7251aa5d621efcdd72c32002a6e56cae.css"><meta property='og:title' content="How to Avoid Redundant Computations + Pure Functions and Their Evaluation Strategies">
 <meta property='og:description' content="前言 这个学期包含编译系统和算法设计与分析两门专业课，遇到一些问题总会想着放在 Haskell 里实现一下，对于程序构造多少有点新的体会，也度过了对于 Haskell 不平静的狂热期，现在的我已经不会想着到处传教了（☺️）. 本来只是准备随便写写做 0-1 背包的 Haskell 实现中的一些小思考，不过真开始动笔了就越写越正式了，也算是接触 FP / Haskell 以来的一点点小总结. Haskell 官网 对 Haskell 的描述是 &ldquo;An advanced, purely functional programming language&rdquo;，本文试图围绕 &ldquo;purely&rdquo; 做一些讨论：什么是纯，怎么样算不纯，追求纯度的理由是什么，纯度带来的效益是什么.\n">
 <meta property='og:url' content='http://fyshxfish.github.io/p/how-to-avoid-redundant-computations--pure-functions-and-their-evaluation-strategies/'>
 <meta property='og:site_name' content='fyshXplore'>
@@ -44,9 +44,7 @@
     <script>
         (function() {
             const colorSchemeKey = 'StackColorScheme';
-            if(!localStorage.getItem(colorSchemeKey)){
-                localStorage.setItem(colorSchemeKey, "auto");
-            }
+            localStorage.setItem(colorSchemeKey, "auto");
         })();
     </script><script>
     (function() {
@@ -244,26 +242,6 @@
                 
 
                 
-                    <li id="dark-mode-toggle">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="8" cy="12" r="2" />
-  <rect x="2" y="6" width="20" height="12" rx="6" />
-</svg>
-
-
-
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="16" cy="12" r="2" />
-  <rect x="2" y="6" width="20" height="12" rx="6" />
-</svg>
-
-
-
-                        <span>Dark Mode</span>
-                    </li>
-                
             </ol>
         </li>
     </ol>
@@ -412,50 +390,50 @@
 <ul>
 <li>回忆：使用 <code>dp</code> 数组，而不是递归的原因是 —— 将递归转为迭代，避免重复计算；另一种陈述是将函数调用 <code>dp(i, j)</code> 的结果存储到内存中的数组 <code>dp[i][j]</code> 里，实现记忆化.</li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">knapsack</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span><span class="o">*</span> <span class="n">weight</span><span class="p">,</span> <span class="kt">int</span><span class="o">*</span> <span class="n">value</span><span class="p">,</span> <span class="kt">int</span> <span class="n">capacity</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">dp</span><span class="p">[</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">capacity</span><span class="o">+</span><span class="mi">1</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="c1">// INIT: BASE CASE// 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">capacity</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> 
-</span></span><span class="line"><span class="cl">        <span class="n">dp</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>  
-</span></span><span class="line"><span class="cl">    
-</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span><span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>  
-</span></span><span class="line"><span class="cl">        <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> 
-</span></span><span class="line"><span class="cl">    
-</span></span><span class="line"><span class="cl">    <span class="c1">// DP // 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="kt">int</span> <span class="n">w</span> <span class="o">=</span> <span class="n">weight</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">v</span> <span class="o">=</span> <span class="n">value</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">capacity</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">(</span><span class="n">j</span> <span class="o">&lt;</span> <span class="n">w</span><span class="p">)</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl">            <span class="k">else</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">],</span> <span class="n">dp</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="o">-</span><span class="n">w</span><span class="p">]</span><span class="o">+</span><span class="n">v</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">dp</span><span class="p">[</span><span class="n">n</span><span class="p">][</span><span class="n">capacity</span><span class="p">];</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#cf222e">int</span> <span style="color:#6639ba">knapsack</span><span style="color:#1f2328">(</span><span style="color:#cf222e">int</span> n<span style="color:#1f2328">,</span> <span style="color:#cf222e">int</span><span style="color:#0550ae">*</span> weight<span style="color:#1f2328">,</span> <span style="color:#cf222e">int</span><span style="color:#0550ae">*</span> value<span style="color:#1f2328">,</span> <span style="color:#cf222e">int</span> capacity<span style="color:#1f2328">)</span> <span style="color:#1f2328">{</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">int</span> dp<span style="color:#1f2328">[</span>n<span style="color:#0550ae">+</span><span style="color:#0550ae">1</span><span style="color:#1f2328">][</span>capacity<span style="color:#0550ae">+</span><span style="color:#0550ae">1</span><span style="color:#1f2328">];</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#57606a">// INIT: BASE CASE// 
+</span></span></span><span style="display:flex;"><span><span style="color:#57606a"></span>    <span style="color:#cf222e">for</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">int</span> j <span style="color:#0550ae">=</span> <span style="color:#0550ae">0</span><span style="color:#1f2328">;</span> j <span style="color:#0550ae">&lt;=</span> capacity<span style="color:#1f2328">;</span> j<span style="color:#0550ae">++</span><span style="color:#1f2328">)</span> 
+</span></span><span style="display:flex;"><span>        dp<span style="color:#1f2328">[</span><span style="color:#0550ae">0</span><span style="color:#1f2328">][</span>j<span style="color:#1f2328">]</span> <span style="color:#0550ae">=</span> <span style="color:#0550ae">0</span><span style="color:#1f2328">;</span>  
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">for</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">int</span> i <span style="color:#0550ae">=</span> <span style="color:#0550ae">0</span><span style="color:#1f2328">;</span>i <span style="color:#0550ae">&lt;=</span> n<span style="color:#1f2328">;</span>i<span style="color:#0550ae">++</span><span style="color:#1f2328">)</span>  
+</span></span><span style="display:flex;"><span>        dp<span style="color:#1f2328">[</span>i<span style="color:#1f2328">][</span><span style="color:#0550ae">0</span><span style="color:#1f2328">]</span> <span style="color:#0550ae">=</span> <span style="color:#0550ae">0</span><span style="color:#1f2328">;</span> 
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#57606a">// DP // 
+</span></span></span><span style="display:flex;"><span><span style="color:#57606a"></span>    <span style="color:#cf222e">for</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">int</span> i <span style="color:#0550ae">=</span> <span style="color:#0550ae">1</span><span style="color:#1f2328">;</span> i <span style="color:#0550ae">&lt;=</span> n<span style="color:#1f2328">;</span>i<span style="color:#0550ae">++</span><span style="color:#1f2328">)</span> <span style="color:#1f2328">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#cf222e">int</span> w <span style="color:#0550ae">=</span> weight<span style="color:#1f2328">[</span>i<span style="color:#1f2328">],</span> v <span style="color:#0550ae">=</span> value<span style="color:#1f2328">[</span>i<span style="color:#1f2328">];</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#cf222e">for</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">int</span> j <span style="color:#0550ae">=</span> <span style="color:#0550ae">1</span><span style="color:#1f2328">;</span> j <span style="color:#0550ae">&lt;=</span> capacity<span style="color:#1f2328">;</span> j<span style="color:#0550ae">++</span><span style="color:#1f2328">)</span> <span style="color:#1f2328">{</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#cf222e">if</span> <span style="color:#1f2328">(</span>j <span style="color:#0550ae">&lt;</span> w<span style="color:#1f2328">)</span> dp<span style="color:#1f2328">[</span>i<span style="color:#1f2328">][</span>j<span style="color:#1f2328">]</span> <span style="color:#0550ae">=</span> dp<span style="color:#1f2328">[</span>i<span style="color:#0550ae">-</span><span style="color:#0550ae">1</span><span style="color:#1f2328">][</span>j<span style="color:#1f2328">];</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#cf222e">else</span> dp<span style="color:#1f2328">[</span>i<span style="color:#1f2328">][</span>j<span style="color:#1f2328">]</span> <span style="color:#0550ae">=</span> max<span style="color:#1f2328">(</span>dp<span style="color:#1f2328">[</span>i<span style="color:#0550ae">-</span><span style="color:#0550ae">1</span><span style="color:#1f2328">][</span>j<span style="color:#1f2328">],</span> dp<span style="color:#1f2328">[</span>i<span style="color:#1f2328">][</span>j<span style="color:#0550ae">-</span>w<span style="color:#1f2328">]</span><span style="color:#0550ae">+</span>v<span style="color:#1f2328">);</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#1f2328">}</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#1f2328">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">return</span> dp<span style="color:#1f2328">[</span>n<span style="color:#1f2328">][</span>capacity<span style="color:#1f2328">];</span>
+</span></span><span style="display:flex;"><span><span style="color:#1f2328">}</span>
 </span></span></code></pre></div><p>将上述代码 1:1 翻译成 Haskell 程序，你将得到：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-hs" data-lang="hs"><span class="line"><span class="cl"><span class="kr">import</span> <span class="nn">Data.Array</span>
-</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="kt">Value</span> <span class="ow">=</span> <span class="kt">Int</span> 
-</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="kt">Weight</span> <span class="ow">=</span> <span class="kt">Int</span> 
-</span></span><span class="line"><span class="cl"><span class="kr">type</span> <span class="kt">Item</span> <span class="ow">=</span> <span class="p">(</span><span class="kt">Value</span><span class="p">,</span> <span class="kt">Weight</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nf">knapsack01</span> <span class="ow">::</span> <span class="kt">Weight</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="kt">Item</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="kt">Value</span>
-</span></span><span class="line"><span class="cl"><span class="nf">knapsack01</span> <span class="n">capacity</span> <span class="n">items</span> <span class="ow">=</span> <span class="n">dp</span> <span class="o">!</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">capacity</span><span class="p">)</span> 
-</span></span><span class="line"><span class="cl">    <span class="kr">where</span> 
-</span></span><span class="line"><span class="cl">        <span class="n">n</span> <span class="ow">=</span> <span class="n">length</span> <span class="n">items</span> 
-</span></span><span class="line"><span class="cl">        <span class="n">dp</span> <span class="ow">=</span> <span class="n">array</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">capacity</span><span class="p">))</span> 
-</span></span><span class="line"><span class="cl">             <span class="p">[((</span><span class="n">i</span><span class="p">,</span> <span class="n">w</span><span class="p">),</span> <span class="n">step</span> <span class="n">i</span> <span class="n">w</span><span class="p">)</span> <span class="o">|</span> <span class="n">i</span> <span class="ow">&lt;-</span> <span class="p">[</span><span class="mi">0</span><span class="o">..</span><span class="n">n</span><span class="p">],</span> <span class="n">w</span> <span class="ow">&lt;-</span> <span class="p">[</span><span class="mi">0</span><span class="o">..</span><span class="n">capacity</span><span class="p">]]</span>
-</span></span><span class="line"><span class="cl">        
-</span></span><span class="line"><span class="cl">        <span class="n">step</span> <span class="mi">0</span> <span class="kr">_</span> <span class="ow">=</span> <span class="mi">0</span> 
-</span></span><span class="line"><span class="cl">        <span class="n">step</span> <span class="kr">_</span> <span class="mi">0</span> <span class="ow">=</span> <span class="mi">0</span>
-</span></span><span class="line"><span class="cl">        <span class="n">step</span> <span class="n">i</span> <span class="n">w</span> 
-</span></span><span class="line"><span class="cl">            <span class="o">|</span> <span class="n">curWgt</span> <span class="o">&gt;</span> <span class="n">w</span> 
-</span></span><span class="line"><span class="cl">                <span class="ow">=</span> <span class="n">dp</span> <span class="o">!</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span> 
-</span></span><span class="line"><span class="cl">            <span class="o">|</span> <span class="n">otherwise</span>     
-</span></span><span class="line"><span class="cl">                <span class="ow">=</span> <span class="n">max</span> <span class="p">(</span><span class="n">dp</span> <span class="o">!</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">w</span><span class="p">))</span> <span class="p">(</span><span class="n">curVal</span> <span class="o">+</span> <span class="n">dp</span> <span class="o">!</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">w</span> <span class="o">-</span> <span class="n">curWgt</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">            <span class="kr">where</span> <span class="n">curVal</span> <span class="ow">=</span> <span class="n">fst</span> <span class="o">$</span> <span class="n">items</span> <span class="o">!!</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> 
-</span></span><span class="line"><span class="cl">                  <span class="n">curWgt</span> <span class="ow">=</span> <span class="n">snd</span> <span class="o">$</span> <span class="n">items</span> <span class="o">!!</span> <span class="p">(</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hs" data-lang="hs"><span style="display:flex;"><span><span style="color:#cf222e">import</span> <span style="color:#24292e">Data.Array</span>
+</span></span><span style="display:flex;"><span><span style="color:#cf222e">type</span> <span style="color:#cf222e">Value</span> <span style="color:#0550ae">=</span> <span style="color:#cf222e">Int</span> 
+</span></span><span style="display:flex;"><span><span style="color:#cf222e">type</span> <span style="color:#cf222e">Weight</span> <span style="color:#0550ae">=</span> <span style="color:#cf222e">Int</span> 
+</span></span><span style="display:flex;"><span><span style="color:#cf222e">type</span> <span style="color:#cf222e">Item</span> <span style="color:#0550ae">=</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Value</span><span style="color:#1f2328">,</span> <span style="color:#cf222e">Weight</span><span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">knapsack01</span> <span style="color:#0550ae">::</span> <span style="color:#cf222e">Weight</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#1f2328">[</span><span style="color:#cf222e">Item</span><span style="color:#1f2328">]</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">Value</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">knapsack01</span> capacity items <span style="color:#0550ae">=</span> dp <span style="color:#0550ae">!</span> <span style="color:#1f2328">(</span>n<span style="color:#1f2328">,</span> capacity<span style="color:#1f2328">)</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">where</span> 
+</span></span><span style="display:flex;"><span>        n <span style="color:#0550ae">=</span> length items 
+</span></span><span style="display:flex;"><span>        dp <span style="color:#0550ae">=</span> array<span style="color:#1f2328">((</span><span style="color:#0550ae">0</span><span style="color:#1f2328">,</span><span style="color:#0550ae">0</span><span style="color:#1f2328">),</span> <span style="color:#1f2328">(</span>n<span style="color:#1f2328">,</span>capacity<span style="color:#1f2328">))</span> 
+</span></span><span style="display:flex;"><span>             <span style="color:#1f2328">[((</span>i<span style="color:#1f2328">,</span> w<span style="color:#1f2328">),</span> step i w<span style="color:#1f2328">)</span> <span style="color:#0550ae">|</span> i <span style="color:#0550ae">&lt;-</span> <span style="color:#1f2328">[</span><span style="color:#0550ae">0</span><span style="color:#0550ae">..</span>n<span style="color:#1f2328">],</span> w <span style="color:#0550ae">&lt;-</span> <span style="color:#1f2328">[</span><span style="color:#0550ae">0</span><span style="color:#0550ae">..</span>capacity<span style="color:#1f2328">]]</span>
+</span></span><span style="display:flex;"><span>        
+</span></span><span style="display:flex;"><span>        step <span style="color:#0550ae">0</span> <span style="color:#cf222e">_</span> <span style="color:#0550ae">=</span> <span style="color:#0550ae">0</span> 
+</span></span><span style="display:flex;"><span>        step <span style="color:#cf222e">_</span> <span style="color:#0550ae">0</span> <span style="color:#0550ae">=</span> <span style="color:#0550ae">0</span>
+</span></span><span style="display:flex;"><span>        step i w 
+</span></span><span style="display:flex;"><span>            <span style="color:#0550ae">|</span> curWgt <span style="color:#0550ae">&gt;</span> w 
+</span></span><span style="display:flex;"><span>                <span style="color:#0550ae">=</span> dp <span style="color:#0550ae">!</span> <span style="color:#1f2328">(</span>i <span style="color:#0550ae">-</span> <span style="color:#0550ae">1</span><span style="color:#1f2328">,</span> w<span style="color:#1f2328">)</span> 
+</span></span><span style="display:flex;"><span>            <span style="color:#0550ae">|</span> otherwise     
+</span></span><span style="display:flex;"><span>                <span style="color:#0550ae">=</span> max <span style="color:#1f2328">(</span>dp <span style="color:#0550ae">!</span> <span style="color:#1f2328">(</span>i <span style="color:#0550ae">-</span> <span style="color:#0550ae">1</span><span style="color:#1f2328">,</span> w<span style="color:#1f2328">))</span> <span style="color:#1f2328">(</span>curVal <span style="color:#0550ae">+</span> dp <span style="color:#0550ae">!</span> <span style="color:#1f2328">(</span>i <span style="color:#0550ae">-</span> <span style="color:#0550ae">1</span><span style="color:#1f2328">,</span> w <span style="color:#0550ae">-</span> curWgt<span style="color:#1f2328">))</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#cf222e">where</span> curVal <span style="color:#0550ae">=</span> fst <span style="color:#0550ae">$</span> items <span style="color:#0550ae">!!</span> <span style="color:#1f2328">(</span>i <span style="color:#0550ae">-</span> <span style="color:#0550ae">1</span><span style="color:#1f2328">)</span> 
+</span></span><span style="display:flex;"><span>                  curWgt <span style="color:#0550ae">=</span> snd <span style="color:#0550ae">$</span> items <span style="color:#0550ae">!!</span> <span style="color:#1f2328">(</span>i <span style="color:#0550ae">-</span> <span style="color:#0550ae">1</span><span style="color:#1f2328">)</span>
 </span></span></code></pre></div><p>写的时候感觉不太对劲，第一感觉是：这两段代码没有区别. 这就是在函数式的语言里写命令式程序. 周五晚上我从炸鸡店走出来的时候，有了一些新的想法：</p>
 <h2 id="函数式程序如何避免重复计算"><a href="#%e5%87%bd%e6%95%b0%e5%bc%8f%e7%a8%8b%e5%ba%8f%e5%a6%82%e4%bd%95%e9%81%bf%e5%85%8d%e9%87%8d%e5%a4%8d%e8%ae%a1%e7%ae%97" class="header-anchor"></a>函数式程序如何避免重复计算
 </h2><p>当我们不能像过程式语言那样在内存条里随机存取的时候，当我们建立起一层层抽象的时候，如何追求性能呢？除了在 CSAPP 第五章里学习利用局部性、循环展开、提高并行性等方法，还有什么方式可以提高程序的性能？除了程序员本身从源代码层面提高性能，还可以在哪里优化性能？编译器从程序员手上接管代码，编译器可以做什么？</p>
@@ -468,17 +446,17 @@
 <li>目标值：$z(N, W)$</li>
 </ul>
 <p>毫无疑问这是递归的结构，在 Haskell 里写递归实现，如同呼吸般自然：<br><span style="color: gray; font-size: smaller;">（NOTE：1. 看到这里也许你已经开始担忧重复计算、内存占用的事情了 ；2. 值得稍稍注意的一点是，这一段代码完全不涉及基于索引的数据存取）</span></p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-hs" data-lang="hs"><span class="line"><span class="cl"><span class="kr">type</span> <span class="kt">Item</span> <span class="ow">=</span> <span class="p">(</span><span class="kt">Value</span><span class="p">,</span> <span class="kt">Weight</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nf">knapsack</span> <span class="ow">::</span> <span class="p">[</span><span class="kt">Item</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="kt">Int</span>        <span class="c1">-- items + capacity -&gt; maximal value </span>
-</span></span><span class="line"><span class="cl"><span class="nf">knapsack</span> <span class="kr">_</span>  <span class="mi">0</span> <span class="ow">=</span> <span class="mi">0</span>
-</span></span><span class="line"><span class="cl"><span class="nf">knapsack</span> <span class="kt">[]</span> <span class="kr">_</span> <span class="ow">=</span> <span class="mi">0</span> 
-</span></span><span class="line"><span class="cl"><span class="nf">knapsack</span> <span class="p">((</span><span class="n">v</span><span class="p">,</span><span class="n">w</span><span class="p">)</span><span class="kt">:</span><span class="n">items</span><span class="p">)</span> <span class="n">c</span> <span class="ow">=</span> 
-</span></span><span class="line"><span class="cl">    <span class="kr">let</span> 
-</span></span><span class="line"><span class="cl">        <span class="n">choose</span> <span class="ow">=</span> <span class="n">v</span> <span class="o">+</span> <span class="n">knapsack</span> <span class="n">items</span> <span class="p">(</span><span class="n">c</span><span class="o">-</span><span class="n">w</span><span class="p">)</span>   <span class="c1">-- choose current item </span>
-</span></span><span class="line"><span class="cl">        <span class="n">chxxse</span> <span class="ow">=</span> <span class="n">knapsack</span> <span class="n">items</span> <span class="n">c</span>           <span class="c1">-- not choose current item</span>
-</span></span><span class="line"><span class="cl">    <span class="kr">in</span> 
-</span></span><span class="line"><span class="cl">        <span class="kr">if</span> <span class="n">w</span> <span class="o">&gt;</span> <span class="n">c</span> <span class="kr">then</span> <span class="n">chxxse</span> <span class="kr">else</span> <span class="n">max</span> <span class="n">choose</span> <span class="n">chxxse</span> 
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hs" data-lang="hs"><span style="display:flex;"><span><span style="color:#cf222e">type</span> <span style="color:#cf222e">Item</span> <span style="color:#0550ae">=</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Value</span><span style="color:#1f2328">,</span> <span style="color:#cf222e">Weight</span><span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">knapsack</span> <span style="color:#0550ae">::</span> <span style="color:#1f2328">[</span><span style="color:#cf222e">Item</span><span style="color:#1f2328">]</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">Int</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">Int</span>        <span style="color:#57606a">-- items + capacity -&gt; maximal value </span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">knapsack</span> <span style="color:#cf222e">_</span>  <span style="color:#0550ae">0</span> <span style="color:#0550ae">=</span> <span style="color:#0550ae">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">knapsack</span> <span style="color:#cf222e">[]</span> <span style="color:#cf222e">_</span> <span style="color:#0550ae">=</span> <span style="color:#0550ae">0</span> 
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">knapsack</span> <span style="color:#1f2328">((</span>v<span style="color:#1f2328">,</span>w<span style="color:#1f2328">)</span><span style="color:#cf222e">:</span>items<span style="color:#1f2328">)</span> c <span style="color:#0550ae">=</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">let</span> 
+</span></span><span style="display:flex;"><span>        choose <span style="color:#0550ae">=</span> v <span style="color:#0550ae">+</span> knapsack items <span style="color:#1f2328">(</span>c<span style="color:#0550ae">-</span>w<span style="color:#1f2328">)</span>   <span style="color:#57606a">-- choose current item </span>
+</span></span><span style="display:flex;"><span>        chxxse <span style="color:#0550ae">=</span> knapsack items c           <span style="color:#57606a">-- not choose current item</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">in</span> 
+</span></span><span style="display:flex;"><span>        <span style="color:#cf222e">if</span> w <span style="color:#0550ae">&gt;</span> c <span style="color:#cf222e">then</span> chxxse <span style="color:#cf222e">else</span> max choose chxxse 
 </span></span></code></pre></div><h3 id="严格求值---不递归的理由"><a href="#%e4%b8%a5%e6%a0%bc%e6%b1%82%e5%80%bc---%e4%b8%8d%e9%80%92%e5%bd%92%e7%9a%84%e7%90%86%e7%94%b1" class="header-anchor"></a>严格求值 - 不递归的理由
 </h3><p>在背包问题的 C++ （<strong>严格求值语言</strong>）实现中，我们不用递归的理由是对于性能的追求，因而使用 <code>dp[i][j]</code> 用空间换时间，将递归中的重复计算转换为数组的索引访问. 这个<strong>记忆化</strong>的工作，除了我们自己做（也就是使用 <code>dp</code> 数组），还可以 —— 交给编译器. 当然这种形式的记忆化就不是在源代码层面上呈现一个记忆数组了，而是通过求值策略来实现. 在讨论求值策略前，先看看什么是纯函数.</p>
 <h3 id="对于--纯--函数的讨论"><a href="#%e5%af%b9%e4%ba%8e--%e7%ba%af--%e5%87%bd%e6%95%b0%e7%9a%84%e8%ae%a8%e8%ae%ba" class="header-anchor"></a>对于 &quot; <strong>纯</strong> &quot; 函数的讨论
@@ -500,67 +478,67 @@
 <li>
 <p>输入输出的纯度：</p>
 <p><code>addx</code> 是不纯的，因为这个函数无法保证对于同样的 <code>a</code> 总是给出相同的输出，因为全局变量 <code>x</code> 可能随时被修改，导致修改前后 <code>a + x</code> 的值不同；<code>readOneWord</code> 是不纯的，因为无法保证对于同一个路径 <code>p</code>，始终返回同样的 <code>firstWord</code>，因为 <code>p</code> 对应的文件可能被其他程序随时修改.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">x</span><span class="p">;</span>              <span class="c1">// global 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
-</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">addx</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">){</span>    
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">x</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">string</span> <span class="nf">readOneWord</span><span class="p">(</span><span class="n">path</span> <span class="n">p</span><span class="p">)</span> <span class="p">{</span>    <span class="c1">// IO
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="n">head</span><span class="p">(</span><span class="n">getFile</span><span class="p">(</span><span class="n">p</span><span class="p">));</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#cf222e">int</span> x<span style="color:#1f2328">;</span>              <span style="color:#57606a">// global 
+</span></span></span><span style="display:flex;"><span><span style="color:#57606a"></span>
+</span></span><span style="display:flex;"><span><span style="color:#cf222e">int</span> <span style="color:#6639ba">addx</span><span style="color:#1f2328">(</span><span style="color:#cf222e">int</span> a<span style="color:#1f2328">){</span>    
+</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">return</span> a <span style="color:#0550ae">+</span> x<span style="color:#1f2328">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#1f2328">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>string <span style="color:#6639ba">readOneWord</span><span style="color:#1f2328">(</span>path p<span style="color:#1f2328">)</span> <span style="color:#1f2328">{</span>    <span style="color:#57606a">// IO
+</span></span></span><span style="display:flex;"><span><span style="color:#57606a"></span>    <span style="color:#cf222e">return</span> head<span style="color:#1f2328">(</span>getFile<span style="color:#1f2328">(</span>p<span style="color:#1f2328">));</span>
+</span></span><span style="display:flex;"><span><span style="color:#1f2328">}</span>
 </span></span></code></pre></div></li>
 <li>
 <p>副作用：</p>
 <p><code>greeting</code> 是不纯的，因为它产生了 <code>print</code> 的副作用； <code>write</code> 是不纯的，因为它造成了写文件的副作用.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">greeting</span><span class="p">(</span><span class="n">string</span> <span class="n">name</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">    <span class="n">print</span><span class="p">(</span><span class="n">f</span><span class="s">&#34;Hello, {name}&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">writeLine</span><span class="p">(</span><span class="n">path</span> <span class="n">p</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">getFile</span><span class="p">(</span><span class="n">p</span><span class="p">).</span><span class="n">append</span><span class="p">(</span><span class="s">&#34;Append this line&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#cf222e">void</span> <span style="color:#6639ba">greeting</span><span style="color:#1f2328">(</span>string name<span style="color:#1f2328">){</span>
+</span></span><span style="display:flex;"><span>    print<span style="color:#1f2328">(</span>f<span style="color:#0a3069">&#34;Hello, {name}&#34;</span><span style="color:#1f2328">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#1f2328">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#cf222e">void</span> <span style="color:#6639ba">writeLine</span><span style="color:#1f2328">(</span>path p<span style="color:#1f2328">)</span> <span style="color:#1f2328">{</span>
+</span></span><span style="display:flex;"><span>    getFile<span style="color:#1f2328">(</span>p<span style="color:#1f2328">).</span>append<span style="color:#1f2328">(</span><span style="color:#0a3069">&#34;Append this line&#34;</span><span style="color:#1f2328">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#1f2328">}</span>
 </span></span></code></pre></div></li>
 <li>
 <p>&ldquo;提纯&rdquo;？</p>
 <p>对于上述的非纯函数，我们可以<strong>将副作用分离</strong>，得到对应的纯函数如下：</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-cpp" data-lang="cpp"><span class="line"><span class="cl"><span class="kt">int</span> <span class="nf">addx</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">x</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">a</span> <span class="o">+</span> <span class="n">x</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">string</span> <span class="nf">readOneWord</span><span class="p">(</span><span class="n">file</span> <span class="n">f</span><span class="p">)</span> <span class="p">{</span>    
-</span></span><span class="line"><span class="cl">    <span class="n">string</span> <span class="n">firstWord</span> <span class="o">=</span> <span class="n">head</span><span class="p">(</span><span class="n">f</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">firstWord</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">string</span> <span class="nf">greeting</span><span class="p">(</span><span class="n">string</span> <span class="n">name</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">f</span><span class="s">&#34;Hello, {name}&#34;</span><span class="p">;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">file</span> <span class="nf">writeLine</span><span class="p">(</span><span class="n">file</span> <span class="n">f</span><span class="p">){</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">f</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#34;Append this line&#34;</span><span class="p">);</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-cpp" data-lang="cpp"><span style="display:flex;"><span><span style="color:#cf222e">int</span> <span style="color:#6639ba">addx</span><span style="color:#1f2328">(</span><span style="color:#cf222e">int</span> a<span style="color:#1f2328">,</span> <span style="color:#cf222e">int</span> x<span style="color:#1f2328">)</span> <span style="color:#1f2328">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">return</span> a <span style="color:#0550ae">+</span> x<span style="color:#1f2328">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#1f2328">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>string <span style="color:#6639ba">readOneWord</span><span style="color:#1f2328">(</span>file f<span style="color:#1f2328">)</span> <span style="color:#1f2328">{</span>    
+</span></span><span style="display:flex;"><span>    string firstWord <span style="color:#0550ae">=</span> head<span style="color:#1f2328">(</span>f<span style="color:#1f2328">);</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">return</span> firstWord<span style="color:#1f2328">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#1f2328">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>string <span style="color:#6639ba">greeting</span><span style="color:#1f2328">(</span>string name<span style="color:#1f2328">){</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">return</span> f<span style="color:#0a3069">&#34;Hello, {name}&#34;</span><span style="color:#1f2328">;</span>
+</span></span><span style="display:flex;"><span><span style="color:#1f2328">}</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>file <span style="color:#6639ba">writeLine</span><span style="color:#1f2328">(</span>file f<span style="color:#1f2328">){</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">return</span> f<span style="color:#1f2328">.</span>append<span style="color:#1f2328">(</span><span style="color:#0a3069">&#34;Append this line&#34;</span><span style="color:#1f2328">);</span>
+</span></span><span style="display:flex;"><span><span style="color:#1f2328">}</span>
 </span></span></code></pre></div></li>
 <li>
 <p>分离副作用的示例 / Imperative Shell, Functional Core</p>
 <p>提问：假设有两个类 <code>Camera</code>, <code>FaceRecognizer</code>，<code>Camera</code> 类有一个方法 <code>getFrame</code> 用于从物理摄像头捕获一帧图像，<code>FaceRecognizer</code> 类有一个方法 <code>recognizePerson</code> 用于识别一帧图像中的人脸并返回对应用户名. 若需要实现函数 <code>getFrameAndRecognize</code> 用于捕获当前帧、识别并返回用户名，如何组织程序结构？</p>
 <p>一种答案：将 <code>FaceRecognizer</code> 的实例作为 <code>Camera</code> 的成员，保证 <code>FaceRecognizer</code> 的纯度，即 <code>FaceRecognizer</code> 的方法总是对帧做计算，将 <code>getFrame</code> 这样的副作用分离、止步于 <code>Camera</code> 类.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-python" data-lang="python"><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">Camera</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">    <span class="bp">self</span><span class="o">.</span><span class="n">face_recognizer</span> <span class="o">=</span> <span class="n">FaceRecognizer</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">getFrame</span><span class="p">():</span>
-</span></span><span class="line"><span class="cl">        <span class="c1"># snip # </span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">frame</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">getFrameAndRecognize</span><span class="p">():</span>
-</span></span><span class="line"><span class="cl">        <span class="n">frame</span> <span class="o">=</span> <span class="n">getFrame</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">        <span class="n">name</span> <span class="o">=</span> <span class="n">face_recognizer</span><span class="o">.</span><span class="n">recognizePerson</span><span class="p">(</span><span class="n">frame</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">name</span> 
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="k">class</span> <span class="nc">FaceRecognizer</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">    <span class="k">def</span> <span class="nf">recognizePerson</span><span class="p">(</span><span class="n">frame</span><span class="p">:</span> <span class="n">image</span><span class="p">):</span>
-</span></span><span class="line"><span class="cl">        <span class="c1"># snip #</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">name</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-python" data-lang="python"><span style="display:flex;"><span><span style="color:#cf222e">class</span> <span style="color:#1f2328">Camera</span><span style="color:#1f2328">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#6a737d">self</span><span style="color:#0550ae">.</span>face_recognizer <span style="color:#0550ae">=</span> FaceRecognizer<span style="color:#1f2328">()</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">def</span> <span style="color:#6639ba">getFrame</span><span style="color:#1f2328">():</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#57606a"># snip # </span>
+</span></span><span style="display:flex;"><span>        <span style="color:#cf222e">return</span> frame
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">def</span> <span style="color:#6639ba">getFrameAndRecognize</span><span style="color:#1f2328">():</span>
+</span></span><span style="display:flex;"><span>        frame <span style="color:#0550ae">=</span> getFrame<span style="color:#1f2328">()</span>
+</span></span><span style="display:flex;"><span>        name <span style="color:#0550ae">=</span> face_recognizer<span style="color:#0550ae">.</span>recognizePerson<span style="color:#1f2328">(</span>frame<span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#cf222e">return</span> name 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#cf222e">class</span> <span style="color:#1f2328">FaceRecognizer</span><span style="color:#1f2328">:</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">def</span> <span style="color:#6639ba">recognizePerson</span><span style="color:#1f2328">(</span>frame<span style="color:#1f2328">:</span> image<span style="color:#1f2328">):</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#57606a"># snip #</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#cf222e">return</span> name
 </span></span></code></pre></div><p>即：保证功能函数的纯度，并将其作为程序的核心，将 IO 等非纯操作分离到外层 ——  Imperative Shell, Functional Core. （此处应有一场 Simon Peyton Jones 的讲座链接，但我一时找不到了.）</p>
   <div style="text-align: center;">
       <img src="img/shellcore.png" alt="Imperative Shell, Functional Core" style="zoom:40%;" />

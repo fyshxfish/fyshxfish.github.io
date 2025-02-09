@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='http://fyshxfish.github.io/p/functional-on-steam-/-%CE%BB-exercises-solutions/'>
 
-<link rel="stylesheet" href="/scss/style.min.47ac80bd6ec45b271188f04491fa8bc23b22060dfe68b4c309fccb144e0721fc.css"><meta property='og:title' content="functional on Steam / λ Exercises - Solutions">
+<link rel="stylesheet" href="/scss/style.min.ba5cc34af4430963fcfe2f9afd2fb80f7251aa5d621efcdd72c32002a6e56cae.css"><meta property='og:title' content="functional on Steam / λ Exercises - Solutions">
 <meta property='og:description' content="functional，发售于 Steam (29 CNY)，可以说是 Lambda Calculus 应用习题集.\nBasic anything 写出任意一个符合 Lambda Calculus 语法 (1. variable 2. abstraction 3. application) 的 term 即可.\nidentity x: x two arguments x:y: y x squaring f:x: f (f x) indirection f:x:y: f y x Boolean 定义：\n">
 <meta property='og:url' content='http://fyshxfish.github.io/p/functional-on-steam-/-%CE%BB-exercises-solutions/'>
 <meta property='og:site_name' content='fyshXplore'>
@@ -44,9 +44,7 @@
     <script>
         (function() {
             const colorSchemeKey = 'StackColorScheme';
-            if(!localStorage.getItem(colorSchemeKey)){
-                localStorage.setItem(colorSchemeKey, "auto");
-            }
+            localStorage.setItem(colorSchemeKey, "auto");
         })();
     </script><script>
     (function() {
@@ -243,26 +241,6 @@
                     
                 
 
-                
-                    <li id="dark-mode-toggle">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="8" cy="12" r="2" />
-  <rect x="2" y="6" width="20" height="12" rx="6" />
-</svg>
-
-
-
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="16" cy="12" r="2" />
-  <rect x="2" y="6" width="20" height="12" rx="6" />
-</svg>
-
-
-
-                        <span>Dark Mode</span>
-                    </li>
                 
             </ol>
         </li>
@@ -759,13 +737,13 @@ FALSE
 </h2><h3 id="is-odd"><a href="#is-odd" class="header-anchor"></a>is odd
 </h3><pre tabindex="0"><code>(n: (n NOT FALSE))
 </code></pre><p>顺便想起了判断奇偶的递归方法：（看起来还挺有意思的，比熟悉的 <code>mod 2</code> 新鲜一些）</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-hs" data-lang="hs"><span class="line"><span class="cl"><span class="nf">isEven</span> <span class="ow">::</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="kt">Bool</span> 
-</span></span><span class="line"><span class="cl"><span class="nf">isEven</span> <span class="mi">0</span> <span class="ow">=</span> <span class="kt">True</span> 
-</span></span><span class="line"><span class="cl"><span class="nf">isEven</span> <span class="n">x</span> <span class="ow">=</span> <span class="n">isOdd</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nf">isOdd</span> <span class="ow">::</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="kt">Bool</span>
-</span></span><span class="line"><span class="cl"><span class="nf">isOdd</span> <span class="mi">0</span> <span class="ow">=</span> <span class="kt">False</span>
-</span></span><span class="line"><span class="cl"><span class="nf">isOdd</span> <span class="n">x</span> <span class="ow">=</span> <span class="n">isEven</span> <span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hs" data-lang="hs"><span style="display:flex;"><span><span style="color:#6639ba">isEven</span> <span style="color:#0550ae">::</span> <span style="color:#cf222e">Int</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">Bool</span> 
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">isEven</span> <span style="color:#0550ae">0</span> <span style="color:#0550ae">=</span> <span style="color:#cf222e">True</span> 
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">isEven</span> x <span style="color:#0550ae">=</span> isOdd <span style="color:#1f2328">(</span>x<span style="color:#0550ae">-</span><span style="color:#0550ae">1</span><span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">isOdd</span> <span style="color:#0550ae">::</span> <span style="color:#cf222e">Int</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">Bool</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">isOdd</span> <span style="color:#0550ae">0</span> <span style="color:#0550ae">=</span> <span style="color:#cf222e">False</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">isOdd</span> x <span style="color:#0550ae">=</span> isEven <span style="color:#1f2328">(</span>x<span style="color:#0550ae">-</span><span style="color:#0550ae">1</span><span style="color:#1f2328">)</span>
 </span></span></code></pre></div><h3 id="increasing-list"><a href="#increasing-list" class="header-anchor"></a>increasing list
 </h3><p>尾递归：</p>
 <pre tabindex="0"><code>(Y (f:c:n: IF (ZERO n)

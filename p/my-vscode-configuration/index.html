@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='http://fyshxfish.github.io/p/my-vscode-configuration/'>
 
-<link rel="stylesheet" href="/scss/style.min.47ac80bd6ec45b271188f04491fa8bc23b22060dfe68b4c309fccb144e0721fc.css"><meta property='og:title' content="My VSCode Configuration">
+<link rel="stylesheet" href="/scss/style.min.ba5cc34af4430963fcfe2f9afd2fb80f7251aa5d621efcdd72c32002a6e56cae.css"><meta property='og:title' content="My VSCode Configuration">
 <meta property='og:description' content="包含对于 VSCode 作为文本编辑器的配置，不包含对语言环境的配置.\nAbout: Command Palette &amp; Ctrl + Shift + P 关于 Ctrl + Shift + P: 首先在这里贴蒋炎岩老师的一场与VSCode相关的讲座，Ctrl+Shift+P：如果需要做某些事情，可以先尝试用 Ctrl+Shift+P 打开命令面板搜索（比如也许你想重新加载 VSCode 窗口，就可以 Ctrl+Shift+P 打开命令面板，然后搜索 &ldquo;reload window&rdquo; ），如果发现自己需要经常做这个动作，那么就 Ctrl+K Ctrl+S 进入 Keyboard Shortcuts 为这个操作绑定快捷键吧，配置快捷键的哲学在于：发现自己经常重复做某件事情，有一个瞬间发现自己不想用鼠标再次重复这个过程，于是去检索记忆 / 配置这个热键。\n">
 <meta property='og:url' content='http://fyshxfish.github.io/p/my-vscode-configuration/'>
 <meta property='og:site_name' content='fyshXplore'>
@@ -44,9 +44,7 @@
     <script>
         (function() {
             const colorSchemeKey = 'StackColorScheme';
-            if(!localStorage.getItem(colorSchemeKey)){
-                localStorage.setItem(colorSchemeKey, "auto");
-            }
+            localStorage.setItem(colorSchemeKey, "auto");
         })();
     </script><script>
     (function() {
@@ -243,26 +241,6 @@
                     
                 
 
-                
-                    <li id="dark-mode-toggle">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="8" cy="12" r="2" />
-  <rect x="2" y="6" width="20" height="12" rx="6" />
-</svg>
-
-
-
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="16" cy="12" r="2" />
-  <rect x="2" y="6" width="20" height="12" rx="6" />
-</svg>
-
-
-
-                        <span>Dark Mode</span>
-                    </li>
                 
             </ol>
         </li>
@@ -501,29 +479,29 @@
 <p>彩虹括号引导线设置.</p>
 </li>
 </ul>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;vim.smartRelativeLine&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;vim.useSystemClipboard&#34;</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;vim.handleKeys&#34;</span><span class="p">:</span> <span class="p">{</span>                <span class="c1">// 如你所见，我是一个非常不纯的 Vim 用户
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nt">&#34;&lt;C-c&gt;&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&#34;&lt;C-x&gt;&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&#34;&lt;C-a&gt;&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&#34;&lt;C-s&gt;&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>     <span class="c1">// save
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nt">&#34;&lt;C-z&gt;&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>     <span class="c1">// undo
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nt">&#34;&lt;C-[&gt;&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>     <span class="c1">// outdent line 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nt">&#34;&lt;C-]&gt;&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>     <span class="c1">// indent line
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nt">&#34;&lt;C-b&gt;&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>     <span class="c1">// toggle side bar
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nt">&#34;&lt;C-o&gt;&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>     <span class="c1">// open files
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="nt">&#34;&lt;C-k&gt;&#34;</span><span class="p">:</span> <span class="kc">false</span><span class="p">,</span>     <span class="c1">// leading key for ...
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">},</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;workbench.colorCustomizations&#34;</span><span class="p">:</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&#34;editorHoverWidget.background&#34;</span><span class="p">:</span> <span class="s2">&#34;#edeeee&#34;</span><span class="p">,</span> <span class="c1">// 设置悬停提示的背景颜色
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">},</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;window.zoomLevel&#34;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&#34;editor.guides.bracketPairs&#34;</span><span class="p">:</span> <span class="s2">&#34;active&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-json" data-lang="json"><span style="display:flex;"><span><span style="color:#1f2328">{</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#0550ae">&#34;vim.smartRelativeLine&#34;</span><span style="color:#1f2328">:</span> <span style="color:#cf222e">true</span><span style="color:#1f2328">,</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#0550ae">&#34;vim.useSystemClipboard&#34;</span><span style="color:#1f2328">:</span> <span style="color:#cf222e">true</span><span style="color:#1f2328">,</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#0550ae">&#34;vim.handleKeys&#34;</span><span style="color:#1f2328">:</span> <span style="color:#1f2328">{</span>                <span style="color:#57606a">// 如你所见，我是一个非常不纯的 Vim 用户
+</span></span></span><span style="display:flex;"><span><span style="color:#57606a"></span>        <span style="color:#0550ae">&#34;&lt;C-c&gt;&#34;</span><span style="color:#1f2328">:</span> <span style="color:#cf222e">false</span><span style="color:#1f2328">,</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#0550ae">&#34;&lt;C-x&gt;&#34;</span><span style="color:#1f2328">:</span> <span style="color:#cf222e">false</span><span style="color:#1f2328">,</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#0550ae">&#34;&lt;C-a&gt;&#34;</span><span style="color:#1f2328">:</span> <span style="color:#cf222e">false</span><span style="color:#1f2328">,</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#0550ae">&#34;&lt;C-s&gt;&#34;</span><span style="color:#1f2328">:</span> <span style="color:#cf222e">false</span><span style="color:#1f2328">,</span>     <span style="color:#57606a">// save
+</span></span></span><span style="display:flex;"><span><span style="color:#57606a"></span>        <span style="color:#0550ae">&#34;&lt;C-z&gt;&#34;</span><span style="color:#1f2328">:</span> <span style="color:#cf222e">false</span><span style="color:#1f2328">,</span>     <span style="color:#57606a">// undo
+</span></span></span><span style="display:flex;"><span><span style="color:#57606a"></span>        <span style="color:#0550ae">&#34;&lt;C-[&gt;&#34;</span><span style="color:#1f2328">:</span> <span style="color:#cf222e">false</span><span style="color:#1f2328">,</span>     <span style="color:#57606a">// outdent line 
+</span></span></span><span style="display:flex;"><span><span style="color:#57606a"></span>        <span style="color:#0550ae">&#34;&lt;C-]&gt;&#34;</span><span style="color:#1f2328">:</span> <span style="color:#cf222e">false</span><span style="color:#1f2328">,</span>     <span style="color:#57606a">// indent line
+</span></span></span><span style="display:flex;"><span><span style="color:#57606a"></span>        <span style="color:#0550ae">&#34;&lt;C-b&gt;&#34;</span><span style="color:#1f2328">:</span> <span style="color:#cf222e">false</span><span style="color:#1f2328">,</span>     <span style="color:#57606a">// toggle side bar
+</span></span></span><span style="display:flex;"><span><span style="color:#57606a"></span>        <span style="color:#0550ae">&#34;&lt;C-o&gt;&#34;</span><span style="color:#1f2328">:</span> <span style="color:#cf222e">false</span><span style="color:#1f2328">,</span>     <span style="color:#57606a">// open files
+</span></span></span><span style="display:flex;"><span><span style="color:#57606a"></span>        <span style="color:#0550ae">&#34;&lt;C-k&gt;&#34;</span><span style="color:#1f2328">:</span> <span style="color:#cf222e">false</span><span style="color:#1f2328">,</span>     <span style="color:#57606a">// leading key for ...
+</span></span></span><span style="display:flex;"><span><span style="color:#57606a"></span>    <span style="color:#1f2328">},</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#0550ae">&#34;workbench.colorCustomizations&#34;</span><span style="color:#1f2328">:</span> <span style="color:#1f2328">{</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#0550ae">&#34;editorHoverWidget.background&#34;</span><span style="color:#1f2328">:</span> <span style="color:#0a3069">&#34;#edeeee&#34;</span><span style="color:#1f2328">,</span> <span style="color:#57606a">// 设置悬停提示的背景颜色
+</span></span></span><span style="display:flex;"><span><span style="color:#57606a"></span>    <span style="color:#1f2328">},</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#0550ae">&#34;window.zoomLevel&#34;</span><span style="color:#1f2328">:</span> <span style="color:#0550ae">1</span><span style="color:#1f2328">,</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#0550ae">&#34;editor.guides.bracketPairs&#34;</span><span style="color:#1f2328">:</span> <span style="color:#0a3069">&#34;active&#34;</span>
+</span></span><span style="display:flex;"><span><span style="color:#1f2328">}</span>
 </span></span></code></pre></div>
 </section>
 

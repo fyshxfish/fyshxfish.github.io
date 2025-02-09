@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='http://fyshxfish.github.io/p/nested-mapping-examples-implemented-in-haskell-sicp-2.2.3-list-monad/'>
 
-<link rel="stylesheet" href="/scss/style.min.47ac80bd6ec45b271188f04491fa8bc23b22060dfe68b4c309fccb144e0721fc.css"><meta property='og:title' content="Nested Mapping Examples Implemented in Haskell - SICP § 2.2.3  | List Monad ">
+<link rel="stylesheet" href="/scss/style.min.ba5cc34af4430963fcfe2f9afd2fb80f7251aa5d621efcdd72c32002a6e56cae.css"><meta property='og:title' content="Nested Mapping Examples Implemented in Haskell - SICP § 2.2.3  | List Monad ">
 <meta property='og:description' content="Problem Description Problem: Given a positive integer $n$, find all ordered pairs of distinct positive integers $i$ and $j$, where $ 1 \\leq i \\leq j \\leq n $, such that $ i + j $ is prime.\nImplementation in Haskell isDivisible :: Int -&gt; Int -&gt; Bool isDivisible x y | mod x y == 0 = True | otherwise = False isPrime :: Int -&gt; Bool isPrime x | x &lt;= 2 = True | otherwise = not (foldr (||) False (map (isDivisible x) [2..((floor . sqrt . fromIntegral) x)])) genPairs :: Int -&gt; [((Int, Int), Int)] genPairs n = do x &lt;- [1..n] y &lt;- [1..(x-1)] return ((y, x), (x + y)) sumPrimePairs :: Int -&gt; [((Int, Int), Int)] sumPrimePairs = (filter (\\(_, s) -&gt; (isPrime s))) . genPairs About List Monad: Context, Nested lambda and do-notation Context of List Monad : nondeterministic result.\n">
 <meta property='og:url' content='http://fyshxfish.github.io/p/nested-mapping-examples-implemented-in-haskell-sicp-2.2.3-list-monad/'>
 <meta property='og:site_name' content='fyshXplore'>
@@ -44,9 +44,7 @@
     <script>
         (function() {
             const colorSchemeKey = 'StackColorScheme';
-            if(!localStorage.getItem(colorSchemeKey)){
-                localStorage.setItem(colorSchemeKey, "auto");
-            }
+            localStorage.setItem(colorSchemeKey, "auto");
         })();
     </script><script>
     (function() {
@@ -244,26 +242,6 @@
                 
 
                 
-                    <li id="dark-mode-toggle">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-left" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="8" cy="12" r="2" />
-  <rect x="2" y="6" width="20" height="12" rx="6" />
-</svg>
-
-
-
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-toggle-right" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-  <path stroke="none" d="M0 0h24v24H0z"/>
-  <circle cx="16" cy="12" r="2" />
-  <rect x="2" y="6" width="20" height="12" rx="6" />
-</svg>
-
-
-
-                        <span>Dark Mode</span>
-                    </li>
-                
             </ol>
         </li>
     </ol>
@@ -397,25 +375,25 @@
 </h2><blockquote>
 <p><strong>Problem</strong>: Given a positive integer $n$, find all ordered pairs of distinct positive integers $i$ and $j$, where $ 1 \leq i \leq j \leq n $, such that $ i + j $ is prime.</p></blockquote>
 <h2 id="implementation-in-haskell"><a href="#implementation-in-haskell" class="header-anchor"></a>Implementation in Haskell
-</h2><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-haskell" data-lang="haskell"><span class="line"><span class="cl"><span class="nf">isDivisible</span> <span class="ow">::</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="kt">Bool</span> 
-</span></span><span class="line"><span class="cl"><span class="nf">isDivisible</span> <span class="n">x</span> <span class="n">y</span> 
-</span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="n">mod</span> <span class="n">x</span> <span class="n">y</span> <span class="o">==</span> <span class="mi">0</span>  <span class="ow">=</span> <span class="kt">True</span> 
-</span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="n">otherwise</span>     <span class="ow">=</span> <span class="kt">False</span> 
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nf">isPrime</span> <span class="ow">::</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="kt">Bool</span>
-</span></span><span class="line"><span class="cl"><span class="nf">isPrime</span> <span class="n">x</span> 
-</span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="mi">2</span>    <span class="ow">=</span> <span class="kt">True</span> 
-</span></span><span class="line"><span class="cl">    <span class="o">|</span> <span class="n">otherwise</span> <span class="ow">=</span> <span class="n">not</span> <span class="p">(</span><span class="n">foldr</span> <span class="p">(</span><span class="o">||</span><span class="p">)</span> <span class="kt">False</span> <span class="p">(</span><span class="n">map</span> <span class="p">(</span><span class="n">isDivisible</span> <span class="n">x</span><span class="p">)</span> <span class="p">[</span><span class="mi">2</span><span class="o">..</span><span class="p">((</span><span class="n">floor</span> <span class="o">.</span> <span class="n">sqrt</span> <span class="o">.</span> <span class="n">fromIntegral</span><span class="p">)</span> <span class="n">x</span><span class="p">)]))</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nf">genPairs</span> <span class="ow">::</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="p">[((</span><span class="kt">Int</span><span class="p">,</span> <span class="kt">Int</span><span class="p">),</span> <span class="kt">Int</span><span class="p">)]</span>
-</span></span><span class="line"><span class="cl"><span class="nf">genPairs</span> <span class="n">n</span> <span class="ow">=</span> <span class="kr">do</span> 
-</span></span><span class="line"><span class="cl">    <span class="n">x</span> <span class="ow">&lt;-</span> <span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="n">n</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">    <span class="n">y</span> <span class="ow">&lt;-</span> <span class="p">[</span><span class="mi">1</span><span class="o">..</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span>
-</span></span><span class="line"><span class="cl">    <span class="n">return</span> <span class="p">((</span><span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="p">),</span> <span class="p">(</span><span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nf">sumPrimePairs</span> <span class="ow">::</span> <span class="kt">Int</span> <span class="ow">-&gt;</span> <span class="p">[((</span><span class="kt">Int</span><span class="p">,</span> <span class="kt">Int</span><span class="p">),</span> <span class="kt">Int</span><span class="p">)]</span>
-</span></span><span class="line"><span class="cl"><span class="nf">sumPrimePairs</span> <span class="ow">=</span> <span class="p">(</span><span class="n">filter</span> <span class="p">(</span><span class="nf">\</span><span class="p">(</span><span class="kr">_</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span> <span class="ow">-&gt;</span> <span class="p">(</span><span class="n">isPrime</span> <span class="n">s</span><span class="p">)))</span> <span class="o">.</span> <span class="n">genPairs</span>
+</h2><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-haskell" data-lang="haskell"><span style="display:flex;"><span><span style="color:#6639ba">isDivisible</span> <span style="color:#0550ae">::</span> <span style="color:#cf222e">Int</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">Int</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">Bool</span> 
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">isDivisible</span> x y 
+</span></span><span style="display:flex;"><span>    <span style="color:#0550ae">|</span> mod x y <span style="color:#0550ae">==</span> <span style="color:#0550ae">0</span>  <span style="color:#0550ae">=</span> <span style="color:#cf222e">True</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#0550ae">|</span> otherwise     <span style="color:#0550ae">=</span> <span style="color:#cf222e">False</span> 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">isPrime</span> <span style="color:#0550ae">::</span> <span style="color:#cf222e">Int</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">Bool</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">isPrime</span> x 
+</span></span><span style="display:flex;"><span>    <span style="color:#0550ae">|</span> x <span style="color:#0550ae">&lt;=</span> <span style="color:#0550ae">2</span>    <span style="color:#0550ae">=</span> <span style="color:#cf222e">True</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#0550ae">|</span> otherwise <span style="color:#0550ae">=</span> not <span style="color:#1f2328">(</span>foldr <span style="color:#1f2328">(</span><span style="color:#0550ae">||</span><span style="color:#1f2328">)</span> <span style="color:#cf222e">False</span> <span style="color:#1f2328">(</span>map <span style="color:#1f2328">(</span>isDivisible x<span style="color:#1f2328">)</span> <span style="color:#1f2328">[</span><span style="color:#0550ae">2</span><span style="color:#0550ae">..</span><span style="color:#1f2328">((</span>floor <span style="color:#0550ae">.</span> sqrt <span style="color:#0550ae">.</span> fromIntegral<span style="color:#1f2328">)</span> x<span style="color:#1f2328">)]))</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">genPairs</span> <span style="color:#0550ae">::</span> <span style="color:#cf222e">Int</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#1f2328">[((</span><span style="color:#cf222e">Int</span><span style="color:#1f2328">,</span> <span style="color:#cf222e">Int</span><span style="color:#1f2328">),</span> <span style="color:#cf222e">Int</span><span style="color:#1f2328">)]</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">genPairs</span> n <span style="color:#0550ae">=</span> <span style="color:#cf222e">do</span> 
+</span></span><span style="display:flex;"><span>    x <span style="color:#0550ae">&lt;-</span> <span style="color:#1f2328">[</span><span style="color:#0550ae">1</span><span style="color:#0550ae">..</span>n<span style="color:#1f2328">]</span>
+</span></span><span style="display:flex;"><span>    y <span style="color:#0550ae">&lt;-</span> <span style="color:#1f2328">[</span><span style="color:#0550ae">1</span><span style="color:#0550ae">..</span><span style="color:#1f2328">(</span>x<span style="color:#0550ae">-</span><span style="color:#0550ae">1</span><span style="color:#1f2328">)]</span>
+</span></span><span style="display:flex;"><span>    return <span style="color:#1f2328">((</span>y<span style="color:#1f2328">,</span> x<span style="color:#1f2328">),</span> <span style="color:#1f2328">(</span>x <span style="color:#0550ae">+</span> y<span style="color:#1f2328">))</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">sumPrimePairs</span> <span style="color:#0550ae">::</span> <span style="color:#cf222e">Int</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#1f2328">[((</span><span style="color:#cf222e">Int</span><span style="color:#1f2328">,</span> <span style="color:#cf222e">Int</span><span style="color:#1f2328">),</span> <span style="color:#cf222e">Int</span><span style="color:#1f2328">)]</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">sumPrimePairs</span> <span style="color:#0550ae">=</span> <span style="color:#1f2328">(</span>filter <span style="color:#1f2328">(</span><span style="color:#6639ba">\</span><span style="color:#1f2328">(</span><span style="color:#cf222e">_</span><span style="color:#1f2328">,</span> s<span style="color:#1f2328">)</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#1f2328">(</span>isPrime s<span style="color:#1f2328">)))</span> <span style="color:#0550ae">.</span> genPairs
 </span></span></code></pre></div><h2 id="about-list-monad-context-nested-lambda-and-do-notation"><a href="#about-list-monad-context-nested-lambda-and-do-notation" class="header-anchor"></a>About List Monad: Context, Nested lambda and do-notation
 </h2><p>Context of <strong>List Monad</strong> : nondeterministic result.</p>
 <!-- 今天吃饭回来想到 List Monad 的 Context 和这个问题的  -->
@@ -432,15 +410,15 @@ Title of this section is *Nested Mappings*, which represented in code with neste
 <h2 id="another-example-the-list-monad-for-permutation"><a href="#another-example-the-list-monad-for-permutation" class="header-anchor"></a>Another Example: The List Monad for Permutation
 </h2><!-- 2024-08-30 补充： SICP page 168 集合全排列的 Haskell 实现 -->
 <p>An intuitive way to understand this is that <strong>nondeterministic results</strong> are well-suited for solving permutations.</p>
-<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-haskell" data-lang="haskell"><span class="line"><span class="cl"><span class="nf">permutations</span> <span class="ow">::</span> <span class="kt">Eq</span> <span class="n">a</span> <span class="ow">=&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[[</span><span class="n">a</span><span class="p">]]</span>
-</span></span><span class="line"><span class="cl"><span class="nf">permutations</span> <span class="kt">[]</span> <span class="ow">=</span> <span class="p">[</span><span class="kt">[]</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nf">permutations</span> <span class="n">xs</span> <span class="ow">=</span> <span class="kr">do</span>
-</span></span><span class="line"><span class="cl">    <span class="n">x</span> <span class="ow">&lt;-</span> <span class="n">xs</span> 
-</span></span><span class="line"><span class="cl">    <span class="n">perm</span> <span class="ow">&lt;-</span> <span class="n">permutations</span> <span class="o">$</span> <span class="n">removeByElem</span> <span class="n">x</span> <span class="n">xs</span>
-</span></span><span class="line"><span class="cl">    <span class="n">return</span> <span class="p">(</span><span class="n">x</span><span class="kt">:</span> <span class="n">perm</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="nf">removeByElem</span> <span class="ow">::</span> <span class="kt">Eq</span> <span class="n">a</span> <span class="ow">=&gt;</span> <span class="n">a</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span> <span class="ow">-&gt;</span> <span class="p">[</span><span class="n">a</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nf">removeByElem</span> <span class="n">x</span> <span class="ow">=</span> <span class="n">filter</span> <span class="p">(</span><span class="o">/=</span> <span class="n">x</span><span class="p">)</span>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-haskell" data-lang="haskell"><span style="display:flex;"><span><span style="color:#6639ba">permutations</span> <span style="color:#0550ae">::</span> <span style="color:#cf222e">Eq</span> a <span style="color:#0550ae">=&gt;</span> <span style="color:#1f2328">[</span>a<span style="color:#1f2328">]</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#1f2328">[[</span>a<span style="color:#1f2328">]]</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">permutations</span> <span style="color:#cf222e">[]</span> <span style="color:#0550ae">=</span> <span style="color:#1f2328">[</span><span style="color:#cf222e">[]</span><span style="color:#1f2328">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">permutations</span> xs <span style="color:#0550ae">=</span> <span style="color:#cf222e">do</span>
+</span></span><span style="display:flex;"><span>    x <span style="color:#0550ae">&lt;-</span> xs 
+</span></span><span style="display:flex;"><span>    perm <span style="color:#0550ae">&lt;-</span> permutations <span style="color:#0550ae">$</span> removeByElem x xs
+</span></span><span style="display:flex;"><span>    return <span style="color:#1f2328">(</span>x<span style="color:#cf222e">:</span> perm<span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">removeByElem</span> <span style="color:#0550ae">::</span> <span style="color:#cf222e">Eq</span> a <span style="color:#0550ae">=&gt;</span> a <span style="color:#0550ae">-&gt;</span> <span style="color:#1f2328">[</span>a<span style="color:#1f2328">]</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#1f2328">[</span>a<span style="color:#1f2328">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">removeByElem</span> x <span style="color:#0550ae">=</span> filter <span style="color:#1f2328">(</span><span style="color:#0550ae">/=</span> x<span style="color:#1f2328">)</span>
 </span></span></code></pre></div><!-- 从 scheme 实现， 到 Haskell `map + lambda` 实现，到 List Monad `do-notation` 实现，  -->
 
 </section>
