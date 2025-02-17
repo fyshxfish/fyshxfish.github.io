@@ -6,7 +6,51 @@
         <description>Recent content in Posts on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh</language>
-        <lastBuildDate>Fri, 07 Feb 2025 22:52:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/zh/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 17 Feb 2025 16:32:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/zh/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>杂谈向：为什么编译需要做语义分析 / 上下文（Context）与语法语义分析</title>
+        <link>http://localhost:1313/zh/p/%E6%9D%82%E8%B0%88%E5%90%91%E4%B8%BA%E4%BB%80%E4%B9%88%E7%BC%96%E8%AF%91%E9%9C%80%E8%A6%81%E5%81%9A%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90-/-%E4%B8%8A%E4%B8%8B%E6%96%87context%E4%B8%8E%E8%AF%AD%E6%B3%95%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90/</link>
+        <pubDate>Mon, 17 Feb 2025 16:32:00 +0800</pubDate>
+        
+        <guid>http://localhost:1313/zh/p/%E6%9D%82%E8%B0%88%E5%90%91%E4%B8%BA%E4%BB%80%E4%B9%88%E7%BC%96%E8%AF%91%E9%9C%80%E8%A6%81%E5%81%9A%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90-/-%E4%B8%8A%E4%B8%8B%E6%96%87context%E4%B8%8E%E8%AF%AD%E6%B3%95%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90/</guid>
+        <description>&lt;!-- 最近在看一点编译原理的材料， --&gt;
+&lt;h2 id=&#34;引言&#34;&gt;&lt;a href=&#34;#%e5%bc%95%e8%a8%80&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;引言
+&lt;/h2&gt;&lt;p&gt;标题的这个问题，其实是一个不太正确的问题，因为对于语言而言，设计先于实现——先设计语言的语法和语义，然后写编译器去检查一个程序语法是否正确，然后根据设定好的语义将它转写成目标机器代码。从“上下文”这个视角去思考，常见情况下，语法是&lt;strong&gt;上下文无关&lt;/strong&gt;的，而语义正是用来处理&lt;strong&gt;上下文相关&lt;/strong&gt;的问题的，&lt;code&gt;x = 1; print(x);&lt;/code&gt; 和 &lt;code&gt;x = 2; print(x);&lt;/code&gt;，同样是 &lt;code&gt;print(x)&lt;/code&gt;，它的上文是不一样的，所以它导致的结果也不一样.&lt;/p&gt;
+&lt;h2 id=&#34;举例-1&#34;&gt;&lt;a href=&#34;#%e4%b8%be%e4%be%8b-1&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;举例 1
+&lt;/h2&gt;&lt;p&gt;比如：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;foo = 3
+foo = 4
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;假设对这个程序只做语法分析，那么它符合 Python 语法，也符合 Haskell 语法，但是对它做语义分析，作为一个 Python 程序，它的意思是，“先将 &lt;code&gt;3&lt;/code&gt; 赋值给 &lt;code&gt;foo&lt;/code&gt;，然后将 &lt;code&gt;4&lt;/code&gt; 赋值给 &lt;code&gt;foo&lt;/code&gt;”；作为一个 Haskell 程序，它不是一个合格的 Haskell 程序，因为 Haskell 语义不允许做重复的绑定，所以核心原因是，Python 的 &lt;code&gt;=&lt;/code&gt; 的语义是赋值（assign），内存覆写，Haskell 的 &lt;code&gt;=&lt;/code&gt; 的语义是绑定（name binding），为了保证无副作用、执行顺序无关等特性，只允许单次绑定.&lt;/p&gt;
+&lt;h2 id=&#34;举例2---polyglot&#34;&gt;&lt;a href=&#34;#%e4%b8%be%e4%be%8b2---polyglot&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;举例2 - polyglot
+&lt;/h2&gt;&lt;p&gt;下面这个程序改写自 &lt;a class=&#34;link&#34; href=&#34;https://en.wikipedia.org/wiki/Polyglot_%28computing%29#C,_PHP,_and_Bash&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;polyglot(computing) wikipedia&lt;/a&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;#define a /*
+echo -e &amp;#34;\033[34mHello, World! from echo\033[0m&amp;#34;;// &amp;amp;&amp;gt; /dev/null;
+x=5; 
+if (($x))
+// 2&amp;gt; /dev/null; then
+return 0;
+// 2&amp;gt; /dev/null; fi
+#define e ?&amp;gt;
+#define b */
+#include &amp;lt;stdio.h&amp;gt;
+#define main() int main(void)
+#define printf printf(
+#define true )
+#define function
+function main()
+{
+    printf &amp;#34;\033[31mHello, World! from main\033[0m\n&amp;#34;true/* 2&amp;gt; /dev/null | grep -v true*/;
+    return 0;
+}
+#define c /*
+main
+#*/
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;它既符合 C 语法，又符合 Bash 语法，然而编译/解释执行它得到的结果不同，因为两个程序的语义不同（当然 C 和 Bash 的语法也是不一样的，polyglot 编写的核心就是利用各语言之间的注释/宏/&amp;hellip;使用的&lt;strong&gt;符号&lt;/strong&gt;不同，符号（广义）的使用和布局正是语法侧关心的事情）：&lt;/p&gt;
+&lt;img src=&#34;poly.png&#34; alt=&#34;poly&#34; style=&#34;zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
+&lt;!-- &lt;span style=&#34;font-size: smaller;&#34;&gt;你可能注意到了这里的一行 `file` 命令，它通过关键字判断出这是一个 C 源文件，所以 `file` 也不一定完全正确，&lt;/span&gt; --&gt;
+</description>
+        </item>
+        <item>
         <title>Slides, But in Terminal</title>
         <link>http://localhost:1313/zh/p/slides-but-in-terminal/</link>
         <pubDate>Fri, 07 Feb 2025 22:52:00 +0800</pubDate>
@@ -139,12 +183,12 @@
 </description>
         </item>
         <item>
-        <title>functional on Steam / λ 习题集 - Solutions</title>
-        <link>http://localhost:1313/zh/p/functional-on-steam-/-%CE%BB-%E4%B9%A0%E9%A2%98%E9%9B%86-solutions/</link>
+        <title>基础的 Lambda 演算编程</title>
+        <link>http://localhost:1313/zh/p/%E5%9F%BA%E7%A1%80%E7%9A%84-lambda-%E6%BC%94%E7%AE%97%E7%BC%96%E7%A8%8B/</link>
         <pubDate>Sun, 02 Feb 2025 21:29:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/zh/p/functional-on-steam-/-%CE%BB-%E4%B9%A0%E9%A2%98%E9%9B%86-solutions/</guid>
-        <description>&lt;p&gt;functional，发售于 Steam (29 CNY)，可以说是 Lambda Calculus 应用习题集.&lt;/p&gt;
+        <guid>http://localhost:1313/zh/p/%E5%9F%BA%E7%A1%80%E7%9A%84-lambda-%E6%BC%94%E7%AE%97%E7%BC%96%E7%A8%8B/</guid>
+        <description>&lt;p&gt;题目来自 &lt;em&gt;functional&lt;/em&gt;，发售于 Steam (29 CNY).&lt;/p&gt;
 &lt;h2 id=&#34;basic&#34;&gt;&lt;a href=&#34;#basic&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Basic
 &lt;/h2&gt;&lt;h3 id=&#34;anything&#34;&gt;&lt;a href=&#34;#anything&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;anything
 &lt;/h3&gt;&lt;p&gt;写出任意一个符合 Lambda Calculus 语法 (1. variable 2. abstraction 3. application) 的 term 即可.&lt;/p&gt;
@@ -619,7 +663,8 @@ FALSE
         <pubDate>Sun, 24 Nov 2024 12:09:00 +0800</pubDate>
         
         <guid>http://localhost:1313/zh/p/%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95%E7%9A%84%E6%8A%BD%E8%B1%A1/</guid>
-        <description>&lt;h2 id=&#34;前言&#34;&gt;&lt;a href=&#34;#%e5%89%8d%e8%a8%80&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;前言
+        <description>&lt;p&gt;&lt;em&gt;-灵感来自2024秋的算法设计与分析课-&lt;/em&gt;&lt;/p&gt;
+&lt;h2 id=&#34;前言&#34;&gt;&lt;a href=&#34;#%e5%89%8d%e8%a8%80&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;前言
 &lt;/h2&gt;&lt;p&gt;在这个学期的算法课中，我们重点学习了回溯法和分支限界法两大类搜索算法，过去我总是把DFS、BFS等各种搜索算法分开来，比较其差异，在本文中，我希望对搜索算法做一个抽象，预期可以由一个简洁的抽象模型延伸出我们熟悉的具体的搜索策略。&lt;/p&gt;
 &lt;h2 id=&#34;搜索模型与搜索过程的抽象&#34;&gt;&lt;a href=&#34;#%e6%90%9c%e7%b4%a2%e6%a8%a1%e5%9e%8b%e4%b8%8e%e6%90%9c%e7%b4%a2%e8%bf%87%e7%a8%8b%e7%9a%84%e6%8a%bd%e8%b1%a1&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;搜索模型与搜索过程的抽象
 &lt;/h2&gt;&lt;p&gt;用 Haskell 语言展示我总结出的模型：&lt;/p&gt;

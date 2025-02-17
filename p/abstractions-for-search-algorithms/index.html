@@ -414,7 +414,7 @@
 </span></span><span style="display:flex;"><span>                            <span style="color:#cf222e">let</span> ds <span style="color:#0550ae">=</span> <span style="color:#1f2328">[</span> d <span style="color:#0550ae">|</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">_</span><span style="color:#1f2328">,</span> <span style="color:#cf222e">_</span><span style="color:#1f2328">,</span> d<span style="color:#1f2328">)</span> <span style="color:#0550ae">&lt;-</span> es&#39;<span style="color:#1f2328">]]</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#6639ba">distance</span> <span style="color:#0550ae">::</span> <span style="color:#cf222e">Graph</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Int</span><span style="color:#1f2328">,</span> <span style="color:#cf222e">Int</span><span style="color:#1f2328">)</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">Maybe</span> <span style="color:#cf222e">Distance</span>
-</span></span><span style="display:flex;"><span><span style="color:#6639ba">distance</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Graph</span> <span style="color:#cf222e">_</span> <span style="color:#1f2328">[])</span> <span style="color:#cf222e">_</span> <span style="color:#0550ae">=</span> <span style="color:#cf222e">Nothing</span>       
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">distance</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Graph</span> <span style="color:#cf222e">_</span> <span style="color:#cf222e">[]</span><span style="color:#1f2328">)</span> <span style="color:#cf222e">_</span> <span style="color:#0550ae">=</span> <span style="color:#cf222e">Nothing</span>       
 </span></span><span style="display:flex;"><span><span style="color:#6639ba">distance</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Graph</span> vs <span style="color:#1f2328">((</span>v1<span style="color:#1f2328">,</span> v2<span style="color:#1f2328">,</span> d<span style="color:#1f2328">)</span><span style="color:#cf222e">:</span>es<span style="color:#1f2328">))</span> <span style="color:#1f2328">(</span>s<span style="color:#1f2328">,</span> t<span style="color:#1f2328">)</span> 
 </span></span><span style="display:flex;"><span>    <span style="color:#0550ae">|</span> s <span style="color:#0550ae">==</span> v1 <span style="color:#0550ae">&amp;&amp;</span> t <span style="color:#0550ae">==</span> v2    <span style="color:#0550ae">=</span> <span style="color:#cf222e">Just</span> d 
 </span></span><span style="display:flex;"><span>    <span style="color:#0550ae">|</span> otherwise             <span style="color:#0550ae">=</span> distance <span style="color:#1f2328">(</span><span style="color:#cf222e">Graph</span> vs es<span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span>s<span style="color:#1f2328">,</span> t<span style="color:#1f2328">)</span>
@@ -585,6 +585,19 @@
             
                 
 <article class="">
+    <a href="/p/programming-in-lambda-calculus-basic/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Programming in Lambda Calculus, Basic</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
     <a href="/p/how-to-avoid-redundant-computations--pure-functions-and-their-evaluation-strategies/">
         
         
@@ -630,19 +643,6 @@
 
         <div class="article-details">
             <h2 class="article-title">Boolean from a Message Passing Perspective - SICP § 2.4.3 | Generics | Boundaries of Data and Functions</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/huffman-tree-implementation-in-haskell-sicp-2.3.4-structuring-and-destructuring-of-composed-data/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">Huffman Tree Implementation in Haskell - SICP § 2.3.4 | Structuring and Destructuring of Composed Data</h2>
         </div>
     </a>
 </article>

@@ -7,12 +7,12 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
         <lastBuildDate>Sun, 02 Feb 2025 21:29:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/lambda-calculus/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>functional on Steam / λ Exercises - Solutions</title>
-        <link>http://localhost:1313/p/functional-on-steam-/-%CE%BB-exercises-solutions/</link>
+        <title>Programming in Lambda Calculus, Basic</title>
+        <link>http://localhost:1313/p/programming-in-lambda-calculus-basic/</link>
         <pubDate>Sun, 02 Feb 2025 21:29:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/functional-on-steam-/-%CE%BB-exercises-solutions/</guid>
-        <description>&lt;p&gt;functional，发售于 Steam (29 CNY)，可以说是 Lambda Calculus 应用习题集.&lt;/p&gt;
+        <guid>http://localhost:1313/p/programming-in-lambda-calculus-basic/</guid>
+        <description>&lt;p&gt;Following exercise is from &lt;em&gt;functional&lt;/em&gt; and is available on Steam for 29 CNY.&lt;/p&gt;
 &lt;h2 id=&#34;basic&#34;&gt;&lt;a href=&#34;#basic&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Basic
 &lt;/h2&gt;&lt;h3 id=&#34;anything&#34;&gt;&lt;a href=&#34;#anything&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;anything
 &lt;/h3&gt;&lt;p&gt;写出任意一个符合 Lambda Calculus 语法 (1. variable 2. abstraction 3. application) 的 term 即可.&lt;/p&gt;

@@ -7,12 +7,12 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh</language>
         <lastBuildDate>Sun, 02 Feb 2025 21:29:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/zh/tags/lambda-calculus/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>functional on Steam / λ 习题集 - Solutions</title>
-        <link>http://localhost:1313/zh/p/functional-on-steam-/-%CE%BB-%E4%B9%A0%E9%A2%98%E9%9B%86-solutions/</link>
+        <title>基础的 Lambda 演算编程</title>
+        <link>http://localhost:1313/zh/p/%E5%9F%BA%E7%A1%80%E7%9A%84-lambda-%E6%BC%94%E7%AE%97%E7%BC%96%E7%A8%8B/</link>
         <pubDate>Sun, 02 Feb 2025 21:29:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/zh/p/functional-on-steam-/-%CE%BB-%E4%B9%A0%E9%A2%98%E9%9B%86-solutions/</guid>
-        <description>&lt;p&gt;functional，发售于 Steam (29 CNY)，可以说是 Lambda Calculus 应用习题集.&lt;/p&gt;
+        <guid>http://localhost:1313/zh/p/%E5%9F%BA%E7%A1%80%E7%9A%84-lambda-%E6%BC%94%E7%AE%97%E7%BC%96%E7%A8%8B/</guid>
+        <description>&lt;p&gt;题目来自 &lt;em&gt;functional&lt;/em&gt;，发售于 Steam (29 CNY).&lt;/p&gt;
 &lt;h2 id=&#34;basic&#34;&gt;&lt;a href=&#34;#basic&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Basic
 &lt;/h2&gt;&lt;h3 id=&#34;anything&#34;&gt;&lt;a href=&#34;#anything&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;anything
 &lt;/h3&gt;&lt;p&gt;写出任意一个符合 Lambda Calculus 语法 (1. variable 2. abstraction 3. application) 的 term 即可.&lt;/p&gt;
