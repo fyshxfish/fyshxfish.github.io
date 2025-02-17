@@ -2,72 +2,72 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Tags on fyshXplore</title>
-        <link>http://localhost:1313/zh/tags/</link>
+        <link>http://fyshxfish.github.io/zh/tags/</link>
         <description>Recent content in Tags on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh</language>
-        <lastBuildDate>Sun, 02 Feb 2025 21:29:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/zh/tags/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 02 Feb 2025 21:29:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/zh/tags/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Lambda Calculus</title>
-        <link>http://localhost:1313/zh/tags/lambda-calculus/</link>
+        <link>http://fyshxfish.github.io/zh/tags/lambda-calculus/</link>
         <pubDate>Sun, 02 Feb 2025 21:29:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/zh/tags/lambda-calculus/</guid>
+        <guid>http://fyshxfish.github.io/zh/tags/lambda-calculus/</guid>
         <description></description>
         </item>
         <item>
         <title>Haskell</title>
-        <link>http://localhost:1313/zh/tags/haskell/</link>
+        <link>http://fyshxfish.github.io/zh/tags/haskell/</link>
         <pubDate>Sun, 24 Nov 2024 12:09:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/zh/tags/haskell/</guid>
+        <guid>http://fyshxfish.github.io/zh/tags/haskell/</guid>
         <description></description>
         </item>
         <item>
         <title>LCaC</title>
-        <link>http://localhost:1313/zh/tags/lcac/</link>
+        <link>http://fyshxfish.github.io/zh/tags/lcac/</link>
         <pubDate>Tue, 17 Sep 2024 23:48:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/zh/tags/lcac/</guid>
+        <guid>http://fyshxfish.github.io/zh/tags/lcac/</guid>
         <description></description>
         </item>
         <item>
         <title>TaPL</title>
-        <link>http://localhost:1313/zh/tags/tapl/</link>
+        <link>http://fyshxfish.github.io/zh/tags/tapl/</link>
         <pubDate>Tue, 10 Sep 2024 14:10:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/zh/tags/tapl/</guid>
+        <guid>http://fyshxfish.github.io/zh/tags/tapl/</guid>
         <description></description>
         </item>
         <item>
         <title>Scheme</title>
-        <link>http://localhost:1313/zh/tags/scheme/</link>
+        <link>http://fyshxfish.github.io/zh/tags/scheme/</link>
         <pubDate>Sun, 08 Sep 2024 20:13:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/zh/tags/scheme/</guid>
+        <guid>http://fyshxfish.github.io/zh/tags/scheme/</guid>
         <description></description>
         </item>
         <item>
         <title>SICP</title>
-        <link>http://localhost:1313/zh/tags/sicp/</link>
+        <link>http://fyshxfish.github.io/zh/tags/sicp/</link>
         <pubDate>Sat, 07 Sep 2024 23:18:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/zh/tags/sicp/</guid>
+        <guid>http://fyshxfish.github.io/zh/tags/sicp/</guid>
         <description></description>
         </item>
         <item>
         <title>VSCode</title>
-        <link>http://localhost:1313/zh/tags/vscode/</link>
+        <link>http://fyshxfish.github.io/zh/tags/vscode/</link>
         <pubDate>Mon, 26 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/zh/tags/vscode/</guid>
+        <guid>http://fyshxfish.github.io/zh/tags/vscode/</guid>
         <description></description>
         </item>
         <item>
         <title>Rust</title>
-        <link>http://localhost:1313/zh/tags/rust/</link>
+        <link>http://fyshxfish.github.io/zh/tags/rust/</link>
         <pubDate>Mon, 05 Aug 2024 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/zh/tags/rust/</guid>
+        <guid>http://fyshxfish.github.io/zh/tags/rust/</guid>
         <description></description>
         </item>
         

@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Scheme on fyshXplore</title>
-        <link>http://localhost:1313/tags/scheme/</link>
+        <link>http://fyshxfish.github.io/tags/scheme/</link>
         <description>Recent content in Scheme on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Sun, 08 Sep 2024 20:13:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/scheme/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 08 Sep 2024 20:13:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/tags/scheme/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Church Encoding Note</title>
-        <link>http://localhost:1313/p/church-encoding-note/</link>
+        <link>http://fyshxfish.github.io/p/church-encoding-note/</link>
         <pubDate>Sun, 08 Sep 2024 20:13:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/church-encoding-note/</guid>
+        <guid>http://fyshxfish.github.io/p/church-encoding-note/</guid>
         <description>&lt;h2 id=&#34;motivation-abstraction-level-up&#34;&gt;&lt;a href=&#34;#motivation-abstraction-level-up&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Motivation: Abstraction Level Up!
 &lt;/h2&gt;&lt;ol&gt;
 &lt;li&gt;
@@ -139,10 +139,10 @@ Church Encoding 让我困惑了很久，每次我听到一些视频 / 博客里�
         </item>
         <item>
         <title>Boolean from a Message Passing Perspective - SICP § 2.4.3 | Generics | Boundaries of Data and Functions</title>
-        <link>http://localhost:1313/p/boolean-from-a-message-passing-perspective-sicp-2.4.3-generics-boundaries-of-data-and-functions/</link>
+        <link>http://fyshxfish.github.io/p/boolean-from-a-message-passing-perspective-sicp-2.4.3-generics-boundaries-of-data-and-functions/</link>
         <pubDate>Sat, 07 Sep 2024 23:18:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/boolean-from-a-message-passing-perspective-sicp-2.4.3-generics-boundaries-of-data-and-functions/</guid>
+        <guid>http://fyshxfish.github.io/p/boolean-from-a-message-passing-perspective-sicp-2.4.3-generics-boundaries-of-data-and-functions/</guid>
         <description>&lt;h2 id=&#34;本文概述&#34;&gt;&lt;a href=&#34;#%e6%9c%ac%e6%96%87%e6%a6%82%e8%bf%b0&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;本文概述
 &lt;/h2&gt;&lt;p&gt;SICP § 2.4.3 中描述了以查表（ type × operation 二维表）为实现方式的泛型系统，具体函数被隐藏在泛型函数 + Selector 这样的抽象之下，那么如果将具体函数放在数据 + Selector 这样的抽象之下是什么样的呢，本文呈现了符合此抽象（SICP 中称为 Message Passing）的 Boolean.  接下来从 Message Passing，Haskell 中的 &lt;code&gt;$&lt;/code&gt; 和 Haskell 中的代数数据类型 三个角度聊聊数据与函数之间的关系.  Message Passing - 让数据自己携带函数；Haskell &lt;code&gt;$&lt;/code&gt;的应用 - 将数据变成某种函数；Haskell中的代数数据类型 - 使用函数构造数据.&lt;/p&gt;
 &lt;h2 id=&#34;泛型函数intelligent-operations&#34;&gt;&lt;a href=&#34;#%e6%b3%9b%e5%9e%8b%e5%87%bd%e6%95%b0intelligent-operations&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;泛型函数：Intelligent Operations
@@ -277,10 +277,10 @@ ghci&amp;gt; :t ($ x)
         </item>
         <item>
         <title>Semantics of `let` in Scheme(feat. Semantics of `if`)</title>
-        <link>http://localhost:1313/p/semantics-of-let-in-schemefeat.-semantics-of-if/</link>
+        <link>http://fyshxfish.github.io/p/semantics-of-let-in-schemefeat.-semantics-of-if/</link>
         <pubDate>Thu, 29 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/semantics-of-let-in-schemefeat.-semantics-of-if/</guid>
+        <guid>http://fyshxfish.github.io/p/semantics-of-let-in-schemefeat.-semantics-of-if/</guid>
         <description>&lt;hr&gt;
 &lt;h2 id=&#34;let-的语义&#34;&gt;&lt;a href=&#34;#let-%e7%9a%84%e8%af%ad%e4%b9%89&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;&lt;code&gt;let&lt;/code&gt; 的语义
 &lt;/h2&gt;&lt;p&gt;&lt;mark&gt;结论&lt;/mark&gt;: &lt;code&gt;let&lt;/code&gt; scope 会立即求值 (包括绑定和绑定之后的表达式, 也就是 &lt;code&gt;let&lt;/code&gt; 之外的一层括号所包裹的范围), 即使你把 &lt;code&gt;let&lt;/code&gt; 嵌套在内层函数里而且这个函数还完全没有被调用.&lt;/p&gt;
@@ -375,10 +375,10 @@ ghci&amp;gt; :t ($ x)
         </item>
         <item>
         <title>MIT-Scheme Configuration and Basic Usage</title>
-        <link>http://localhost:1313/p/mit-scheme-configuration-and-basic-usage/</link>
+        <link>http://fyshxfish.github.io/p/mit-scheme-configuration-and-basic-usage/</link>
         <pubDate>Sat, 24 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/mit-scheme-configuration-and-basic-usage/</guid>
+        <guid>http://fyshxfish.github.io/p/mit-scheme-configuration-and-basic-usage/</guid>
         <description>&lt;blockquote&gt;
 &lt;p&gt;Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away.
 &lt;br&gt;&amp;ndash; Antoine de Saint-Exupéry&lt;/p&gt;&lt;/blockquote&gt;

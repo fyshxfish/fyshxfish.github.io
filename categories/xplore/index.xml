@@ -2,16 +2,60 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Xplore on fyshXplore</title>
-        <link>http://localhost:1313/categories/xplore/</link>
+        <link>http://fyshxfish.github.io/categories/xplore/</link>
         <description>Recent content in Xplore on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Fri, 07 Feb 2025 22:52:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/categories/xplore/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 17 Feb 2025 16:32:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/categories/xplore/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Context &amp; Syntax / Semantic Analysis</title>
+        <link>http://fyshxfish.github.io/p/context-syntax-/-semantic-analysis/</link>
+        <pubDate>Mon, 17 Feb 2025 16:32:00 +0800</pubDate>
+        
+        <guid>http://fyshxfish.github.io/p/context-syntax-/-semantic-analysis/</guid>
+        <description>&lt;!-- 最近在看一点编译原理的材料， --&gt;
+&lt;h2 id=&#34;引言&#34;&gt;&lt;a href=&#34;#%e5%bc%95%e8%a8%80&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;引言
+&lt;/h2&gt;&lt;p&gt;标题的这个问题，其实是一个不太正确的问题，因为对于语言而言，设计先于实现——先设计语言的语法和语义，然后写编译器去检查一个程序语法是否正确，然后根据设定好的语义将它转写成目标机器代码。从“上下文”这个视角去思考，常见情况下，语法是&lt;strong&gt;上下文无关&lt;/strong&gt;的，而语义正是用来处理&lt;strong&gt;上下文相关&lt;/strong&gt;的问题的，&lt;code&gt;x = 1; print(x);&lt;/code&gt; 和 &lt;code&gt;x = 2; print(x);&lt;/code&gt;，同样是 &lt;code&gt;print(x)&lt;/code&gt;，它的上文是不一样的，所以它导致的结果也不一样.&lt;/p&gt;
+&lt;h2 id=&#34;举例-1&#34;&gt;&lt;a href=&#34;#%e4%b8%be%e4%be%8b-1&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;举例 1
+&lt;/h2&gt;&lt;p&gt;比如：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;foo = 3
+foo = 4
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;假设对这个程序只做语法分析，那么它符合 Python 语法，也符合 Haskell 语法，但是对它做语义分析，作为一个 Python 程序，它的意思是，“先将 &lt;code&gt;3&lt;/code&gt; 赋值给 &lt;code&gt;foo&lt;/code&gt;，然后将 &lt;code&gt;4&lt;/code&gt; 赋值给 &lt;code&gt;foo&lt;/code&gt;”；作为一个 Haskell 程序，它不是一个合格的 Haskell 程序，因为 Haskell 语义不允许做重复的绑定，所以核心原因是，Python 的 &lt;code&gt;=&lt;/code&gt; 的语义是赋值（assign），内存覆写，Haskell 的 &lt;code&gt;=&lt;/code&gt; 的语义是绑定（name binding），为了保证无副作用、执行顺序无关等特性，只允许单次绑定.&lt;/p&gt;
+&lt;h2 id=&#34;举例2---polyglot&#34;&gt;&lt;a href=&#34;#%e4%b8%be%e4%be%8b2---polyglot&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;举例2 - polyglot
+&lt;/h2&gt;&lt;p&gt;下面这个程序改写自 &lt;a class=&#34;link&#34; href=&#34;https://en.wikipedia.org/wiki/Polyglot_%28computing%29#C,_PHP,_and_Bash&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;polyglot(computing) wikipedia&lt;/a&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;#define a /*
+echo -e &amp;#34;\033[34mHello, World! from echo\033[0m&amp;#34;;// &amp;amp;&amp;gt; /dev/null;
+x=5; 
+if (($x))
+// 2&amp;gt; /dev/null; then
+return 0;
+// 2&amp;gt; /dev/null; fi
+#define e ?&amp;gt;
+#define b */
+#include &amp;lt;stdio.h&amp;gt;
+#define main() int main(void)
+#define printf printf(
+#define true )
+#define function
+function main()
+{
+    printf &amp;#34;\033[31mHello, World! from main\033[0m\n&amp;#34;true/* 2&amp;gt; /dev/null | grep -v true*/;
+    return 0;
+}
+#define c /*
+main
+#*/
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;它既符合 C 语法，又符合 Bash 语法，然而编译/解释执行它得到的结果不同，因为两个程序的语义不同（当然 C 和 Bash 的语法也是不一样的，polyglot 编写的核心就是利用各语言之间的注释/宏/&amp;hellip;使用的&lt;strong&gt;符号&lt;/strong&gt;不同，符号（广义）的使用和布局正是语法侧关心的事情）：&lt;/p&gt;
+&lt;img src=&#34;poly.png&#34; alt=&#34;poly&#34; style=&#34;zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
+&lt;!-- &lt;span style=&#34;font-size: smaller;&#34;&gt;你可能注意到了这里的一行 `file` 命令，它通过关键字判断出这是一个 C 源文件，所以 `file` 也不一定完全正确，&lt;/span&gt; --&gt;
+</description>
+        </item>
+        <item>
         <title>Slides, But in Terminal</title>
-        <link>http://localhost:1313/p/slides-but-in-terminal/</link>
+        <link>http://fyshxfish.github.io/p/slides-but-in-terminal/</link>
         <pubDate>Fri, 07 Feb 2025 22:52:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/slides-but-in-terminal/</guid>
+        <guid>http://fyshxfish.github.io/p/slides-but-in-terminal/</guid>
         <description>&lt;h2 id=&#34;preface&#34;&gt;&lt;a href=&#34;#preface&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Preface
 &lt;/h2&gt;&lt;p&gt;Inspiration came from a lecture by Yanyan Jiang：&lt;a class=&#34;link&#34; href=&#34;https://www.bilibili.com/video/BV1MV411F738/?share_source=copy_web&amp;amp;vd_source=09e32470959b198a596693ee5235cca9&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;[算法竞赛入门] 为什么要逼大家用 NOILinux？&lt;/a&gt;，有参考，但不完全一样.&lt;/p&gt;
@@ -140,10 +184,10 @@
         </item>
         <item>
         <title>Explore Rust (Basic)</title>
-        <link>http://localhost:1313/p/explore-rust-basic/</link>
+        <link>http://fyshxfish.github.io/p/explore-rust-basic/</link>
         <pubDate>Mon, 05 Aug 2024 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/p/explore-rust-basic/</guid>
+        <guid>http://fyshxfish.github.io/p/explore-rust-basic/</guid>
         <description>&lt;p&gt; &lt;/p&gt;
 &lt;h2 id=&#34;如何调试一个rust程序&#34;&gt;&lt;a href=&#34;#%e5%a6%82%e4%bd%95%e8%b0%83%e8%af%95%e4%b8%80%e4%b8%aarust%e7%a8%8b%e5%ba%8f&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;如何调试一个rust程序？
 &lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ gdb excutable

@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>VSCode on fyshXplore</title>
-        <link>http://localhost:1313/zh/tags/vscode/</link>
+        <link>http://fyshxfish.github.io/zh/tags/vscode/</link>
         <description>Recent content in VSCode on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh</language>
-        <lastBuildDate>Mon, 26 Aug 2024 00:00:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/zh/tags/vscode/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 26 Aug 2024 00:00:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/zh/tags/vscode/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>VSCode 配置记录</title>
-        <link>http://localhost:1313/zh/p/vscode-%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95/</link>
+        <link>http://fyshxfish.github.io/zh/p/vscode-%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95/</link>
         <pubDate>Mon, 26 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/zh/p/vscode-%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95/</guid>
+        <guid>http://fyshxfish.github.io/zh/p/vscode-%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95/</guid>
         <description>&lt;p&gt;包含对于 VSCode 作为文本编辑器的配置，不包含对语言环境的配置.&lt;/p&gt;
 &lt;!-- 不严肃的随手记录，希望我能记得持续更新，因为我经常把一些记录扔在零零散散的位置，然后忘记这个记录的存在。 --&gt;
 &lt;h2 id=&#34;about-command-palette--ctrl--shift--p&#34;&gt;&lt;a href=&#34;#about-command-palette--ctrl--shift--p&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;About: Command Palette &amp;amp; Ctrl + Shift + P

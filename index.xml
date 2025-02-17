@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>fyshXplore</title>
-        <link>http://localhost:1313/</link>
+        <link>http://fyshxfish.github.io/</link>
         <description>Recent content on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Mon, 17 Feb 2025 16:32:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>杂谈向：为什么编译需要做语义分析 / 上下文（Context）与语法语义分析</title>
-        <link>http://localhost:1313/p/%E6%9D%82%E8%B0%88%E5%90%91%E4%B8%BA%E4%BB%80%E4%B9%88%E7%BC%96%E8%AF%91%E9%9C%80%E8%A6%81%E5%81%9A%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90-/-%E4%B8%8A%E4%B8%8B%E6%96%87context%E4%B8%8E%E8%AF%AD%E6%B3%95%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90/</link>
+        <lastBuildDate>Mon, 17 Feb 2025 16:32:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Context &amp; Syntax / Semantic Analysis</title>
+        <link>http://fyshxfish.github.io/p/context-syntax-/-semantic-analysis/</link>
         <pubDate>Mon, 17 Feb 2025 16:32:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/%E6%9D%82%E8%B0%88%E5%90%91%E4%B8%BA%E4%BB%80%E4%B9%88%E7%BC%96%E8%AF%91%E9%9C%80%E8%A6%81%E5%81%9A%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90-/-%E4%B8%8A%E4%B8%8B%E6%96%87context%E4%B8%8E%E8%AF%AD%E6%B3%95%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90/</guid>
+        <guid>http://fyshxfish.github.io/p/context-syntax-/-semantic-analysis/</guid>
         <description>&lt;!-- 最近在看一点编译原理的材料， --&gt;
 &lt;h2 id=&#34;引言&#34;&gt;&lt;a href=&#34;#%e5%bc%95%e8%a8%80&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;引言
 &lt;/h2&gt;&lt;p&gt;标题的这个问题，其实是一个不太正确的问题，因为对于语言而言，设计先于实现——先设计语言的语法和语义，然后写编译器去检查一个程序语法是否正确，然后根据设定好的语义将它转写成目标机器代码。从“上下文”这个视角去思考，常见情况下，语法是&lt;strong&gt;上下文无关&lt;/strong&gt;的，而语义正是用来处理&lt;strong&gt;上下文相关&lt;/strong&gt;的问题的，&lt;code&gt;x = 1; print(x);&lt;/code&gt; 和 &lt;code&gt;x = 2; print(x);&lt;/code&gt;，同样是 &lt;code&gt;print(x)&lt;/code&gt;，它的上文是不一样的，所以它导致的结果也不一样.&lt;/p&gt;
@@ -52,10 +52,10 @@ main
         </item>
         <item>
         <title>Slides, But in Terminal</title>
-        <link>http://localhost:1313/p/slides-but-in-terminal/</link>
+        <link>http://fyshxfish.github.io/p/slides-but-in-terminal/</link>
         <pubDate>Fri, 07 Feb 2025 22:52:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/slides-but-in-terminal/</guid>
+        <guid>http://fyshxfish.github.io/p/slides-but-in-terminal/</guid>
         <description>&lt;h2 id=&#34;preface&#34;&gt;&lt;a href=&#34;#preface&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Preface
 &lt;/h2&gt;&lt;p&gt;Inspiration came from a lecture by Yanyan Jiang：&lt;a class=&#34;link&#34; href=&#34;https://www.bilibili.com/video/BV1MV411F738/?share_source=copy_web&amp;amp;vd_source=09e32470959b198a596693ee5235cca9&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;[算法竞赛入门] 为什么要逼大家用 NOILinux？&lt;/a&gt;，有参考，但不完全一样.&lt;/p&gt;
@@ -184,19 +184,19 @@ main
         </item>
         <item>
         <title>About</title>
-        <link>http://localhost:1313/about/</link>
+        <link>http://fyshxfish.github.io/about/</link>
         <pubDate>Thu, 06 Feb 2025 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/about/</guid>
+        <guid>http://fyshxfish.github.io/about/</guid>
         <description>&lt;p&gt;No Tag Attached.&lt;/p&gt;
 </description>
         </item>
         <item>
         <title>Programming in Lambda Calculus, Basic</title>
-        <link>http://localhost:1313/p/programming-in-lambda-calculus-basic/</link>
+        <link>http://fyshxfish.github.io/p/programming-in-lambda-calculus-basic/</link>
         <pubDate>Sun, 02 Feb 2025 21:29:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/programming-in-lambda-calculus-basic/</guid>
+        <guid>http://fyshxfish.github.io/p/programming-in-lambda-calculus-basic/</guid>
         <description>&lt;p&gt;Following exercise is from &lt;em&gt;functional&lt;/em&gt; and is available on Steam for 29 CNY.&lt;/p&gt;
 &lt;h2 id=&#34;basic&#34;&gt;&lt;a href=&#34;#basic&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Basic
 &lt;/h2&gt;&lt;h3 id=&#34;anything&#34;&gt;&lt;a href=&#34;#anything&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;anything
@@ -668,10 +668,10 @@ FALSE
         </item>
         <item>
         <title>Abstractions for Search Algorithms</title>
-        <link>http://localhost:1313/p/abstractions-for-search-algorithms/</link>
+        <link>http://fyshxfish.github.io/p/abstractions-for-search-algorithms/</link>
         <pubDate>Sun, 24 Nov 2024 12:09:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/abstractions-for-search-algorithms/</guid>
+        <guid>http://fyshxfish.github.io/p/abstractions-for-search-algorithms/</guid>
         <description>&lt;p&gt;&lt;em&gt;-Inspired by Algorithm Design and Analysis course, 2024 Fall-&lt;/em&gt;&lt;/p&gt;
 &lt;h2 id=&#34;introduction&#34;&gt;&lt;a href=&#34;#introduction&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Introduction
 &lt;/h2&gt;&lt;p&gt;In this semester&amp;rsquo;s algorithms course, we focused on two major categories of search algorithms: backtracking and branch-and-bound. Previously, I always treated various search algorithms like DFS and BFS separately, comparing their differences. In this article, I aim to abstract search algorithms, expecting to derive familiar search strategies from a concise abstract model.&lt;/p&gt;
@@ -823,10 +823,10 @@ FALSE
         </item>
         <item>
         <title>How to Avoid Redundant Computations &#43; Pure Functions and Their Evaluation Strategies</title>
-        <link>http://localhost:1313/p/how-to-avoid-redundant-computations--pure-functions-and-their-evaluation-strategies/</link>
+        <link>http://fyshxfish.github.io/p/how-to-avoid-redundant-computations--pure-functions-and-their-evaluation-strategies/</link>
         <pubDate>Sun, 20 Oct 2024 19:48:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/how-to-avoid-redundant-computations--pure-functions-and-their-evaluation-strategies/</guid>
+        <guid>http://fyshxfish.github.io/p/how-to-avoid-redundant-computations--pure-functions-and-their-evaluation-strategies/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;&lt;a href=&#34;#%e5%89%8d%e8%a8%80&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;前言
 &lt;/h2&gt;&lt;p&gt;这个学期包含编译系统和算法设计与分析两门专业课，遇到一些问题总会想着放在 Haskell 里实现一下，对于程序构造多少有点新的体会，也度过了对于 Haskell 不平静的狂热期，现在的我已经不会想着到处传教了（☺️）. 本来只是准备随便写写做 0-1 背包的 Haskell 实现中的一些小思考，不过真开始动笔了就越写越正式了，也算是接触 FP / Haskell 以来的一点点小总结. &lt;a class=&#34;link&#34; href=&#34;https://www.haskell.org/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Haskell 官网&lt;/a&gt; 对 Haskell 的描述是 &amp;ldquo;An advanced, purely functional programming language&amp;rdquo;，本文试图围绕 &amp;ldquo;purely&amp;rdquo; 做一些讨论：什么是纯，怎么样算不纯，追求纯度的理由是什么，纯度带来的效益是什么.&lt;/p&gt;
@@ -1065,10 +1065,10 @@ FALSE
         </item>
         <item>
         <title>The Construction of the Iteration Combinator - LCaC § 4C, Theorem 4.20</title>
-        <link>http://localhost:1313/p/the-construction-of-the-iteration-combinator-lcac-4c-theorem-4.20/</link>
+        <link>http://fyshxfish.github.io/p/the-construction-of-the-iteration-combinator-lcac-4c-theorem-4.20/</link>
         <pubDate>Tue, 17 Sep 2024 23:48:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/the-construction-of-the-iteration-combinator-lcac-4c-theorem-4.20/</guid>
+        <guid>http://fyshxfish.github.io/p/the-construction-of-the-iteration-combinator-lcac-4c-theorem-4.20/</guid>
         <description>&lt;p&gt;来自 Lambda-Calculus and Combinator § 4C Theorem 4.20 的 proof 部分，整体意图是证明符合 Definition 4.18 的全称递归函数可以用组合子来表示. 这里对该证明的关键部分，即迭代组合子的构造，做简要的陈述. 也可以理解为：&lt;strong&gt;在 Pure Lambda Calculus 中编写一个具有特定终止条件的迭代程序.&lt;/strong&gt; 如果你好奇 &amp;quot; 如何在 Lambda Calculus 中编写一个指定&lt;strong&gt;迭代 / 递归次数&lt;/strong&gt;的迭代 / 递归函数 &amp;quot; ，可以参考 Lambda-Calculus and Combinator § 4B Theorem 4.11 的 proof 中 $R_{\text{Bernays}}$ 组合子的构造，这个构造过程也十分精巧.&lt;/p&gt;
 &lt;p&gt;递归与迭代：在 $R_{\text{Bernays}}$ 递归组合子的构造中，求解某个递归函数 $\phi $ 的值 $ \phi(n) $，用的方法就是从 $ \phi(0) $ 开始，做 $n$ 次迭代得到的（大致如下：记递归步更新函数为 $\chi$，$\phi(n) = \chi^n \phi(0)$）. 迭代和递归是正向与逆向的区别. 本文中的&amp;quot;递归&amp;quot;意在描述&amp;quot;&lt;strong&gt;调用自身&lt;/strong&gt;&amp;quot; 的结构特点，探讨的中心问题还是对迭代（$0 \rightarrow 1 \rightarrow  &amp;hellip;  \rightarrow n$）问题的求解.&lt;/p&gt;
 &lt;h2 id=&#34;构造目标&#34;&gt;&lt;a href=&#34;#%e6%9e%84%e9%80%a0%e7%9b%ae%e6%a0%87&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;构造目标
@@ -1171,10 +1171,10 @@ $ \bar{\sigma} = _{\beta, w} \lambda nfz. f (n f z)$ &lt;/br&gt;&lt;/p&gt;
         </item>
         <item>
         <title>Safety &amp; Abstraction</title>
-        <link>http://localhost:1313/p/safety-abstraction/</link>
+        <link>http://fyshxfish.github.io/p/safety-abstraction/</link>
         <pubDate>Tue, 10 Sep 2024 14:10:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/safety-abstraction/</guid>
+        <guid>http://fyshxfish.github.io/p/safety-abstraction/</guid>
         <description>&lt;p&gt;From &lt;em&gt;Types and Programming Languages § 1.2 What Type Systems Are Good For&lt;/em&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;A safe language is one that protects its own &lt;strong&gt;abstractions&lt;/strong&gt;.
@@ -1186,10 +1186,10 @@ $ \bar{\sigma} = _{\beta, w} \lambda nfz. f (n f z)$ &lt;/br&gt;&lt;/p&gt;
         </item>
         <item>
         <title>Church Encoding Note</title>
-        <link>http://localhost:1313/p/church-encoding-note/</link>
+        <link>http://fyshxfish.github.io/p/church-encoding-note/</link>
         <pubDate>Sun, 08 Sep 2024 20:13:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/church-encoding-note/</guid>
+        <guid>http://fyshxfish.github.io/p/church-encoding-note/</guid>
         <description>&lt;h2 id=&#34;motivation-abstraction-level-up&#34;&gt;&lt;a href=&#34;#motivation-abstraction-level-up&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Motivation: Abstraction Level Up!
 &lt;/h2&gt;&lt;ol&gt;
 &lt;li&gt;
@@ -1317,10 +1317,10 @@ Church Encoding 让我困惑了很久，每次我听到一些视频 / 博客里�
         </item>
         <item>
         <title>Boolean from a Message Passing Perspective - SICP § 2.4.3 | Generics | Boundaries of Data and Functions</title>
-        <link>http://localhost:1313/p/boolean-from-a-message-passing-perspective-sicp-2.4.3-generics-boundaries-of-data-and-functions/</link>
+        <link>http://fyshxfish.github.io/p/boolean-from-a-message-passing-perspective-sicp-2.4.3-generics-boundaries-of-data-and-functions/</link>
         <pubDate>Sat, 07 Sep 2024 23:18:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/boolean-from-a-message-passing-perspective-sicp-2.4.3-generics-boundaries-of-data-and-functions/</guid>
+        <guid>http://fyshxfish.github.io/p/boolean-from-a-message-passing-perspective-sicp-2.4.3-generics-boundaries-of-data-and-functions/</guid>
         <description>&lt;h2 id=&#34;本文概述&#34;&gt;&lt;a href=&#34;#%e6%9c%ac%e6%96%87%e6%a6%82%e8%bf%b0&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;本文概述
 &lt;/h2&gt;&lt;p&gt;SICP § 2.4.3 中描述了以查表（ type × operation 二维表）为实现方式的泛型系统，具体函数被隐藏在泛型函数 + Selector 这样的抽象之下，那么如果将具体函数放在数据 + Selector 这样的抽象之下是什么样的呢，本文呈现了符合此抽象（SICP 中称为 Message Passing）的 Boolean.  接下来从 Message Passing，Haskell 中的 &lt;code&gt;$&lt;/code&gt; 和 Haskell 中的代数数据类型 三个角度聊聊数据与函数之间的关系.  Message Passing - 让数据自己携带函数；Haskell &lt;code&gt;$&lt;/code&gt;的应用 - 将数据变成某种函数；Haskell中的代数数据类型 - 使用函数构造数据.&lt;/p&gt;
 &lt;h2 id=&#34;泛型函数intelligent-operations&#34;&gt;&lt;a href=&#34;#%e6%b3%9b%e5%9e%8b%e5%87%bd%e6%95%b0intelligent-operations&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;泛型函数：Intelligent Operations
@@ -1455,10 +1455,10 @@ ghci&amp;gt; :t ($ x)
         </item>
         <item>
         <title>Huffman Tree Implementation in Haskell - SICP § 2.3.4 | Structuring and Destructuring of Composed Data</title>
-        <link>http://localhost:1313/p/huffman-tree-implementation-in-haskell-sicp-2.3.4-structuring-and-destructuring-of-composed-data/</link>
+        <link>http://fyshxfish.github.io/p/huffman-tree-implementation-in-haskell-sicp-2.3.4-structuring-and-destructuring-of-composed-data/</link>
         <pubDate>Mon, 02 Sep 2024 01:53:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/huffman-tree-implementation-in-haskell-sicp-2.3.4-structuring-and-destructuring-of-composed-data/</guid>
+        <guid>http://fyshxfish.github.io/p/huffman-tree-implementation-in-haskell-sicp-2.3.4-structuring-and-destructuring-of-composed-data/</guid>
         <description>&lt;p&gt;在看 SICP Section 2.3.4，对这节中 Huffman 树的实现中使用的组合 / 抽象有相当程度的参考.&lt;/p&gt;
 &lt;p&gt;其实我应该把代码放在某个仓库里，比如把一些数据结构的 Haskell 实现整合在一个仓库里，但是我还没有这么多可供整合的材料，所以以后再说吧.&lt;/p&gt;
 &lt;p&gt;代码链接：&lt;a class=&#34;link&#34; href=&#34;https://github.com/fyshxfish/sicp-playground/blob/main/sicp-note/ch2/ch2-3-huffman_tree.hs&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -1737,18 +1737,18 @@ Roughly speaking, Böhm’s theorem says that $M$ and $N$ can be distinguished, 
         </item>
         <item>
         <title>Archives</title>
-        <link>http://localhost:1313/archives/</link>
+        <link>http://fyshxfish.github.io/archives/</link>
         <pubDate>Sat, 31 Aug 2024 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/archives/</guid>
+        <guid>http://fyshxfish.github.io/archives/</guid>
         <description></description>
         </item>
         <item>
         <title>Nested Mapping Examples Implemented in Haskell - SICP § 2.2.3  | List Monad </title>
-        <link>http://localhost:1313/p/nested-mapping-examples-implemented-in-haskell-sicp-2.2.3-list-monad/</link>
+        <link>http://fyshxfish.github.io/p/nested-mapping-examples-implemented-in-haskell-sicp-2.2.3-list-monad/</link>
         <pubDate>Thu, 29 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/nested-mapping-examples-implemented-in-haskell-sicp-2.2.3-list-monad/</guid>
+        <guid>http://fyshxfish.github.io/p/nested-mapping-examples-implemented-in-haskell-sicp-2.2.3-list-monad/</guid>
         <description>&lt;h2 id=&#34;problem-description&#34;&gt;&lt;a href=&#34;#problem-description&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Problem Description
 &lt;/h2&gt;&lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Problem&lt;/strong&gt;: Given a positive integer $n$, find all ordered pairs of distinct positive integers $i$ and $j$, where $ 1 \leq i \leq j \leq n $, such that $ i + j $ is prime.&lt;/p&gt;&lt;/blockquote&gt;
@@ -1802,10 +1802,10 @@ Title of this section is *Nested Mappings*, which represented in code with neste
         </item>
         <item>
         <title>Semantics of `let` in Scheme(feat. Semantics of `if`)</title>
-        <link>http://localhost:1313/p/semantics-of-let-in-schemefeat.-semantics-of-if/</link>
+        <link>http://fyshxfish.github.io/p/semantics-of-let-in-schemefeat.-semantics-of-if/</link>
         <pubDate>Thu, 29 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/semantics-of-let-in-schemefeat.-semantics-of-if/</guid>
+        <guid>http://fyshxfish.github.io/p/semantics-of-let-in-schemefeat.-semantics-of-if/</guid>
         <description>&lt;hr&gt;
 &lt;h2 id=&#34;let-的语义&#34;&gt;&lt;a href=&#34;#let-%e7%9a%84%e8%af%ad%e4%b9%89&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;&lt;code&gt;let&lt;/code&gt; 的语义
 &lt;/h2&gt;&lt;p&gt;&lt;mark&gt;结论&lt;/mark&gt;: &lt;code&gt;let&lt;/code&gt; scope 会立即求值 (包括绑定和绑定之后的表达式, 也就是 &lt;code&gt;let&lt;/code&gt; 之外的一层括号所包裹的范围), 即使你把 &lt;code&gt;let&lt;/code&gt; 嵌套在内层函数里而且这个函数还完全没有被调用.&lt;/p&gt;
@@ -1900,10 +1900,10 @@ Title of this section is *Nested Mappings*, which represented in code with neste
         </item>
         <item>
         <title>My VSCode Configuration</title>
-        <link>http://localhost:1313/p/my-vscode-configuration/</link>
+        <link>http://fyshxfish.github.io/p/my-vscode-configuration/</link>
         <pubDate>Mon, 26 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/my-vscode-configuration/</guid>
+        <guid>http://fyshxfish.github.io/p/my-vscode-configuration/</guid>
         <description>&lt;p&gt;包含对于 VSCode 作为文本编辑器的配置，不包含对语言环境的配置.&lt;/p&gt;
 &lt;!-- 不严肃的随手记录，希望我能记得持续更新，因为我经常把一些记录扔在零零散散的位置，然后忘记这个记录的存在。 --&gt;
 &lt;h2 id=&#34;about-command-palette--ctrl--shift--p&#34;&gt;&lt;a href=&#34;#about-command-palette--ctrl--shift--p&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;About: Command Palette &amp;amp; Ctrl + Shift + P
@@ -2028,10 +2028,10 @@ Title of this section is *Nested Mappings*, which represented in code with neste
         </item>
         <item>
         <title>MIT-Scheme Configuration and Basic Usage</title>
-        <link>http://localhost:1313/p/mit-scheme-configuration-and-basic-usage/</link>
+        <link>http://fyshxfish.github.io/p/mit-scheme-configuration-and-basic-usage/</link>
         <pubDate>Sat, 24 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/mit-scheme-configuration-and-basic-usage/</guid>
+        <guid>http://fyshxfish.github.io/p/mit-scheme-configuration-and-basic-usage/</guid>
         <description>&lt;blockquote&gt;
 &lt;p&gt;Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away.
 &lt;br&gt;&amp;ndash; Antoine de Saint-Exupéry&lt;/p&gt;&lt;/blockquote&gt;
@@ -2129,10 +2129,10 @@ Title of this section is *Nested Mappings*, which represented in code with neste
         </item>
         <item>
         <title>Fix Haskell Development Environment (VSCode &#43; GHCup &#43; HLS)</title>
-        <link>http://localhost:1313/p/fix-haskell-development-environment-vscode--ghcup--hls/</link>
+        <link>http://fyshxfish.github.io/p/fix-haskell-development-environment-vscode--ghcup--hls/</link>
         <pubDate>Fri, 16 Aug 2024 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/p/fix-haskell-development-environment-vscode--ghcup--hls/</guid>
+        <guid>http://fyshxfish.github.io/p/fix-haskell-development-environment-vscode--ghcup--hls/</guid>
         <description>&lt;!-- *不知不觉我已经在MacOS, Windows, Linux三种平台上配置过Haskell环境了，我觉得我已经是环境配置大师了，POWER!* --&gt;
 &lt;!-- # Mac上重新配置Haskell开发环境记录 --&gt;
 &lt;h2 id=&#34;ghcup-修复&#34;&gt;&lt;a href=&#34;#ghcup-%e4%bf%ae%e5%a4%8d&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;ghcup 修复
@@ -2174,10 +2174,10 @@ Title of this section is *Nested Mappings*, which represented in code with neste
         </item>
         <item>
         <title>Explore Rust (Basic)</title>
-        <link>http://localhost:1313/p/explore-rust-basic/</link>
+        <link>http://fyshxfish.github.io/p/explore-rust-basic/</link>
         <pubDate>Mon, 05 Aug 2024 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/p/explore-rust-basic/</guid>
+        <guid>http://fyshxfish.github.io/p/explore-rust-basic/</guid>
         <description>&lt;p&gt; &lt;/p&gt;
 &lt;h2 id=&#34;如何调试一个rust程序&#34;&gt;&lt;a href=&#34;#%e5%a6%82%e4%bd%95%e8%b0%83%e8%af%95%e4%b8%80%e4%b8%aarust%e7%a8%8b%e5%ba%8f&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;如何调试一个rust程序？
 &lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ gdb excutable
@@ -2339,19 +2339,19 @@ Title of this section is *Nested Mappings*, which represented in code with neste
         </item>
         <item>
         <title>Links</title>
-        <link>http://localhost:1313/links/</link>
+        <link>http://fyshxfish.github.io/links/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/links/</guid>
+        <guid>http://fyshxfish.github.io/links/</guid>
         <description>&lt;p&gt;✨ &lt;strong&gt;Friends Here&lt;/strong&gt; ✨&lt;/p&gt;
 </description>
         </item>
         <item>
         <title>Search</title>
-        <link>http://localhost:1313/search/</link>
+        <link>http://fyshxfish.github.io/search/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/search/</guid>
+        <guid>http://fyshxfish.github.io/search/</guid>
         <description></description>
         </item>
         

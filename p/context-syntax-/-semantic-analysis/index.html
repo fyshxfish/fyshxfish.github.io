@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="✨ Friends Here ✨\n">
-<title>Links</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" 引言 标题的这个问题，其实是一个不太正确的问题，因为对于语言而言，设计先于实现——先设计语言的语法和语义，然后写编译器去检查一个程序语法是否正确，然后根据设定好的语义将它转写成目标机器代码。从“上下文”这个视角去思考，常见情况下，语法是上下文无关的，而语义正是用来处理上下文相关的问题的，x = 1; print(x); 和 x = 2; print(x);，同样是 print(x)，它的上文是不一样的，所以它导致的结果也不一样.\n">
+<title>Context &amp; Syntax / Semantic Analysis</title>
 
-<link rel='canonical' href='http://fyshxfish.github.io/links/'>
+<link rel='canonical' href='http://fyshxfish.github.io/p/context-syntax-/-semantic-analysis/'>
 
-<link rel="stylesheet" href="/scss/style.min.ba5cc34af4430963fcfe2f9afd2fb80f7251aa5d621efcdd72c32002a6e56cae.css"><meta property='og:title' content="Links">
-<meta property='og:description' content="✨ Friends Here ✨\n">
-<meta property='og:url' content='http://fyshxfish.github.io/links/'>
+<link rel="stylesheet" href="/scss/style.min.ba5cc34af4430963fcfe2f9afd2fb80f7251aa5d621efcdd72c32002a6e56cae.css"><meta property='og:title' content="Context & Syntax / Semantic Analysis">
+<meta property='og:description' content=" 引言 标题的这个问题，其实是一个不太正确的问题，因为对于语言而言，设计先于实现——先设计语言的语法和语义，然后写编译器去检查一个程序语法是否正确，然后根据设定好的语义将它转写成目标机器代码。从“上下文”这个视角去思考，常见情况下，语法是上下文无关的，而语义正是用来处理上下文相关的问题的，x = 1; print(x); 和 x = 2; print(x);，同样是 print(x)，它的上文是不一样的，所以它导致的结果也不一样.\n">
+<meta property='og:url' content='http://fyshxfish.github.io/p/context-syntax-/-semantic-analysis/'>
 <meta property='og:site_name' content='fyshXplore'>
-<meta property='og:type' content='article'><meta property='article:section' content='Page' />
-<meta name="twitter:title" content="Links">
-<meta name="twitter:description" content="✨ Friends Here ✨\n"><style>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='' /><meta property='article:published_time' content='2025-02-17T16:32:00&#43;08:00'/><meta property='article:modified_time' content='2025-02-17T16:32:00&#43;08:00'/>
+<meta name="twitter:title" content="Context & Syntax / Semantic Analysis">
+<meta name="twitter:description" content=" 引言 标题的这个问题，其实是一个不太正确的问题，因为对于语言而言，设计先于实现——先设计语言的语法和语义，然后写编译器去检查一个程序语法是否正确，然后根据设定好的语义将它转写成目标机器代码。从“上下文”这个视角去思考，常见情况下，语法是上下文无关的，而语义正是用来处理上下文相关的问题的，x = 1; print(x); 和 x = 2; print(x);，同样是 print(x)，它的上文是不一样的，所以它导致的结果也不一样.\n"><style>
   :root {
      
     --zh-font-family: "Noto Serif SC";
@@ -197,7 +197,7 @@
         </li>
         
         
-        <li  class='current' >
+        <li >
             <a href='/links/' >
                 
                 
@@ -247,7 +247,40 @@
     </ol>
 </aside>
 
-    
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">&thinsp;Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#引言">引言</a></li>
+    <li><a href="#举例-1">举例 1</a></li>
+    <li><a href="#举例2---polyglot">举例2 - polyglot</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
 
             <main class="main full-width">
     <article class="main-article">
@@ -255,10 +288,18 @@
 
     <div class="article-details">
     
+    <header class="article-category">
+        
+            <a href="/categories/xplore/" style="background-color: #92af88; color: #fff;">
+                Xplore
+            </a>
+        
+    </header>
+    
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/links/">Links</a>
+            <a href="/p/context-syntax-/-semantic-analysis/">Context &amp; Syntax / Semantic Analysis</a>
         </h2>
     
         
@@ -269,6 +310,19 @@
     
     
     <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Feb 17, 2025</time>
+            </div>
         
 
         
@@ -282,7 +336,7 @@
 
 
                 <time class="article-time--reading">
-                    1 minute read
+                    2 minute read
                 </time>
             </div>
         
@@ -304,7 +358,7 @@
 
             <div>
                 
-                    <a href="http://fyshxfish.github.io/zh/links/" class="link">中文</a>
+                    <a href="http://fyshxfish.github.io/zh/p/%E6%9D%82%E8%B0%88%E5%90%91%E4%B8%BA%E4%BB%80%E4%B9%88%E7%BC%96%E8%AF%91%E9%9C%80%E8%A6%81%E5%81%9A%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90-/-%E4%B8%8A%E4%B8%8B%E6%96%87context%E4%B8%8E%E8%AF%AD%E6%B3%95%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90/" class="link">中文</a>
                 
             </div>
         </footer>
@@ -316,13 +370,52 @@
     <section class="article-content">
     
     
-    <p>✨ <strong>Friends Here</strong> ✨</p>
+    <!-- 最近在看一点编译原理的材料， -->
+<h2 id="引言"><a href="#%e5%bc%95%e8%a8%80" class="header-anchor"></a>引言
+</h2><p>标题的这个问题，其实是一个不太正确的问题，因为对于语言而言，设计先于实现——先设计语言的语法和语义，然后写编译器去检查一个程序语法是否正确，然后根据设定好的语义将它转写成目标机器代码。从“上下文”这个视角去思考，常见情况下，语法是<strong>上下文无关</strong>的，而语义正是用来处理<strong>上下文相关</strong>的问题的，<code>x = 1; print(x);</code> 和 <code>x = 2; print(x);</code>，同样是 <code>print(x)</code>，它的上文是不一样的，所以它导致的结果也不一样.</p>
+<h2 id="举例-1"><a href="#%e4%b8%be%e4%be%8b-1" class="header-anchor"></a>举例 1
+</h2><p>比如：</p>
+<pre tabindex="0"><code>foo = 3
+foo = 4
+</code></pre><p>假设对这个程序只做语法分析，那么它符合 Python 语法，也符合 Haskell 语法，但是对它做语义分析，作为一个 Python 程序，它的意思是，“先将 <code>3</code> 赋值给 <code>foo</code>，然后将 <code>4</code> 赋值给 <code>foo</code>”；作为一个 Haskell 程序，它不是一个合格的 Haskell 程序，因为 Haskell 语义不允许做重复的绑定，所以核心原因是，Python 的 <code>=</code> 的语义是赋值（assign），内存覆写，Haskell 的 <code>=</code> 的语义是绑定（name binding），为了保证无副作用、执行顺序无关等特性，只允许单次绑定.</p>
+<h2 id="举例2---polyglot"><a href="#%e4%b8%be%e4%be%8b2---polyglot" class="header-anchor"></a>举例2 - polyglot
+</h2><p>下面这个程序改写自 <a class="link" href="https://en.wikipedia.org/wiki/Polyglot_%28computing%29#C,_PHP,_and_Bash"  target="_blank" rel="noopener"
+    >polyglot(computing) wikipedia</a></p>
+<pre tabindex="0"><code>#define a /*
+echo -e &#34;\033[34mHello, World! from echo\033[0m&#34;;// &amp;&gt; /dev/null;
+x=5; 
+if (($x))
+// 2&gt; /dev/null; then
+return 0;
+// 2&gt; /dev/null; fi
+#define e ?&gt;
+#define b */
+#include &lt;stdio.h&gt;
+#define main() int main(void)
+#define printf printf(
+#define true )
+#define function
+function main()
+{
+    printf &#34;\033[31mHello, World! from main\033[0m\n&#34;true/* 2&gt; /dev/null | grep -v true*/;
+    return 0;
+}
+#define c /*
+main
+#*/
+</code></pre><p>它既符合 C 语法，又符合 Bash 语法，然而编译/解释执行它得到的结果不同，因为两个程序的语义不同（当然 C 和 Bash 的语法也是不一样的，polyglot 编写的核心就是利用各语言之间的注释/宏/&hellip;使用的<strong>符号</strong>不同，符号（广义）的使用和布局正是语法侧关心的事情）：</p>
+<img src="poly.png" alt="poly" style="zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);" />
+<!-- <span style="font-size: smaller;">你可能注意到了这里的一行 `file` 命令，它通过关键字判断出这是一个 C 源文件，所以 `file` 也不一定完全正确，</span> -->
 
 </section>
 
 
     <footer class="article-footer">
     
+    <section class="article-tags">
+        
+    </section>
+
 
     
     <section class="article-copyright">
@@ -367,37 +460,34 @@
 </article>
 
     
-        <div class="article-list--compact links">
-    
-        <article>
-            <a href="https://melodictechno.github.io" target="_blank" rel="noopener">
-                <div class="article-details">
-                    <h2 class="article-title">MelodicTechno&#39;s Blog</h2>
-                    <footer class="article-time">
-                        
-                            🎵🚣🖥️
-                        
-                    </footer>
-                </div>
-        
-                
-                    
-                    
-                        
-                    
-                    <div class="article-image">
-                        <img src="/links/MelodicTechno.png" loading="lazy">
-                    </div>
-                
-            </a>
-        </article>
-    
-</div>
-    
 
     
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/slides-but-in-terminal/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Slides, But in Terminal</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
 
      
+    
+        
     
 
     <footer class="site-footer">
