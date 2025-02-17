@@ -2,40 +2,40 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Categories on fyshXplore</title>
-        <link>http://fyshxfish.github.io/zh/categories/</link>
+        <link>http://localhost:1313/zh/categories/</link>
         <description>Recent content in Categories on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh</language>
-        <lastBuildDate>Fri, 07 Feb 2025 22:52:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/zh/categories/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Fri, 07 Feb 2025 22:52:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/zh/categories/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Xplore</title>
-        <link>http://fyshxfish.github.io/zh/categories/xplore/</link>
+        <link>http://localhost:1313/zh/categories/xplore/</link>
         <pubDate>Fri, 07 Feb 2025 22:52:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/zh/categories/xplore/</guid>
+        <guid>http://localhost:1313/zh/categories/xplore/</guid>
         <description></description>
         </item>
         <item>
         <title>FP</title>
-        <link>http://fyshxfish.github.io/zh/categories/fp/</link>
+        <link>http://localhost:1313/zh/categories/fp/</link>
         <pubDate>Sun, 02 Feb 2025 21:29:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/zh/categories/fp/</guid>
+        <guid>http://localhost:1313/zh/categories/fp/</guid>
         <description></description>
         </item>
         <item>
         <title>PL</title>
-        <link>http://fyshxfish.github.io/zh/categories/pl/</link>
+        <link>http://localhost:1313/zh/categories/pl/</link>
         <pubDate>Tue, 10 Sep 2024 14:10:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/zh/categories/pl/</guid>
+        <guid>http://localhost:1313/zh/categories/pl/</guid>
         <description></description>
         </item>
         <item>
         <title>Enviroment Setup</title>
-        <link>http://fyshxfish.github.io/zh/categories/enviroment_setup/</link>
+        <link>http://localhost:1313/zh/categories/enviroment_setup/</link>
         <pubDate>Mon, 26 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/zh/categories/enviroment_setup/</guid>
+        <guid>http://localhost:1313/zh/categories/enviroment_setup/</guid>
         <description></description>
         </item>
         

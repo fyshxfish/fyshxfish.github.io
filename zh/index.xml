@@ -2,158 +2,70 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>fyshXplore</title>
-        <link>http://fyshxfish.github.io/zh/</link>
+        <link>http://localhost:1313/zh/</link>
         <description>Recent content on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh</language>
-        <lastBuildDate>Fri, 07 Feb 2025 22:52:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/zh/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Slides, But in Terminal</title>
-        <link>http://fyshxfish.github.io/zh/p/slides-but-in-terminal/</link>
-        <pubDate>Fri, 07 Feb 2025 22:52:00 +0800</pubDate>
+        <lastBuildDate>Mon, 17 Feb 2025 16:32:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/zh/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>杂谈向：为什么编译需要做语义分析 / 上下文（Context）与语法语义分析</title>
+        <link>http://localhost:1313/zh/p/%E6%9D%82%E8%B0%88%E5%90%91%E4%B8%BA%E4%BB%80%E4%B9%88%E7%BC%96%E8%AF%91%E9%9C%80%E8%A6%81%E5%81%9A%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90-/-%E4%B8%8A%E4%B8%8B%E6%96%87context%E4%B8%8E%E8%AF%AD%E6%B3%95%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90/</link>
+        <pubDate>Mon, 17 Feb 2025 16:32:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/zh/p/slides-but-in-terminal/</guid>
-        <description>&lt;h2 id=&#34;前言&#34;&gt;&lt;a href=&#34;#%e5%89%8d%e8%a8%80&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;前言
-&lt;/h2&gt;&lt;p&gt;灵感来自蒋炎岩老师的一次讲座：&lt;a class=&#34;link&#34; href=&#34;https://www.bilibili.com/video/BV1MV411F738/?share_source=copy_web&amp;amp;vd_source=09e32470959b198a596693ee5235cca9&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;[算法竞赛入门] 为什么要逼大家用 NOILinux？&lt;/a&gt;，有参考，但不完全一样.&lt;/p&gt;
-&lt;p&gt;掌握此技能，你将可以——在某种程度上达成“在终端展示幻灯片”的效果，实用性一般，但是可以玩一玩 &lt;code&gt;·^v^·&lt;/code&gt;&lt;/p&gt;
-&lt;h2 id=&#34;效果展示&#34;&gt;&lt;a href=&#34;#%e6%95%88%e6%9e%9c%e5%b1%95%e7%a4%ba&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;效果展示
-&lt;/h2&gt;&lt;img src=&#34;1.png&#34; alt=&#34;1&#34; style=&#34;zoom:80%;&#34; /&gt;
-&lt;img src=&#34;2.png&#34; alt=&#34;2&#34; style=&#34;zoom:80%;&#34; /&gt;
-&lt;img src=&#34;3.png&#34; alt=&#34;3&#34; style=&#34;zoom:80%;&#34; /&gt;
-&lt;img src=&#34;4.png&#34; alt=&#34;4&#34; style=&#34;zoom:80%;&#34; /&gt;
-&lt;img src=&#34;5.png&#34; alt=&#34;5&#34; style=&#34;zoom:80%;&#34; /&gt;
-&lt;img src=&#34;6.png&#34; alt=&#34;6&#34; style=&#34;zoom:80%;&#34; /&gt;
-&lt;img src=&#34;7.png&#34; alt=&#34;7&#34; style=&#34;zoom:80%;&#34; /&gt;
-&lt;h2 id=&#34;具体实现&#34;&gt;&lt;a href=&#34;#%e5%85%b7%e4%bd%93%e5%ae%9e%e7%8e%b0&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;具体实现
-&lt;/h2&gt;&lt;h3 id=&#34;整体框架&#34;&gt;&lt;a href=&#34;#%e6%95%b4%e4%bd%93%e6%a1%86%e6%9e%b6&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;整体框架
-&lt;/h3&gt;&lt;h4 id=&#34;目录&#34;&gt;&lt;a href=&#34;#%e7%9b%ae%e5%bd%95&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;目录
-&lt;/h4&gt;&lt;img src=&#34;dir1.png&#34; alt=&#34;directory&#34; style=&#34;zoom:80%;&#34; /&gt;
-&lt;p&gt;.sh 为展示一张幻灯片的 bash 脚本，.md 为需要渲染的 Markdown，.png 为待展示的图片.&lt;/p&gt;
-&lt;h4 id=&#34;启动器&#34;&gt;&lt;a href=&#34;#%e5%90%af%e5%8a%a8%e5%99%a8&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;启动器
-&lt;/h4&gt;&lt;p&gt;首先打印封面（本质上是在终端输出一页渲染过的文本），然后通过 &lt;code&gt;read&lt;/code&gt; 读入文本，控制幻灯片的行为，如换页、图片展示、退出等.&lt;/p&gt;
-&lt;p&gt;0_flow.sh：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;#!/bin/bash
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;bash ./1_banner.sh         &lt;span style=&#34;color:#57606a&#34;&gt;## 打印封面&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#953800&#34;&gt;pc&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;1	&lt;span style=&#34;color:#57606a&#34;&gt;# 页码&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;while&lt;/span&gt; &lt;span style=&#34;color:#6639ba&#34;&gt;true&lt;/span&gt; 
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;do&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#6639ba&#34;&gt;read&lt;/span&gt; -p &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;:&amp;#34;&lt;/span&gt; choice     &lt;span style=&#34;color:#57606a&#34;&gt;## 读取文本，控制翻页、图片展示、退出等&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;[&lt;/span&gt; &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;$choice&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;p&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;then&lt;/span&gt;           &lt;span style=&#34;color:#57606a&#34;&gt;# 翻到前一页&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#0550ae&#34;&gt;((&lt;/span&gt;pc--&lt;span style=&#34;color:#0550ae&#34;&gt;))&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        bash ./&lt;span style=&#34;color:#0a3069&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;pc&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;}&lt;/span&gt;*
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;elif&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;[&lt;/span&gt; &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;$choice&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;g&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;then&lt;/span&gt;         &lt;span style=&#34;color:#57606a&#34;&gt;# 展示一张图片&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        xdg-open ./load_init.png
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;elif&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;[[&lt;/span&gt; &lt;span style=&#34;color:#953800&#34;&gt;$choice&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;~ ^&lt;span style=&#34;color:#0550ae&#34;&gt;[&lt;/span&gt;1-7&lt;span style=&#34;color:#0550ae&#34;&gt;]&lt;/span&gt;$ &lt;span style=&#34;color:#0550ae&#34;&gt;]]&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;then&lt;/span&gt;     &lt;span style=&#34;color:#57606a&#34;&gt;# 跳转到指定页码&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#953800&#34;&gt;pc&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;$choice&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        bash ./&lt;span style=&#34;color:#0a3069&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;pc&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;}&lt;/span&gt;*
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;elif&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;[&lt;/span&gt; &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;$choice&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;E&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;then&lt;/span&gt;         &lt;span style=&#34;color:#57606a&#34;&gt;# 退出幻灯片&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#6639ba&#34;&gt;break&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;else&lt;/span&gt;                                    &lt;span style=&#34;color:#57606a&#34;&gt;# 缺省：翻到下一页&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#0550ae&#34;&gt;((&lt;/span&gt;pc++&lt;span style=&#34;color:#0550ae&#34;&gt;))&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        bash ./&lt;span style=&#34;color:#0a3069&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;pc&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;}&lt;/span&gt;*
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;fi&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;done&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;单页展示&#34;&gt;&lt;a href=&#34;#%e5%8d%95%e9%a1%b5%e5%b1%95%e7%a4%ba&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;单页展示
-&lt;/h3&gt;&lt;p&gt;单页展示，说到底，就是展示出一页的文本，基本步骤如下：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;通过 &lt;code&gt;clear&lt;/code&gt; 清空上一页的内容；&lt;/li&gt;
-&lt;li&gt;计算渲染后的文本的总行数；&lt;/li&gt;
-&lt;li&gt;为了将内容居于竖直方向的中心，计算上下的空行 padding 数量；&lt;/li&gt;
-&lt;li&gt;先打印上部的 padding，再渲染并打印内容文本，最后打印下部的 padding.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;比如：（2_question.sh）&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;clear
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#953800&#34;&gt;length&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;`&lt;/span&gt;python3 renderer.py question.md &lt;span style=&#34;color:#1f2328&#34;&gt;|&lt;/span&gt; wc -l&lt;span style=&#34;color:#0a3069&#34;&gt;`&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#953800&#34;&gt;total&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;`&lt;/span&gt;tput lines&lt;span style=&#34;color:#0a3069&#34;&gt;`&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#953800&#34;&gt;sus&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;$((&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;$total&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;$length&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;)/&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;))&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;((&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;i&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;1&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt; i&amp;lt;&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;$sus&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt; i++&lt;span style=&#34;color:#0550ae&#34;&gt;))&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;do&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#6639ba&#34;&gt;echo&lt;/span&gt; 
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;done&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;python3 renderer.py question.md
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;((&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;i&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;1&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt; i&amp;lt;&lt;span style=&#34;color:#953800&#34;&gt;$sus&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt; i++&lt;span style=&#34;color:#0550ae&#34;&gt;))&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;do&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#6639ba&#34;&gt;echo&lt;/span&gt; 
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;done&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;图片展示与外部程序调用&#34;&gt;&lt;a href=&#34;#%e5%9b%be%e7%89%87%e5%b1%95%e7%a4%ba%e4%b8%8e%e5%a4%96%e9%83%a8%e7%a8%8b%e5%ba%8f%e8%b0%83%e7%94%a8&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;图片展示与外部程序调用
-&lt;/h3&gt;&lt;img src=&#34;show_pic.png&#34; alt=&#34;show picture&#34; style=&#34;zoom:80%;&#34; /&gt;
-&lt;p&gt;通过 &lt;code&gt;read&lt;/code&gt; 接收输入，当输入为指定字符时，通过 &lt;code&gt;xdg-open&lt;/code&gt; 打开特定图片，展示完毕后通过 ESC 键关闭即可.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;read&lt;/span&gt; -p &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;:&amp;#34;&lt;/span&gt; choice     
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;[&lt;/span&gt; &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;$choice&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;g&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;then&lt;/span&gt;         
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    xdg-open ./picture.png
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;fi&lt;/span&gt; 
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;类似地，将 &lt;code&gt;xdg-open ...&lt;/code&gt; 改成其他命令，可以播放音视频，执行各种程序.&lt;/p&gt;
-&lt;h3 id=&#34;文本渲染&#34;&gt;&lt;a href=&#34;#%e6%96%87%e6%9c%ac%e6%b8%b2%e6%9f%93&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;文本渲染
-&lt;/h3&gt;&lt;h4 id=&#34;适用于封面页的-ascii-art&#34;&gt;&lt;a href=&#34;#%e9%80%82%e7%94%a8%e4%ba%8e%e5%b0%81%e9%9d%a2%e9%a1%b5%e7%9a%84-ascii-art&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;适用于封面页的 ASCII Art
-&lt;/h4&gt;&lt;p&gt;使用 &lt;code&gt;figlet&lt;/code&gt; 展现主题词，并使用 &lt;code&gt;lolcat&lt;/code&gt; 改色. 除了 &lt;code&gt;figlet&lt;/code&gt; 下载时自带的字体样式之外，还可以在&lt;a class=&#34;link&#34; href=&#34;https://github.com/xero/figlet-fonts&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;Github 上的 figlet-fonts 项目&lt;/a&gt;找到并下载更多的字体样式. 上面的展示的&amp;quot;Boot&amp;quot;对应的命令是 &lt;code&gt;figlet &amp;quot; Boot&amp;quot; -f roman | lolcat -S 30&lt;/code&gt;. （另外可选的同类命令行工具为 &lt;code&gt;toilet&lt;/code&gt;）&lt;/p&gt;
-&lt;img src=&#34;boot.png&#34; alt=&#34;boot&#34; style=&#34;zoom:80%;&#34; /&gt;
-&lt;h4 id=&#34;esc-转义&#34;&gt;&lt;a href=&#34;#esc-%e8%bd%ac%e4%b9%89&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;ESC 转义
-&lt;/h4&gt;&lt;p&gt;&lt;code&gt;printf&lt;/code&gt; 命令，通过 &lt;code&gt;\033&lt;/code&gt; 转义可以在终端输出更花哨的文字，可以做简单的效果，如彩色、加粗、斜体等，可以多个效果叠加使用，如下图中最后一行对应的命令是&lt;code&gt;printf &amp;quot;\033[2;34;01;21;09myour text\033[0m\n&amp;quot;&lt;/code&gt;.（此条同样适用于其他编程语言的输出，033 是 ESC 的八进制 ASCII 编码. 呈现的具体颜色和终端的配色方案有关.）&lt;/p&gt;
-&lt;img src=&#34;escape1.png&#34; alt=&#34;escape&#34; style=&#34;zoom:80%;&#34; /&gt;
-&lt;h4 id=&#34;markdown-渲染&#34;&gt;&lt;a href=&#34;#markdown-%e6%b8%b2%e6%9f%93&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Markdown 渲染
-&lt;/h4&gt;&lt;ul&gt;
-&lt;li&gt;glow: &lt;code&gt;glow&lt;/code&gt; 是命令行工具，用法为 &lt;code&gt;glow foo.md&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;rich: rich 是一个可以用来渲染 Markdown 的 python 库.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;其他有趣的命令行工具&#34;&gt;&lt;a href=&#34;#%e5%85%b6%e4%bb%96%e6%9c%89%e8%b6%a3%e7%9a%84%e5%91%bd%e4%bb%a4%e8%a1%8c%e5%b7%a5%e5%85%b7&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;其他有趣的命令行工具
-&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;asciiquarium&lt;/p&gt;
-&lt;p&gt;ASCII Art 水族馆，非常漂亮，我的头像的 ASCII 鱼就是从这里挖来的，在下图的从左往右数第三个海草上方：&lt;/p&gt;
-  &lt;img src=&#34;ascii.png&#34; alt=&#34;asciiquarium&#34; style=&#34;zoom:80%;box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;oneko&lt;/p&gt;
-&lt;p&gt;呼出一只小猫，非常可爱：&lt;/p&gt;
-  &lt;img src=&#34;oneko.png&#34; alt=&#34;oneko&#34; style=&#34;display: block; margin: auto; zoom:60%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;cowsay&lt;/p&gt;
-  &lt;img src=&#34;cowsay1.png&#34; alt=&#34;cowsay&#34; style=&#34;zoom:80%;box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;dialog&lt;/p&gt;
-  &lt;img src=&#34;dialog1.png&#34; alt=&#34;dialog&#34; style=&#34;zoom:80%;box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
-&lt;p&gt;可交互的 TUI 对话框，这个用来做单页的幻灯片呈现也是非常合适的，比如：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;#!/bin/bash
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;choice&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;$(&lt;/span&gt;dialog --clear --title &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;Menu&amp;#34;&lt;/span&gt; --menu &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;Make Your Choice&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;10&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;40&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;3&lt;/span&gt; &lt;span style=&#34;color:#0a3069&#34;&gt;\
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&lt;/span&gt;         &lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;Show Greeting&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;Enter Something&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;3&lt;/span&gt; &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;Show Figure&amp;#34;&lt;/span&gt;  2&amp;gt;&lt;span style=&#34;color:#1f2328&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt; &amp;gt;/dev/tty&lt;span style=&#34;color:#cf222e&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color:#953800&#34;&gt;$choice&lt;/span&gt; in
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    3&lt;span style=&#34;color:#0550ae&#34;&gt;)&lt;/span&gt; 
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        xdg-open ./figure_1.png
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#1f2328&#34;&gt;;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#57606a&#34;&gt;# SNIP # &lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;esac&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;/ul&gt;
+        <guid>http://localhost:1313/zh/p/%E6%9D%82%E8%B0%88%E5%90%91%E4%B8%BA%E4%BB%80%E4%B9%88%E7%BC%96%E8%AF%91%E9%9C%80%E8%A6%81%E5%81%9A%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90-/-%E4%B8%8A%E4%B8%8B%E6%96%87context%E4%B8%8E%E8%AF%AD%E6%B3%95%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90/</guid>
+        <description>&lt;!-- 最近在看一点编译原理的材料， --&gt;
+&lt;h2 id=&#34;引言&#34;&gt;&lt;a href=&#34;#%e5%bc%95%e8%a8%80&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;引言
+&lt;/h2&gt;&lt;p&gt;标题的这个问题，其实是一个不太正确的问题，因为对于语言而言，设计先于实现——先设计语言的语法和语义，然后写编译器去检查一个程序语法是否正确，然后根据设定好的语义将它转写成目标机器代码。从“上下文”这个视角去思考，常见情况下，语法是&lt;strong&gt;上下文无关&lt;/strong&gt;的，而语义正是用来处理&lt;strong&gt;上下文相关&lt;/strong&gt;的问题的，&lt;code&gt;x = 1; print(x);&lt;/code&gt; 和 &lt;code&gt;x = 2; print(x);&lt;/code&gt;，同样是 &lt;code&gt;print(x)&lt;/code&gt;，它的上文是不一样的，所以它导致的结果也不一样.&lt;/p&gt;
+&lt;h2 id=&#34;举例-1&#34;&gt;&lt;a href=&#34;#%e4%b8%be%e4%be%8b-1&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;举例 1
+&lt;/h2&gt;&lt;p&gt;比如：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;foo = 3
+foo = 4
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;假设对这个程序只做语法分析，那么它符合 Python 语法，也符合 Haskell 语法，但是对它做语义分析，作为一个 Python 程序，它的意思是，“先将 &lt;code&gt;3&lt;/code&gt; 赋值给 &lt;code&gt;foo&lt;/code&gt;，然后将 &lt;code&gt;4&lt;/code&gt; 赋值给 &lt;code&gt;foo&lt;/code&gt;”；作为一个 Haskell 程序，它不是一个合格的 Haskell 程序，因为 Haskell 语义不允许做重复的绑定，所以核心原因是，Python 的 &lt;code&gt;=&lt;/code&gt; 的语义是赋值（assign），内存覆写，Haskell 的 &lt;code&gt;=&lt;/code&gt; 的语义是绑定（name binding），为了保证无副作用、执行顺序无关等特性，只允许单次绑定.&lt;/p&gt;
+&lt;h2 id=&#34;举例2---polyglot&#34;&gt;&lt;a href=&#34;#%e4%b8%be%e4%be%8b2---polyglot&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;举例2 - polyglot
+&lt;/h2&gt;&lt;p&gt;下面这个程序改写自 &lt;a class=&#34;link&#34; href=&#34;https://en.wikipedia.org/wiki/Polyglot_%28computing%29#C,_PHP,_and_Bash&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;polyglot(computing) wikipedia&lt;/a&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;#define a /*
+echo -e &amp;#34;\033[34mHello, World! from echo\033[0m&amp;#34;;// &amp;amp;&amp;gt; /dev/null;
+x=5; 
+if (($x))
+// 2&amp;gt; /dev/null; then
+return 0;
+// 2&amp;gt; /dev/null; fi
+#define e ?&amp;gt;
+#define b */
+#include &amp;lt;stdio.h&amp;gt;
+#define main() int main(void)
+#define printf printf(
+#define true )
+#define function
+function main()
+{
+    printf &amp;#34;\033[31mHello, World! from main\033[0m\n&amp;#34;true/* 2&amp;gt; /dev/null | grep -v true*/;
+    return 0;
+}
+#define c /*
+main
+#*/
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;它既符合 C 语法，又符合 Bash 语法，然而编译/解释执行它得到的结果不同，因为两个程序的语义不同（当然 C 和 Bash 的语法也是不一样的，polyglot 编写的核心就是利用各语言之间的注释/宏/&amp;hellip;使用的&lt;strong&gt;符号&lt;/strong&gt;不同，符号（广义）的使用和布局正是语法侧关心的事情）：&lt;/p&gt;
+&lt;img src=&#34;poly.png&#34; alt=&#34;poly&#34; style=&#34;zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
+&lt;!-- &lt;span style=&#34;font-size: smaller;&#34;&gt;你可能注意到了这里的一行 `file` 命令，它通过关键字判断出这是一个 C 源文件，所以 `file` 也不一定完全正确，&lt;/span&gt; --&gt;
 </description>
         </item>
         <item>
         <title>About</title>
-        <link>http://fyshxfish.github.io/zh/about/</link>
+        <link>http://localhost:1313/zh/about/</link>
         <pubDate>Thu, 06 Feb 2025 00:00:00 +0000</pubDate>
         
-        <guid>http://fyshxfish.github.io/zh/about/</guid>
+        <guid>http://localhost:1313/zh/about/</guid>
         <description>&lt;p&gt;No Tag Attached.&lt;/p&gt;
 </description>
         </item>
         <item>
-        <title>functional on Steam / λ 习题集 - Solutions</title>
-        <link>http://fyshxfish.github.io/zh/p/functional-on-steam-/-%CE%BB-%E4%B9%A0%E9%A2%98%E9%9B%86-solutions/</link>
+        <title>基础的 Lambda 演算编程</title>
+        <link>http://localhost:1313/zh/p/%E5%9F%BA%E7%A1%80%E7%9A%84-lambda-%E6%BC%94%E7%AE%97%E7%BC%96%E7%A8%8B/</link>
         <pubDate>Sun, 02 Feb 2025 21:29:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/zh/p/functional-on-steam-/-%CE%BB-%E4%B9%A0%E9%A2%98%E9%9B%86-solutions/</guid>
-        <description>&lt;p&gt;functional，发售于 Steam (29 CNY)，可以说是 Lambda Calculus 应用习题集.&lt;/p&gt;
+        <guid>http://localhost:1313/zh/p/%E5%9F%BA%E7%A1%80%E7%9A%84-lambda-%E6%BC%94%E7%AE%97%E7%BC%96%E7%A8%8B/</guid>
+        <description>&lt;p&gt;题目来自 &lt;em&gt;functional&lt;/em&gt;，发售于 Steam (29 CNY).&lt;/p&gt;
 &lt;h2 id=&#34;basic&#34;&gt;&lt;a href=&#34;#basic&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Basic
 &lt;/h2&gt;&lt;h3 id=&#34;anything&#34;&gt;&lt;a href=&#34;#anything&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;anything
 &lt;/h3&gt;&lt;p&gt;写出任意一个符合 Lambda Calculus 语法 (1. variable 2. abstraction 3. application) 的 term 即可.&lt;/p&gt;
@@ -624,11 +536,12 @@ FALSE
         </item>
         <item>
         <title>搜索算法的抽象</title>
-        <link>http://fyshxfish.github.io/zh/p/%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95%E7%9A%84%E6%8A%BD%E8%B1%A1/</link>
+        <link>http://localhost:1313/zh/p/%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95%E7%9A%84%E6%8A%BD%E8%B1%A1/</link>
         <pubDate>Sun, 24 Nov 2024 12:09:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/zh/p/%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95%E7%9A%84%E6%8A%BD%E8%B1%A1/</guid>
-        <description>&lt;h2 id=&#34;前言&#34;&gt;&lt;a href=&#34;#%e5%89%8d%e8%a8%80&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;前言
+        <guid>http://localhost:1313/zh/p/%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95%E7%9A%84%E6%8A%BD%E8%B1%A1/</guid>
+        <description>&lt;p&gt;&lt;em&gt;-灵感来自2024秋的算法设计与分析课-&lt;/em&gt;&lt;/p&gt;
+&lt;h2 id=&#34;前言&#34;&gt;&lt;a href=&#34;#%e5%89%8d%e8%a8%80&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;前言
 &lt;/h2&gt;&lt;p&gt;在这个学期的算法课中，我们重点学习了回溯法和分支限界法两大类搜索算法，过去我总是把DFS、BFS等各种搜索算法分开来，比较其差异，在本文中，我希望对搜索算法做一个抽象，预期可以由一个简洁的抽象模型延伸出我们熟悉的具体的搜索策略。&lt;/p&gt;
 &lt;h2 id=&#34;搜索模型与搜索过程的抽象&#34;&gt;&lt;a href=&#34;#%e6%90%9c%e7%b4%a2%e6%a8%a1%e5%9e%8b%e4%b8%8e%e6%90%9c%e7%b4%a2%e8%bf%87%e7%a8%8b%e7%9a%84%e6%8a%bd%e8%b1%a1&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;搜索模型与搜索过程的抽象
 &lt;/h2&gt;&lt;p&gt;用 Haskell 语言展示我总结出的模型：&lt;/p&gt;
@@ -782,10 +695,10 @@ FALSE
         </item>
         <item>
         <title>如何避免重复计算 / 纯函数及其求值策略</title>
-        <link>http://fyshxfish.github.io/zh/p/%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E9%87%8D%E5%A4%8D%E8%AE%A1%E7%AE%97-/-%E7%BA%AF%E5%87%BD%E6%95%B0%E5%8F%8A%E5%85%B6%E6%B1%82%E5%80%BC%E7%AD%96%E7%95%A5/</link>
+        <link>http://localhost:1313/zh/p/%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E9%87%8D%E5%A4%8D%E8%AE%A1%E7%AE%97-/-%E7%BA%AF%E5%87%BD%E6%95%B0%E5%8F%8A%E5%85%B6%E6%B1%82%E5%80%BC%E7%AD%96%E7%95%A5/</link>
         <pubDate>Sun, 20 Oct 2024 19:48:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/zh/p/%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E9%87%8D%E5%A4%8D%E8%AE%A1%E7%AE%97-/-%E7%BA%AF%E5%87%BD%E6%95%B0%E5%8F%8A%E5%85%B6%E6%B1%82%E5%80%BC%E7%AD%96%E7%95%A5/</guid>
+        <guid>http://localhost:1313/zh/p/%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E9%87%8D%E5%A4%8D%E8%AE%A1%E7%AE%97-/-%E7%BA%AF%E5%87%BD%E6%95%B0%E5%8F%8A%E5%85%B6%E6%B1%82%E5%80%BC%E7%AD%96%E7%95%A5/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;&lt;a href=&#34;#%e5%89%8d%e8%a8%80&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;前言
 &lt;/h2&gt;&lt;p&gt;这个学期包含编译系统和算法设计与分析两门专业课，遇到一些问题总会想着放在 Haskell 里实现一下，对于程序构造多少有点新的体会，也度过了对于 Haskell 不平静的狂热期，现在的我已经不会想着到处传教了（☺️）. 本来只是准备随便写写做 0-1 背包的 Haskell 实现中的一些小思考，不过真开始动笔了就越写越正式了，也算是接触 FP / Haskell 以来的一点点小总结. &lt;a class=&#34;link&#34; href=&#34;https://www.haskell.org/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Haskell 官网&lt;/a&gt; 对 Haskell 的描述是 &amp;ldquo;An advanced, purely functional programming language&amp;rdquo;，本文试图围绕 &amp;ldquo;purely&amp;rdquo; 做一些讨论：什么是纯，怎么样算不纯，追求纯度的理由是什么，纯度带来的效益是什么.&lt;/p&gt;
@@ -1024,10 +937,10 @@ FALSE
         </item>
         <item>
         <title>迭代组合子的构造 - LCaC § 4C, Theorem 4.20</title>
-        <link>http://fyshxfish.github.io/zh/p/%E8%BF%AD%E4%BB%A3%E7%BB%84%E5%90%88%E5%AD%90%E7%9A%84%E6%9E%84%E9%80%A0-lcac-4c-theorem-4.20/</link>
+        <link>http://localhost:1313/zh/p/%E8%BF%AD%E4%BB%A3%E7%BB%84%E5%90%88%E5%AD%90%E7%9A%84%E6%9E%84%E9%80%A0-lcac-4c-theorem-4.20/</link>
         <pubDate>Tue, 17 Sep 2024 23:48:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/zh/p/%E8%BF%AD%E4%BB%A3%E7%BB%84%E5%90%88%E5%AD%90%E7%9A%84%E6%9E%84%E9%80%A0-lcac-4c-theorem-4.20/</guid>
+        <guid>http://localhost:1313/zh/p/%E8%BF%AD%E4%BB%A3%E7%BB%84%E5%90%88%E5%AD%90%E7%9A%84%E6%9E%84%E9%80%A0-lcac-4c-theorem-4.20/</guid>
         <description>&lt;p&gt;来自 Lambda-Calculus and Combinator § 4C Theorem 4.20 的 proof 部分，整体意图是证明符合 Definition 4.18 的全称递归函数可以用组合子来表示. 这里对该证明的关键部分，即迭代组合子的构造，做简要的陈述. 也可以理解为：&lt;strong&gt;在 Pure Lambda Calculus 中编写一个具有特定终止条件的迭代程序.&lt;/strong&gt; 如果你好奇 &amp;quot; 如何在 Lambda Calculus 中编写一个指定&lt;strong&gt;迭代 / 递归次数&lt;/strong&gt;的迭代 / 递归函数 &amp;quot; ，可以参考 Lambda-Calculus and Combinator § 4B Theorem 4.11 的 proof 中 $R_{\text{Bernays}}$ 组合子的构造，这个构造过程也十分精巧.&lt;/p&gt;
 &lt;p&gt;递归与迭代：在 $R_{\text{Bernays}}$ 递归组合子的构造中，求解某个递归函数 $\phi $ 的值 $ \phi(n) $，用的方法就是从 $ \phi(0) $ 开始，做 $n$ 次迭代得到的（大致如下：记递归步更新函数为 $\chi$，$\phi(n) = \chi^n \phi(0)$）. 迭代和递归是正向与逆向的区别. 本文中的&amp;quot;递归&amp;quot;意在描述&amp;quot;&lt;strong&gt;调用自身&lt;/strong&gt;&amp;quot; 的结构特点，探讨的中心问题还是对迭代（$0 \rightarrow 1 \rightarrow  &amp;hellip;  \rightarrow n$）问题的求解.&lt;/p&gt;
 &lt;h2 id=&#34;构造目标&#34;&gt;&lt;a href=&#34;#%e6%9e%84%e9%80%a0%e7%9b%ae%e6%a0%87&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;构造目标
@@ -1130,10 +1043,10 @@ $ \bar{\sigma} = _{\beta, w} \lambda nfz. f (n f z)$ &lt;/br&gt;&lt;/p&gt;
         </item>
         <item>
         <title>语言的安全与抽象</title>
-        <link>http://fyshxfish.github.io/zh/p/%E8%AF%AD%E8%A8%80%E7%9A%84%E5%AE%89%E5%85%A8%E4%B8%8E%E6%8A%BD%E8%B1%A1/</link>
+        <link>http://localhost:1313/zh/p/%E8%AF%AD%E8%A8%80%E7%9A%84%E5%AE%89%E5%85%A8%E4%B8%8E%E6%8A%BD%E8%B1%A1/</link>
         <pubDate>Tue, 10 Sep 2024 14:10:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/zh/p/%E8%AF%AD%E8%A8%80%E7%9A%84%E5%AE%89%E5%85%A8%E4%B8%8E%E6%8A%BD%E8%B1%A1/</guid>
+        <guid>http://localhost:1313/zh/p/%E8%AF%AD%E8%A8%80%E7%9A%84%E5%AE%89%E5%85%A8%E4%B8%8E%E6%8A%BD%E8%B1%A1/</guid>
         <description>&lt;p&gt;来自 &lt;em&gt;Types and Programming Languages § 1.2 What Type Systems Are Good For&lt;/em&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;A safe language is one that protects its own &lt;strong&gt;abstractions&lt;/strong&gt;.
@@ -1145,10 +1058,10 @@ $ \bar{\sigma} = _{\beta, w} \lambda nfz. f (n f z)$ &lt;/br&gt;&lt;/p&gt;
         </item>
         <item>
         <title>Church Encoding Note</title>
-        <link>http://fyshxfish.github.io/zh/p/church-encoding-note/</link>
+        <link>http://localhost:1313/zh/p/church-encoding-note/</link>
         <pubDate>Sun, 08 Sep 2024 20:13:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/zh/p/church-encoding-note/</guid>
+        <guid>http://localhost:1313/zh/p/church-encoding-note/</guid>
         <description>&lt;h2 id=&#34;motivation-abstraction-level-up&#34;&gt;&lt;a href=&#34;#motivation-abstraction-level-up&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Motivation: Abstraction Level Up!
 &lt;/h2&gt;&lt;ol&gt;
 &lt;li&gt;
@@ -1276,10 +1189,10 @@ Church Encoding 让我困惑了很久，每次我听到一些视频 / 博客里�
         </item>
         <item>
         <title>Message Passing 视角下的 Bool - SICP § 2.4.3 | 泛型 | 数据与函数的边界 </title>
-        <link>http://fyshxfish.github.io/zh/p/message-passing-%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84-bool-sicp-2.4.3-%E6%B3%9B%E5%9E%8B-%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9A%84%E8%BE%B9%E7%95%8C/</link>
+        <link>http://localhost:1313/zh/p/message-passing-%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84-bool-sicp-2.4.3-%E6%B3%9B%E5%9E%8B-%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9A%84%E8%BE%B9%E7%95%8C/</link>
         <pubDate>Sat, 07 Sep 2024 23:18:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/zh/p/message-passing-%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84-bool-sicp-2.4.3-%E6%B3%9B%E5%9E%8B-%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9A%84%E8%BE%B9%E7%95%8C/</guid>
+        <guid>http://localhost:1313/zh/p/message-passing-%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84-bool-sicp-2.4.3-%E6%B3%9B%E5%9E%8B-%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9A%84%E8%BE%B9%E7%95%8C/</guid>
         <description>&lt;h2 id=&#34;本文概述&#34;&gt;&lt;a href=&#34;#%e6%9c%ac%e6%96%87%e6%a6%82%e8%bf%b0&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;本文概述
 &lt;/h2&gt;&lt;p&gt;SICP § 2.4.3 中描述了以查表（ type × operation 二维表）为实现方式的泛型系统，具体函数被隐藏在泛型函数 + Selector 这样的抽象之下，那么如果将具体函数放在数据 + Selector 这样的抽象之下是什么样的呢，本文呈现了符合此抽象（SICP 中称为 Message Passing）的 Boolean.  接下来从 Message Passing，Haskell 中的 &lt;code&gt;$&lt;/code&gt; 和 Haskell 中的代数数据类型 三个角度聊聊数据与函数之间的关系.  Message Passing - 让数据自己携带函数；Haskell &lt;code&gt;$&lt;/code&gt;的应用 - 将数据变成某种函数；Haskell中的代数数据类型 - 使用函数构造数据.&lt;/p&gt;
 &lt;h2 id=&#34;泛型函数intelligent-operations&#34;&gt;&lt;a href=&#34;#%e6%b3%9b%e5%9e%8b%e5%87%bd%e6%95%b0intelligent-operations&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;泛型函数：Intelligent Operations
@@ -1414,10 +1327,10 @@ ghci&amp;gt; :t ($ x)
         </item>
         <item>
         <title>Huffman 树的 Haskell 实现 - SICP § 2.3.4  | 组合数据的结构与解构</title>
-        <link>http://fyshxfish.github.io/zh/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.3.4-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/</link>
+        <link>http://localhost:1313/zh/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.3.4-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/</link>
         <pubDate>Mon, 02 Sep 2024 01:53:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/zh/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.3.4-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/</guid>
+        <guid>http://localhost:1313/zh/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.3.4-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/</guid>
         <description>&lt;p&gt;在看 SICP Section 2.3.4，对这节中 Huffman 树的实现中使用的组合 / 抽象有相当程度的参考.&lt;/p&gt;
 &lt;p&gt;其实我应该把代码放在某个仓库里，比如把一些数据结构的 Haskell 实现整合在一个仓库里，但是我还没有这么多可供整合的材料，所以以后再说吧.&lt;/p&gt;
 &lt;p&gt;代码链接：&lt;a class=&#34;link&#34; href=&#34;https://github.com/fyshxfish/sicp-playground/blob/main/sicp-note/ch2/ch2-3-huffman_tree.hs&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -1696,18 +1609,18 @@ Roughly speaking, Böhm’s theorem says that $M$ and $N$ can be distinguished, 
         </item>
         <item>
         <title>Archives</title>
-        <link>http://fyshxfish.github.io/zh/archives/</link>
+        <link>http://localhost:1313/zh/archives/</link>
         <pubDate>Sat, 31 Aug 2024 00:00:00 +0000</pubDate>
         
-        <guid>http://fyshxfish.github.io/zh/archives/</guid>
+        <guid>http://localhost:1313/zh/archives/</guid>
         <description></description>
         </item>
         <item>
         <title>Nested Mapping Examples Implemented in Haskell - SICP § 2.2.3  | List Monad </title>
-        <link>http://fyshxfish.github.io/zh/p/nested-mapping-examples-implemented-in-haskell-sicp-2.2.3-list-monad/</link>
+        <link>http://localhost:1313/zh/p/nested-mapping-examples-implemented-in-haskell-sicp-2.2.3-list-monad/</link>
         <pubDate>Thu, 29 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/zh/p/nested-mapping-examples-implemented-in-haskell-sicp-2.2.3-list-monad/</guid>
+        <guid>http://localhost:1313/zh/p/nested-mapping-examples-implemented-in-haskell-sicp-2.2.3-list-monad/</guid>
         <description>&lt;h2 id=&#34;problem-description&#34;&gt;&lt;a href=&#34;#problem-description&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Problem Description
 &lt;/h2&gt;&lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Problem&lt;/strong&gt;: Given a positive integer $n$, find all ordered pairs of distinct positive integers $i$ and $j$, where $ 1 \leq i \leq j \leq n $, such that $ i + j $ is prime.&lt;/p&gt;&lt;/blockquote&gt;
@@ -1761,10 +1674,10 @@ Title of this section is *Nested Mappings*, which represented in code with neste
         </item>
         <item>
         <title>Scheme: `let` 的语义 (feat. `if` 的语义)</title>
-        <link>http://fyshxfish.github.io/zh/p/scheme-let-%E7%9A%84%E8%AF%AD%E4%B9%89-feat.-if-%E7%9A%84%E8%AF%AD%E4%B9%89/</link>
+        <link>http://localhost:1313/zh/p/scheme-let-%E7%9A%84%E8%AF%AD%E4%B9%89-feat.-if-%E7%9A%84%E8%AF%AD%E4%B9%89/</link>
         <pubDate>Thu, 29 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/zh/p/scheme-let-%E7%9A%84%E8%AF%AD%E4%B9%89-feat.-if-%E7%9A%84%E8%AF%AD%E4%B9%89/</guid>
+        <guid>http://localhost:1313/zh/p/scheme-let-%E7%9A%84%E8%AF%AD%E4%B9%89-feat.-if-%E7%9A%84%E8%AF%AD%E4%B9%89/</guid>
         <description>&lt;hr&gt;
 &lt;h2 id=&#34;let-的语义&#34;&gt;&lt;a href=&#34;#let-%e7%9a%84%e8%af%ad%e4%b9%89&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;&lt;code&gt;let&lt;/code&gt; 的语义
 &lt;/h2&gt;&lt;p&gt;&lt;mark&gt;结论&lt;/mark&gt;: &lt;code&gt;let&lt;/code&gt; scope 会立即求值 (包括绑定和绑定之后的表达式, 也就是 &lt;code&gt;let&lt;/code&gt; 之外的一层括号所包裹的范围), 即使你把 &lt;code&gt;let&lt;/code&gt; 嵌套在内层函数里而且这个函数还完全没有被调用.&lt;/p&gt;
@@ -1859,10 +1772,10 @@ Title of this section is *Nested Mappings*, which represented in code with neste
         </item>
         <item>
         <title>VSCode 配置记录</title>
-        <link>http://fyshxfish.github.io/zh/p/vscode-%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95/</link>
+        <link>http://localhost:1313/zh/p/vscode-%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95/</link>
         <pubDate>Mon, 26 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/zh/p/vscode-%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95/</guid>
+        <guid>http://localhost:1313/zh/p/vscode-%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95/</guid>
         <description>&lt;p&gt;包含对于 VSCode 作为文本编辑器的配置，不包含对语言环境的配置.&lt;/p&gt;
 &lt;!-- 不严肃的随手记录，希望我能记得持续更新，因为我经常把一些记录扔在零零散散的位置，然后忘记这个记录的存在。 --&gt;
 &lt;h2 id=&#34;about-command-palette--ctrl--shift--p&#34;&gt;&lt;a href=&#34;#about-command-palette--ctrl--shift--p&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;About: Command Palette &amp;amp; Ctrl + Shift + P
@@ -1987,10 +1900,10 @@ Title of this section is *Nested Mappings*, which represented in code with neste
         </item>
         <item>
         <title>mit-scheme 配置与基本使用</title>
-        <link>http://fyshxfish.github.io/zh/p/mit-scheme-%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</link>
+        <link>http://localhost:1313/zh/p/mit-scheme-%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</link>
         <pubDate>Sat, 24 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/zh/p/mit-scheme-%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</guid>
+        <guid>http://localhost:1313/zh/p/mit-scheme-%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</guid>
         <description>&lt;blockquote&gt;
 &lt;p&gt;Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away.
 &lt;br&gt;&amp;ndash; Antoine de Saint-Exupéry&lt;/p&gt;&lt;/blockquote&gt;
@@ -2088,10 +2001,10 @@ Title of this section is *Nested Mappings*, which represented in code with neste
         </item>
         <item>
         <title>Haskell 开发环境 (VSCode &#43; GHCup &#43; HLS) 修复记录</title>
-        <link>http://fyshxfish.github.io/zh/p/haskell-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-vscode--ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</link>
+        <link>http://localhost:1313/zh/p/haskell-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-vscode--ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</link>
         <pubDate>Fri, 16 Aug 2024 00:00:00 +0000</pubDate>
         
-        <guid>http://fyshxfish.github.io/zh/p/haskell-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-vscode--ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</guid>
+        <guid>http://localhost:1313/zh/p/haskell-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-vscode--ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</guid>
         <description>&lt;!-- *不知不觉我已经在MacOS, Windows, Linux三种平台上配置过Haskell环境了，我觉得我已经是环境配置大师了，POWER!* --&gt;
 &lt;!-- # Mac上重新配置Haskell开发环境记录 --&gt;
 &lt;h2 id=&#34;ghcup-修复&#34;&gt;&lt;a href=&#34;#ghcup-%e4%bf%ae%e5%a4%8d&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;ghcup 修复
@@ -2133,10 +2046,10 @@ Title of this section is *Nested Mappings*, which represented in code with neste
         </item>
         <item>
         <title>Rust 基础与 gdb 使用拾遗</title>
-        <link>http://fyshxfish.github.io/zh/p/rust-%E5%9F%BA%E7%A1%80%E4%B8%8E-gdb-%E4%BD%BF%E7%94%A8%E6%8B%BE%E9%81%97/</link>
+        <link>http://localhost:1313/zh/p/rust-%E5%9F%BA%E7%A1%80%E4%B8%8E-gdb-%E4%BD%BF%E7%94%A8%E6%8B%BE%E9%81%97/</link>
         <pubDate>Mon, 05 Aug 2024 00:00:00 +0000</pubDate>
         
-        <guid>http://fyshxfish.github.io/zh/p/rust-%E5%9F%BA%E7%A1%80%E4%B8%8E-gdb-%E4%BD%BF%E7%94%A8%E6%8B%BE%E9%81%97/</guid>
+        <guid>http://localhost:1313/zh/p/rust-%E5%9F%BA%E7%A1%80%E4%B8%8E-gdb-%E4%BD%BF%E7%94%A8%E6%8B%BE%E9%81%97/</guid>
         <description>&lt;p&gt; &lt;/p&gt;
 &lt;h2 id=&#34;如何调试一个rust程序&#34;&gt;&lt;a href=&#34;#%e5%a6%82%e4%bd%95%e8%b0%83%e8%af%95%e4%b8%80%e4%b8%aarust%e7%a8%8b%e5%ba%8f&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;如何调试一个rust程序？
 &lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ gdb excutable
@@ -2298,19 +2211,19 @@ Title of this section is *Nested Mappings*, which represented in code with neste
         </item>
         <item>
         <title>Links</title>
-        <link>http://fyshxfish.github.io/zh/links/</link>
+        <link>http://localhost:1313/zh/links/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>http://fyshxfish.github.io/zh/links/</guid>
+        <guid>http://localhost:1313/zh/links/</guid>
         <description>&lt;p&gt;✨ &lt;strong&gt;Friends Here&lt;/strong&gt; ✨&lt;/p&gt;
 </description>
         </item>
         <item>
         <title>Search</title>
-        <link>http://fyshxfish.github.io/zh/search/</link>
+        <link>http://localhost:1313/zh/search/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>http://fyshxfish.github.io/zh/search/</guid>
+        <guid>http://localhost:1313/zh/search/</guid>
         <description></description>
         </item>
         

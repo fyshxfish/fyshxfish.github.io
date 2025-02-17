@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="-Inspired by Algorithm Design and Analysis course, 2024 Fall-\nIntroduction In this semester&rsquo;s algorithms course, we focused on two major categories of search algorithms: backtracking and branch-and-bound. Previously, I always treated various search algorithms like DFS and BFS separately, comparing their differences. In this article, I aim to abstract search algorithms, expecting to derive familiar search strategies from a concise abstract model.\nAbstracting the Search Model and Process Here&rsquo;s the model I&rsquo;ve summarized, demonstrated in Haskell:\n">
+<title>Abstractions for Search Algorithms</title>
+
+<link rel='canonical' href='http://localhost:1313/p/abstractions-for-search-algorithms/'>
+
+<link rel="stylesheet" href="/scss/style.min.ba5cc34af4430963fcfe2f9afd2fb80f7251aa5d621efcdd72c32002a6e56cae.css"><meta property='og:title' content="Abstractions for Search Algorithms">
+<meta property='og:description' content="-Inspired by Algorithm Design and Analysis course, 2024 Fall-\nIntroduction In this semester&rsquo;s algorithms course, we focused on two major categories of search algorithms: backtracking and branch-and-bound. Previously, I always treated various search algorithms like DFS and BFS separately, comparing their differences. In this article, I aim to abstract search algorithms, expecting to derive familiar search strategies from a concise abstract model.\nAbstracting the Search Model and Process Here&rsquo;s the model I&rsquo;ve summarized, demonstrated in Haskell:\n">
+<meta property='og:url' content='http://localhost:1313/p/abstractions-for-search-algorithms/'>
+<meta property='og:site_name' content='fyshXplore'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='haskell' /><meta property='article:published_time' content='2024-11-24T12:09:00&#43;08:00'/><meta property='article:modified_time' content='2024-11-24T12:09:00&#43;08:00'/>
+<meta name="twitter:title" content="Abstractions for Search Algorithms">
+<meta name="twitter:description" content="-Inspired by Algorithm Design and Analysis course, 2024 Fall-\nIntroduction In this semester&rsquo;s algorithms course, we focused on two major categories of search algorithms: backtracking and branch-and-bound. Previously, I always treated various search algorithms like DFS and BFS separately, comparing their differences. In this article, I aim to abstract search algorithms, expecting to derive familiar search strategies from a concise abstract model.\nAbstracting the Search Model and Process Here&rsquo;s the model I&rsquo;ve summarized, demonstrated in Haskell:\n"><style>
+  :root {
+     
+    --zh-font-family: "Noto Serif SC";
+     
+     
+     
+    --code-font-family: Consolas, Menlo, Monaco, "Courier New", var(--zh-font-family), monospace;
+    --article-font-family: "Noto Serif SC";
+  }
+</style>
+
+<script>
+  (function () {
+    const customFont = document.createElement("link");
+    customFont.href =
+      "https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap";
+
+    customFont.type = "text/css";
+    customFont.rel = "stylesheet";
+
+    document.head.appendChild(customFont);
+  })();
+</script>
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            localStorage.setItem(colorSchemeKey, "auto");
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/fyshx_avatar_hu_4b64fe58c612edf3.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🫧</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">fyshXplore</a></h1>
+            <h2 class="site-description">Just for 𝐅𝐮𝐧</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/fyshxfish'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-infinity" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M9.828 9.172a4 4 0 1 0 0 5.656 a10 10 0 0 0 2.172 -2.828a10 10 0 0 1 2.172 -2.828 a4 4 0 1 1 0 5.656a10 10 0 0 1 -2.172 -2.828a10 10 0 0 0 -2.172 -2.828" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="http://localhost:1313/zh/" >中文</option>
+                                
+                                    <option value="http://localhost:1313/" selected>English</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">&thinsp;Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#abstracting-the-search-model-and-process">Abstracting the Search Model and Process</a></li>
+    <li><a href="#example-instantiating-the-tsp-search-from-the-model">Example: Instantiating the TSP Search from the Model</a></li>
+    <li><a href="#brief-description-of-other-instances">Brief Description of Other Instances</a></li>
+    <li><a href="#limitations">Limitations</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/fp/" style="background-color: #b7c9e2; color: #fff;">
+                FP
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/abstractions-for-search-algorithms/">Abstractions for Search Algorithms</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Nov 24, 2024</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    7 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+        <footer class="article-translations">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+            <div>
+                
+                    <a href="http://localhost:1313/zh/p/%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95%E7%9A%84%E6%8A%BD%E8%B1%A1/" class="link">中文</a>
+                
+            </div>
+        </footer>
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p><em>-Inspired by Algorithm Design and Analysis course, 2024 Fall-</em></p>
+<h2 id="introduction"><a href="#introduction" class="header-anchor"></a>Introduction
+</h2><p>In this semester&rsquo;s algorithms course, we focused on two major categories of search algorithms: backtracking and branch-and-bound. Previously, I always treated various search algorithms like DFS and BFS separately, comparing their differences. In this article, I aim to abstract search algorithms, expecting to derive familiar search strategies from a concise abstract model.</p>
+<h2 id="abstracting-the-search-model-and-process"><a href="#abstracting-the-search-model-and-process" class="header-anchor"></a>Abstracting the Search Model and Process
+</h2><p>Here&rsquo;s the model I&rsquo;ve summarized, demonstrated in Haskell:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hs" data-lang="hs"><span style="display:flex;"><span><span style="color:#cf222e">class</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Ord</span> node<span style="color:#1f2328">)</span> <span style="color:#0550ae">=&gt;</span> <span style="color:#cf222e">Search</span> env node <span style="color:#cf222e">where</span> 
+</span></span><span style="display:flex;"><span>    initN <span style="color:#0550ae">::</span> env <span style="color:#0550ae">-&gt;</span> node 
+</span></span><span style="display:flex;"><span>    check <span style="color:#0550ae">::</span> env <span style="color:#0550ae">-&gt;</span> node <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">Bool</span>
+</span></span><span style="display:flex;"><span>    child <span style="color:#0550ae">::</span> env <span style="color:#0550ae">-&gt;</span> node <span style="color:#0550ae">-&gt;</span> <span style="color:#1f2328">[</span>node<span style="color:#1f2328">]</span>  
+</span></span><span style="display:flex;"><span>    search <span style="color:#0550ae">::</span> env <span style="color:#0550ae">-&gt;</span> node 
+</span></span></code></pre></div><ol>
+<li><code>Search env node</code>: A search requires two elements: the search environment <code>env</code> and the search node <code>node</code>. Since we need to determine the expansion order based on the priority of <code>node</code>, we want <code>node</code> to be orderable, hence the <code>Ord</code> constraint.</li>
+<li><code>initN :: env -&gt; node</code>: A search needs initialization. The search tree requires a root node, so we want to generate a simple root <code>node</code> from the search environment <code>env</code>.</li>
+<li><code>check :: env -&gt; node -&gt; Bool</code>: A search needs a stopping condition. We need a function to determine if the current <code>node</code> is a solution based on the properties of <code>env</code>.</li>
+<li><code>child :: env -&gt; node -&gt; [node]</code>: A search needs to continue. The live nodes of the search tree are expandable, so we need a function child to generate a list of child nodes <code>[node]</code> based on <code>env</code> and the current <code>node</code>.</li>
+<li><code>search :: env -&gt; node</code>: The main search function. Its goal is to search within the environment <code>env</code> and eventually return the terminal node <code>node</code>, which is the optimal solution we seek.</li>
+</ol>
+<p>To implement a search algorithm for a specific problem, we need to define the abstraction of the search environment <code>env</code>, design the node <code>node</code>, and implement the above functions: <code>initN</code>, <code>check</code>, <code>child</code>, and <code>search</code>.</p>
+<p>The search model can be abstracted, and so can the search process. Therefore, I provide a default implementation of the <code>search</code> function (since <code>initN</code>, <code>check</code>, and <code>child</code> are often strongly tied to the specific problem and need to be provided during instantiation, they cannot rely on default implementations). This function abstracts the basic search process—starting from the root node (<code>initN</code>), checking (<code>check</code>) if the highest-priority node is a solution, returning it if true, otherwise expanding (<code>child</code>) its child nodes, reordering the live node list based on priority, and repeating this process:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hs" data-lang="hs"><span style="display:flex;"><span><span style="color:#6639ba">search</span> e <span style="color:#0550ae">=</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">let</span> 
+</span></span><span style="display:flex;"><span>        step <span style="color:#0550ae">::</span> <span style="color:#1f2328">[</span>node<span style="color:#1f2328">]</span> <span style="color:#0550ae">-&gt;</span> node
+</span></span><span style="display:flex;"><span>        step <span style="color:#1f2328">(</span>n<span style="color:#cf222e">:</span>ns<span style="color:#1f2328">)</span> 
+</span></span><span style="display:flex;"><span>            <span style="color:#0550ae">|</span> check e n   <span style="color:#0550ae">=</span> n    
+</span></span><span style="display:flex;"><span>            <span style="color:#0550ae">|</span> otherwise <span style="color:#0550ae">=</span> step <span style="color:#0550ae">$</span> sort <span style="color:#1f2328">(</span>ns <span style="color:#0550ae">++</span> child e n<span style="color:#1f2328">)</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">in</span>  step <span style="color:#1f2328">[</span>initN e<span style="color:#1f2328">]</span>
+</span></span></code></pre></div><h2 id="example-instantiating-the-tsp-search-from-the-model"><a href="#example-instantiating-the-tsp-search-from-the-model" class="header-anchor"></a>Example: Instantiating the TSP Search from the Model
+</h2><ol>
+<li>
+<p>Search Environment: The directed weighted graph <code>Graph</code> is abstracted as follows:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hs" data-lang="hs"><span style="display:flex;"><span><span style="color:#cf222e">type</span> <span style="color:#cf222e">Vertex</span> <span style="color:#0550ae">=</span> <span style="color:#cf222e">Int</span>
+</span></span><span style="display:flex;"><span><span style="color:#cf222e">type</span> <span style="color:#cf222e">Distance</span> <span style="color:#0550ae">=</span> <span style="color:#cf222e">Int</span> 
+</span></span><span style="display:flex;"><span><span style="color:#cf222e">type</span> <span style="color:#cf222e">Edge</span> <span style="color:#0550ae">=</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Vertex</span><span style="color:#1f2328">,</span> <span style="color:#cf222e">Vertex</span><span style="color:#1f2328">,</span> <span style="color:#cf222e">Distance</span><span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#cf222e">data</span> <span style="color:#cf222e">Graph</span> <span style="color:#0550ae">=</span> <span style="color:#cf222e">Graph</span> <span style="color:#1f2328">{</span> vertices <span style="color:#0550ae">::</span> <span style="color:#1f2328">[</span><span style="color:#cf222e">Vertex</span><span style="color:#1f2328">],</span> edges <span style="color:#0550ae">::</span> <span style="color:#1f2328">[</span><span style="color:#cf222e">Edge</span><span style="color:#1f2328">]</span> <span style="color:#1f2328">}</span>    
+</span></span></code></pre></div><p>Additionally, the search process relies on graph functions like <code>minOut</code> and <code>distance</code>:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hs" data-lang="hs"><span style="display:flex;"><span><span style="color:#6639ba">minOut</span> <span style="color:#0550ae">::</span> <span style="color:#cf222e">Graph</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#1f2328">[(</span><span style="color:#cf222e">Vertex</span><span style="color:#1f2328">,</span> <span style="color:#cf222e">Distance</span><span style="color:#1f2328">)]</span>      
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">minOut</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Graph</span> vs es<span style="color:#1f2328">)</span> <span style="color:#0550ae">=</span> <span style="color:#1f2328">[</span> <span style="color:#1f2328">(</span>v<span style="color:#1f2328">,</span> minimum ds<span style="color:#1f2328">)</span> <span style="color:#0550ae">|</span> 
+</span></span><span style="display:flex;"><span>                            v <span style="color:#0550ae">&lt;-</span> vs<span style="color:#1f2328">,</span>  
+</span></span><span style="display:flex;"><span>                            <span style="color:#cf222e">let</span> es&#39; <span style="color:#0550ae">=</span> filter <span style="color:#1f2328">(</span><span style="color:#6639ba">\</span><span style="color:#1f2328">(</span>v1<span style="color:#1f2328">,</span> <span style="color:#cf222e">_</span><span style="color:#1f2328">,</span> <span style="color:#cf222e">_</span><span style="color:#1f2328">)</span> <span style="color:#0550ae">-&gt;</span> v1 <span style="color:#0550ae">==</span> v<span style="color:#1f2328">)</span> es<span style="color:#1f2328">,</span>
+</span></span><span style="display:flex;"><span>                            <span style="color:#cf222e">let</span> ds <span style="color:#0550ae">=</span> <span style="color:#1f2328">[</span> d <span style="color:#0550ae">|</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">_</span><span style="color:#1f2328">,</span> <span style="color:#cf222e">_</span><span style="color:#1f2328">,</span> d<span style="color:#1f2328">)</span> <span style="color:#0550ae">&lt;-</span> es&#39;<span style="color:#1f2328">]]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">distance</span> <span style="color:#0550ae">::</span> <span style="color:#cf222e">Graph</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Int</span><span style="color:#1f2328">,</span> <span style="color:#cf222e">Int</span><span style="color:#1f2328">)</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">Maybe</span> <span style="color:#cf222e">Distance</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">distance</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Graph</span> <span style="color:#cf222e">_</span> <span style="color:#1f2328">[])</span> <span style="color:#cf222e">_</span> <span style="color:#0550ae">=</span> <span style="color:#cf222e">Nothing</span>       
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">distance</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Graph</span> vs <span style="color:#1f2328">((</span>v1<span style="color:#1f2328">,</span> v2<span style="color:#1f2328">,</span> d<span style="color:#1f2328">)</span><span style="color:#cf222e">:</span>es<span style="color:#1f2328">))</span> <span style="color:#1f2328">(</span>s<span style="color:#1f2328">,</span> t<span style="color:#1f2328">)</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#0550ae">|</span> s <span style="color:#0550ae">==</span> v1 <span style="color:#0550ae">&amp;&amp;</span> t <span style="color:#0550ae">==</span> v2    <span style="color:#0550ae">=</span> <span style="color:#cf222e">Just</span> d 
+</span></span><span style="display:flex;"><span>    <span style="color:#0550ae">|</span> otherwise             <span style="color:#0550ae">=</span> distance <span style="color:#1f2328">(</span><span style="color:#cf222e">Graph</span> vs es<span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span>s<span style="color:#1f2328">,</span> t<span style="color:#1f2328">)</span>
+</span></span></code></pre></div></li>
+<li>
+<p>Node Design (<code>TspNode</code>):</p>
+<p>A node needs to store the current cost, the list of visited vertices, and the heuristic value (upper bound of the total cost):</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hs" data-lang="hs"><span style="display:flex;"><span><span style="color:#cf222e">data</span> <span style="color:#cf222e">TspNode</span> <span style="color:#0550ae">=</span> <span style="color:#cf222e">TspNode</span> <span style="color:#1f2328">{</span>
+</span></span><span style="display:flex;"><span>    cost <span style="color:#0550ae">::</span> <span style="color:#cf222e">Int</span><span style="color:#1f2328">,</span>
+</span></span><span style="display:flex;"><span>    visited <span style="color:#0550ae">::</span> <span style="color:#1f2328">[</span><span style="color:#cf222e">Vertex</span><span style="color:#1f2328">],</span>        <span style="color:#57606a">-- reverse </span>
+</span></span><span style="display:flex;"><span>    heuristic <span style="color:#0550ae">::</span> <span style="color:#cf222e">Int</span>    <span style="color:#57606a">-- heuristic / priority </span>
+</span></span><span style="display:flex;"><span><span style="color:#1f2328">}</span> <span style="color:#cf222e">deriving</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Show</span><span style="color:#1f2328">)</span>
+</span></span></code></pre></div><p>The lower the heuristic value of a node, the higher its expansion priority.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hs" data-lang="hs"><span style="display:flex;"><span><span style="color:#cf222e">instance</span> <span style="color:#cf222e">Ord</span> <span style="color:#cf222e">TspNode</span> <span style="color:#cf222e">where</span> 
+</span></span><span style="display:flex;"><span>    compare <span style="color:#0550ae">::</span> <span style="color:#cf222e">TspNode</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">TspNode</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">Ordering</span>
+</span></span><span style="display:flex;"><span>    compare n1 n2 
+</span></span><span style="display:flex;"><span>        <span style="color:#0550ae">|</span> heuristic n1 <span style="color:#0550ae">&gt;</span> heuristic n2 <span style="color:#0550ae">=</span> <span style="color:#cf222e">GT</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#0550ae">|</span> heuristic n1 <span style="color:#0550ae">&lt;</span> heuristic n2 <span style="color:#0550ae">=</span> <span style="color:#cf222e">LT</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#0550ae">|</span> otherwise                   <span style="color:#0550ae">=</span> <span style="color:#cf222e">EQ</span>
+</span></span></code></pre></div></li>
+<li>
+<p>Search Function Instantiation:</p>
+<p>To make <code>Graph TspNode</code> an instance of the <code>Search</code> type class, we can use the default search implementation. However, we still need to implement the <code>initN</code>, <code>check</code>, and <code>child</code> functions:</p>
+<ul>
+<li>
+<p><code>initN</code>:</p>
+<p>The root node&rsquo;s <code>cost</code> is 0, the <code>visited</code> list is empty, and the heuristic value is irrelevant since the root node will always be the first to be checked and removed from the live node list, never participating in sorting. Thus, heuristic can be set to <code>0</code>:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hs" data-lang="hs"><span style="display:flex;"><span><span style="color:#6639ba">initN</span> <span style="color:#0550ae">::</span> <span style="color:#cf222e">Graph</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">TspNode</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">initN</span> <span style="color:#cf222e">_</span> <span style="color:#0550ae">=</span> <span style="color:#cf222e">TspNode</span> <span style="color:#0550ae">0</span> <span style="color:#cf222e">[]</span> <span style="color:#0550ae">0</span>
+</span></span></code></pre></div><p>If the current node has visited all vertices (starting from the origin, traversing a loop, and returning to the origin), then it is considered a solution:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hs" data-lang="hs"><span style="display:flex;"><span><span style="color:#6639ba">check</span> <span style="color:#0550ae">::</span> <span style="color:#cf222e">Graph</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">TspNode</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">Bool</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">check</span> g <span style="color:#1f2328">(</span><span style="color:#cf222e">TspNode</span> <span style="color:#cf222e">_</span> vs <span style="color:#cf222e">_</span><span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#0550ae">|</span> length vs <span style="color:#0550ae">==</span> length <span style="color:#1f2328">(</span>vertices g<span style="color:#1f2328">)</span>    <span style="color:#0550ae">=</span> <span style="color:#cf222e">True</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#0550ae">|</span> otherwise                           <span style="color:#0550ae">=</span> <span style="color:#cf222e">False</span> 
+</span></span></code></pre></div></li>
+<li>
+<p><code>child</code>:</p>
+<p>Based on the <code>visited</code> list, calculate unvisited adjacent nodes. If all other vertices have been visited, attempt to return to the origin:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hs" data-lang="hs"><span style="display:flex;"><span><span style="color:#6639ba">child</span> <span style="color:#0550ae">::</span> <span style="color:#cf222e">Graph</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">TspNode</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#1f2328">[</span><span style="color:#cf222e">TspNode</span><span style="color:#1f2328">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">child</span> g n <span style="color:#0550ae">=</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">let</span> 
+</span></span><span style="display:flex;"><span>        upBound <span style="color:#0550ae">::</span> <span style="color:#1f2328">[</span><span style="color:#cf222e">Vertex</span><span style="color:#1f2328">]</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">Int</span>
+</span></span><span style="display:flex;"><span>        upBound vs <span style="color:#0550ae">=</span> sum <span style="color:#1f2328">[</span> d <span style="color:#0550ae">|</span> <span style="color:#1f2328">(</span>s<span style="color:#1f2328">,</span>d<span style="color:#1f2328">)</span> <span style="color:#0550ae">&lt;-</span> minOut g <span style="color:#1f2328">,</span> s <span style="color:#1f2328">`</span>notElem<span style="color:#1f2328">`</span> vs <span style="color:#1f2328">]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        at <span style="color:#0550ae">=</span> <span style="color:#cf222e">if</span> null <span style="color:#1f2328">(</span>visited n<span style="color:#1f2328">)</span> <span style="color:#cf222e">then</span> <span style="color:#0550ae">0</span> <span style="color:#cf222e">else</span> head <span style="color:#1f2328">(</span>visited n<span style="color:#1f2328">)</span>   <span style="color:#57606a">-- then-clause only for initNode</span>
+</span></span><span style="display:flex;"><span>        nodes <span style="color:#0550ae">=</span> 
+</span></span><span style="display:flex;"><span>            <span style="color:#1f2328">[</span><span style="color:#cf222e">TspNode</span> cost&#39; visited&#39; heuristic&#39; <span style="color:#0550ae">|</span> 
+</span></span><span style="display:flex;"><span>                v <span style="color:#0550ae">&lt;-</span> filter 
+</span></span><span style="display:flex;"><span>                    <span style="color:#1f2328">(</span><span style="color:#6639ba">\</span>v&#39; <span style="color:#0550ae">-&gt;</span> v&#39; <span style="color:#1f2328">`</span>notElem<span style="color:#1f2328">`</span> visited n <span style="color:#0550ae">&amp;&amp;</span> isJust <span style="color:#1f2328">(</span>distance g <span style="color:#1f2328">(</span>at<span style="color:#1f2328">,</span> v&#39;<span style="color:#1f2328">)))</span> <span style="color:#57606a">-- or abstract this function to `checkChildValid`</span>
+</span></span><span style="display:flex;"><span>                    <span style="color:#1f2328">((</span>tail <span style="color:#0550ae">.</span> vertices<span style="color:#1f2328">)</span> g<span style="color:#1f2328">),</span>    <span style="color:#57606a">-- `tail` for drop the origin vertex (0 here) </span>
+</span></span><span style="display:flex;"><span>                <span style="color:#cf222e">let</span> way <span style="color:#0550ae">=</span> fromJust <span style="color:#0550ae">$</span> distance g <span style="color:#1f2328">(</span>at<span style="color:#1f2328">,</span> v<span style="color:#1f2328">),</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#cf222e">let</span> cost&#39; <span style="color:#0550ae">=</span> cost n <span style="color:#0550ae">+</span> way<span style="color:#1f2328">,</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#cf222e">let</span> visited&#39; <span style="color:#0550ae">=</span> v<span style="color:#cf222e">:</span> visited n<span style="color:#1f2328">,</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#cf222e">let</span> heuristic&#39; <span style="color:#0550ae">=</span> upBound visited&#39; <span style="color:#0550ae">+</span> cost&#39;<span style="color:#1f2328">]</span>
+</span></span><span style="display:flex;"><span>        back <span style="color:#0550ae">=</span> 
+</span></span><span style="display:flex;"><span>            <span style="color:#cf222e">case</span> distance g <span style="color:#1f2328">(</span>at<span style="color:#1f2328">,</span> <span style="color:#0550ae">0</span><span style="color:#1f2328">)</span> <span style="color:#cf222e">of</span> 
+</span></span><span style="display:flex;"><span>                <span style="color:#cf222e">Just</span> wayback <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">let</span> cost&#39; <span style="color:#0550ae">=</span> cost n <span style="color:#0550ae">+</span> wayback 
+</span></span><span style="display:flex;"><span>                                    visited&#39; <span style="color:#0550ae">=</span> <span style="color:#0550ae">0</span><span style="color:#cf222e">:</span> visited n 
+</span></span><span style="display:flex;"><span>                                    heuristic&#39; <span style="color:#0550ae">=</span> cost&#39; 
+</span></span><span style="display:flex;"><span>                                <span style="color:#cf222e">in</span> <span style="color:#1f2328">[</span><span style="color:#cf222e">TspNode</span> cost&#39; visited&#39; heuristic&#39;<span style="color:#1f2328">]</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#cf222e">Nothing</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">[]</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">in</span> <span style="color:#cf222e">if</span> length <span style="color:#1f2328">(</span>visited n<span style="color:#1f2328">)</span> <span style="color:#0550ae">==</span> length <span style="color:#1f2328">(</span>vertices g<span style="color:#1f2328">)</span> <span style="color:#0550ae">-</span> <span style="color:#0550ae">1</span> <span style="color:#cf222e">then</span> back <span style="color:#cf222e">else</span> nodes
+</span></span></code></pre></div></li>
+</ul>
+</li>
+<li>
+<p>Overall Program Framework:</p>
+ <img src="view1.png" alt="framework" style="zoom:80%; " />
+</li>
+</ol>
+<h2 id="brief-description-of-other-instances"><a href="#brief-description-of-other-instances" class="header-anchor"></a>Brief Description of Other Instances
+</h2><p>We can also represent DFS and BFS using this model. In data structure courses, we often use recursion for DFS and queues + iteration for BFS. In this model, changing the priority criteria of nodes changes the strategy for selecting nodes to expand, thereby altering the search behavior.</p>
+<p>Assume we have a node like this:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hs" data-lang="hs"><span style="display:flex;"><span><span style="color:#cf222e">data</span> <span style="color:#cf222e">Node</span> a <span style="color:#0550ae">=</span> <span style="color:#cf222e">Node</span> <span style="color:#1f2328">{</span>
+</span></span><span style="display:flex;"><span>    info <span style="color:#0550ae">::</span> a<span style="color:#1f2328">,</span>          <span style="color:#57606a">-- Problem-specific node information</span>
+</span></span><span style="display:flex;"><span>    level <span style="color:#0550ae">::</span> <span style="color:#cf222e">Int</span><span style="color:#1f2328">,</span>       <span style="color:#57606a">-- The level of the node in the search tree</span>
+</span></span><span style="display:flex;"><span>    order <span style="color:#0550ae">::</span> <span style="color:#cf222e">Int</span>        <span style="color:#57606a">-- The order in which the node was generated</span>
+</span></span><span style="display:flex;"><span><span style="color:#1f2328">}</span>
+</span></span></code></pre></div><p>DFS always expands the deepest live node in the current search tree. To perform <strong>depth-first</strong> search in any search environment using this node, the priority should be set to <code>level</code>:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hs" data-lang="hs"><span style="display:flex;"><span><span style="color:#cf222e">instance</span> <span style="color:#cf222e">Ord</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Node</span> a<span style="color:#1f2328">)</span> <span style="color:#cf222e">where</span>
+</span></span><span style="display:flex;"><span>    compare <span style="color:#0550ae">::</span> <span style="color:#cf222e">Node</span> a <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">Node</span> a <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">Ordering</span>
+</span></span><span style="display:flex;"><span>    compare n1 n2
+</span></span><span style="display:flex;"><span>        <span style="color:#0550ae">|</span> level n1 <span style="color:#0550ae">&gt;</span> level n2 <span style="color:#0550ae">=</span> <span style="color:#cf222e">LT</span>  <span style="color:#57606a">-- DEPTH first </span>
+</span></span><span style="display:flex;"><span>        <span style="color:#0550ae">|</span> level n1 <span style="color:#0550ae">&lt;</span> level n2 <span style="color:#0550ae">=</span> <span style="color:#cf222e">LT</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#0550ae">|</span> otherwise           <span style="color:#0550ae">=</span> <span style="color:#cf222e">EQ</span> 
+</span></span></code></pre></div><p>BFS always expands the earliest generated live node in the current search tree. To perform <strong>breadth-first</strong> search in any search environment using this node, the priority should be set to <code>order</code>:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hs" data-lang="hs"><span style="display:flex;"><span><span style="color:#cf222e">instance</span> <span style="color:#cf222e">Ord</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Node</span> a<span style="color:#1f2328">)</span> <span style="color:#cf222e">where</span>
+</span></span><span style="display:flex;"><span>    compare <span style="color:#0550ae">::</span> <span style="color:#cf222e">Node</span> a <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">Node</span> a <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">Ordering</span>
+</span></span><span style="display:flex;"><span>    compare n1 n2
+</span></span><span style="display:flex;"><span>        <span style="color:#0550ae">|</span> order n1 <span style="color:#0550ae">&gt;</span> order n2 <span style="color:#0550ae">=</span> <span style="color:#cf222e">LT</span>  <span style="color:#57606a">-- BREADTH first </span>
+</span></span><span style="display:flex;"><span>        <span style="color:#0550ae">|</span> order n1 <span style="color:#0550ae">&lt;</span> order n2 <span style="color:#0550ae">=</span> <span style="color:#cf222e">LT</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#0550ae">|</span> otherwise           <span style="color:#0550ae">=</span> <span style="color:#cf222e">EQ</span> 
+</span></span></code></pre></div><h2 id="limitations"><a href="#limitations" class="header-anchor"></a>Limitations
+</h2><ol>
+<li>
+<p>Lack of Application to More Specific Problems:</p>
+<p>I initially planned to implement classic textbook cases using this model, but—time ran out. The deadline is approaching, so I only provided the instantiation of the TSP problem under this model.</p>
+</li>
+<li>
+<p>Number of Solutions:</p>
+<p>Here, I limited the number of solutions to 1, defaulting to the first solution as the problem&rsquo;s solution. This is effective in some cases, such as the TSP problem implemented here, where the heuristic calculation ensures the first solution is the optimal one. However, there may be other scenarios: (a) the first solution is only an approximation of the optimal solution, which may be found later, or (b) multiple solutions need to be retained. These cases are not handled by the current model.</p>
+</li>
+</ol>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/haskell/">Haskell</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/how-to-avoid-redundant-computations--pure-functions-and-their-evaluation-strategies/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">How to Avoid Redundant Computations &#43; Pure Functions and Their Evaluation Strategies</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/the-construction-of-the-iteration-combinator-lcac-4c-theorem-4.20/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">The Construction of the Iteration Combinator - LCaC § 4C, Theorem 4.20</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/church-encoding-note/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Church Encoding Note</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/boolean-from-a-message-passing-perspective-sicp-2.4.3-generics-boundaries-of-data-and-functions/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Boolean from a Message Passing Perspective - SICP § 2.4.3 | Generics | Boundaries of Data and Functions</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/huffman-tree-implementation-in-haskell-sicp-2.3.4-structuring-and-destructuring-of-composed-data/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Huffman Tree Implementation in Haskell - SICP § 2.3.4 | Structuring and Destructuring of Composed Data</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2024 - 
+        
+        2025 fyshXplore
+    </section>
+    
+    <section class="powerby">
+        
+            Wish You a Nice Day! <br/>
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
