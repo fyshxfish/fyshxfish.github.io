@@ -54,19 +54,6 @@
                 href="http://fyshxfish.github.io/zh/categories/"
                 />
   </url><url>
-    <loc>http://fyshxfish.github.io/zh/p/slides-but-in-terminal/</loc>
-    <lastmod>2025-02-07T22:52:00+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="http://fyshxfish.github.io/p/slides-but-in-terminal/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="http://fyshxfish.github.io/zh/p/slides-but-in-terminal/"
-                />
-  </url><url>
     <loc>http://fyshxfish.github.io/zh/categories/xplore/</loc>
     <lastmod>2025-02-07T22:52:00+08:00</lastmod>
     <xhtml:link
@@ -78,6 +65,19 @@
                 rel="alternate"
                 hreflang="zh"
                 href="http://fyshxfish.github.io/zh/categories/xplore/"
+                />
+  </url><url>
+    <loc>http://fyshxfish.github.io/zh/p/%E5%9C%A8%E7%BB%88%E7%AB%AF%E9%87%8C%E6%92%AD%E6%94%BE%E5%B9%BB%E7%81%AF%E7%89%87/</loc>
+    <lastmod>2025-02-07T22:52:00+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://fyshxfish.github.io/p/slides-but-in-terminal/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="http://fyshxfish.github.io/zh/p/%E5%9C%A8%E7%BB%88%E7%AB%AF%E9%87%8C%E6%92%AD%E6%94%BE%E5%B9%BB%E7%81%AF%E7%89%87/"
                 />
   </url><url>
     <loc>http://fyshxfish.github.io/zh/about/</loc>
@@ -456,6 +456,18 @@
                 hreflang="zh"
                 href="http://fyshxfish.github.io/zh/p/rust-%E5%9F%BA%E7%A1%80%E4%B8%8E-gdb-%E4%BD%BF%E7%94%A8%E6%8B%BE%E9%81%97/"
                 />
+  </url><url>
+    <loc>http://fyshxfish.github.io/zh/tags/bash/</loc>
+    <lastmod>2024-04-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://fyshxfish.github.io/zh/tags/cli/</loc>
+    <lastmod>2024-04-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://fyshxfish.github.io/zh/tags/course/</loc>
+    <lastmod>2024-04-03T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>http://fyshxfish.github.io/zh/p/%E7%AE%80%E5%8D%95%E7%9A%84-bash-cli-%E7%A8%8B%E5%BA%8F-%E7%AE%80%E5%8D%95%E7%9A%84%E5%85%83%E7%BC%96%E7%A8%8B/</loc>
+    <lastmod>2024-04-03T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://fyshxfish.github.io/zh/links/</loc>
     <xhtml:link
