@@ -15,6 +15,19 @@
                 href="http://fyshxfish.github.io/zh/"
                 />
   </url><url>
+    <loc>http://fyshxfish.github.io/zh/categories/</loc>
+    <lastmod>2025-02-17T16:32:00+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://fyshxfish.github.io/categories/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="http://fyshxfish.github.io/zh/categories/"
+                />
+  </url><url>
     <loc>http://fyshxfish.github.io/zh/post/</loc>
     <lastmod>2025-02-17T16:32:00+08:00</lastmod>
     <xhtml:link
@@ -28,6 +41,19 @@
                 href="http://fyshxfish.github.io/zh/post/"
                 />
   </url><url>
+    <loc>http://fyshxfish.github.io/zh/categories/xplore/</loc>
+    <lastmod>2025-02-17T16:32:00+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://fyshxfish.github.io/categories/xplore/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="http://fyshxfish.github.io/zh/categories/xplore/"
+                />
+  </url><url>
     <loc>http://fyshxfish.github.io/zh/p/%E6%9D%82%E8%B0%88%E5%90%91%E4%B8%BA%E4%BB%80%E4%B9%88%E7%BC%96%E8%AF%91%E9%9C%80%E8%A6%81%E5%81%9A%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90-/-%E4%B8%8A%E4%B8%8B%E6%96%87context%E4%B8%8E%E8%AF%AD%E6%B3%95%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90/</loc>
     <lastmod>2025-02-17T16:32:00+08:00</lastmod>
     <xhtml:link
@@ -39,32 +65,6 @@
                 rel="alternate"
                 hreflang="zh"
                 href="http://fyshxfish.github.io/zh/p/%E6%9D%82%E8%B0%88%E5%90%91%E4%B8%BA%E4%BB%80%E4%B9%88%E7%BC%96%E8%AF%91%E9%9C%80%E8%A6%81%E5%81%9A%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90-/-%E4%B8%8A%E4%B8%8B%E6%96%87context%E4%B8%8E%E8%AF%AD%E6%B3%95%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90/"
-                />
-  </url><url>
-    <loc>http://fyshxfish.github.io/zh/categories/</loc>
-    <lastmod>2025-02-07T22:52:00+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="http://fyshxfish.github.io/categories/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="http://fyshxfish.github.io/zh/categories/"
-                />
-  </url><url>
-    <loc>http://fyshxfish.github.io/zh/categories/xplore/</loc>
-    <lastmod>2025-02-07T22:52:00+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="http://fyshxfish.github.io/categories/xplore/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="http://fyshxfish.github.io/zh/categories/xplore/"
                 />
   </url><url>
     <loc>http://fyshxfish.github.io/zh/p/%E5%9C%A8%E7%BB%88%E7%AB%AF%E9%87%8C%E6%92%AD%E6%94%BE%E5%B9%BB%E7%81%AF%E7%89%87/</loc>
@@ -449,7 +449,7 @@
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://fyshxfish.github.io/p/explore-rust-basic/"
+                href="http://fyshxfish.github.io/p/explore-rust-basic-revisiting-gdb/"
                 />
     <xhtml:link
                 rel="alternate"
@@ -459,15 +459,68 @@
   </url><url>
     <loc>http://fyshxfish.github.io/zh/tags/bash/</loc>
     <lastmod>2024-04-03T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://fyshxfish.github.io/tags/bash/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="http://fyshxfish.github.io/zh/tags/bash/"
+                />
   </url><url>
     <loc>http://fyshxfish.github.io/zh/tags/cli/</loc>
     <lastmod>2024-04-03T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://fyshxfish.github.io/tags/cli/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="http://fyshxfish.github.io/zh/tags/cli/"
+                />
   </url><url>
     <loc>http://fyshxfish.github.io/zh/tags/course/</loc>
     <lastmod>2024-04-03T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://fyshxfish.github.io/tags/course/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="http://fyshxfish.github.io/zh/tags/course/"
+                />
   </url><url>
     <loc>http://fyshxfish.github.io/zh/p/%E7%AE%80%E5%8D%95%E7%9A%84-bash-cli-%E7%A8%8B%E5%BA%8F-%E7%AE%80%E5%8D%95%E7%9A%84%E5%85%83%E7%BC%96%E7%A8%8B/</loc>
     <lastmod>2024-04-03T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://fyshxfish.github.io/p/simple-bash-cli-programs-simple-metaprogramming/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="http://fyshxfish.github.io/zh/p/%E7%AE%80%E5%8D%95%E7%9A%84-bash-cli-%E7%A8%8B%E5%BA%8F-%E7%AE%80%E5%8D%95%E7%9A%84%E5%85%83%E7%BC%96%E7%A8%8B/"
+                />
+  </url><url>
+    <loc>http://fyshxfish.github.io/zh/p/%E7%AE%80%E5%8D%95%E7%9C%8B%E7%9C%8B-file-%E5%91%BD%E4%BB%A4/</loc>
+    <lastmod>2024-03-20T20:50:00+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://fyshxfish.github.io/p/a-quick-look-at-the-file-command/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="http://fyshxfish.github.io/zh/p/%E7%AE%80%E5%8D%95%E7%9C%8B%E7%9C%8B-file-%E5%91%BD%E4%BB%A4/"
+                />
   </url><url>
     <loc>http://fyshxfish.github.io/zh/links/</loc>
     <xhtml:link

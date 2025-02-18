@@ -1,0 +1,125 @@
+execve("/usr/bin/file", ["file", "test.c"], 0x7ffd080bd998 /* 44 vars */) = 0
+brk(NULL)                               = 0x56550912e000
+arch_prctl(0x3001 /* ARCH_??? */, 0x7fff5373d8d0) = -1 EINVAL (Invalid argument)
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f9008245000
+access("/etc/ld.so.preload", R_OK)      = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/etc/ld.so.cache", O_RDONLY|O_CLOEXEC) = 3
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=50419, ...}, AT_EMPTY_PATH) = 0
+mmap(NULL, 50419, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f9008238000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libmagic.so.1", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0\0\0\0\0\0\0\0"..., 832) = 832
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=166264, ...}, AT_EMPTY_PATH) = 0
+mmap(NULL, 168976, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f900820e000
+mmap(0x7f9008212000, 114688, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x4000) = 0x7f9008212000
+mmap(0x7f900822e000, 28672, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x20000) = 0x7f900822e000
+mmap(0x7f9008235000, 12288, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x26000) = 0x7f9008235000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libc.so.6", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0P\237\2\0\0\0\0\0"..., 832) = 832
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+pread64(3, "\4\0\0\0 \0\0\0\5\0\0\0GNU\0\2\0\0\300\4\0\0\0\3\0\0\0\0\0\0\0"..., 48, 848) = 48
+pread64(3, "\4\0\0\0\24\0\0\0\3\0\0\0GNU\0\315A\vq\17\17\tLh2\355\331Y1\0m"..., 68, 896) = 68
+newfstatat(3, "", {st_mode=S_IFREG|0755, st_size=2220400, ...}, AT_EMPTY_PATH) = 0
+pread64(3, "\6\0\0\0\4\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0@\0\0\0\0\0\0\0"..., 784, 64) = 784
+mmap(NULL, 2264656, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f9007fe5000
+mprotect(0x7f900800d000, 2023424, PROT_NONE) = 0
+mmap(0x7f900800d000, 1658880, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x28000) = 0x7f900800d000
+mmap(0x7f90081a2000, 360448, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1bd000) = 0x7f90081a2000
+mmap(0x7f90081fb000, 24576, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x215000) = 0x7f90081fb000
+mmap(0x7f9008201000, 52816, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_ANONYMOUS, -1, 0) = 0x7f9008201000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/liblzma.so.5", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0\0\0\0\0\0\0\0"..., 832) = 832
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=170456, ...}, AT_EMPTY_PATH) = 0
+mmap(NULL, 172296, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f9007fba000
+mmap(0x7f9007fbd000, 110592, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x3000) = 0x7f9007fbd000
+mmap(0x7f9007fd8000, 45056, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x1e000) = 0x7f9007fd8000
+mmap(0x7f9007fe3000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x28000) = 0x7f9007fe3000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libbz2.so.1.0", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\0\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0\0\0\0\0\0\0\0"..., 832) = 832
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=74848, ...}, AT_EMPTY_PATH) = 0
+mmap(NULL, 76840, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f9007fa7000
+mmap(0x7f9007fa9000, 53248, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x2000) = 0x7f9007fa9000
+mmap(0x7f9007fb6000, 8192, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0xf000) = 0x7f9007fb6000
+mmap(0x7f9007fb8000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x10000) = 0x7f9007fb8000
+close(3)                                = 0
+openat(AT_FDCWD, "/lib/x86_64-linux-gnu/libz.so.1", O_RDONLY|O_CLOEXEC) = 3
+read(3, "\177ELF\2\1\1\3\0\0\0\0\0\0\0\0\3\0>\0\1\0\0\0\0\0\0\0\0\0\0\0"..., 832) = 832
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=108936, ...}, AT_EMPTY_PATH) = 0
+mmap(NULL, 110776, PROT_READ, MAP_PRIVATE|MAP_DENYWRITE, 3, 0) = 0x7f9007f8b000
+mprotect(0x7f9007f8d000, 98304, PROT_NONE) = 0
+mmap(0x7f9007f8d000, 69632, PROT_READ|PROT_EXEC, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x2000) = 0x7f9007f8d000
+mmap(0x7f9007f9e000, 24576, PROT_READ, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x13000) = 0x7f9007f9e000
+mmap(0x7f9007fa5000, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_FIXED|MAP_DENYWRITE, 3, 0x19000) = 0x7f9007fa5000
+close(3)                                = 0
+mmap(NULL, 8192, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f9007f89000
+arch_prctl(ARCH_SET_FS, 0x7f9007f8a3c0) = 0
+set_tid_address(0x7f9007f8a690)         = 136588
+set_robust_list(0x7f9007f8a6a0, 24)     = 0
+rseq(0x7f9007f8ad60, 0x20, 0, 0x53053053) = 0
+mprotect(0x7f90081fb000, 16384, PROT_READ) = 0
+mprotect(0x7f9007fa5000, 4096, PROT_READ) = 0
+mprotect(0x7f9007fb8000, 4096, PROT_READ) = 0
+mprotect(0x7f9007fe3000, 4096, PROT_READ) = 0
+mprotect(0x7f9008235000, 8192, PROT_READ) = 0
+mprotect(0x5654fa05a000, 4096, PROT_READ) = 0
+mprotect(0x7f900827f000, 8192, PROT_READ) = 0
+prlimit64(0, RLIMIT_STACK, NULL, {rlim_cur=8192*1024, rlim_max=RLIM64_INFINITY}) = 0
+munmap(0x7f9008238000, 50419)           = 0
+getrandom("\x8e\x94\x0e\xde\x17\x6d\xec\xd4", 8, GRND_NONBLOCK) = 8
+brk(NULL)                               = 0x56550912e000
+brk(0x56550914f000)                     = 0x56550914f000
+openat(AT_FDCWD, "/usr/lib/locale/locale-archive", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/share/locale/locale.alias", O_RDONLY|O_CLOEXEC) = 3
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=2996, ...}, AT_EMPTY_PATH) = 0
+read(3, "# Locale name alias data base.\n#"..., 4096) = 2996
+read(3, "", 4096)                       = 0
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/locale/C.UTF-8/LC_CTYPE", O_RDONLY|O_CLOEXEC) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/usr/lib/locale/C.utf8/LC_CTYPE", O_RDONLY|O_CLOEXEC) = 3
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=353616, ...}, AT_EMPTY_PATH) = 0
+mmap(NULL, 353616, PROT_READ, MAP_PRIVATE, 3, 0) = 0x7f9007f32000
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/lib/x86_64-linux-gnu/gconv/gconv-modules.cache", O_RDONLY) = 3
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=27002, ...}, AT_EMPTY_PATH) = 0
+mmap(NULL, 27002, PROT_READ, MAP_SHARED, 3, 0) = 0x7f900823e000
+close(3)                                = 0
+futex(0x7f9008200a6c, FUTEX_WAKE_PRIVATE, 2147483647) = 0
+newfstatat(AT_FDCWD, "/home/fyshx/.magic.mgc", 0x7fff5373d6f0, 0) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/home/fyshx/.magic", 0x7fff5373d6f0, 0) = -1 ENOENT (No such file or directory)
+openat(AT_FDCWD, "/etc/magic.mgc", O_RDONLY) = -1 ENOENT (No such file or directory)
+newfstatat(AT_FDCWD, "/etc/magic", {st_mode=S_IFREG|0644, st_size=111, ...}, 0) = 0
+openat(AT_FDCWD, "/etc/magic", O_RDONLY) = 3
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=111, ...}, AT_EMPTY_PATH) = 0
+read(3, "# Magic local data for file(1) c"..., 4096) = 111
+read(3, "", 4096)                       = 0
+close(3)                                = 0
+openat(AT_FDCWD, "/usr/share/misc/magic.mgc", O_RDONLY) = 3
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=7248904, ...}, AT_EMPTY_PATH) = 0
+mmap(NULL, 7248904, PROT_READ|PROT_WRITE, MAP_PRIVATE, 3, 0) = 0x7f9007848000
+close(3)                                = 0
+mprotect(0x7f9007848000, 7248904, PROT_READ) = 0
+newfstatat(1, "", {st_mode=S_IFREG|0644, st_size=7776, ...}, AT_EMPTY_PATH) = 0
+mmap(NULL, 1052672, PROT_READ|PROT_WRITE, MAP_PRIVATE|MAP_ANONYMOUS, -1, 0) = 0x7f9007747000
+newfstatat(AT_FDCWD, "test.c", {st_mode=S_IFREG|0644, st_size=25, ...}, AT_SYMLINK_NOFOLLOW) = 0
+openat(AT_FDCWD, "test.c", O_RDONLY|O_NONBLOCK|O_CLOEXEC) = 3
+newfstatat(3, "", {st_mode=S_IFREG|0644, st_size=25, ...}, AT_EMPTY_PATH) = 0
+read(3, "int main(){\n\treturn 0;\n}\n", 1048576) = 25
+pread64(3, "int main(){\n\treturn 0;\n}\n", 512, 0) = 25
+pread64(3, "int main(){\n\treturn 0;\n}\n", 25, 0) = 25
+brk(0x565509171000)                     = 0x565509171000
+brk(0x565509192000)                     = 0x565509192000
+brk(0x5655091b3000)                     = 0x5655091b3000
+brk(0x5655091d4000)                     = 0x5655091d4000
+brk(0x5655091f5000)                     = 0x5655091f5000
+brk(0x565509216000)                     = 0x565509216000
+brk(0x565509237000)                     = 0x565509237000
+munmap(0x7f9007747000, 1052672)         = 0
+close(3)                                = 0
+munmap(0x7f9007848000, 7248904)         = 0
+write(1, "test.c: C source, ASCII text\n", 29test.c: C source, ASCII text
+) = 29
+exit_group(0)                           = ?
++++ exited with 0 +++

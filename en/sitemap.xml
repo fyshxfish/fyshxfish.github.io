@@ -431,7 +431,7 @@
                 href="http://fyshxfish.github.io/p/fix-haskell-development-environment-vscode--ghcup--hls/"
                 />
   </url><url>
-    <loc>http://fyshxfish.github.io/p/explore-rust-basic/</loc>
+    <loc>http://fyshxfish.github.io/p/explore-rust-basic-revisiting-gdb/</loc>
     <lastmod>2024-08-05T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
@@ -441,7 +441,7 @@
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://fyshxfish.github.io/p/explore-rust-basic/"
+                href="http://fyshxfish.github.io/p/explore-rust-basic-revisiting-gdb/"
                 />
   </url><url>
     <loc>http://fyshxfish.github.io/tags/rust/</loc>
@@ -455,6 +455,71 @@
                 rel="alternate"
                 hreflang="en"
                 href="http://fyshxfish.github.io/tags/rust/"
+                />
+  </url><url>
+    <loc>http://fyshxfish.github.io/tags/bash/</loc>
+    <lastmod>2024-04-03T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="http://fyshxfish.github.io/zh/tags/bash/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://fyshxfish.github.io/tags/bash/"
+                />
+  </url><url>
+    <loc>http://fyshxfish.github.io/tags/cli/</loc>
+    <lastmod>2024-04-03T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="http://fyshxfish.github.io/zh/tags/cli/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://fyshxfish.github.io/tags/cli/"
+                />
+  </url><url>
+    <loc>http://fyshxfish.github.io/tags/course/</loc>
+    <lastmod>2024-04-03T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="http://fyshxfish.github.io/zh/tags/course/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://fyshxfish.github.io/tags/course/"
+                />
+  </url><url>
+    <loc>http://fyshxfish.github.io/p/simple-bash-cli-programs-simple-metaprogramming/</loc>
+    <lastmod>2024-04-03T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="http://fyshxfish.github.io/zh/p/%E7%AE%80%E5%8D%95%E7%9A%84-bash-cli-%E7%A8%8B%E5%BA%8F-%E7%AE%80%E5%8D%95%E7%9A%84%E5%85%83%E7%BC%96%E7%A8%8B/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://fyshxfish.github.io/p/simple-bash-cli-programs-simple-metaprogramming/"
+                />
+  </url><url>
+    <loc>http://fyshxfish.github.io/p/a-quick-look-at-the-file-command/</loc>
+    <lastmod>2024-03-20T20:50:00+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="http://fyshxfish.github.io/zh/p/%E7%AE%80%E5%8D%95%E7%9C%8B%E7%9C%8B-file-%E5%91%BD%E4%BB%A4/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://fyshxfish.github.io/p/a-quick-look-at-the-file-command/"
                 />
   </url><url>
     <loc>http://fyshxfish.github.io/links/</loc>

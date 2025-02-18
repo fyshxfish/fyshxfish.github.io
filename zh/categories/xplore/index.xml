@@ -6,7 +6,51 @@
         <description>Recent content in Xplore on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh</language>
-        <lastBuildDate>Fri, 07 Feb 2025 22:52:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/zh/categories/xplore/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 17 Feb 2025 16:32:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/zh/categories/xplore/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>杂谈向：为什么编译需要做语义分析 / 上下文（Context）与语法语义分析</title>
+        <link>http://fyshxfish.github.io/zh/p/%E6%9D%82%E8%B0%88%E5%90%91%E4%B8%BA%E4%BB%80%E4%B9%88%E7%BC%96%E8%AF%91%E9%9C%80%E8%A6%81%E5%81%9A%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90-/-%E4%B8%8A%E4%B8%8B%E6%96%87context%E4%B8%8E%E8%AF%AD%E6%B3%95%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90/</link>
+        <pubDate>Mon, 17 Feb 2025 16:32:00 +0800</pubDate>
+        
+        <guid>http://fyshxfish.github.io/zh/p/%E6%9D%82%E8%B0%88%E5%90%91%E4%B8%BA%E4%BB%80%E4%B9%88%E7%BC%96%E8%AF%91%E9%9C%80%E8%A6%81%E5%81%9A%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90-/-%E4%B8%8A%E4%B8%8B%E6%96%87context%E4%B8%8E%E8%AF%AD%E6%B3%95%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90/</guid>
+        <description>&lt;!-- 最近在看一点编译原理的材料， --&gt;
+&lt;h2 id=&#34;引言&#34;&gt;&lt;a href=&#34;#%e5%bc%95%e8%a8%80&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;引言
+&lt;/h2&gt;&lt;p&gt;标题的这个问题，其实是一个不太正确的问题，因为对于语言而言，设计先于实现——先设计语言的语法和语义，然后写编译器去检查一个程序语法是否正确，然后根据设定好的语义将它转写成目标机器代码。从“上下文”这个视角去思考，常见情况下，语法是&lt;strong&gt;上下文无关&lt;/strong&gt;的，而语义正是用来处理&lt;strong&gt;上下文相关&lt;/strong&gt;的问题的，&lt;code&gt;x = 1; print(x);&lt;/code&gt; 和 &lt;code&gt;x = 2; print(x);&lt;/code&gt;，同样是 &lt;code&gt;print(x)&lt;/code&gt;，它的上文是不一样的，所以它导致的结果也不一样.&lt;/p&gt;
+&lt;h2 id=&#34;举例-1---&#34;&gt;&lt;a href=&#34;#%e4%b8%be%e4%be%8b-1---&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;举例 1 - &lt;code&gt;=&lt;/code&gt;
+&lt;/h2&gt;&lt;p&gt;比如：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;foo = 3
+foo = 4
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;假设对这个程序只做语法分析，那么它符合 Python 语法，也符合 Haskell 语法，但是对它做语义分析，作为一个 Python 程序，它的意思是，“先将 &lt;code&gt;3&lt;/code&gt; 赋值给 &lt;code&gt;foo&lt;/code&gt;，然后将 &lt;code&gt;4&lt;/code&gt; 赋值给 &lt;code&gt;foo&lt;/code&gt;”；作为一个 Haskell 程序，它不是一个合格的 Haskell 程序，因为 Haskell 语义不允许做重复的绑定，所以核心原因是，Python 的 &lt;code&gt;=&lt;/code&gt; 的语义是赋值（assign），内存覆写，Haskell 的 &lt;code&gt;=&lt;/code&gt; 的语义是绑定（name binding），为了保证无副作用、执行顺序无关等特性，只允许单次绑定.&lt;/p&gt;
+&lt;h2 id=&#34;举例2---polyglot&#34;&gt;&lt;a href=&#34;#%e4%b8%be%e4%be%8b2---polyglot&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;举例2 - polyglot
+&lt;/h2&gt;&lt;p&gt;下面这个程序改写自 &lt;a class=&#34;link&#34; href=&#34;https://en.wikipedia.org/wiki/Polyglot_%28computing%29#C,_PHP,_and_Bash&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;polyglot(computing) wikipedia&lt;/a&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;#define a /*
+echo -e &amp;#34;\033[34mHello, World! from echo\033[0m&amp;#34;;// &amp;amp;&amp;gt; /dev/null;
+x=5; 
+if (($x))
+// 2&amp;gt; /dev/null; then
+return 0;
+// 2&amp;gt; /dev/null; fi
+#define e ?&amp;gt;
+#define b */
+#include &amp;lt;stdio.h&amp;gt;
+#define main() int main(void)
+#define printf printf(
+#define true )
+#define function
+function main()
+{
+    printf &amp;#34;\033[31mHello, World! from main\033[0m\n&amp;#34;true/* 2&amp;gt; /dev/null | grep -v true*/;
+    return 0;
+}
+#define c /*
+main
+#*/
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;它既符合 C 语法，又符合 Bash 语法，编译/解释执行它得到的结果也是不一样的，因为两个程序的语义不同（当然 C 和 Bash 的语法也是不一样的，polyglot 编写的核心就是利用各语言之间的注释/宏/&amp;hellip;使用的&lt;strong&gt;符号&lt;/strong&gt;不同，符号（广义）的使用和布局正是语法&lt;span style=&#34;font-size: smaller;&#34;&gt;&amp;amp;词法&lt;/span&gt;关心的事情）：&lt;/p&gt;
+&lt;img src=&#34;poly.png&#34; alt=&#34;poly&#34; style=&#34;zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
+&lt;!-- &lt;span style=&#34;font-size: smaller;&#34;&gt;你可能注意到了这里的一行 `file` 命令，它通过关键字判断出这是一个 C 源文件，所以 `file` 也不一定完全正确，&lt;/span&gt; --&gt;
+</description>
+        </item>
+        <item>
         <title>在终端里播放幻灯片</title>
         <link>http://fyshxfish.github.io/zh/p/%E5%9C%A8%E7%BB%88%E7%AB%AF%E9%87%8C%E6%92%AD%E6%94%BE%E5%B9%BB%E7%81%AF%E7%89%87/</link>
         <pubDate>Fri, 07 Feb 2025 22:52:00 +0800</pubDate>
@@ -370,10 +414,44 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;done&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;把这一堆文件批量编译到汇编，再用 &lt;code&gt;grep&lt;/code&gt; 检查是否存在跳转表并报告，我们的任务就完成了，道理差不多，这里不再赘述，如果你好奇讨论题的答案：&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;当连续分支数量大于等于 4(clang) / 5(gcc) 时，编译器将使用跳转表，否则使用 subl, je 条件跳转；&lt;/li&gt;
-&lt;li&gt;当分支常量间隔 &amp;gt;=12(clang) / 10(gcc) 时，编译器不再采用跳转表，而是直接用 subl, je 进行条件判断与跳转；&lt;/li&gt;
-&lt;li&gt;当分支变量为两段连续，但两段之间有较大间隔，如这里的1,2,…,6, 101,102,…106，gcc将生成两张跳转表. （此结论来自我的队友 LYT 同学）&lt;/li&gt;
+&lt;li&gt;当连续分支数量 &amp;gt;= 4(clang) / 5(gcc) 时，编译器将使用跳转表，否则使用 subl, je 条件跳转；&lt;/li&gt;
+&lt;li&gt;当分支常量间隔 &amp;gt;= 12(clang) / 10(gcc) 时，编译器不再采用跳转表，而是直接用 subl, je 进行条件判断与跳转；&lt;/li&gt;
+&lt;li&gt;当分支变量为两段连续，但两段之间有较大间隔，如这里的 &lt;span style=&#34;color:rgb(64, 145, 252);&#34;&gt;1,2,&amp;hellip;,6,&lt;/span&gt; &lt;span style=&#34;color:rgb(254, 72, 151);&#34;&gt;101,102,&amp;hellip;106&lt;/span&gt;，gcc 将生成两张跳转表. （此结论来自我的队友 LYT 同学）&lt;/li&gt;
 &lt;/ul&gt;
+</description>
+        </item>
+        <item>
+        <title>简单看看 `file` 命令</title>
+        <link>http://fyshxfish.github.io/zh/p/%E7%AE%80%E5%8D%95%E7%9C%8B%E7%9C%8B-file-%E5%91%BD%E4%BB%A4/</link>
+        <pubDate>Wed, 20 Mar 2024 20:50:00 +0800</pubDate>
+        
+        <guid>http://fyshxfish.github.io/zh/p/%E7%AE%80%E5%8D%95%E7%9C%8B%E7%9C%8B-file-%E5%91%BD%E4%BB%A4/</guid>
+        <description>&lt;h2 id=&#34;简单的前言&#34;&gt;&lt;a href=&#34;#%e7%ae%80%e5%8d%95%e7%9a%84%e5%89%8d%e8%a8%80&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;简单的前言
+&lt;/h2&gt;&lt;p&gt;虽然这里的日期是 2024-03-20，但是我写这篇博客的时候其实是 2025-02-18，来自我的计算机系统的讨论课材料. 如果你想知道一个文件的类型，那么你可能会用到 &lt;code&gt;file&lt;/code&gt; 这个命令，&lt;code&gt;file&lt;/code&gt; 会告诉你这个文件的类型，那么 &lt;code&gt;file&lt;/code&gt; 是如何知道文件的类型的，或者说，系统中的文件如何告诉 &lt;code&gt;file&lt;/code&gt;（或者任意一个想知道其类型的程序）自己的类型，文件把类型的信息放在哪里？&lt;/p&gt;
+&lt;h2 id=&#34;阅读手册&#34;&gt;&lt;a href=&#34;#%e9%98%85%e8%af%bb%e6%89%8b%e5%86%8c&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;阅读手册
+&lt;/h2&gt;&lt;p&gt;了解一个命令的第一&lt;span style=&#34;font-size: smaller;&#34;&gt;二&lt;/span&gt;&lt;span style=&#34;font-size: x-small;&#34;&gt;三&lt;/span&gt;个手段一般是 &lt;code&gt;whatis&lt;/code&gt; / &lt;code&gt;man&lt;/code&gt; / &lt;code&gt;tldr&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;man whatis&lt;/code&gt; 会告诉你，&lt;code&gt;whatis&lt;/code&gt; 其实就来自 &lt;code&gt;man&lt;/code&gt;:&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Each  manual page has a short description available within it.  &lt;strong&gt;whatis&lt;/strong&gt; searches the manual page names and displays the manual page descriptions of any name matched.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;code&gt;man file&lt;/code&gt; 会告诉你，&lt;code&gt;file&lt;/code&gt; 这样检查文件的类型：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;file&lt;/strong&gt; tests each argument in an attempt to classify it.  There are three sets of tests, performed in this order: filesystem tests, magic tests, and language tests.  The first test that succeeds causes the file type to be printed.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;ol&gt;
+&lt;li&gt;filesystem tests
+&lt;br&gt;系统调用 stat, 根据其返回值判断文件的类型；stat 可以判断文件为空/文件类型是&amp;lt;sys/stat.h&amp;gt;中已定义的类型.&lt;/li&gt;
+&lt;li&gt;magic tests
+&lt;br&gt;检查文件头是否含有特定的 magic bytes. 例如，如果该文件的前五个字节对应的 ASCII 字符是&amp;quot;%PDF-&amp;quot;，则判断为PDF文件. 若不存在任何 magic bytes, 则判断为文本文件，&lt;code&gt;file&lt;/code&gt; 将继续判断其编码方式为 ASCII/UTF-8/…&lt;/li&gt;
+&lt;li&gt;language tests
+&lt;br&gt;通过关键字判断文件的语言，如从 main, struct, printf 推测该文本文件为 C 源文件.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;近距离观察这个命令的执行流程的方式是 &lt;code&gt;strace file foo.bar&lt;/code&gt;；你也可以把输出放到重定向到文件里，然后用 &lt;code&gt;vim&lt;/code&gt; 查看它，以便进行关键字检索，如 &lt;code&gt;strace file foo.bar &amp;amp;&amp;gt; strace.out; vim strace.out&lt;/code&gt; &amp;ndash;&amp;gt;&lt;/p&gt;
+&lt;h2 id=&#34;欺骗-file&#34;&gt;&lt;a href=&#34;#%e6%ac%ba%e9%aa%97-file&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;欺骗 &lt;code&gt;file&lt;/code&gt;
+&lt;/h2&gt;&lt;h3 id=&#34;从-magic-test-入手&#34;&gt;&lt;a href=&#34;#%e4%bb%8e-magic-test-%e5%85%a5%e6%89%8b&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;从 magic test 入手
+&lt;/h3&gt;&lt;img src=&#34;magic_pdf.png&#34; alt=&#34;fake pdf&#34; style=&#34;zoom:80%;box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
+&lt;h3 id=&#34;从-language-test-入手&#34;&gt;&lt;a href=&#34;#%e4%bb%8e-language-test-%e5%85%a5%e6%89%8b&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;从 language test 入手
+&lt;/h3&gt;&lt;img src=&#34;confusing_c.png&#34; alt=&#34;C source file?&#34; style=&#34;zoom:80%;box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
+&lt;h2 id=&#34;简单的结语&#34;&gt;&lt;a href=&#34;#%e7%ae%80%e5%8d%95%e7%9a%84%e7%bb%93%e8%af%ad&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;简单的结语
+&lt;/h2&gt;&lt;p&gt;回答最开始的问题——&lt;code&gt;file&lt;/code&gt; 通过 filesystem tests, magic tests, and language tests 得知文件的类型，文件通过文件头中的 magic byte / 文本编码 / 程序语言关键字来表达自己的类型.&lt;/p&gt;
 </description>
         </item>
         

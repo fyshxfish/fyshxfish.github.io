@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Simple Introduction Based on materials I prepared for Computer System course\nI&rsquo;ve seen many people claim that Bash syntax is uncomfortable, but I had already gotten used to Bash syntax before encountering such opinions - &ldquo;I met you before the rumors did&rdquo;?? 😶\u200d🌫️\n">
+<title>Simple Bash CLI Programs &amp; Simple Metaprogramming</title>
+
+<link rel='canonical' href='http://fyshxfish.github.io/p/simple-bash-cli-programs-simple-metaprogramming/'>
+
+<link rel="stylesheet" href="/scss/style.min.ba5cc34af4430963fcfe2f9afd2fb80f7251aa5d621efcdd72c32002a6e56cae.css"><meta property='og:title' content="Simple Bash CLI Programs & Simple Metaprogramming">
+<meta property='og:description' content="Simple Introduction Based on materials I prepared for Computer System course\nI&rsquo;ve seen many people claim that Bash syntax is uncomfortable, but I had already gotten used to Bash syntax before encountering such opinions - &ldquo;I met you before the rumors did&rdquo;?? 😶\u200d🌫️\n">
+<meta property='og:url' content='http://fyshxfish.github.io/p/simple-bash-cli-programs-simple-metaprogramming/'>
+<meta property='og:site_name' content='fyshXplore'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='bash' /><meta property='article:tag' content='CLI' /><meta property='article:tag' content='course' /><meta property='article:published_time' content='2024-04-03T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-04-03T00:00:00&#43;00:00'/>
+<meta name="twitter:title" content="Simple Bash CLI Programs & Simple Metaprogramming">
+<meta name="twitter:description" content="Simple Introduction Based on materials I prepared for Computer System course\nI&rsquo;ve seen many people claim that Bash syntax is uncomfortable, but I had already gotten used to Bash syntax before encountering such opinions - &ldquo;I met you before the rumors did&rdquo;?? 😶\u200d🌫️\n"><style>
+  :root {
+     
+    --zh-font-family: "Noto Serif SC";
+     
+     
+     
+    --code-font-family: Consolas, Menlo, Monaco, "Courier New", var(--zh-font-family), monospace;
+    --article-font-family: "Noto Serif SC";
+  }
+</style>
+
+<script>
+  (function () {
+    const customFont = document.createElement("link");
+    customFont.href =
+      "https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap";
+
+    customFont.type = "text/css";
+    customFont.rel = "stylesheet";
+
+    document.head.appendChild(customFont);
+  })();
+</script>
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            localStorage.setItem(colorSchemeKey, "auto");
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/fyshx_avatar_hu_4b64fe58c612edf3.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🫧</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">fyshXplore</a></h1>
+            <h2 class="site-description">Just for 𝐅𝐮𝐧</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/fyshxfish'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-infinity" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M9.828 9.172a4 4 0 1 0 0 5.656 a10 10 0 0 0 2.172 -2.828a10 10 0 0 1 2.172 -2.828 a4 4 0 1 1 0 5.656a10 10 0 0 1 -2.172 -2.828a10 10 0 0 0 -2.172 -2.828" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="http://fyshxfish.github.io/zh/" >中文</option>
+                                
+                                    <option value="http://fyshxfish.github.io/" selected>English</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">&thinsp;Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#simple-introduction">Simple Introduction</a></li>
+    <li><a href="#command-line-argument-capture">Command Line Argument Capture</a></li>
+    <li><a href="#the-simplest-metaprogramming">The Simplest Metaprogramming</a></li>
+    <li><a href="#source-file-pipeline">Source File Pipeline</a></li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/xplore/" style="background-color: #92af88; color: #fff;">
+                Xplore
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/simple-bash-cli-programs-simple-metaprogramming/">Simple Bash CLI Programs &amp; Simple Metaprogramming</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Apr 3, 2024</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    3 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+        <footer class="article-translations">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+            <div>
+                
+                    <a href="http://fyshxfish.github.io/zh/p/%E7%AE%80%E5%8D%95%E7%9A%84-bash-cli-%E7%A8%8B%E5%BA%8F-%E7%AE%80%E5%8D%95%E7%9A%84%E5%85%83%E7%BC%96%E7%A8%8B/" class="link">中文</a>
+                
+            </div>
+        </footer>
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="simple-introduction"><a href="#simple-introduction" class="header-anchor"></a>Simple Introduction
+</h2><p><em>Based on materials I prepared for Computer System course</em></p>
+<!-- Although the date here is April 3, 2024, I'm actually writing this blog on February 18, 2025. When writing yesterday's blog post that mentioned polyglot content, I realized these materials came from discussion sessions in my computer systems course from two semesters ago. I decided to dig up some interesting parts of those materials that had been sleeping in various directories like .../Downloads, .../Courses/CS24Spring, and group file folders - and that's how this blog post came to be. -->
+<p>I&rsquo;ve seen many people claim that Bash syntax is uncomfortable, but I had already gotten used to Bash syntax before encountering such opinions - &ldquo;I met you before the rumors did&rdquo;?? 😶‍🌫️</p>
+<p>The topic of the related discussion session was: <em>how does the compiler handle switch-case statements in C</em>? Specifically, under what distribution of <code>case</code> statements (continuous/discontinuous, size of intervals) will the compiler generate a jump table? Since we needed to explore different <code>case</code> scenarios, we first needed to generate C source files with different <code>case</code> patterns. This seemed rather mechanical, so we considered using an automated script. Our expectation for this script was that <code>generator -b 10 -s 2 -d dest_dir -f file_name</code> would produce a file with 10 branches (<code>-b</code>), branch intervals (<code>-s</code>) of 2, in the directory (<code>-d</code>) dest_dir, with the filename (<code>-f</code>) file_name.c. With a single file generator in hand, we could then write another generator to call this one and create a batch of C source files with varying numbers of branches and intervals.</p>
+<h2 id="command-line-argument-capture"><a href="#command-line-argument-capture" class="header-anchor"></a>Command Line Argument Capture
+</h2><p>The most obvious benefit of command line interfaces is that you can control a command&rsquo;s specific behavior through options. For example, <code>cat</code> displays file contents, while <code>cat -n</code> adds line numbers. To capture command line arguments, we use <code>getopts</code>:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#cf222e">while</span> <span style="color:#6639ba">getopts</span> <span style="color:#0a3069">&#34;:b:d:f:s:&#34;</span> opt<span style="color:#1f2328">;</span> <span style="color:#cf222e">do</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#cf222e">case</span> <span style="color:#953800">$opt</span> in
+</span></span><span style="display:flex;"><span>    b<span style="color:#0550ae">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#953800">branch</span><span style="color:#0550ae">=</span><span style="color:#953800">$OPTARG</span>      <span style="color:#57606a"># number of switch branches</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#1f2328">;;</span>
+</span></span><span style="display:flex;"><span>    :<span style="color:#0550ae">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#6639ba">echo</span> <span style="color:#0a3069">&#34;Option -</span><span style="color:#953800">$OPTARG</span><span style="color:#0a3069"> requires an argument.&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#1f2328">;;</span>
+</span></span><span style="display:flex;"><span>    ?<span style="color:#0550ae">)</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#6639ba">echo</span> <span style="color:#0a3069">&#34;Invalid option: -</span><span style="color:#953800">$OPTARG</span><span style="color:#0a3069">&#34;</span>
+</span></span><span style="display:flex;"><span>      <span style="color:#1f2328">;;</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#cf222e">esac</span>
+</span></span><span style="display:flex;"><span><span style="color:#cf222e">done</span>
+</span></span></code></pre></div><h2 id="the-simplest-metaprogramming"><a href="#the-simplest-metaprogramming" class="header-anchor"></a>The Simplest Metaprogramming
+</h2><p>The metaprogramming here refers to using code to generate code. This can be complex, but here we take the simplest approach - code is just a text file, right? So we can simply <code>echo</code> code text and append it to the target file:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#953800">targetpath</span><span style="color:#0550ae">=</span><span style="color:#0a3069">&#34;./</span><span style="color:#0a3069">${</span><span style="color:#953800">dir</span><span style="color:#0a3069">}</span><span style="color:#0a3069">/</span><span style="color:#0a3069">${</span><span style="color:#953800">filename</span><span style="color:#0a3069">}</span><span style="color:#0a3069">&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">echo</span> -e <span style="color:#0a3069">&#34;/* Created by switch_generator */\n&#34;</span><span style="color:#0a3069">\
+</span></span></span><span style="display:flex;"><span><span style="color:#0a3069"></span>&gt; <span style="color:#0a3069">${</span><span style="color:#953800">targetpath</span><span style="color:#0a3069">}</span>     <span style="color:#57606a"># sleep 0.1 </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">echo</span> -e <span style="color:#0a3069">\
+</span></span></span><span style="display:flex;"><span><span style="color:#0a3069"></span><span style="color:#0a3069">&#34;int main(){\n\n\
+</span></span></span><span style="display:flex;"><span><span style="color:#0a3069">    int i = 0, j = 0;\n\
+</span></span></span><span style="display:flex;"><span><span style="color:#0a3069">    switch (i) {\
+</span></span></span><span style="display:flex;"><span><span style="color:#0a3069">&#34;</span> &gt;&gt; <span style="color:#0a3069">${</span><span style="color:#953800">targetpath</span><span style="color:#0a3069">}</span><span style="color:#1f2328">;</span>  <span style="color:#57606a"># sleep 0.1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#cf222e">for</span> <span style="color:#0550ae">((</span> <span style="color:#953800">i</span> <span style="color:#0550ae">=</span> 1<span style="color:#1f2328">;</span>i &lt;<span style="color:#0550ae">=</span> <span style="color:#953800">$branch</span><span style="color:#1f2328">;</span> i++ <span style="color:#0550ae">))</span><span style="color:#1f2328">;</span> <span style="color:#cf222e">do</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#953800">record</span><span style="color:#0550ae">=</span><span style="color:#953800">$i</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#953800">i</span><span style="color:#0550ae">=</span><span style="color:#cf222e">$((</span> i*seperate <span style="color:#cf222e">))</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#6639ba">echo</span> -e <span style="color:#0a3069">\
+</span></span></span><span style="display:flex;"><span><span style="color:#0a3069"></span><span style="color:#0a3069">&#34;    case </span><span style="color:#953800">$i</span><span style="color:#0a3069">:\n\
+</span></span></span><span style="display:flex;"><span><span style="color:#0a3069">        j += </span><span style="color:#953800">$i</span><span style="color:#0a3069">;\n\
+</span></span></span><span style="display:flex;"><span><span style="color:#0a3069">        break;\n\
+</span></span></span><span style="display:flex;"><span><span style="color:#0a3069">&#34;</span> &gt;&gt; <span style="color:#0a3069">${</span><span style="color:#953800">targetpath</span><span style="color:#0a3069">}</span><span style="color:#1f2328">;</span>  <span style="color:#57606a"># sleep 0.1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#953800">i</span><span style="color:#0550ae">=</span><span style="color:#953800">$record</span>
+</span></span><span style="display:flex;"><span><span style="color:#cf222e">done</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">echo</span> -e <span style="color:#0a3069">\
+</span></span></span><span style="display:flex;"><span><span style="color:#0a3069"></span><span style="color:#0a3069">&#34;    default:\n\
+</span></span></span><span style="display:flex;"><span><span style="color:#0a3069">        j += 1000;\n\
+</span></span></span><span style="display:flex;"><span><span style="color:#0a3069">        break;\n\
+</span></span></span><span style="display:flex;"><span><span style="color:#0a3069">    }\n\
+</span></span></span><span style="display:flex;"><span><span style="color:#0a3069">    return 0;\n\
+</span></span></span><span style="display:flex;"><span><span style="color:#0a3069">}&#34;</span> &gt;&gt; <span style="color:#0a3069">${</span><span style="color:#953800">targetpath</span><span style="color:#0a3069">}</span> 
+</span></span></code></pre></div><h2 id="source-file-pipeline"><a href="#source-file-pipeline" class="header-anchor"></a>Source File Pipeline
+</h2><p>Raising the level of abstraction, we use another script to call the above script, implementing batch production of source files. The core code is:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-bash" data-lang="bash"><span style="display:flex;"><span><span style="color:#cf222e">for</span> <span style="color:#0550ae">((</span> <span style="color:#953800">branch_num</span> <span style="color:#0550ae">=</span> 1<span style="color:#1f2328">;</span> branch_num &lt;<span style="color:#0550ae">=</span> <span style="color:#953800">$size</span><span style="color:#1f2328">;</span> branch_num++ <span style="color:#0550ae">))</span><span style="color:#1f2328">;</span><span style="color:#cf222e">do</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#953800">filename</span><span style="color:#0550ae">=</span><span style="color:#0a3069">&#34;</span><span style="color:#0a3069">${</span><span style="color:#953800">compiler</span><span style="color:#0a3069">}</span><span style="color:#0a3069">_branch_</span><span style="color:#0a3069">${</span><span style="color:#953800">branch_num</span><span style="color:#0a3069">}</span><span style="color:#0a3069">&#34;</span>                             
+</span></span><span style="display:flex;"><span>    bash ./switch_generator.sh  -b <span style="color:#953800">$branch_num</span> -d <span style="color:#953800">$dir</span> -f <span style="color:#0a3069">${</span><span style="color:#953800">filename</span><span style="color:#0a3069">}</span>.c 
+</span></span><span style="display:flex;"><span>    <span style="color:#57606a"># $compiler -S ./${dir}/${filename}.c -o ./${dir}/${filename}.s    </span>
+</span></span><span style="display:flex;"><span>    <span style="color:#57606a"># ...       </span>
+</span></span><span style="display:flex;"><span><span style="color:#cf222e">done</span>
+</span></span></code></pre></div><p>By batch compiling these files to assembly, then using <code>grep</code> to check for and report jump tables, our task was complete. The principles are similar, so I won&rsquo;t go into further detail. If you&rsquo;re curious about the answers to the discussion questions:</p>
+<ul>
+<li>Compilers use jump tables when the number of consecutive branches is ≥ 4 (clang) / 5 (gcc); otherwise, they use subl, je conditional jump instructions;</li>
+<li>When branch constant intervals are ≥ 12 (clang) / 10 (gcc), compilers no longer use jump tables, but directly use subl, je for conditional testing and jumping;</li>
+<li>When branch variables form two consecutive segments with a large gap between them, such as <span style="color:rgb(64, 145, 252);">1,2,&hellip;,6,</span> <span style="color:rgb(254, 72, 151);">101,102,&hellip;106</span>, gcc generates two jump tables (this conclusion comes from my teammate LYT)</li>
+</ul>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/bash/">Bash</a>
+        
+            <a href="/tags/cli/">CLI</a>
+        
+            <a href="/tags/course/">Course</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/a-quick-look-at-the-file-command/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">A Quick Look at the `file` Command</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/context-syntax-/-semantic-analysis/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Context &amp; Syntax / Semantic Analysis</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/slides-but-in-terminal/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Slides, But in Terminal</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2024 - 
+        
+        2025 fyshXplore
+    </section>
+    
+    <section class="powerby">
+        
+            Wish You a Nice Day! <br/>
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>
