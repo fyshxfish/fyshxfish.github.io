@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='http://fyshxfish.github.io/zh/p/mit-scheme-%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/'>
 
-<link rel="stylesheet" href="/scss/style.min.ba5cc34af4430963fcfe2f9afd2fb80f7251aa5d621efcdd72c32002a6e56cae.css"><meta property='og:title' content="mit-scheme 配置与基本使用">
+<link rel="stylesheet" href="/scss/style.min.40db8f9e04bd213ebfbcd7be0a9fb1a9857a662aba6bf8c2157b3a29a553d615.css"><meta property='og:title' content="mit-scheme 配置与基本使用">
 <meta property='og:description' content=" Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away. &ndash; Antoine de Saint-Exupéry\n通过包管理器下载 mit-scheme MacOS:\nbrew install mit-scheme Ubuntu:\nsudo apt-get update sudo apt-get install mit-scheme REPL 基本使用 （REPL: Read-Evaluate-Print Loop）\n进入 REPL:\nmit-scheme 在 REPL 加载中加载 scheme 代码:\n">
 <meta property='og:url' content='http://fyshxfish.github.io/zh/p/mit-scheme-%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/'>
 <meta property='og:site_name' content='fyshXplore'>
@@ -358,7 +358,7 @@
 
             <div>
                 
-                    <a href="http://fyshxfish.github.io/p/mit-scheme-configuration-and-basic-usage/" class="link">English</a>
+                    <a href="http://fyshxfish.github.io/p/mit-scheme-basic-usage/" class="link">English</a>
                 
             </div>
         </footer>
@@ -425,7 +425,7 @@
 <p>如果 REPL 没有反应:</p>
 <ol>
 <li>
-<p>检查括号是否逐对匹配;</p>
+<p>检查括号是否逐对匹配;   <span style="color:red">( </span>( ) ( ( ) )</p>
 </li>
 <li>
 <p>Ctrl-C 中断后回到 REPL, 提示符 (<code>1 ] =&gt;</code> / <code>2 error&gt;</code>) 不会重新显示.</p>
@@ -462,7 +462,8 @@
 <!-- 7. Press ^C once to get **help information**; Press ^C twice to goto the top level REPL.  -->
 <hr>
 <h2 id="后记"><a href="#%e5%90%8e%e8%ae%b0" class="header-anchor"></a>后记
-</h2><p>不知道是否有更好用的 Scheme REPL，这个 REPL 确实是比较原始，不支持历史表达式的回溯，不支持光标移动，但是一想到 lisp 历史这么悠久，语法本身十分简洁纯净，我就接受了一切。<span style="color: #888888; font-size: 0.85em;">（不像写 Haskell 的时候 LSP 出了问题，我必通过重启 VSCode / 重启电脑 / 更改 LSP 版本先把 LSP 重新拉起来，而不是先把代码写了。）</span></p>
+</h2><p>不知道是否有更好用的 Scheme REPL，这个 REPL 确实是比较原始，不支持历史表达式的回溯，不支持光标移动，不过我并不需要用它做太多复杂的工作，所以能用就行了.</p>
+<!-- <span style="color: #888888; font-size: 0.85em;">（不像写 Haskell 的时候 LSP 出了问题，我必通过重启 VSCode / 重启电脑 / 更改 LSP 版本先把 LSP 重新拉起来，而不是先把代码写了。）</span> -->
 
 </section>
 

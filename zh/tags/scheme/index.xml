@@ -434,7 +434,7 @@ ghci&amp;gt; :t ($ x)
 &lt;p&gt;如果 REPL 没有反应:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
-&lt;p&gt;检查括号是否逐对匹配;&lt;/p&gt;
+&lt;p&gt;检查括号是否逐对匹配;   &lt;span style=&#34;color:red&#34;&gt;( &lt;/span&gt;( ) ( ( ) )&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Ctrl-C 中断后回到 REPL, 提示符 (&lt;code&gt;1 ] =&amp;gt;&lt;/code&gt; / &lt;code&gt;2 error&amp;gt;&lt;/code&gt;) 不会重新显示.&lt;/p&gt;
@@ -471,7 +471,8 @@ ghci&amp;gt; :t ($ x)
 &lt;!-- 7. Press ^C once to get **help information**; Press ^C twice to goto the top level REPL.  --&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;后记&#34;&gt;&lt;a href=&#34;#%e5%90%8e%e8%ae%b0&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;后记
-&lt;/h2&gt;&lt;p&gt;不知道是否有更好用的 Scheme REPL，这个 REPL 确实是比较原始，不支持历史表达式的回溯，不支持光标移动，但是一想到 lisp 历史这么悠久，语法本身十分简洁纯净，我就接受了一切。&lt;span style=&#34;color: #888888; font-size: 0.85em;&#34;&gt;（不像写 Haskell 的时候 LSP 出了问题，我必通过重启 VSCode / 重启电脑 / 更改 LSP 版本先把 LSP 重新拉起来，而不是先把代码写了。）&lt;/span&gt;&lt;/p&gt;
+&lt;/h2&gt;&lt;p&gt;不知道是否有更好用的 Scheme REPL，这个 REPL 确实是比较原始，不支持历史表达式的回溯，不支持光标移动，不过我并不需要用它做太多复杂的工作，所以能用就行了.&lt;/p&gt;
+&lt;!-- &lt;span style=&#34;color: #888888; font-size: 0.85em;&#34;&gt;（不像写 Haskell 的时候 LSP 出了问题，我必通过重启 VSCode / 重启电脑 / 更改 LSP 版本先把 LSP 重新拉起来，而不是先把代码写了。）&lt;/span&gt; --&gt;
 </description>
         </item>
         

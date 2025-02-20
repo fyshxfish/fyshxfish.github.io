@@ -1905,124 +1905,130 @@ Title of this section is *Nested Mappings*, which represented in code with neste
 </description>
         </item>
         <item>
-        <title>VSCode 配置记录</title>
-        <link>http://fyshxfish.github.io/zh/p/vscode-%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95/</link>
+        <title>我的常用 VSCode 快捷键</title>
+        <link>http://fyshxfish.github.io/zh/p/%E6%88%91%E7%9A%84%E5%B8%B8%E7%94%A8-vscode-%E5%BF%AB%E6%8D%B7%E9%94%AE/</link>
         <pubDate>Mon, 26 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/zh/p/vscode-%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95/</guid>
-        <description>&lt;p&gt;包含对于 VSCode 作为文本编辑器的配置，不包含对语言环境的配置.&lt;/p&gt;
+        <guid>http://fyshxfish.github.io/zh/p/%E6%88%91%E7%9A%84%E5%B8%B8%E7%94%A8-vscode-%E5%BF%AB%E6%8D%B7%E9%94%AE/</guid>
+        <description>&lt;!-- 来自 2025-02 的一次维护更新——现在进入 VSCode 的基本动作是，Win 键打开菜单搜索并打开 wezterm，进入 wezterm 后 cd 到工作目录，`code .` 进入 VSCode，Win + ↑ 进入全屏，丝滑~ --&gt;
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;让工具更趁手✨&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;!-- 包含对于 VSCode 作为文本编辑器的配置，不包含对语言环境的配置. --&gt;
 &lt;!-- 不严肃的随手记录，希望我能记得持续更新，因为我经常把一些记录扔在零零散散的位置，然后忘记这个记录的存在。 --&gt;
-&lt;h2 id=&#34;about-command-palette--ctrl--shift--p&#34;&gt;&lt;a href=&#34;#about-command-palette--ctrl--shift--p&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;About: Command Palette &amp;amp; Ctrl + Shift + P
-&lt;/h2&gt;&lt;p&gt;关于 &lt;mark&gt;&lt;strong&gt;Ctrl + Shift + P&lt;/strong&gt;&lt;/mark&gt;: 首先在这里贴蒋炎岩老师的&lt;a class=&#34;link&#34; href=&#34;https://www.bilibili.com/video/BV1y2421w7NK/?spm_id_from=333.999.0.0&amp;amp;vd_source=6a9d230feb804002a202ce26ff40a4cc&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;一场与VSCode相关的讲座&lt;/a&gt;，&lt;strong&gt;Ctrl+Shift+P&lt;/strong&gt;：如果需要做某些事情，可以先尝试用 Ctrl+Shift+P 打开命令面板搜索（比如也许你想重新加载 VSCode 窗口，就可以 Ctrl+Shift+P 打开命令面板，然后搜索 &amp;ldquo;reload window&amp;rdquo; ），如果发现自己需要经常做这个动作，那么就 Ctrl+K Ctrl+S 进入 Keyboard Shortcuts 为这个操作绑定快捷键吧，配置快捷键的哲学在于：发现自己经常重复做某件事情，有一个瞬间发现自己不想用鼠标再次重复这个过程，于是去检索记忆 / 配置这个热键。&lt;/p&gt;
+&lt;h2 id=&#34;你的-vscode-助理&#34;&gt;&lt;a href=&#34;#%e4%bd%a0%e7%9a%84-vscode-%e5%8a%a9%e7%90%86&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;你的 VSCode 助理
+&lt;/h2&gt;&lt;p&gt;&lt;mark&gt;&lt;strong&gt;Ctrl + Shift + P&lt;/strong&gt;&lt;/mark&gt;&lt;/p&gt;
+&lt;p&gt;如果你需要在 VSCode 里做某件事情，可以按下 Ctrl + Shift + P 搜索，比如你想更改设置，但是手动打开 settings.json 很麻烦，那么你可以：&lt;/p&gt;
+&lt;img src=&#34;./user_set_json.png&#34; alt=&#34;open user setting json&#34; style=&#34;zoom:80%;box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
+&lt;p&gt;按下回车之后，settings.json 就在你眼前了，如果需要经常执行此动作，那么可以在 Keyboard Shortcuts（Ctrl-k Ctrl-s 打开）中为它绑定快捷键：&lt;/p&gt;
+&lt;img src=&#34;./add_hotkey.png&#34; alt=&#34;open user setting json&#34; style=&#34;zoom:80%;box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
+&lt;!-- 关于 : 首先在这里贴蒋炎岩老师的[一场与VSCode相关的讲座](https://www.bilibili.com/video/BV1y2421w7NK/?spm_id_from=333.999.0.0&amp;vd_source=6a9d230feb804002a202ce26ff40a4cc)，**Ctrl+Shift+P**：如果需要做某些事情，可以先尝试用 Ctrl+Shift+P 打开命令面板搜索（比如也许你想重新加载 VSCode 窗口，就可以 Ctrl+Shift+P 打开命令面板，然后搜索 &#34;reload window&#34; ），如果发现自己需要经常做这个动作，那么就 Ctrl+K Ctrl+S 进入 Keyboard Shortcuts 为这个操作绑定快捷键吧，配置快捷键的哲学在于：发现自己经常重复做某件事情，有一个瞬间发现自己不想用鼠标再次重复这个过程，于是去检索记忆 / 配置这个热键。 --&gt;
 &lt;!-- (如果后续VSCode Command Palette接入了语言模型，可以进行自然语言的模糊搜素，那应该会很不错。) --&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;layout&#34;&gt;&lt;a href=&#34;#layout&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Layout
-&lt;/h2&gt;&lt;h3 id=&#34;让-vscode-的界面更简洁隐藏-activity-bar-和-status-bar&#34;&gt;&lt;a href=&#34;#%e8%ae%a9-vscode-%e7%9a%84%e7%95%8c%e9%9d%a2%e6%9b%b4%e7%ae%80%e6%b4%81%e9%9a%90%e8%97%8f-activity-bar-%e5%92%8c-status-bar&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;让 VSCode 的界面更简洁：隐藏 Activity Bar 和 Status Bar
-&lt;/h3&gt;&lt;p&gt;其实并不是时时刻刻都需要看到 Activity Bar 和 Status Bar，如果你也觉得它们占用了宝贵的屏幕空间，那么可以绑定以下快捷键：&lt;/p&gt;
-&lt;p&gt;View: Toggle Activity Bar Visibility - Ctrl+Shift+9&lt;/p&gt;
-&lt;p&gt;View: Toggle Status Bar Visibility - Ctrl+Shift+8&lt;/p&gt;
-&lt;p&gt;为什么是 Ctrl+Shift+8/9：因为 Shift+9 对应的字符是左括号，和 Activity Bar 在形态上略有相似，顺手把 Status Bar 对应的快捷键设置为 Ctrl+Shift+8，键位近比较顺手，因为我总是同时关闭此二者的可见性；想快捷键还是一个不那么容易的事情，一方面这里的快捷键语义含量没有那么高，另一方面容易和已有的键位绑定冲突，设置完了一段时间不用又会忘记，然后发现 Ctrl+Shift+P 检索才是永远的家.&lt;/p&gt;
-&lt;h3 id=&#34;terminal-move-terminal-to-editor-area&#34;&gt;&lt;a href=&#34;#terminal-move-terminal-to-editor-area&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Terminal: Move Terminal to Editor Area
-&lt;/h3&gt;&lt;p&gt;并置终端 tab 和代码 tab.&lt;/p&gt;
-&lt;!-- 之前看蒋炎岩老师的课的时候发现他的终端tab和代码tab的形态是一致的，现在我也知道怎么做了，先 --&gt;
-&lt;p&gt;Ctrl+Shift+P → 在命令面板中检索 &lt;code&gt;Terminal: Move Terminal to Editor Area&lt;/code&gt; ，即可将终端放置到 Editor Area，其他类似操作还有 &lt;code&gt;Move Terminal to Panel&lt;/code&gt;, &lt;code&gt;Create New Terminal in Editor Area&lt;/code&gt;&amp;hellip;当然，可以为你经常使用的操作绑定快捷键。&lt;/p&gt;
-&lt;p&gt;一种适用的场景是：如果你在学习某种编程语言，而这种语言（比如 Haskell, Lisp, Python&amp;hellip;）刚好有REPL，你就可以在 Editor Area 切分，一半放代码，一半放 Terminal REPL，如果需要，可以编辑文件，然后在 REPL 中导入代码文件（像Haskell ghci中的&lt;code&gt;:l foo.hs&lt;/code&gt;），这样就很方便，可以通过 Ctrl+1/Ctrl+2 在代码 tab 和终端 tab 之间做 Focus 的切换；视觉上我认为这样的体验也一些，比默认的上下分屏更好（毕竟更多情况下电脑的屏幕水平边比竖直边长，这也是为什么我喜欢竖直向的浏览器标签栏）.&lt;/p&gt;
+&lt;h2 id=&#34;布局&#34;&gt;&lt;a href=&#34;#%e5%b8%83%e5%b1%80&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;布局
+&lt;/h2&gt;&lt;h3 id=&#34;隐藏-activity-bar-和-status-bar&#34;&gt;&lt;a href=&#34;#%e9%9a%90%e8%97%8f-activity-bar-%e5%92%8c-status-bar&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;隐藏 Activity Bar 和 Status Bar
+&lt;/h3&gt;&lt;p&gt;我为开关 Activity Bar 和 Status Bar 配置了图中的快捷键，隐藏此二者可以让界面更简洁.&lt;/p&gt;
+&lt;img src=&#34;./bar_vis.png&#34; alt=&#34;bar visibility&#34; style=&#34;zoom:80%;box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
+&lt;!-- 
+
+其实并不是时时刻刻都需要看到 Activity Bar 和 Status Bar，如果你也觉得它们占用了宝贵的屏幕空间，那么可以绑定以下快捷键：
+
+View: Toggle Activity Bar Visibility - Ctrl+Shift+9
+
+View: Toggle Status Bar Visibility - Ctrl+Shift+8
+
+为什么是 Ctrl+Shift+8/9：因为 Shift+9 对应的字符是左括号，和 Activity Bar 在形态上略有相似，顺手把 Status Bar 对应的快捷键设置为 Ctrl+Shift+8，键位近比较顺手，因为我总是同时关闭此二者的可见性；想快捷键还是一个不那么容易的事情，一方面这里的快捷键语义含量没有那么高，另一方面容易和已有的键位绑定冲突，设置完了一段时间不用又会忘记，然后发现 Ctrl+Shift+P 检索才是永远的家. --&gt;
+&lt;h3 id=&#34;并置终端-tab-和代码-tab&#34;&gt;&lt;a href=&#34;#%e5%b9%b6%e7%bd%ae%e7%bb%88%e7%ab%af-tab-%e5%92%8c%e4%bb%a3%e7%a0%81-tab&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;并置终端 tab 和代码 tab
+&lt;/h3&gt;&lt;!-- 之前看蒋炎岩老师的课的时候发现他的终端tab和代码tab的形态是一致的，现在我也知道怎么做了，先 --&gt;
+&lt;p&gt;Ctrl+Shift+P → 在命令面板中检索 &lt;code&gt;Terminal: Move Terminal to Editor Area&lt;/code&gt; ，即可将当前终端放置到 Editor Area，其他类似操作还有 &lt;code&gt;Move Terminal to Panel&lt;/code&gt;, &lt;code&gt;Create New Terminal in Editor Area&lt;/code&gt;&amp;hellip;当然，可以为你经常使用的操作绑定快捷键.&lt;/p&gt;
+&lt;p&gt;一种适用的场景是：如果你在学习某种编程语言，而这种语言（比如 Haskell, Lisp, Python&amp;hellip;）刚好有REPL，你就可以在 Editor Area 切分，一半放代码，一半放 Terminal REPL，如果需要，可以编辑文件，然后在 REPL 中导入代码文件（像Haskell ghci中的&lt;code&gt;:l foo.hs&lt;/code&gt;），这样就很方便，可以通过 Ctrl+1/Ctrl+2 在代码 tab 和终端 tab 之间做 Focus 的切换.&lt;/p&gt;
+&lt;!-- 视觉上我认为这样的体验也一些，比默认的上下分屏更好（毕竟更多情况下电脑的屏幕水平边比竖直边长，这也是为什么我喜欢竖直向的浏览器标签栏）. --&gt;
 &lt;p&gt;还有一种类似的实现：通过 Ctrl+Shift+B 打开 Secondary Side Bar，把终端拖到 Secondary Side Bar.&lt;/p&gt;
 &lt;!-- ，不过在我的Windows的VScode上，我不能把终端拖到Secondary Side Bar展示，很奇怪，之前在Linux虚拟机上是可以的。 --&gt;
 &lt;img src=&#34;vscode_layout.png&#34; alt=&#34;vscode_layout&#34; style=&#34;zoom:80%;box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
-&lt;h2 id=&#34;editor-area&#34;&gt;&lt;a href=&#34;#editor-area&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Editor Area
-&lt;/h2&gt;&lt;h3 id=&#34;rainbow-brackets&#34;&gt;&lt;a href=&#34;#rainbow-brackets&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Rainbow Brackets
-&lt;/h3&gt;&lt;p&gt;在Settings(GUI)中键入 &lt;code&gt;@id:editor.bracketPairColorization.enabled @id:editor.guides.bracketPairs&lt;/code&gt;，选择你需要的选项，&lt;code&gt;editor.bracketPairColorization.enabled&lt;/code&gt; 是默认启用的，&lt;code&gt;editor.guides.bracketPairs&lt;/code&gt;是默认关闭(&lt;code&gt;false&lt;/code&gt;)的，可以选择 &lt;code&gt;true&lt;/code&gt; 或者 &lt;code&gt;active&lt;/code&gt; 启用， &lt;code&gt;true&lt;/code&gt; 的效果是所有括号都有引导线， &lt;code&gt;active&lt;/code&gt; 的效果是只有最接近光标的外层括号有引导线，我觉得 &lt;code&gt;active&lt;/code&gt; 就足够了，效果如下：&lt;/p&gt;
+&lt;h2 id=&#34;编辑区域&#34;&gt;&lt;a href=&#34;#%e7%bc%96%e8%be%91%e5%8c%ba%e5%9f%9f&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;编辑区域
+&lt;/h2&gt;&lt;h3 id=&#34;彩虹括号导引线&#34;&gt;&lt;a href=&#34;#%e5%bd%a9%e8%99%b9%e6%8b%ac%e5%8f%b7%e5%af%bc%e5%bc%95%e7%ba%bf&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;彩虹括号导引线
+&lt;/h3&gt;&lt;p&gt;在 Settings(GUI) 中键入 &lt;code&gt;@id:editor.bracketPairColorization.enabled @id:editor.guides.bracketPairs&lt;/code&gt;，选择你需要的选项，&lt;code&gt;editor.bracketPairColorization.enabled&lt;/code&gt; 是默认启用的，&lt;code&gt;editor.guides.bracketPairs&lt;/code&gt; 是默认关闭 (&lt;code&gt;false&lt;/code&gt;) 的，可以选择 &lt;code&gt;true&lt;/code&gt; 或者 &lt;code&gt;active&lt;/code&gt; 启用， &lt;code&gt;true&lt;/code&gt; 的效果是所有括号都配有引导线， &lt;code&gt;active&lt;/code&gt; 的效果是只有最接近光标的外层括号有引导线，我觉得 &lt;code&gt;active&lt;/code&gt; 就足够了，效果如下：&lt;/p&gt;
 &lt;img src=&#34;rainbow_guideline.png&#34; alt=&#34;rainbow_guideline&#34; style=&#34;zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
-&lt;p&gt;顺便一个快捷键：Ctrl+Shift+\，可以在当前文本对应的左右括号之间跳转，可以用来检查表达式嵌套的层级，对应 Vim Normal Mode 下的%.(P.S. 此快捷键在 Terminal 中使用，可以用来在不同的 Terminal tab 中跳转)&lt;/p&gt;
-&lt;p&gt;起因是我最近在看 SICP ，这本书使用的语言是 lisp (scheme)，这门语言的括号实在是多(，真的有其他语言的语言设计中具备比lisp更多的括号吗？) 于是我在 Extensions 中搜索 Rainbow Brackets ，对应插件表示项目已放弃维护，因为此特性已由 VSCode 内置，并为我指路至 Settings(GUI) 的配置具体位置。&lt;/p&gt;
-&lt;h2 id=&#34;hotkey&#34;&gt;&lt;a href=&#34;#hotkey&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;HotKey
+&lt;p&gt;Ctrl+Shift+\，可以在距离光标最近的配对括号之间跳转，可以用来检查表达式嵌套的层级，对应 Vim Normal Mode 下的%. 如果你的 Focus 在 Terminal，那么可以使用 Ctrl+Shift+\ 在终端 Tab 之间跳转.&lt;/p&gt;
+&lt;!-- 起因是我最近在看 SICP ，这本书使用的语言是 lisp (scheme)，这门语言的括号实在是多(，真的有其他语言的语言设计中具备比lisp更多的括号吗？) 于是我在 Extensions 中搜索 Rainbow Brackets ，对应插件表示项目已放弃维护，因为此特性已由 VSCode 内置，并为我指路至 Settings(GUI) 的配置具体位置。 --&gt;
+&lt;h2 id=&#34;快捷键&#34;&gt;&lt;a href=&#34;#%e5%bf%ab%e6%8d%b7%e9%94%ae&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;快捷键
 &lt;/h2&gt;&lt;!-- ### &gt;&gt; 快捷键  --&gt;
 &lt;ol start=&#34;0&#34;&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Baseline&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Tip&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;将光标悬停在 GUI 的 button 上，如果该 button 有对应的快捷键，弹出的悬窗会呈现快捷键信息（很多程序都遵循这个设计哲学），所以如果发现自己经常点击某个键，不妨停下来看看它对应的热键是什么.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;Ctrl-b&lt;/strong&gt;：toggle side bar.&lt;/p&gt;
+&lt;p&gt;side bar 是文件浏览器、插件市场搜索页所占据的板块.&lt;/p&gt;
 &lt;p&gt;这里对应的一个故事是，有人给 VSCode 提了一个&lt;a class=&#34;link&#34; href=&#34;https://github.com/Microsoft/vscode/issues/12983&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;issue&lt;/a&gt;，希望 VSCode 提供一个类似 &lt;code&gt;toggleExplorerVisibility&lt;/code&gt; 配置项，然后一个用户回复 &amp;ldquo;Ctrl-B to toggle side bar&amp;rdquo; 并关闭了此issue. 为什么我会知道这件事情，因为我也以为我的需求是 &lt;code&gt;toggleExplorerVisibility&lt;/code&gt;，结论是：明确每个组件的称呼很重要。(但是，一个热键对应 toggle，两个热键分别对应 show / hide，前者应该更合理一些.)&lt;/p&gt;
+    &gt;issue&lt;/a&gt;，希望 VSCode 提供一个类似 &lt;code&gt;toggleExplorerVisibility&lt;/code&gt; 配置项，然后一个用户回复 &amp;ldquo;Ctrl-B to toggle side bar&amp;rdquo; 并关闭了此issue. 为什么我会知道这件事情，因为我也以为我的需求是 &lt;code&gt;toggleExplorerVisibility&lt;/code&gt;，结论是：明确每个组件的称呼很重要😣.&lt;/p&gt;
+ &lt;!-- (但是，一个热键对应 toggle，两个热键分别对应 show / hide，前者应该更合理一些.) --&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Alt-left/right Arrow&lt;/strong&gt;：回退到上一光标位置/前进到下一光标位置&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Alt-←/→&lt;/strong&gt;：回退到上一光标位置/前进到下一光标位置&lt;/p&gt;
 &lt;p&gt;比较有用的一个情景是：和 F12 配合，在函数的调用链里导航.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Ctrl-[/]&lt;/strong&gt;：对光标所在行左移/右移缩进。&lt;/p&gt;
-&lt;p&gt;同 Vim Visual Mode 下的 &lt;code&gt;&amp;gt;/&amp;lt;&lt;/code&gt;. Vim 的这个键位我用着一直不是很顺，因为选中之后只能进行一次操作，如果想再做一次缩进，那要再选一次，虽然是可以&lt;code&gt;2 &amp;gt;&lt;/code&gt;这样向右缩进两个tab，但是对我来说还是没有那么顺，自从发现在编辑中使用 Ctrl/Shift/Alt 可以做一些跳转/选中等操作，我就很少离开Vim Insert Mode了，当然这些热键在语义化的方面是比不过 Vim 的键位.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Ctrl-[/]&lt;/strong&gt;：对光标所在行左移/右移缩进.&lt;/p&gt;
+&lt;p&gt;同 Vim Visual Mode 下的 &lt;code&gt;&amp;gt;/&amp;lt;&lt;/code&gt;. Vim 的这个键位我用着一直不是很顺，因为选中之后只能进行一次操作，如果想再做一次缩进，那要再选一次，虽然是可以&lt;code&gt;2 &amp;gt;&lt;/code&gt;这样向右缩进两个tab，但是对我来说还是没有那么顺.&lt;/p&gt;
+ &lt;!-- ，自从发现在编辑中使用 Ctrl/Shift/Alt 可以做一些跳转/选中等操作，我就很少离开Vim Insert Mode了，当然这些热键在语义化的方面是比不过 Vim 的键位. --&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Alt-up/down Arrow&lt;/strong&gt;：上移/下移光标所在行.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Alt-↑/↓&lt;/strong&gt;：上移/下移光标所在行.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;Shift-Alt-f&lt;/strong&gt;: format 代码，前提是配置好了 formatter.&lt;/p&gt;
-&lt;p&gt;于是我不再需要手动调空格/空行的数量，Ctrl + V 的时候也不必担心光标所在列，粘贴完一键 format 完事，很可惜像 Python 这样强制缩进的语言不太好 format.&lt;/p&gt;
+ &lt;!-- 于是我不再需要手动调空格/空行的数量，Ctrl + V 的时候也不必担心光标所在列，粘贴完一键 format 完事，很可惜像 Python 这样强制缩进的语言不太好 format. --&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;&lt;strong&gt;Ctrl-(Shift-)Enter&lt;/strong&gt;: 在当前光标所在行下(上)方新建一行，光标跳转到新行行首.&lt;/p&gt;
 &lt;p&gt;同 Vim Normal Mode 下的 &lt;code&gt;o(O)&lt;/code&gt;.&lt;/p&gt;
+ &lt;div class=&#34;highlight-paragraph&#34;&gt;
+ 来自 2025-02-19 的更新，VSCode 更新后，Copilot Suggestions （Github Copilot: Open Completion Panel）占据了 Ctrl-Enter，可以在 Keyboard Shortcuts 做修改. 
+ &lt;/div&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Ctrl-k Ctrl-w&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;关闭 Editor Area 中的所有 tab.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;冲突避免&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;直接的冲突都会在进行键位绑定的时候提示你，但是下图这样的情况，即 leading key = 其他快捷键，是不会显示冲突的，但这时候 Copy 事实上已经废了，因为 Ctrl-c 将作为 leading key，按下它后 VSCode 将继续等待 chord key，你可以在状态栏中观察这个事实.&lt;/p&gt;
+ &lt;img src=&#34;image-2.png&#34; alt=&#34;keybinding conflict&#34; style=&#34;zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;h2 id=&#34;extensions&#34;&gt;&lt;a href=&#34;#extensions&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Extensions
+&lt;h2 id=&#34;扩展&#34;&gt;&lt;a href=&#34;#%e6%89%a9%e5%b1%95&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;扩展
 &lt;/h2&gt;&lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;Bluloco Light Theme (Author: Umut Topuzoğlu)&lt;/p&gt;
-&lt;p&gt;非常漂亮的主题，我的 Wezterm 使用的也是这个主题.&lt;/p&gt;
+&lt;p&gt;非常漂亮的主题.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Remove empty lines (Author: Alexander)&lt;/p&gt;
 &lt;p&gt;删除选区内的所有空行. 可以通过 Ctrl + Shift + P 调用，也可以为其绑定快捷键.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;h2 id=&#34;misc&#34;&gt;&lt;a href=&#34;#misc&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Misc
+&lt;h2 id=&#34;杂项&#34;&gt;&lt;a href=&#34;#%e6%9d%82%e9%a1%b9&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;杂项
 &lt;/h2&gt;&lt;p&gt;一些写在 User Settings (JSON) 里的小配置，包含:&lt;/p&gt;
+&lt;!-- - 配置 VSCode-Vim 插件:
+    
+    - 与 VSCode 默认键位冲突处理
+
+    - 使用系统剪切板
+
+    - 智能相对行号（只在 Insert Mode 使用绝对行号） --&gt;
 &lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;配置 VSCode-Vim 插件:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;与 VSCode 默认键位冲突处理&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;使用系统剪切板&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;智能相对行号（只在 Insert Mode 使用绝对行号）&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;改变悬停窗口（如 Language Server 提供的函数描述）的背景色;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;默认缩放等级，因为我之前打开 VSCode 做的第一件事总是 ^+ 调大一次 Zoom Level;&lt;/p&gt;
+&lt;p&gt;改变默认缩放等级;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;彩虹括号引导线设置.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;#34;vim.smartRelativeLine&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;true&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;#34;vim.useSystemClipboard&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;true&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;#34;vim.handleKeys&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;{&lt;/span&gt;                &lt;span style=&#34;color:#57606a&#34;&gt;// 如你所见，我是一个非常不纯的 Vim 用户
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;#34;&amp;lt;C-c&amp;gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;false&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;#34;&amp;lt;C-x&amp;gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;false&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;#34;&amp;lt;C-a&amp;gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;false&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;#34;&amp;lt;C-s&amp;gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;false&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;     &lt;span style=&#34;color:#57606a&#34;&gt;// save
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;#34;&amp;lt;C-z&amp;gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;false&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;     &lt;span style=&#34;color:#57606a&#34;&gt;// undo
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;#34;&amp;lt;C-[&amp;gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;false&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;     &lt;span style=&#34;color:#57606a&#34;&gt;// outdent line 
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;#34;&amp;lt;C-]&amp;gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;false&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;     &lt;span style=&#34;color:#57606a&#34;&gt;// indent line
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;#34;&amp;lt;C-b&amp;gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;false&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;     &lt;span style=&#34;color:#57606a&#34;&gt;// toggle side bar
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;#34;&amp;lt;C-o&amp;gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;false&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;     &lt;span style=&#34;color:#57606a&#34;&gt;// open files
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;#34;&amp;lt;C-k&amp;gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;false&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;     &lt;span style=&#34;color:#57606a&#34;&gt;// leading key for ...
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#1f2328&#34;&gt;},&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;#34;workbench.colorCustomizations&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;{&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;#34;editorHoverWidget.background&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;#edeeee&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#57606a&#34;&gt;// 设置悬停提示的背景颜色
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#1f2328&#34;&gt;},&lt;/span&gt;
@@ -2030,7 +2036,43 @@ Title of this section is *Nested Mappings*, which represented in code with neste
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;#34;window.zoomLevel&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;#34;editor.guides.bracketPairs&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;active&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;一些-windows-的实用快捷键&#34;&gt;&lt;a href=&#34;#%e4%b8%80%e4%ba%9b-windows-%e7%9a%84%e5%ae%9e%e7%94%a8%e5%bf%ab%e6%8d%b7%e9%94%ae&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;一些 Windows 的实用快捷键
+&lt;/h2&gt;&lt;p&gt;（🪟 代表 Windows 徽标键.）&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;🪟&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;按下 Windows 徽标键后，键入文本可以对应用 / 设置 / 文件 / &amp;hellip; 进行搜索，找到匹配项后回车打开.&lt;/p&gt;
+ &lt;img src=&#34;./image-1.png&#34; alt=&#34;windows search &#34; style=&#34;zoom:60%;box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;🪟 + 方向键&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Win + ↑：当前 Focus 窗口全屏&lt;br&gt;
+Win + ←/→：窗口左右贴靠&lt;br&gt;
+Win + ↓：退出全屏 / 最小化&lt;br&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;🪟 + v&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;展示剪切板的历史记录（不知道最大容量是多少，但是关机会丢失记录），同时可以在这里选择输入表情、符号、颜文字等.&lt;/p&gt;
+ &lt;img src=&#34;./image-3.png&#34; alt=&#34;windows + v clipboard&#34; style=&#34;zoom:60%;box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Alt-Tab&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;在当前桌面切换窗口.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Ctrl-(Shift-)Tab&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;在当前应用（浏览器、VSCode）切换 tab，不同应用对待选 tab 的排序不同，有些按访问顺序排列（VSCode），有些按生成顺序排列（edge）.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Alt-F4&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;关闭当前窗口.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Ctrl-w&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;edge 中关闭当前 tab.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+</description>
         </item>
         <item>
         <title>mit-scheme 配置与基本使用</title>
@@ -2093,7 +2135,7 @@ Title of this section is *Nested Mappings*, which represented in code with neste
 &lt;p&gt;如果 REPL 没有反应:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
-&lt;p&gt;检查括号是否逐对匹配;&lt;/p&gt;
+&lt;p&gt;检查括号是否逐对匹配;   &lt;span style=&#34;color:red&#34;&gt;( &lt;/span&gt;( ) ( ( ) )&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Ctrl-C 中断后回到 REPL, 提示符 (&lt;code&gt;1 ] =&amp;gt;&lt;/code&gt; / &lt;code&gt;2 error&amp;gt;&lt;/code&gt;) 不会重新显示.&lt;/p&gt;
@@ -2130,7 +2172,8 @@ Title of this section is *Nested Mappings*, which represented in code with neste
 &lt;!-- 7. Press ^C once to get **help information**; Press ^C twice to goto the top level REPL.  --&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;后记&#34;&gt;&lt;a href=&#34;#%e5%90%8e%e8%ae%b0&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;后记
-&lt;/h2&gt;&lt;p&gt;不知道是否有更好用的 Scheme REPL，这个 REPL 确实是比较原始，不支持历史表达式的回溯，不支持光标移动，但是一想到 lisp 历史这么悠久，语法本身十分简洁纯净，我就接受了一切。&lt;span style=&#34;color: #888888; font-size: 0.85em;&#34;&gt;（不像写 Haskell 的时候 LSP 出了问题，我必通过重启 VSCode / 重启电脑 / 更改 LSP 版本先把 LSP 重新拉起来，而不是先把代码写了。）&lt;/span&gt;&lt;/p&gt;
+&lt;/h2&gt;&lt;p&gt;不知道是否有更好用的 Scheme REPL，这个 REPL 确实是比较原始，不支持历史表达式的回溯，不支持光标移动，不过我并不需要用它做太多复杂的工作，所以能用就行了.&lt;/p&gt;
+&lt;!-- &lt;span style=&#34;color: #888888; font-size: 0.85em;&#34;&gt;（不像写 Haskell 的时候 LSP 出了问题，我必通过重启 VSCode / 重启电脑 / 更改 LSP 版本先把 LSP 重新拉起来，而不是先把代码写了。）&lt;/span&gt; --&gt;
 </description>
         </item>
         <item>

@@ -374,54 +374,53 @@ ghci&amp;gt; :t ($ x)
 </description>
         </item>
         <item>
-        <title>MIT-Scheme Configuration and Basic Usage</title>
-        <link>http://fyshxfish.github.io/p/mit-scheme-configuration-and-basic-usage/</link>
+        <title>mit-scheme Basic Usage</title>
+        <link>http://fyshxfish.github.io/p/mit-scheme-basic-usage/</link>
         <pubDate>Sat, 24 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/p/mit-scheme-configuration-and-basic-usage/</guid>
+        <guid>http://fyshxfish.github.io/p/mit-scheme-basic-usage/</guid>
         <description>&lt;blockquote&gt;
 &lt;p&gt;Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away.
 &lt;br&gt;&amp;ndash; Antoine de Saint-Exupéry&lt;/p&gt;&lt;/blockquote&gt;
-&lt;h2 id=&#34;通过包管理器下载-mit-scheme&#34;&gt;&lt;a href=&#34;#%e9%80%9a%e8%bf%87%e5%8c%85%e7%ae%a1%e7%90%86%e5%99%a8%e4%b8%8b%e8%bd%bd-mit-scheme&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;通过包管理器下载 mit-scheme
+&lt;h2 id=&#34;installing-mit-scheme-via-package-manager&#34;&gt;&lt;a href=&#34;#installing-mit-scheme-via-package-manager&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Installing MIT-Scheme via Package Manager
 &lt;/h2&gt;&lt;p&gt;MacOS:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;brew install mit-scheme
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Ubuntu:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt-get update 
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt-get install mit-scheme
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;repl-基本使用&#34;&gt;&lt;a href=&#34;#repl-%e5%9f%ba%e6%9c%ac%e4%bd%bf%e7%94%a8&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;REPL 基本使用
-&lt;/h2&gt;&lt;p&gt;（REPL: &lt;strong&gt;R&lt;/strong&gt;ead-&lt;strong&gt;E&lt;/strong&gt;valuate-&lt;strong&gt;P&lt;/strong&gt;rint Loop）&lt;/p&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;basic-repl-usage&#34;&gt;&lt;a href=&#34;#basic-repl-usage&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Basic REPL Usage
+&lt;/h2&gt;&lt;p&gt;（REPL: &lt;strong&gt;R&lt;/strong&gt;ead-&lt;strong&gt;E&lt;/strong&gt;valuate-&lt;strong&gt;P&lt;/strong&gt;rint &lt;strong&gt;L&lt;/strong&gt;oop）&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
-&lt;p&gt;进入 REPL:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mit-scheme
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;p&gt;Start the REPL with a single command &lt;code&gt;mit-scheme&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;在 REPL 加载中加载 scheme 代码:&lt;/p&gt;
+&lt;p&gt;Load Scheme code into the REPL:&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;1 ] =&amp;gt; (load &amp;#34;path/to/file.scm&amp;#34;)
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;(后缀 &lt;code&gt;.scm&lt;/code&gt; 可以省略.)&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;(The .scm extension can be omitted.)&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;查看手册:&lt;/p&gt;
+&lt;p&gt;View the manual:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;code&gt;man mit-scheme&lt;/code&gt; 命令行查看 mit-scheme CLI 手册, 很简短, 可以通过命令行参数指定堆栈大小 / 加载文件 / 同时打开编辑器/ &amp;hellip;&lt;/p&gt;
+&lt;p&gt;Use the &lt;code&gt;man mit-scheme&lt;/code&gt; command in the &lt;strong&gt;terminal&lt;/strong&gt; to view the brief mit-scheme CLI manual.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;按下 Ctrl-C 后键入 &lt;code&gt;H&lt;/code&gt; 查看中断手册:&lt;/p&gt;
+&lt;p&gt;When in REPL, press Ctrl-C and then type H to see the interrupt manual:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;Ctrl-C: 接收下一个键盘输入, 决定中断行为.&lt;/p&gt;
+&lt;p&gt;Ctrl-C: Waits for the next keyboard input to decide the interrupt behavior.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Ctrl-G: 回到 top-level&lt;/p&gt;
+&lt;p&gt;Ctrl-G: Returns to the top-level REPL.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Ctrl-Z: 挂起当前 mit-scheme 进程&lt;/p&gt;
+&lt;p&gt;Ctrl-Z: Suspends the current mit-scheme process.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;按下 Ctrl-C 后键入 &lt;code&gt;?&lt;/code&gt; 查看手册: 下一键盘输入 (option) 与 REPL 行为 (清屏 / 挂起 / 退出 / 忽略中断 / &amp;hellip;) 的对应关系;&lt;/p&gt;
+&lt;p&gt;Press Ctrl-C and then type ? to see the manual for the next key input (option) and how it corresponds to REPL behavior (clear screen, suspend, exit, ignore interrupts, etc.).&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;/li&gt;
@@ -431,47 +430,45 @@ ghci&amp;gt; :t ($ x)
     You can keep going despite the error. --&gt;
 &lt;ol start=&#34;4&#34;&gt;
 &lt;li&gt;
-&lt;p&gt;如果 REPL 没有反应:&lt;/p&gt;
+&lt;p&gt;If the REPL doesn&amp;rsquo;t respond:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
-&lt;p&gt;检查括号是否逐对匹配;&lt;/p&gt;
+&lt;p&gt;Check if parentheses are properly matched;  &lt;span style=&#34;color:red&#34;&gt;( &lt;/span&gt;( ) ( ( ) )&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Ctrl-C 中断后回到 REPL, 提示符 (&lt;code&gt;1 ] =&amp;gt;&lt;/code&gt; / &lt;code&gt;2 error&amp;gt;&lt;/code&gt;) 不会重新显示.&lt;/p&gt;
+&lt;p&gt;After interrupting with Ctrl-C, the prompt (&lt;code&gt;1 ] =&amp;gt; / 2 error&amp;gt;&lt;/code&gt;) may not reappear, which results in the &amp;ldquo;frozen&amp;rdquo; REPL.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;担心递归太深? 递归深度超限时, REPL 会提示 &lt;code&gt;Recursion depth limit exceeded. Aborting!&lt;/code&gt; (3.1 中提到可以通过 CLI 参数指定堆栈大小, 即, mit-scheme使用的堆栈资源是有限的.)&lt;/p&gt;
+&lt;p&gt;Worried about deep recursion? If the recursion depth exceeds the limit, the REPL will show &lt;em&gt;Recursion depth limit exceeded. Aborting!&lt;/em&gt;. (According to mit-scheme manual, which you can get by &lt;code&gt;man mit-scheme&lt;/code&gt;, stack size can be specified with CLI parameters, meaning MIT-Scheme has limited stack resources.)&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;del&gt;ScHeMe&lt;/del&gt; Scheme 是大小写不敏感的语言.&lt;/p&gt;
-&lt;p&gt;所以 &lt;code&gt;(LoAd &amp;quot;path/to/file.scm&amp;quot;)&lt;/code&gt;/&lt;code&gt;(DEFINE x 1)&lt;/code&gt;/&lt;code&gt;(define x 1)&lt;/code&gt;/&lt;code&gt;(defiNE x 1)&lt;/code&gt;/&amp;hellip; 都不会引发错误.&lt;/p&gt;
+&lt;p&gt;&lt;del&gt;ScHeMe&lt;/del&gt; Scheme is case-&lt;strong&gt;insensitive&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;So &lt;code&gt;(LoAd &amp;quot;path/to/file.scm&amp;quot;)&lt;/code&gt;/&lt;code&gt;(DEFINE x 1)&lt;/code&gt;/&lt;code&gt;(define x 1)&lt;/code&gt;/&lt;code&gt;(defiNE x 1)&lt;/code&gt;, etc. won&amp;rsquo;t cause errors.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;History variable (procedure): 重用 REPL 求值后返回的 procedure:&lt;/p&gt;
+&lt;p&gt;History variable (procedure): Reuse procedures returned after evaluating expressions in the REPL:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-scheme&#34; data-lang=&#34;scheme&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;=&amp;gt; &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;average-dump&lt;/span&gt; &lt;span style=&#34;color:#953800&#34;&gt;square&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;;Value: #[compound-procedure 12]    ; 可以在后续表达式中重用, 就像 gdb 中的 history variable `$1`&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;;Value: #[compound-procedure 12]    ; Can be reused in subsequent expressions, similar to GDB&amp;#39;s history variable `$1`&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;=&amp;gt; &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;compound-procedure&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;12&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;10&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#57606a&#34;&gt;; 虽然也不是很方便直接使用, 但是确实是能用&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;=&amp;gt; &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;compound-procedure&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;12&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;10&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#57606a&#34;&gt;; Not very convenient to use directly, but it works&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;;Value: 55&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;=&amp;gt; &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;define &lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;newfunc&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;compound-procedure&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;12&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;])&lt;/span&gt;   &lt;span style=&#34;color:#57606a&#34;&gt;; 可以绑定到一个标识符上, 再复用&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;=&amp;gt; &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;define &lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;newfunc&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;compound-procedure&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;12&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;])&lt;/span&gt;   &lt;span style=&#34;color:#57606a&#34;&gt;; Can be bound to a new identifier for reuse&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;;Value: newfunc&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;=&amp;gt; &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;newfunc&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;10&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;;Value: 55&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt; &lt;!-- (So what exactly is this compound-procedure? machine code, code evaluated by means of substitute model, or something?) --&gt;
-&lt;/li&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;!-- 7. Press ^C once to get **help information**; Press ^C twice to goto the top level REPL.  --&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;后记&#34;&gt;&lt;a href=&#34;#%e5%90%8e%e8%ae%b0&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;后记
-&lt;/h2&gt;&lt;p&gt;不知道是否有更好用的 Scheme REPL，这个 REPL 确实是比较原始，不支持历史表达式的回溯，不支持光标移动，但是一想到 lisp 历史这么悠久，语法本身十分简洁纯净，我就接受了一切。&lt;span style=&#34;color: #888888; font-size: 0.85em;&#34;&gt;（不像写 Haskell 的时候 LSP 出了问题，我必通过重启 VSCode / 重启电脑 / 更改 LSP 版本先把 LSP 重新拉起来，而不是先把代码写了。）&lt;/span&gt;&lt;/p&gt;
+&lt;h2 id=&#34;afterword&#34;&gt;&lt;a href=&#34;#afterword&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Afterword
+&lt;/h2&gt;&lt;p&gt;This Scheme REPL is &lt;strong&gt;quite&lt;/strong&gt; basic. It doesn’t support history backtracking or cursor movement, however, since I don&amp;rsquo;t need it for anything too complex, it&amp;rsquo;s good enough for me.&lt;/p&gt;
 </description>
         </item>
         

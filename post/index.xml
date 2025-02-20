@@ -1882,182 +1882,196 @@ Title of this section is *Nested Mappings*, which represented in code with neste
 </description>
         </item>
         <item>
-        <title>My VSCode Configuration</title>
-        <link>http://fyshxfish.github.io/p/my-vscode-configuration/</link>
+        <title>My Common VSCode Shortcuts</title>
+        <link>http://fyshxfish.github.io/p/my-common-vscode-shortcuts/</link>
         <pubDate>Mon, 26 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/p/my-vscode-configuration/</guid>
-        <description>&lt;p&gt;包含对于 VSCode 作为文本编辑器的配置，不包含对语言环境的配置.&lt;/p&gt;
-&lt;!-- 不严肃的随手记录，希望我能记得持续更新，因为我经常把一些记录扔在零零散散的位置，然后忘记这个记录的存在。 --&gt;
-&lt;h2 id=&#34;about-command-palette--ctrl--shift--p&#34;&gt;&lt;a href=&#34;#about-command-palette--ctrl--shift--p&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;About: Command Palette &amp;amp; Ctrl + Shift + P
-&lt;/h2&gt;&lt;p&gt;关于 &lt;mark&gt;&lt;strong&gt;Ctrl + Shift + P&lt;/strong&gt;&lt;/mark&gt;: 首先在这里贴蒋炎岩老师的&lt;a class=&#34;link&#34; href=&#34;https://www.bilibili.com/video/BV1y2421w7NK/?spm_id_from=333.999.0.0&amp;amp;vd_source=6a9d230feb804002a202ce26ff40a4cc&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;一场与VSCode相关的讲座&lt;/a&gt;，&lt;strong&gt;Ctrl+Shift+P&lt;/strong&gt;：如果需要做某些事情，可以先尝试用 Ctrl+Shift+P 打开命令面板搜索（比如也许你想重新加载 VSCode 窗口，就可以 Ctrl+Shift+P 打开命令面板，然后搜索 &amp;ldquo;reload window&amp;rdquo; ），如果发现自己需要经常做这个动作，那么就 Ctrl+K Ctrl+S 进入 Keyboard Shortcuts 为这个操作绑定快捷键吧，配置快捷键的哲学在于：发现自己经常重复做某件事情，有一个瞬间发现自己不想用鼠标再次重复这个过程，于是去检索记忆 / 配置这个热键。&lt;/p&gt;
-&lt;!-- (如果后续VSCode Command Palette接入了语言模型，可以进行自然语言的模糊搜素，那应该会很不错。) --&gt;
+        <guid>http://fyshxfish.github.io/p/my-common-vscode-shortcuts/</guid>
+        <description>&lt;p&gt;&lt;strong&gt;&lt;em&gt;Code, easier✨&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;your-vscode-assistant&#34;&gt;&lt;a href=&#34;#your-vscode-assistant&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Your VSCode Assistant
+&lt;/h2&gt;&lt;p&gt;&lt;mark&gt;&lt;strong&gt;Ctrl + Shift + P&lt;/strong&gt;&lt;/mark&gt;&lt;/p&gt;
+&lt;p&gt;If you need to do something in VSCode, you can press &lt;span class=&#34;key&#34;&gt;Ctrl + Shift + P&lt;/span&gt; to search for it. For example, if you want to change settings but manually opening &lt;em&gt;settings.json&lt;/em&gt; is too tedious, you can:&lt;/p&gt;
+&lt;img src=&#34;user_set_json.png&#34; alt=&#34;open user setting json&#34; style=&#34;zoom:80%;box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
+&lt;p&gt;After pressing &lt;span class=&#34;key&#34;&gt;Enter&lt;/span&gt;, &lt;em&gt;settings.json&lt;/em&gt; will be right in front of you. If you need to frequently perform this action, you can bind a shortcut for it in &lt;em&gt;Keyboard Shortcuts&lt;/em&gt; (open with &lt;span class=&#34;key&#34;&gt;Ctrl-k Ctrl-s&lt;/span&gt;):&lt;/p&gt;
+&lt;img src=&#34;./add_hotkey.png&#34; alt=&#34;open user setting json&#34; style=&#34;zoom:80%;box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;layout&#34;&gt;&lt;a href=&#34;#layout&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Layout
-&lt;/h2&gt;&lt;h3 id=&#34;让-vscode-的界面更简洁隐藏-activity-bar-和-status-bar&#34;&gt;&lt;a href=&#34;#%e8%ae%a9-vscode-%e7%9a%84%e7%95%8c%e9%9d%a2%e6%9b%b4%e7%ae%80%e6%b4%81%e9%9a%90%e8%97%8f-activity-bar-%e5%92%8c-status-bar&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;让 VSCode 的界面更简洁：隐藏 Activity Bar 和 Status Bar
-&lt;/h3&gt;&lt;p&gt;其实并不是时时刻刻都需要看到 Activity Bar 和 Status Bar，如果你也觉得它们占用了宝贵的屏幕空间，那么可以绑定以下快捷键：&lt;/p&gt;
-&lt;p&gt;View: Toggle Activity Bar Visibility - Ctrl+Shift+9&lt;/p&gt;
-&lt;p&gt;View: Toggle Status Bar Visibility - Ctrl+Shift+8&lt;/p&gt;
-&lt;p&gt;为什么是 Ctrl+Shift+8/9：因为 Shift+9 对应的字符是左括号，和 Activity Bar 在形态上略有相似，顺手把 Status Bar 对应的快捷键设置为 Ctrl+Shift+8，键位近比较顺手，因为我总是同时关闭此二者的可见性；想快捷键还是一个不那么容易的事情，一方面这里的快捷键语义含量没有那么高，另一方面容易和已有的键位绑定冲突，设置完了一段时间不用又会忘记，然后发现 Ctrl+Shift+P 检索才是永远的家.&lt;/p&gt;
-&lt;h3 id=&#34;terminal-move-terminal-to-editor-area&#34;&gt;&lt;a href=&#34;#terminal-move-terminal-to-editor-area&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Terminal: Move Terminal to Editor Area
-&lt;/h3&gt;&lt;p&gt;并置终端 tab 和代码 tab.&lt;/p&gt;
-&lt;!-- 之前看蒋炎岩老师的课的时候发现他的终端tab和代码tab的形态是一致的，现在我也知道怎么做了，先 --&gt;
-&lt;p&gt;Ctrl+Shift+P → 在命令面板中检索 &lt;code&gt;Terminal: Move Terminal to Editor Area&lt;/code&gt; ，即可将终端放置到 Editor Area，其他类似操作还有 &lt;code&gt;Move Terminal to Panel&lt;/code&gt;, &lt;code&gt;Create New Terminal in Editor Area&lt;/code&gt;&amp;hellip;当然，可以为你经常使用的操作绑定快捷键。&lt;/p&gt;
-&lt;p&gt;一种适用的场景是：如果你在学习某种编程语言，而这种语言（比如 Haskell, Lisp, Python&amp;hellip;）刚好有REPL，你就可以在 Editor Area 切分，一半放代码，一半放 Terminal REPL，如果需要，可以编辑文件，然后在 REPL 中导入代码文件（像Haskell ghci中的&lt;code&gt;:l foo.hs&lt;/code&gt;），这样就很方便，可以通过 Ctrl+1/Ctrl+2 在代码 tab 和终端 tab 之间做 Focus 的切换；视觉上我认为这样的体验也一些，比默认的上下分屏更好（毕竟更多情况下电脑的屏幕水平边比竖直边长，这也是为什么我喜欢竖直向的浏览器标签栏）.&lt;/p&gt;
-&lt;p&gt;还有一种类似的实现：通过 Ctrl+Shift+B 打开 Secondary Side Bar，把终端拖到 Secondary Side Bar.&lt;/p&gt;
-&lt;!-- ，不过在我的Windows的VScode上，我不能把终端拖到Secondary Side Bar展示，很奇怪，之前在Linux虚拟机上是可以的。 --&gt;
+&lt;/h2&gt;&lt;h3 id=&#34;hide-activity-bar-and-status-bar&#34;&gt;&lt;a href=&#34;#hide-activity-bar-and-status-bar&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Hide Activity Bar and Status Bar
+&lt;/h3&gt;&lt;p&gt;I’ve configured shortcuts in the image below to toggle the Activity Bar and Status Bar. Hiding these can make the interface cleaner.&lt;/p&gt;
+&lt;img src=&#34;./bar_vis.png&#34; alt=&#34;bar visibility&#34; style=&#34;zoom:80%;box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
+&lt;h3 id=&#34;place-terminal-tab-and-code-tab-together&#34;&gt;&lt;a href=&#34;#place-terminal-tab-and-code-tab-together&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Place Terminal Tab and Code Tab Together
+&lt;/h3&gt;&lt;p&gt;Press &lt;span class=&#34;key&#34;&gt;Ctrl+Shift+P&lt;/span&gt; → Search for &lt;em&gt;Terminal: Move Terminal to Editor Area&lt;/em&gt; in the command palette to move the terminal into the Editor Area. Other similar actions include &lt;em&gt;Move Terminal to Panel&lt;/em&gt;, &lt;em&gt;Create New Terminal in Editor Area&lt;/em&gt;, etc. Of course, you can bind a shortcut for frequently used actions.&lt;/p&gt;
+&lt;p&gt;An applicable scenario is: if you are learning a programming language that has a REPL (like Haskell, Lisp, Python&amp;hellip;), you can split the Editor Area into two parts, one for the code and one for the Terminal REPL. If needed, you can edit files and import them in the REPL (like &lt;code&gt;:l foo.hs&lt;/code&gt; in GHCi). This way, it’s more convenient, and you can switch focus between the code tab and terminal tab with &lt;span class=&#34;key&#34;&gt;Ctrl+1&lt;/span&gt; / &lt;span class=&#34;key&#34;&gt;Ctrl+2&lt;/span&gt;.&lt;/p&gt;
+&lt;p&gt;Another similar solution: Open the Secondary Side Bar with &lt;span class=&#34;key&#34;&gt;Ctrl+Shift+B&lt;/span&gt;, then drag the terminal to the Secondary Side Bar.&lt;/p&gt;
 &lt;img src=&#34;vscode_layout.png&#34; alt=&#34;vscode_layout&#34; style=&#34;zoom:80%;box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
 &lt;h2 id=&#34;editor-area&#34;&gt;&lt;a href=&#34;#editor-area&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Editor Area
-&lt;/h2&gt;&lt;h3 id=&#34;rainbow-brackets&#34;&gt;&lt;a href=&#34;#rainbow-brackets&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Rainbow Brackets
-&lt;/h3&gt;&lt;p&gt;在Settings(GUI)中键入 &lt;code&gt;@id:editor.bracketPairColorization.enabled @id:editor.guides.bracketPairs&lt;/code&gt;，选择你需要的选项，&lt;code&gt;editor.bracketPairColorization.enabled&lt;/code&gt; 是默认启用的，&lt;code&gt;editor.guides.bracketPairs&lt;/code&gt;是默认关闭(&lt;code&gt;false&lt;/code&gt;)的，可以选择 &lt;code&gt;true&lt;/code&gt; 或者 &lt;code&gt;active&lt;/code&gt; 启用， &lt;code&gt;true&lt;/code&gt; 的效果是所有括号都有引导线， &lt;code&gt;active&lt;/code&gt; 的效果是只有最接近光标的外层括号有引导线，我觉得 &lt;code&gt;active&lt;/code&gt; 就足够了，效果如下：&lt;/p&gt;
+&lt;/h2&gt;&lt;h3 id=&#34;rainbow-guidelines&#34;&gt;&lt;a href=&#34;#rainbow-guidelines&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Rainbow Guidelines
+&lt;/h3&gt;&lt;p&gt;In Settings (GUI), type &lt;em&gt;@id:editor.bracketPairColorization.enabled @id:editor.guides.bracketPairs&lt;/em&gt; and select the options you need. &lt;em&gt;editor.bracketPairColorization.enabled&lt;/em&gt; is enabled by default, while &lt;em&gt;editor.guides.bracketPairs&lt;/em&gt; is off by default. You can set it to &lt;code&gt;true&lt;/code&gt; or &lt;code&gt;active&lt;/code&gt; to enable. The &lt;code&gt;true&lt;/code&gt; effect colors all parentheses, and the &lt;code&gt;active&lt;/code&gt; effect only colors the outer parentheses closest to the cursor. I think &lt;code&gt;active&lt;/code&gt; is enough, and here’s the result:&lt;/p&gt;
 &lt;img src=&#34;rainbow_guideline.png&#34; alt=&#34;rainbow_guideline&#34; style=&#34;zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
-&lt;p&gt;顺便一个快捷键：Ctrl+Shift+\，可以在当前文本对应的左右括号之间跳转，可以用来检查表达式嵌套的层级，对应 Vim Normal Mode 下的%.(P.S. 此快捷键在 Terminal 中使用，可以用来在不同的 Terminal tab 中跳转)&lt;/p&gt;
-&lt;p&gt;起因是我最近在看 SICP ，这本书使用的语言是 lisp (scheme)，这门语言的括号实在是多(，真的有其他语言的语言设计中具备比lisp更多的括号吗？) 于是我在 Extensions 中搜索 Rainbow Brackets ，对应插件表示项目已放弃维护，因为此特性已由 VSCode 内置，并为我指路至 Settings(GUI) 的配置具体位置。&lt;/p&gt;
-&lt;h2 id=&#34;hotkey&#34;&gt;&lt;a href=&#34;#hotkey&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;HotKey
-&lt;/h2&gt;&lt;!-- ### &gt;&gt; 快捷键  --&gt;
-&lt;ol start=&#34;0&#34;&gt;
+&lt;p&gt;Use &lt;span class=&#34;key&#34;&gt;Ctrl+Shift+\ &lt;/span&gt; to jump between the closest paired parentheses to the cursor, useful for checking nested expressions, corresponding to &lt;span class=&#34;key&#34;&gt;%&lt;/span&gt; in Vim Normal Mode. If your focus is in the Terminal, you can use &lt;span class=&#34;key&#34;&gt;Ctrl+Shift+\ &lt;/span&gt; to jump between terminal tabs.&lt;/p&gt;
+&lt;h2 id=&#34;shortcuts&#34;&gt;&lt;a href=&#34;#shortcuts&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Shortcuts
+&lt;/h2&gt;&lt;ol start=&#34;0&#34;&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Baseline&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;将光标悬停在 GUI 的 button 上，如果该 button 有对应的快捷键，弹出的悬窗会呈现快捷键信息（很多程序都遵循这个设计哲学），所以如果发现自己经常点击某个键，不妨停下来看看它对应的热键是什么.&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Tip&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Hover your cursor over a button in the GUI, and if the button has a corresponding shortcut, a tooltip will show the shortcut key (many programs follow this design philosophy). So, if you find yourself frequently clicking a button, stop and check its hotkey.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Ctrl-b&lt;/strong&gt;：toggle side bar.&lt;/p&gt;
-&lt;p&gt;这里对应的一个故事是，有人给 VSCode 提了一个&lt;a class=&#34;link&#34; href=&#34;https://github.com/Microsoft/vscode/issues/12983&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;issue&lt;/a&gt;，希望 VSCode 提供一个类似 &lt;code&gt;toggleExplorerVisibility&lt;/code&gt; 配置项，然后一个用户回复 &amp;ldquo;Ctrl-B to toggle side bar&amp;rdquo; 并关闭了此issue. 为什么我会知道这件事情，因为我也以为我的需求是 &lt;code&gt;toggleExplorerVisibility&lt;/code&gt;，结论是：明确每个组件的称呼很重要。(但是，一个热键对应 toggle，两个热键分别对应 show / hide，前者应该更合理一些.)&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;key&#34;&gt;Ctrl-b&lt;/span&gt;：toggle side bar.&lt;/p&gt;
+&lt;p&gt;Here&amp;rsquo;s a related story: someone submitted an &lt;a class=&#34;link&#34; href=&#34;https://github.com/Microsoft/vscode/issues/12983&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;issue&lt;/a&gt; requesting a &lt;em&gt;toggleExplorerVisibility&lt;/em&gt; configuration in VSCode. A user replied &amp;ldquo;Ctrl-B to toggle side bar&amp;rdquo; and closed the issue. Why do I know this? Because I also thought my need was &lt;em&gt;toggleExplorerVisibility&lt;/em&gt;, and the lesson learned is: knowing the correct names of components is important 😣.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Alt-left/right Arrow&lt;/strong&gt;：回退到上一光标位置/前进到下一光标位置&lt;/p&gt;
-&lt;p&gt;比较有用的一个情景是：和 F12 配合，在函数的调用链里导航.&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;key&#34;&gt;Alt-←/→&lt;/span&gt;：Go back to the previous cursor position / move forward to the next cursor position.&lt;/p&gt;
+&lt;p&gt;This is particularly useful when navigating through function calls, in combination with &lt;span class=&#34;key&#34;&gt;F12&lt;/span&gt;.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Ctrl-[/]&lt;/strong&gt;：对光标所在行左移/右移缩进。&lt;/p&gt;
-&lt;p&gt;同 Vim Visual Mode 下的 &lt;code&gt;&amp;gt;/&amp;lt;&lt;/code&gt;. Vim 的这个键位我用着一直不是很顺，因为选中之后只能进行一次操作，如果想再做一次缩进，那要再选一次，虽然是可以&lt;code&gt;2 &amp;gt;&lt;/code&gt;这样向右缩进两个tab，但是对我来说还是没有那么顺，自从发现在编辑中使用 Ctrl/Shift/Alt 可以做一些跳转/选中等操作，我就很少离开Vim Insert Mode了，当然这些热键在语义化的方面是比不过 Vim 的键位.&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;key&#34;&gt;Ctrl-[ &lt;/span&gt; / &lt;span class=&#34;key&#34;&gt;Ctrl-]&lt;/span&gt;：Indent the current line left/right.&lt;/p&gt;
+&lt;p&gt;Similar to Vim’s &lt;span class=&#34;key&#34;&gt;&amp;gt;&lt;/span&gt; / &lt;span class=&#34;key&#34;&gt;&amp;lt;&lt;/span&gt; in Visual Mode. I don’t find Vim’s version very smooth because you can only perform the operation once after selecting, and to make further indentations, you need to select again.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Alt-up/down Arrow&lt;/strong&gt;：上移/下移光标所在行.&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;key&#34;&gt;Alt-↑/↓&lt;/span&gt;：Move the current line up/down.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Shift-Alt-f&lt;/strong&gt;: format 代码，前提是配置好了 formatter.&lt;/p&gt;
-&lt;p&gt;于是我不再需要手动调空格/空行的数量，Ctrl + V 的时候也不必担心光标所在列，粘贴完一键 format 完事，很可惜像 Python 这样强制缩进的语言不太好 format.&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;key&#34;&gt;Shift-Alt-f&lt;/span&gt;: Format code, provided a formatter is configured.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;!-- &lt;span class=&#34;key&#34;&gt;Ctrl + C&lt;/span&gt; --&gt;
+&lt;ol start=&#34;6&#34;&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;span class=&#34;key&#34;&gt;Ctrl-(Shift-)Enter&lt;/span&gt;: Create a new line below (or above) the current cursor position, with the cursor jumping to the start of the new line.&lt;/p&gt;
+&lt;p&gt;Corresponds to &lt;span class=&#34;key&#34;&gt;o&lt;/span&gt;(&lt;span class=&#34;key&#34;&gt;O&lt;/span&gt;) in Vim Normal Mode.&lt;/p&gt;
+ &lt;div class=&#34;highlight-paragraph&#34;&gt;
+ From the 2025-02-19 update: After the VSCode update, Copilot Suggestions (GitHub Copilot: Open Completion Panel) now occupy &lt;span class=&#34;key&#34;&gt;Ctrl-Enter&lt;/span&gt;, which can be changed in Keyboard Shortcuts.
+ &lt;/div&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;strong&gt;Ctrl-(Shift-)Enter&lt;/strong&gt;: 在当前光标所在行下(上)方新建一行，光标跳转到新行行首.&lt;/p&gt;
-&lt;p&gt;同 Vim Normal Mode 下的 &lt;code&gt;o(O)&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;span class=&#34;key&#34;&gt;Ctrl-k Ctrl-w&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Close all tabs in the Editor Area.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;Conflict Avoidance&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Direct conflicts are shown when performing keybinding actions, but in cases like this, where the leading key = other shortcut keys, no conflict is shown. However, in this case, Copy is essentially broken because &lt;span class=&#34;key&#34;&gt;Ctrl-c&lt;/span&gt; will act as the leading key, and after pressing it, VSCode will wait for the chord key. You can observe this in the status bar.&lt;/p&gt;
+ &lt;img src=&#34;image-2.png&#34; alt=&#34;keybinding conflict&#34; style=&#34;zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;h2 id=&#34;extensions&#34;&gt;&lt;a href=&#34;#extensions&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Extensions
 &lt;/h2&gt;&lt;ol&gt;
 &lt;li&gt;
 &lt;p&gt;Bluloco Light Theme (Author: Umut Topuzoğlu)&lt;/p&gt;
-&lt;p&gt;非常漂亮的主题，我的 Wezterm 使用的也是这个主题.&lt;/p&gt;
+&lt;p&gt;A very beautiful theme.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;Remove empty lines (Author: Alexander)&lt;/p&gt;
-&lt;p&gt;删除选区内的所有空行. 可以通过 Ctrl + Shift + P 调用，也可以为其绑定快捷键.&lt;/p&gt;
+&lt;p&gt;Deletes all empty lines in the selected area. You can call it via  &lt;span class=&#34;key&#34;&gt;Ctrl + Shift + P&lt;/span&gt; or bind a shortcut for it.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
-&lt;h2 id=&#34;misc&#34;&gt;&lt;a href=&#34;#misc&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Misc
-&lt;/h2&gt;&lt;p&gt;一些写在 User Settings (JSON) 里的小配置，包含:&lt;/p&gt;
+&lt;h2 id=&#34;miscellaneous&#34;&gt;&lt;a href=&#34;#miscellaneous&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Miscellaneous
+&lt;/h2&gt;&lt;p&gt;Some small settings in User Settings (JSON) include:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;配置 VSCode-Vim 插件:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;与 VSCode 默认键位冲突处理&lt;/p&gt;
+&lt;p&gt;Change the background color of hover widgets (e.g., function descriptions provided by the Language Server);&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;使用系统剪切板&lt;/p&gt;
+&lt;p&gt;Change the zoom level;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;智能相对行号（只在 Insert Mode 使用绝对行号）&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;改变悬停窗口（如 Language Server 提供的函数描述）的背景色;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;默认缩放等级，因为我之前打开 VSCode 做的第一件事总是 ^+ 调大一次 Zoom Level;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;彩虹括号引导线设置.&lt;/p&gt;
+&lt;p&gt;Rainbow bracket guide line.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-json&#34; data-lang=&#34;json&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;#34;vim.smartRelativeLine&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;true&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;#34;vim.useSystemClipboard&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;true&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;#34;vim.handleKeys&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;{&lt;/span&gt;                &lt;span style=&#34;color:#57606a&#34;&gt;// 如你所见，我是一个非常不纯的 Vim 用户
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;#34;&amp;lt;C-c&amp;gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;false&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;#34;&amp;lt;C-x&amp;gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;false&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;#34;&amp;lt;C-a&amp;gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;false&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;#34;&amp;lt;C-s&amp;gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;false&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;     &lt;span style=&#34;color:#57606a&#34;&gt;// save
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;#34;&amp;lt;C-z&amp;gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;false&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;     &lt;span style=&#34;color:#57606a&#34;&gt;// undo
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;#34;&amp;lt;C-[&amp;gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;false&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;     &lt;span style=&#34;color:#57606a&#34;&gt;// outdent line 
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;#34;&amp;lt;C-]&amp;gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;false&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;     &lt;span style=&#34;color:#57606a&#34;&gt;// indent line
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;#34;&amp;lt;C-b&amp;gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;false&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;     &lt;span style=&#34;color:#57606a&#34;&gt;// toggle side bar
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;#34;&amp;lt;C-o&amp;gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;false&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;     &lt;span style=&#34;color:#57606a&#34;&gt;// open files
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;&lt;/span&gt;        &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;#34;&amp;lt;C-k&amp;gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;false&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;     &lt;span style=&#34;color:#57606a&#34;&gt;// leading key for ...
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#1f2328&#34;&gt;},&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;#34;workbench.colorCustomizations&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;#34;editorHoverWidget.background&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;#edeeee&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#57606a&#34;&gt;// 设置悬停提示的背景颜色
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;#34;editorHoverWidget.background&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;#edeeee&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#57606a&#34;&gt;// Set the hover widget background color
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#1f2328&#34;&gt;},&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;#34;window.zoomLevel&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;#34;editor.guides.bracketPairs&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt; &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;active&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;some-useful-windows-shortcuts&#34;&gt;&lt;a href=&#34;#some-useful-windows-shortcuts&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Some Useful Windows Shortcuts
+&lt;/h2&gt;&lt;p&gt;（🪟 epresents the Windows key.）&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;span class=&#34;key&#34;&gt;🪟&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Press the Windows key and type text to search for apps, settings, files, etc. After finding the match, press &lt;span class=&#34;key&#34;&gt;Enter&lt;/span&gt; to open it.&lt;/p&gt;
+ &lt;img src=&#34;./image-1.png&#34; alt=&#34;windows search &#34; style=&#34;zoom:60%;box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;span class=&#34;key&#34;&gt;🪟 + Arrow keys&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Win + ↑：Maximize the current window &lt;br&gt;
+Win + ←/→：Snap the window to the left/right&lt;br&gt;
+Win + ↓：Exit fullscreen / Minimize&lt;br&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;span class=&#34;key&#34;&gt;🪟 + v&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Show clipboard history (the maximum capacity is unknown, but records are lost when shutting down). You can also select and enter emojis, symbols, and emoticons here.&lt;/p&gt;
+ &lt;img src=&#34;./image-3.png&#34; alt=&#34;windows + v clipboard&#34; style=&#34;zoom:60%;box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;span class=&#34;key&#34;&gt;Alt-Tab&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Switch between windows on the current desktop.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;span class=&#34;key&#34;&gt;Ctrl-(Shift-)Tab&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Switch between tabs in the current application (browser, VSCode). Different applications may sort the tabs differently—some by access order (VSCode), others by creation order (Edge).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;span class=&#34;key&#34;&gt;Alt-F4&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Close the current window.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;span class=&#34;key&#34;&gt;Ctrl-w&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;Close the current tab in Edge.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+</description>
         </item>
         <item>
-        <title>MIT-Scheme Configuration and Basic Usage</title>
-        <link>http://fyshxfish.github.io/p/mit-scheme-configuration-and-basic-usage/</link>
+        <title>mit-scheme Basic Usage</title>
+        <link>http://fyshxfish.github.io/p/mit-scheme-basic-usage/</link>
         <pubDate>Sat, 24 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/p/mit-scheme-configuration-and-basic-usage/</guid>
+        <guid>http://fyshxfish.github.io/p/mit-scheme-basic-usage/</guid>
         <description>&lt;blockquote&gt;
 &lt;p&gt;Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away.
 &lt;br&gt;&amp;ndash; Antoine de Saint-Exupéry&lt;/p&gt;&lt;/blockquote&gt;
-&lt;h2 id=&#34;通过包管理器下载-mit-scheme&#34;&gt;&lt;a href=&#34;#%e9%80%9a%e8%bf%87%e5%8c%85%e7%ae%a1%e7%90%86%e5%99%a8%e4%b8%8b%e8%bd%bd-mit-scheme&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;通过包管理器下载 mit-scheme
+&lt;h2 id=&#34;installing-mit-scheme-via-package-manager&#34;&gt;&lt;a href=&#34;#installing-mit-scheme-via-package-manager&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Installing MIT-Scheme via Package Manager
 &lt;/h2&gt;&lt;p&gt;MacOS:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;brew install mit-scheme
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Ubuntu:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt-get update 
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;sudo apt-get install mit-scheme
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;repl-基本使用&#34;&gt;&lt;a href=&#34;#repl-%e5%9f%ba%e6%9c%ac%e4%bd%bf%e7%94%a8&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;REPL 基本使用
-&lt;/h2&gt;&lt;p&gt;（REPL: &lt;strong&gt;R&lt;/strong&gt;ead-&lt;strong&gt;E&lt;/strong&gt;valuate-&lt;strong&gt;P&lt;/strong&gt;rint Loop）&lt;/p&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;basic-repl-usage&#34;&gt;&lt;a href=&#34;#basic-repl-usage&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Basic REPL Usage
+&lt;/h2&gt;&lt;p&gt;（REPL: &lt;strong&gt;R&lt;/strong&gt;ead-&lt;strong&gt;E&lt;/strong&gt;valuate-&lt;strong&gt;P&lt;/strong&gt;rint &lt;strong&gt;L&lt;/strong&gt;oop）&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
-&lt;p&gt;进入 REPL:&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;mit-scheme
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;p&gt;Start the REPL with a single command &lt;code&gt;mit-scheme&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;在 REPL 加载中加载 scheme 代码:&lt;/p&gt;
+&lt;p&gt;Load Scheme code into the REPL:&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;1 ] =&amp;gt; (load &amp;#34;path/to/file.scm&amp;#34;)
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;(后缀 &lt;code&gt;.scm&lt;/code&gt; 可以省略.)&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;(The .scm extension can be omitted.)&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;查看手册:&lt;/p&gt;
+&lt;p&gt;View the manual:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;code&gt;man mit-scheme&lt;/code&gt; 命令行查看 mit-scheme CLI 手册, 很简短, 可以通过命令行参数指定堆栈大小 / 加载文件 / 同时打开编辑器/ &amp;hellip;&lt;/p&gt;
+&lt;p&gt;Use the &lt;code&gt;man mit-scheme&lt;/code&gt; command in the &lt;strong&gt;terminal&lt;/strong&gt; to view the brief mit-scheme CLI manual.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;按下 Ctrl-C 后键入 &lt;code&gt;H&lt;/code&gt; 查看中断手册:&lt;/p&gt;
+&lt;p&gt;When in REPL, press Ctrl-C and then type H to see the interrupt manual:&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;Ctrl-C: 接收下一个键盘输入, 决定中断行为.&lt;/p&gt;
+&lt;p&gt;Ctrl-C: Waits for the next keyboard input to decide the interrupt behavior.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Ctrl-G: 回到 top-level&lt;/p&gt;
+&lt;p&gt;Ctrl-G: Returns to the top-level REPL.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Ctrl-Z: 挂起当前 mit-scheme 进程&lt;/p&gt;
+&lt;p&gt;Ctrl-Z: Suspends the current mit-scheme process.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;按下 Ctrl-C 后键入 &lt;code&gt;?&lt;/code&gt; 查看手册: 下一键盘输入 (option) 与 REPL 行为 (清屏 / 挂起 / 退出 / 忽略中断 / &amp;hellip;) 的对应关系;&lt;/p&gt;
+&lt;p&gt;Press Ctrl-C and then type ? to see the manual for the next key input (option) and how it corresponds to REPL behavior (clear screen, suspend, exit, ignore interrupts, etc.).&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;/li&gt;
@@ -2067,92 +2081,45 @@ Title of this section is *Nested Mappings*, which represented in code with neste
     You can keep going despite the error. --&gt;
 &lt;ol start=&#34;4&#34;&gt;
 &lt;li&gt;
-&lt;p&gt;如果 REPL 没有反应:&lt;/p&gt;
+&lt;p&gt;If the REPL doesn&amp;rsquo;t respond:&lt;/p&gt;
 &lt;ol&gt;
 &lt;li&gt;
-&lt;p&gt;检查括号是否逐对匹配;&lt;/p&gt;
+&lt;p&gt;Check if parentheses are properly matched;  &lt;span style=&#34;color:red&#34;&gt;( &lt;/span&gt;( ) ( ( ) )&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;Ctrl-C 中断后回到 REPL, 提示符 (&lt;code&gt;1 ] =&amp;gt;&lt;/code&gt; / &lt;code&gt;2 error&amp;gt;&lt;/code&gt;) 不会重新显示.&lt;/p&gt;
+&lt;p&gt;After interrupting with Ctrl-C, the prompt (&lt;code&gt;1 ] =&amp;gt; / 2 error&amp;gt;&lt;/code&gt;) may not reappear, which results in the &amp;ldquo;frozen&amp;rdquo; REPL.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;担心递归太深? 递归深度超限时, REPL 会提示 &lt;code&gt;Recursion depth limit exceeded. Aborting!&lt;/code&gt; (3.1 中提到可以通过 CLI 参数指定堆栈大小, 即, mit-scheme使用的堆栈资源是有限的.)&lt;/p&gt;
+&lt;p&gt;Worried about deep recursion? If the recursion depth exceeds the limit, the REPL will show &lt;em&gt;Recursion depth limit exceeded. Aborting!&lt;/em&gt;. (According to mit-scheme manual, which you can get by &lt;code&gt;man mit-scheme&lt;/code&gt;, stack size can be specified with CLI parameters, meaning MIT-Scheme has limited stack resources.)&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ol&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;del&gt;ScHeMe&lt;/del&gt; Scheme 是大小写不敏感的语言.&lt;/p&gt;
-&lt;p&gt;所以 &lt;code&gt;(LoAd &amp;quot;path/to/file.scm&amp;quot;)&lt;/code&gt;/&lt;code&gt;(DEFINE x 1)&lt;/code&gt;/&lt;code&gt;(define x 1)&lt;/code&gt;/&lt;code&gt;(defiNE x 1)&lt;/code&gt;/&amp;hellip; 都不会引发错误.&lt;/p&gt;
+&lt;p&gt;&lt;del&gt;ScHeMe&lt;/del&gt; Scheme is case-&lt;strong&gt;insensitive&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;So &lt;code&gt;(LoAd &amp;quot;path/to/file.scm&amp;quot;)&lt;/code&gt;/&lt;code&gt;(DEFINE x 1)&lt;/code&gt;/&lt;code&gt;(define x 1)&lt;/code&gt;/&lt;code&gt;(defiNE x 1)&lt;/code&gt;, etc. won&amp;rsquo;t cause errors.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;History variable (procedure): 重用 REPL 求值后返回的 procedure:&lt;/p&gt;
+&lt;p&gt;History variable (procedure): Reuse procedures returned after evaluating expressions in the REPL:&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-scheme&#34; data-lang=&#34;scheme&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;=&amp;gt; &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;average-dump&lt;/span&gt; &lt;span style=&#34;color:#953800&#34;&gt;square&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;;Value: #[compound-procedure 12]    ; 可以在后续表达式中重用, 就像 gdb 中的 history variable `$1`&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;;Value: #[compound-procedure 12]    ; Can be reused in subsequent expressions, similar to GDB&amp;#39;s history variable `$1`&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;=&amp;gt; &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;compound-procedure&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;12&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;10&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#57606a&#34;&gt;; 虽然也不是很方便直接使用, 但是确实是能用&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;=&amp;gt; &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;compound-procedure&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;12&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;10&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#57606a&#34;&gt;; Not very convenient to use directly, but it works&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;;Value: 55&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;=&amp;gt; &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;define &lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;newfunc&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;compound-procedure&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;12&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;])&lt;/span&gt;   &lt;span style=&#34;color:#57606a&#34;&gt;; 可以绑定到一个标识符上, 再复用&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;=&amp;gt; &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;define &lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;newfunc&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;#&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;compound-procedure&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;12&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;])&lt;/span&gt;   &lt;span style=&#34;color:#57606a&#34;&gt;; Can be bound to a new identifier for reuse&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;;Value: newfunc&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;=&amp;gt; &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;newfunc&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;10&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;;Value: 55&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt; &lt;!-- (So what exactly is this compound-procedure? machine code, code evaluated by means of substitute model, or something?) --&gt;
-&lt;/li&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ol&gt;
-&lt;!-- 7. Press ^C once to get **help information**; Press ^C twice to goto the top level REPL.  --&gt;
 &lt;hr&gt;
-&lt;h2 id=&#34;后记&#34;&gt;&lt;a href=&#34;#%e5%90%8e%e8%ae%b0&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;后记
-&lt;/h2&gt;&lt;p&gt;不知道是否有更好用的 Scheme REPL，这个 REPL 确实是比较原始，不支持历史表达式的回溯，不支持光标移动，但是一想到 lisp 历史这么悠久，语法本身十分简洁纯净，我就接受了一切。&lt;span style=&#34;color: #888888; font-size: 0.85em;&#34;&gt;（不像写 Haskell 的时候 LSP 出了问题，我必通过重启 VSCode / 重启电脑 / 更改 LSP 版本先把 LSP 重新拉起来，而不是先把代码写了。）&lt;/span&gt;&lt;/p&gt;
-</description>
-        </item>
-        <item>
-        <title>Fix Haskell Development Environment (VSCode &#43; GHCup &#43; HLS)</title>
-        <link>http://fyshxfish.github.io/p/fix-haskell-development-environment-vscode--ghcup--hls/</link>
-        <pubDate>Fri, 16 Aug 2024 00:00:00 +0000</pubDate>
-        
-        <guid>http://fyshxfish.github.io/p/fix-haskell-development-environment-vscode--ghcup--hls/</guid>
-        <description>&lt;!-- *不知不觉我已经在MacOS, Windows, Linux三种平台上配置过Haskell环境了，我觉得我已经是环境配置大师了，POWER!* --&gt;
-&lt;!-- # Mac上重新配置Haskell开发环境记录 --&gt;
-&lt;h2 id=&#34;ghcup-修复&#34;&gt;&lt;a href=&#34;#ghcup-%e4%bf%ae%e5%a4%8d&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;ghcup 修复
-&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;终端使用 &lt;code&gt;ghcup&lt;/code&gt; 直接被杀进程，输出大致如：&lt;code&gt;ghcup terminated by SIGKILL&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;使用 ghcup 官网上的命令通过 curl 重新安装，会得到一句红色的报错信息&lt;code&gt;&amp;quot;ghcup --metadata-fetching-mode=Strict upgrade&amp;quot; failed!&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;不知道是不是因为太久没打开了，&lt;strong&gt;解决方式&lt;/strong&gt;是清除缓存：&lt;code&gt;rm -rf ~/.ghcup/cache&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;ghcup-配置环境&#34;&gt;&lt;a href=&#34;#ghcup-%e9%85%8d%e7%bd%ae%e7%8e%af%e5%a2%83&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;ghcup 配置环境
-&lt;/h2&gt;&lt;p&gt;&lt;code&gt;ghcup tui&lt;/code&gt;下载和设置 HLS 和 ghc（以及 stack, cabal）版本，&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;ghc 版本：注意 ghc 的备注信息中需要有 hls-powered，不知道为什么我的 mac 上的版本是 9.4.7，正好没有 hls 支持（9.8.4是有 hls 支持的），当时下载的时机这么刚好吗。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;HLS 版本：VSCode 的 Haskell 插件会要求 HLS 是最新的版本，所以就直接下最新的版本吧，VSCode 弹出提示&amp;quot; Haskell 插件需要 2.9.0.1 的 HLS，是否下载&amp;quot;，这里的下载比较慢，而且看不到进度，所以可以直接在终端的 ghcup 下载，然后回到VSC（重启？反正我重启了），插件就可以正常使用了。&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;HLS 无法正常工作也可以尝试通过 &lt;code&gt;ghcup tui&lt;/code&gt; 下载并切换 HLS 的版本。&lt;/p&gt;
-  &lt;img src=&#34;ghcup_tui.png&#34; alt=&#34;ghcup_tui&#34; style=&#34;zoom:75%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7)&#34; /&gt;
-  &lt;!-- &lt;img src=&#34;ghcup_tui.png&#34; alt=&#34;ghcup_tui&#34; style=&#34;box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7)&#34; /&gt; --&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;一个网络问题&#34;&gt;&lt;a href=&#34;#%e4%b8%80%e4%b8%aa%e7%bd%91%e7%bb%9c%e9%97%ae%e9%a2%98&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;一个网络问题
-&lt;/h2&gt;&lt;p&gt;在第一步中修复 ghcup 之后，使用 ghcup 会遇到这样的报错：&lt;/p&gt;
-&lt;img src=&#34;curl_error.png&#34; alt=&#34;curl_error&#34; style=&#34;zoom:75%;  box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7)&#34; /&gt;
-&lt;p&gt;根据提示执行：&lt;code&gt;ghcup config set downloader Wget&lt;/code&gt;，再次使用 ghcup，得到差不多一样的报错：&lt;/p&gt;
-&lt;!-- ![](https://pic.imge.cc/2024/08/16/66bf0ff6054ff.png) --&gt;
-&lt;img src=&#34;wget_error.png&#34; alt=&#34;wget_error&#34; style=&#34;zoom:75%;  box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7)&#34; /&gt;
-&lt;p&gt;关于 yaml：尝试过最后一行的 removing &amp;hellip;yaml，结果为本机中确实不存在这个文件，所以不是这里的问题。&lt;/p&gt;
-&lt;p&gt;解决方式：复制 clash 的终端代理命令，就不会报这个错了，同时下载速度得到了极大提升。&lt;/p&gt;
+&lt;h2 id=&#34;afterword&#34;&gt;&lt;a href=&#34;#afterword&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Afterword
+&lt;/h2&gt;&lt;p&gt;This Scheme REPL is &lt;strong&gt;quite&lt;/strong&gt; basic. It doesn’t support history backtracking or cursor movement, however, since I don&amp;rsquo;t need it for anything too complex, it&amp;rsquo;s good enough for me.&lt;/p&gt;
 </description>
         </item>
         <item>

@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='http://fyshxfish.github.io/p/nested-mapping-examples-implemented-in-haskell-sicp-2.2.3-list-monad/'>
 
-<link rel="stylesheet" href="/scss/style.min.ba5cc34af4430963fcfe2f9afd2fb80f7251aa5d621efcdd72c32002a6e56cae.css"><meta property='og:title' content="Nested Mapping Examples Implemented in Haskell - SICP § 2.2.3  | List Monad ">
+<link rel="stylesheet" href="/scss/style.min.40db8f9e04bd213ebfbcd7be0a9fb1a9857a662aba6bf8c2157b3a29a553d615.css"><meta property='og:title' content="Nested Mapping Examples Implemented in Haskell - SICP § 2.2.3  | List Monad ">
 <meta property='og:description' content="Problem Description Problem: Given a positive integer $n$, find all ordered pairs of distinct positive integers $i$ and $j$, where $ 1 \\leq i \\leq j \\leq n $, such that $ i + j $ is prime.\nImplementation in Haskell isDivisible :: Int -&gt; Int -&gt; Bool isDivisible x y | mod x y == 0 = True | otherwise = False isPrime :: Int -&gt; Bool isPrime x | x &lt;= 2 = True | otherwise = not (foldr (||) False (map (isDivisible x) [2..((floor . sqrt . fromIntegral) x)])) genPairs :: Int -&gt; [((Int, Int), Int)] genPairs n = do x &lt;- [1..n] y &lt;- [1..(x-1)] return ((y, x), (x + y)) sumPrimePairs :: Int -&gt; [((Int, Int), Int)] sumPrimePairs = (filter (\\(_, s) -&gt; (isPrime s))) . genPairs About List Monad: Context, Nested lambda and do-notation Context of List Monad : nondeterministic result.\n">
 <meta property='og:url' content='http://fyshxfish.github.io/p/nested-mapping-examples-implemented-in-haskell-sicp-2.2.3-list-monad/'>
 <meta property='og:site_name' content='fyshXplore'>
@@ -540,12 +540,12 @@ Title of this section is *Nested Mappings*, which represented in code with neste
             
                 
 <article class="">
-    <a href="/p/mit-scheme-configuration-and-basic-usage/">
+    <a href="/p/mit-scheme-basic-usage/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">MIT-Scheme Configuration and Basic Usage</h2>
+            <h2 class="article-title">mit-scheme Basic Usage</h2>
         </div>
     </a>
 </article>

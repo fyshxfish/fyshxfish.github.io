@@ -379,17 +379,17 @@
                 href="http://fyshxfish.github.io/categories/enviroment_setup/"
                 />
   </url><url>
-    <loc>http://fyshxfish.github.io/p/my-vscode-configuration/</loc>
+    <loc>http://fyshxfish.github.io/p/my-common-vscode-shortcuts/</loc>
     <lastmod>2024-08-26T00:00:00+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="http://fyshxfish.github.io/zh/p/vscode-%E9%85%8D%E7%BD%AE%E8%AE%B0%E5%BD%95/"
+                href="http://fyshxfish.github.io/zh/p/%E6%88%91%E7%9A%84%E5%B8%B8%E7%94%A8-vscode-%E5%BF%AB%E6%8D%B7%E9%94%AE/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://fyshxfish.github.io/p/my-vscode-configuration/"
+                href="http://fyshxfish.github.io/p/my-common-vscode-shortcuts/"
                 />
   </url><url>
     <loc>http://fyshxfish.github.io/tags/vscode/</loc>
@@ -405,7 +405,7 @@
                 href="http://fyshxfish.github.io/tags/vscode/"
                 />
   </url><url>
-    <loc>http://fyshxfish.github.io/p/mit-scheme-configuration-and-basic-usage/</loc>
+    <loc>http://fyshxfish.github.io/p/mit-scheme-basic-usage/</loc>
     <lastmod>2024-08-24T00:00:00+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
@@ -415,20 +415,7 @@
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://fyshxfish.github.io/p/mit-scheme-configuration-and-basic-usage/"
-                />
-  </url><url>
-    <loc>http://fyshxfish.github.io/p/fix-haskell-development-environment-vscode--ghcup--hls/</loc>
-    <lastmod>2024-08-16T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="http://fyshxfish.github.io/zh/p/haskell-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-vscode--ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="http://fyshxfish.github.io/p/fix-haskell-development-environment-vscode--ghcup--hls/"
+                href="http://fyshxfish.github.io/p/mit-scheme-basic-usage/"
                 />
   </url><url>
     <loc>http://fyshxfish.github.io/p/explore-rust-basic-revisiting-gdb/</loc>
