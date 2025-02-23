@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-    <head><meta charset='utf-8'>
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="本文概述 SICP § 2.4.3 中描述了以查表（ type × operation 二维表）为实现方式的泛型系统，具体函数被隐藏在泛型函数 + Selector 这样的抽象之下，那么如果将具体函数放在数据 + Selector 这样的抽象之下是什么样的呢，本文呈现了符合此抽象（SICP 中称为 Message Passing）的 Boolean. 接下来从 Message Passing，Haskell 中的 $ 和 Haskell 中的代数数据类型 三个角度聊聊数据与函数之间的关系. Message Passing - 让数据自己携带函数；Haskell $的应用 - 将数据变成某种函数；Haskell中的代数数据类型 - 使用函数构造数据.\n">
 <title>Boolean from a Message Passing Perspective - SICP § 2.4.3 | Generics | Boundaries of Data and Functions</title>
 
-<link rel='canonical' href='http://fyshxfish.github.io/p/boolean-from-a-message-passing-perspective-sicp-2.4.3-generics-boundaries-of-data-and-functions/'>
+<link rel='canonical' href='http://localhost:1313/p/boolean-from-a-message-passing-perspective-sicp-2.4.3-generics-boundaries-of-data-and-functions/'>
 
-<link rel="stylesheet" href="/scss/style.min.40db8f9e04bd213ebfbcd7be0a9fb1a9857a662aba6bf8c2157b3a29a553d615.css"><meta property='og:title' content="Boolean from a Message Passing Perspective - SICP § 2.4.3 | Generics | Boundaries of Data and Functions">
+<link rel="stylesheet" href="/scss/style.min.be0d5e0eb92c2fa09941c16ce5a24165e9552d4dcbea0a1a378c27e26cc08e23.css"><meta property='og:title' content="Boolean from a Message Passing Perspective - SICP § 2.4.3 | Generics | Boundaries of Data and Functions">
 <meta property='og:description' content="本文概述 SICP § 2.4.3 中描述了以查表（ type × operation 二维表）为实现方式的泛型系统，具体函数被隐藏在泛型函数 + Selector 这样的抽象之下，那么如果将具体函数放在数据 + Selector 这样的抽象之下是什么样的呢，本文呈现了符合此抽象（SICP 中称为 Message Passing）的 Boolean. 接下来从 Message Passing，Haskell 中的 $ 和 Haskell 中的代数数据类型 三个角度聊聊数据与函数之间的关系. Message Passing - 让数据自己携带函数；Haskell $的应用 - 将数据变成某种函数；Haskell中的代数数据类型 - 使用函数构造数据.\n">
-<meta property='og:url' content='http://fyshxfish.github.io/p/boolean-from-a-message-passing-perspective-sicp-2.4.3-generics-boundaries-of-data-and-functions/'>
+<meta property='og:url' content='http://localhost:1313/p/boolean-from-a-message-passing-perspective-sicp-2.4.3-generics-boundaries-of-data-and-functions/'>
 <meta property='og:site_name' content='fyshXplore'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='SICP' /><meta property='article:tag' content='Scheme' /><meta property='article:tag' content='Haskell' /><meta property='article:published_time' content='2024-09-07T23:18:00&#43;08:00'/><meta property='article:modified_time' content='2024-09-07T23:18:00&#43;08:00'/>
 <meta name="twitter:title" content="Boolean from a Message Passing Perspective - SICP § 2.4.3 | Generics | Boundaries of Data and Functions">
@@ -232,9 +232,9 @@
 
                             <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
                                 
-                                    <option value="http://fyshxfish.github.io/zh/" >中文</option>
+                                    <option value="http://localhost:1313/zh/" >中文</option>
                                 
-                                    <option value="http://fyshxfish.github.io/" selected>English</option>
+                                    <option value="http://localhost:1313/" selected>English</option>
                                 
                             </select>
                         </li>
@@ -366,7 +366,7 @@
 
             <div>
                 
-                    <a href="http://fyshxfish.github.io/zh/p/message-passing-%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84-bool-sicp-2.4.3-%E6%B3%9B%E5%9E%8B-%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%87%BD%E6%95%B0%E7%9A%84%E8%BE%B9%E7%95%8C/" class="link">中文</a>
+                    <a href="http://localhost:1313/zh/p/message-passing-%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84-bool-sicp-2.4.3-%E6%B3%9B%E5%9E%8B-%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%87%BD%E6%95%B0/" class="link">中文</a>
                 
             </div>
         </footer>
@@ -482,32 +482,6 @@ ghci&gt; :t ($ x)
 </span></span></code></pre></div><p><code>Empty</code> 和 <code>Node</code> 是 <code>Tree a</code> 的值构造子，值构造子就是返回某种类型的<strong>值</strong>的<strong>函数</strong>. <code>Empty</code> 是无参构造子，<code>Node</code> 接受 <code>a</code>，<code>Tree a</code>，<code>Tree a</code>三个<strong>值</strong>参数.</p>
 <p><code>Tree a</code> 是类型构造子，类型构造子是返回某种<strong>具体类型</strong>的函数，<code>Tree a</code> 接受 <code>a</code> 一个类型参数，返回相应的具体的 <code>Tree</code> 类型. 例如 <code>Tree Int</code>，<code>Tree Char</code> 分别是结点数据类型为 <code>Int</code>, <code>Char</code> 的 <code>Tree</code>.</p>
 <p>这里可以看出 Haskell 非常漂亮的语言设计上的一致性，没有特殊的泛型语法，只有函数贯穿始终.</p>
-<!-- ### Church Encoding  -->
-<!-- 如何在 lambda 演算中表示自然数？ -->
-<!-- 从丘奇数出现在我的世界里的那一刻起，这个 -->
-<!-- 
-参考：
-
-- [Church Encoding wiki](https://en.wikipedia.org/wiki/Church_encoding)
-
-- 给了我很大启发的一则[知乎回答](https://www.zhihu.com/question/39930042/answer/2415190431?utm_psn=1816166240617631745) -->
-<!-- <span style="color: #888888; font-size: 0.85em;">我对 Church Encoding 的理解不是很到位，所以先不在这里陈述，我一直对 Church Encoding 比较困惑，前两天看到一个[知乎回答](https://www.zhihu.com/question/39930042/answer/2415190431?utm_psn=1816166240617631745)给了我很大的启发. 不要像理解物理计算机所存储的数字一样去理解 Church Encoding，尽管 Church Encoding 经常被翻译成丘奇数，但就像前面提到的知乎回答中陈述的观点一样，Church Encoding 更多表达的是一种**对计算过程的抽象**，而不是某个预备被存储在物理存储器中的具体数字. 接触以 lambda calculus 为起点的 FP 内容，尽量避免过拟合，甚至最好不要试图去拟合，很多困扰可能是过往的经验带给你的. </span> -->
-<!-- 陈述待补充
-
---- 
-
-
-
-睡觉了 Sun Sep  8 00:30:22 CST 2024
-
-[TODO]:
-
-- Haskell 中的 `$`
-
-- 丘奇数
-
-看待数据的视角有很多，内存与指针、代数数据类型、数据即程序（也就是 SICP / 本文中想陈述的视角）... 对于 # 数据即程序 # 这样的情况，也许我们更加关注的是: 数据携带了什么方法，数据可以为我们提供什么方法 / 函数
- -->
 
 </section>
 
@@ -578,12 +552,12 @@ ghci&gt; :t ($ x)
             
                 
 <article class="">
-    <a href="/p/huffman-tree-implementation-in-haskell-sicp-2.3.4-structuring-and-destructuring-of-composed-data/">
+    <a href="/p/huffman-trees-in-haskell-structure-and-destructure-of-compound-data/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">Huffman Tree Implementation in Haskell - SICP § 2.3.4 | Structuring and Destructuring of Composed Data</h2>
+            <h2 class="article-title">Huffman Trees in Haskell | Structure and Destructure of Compound Data</h2>
         </div>
     </a>
 </article>

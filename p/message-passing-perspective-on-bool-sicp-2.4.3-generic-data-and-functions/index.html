@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Introduction SICP § 2.4.3 describes a generic system implemented using table lookup (type × operation two-dimensional table), where concrete functions are hidden under abstractions like &ldquo;generic function + Selector&rdquo;. What would it look like if we put concrete functions under &ldquo;data + Selector&rdquo; abstractions? This article presents a Boolean implementation that conforms to this abstraction (called Message Passing in SICP). The importance of data and functions in programming is self-evident. Let&rsquo;s explore three perspectives on the possible relationships between data and functions: Message Passing ↦ letting data carry its own functions; $ in Haskell ↦ transforming data into functions; Algebraic data types in Haskell ↦ constructing data using functions.\n">
+<title>Message Passing Perspective on Bool - SICP § 2.4.3 | Generic | Data and Functions</title>
+
+<link rel='canonical' href='http://localhost:1313/p/message-passing-perspective-on-bool-sicp-2.4.3-generic-data-and-functions/'>
+
+<link rel="stylesheet" href="/scss/style.min.be0d5e0eb92c2fa09941c16ce5a24165e9552d4dcbea0a1a378c27e26cc08e23.css"><meta property='og:title' content="Message Passing Perspective on Bool - SICP § 2.4.3 | Generic | Data and Functions">
+<meta property='og:description' content="Introduction SICP § 2.4.3 describes a generic system implemented using table lookup (type × operation two-dimensional table), where concrete functions are hidden under abstractions like &ldquo;generic function + Selector&rdquo;. What would it look like if we put concrete functions under &ldquo;data + Selector&rdquo; abstractions? This article presents a Boolean implementation that conforms to this abstraction (called Message Passing in SICP). The importance of data and functions in programming is self-evident. Let&rsquo;s explore three perspectives on the possible relationships between data and functions: Message Passing ↦ letting data carry its own functions; $ in Haskell ↦ transforming data into functions; Algebraic data types in Haskell ↦ constructing data using functions.\n">
+<meta property='og:url' content='http://localhost:1313/p/message-passing-perspective-on-bool-sicp-2.4.3-generic-data-and-functions/'>
+<meta property='og:site_name' content='fyshXplore'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='SICP' /><meta property='article:tag' content='Scheme' /><meta property='article:tag' content='Haskell' /><meta property='article:published_time' content='2024-09-07T23:18:00&#43;08:00'/><meta property='article:modified_time' content='2024-09-07T23:18:00&#43;08:00'/>
+<meta name="twitter:title" content="Message Passing Perspective on Bool - SICP § 2.4.3 | Generic | Data and Functions">
+<meta name="twitter:description" content="Introduction SICP § 2.4.3 describes a generic system implemented using table lookup (type × operation two-dimensional table), where concrete functions are hidden under abstractions like &ldquo;generic function + Selector&rdquo;. What would it look like if we put concrete functions under &ldquo;data + Selector&rdquo; abstractions? This article presents a Boolean implementation that conforms to this abstraction (called Message Passing in SICP). The importance of data and functions in programming is self-evident. Let&rsquo;s explore three perspectives on the possible relationships between data and functions: Message Passing ↦ letting data carry its own functions; $ in Haskell ↦ transforming data into functions; Algebraic data types in Haskell ↦ constructing data using functions.\n"><style>
+  :root {
+     
+    --zh-font-family: "Noto Serif SC";
+     
+     
+     
+    --code-font-family: Consolas, Menlo, Monaco, "Courier New", var(--zh-font-family), monospace;
+    --article-font-family: "Noto Serif SC";
+  }
+</style>
+
+<script>
+  (function () {
+    const customFont = document.createElement("link");
+    customFont.href =
+      "https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap";
+
+    customFont.type = "text/css";
+    customFont.rel = "stylesheet";
+
+    document.head.appendChild(customFont);
+  })();
+</script>
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            localStorage.setItem(colorSchemeKey, "auto");
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/fyshx_avatar_hu_4b64fe58c612edf3.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🫧</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">fyshXplore</a></h1>
+            <h2 class="site-description">Just for 𝐅𝐮𝐧</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/fyshxfish'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-infinity" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M9.828 9.172a4 4 0 1 0 0 5.656 a10 10 0 0 0 2.172 -2.828a10 10 0 0 1 2.172 -2.828 a4 4 0 1 1 0 5.656a10 10 0 0 1 -2.172 -2.828a10 10 0 0 0 -2.172 -2.828" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="http://localhost:1313/zh/" >中文</option>
+                                
+                                    <option value="http://localhost:1313/" selected>English</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">&thinsp;Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#introduction">Introduction</a></li>
+    <li><a href="#generic-functions-intelligent-operations">Generic Functions: Intelligent Operations</a></li>
+    <li><a href="#data-and-functions">Data and Functions</a>
+      <ol>
+        <li><a href="#intelligent-operation-what-if-intelligent-data-objects">Intelligent Operation? WHAT IF Intelligent Data Objects?</a></li>
+        <li><a href="#boolean-carrying-functions">Boolean Carrying Functions</a></li>
+        <li><a href="#-message-passing-another-perspective-on-data">→ Message Passing: Another Perspective on Data</a></li>
+        <li><a href="#-in-haskell"><code>$</code> in Haskell</a></li>
+        <li><a href="#algebraic-data-types-in-haskell">Algebraic Data Types in Haskell</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/fp/" style="background-color: #b7c9e2; color: #fff;">
+                FP
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/message-passing-perspective-on-bool-sicp-2.4.3-generic-data-and-functions/">Message Passing Perspective on Bool - SICP § 2.4.3 | Generic | Data and Functions</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Sep 7, 2024</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    7 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+        <footer class="article-translations">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+            <div>
+                
+                    <a href="http://localhost:1313/zh/p/message-passing-%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84-bool-sicp-2.4.3-%E6%B3%9B%E5%9E%8B-%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%87%BD%E6%95%B0/" class="link">中文</a>
+                
+            </div>
+        </footer>
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="introduction"><a href="#introduction" class="header-anchor"></a>Introduction
+</h2><p>SICP § 2.4.3 describes a generic system implemented using table lookup (type × operation two-dimensional table), where concrete functions are hidden under abstractions like &ldquo;generic function + Selector&rdquo;. What would it look like if we put concrete functions under &ldquo;data + Selector&rdquo; abstractions? This article presents a Boolean implementation that conforms to this abstraction (called Message Passing in SICP). The importance of <strong>data</strong> and <strong>functions</strong> in programming is self-evident. Let&rsquo;s explore three perspectives on the possible relationships between data and functions: Message Passing ↦ letting data carry its own functions; <code>$</code> in Haskell ↦ transforming data into functions; Algebraic data types in Haskell ↦ constructing data using functions.</p>
+<h2 id="generic-functions-intelligent-operations"><a href="#generic-functions-intelligent-operations" class="header-anchor"></a>Generic Functions: Intelligent Operations
+</h2><p>In section 2.4.3, the author builds a generic system. What is generics? It&rsquo;s a form of abstraction. For several types that share certain <strong>characteristics</strong>, if we can write a function for one type based on this <strong>characteristic</strong>, we want to extend this function to other types with the same characteristic. For example: for two <code>Int</code> values, I can calculate their maximum (<code>max Int Int</code>) because <code>Int</code> is <strong>Orderable</strong>, meaning the <code>Int</code> type provides implementations of comparison functions like <code>&gt;</code> / <code>&lt;</code> / etc. For other <strong>orderable</strong> types (those that provide comparison function implementations), we want to extend <code>max</code> to these types:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-haskell" data-lang="haskell"><span style="display:flex;"><span><span style="color:#6639ba">max</span> <span style="color:#0550ae">::</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Ord</span> a<span style="color:#1f2328">)</span> <span style="color:#0550ae">=&gt;</span> a <span style="color:#0550ae">-&gt;</span> a <span style="color:#0550ae">-&gt;</span> a
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">max</span> x y <span style="color:#0550ae">=</span> <span style="color:#cf222e">if</span> x <span style="color:#0550ae">&gt;=</span> y <span style="color:#cf222e">then</span> x <span style="color:#cf222e">else</span> y
+</span></span></code></pre></div><p>We abstract the <strong>orderable</strong> characteristic into the <code>Ord</code> typeclass, and the <code>max</code> function can work with any member type of typeclass.</p>
+<p>When we apply the <code>max</code> function to a specific <code>Ord</code> class type, the compiler helps us <u>find</u> the concrete implementation of <code>&gt;=</code> for that type.</p>
+<p>So how to <u>find</u> it? One answer is: table lookup. When I need to execute <code>max</code> (operation) on <code>Float</code> (type), I can find the function (the non-generic concrete implementation of <code>max</code> for <code>Float</code>) corresponding to (<code>Float</code>, <code>max</code>) in the Cartesian product of type × operation.</p>
+<img src="generic_table.png" alt="generic_table" style="zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);" />
+<p>SICP Page 252: Generics breaks down the type × operation table row by row, with each generic function corresponding to one row. ✨</p>
+<img src="table_rows.png" alt="table_rows" style="zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);" />
+<h2 id="data-and-functions"><a href="#data-and-functions" class="header-anchor"></a>Data and Functions
+</h2><h3 id="intelligent-operation-what-if-intelligent-data-objects"><a href="#intelligent-operation-what-if-intelligent-data-objects" class="header-anchor"></a>Intelligent Operation? WHAT IF Intelligent Data Objects?
+</h3><p>In generic functions mentioned in the previous section, data exists as an object to be operated on. Data&rsquo;s job is to <strong>be</strong> acted upon by functions. Our generics target functions (operations). In our expectation, we want functions to be &ldquo;smart&rdquo;. For example, <code>max :: (Ord a) =&gt; a -&gt; a -&gt; a</code> is smart - it can &ldquo;automatically&rdquo; transform into the corresponding non-generic concrete implementation <code>max :: Int -&gt; Int -&gt; Int</code> for its specific type. Data just needs to wait to be acted upon.</p>
+<p><font color="#d60e81">𝐖𝐡𝐚𝐭 𝐢𝐟</font>: Instead of letting generic functions find concrete implementations for data → <u>let data find concrete implementations for functions</u>? From the perspective of decomposing the type × operation table, what if we break this table into columns, letting certain form of data (corresponding to generic operations, let&rsquo;s call it generic? data) represent a column?</p>
+<img src="table_cols.png" alt="table_cols" style="zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);" />
+<p>This was already presented in SICP 2.1.3 when discussing compound data extraction, and was mentioned in my <a class="link" href="https://fyshxfish.github.io/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.3.4-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/#%e4%b8%80%e8%87%b4%e6%80%a7"  target="_blank" rel="noopener"
+    >previous blog post</a>. The focus in SICP 2.1.3 was on operations on compound data itself (extracting fields): to ensure consistency before and after list element access, we provide the list as a procedure that accepts parameters and returns corresponding list elements based on those parameters.</p>
+<p>Here we care about how data behaves in programs - how data interacts with functions and other data. We want <strong>data to carry its own interaction methods</strong> rather than being static entities that can only be acted upon by other functions. Based on this idea, let&rsquo;s try to write a Boolean that follows this behavioral specification.</p>
+<h3 id="boolean-carrying-functions"><a href="#boolean-carrying-functions" class="header-anchor"></a>Boolean Carrying Functions
+</h3><p>First, let&rsquo;s present a similar type × operation two-dimensional table. Since we&rsquo;re doing simple modeling, we&rsquo;ll only consider two operations - AND (<code>logic_and</code>) and OR (<code>logic_or</code>):</p>
+<img src="tf_table.png" alt="tf_table" style="zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);" />
+<p>Similar to generic functions representing rows, we write &ldquo;data&rdquo; that can represent columns. The identifiers for <code>TRUE</code> and <code>FALSE</code> columns are <code>tru</code> and <code>fls</code> respectively. How to make data carry functions? One answer is to make the data itself a function that can accept parameters, using parameters to extract the functions carried by the data:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span><span style="color:#1f2328">(</span><span style="color:#cf222e">define </span><span style="color:#953800">tru</span>                                   <span style="color:#57606a">; (define tru (lambda ...))</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#1f2328">(</span><span style="color:#cf222e">lambda </span><span style="color:#1f2328">(</span><span style="color:#6639ba">op</span><span style="color:#1f2328">)</span> 
+</span></span><span style="display:flex;"><span>        <span style="color:#1f2328">(</span><span style="color:#cf222e">cond </span><span style="color:#1f2328">((</span><span style="color:#6639ba">eq? </span><span style="color:#953800">op</span> <span style="color:#032f62">&#39;and</span><span style="color:#1f2328">)</span> <span style="color:#953800">tru_logic_and</span><span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#1f2328">((</span><span style="color:#6639ba">eq? </span><span style="color:#953800">op</span> <span style="color:#032f62">&#39;or</span><span style="color:#1f2328">)</span>  <span style="color:#953800">tru_logic_or</span><span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#1f2328">(</span><span style="color:#cf222e">define </span><span style="color:#953800">fls</span>                                   <span style="color:#57606a">; (define fls (lambda ...))</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#1f2328">(</span><span style="color:#cf222e">lambda </span><span style="color:#1f2328">(</span><span style="color:#6639ba">op</span><span style="color:#1f2328">)</span> 
+</span></span><span style="display:flex;"><span>        <span style="color:#1f2328">(</span><span style="color:#cf222e">cond </span><span style="color:#1f2328">((</span><span style="color:#6639ba">eq? </span><span style="color:#953800">op</span> <span style="color:#032f62">&#39;and</span><span style="color:#1f2328">)</span> <span style="color:#953800">fls_logic_and</span><span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#1f2328">((</span><span style="color:#6639ba">eq? </span><span style="color:#953800">op</span> <span style="color:#032f62">&#39;or</span><span style="color:#1f2328">)</span>  <span style="color:#953800">fls_logic_or</span><span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#1f2328">)</span>
+</span></span></code></pre></div><p>The functions corresponding to <code>lambda - cond</code> (curried logical AND and OR) are implemented as follows:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scm" data-lang="scm"><span style="display:flex;"><span><span style="color:#1f2328">(</span><span style="color:#cf222e">define </span><span style="color:#1f2328">(</span><span style="color:#6639ba">tru_logic_and</span> <span style="color:#953800">x</span><span style="color:#1f2328">)</span>  <span style="color:#1f2328">(</span><span style="color:#cf222e">if </span><span style="color:#1f2328">(</span><span style="color:#6639ba">eq? </span><span style="color:#953800">x</span> <span style="color:#953800">tru</span><span style="color:#1f2328">)</span> <span style="color:#953800">tru</span> <span style="color:#953800">fls</span><span style="color:#1f2328">))</span>    <span style="color:#57606a">; 1 AND x</span>
+</span></span><span style="display:flex;"><span><span style="color:#1f2328">(</span><span style="color:#cf222e">define </span><span style="color:#1f2328">(</span><span style="color:#6639ba">tru_logic_or</span> <span style="color:#953800">x</span><span style="color:#1f2328">)</span> <span style="color:#953800">tru</span><span style="color:#1f2328">)</span>                           <span style="color:#57606a">; 1 OR _ = 1        </span>
+</span></span><span style="display:flex;"><span><span style="color:#1f2328">(</span><span style="color:#cf222e">define </span><span style="color:#1f2328">(</span><span style="color:#6639ba">fls_logic_and</span> <span style="color:#953800">x</span><span style="color:#1f2328">)</span> <span style="color:#953800">fls</span><span style="color:#1f2328">)</span>                          <span style="color:#57606a">; 0 AND _ = 0</span>
+</span></span><span style="display:flex;"><span><span style="color:#1f2328">(</span><span style="color:#cf222e">define </span><span style="color:#1f2328">(</span><span style="color:#6639ba">fls_logic_or</span> <span style="color:#953800">x</span><span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">if </span><span style="color:#1f2328">(</span><span style="color:#6639ba">eq? </span><span style="color:#953800">x</span> <span style="color:#953800">tru</span><span style="color:#1f2328">)</span> <span style="color:#953800">tru</span> <span style="color:#953800">fls</span><span style="color:#1f2328">))</span>      <span style="color:#57606a">; 0 OR x</span>
+</span></span></code></pre></div><p>Checking <code>tru</code> <code>fls</code> in REPL: unsurprisingly both are compound procedures</p>
+<pre tabindex="0"><code>1 ]=&gt; tru
+
+;Value: #[compound-procedure 13 tru]
+
+1 ]=&gt; fls
+
+;Value: #[compound-procedure 12 fls]
+</code></pre><p>Let&rsquo;s do a simple test:</p>
+<pre tabindex="0"><code>1 ]=&gt; ((tru &#39;and) fls)
+
+;Value: #[compound-procedure 12 fls]
+</code></pre><p>What did we do here? First, <code>tru</code> is a <code>lambda</code> expression that accepts symbol parameters. <code>(tru 'and)</code> returns <code>tru_logic_and</code> &ndash; a curried logical AND (that is, logical AND with <code>TRUE</code> already passed in), then we apply <code>tru_logic_and</code> to <code>fls</code>, and the final return value is the compound procedure <code>fls</code>.</p>
+<p>Here&rsquo;s an illustration:</p>
+<img src="msg_pasing_tru.png" alt="message passing `tru`" style="zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);" />
+<p>For longer expressions: if we ignore some parentheses, it looks like infix logical expressions</p>
+<pre tabindex="0"><code>1 ]=&gt; ((((fls &#39;or) tru) &#39;and) fls)      ; ((0 or 1) and 0)
+
+;Value: #[compound-procedure 12 fls]
+</code></pre><p>If you prefer prefix calls, we can add a small wrapper:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scm" data-lang="scm"><span style="display:flex;"><span><span style="color:#1f2328">(</span><span style="color:#cf222e">define </span><span style="color:#1f2328">(</span><span style="color:#6639ba">logic</span> <span style="color:#953800">op</span> <span style="color:#953800">x</span> <span style="color:#953800">y</span><span style="color:#1f2328">)</span> <span style="color:#1f2328">((</span><span style="color:#6639ba">x</span> <span style="color:#953800">op</span><span style="color:#1f2328">)</span> <span style="color:#953800">y</span><span style="color:#1f2328">))</span>
+</span></span></code></pre></div><p>Testing <code>logic</code>:</p>
+<pre tabindex="0"><code>1 ]=&gt; (logic &#39;and tru fls)
+
+;Value: #[compound-procedure 12 fls]
+
+1 ]=&gt; (logic &#39;or (logic &#39;and fls fls) tru)      ; (or (and 0 0) 1)
+
+;Value: #[compound-procedure 13 tru]
+</code></pre><h3 id="-message-passing-another-perspective-on-data"><a href="#-message-passing-another-perspective-on-data" class="header-anchor"></a>→ Message Passing: Another Perspective on Data
+</h3><p>This style of building Boolean is called Message Passing: data is an entity that receives operation names (messages). For example: <code>tru</code> can receive messages like <code>'and</code> / <code>'or</code> and return corresponding curried functions for our subsequent use. From this perspective, the data itself is as important as <strong>the methods carried by the data</strong>, which is also a manifestation of &ldquo;data as program&rdquo;. You might notice a hint of object-oriented flavor here - objects are essentially &ldquo;state + methods&rdquo;, and here data contains &ldquo;state + functions&rdquo;, though the state here is immutable.</p>
+<h3 id="-in-haskell"><a href="#-in-haskell" class="header-anchor"></a><code>$</code> in Haskell
+</h3><p><code>$</code> is an infix function with the following type signature and precedence. Its purpose is to change expression evaluation order, and one objective result is that using <code>$</code> reduces the number of parentheses in code:</p>
+<pre tabindex="0"><code>ghci&gt; :i ($)
+($) :: (a -&gt; b) -&gt; a -&gt; b       -- Defined in &#39;GHC.Base&#39;
+infixr 0 $
+</code></pre><p>Applying <code>$</code> (curried) to a <strong>value</strong> returns a <strong>function</strong>:</p>
+<pre tabindex="0"><code>ghci&gt; x = 5 :: Int
+ghci&gt; :t ($ x)
+($ x) :: (Int -&gt; b) -&gt; b
+</code></pre><p>One way to understand this is: <code>($ x)</code> transforms <code>x</code> from static data into data waiting to be acted upon by function <code>Int -&gt; b</code> <span style="color: #888888; font-size: 0.85em;">(which is a function from the type signature)</span>. Based on this understanding, we can write code like this:</p>
+<pre tabindex="0"><code>ghci&gt; map ($ 5) [(* 2), (+ 10), (^ 3)]
+[10,15,125]
+</code></pre><h3 id="algebraic-data-types-in-haskell"><a href="#algebraic-data-types-in-haskell" class="header-anchor"></a>Algebraic Data Types in Haskell
+</h3><p>Here&rsquo;s the classic recursive definition of binary trees using algebraic data types:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hs" data-lang="hs"><span style="display:flex;"><span><span style="color:#cf222e">data</span> <span style="color:#cf222e">Tree</span> a <span style="color:#0550ae">=</span> <span style="color:#cf222e">Empty</span> <span style="color:#0550ae">|</span> <span style="color:#cf222e">Node</span> a <span style="color:#1f2328">(</span><span style="color:#cf222e">Tree</span> a<span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Tree</span> a<span style="color:#1f2328">)</span>
+</span></span></code></pre></div><p><code>Empty</code> and <code>Node</code> are value constructors for <code>Tree a</code>. Value constructors are <strong>functions</strong> that return <strong>values</strong> of some type. <code>Empty</code> is a nullary constructor, while <code>Node</code> takes three <strong>value</strong> parameters: <code>a</code>, <code>Tree a</code>, and <code>Tree a</code>.</p>
+<p><code>Tree a</code> is a type constructor. Type constructors are functions that return specific <strong>types</strong>. <code>Tree a</code> takes one type parameter <code>a</code> and returns the corresponding concrete <code>Tree</code> type. For example, <code>Tree Int</code> and <code>Tree Char</code> are <code>Tree</code> types with node data types of <code>Int</code> and <code>Char</code> respectively.</p>
+<p>This shows Haskell&rsquo;s elegant consistency in language design - there&rsquo;s no special generic syntax, just functions throughout.</p>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/sicp/">SICP</a>
+        
+            <a href="/tags/scheme/">Scheme</a>
+        
+            <a href="/tags/haskell/">Haskell</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/huffman-trees-in-haskell-structure-and-destructure-of-compound-data/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Huffman Trees in Haskell | Structure and Destructure of Compound Data</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/nested-mapping-examples-implemented-in-haskell-sicp-2.2.3-list-monad/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Nested Mapping Examples Implemented in Haskell - SICP § 2.2.3  | List Monad </h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/semantics-of-let-in-schemefeat.-semantics-of-if/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Semantics of `let` in Scheme(feat. Semantics of `if`)</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/mit-scheme-basic-usage/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">mit-scheme Basic Usage</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/how-to-avoid-redundant-computations--pure-functions-and-their-evaluation-strategies/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">How to Avoid Redundant Computations &#43; Pure Functions and Their Evaluation Strategies</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2024 - 
+        
+        2025 fyshXplore
+    </section>
+    
+    <section class="powerby">
+        
+            Wish You a Nice Day! <br/>
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

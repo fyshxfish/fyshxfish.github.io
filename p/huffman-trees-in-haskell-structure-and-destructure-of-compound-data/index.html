@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Code Here: Huffman Tree in Haskell\nHaskell Implementation of Huffman Trees Data Abstraction type Weight = Int data Symbol = A | B | C | D | E | F | G | H deriving Show data HuffmanTree a = Empty | Leaf a Weight | Node (HuffmanTree a) (HuffmanTree a) [a] Weight deriving Show Symbol + Weight → Leaf We encode symbols (Symbol / generic a) based on their frequency/weight (Weight), combining these two pieces of information into a Leaf abstraction, corresponding to SICP&rsquo;s (define (make-leaf symbol weight) (list 'leaf symbol weight)).\n">
+<title>Huffman Trees in Haskell | Structure and Destructure of Compound Data</title>
+
+<link rel='canonical' href='http://localhost:1313/p/huffman-trees-in-haskell-structure-and-destructure-of-compound-data/'>
+
+<link rel="stylesheet" href="/scss/style.min.be0d5e0eb92c2fa09941c16ce5a24165e9552d4dcbea0a1a378c27e26cc08e23.css"><meta property='og:title' content="Huffman Trees in Haskell | Structure and Destructure of Compound Data">
+<meta property='og:description' content="Code Here: Huffman Tree in Haskell\nHaskell Implementation of Huffman Trees Data Abstraction type Weight = Int data Symbol = A | B | C | D | E | F | G | H deriving Show data HuffmanTree a = Empty | Leaf a Weight | Node (HuffmanTree a) (HuffmanTree a) [a] Weight deriving Show Symbol + Weight → Leaf We encode symbols (Symbol / generic a) based on their frequency/weight (Weight), combining these two pieces of information into a Leaf abstraction, corresponding to SICP&rsquo;s (define (make-leaf symbol weight) (list 'leaf symbol weight)).\n">
+<meta property='og:url' content='http://localhost:1313/p/huffman-trees-in-haskell-structure-and-destructure-of-compound-data/'>
+<meta property='og:site_name' content='fyshXplore'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='SICP' /><meta property='article:tag' content='Haskell' /><meta property='article:tag' content='lambda calculus' /><meta property='article:published_time' content='2024-09-02T01:53:00&#43;08:00'/><meta property='article:modified_time' content='2024-09-02T01:53:00&#43;08:00'/>
+<meta name="twitter:title" content="Huffman Trees in Haskell | Structure and Destructure of Compound Data">
+<meta name="twitter:description" content="Code Here: Huffman Tree in Haskell\nHaskell Implementation of Huffman Trees Data Abstraction type Weight = Int data Symbol = A | B | C | D | E | F | G | H deriving Show data HuffmanTree a = Empty | Leaf a Weight | Node (HuffmanTree a) (HuffmanTree a) [a] Weight deriving Show Symbol + Weight → Leaf We encode symbols (Symbol / generic a) based on their frequency/weight (Weight), combining these two pieces of information into a Leaf abstraction, corresponding to SICP&rsquo;s (define (make-leaf symbol weight) (list 'leaf symbol weight)).\n"><style>
+  :root {
+     
+    --zh-font-family: "Noto Serif SC";
+     
+     
+     
+    --code-font-family: Consolas, Menlo, Monaco, "Courier New", var(--zh-font-family), monospace;
+    --article-font-family: "Noto Serif SC";
+  }
+</style>
+
+<script>
+  (function () {
+    const customFont = document.createElement("link");
+    customFont.href =
+      "https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap";
+
+    customFont.type = "text/css";
+    customFont.rel = "stylesheet";
+
+    document.head.appendChild(customFont);
+  })();
+</script>
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            localStorage.setItem(colorSchemeKey, "auto");
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/fyshx_avatar_hu_4b64fe58c612edf3.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🫧</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">fyshXplore</a></h1>
+            <h2 class="site-description">Just for 𝐅𝐮𝐧</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/fyshxfish'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-infinity" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M9.828 9.172a4 4 0 1 0 0 5.656 a10 10 0 0 0 2.172 -2.828a10 10 0 0 1 2.172 -2.828 a4 4 0 1 1 0 5.656a10 10 0 0 1 -2.172 -2.828a10 10 0 0 0 -2.172 -2.828" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="http://localhost:1313/zh/" >中文</option>
+                                
+                                    <option value="http://localhost:1313/" selected>English</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">&thinsp;Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#haskell-implementation-of-huffman-trees">Haskell Implementation of Huffman Trees</a>
+      <ol>
+        <li><a href="#data-abstraction">Data Abstraction</a>
+          <ol>
+            <li><a href="#symbol--weight--leaf"><code>Symbol</code> + <code>Weight</code> → <code>Leaf</code></a></li>
+            <li><a href="#recursive-definition-of--huffmantree">Recursive Definition of  <code>HuffmanTree</code></a></li>
+          </ol>
+        </li>
+        <li><a href="#building-the-huffman-tree">Building the Huffman Tree</a>
+          <ol>
+            <li><a href="#getting-weight">Getting Weight</a></li>
+            <li><a href="#list-organization">List Organization</a></li>
+            <li><a href="#tree-construction">Tree Construction</a></li>
+          </ol>
+        </li>
+        <li><a href="#huffman-tree-encoding-and-decoding">Huffman Tree Encoding and Decoding</a>
+          <ol>
+            <li><a href="#getting-symbol-encoding">Getting Symbol Encoding</a></li>
+            <li><a href="#decoding">Decoding</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#structure-and-destructure-of-compound-data">Structure and Destructure of Compound Data</a>
+      <ol>
+        <li><a href="#sicp-data-but-functions">SICP: Data, but Functions?</a>
+          <ol>
+            <li><a href="#consistency">Consistency</a></li>
+            <li><a href="#data-combination-and-extraction--program-construction-abstraction-layer">Data Combination and Extraction → Program Construction: Abstraction Layer</a></li>
+          </ol>
+        </li>
+        <li><a href="#haskell-pattern-match">Haskell: Pattern Match</a></li>
+        <li><a href="#lambda-calculus---pair-abstraction">Lambda Calculus - <code>pair</code> abstraction</a>
+          <ol>
+            <li><a href="#pair-abstraction-in-pure-lambda-calculus"><code>pair</code> abstraction in Pure Lambda Calculus</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/fp/" style="background-color: #b7c9e2; color: #fff;">
+                FP
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/huffman-trees-in-haskell-structure-and-destructure-of-compound-data/">Huffman Trees in Haskell | Structure and Destructure of Compound Data</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Sep 2, 2024</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    5 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+        <footer class="article-translations">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+            <div>
+                
+                    <a href="http://localhost:1313/zh/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/" class="link">中文</a>
+                
+            </div>
+        </footer>
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>Code Here: <a class="link" href="https://github.com/fyshxfish/sicp-playground/blob/main/sicp-note/ch2/ch2-3-huffman_tree.hs"  target="_blank" rel="noopener"
+    >Huffman Tree in Haskell</a></p>
+<h2 id="haskell-implementation-of-huffman-trees"><a href="#haskell-implementation-of-huffman-trees" class="header-anchor"></a>Haskell Implementation of Huffman Trees
+</h2><img src="huffmantree_more_padding.png" alt="huffmantree diagram" style="zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);" />
+<h3 id="data-abstraction"><a href="#data-abstraction" class="header-anchor"></a>Data Abstraction
+</h3><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-haskell" data-lang="haskell"><span style="display:flex;"><span><span style="color:#cf222e">type</span> <span style="color:#cf222e">Weight</span> <span style="color:#0550ae">=</span> <span style="color:#cf222e">Int</span> 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#cf222e">data</span> <span style="color:#cf222e">Symbol</span> <span style="color:#0550ae">=</span> <span style="color:#cf222e">A</span> <span style="color:#0550ae">|</span> <span style="color:#cf222e">B</span> <span style="color:#0550ae">|</span> <span style="color:#cf222e">C</span> <span style="color:#0550ae">|</span> <span style="color:#cf222e">D</span> <span style="color:#0550ae">|</span> <span style="color:#cf222e">E</span> <span style="color:#0550ae">|</span> <span style="color:#cf222e">F</span> <span style="color:#0550ae">|</span> <span style="color:#cf222e">G</span> <span style="color:#0550ae">|</span> <span style="color:#cf222e">H</span> <span style="color:#cf222e">deriving</span> <span style="color:#cf222e">Show</span> 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#cf222e">data</span> <span style="color:#cf222e">HuffmanTree</span> a <span style="color:#0550ae">=</span> <span style="color:#cf222e">Empty</span> <span style="color:#0550ae">|</span> 
+</span></span><span style="display:flex;"><span>                    <span style="color:#cf222e">Leaf</span> a <span style="color:#cf222e">Weight</span> <span style="color:#0550ae">|</span> 
+</span></span><span style="display:flex;"><span>                    <span style="color:#cf222e">Node</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">HuffmanTree</span> a<span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">HuffmanTree</span> a<span style="color:#1f2328">)</span> <span style="color:#1f2328">[</span>a<span style="color:#1f2328">]</span> <span style="color:#cf222e">Weight</span> 
+</span></span><span style="display:flex;"><span>                    <span style="color:#cf222e">deriving</span> <span style="color:#cf222e">Show</span>
+</span></span></code></pre></div><h4 id="symbol--weight--leaf"><a href="#symbol--weight--leaf" class="header-anchor"></a><code>Symbol</code> + <code>Weight</code> → <code>Leaf</code>
+</h4><p>We encode symbols (<code>Symbol</code> / generic <code>a</code>) based on their frequency/weight (<code>Weight</code>), combining these two pieces of information into a <code>Leaf</code> abstraction, corresponding to SICP&rsquo;s (<code>define (make-leaf symbol weight) (list 'leaf symbol weight)</code>).</p>
+<p>Generic types and constraints: There are no type constraints on symbols. The weight constraint is that <code>Weight</code> belongs to the <code>Ord</code> typeclass because weights need to be comparable. Here we directly use <code>Int</code> as the weight type instead of making it generic.</p>
+<h4 id="recursive-definition-of--huffmantree"><a href="#recursive-definition-of--huffmantree" class="header-anchor"></a>Recursive Definition of  <code>HuffmanTree</code>
+</h4><p>Contains three constructors: <code>Empty</code>, <code>Leaf</code>, and <code>Node</code>:</p>
+<ul>
+<li><code>Empty</code>: Empty tree</li>
+<li><code>Leaf</code>: Leaf node containing symbol <code>a</code> and weight <code>Weight</code></li>
+<li><code>Node</code>: Branch node containing left and right subtrees (<code>HuffmanTree a</code>), union of subtree symbols <code>[a]</code>, and total subtree weight <code>Weight</code>.</li>
+</ul>
+<h3 id="building-the-huffman-tree"><a href="#building-the-huffman-tree" class="header-anchor"></a>Building the Huffman Tree
+</h3><h4 id="getting-weight"><a href="#getting-weight" class="header-anchor"></a>Getting Weight
+</h4><p>Get the weight of <code>Leaf</code>，<code>Node</code> through pattern matching.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hs" data-lang="hs"><span style="display:flex;"><span><span style="color:#6639ba">getWeight</span> <span style="color:#0550ae">::</span> <span style="color:#cf222e">HuffmanTree</span> a <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">Weight</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">getWeight</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Leaf</span> <span style="color:#cf222e">_</span> w<span style="color:#1f2328">)</span> <span style="color:#0550ae">=</span> w 
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">getWeight</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Node</span> <span style="color:#cf222e">_</span> <span style="color:#cf222e">_</span> <span style="color:#cf222e">_</span> w<span style="color:#1f2328">)</span> <span style="color:#0550ae">=</span> w
+</span></span></code></pre></div><div class="highlight-paragraph-grey">For simplicity, we haven't considered the `Empty` tree case. For better safety, we should write `getWeight :: HuffmanTree a -> Maybe Weight`, returning `Nothing` when matching `Empty`.</div><br>
+<h4 id="list-organization"><a href="#list-organization" class="header-anchor"></a>List Organization
+</h4><p>The starting point for building a Huffman tree is an ordered list of leaves. During construction, the <code>[HuffmanTree a]</code> list needs to maintain order. The functions in this section aim to organize an unordered list into an ordered one.</p>
+<p>» <code>adjoinLeaf</code>: Insert a HuffmanTree a into an existing ordered <code>[HuffmanTree a]</code> based on weight (ascending order).</p>
+<p>» <code>initLeafs</code>: Organize an existing unordered leaf list into an ordered leaf list.</p>
+<p>» <code>moveFirstNode</code>: During Huffman Tree construction, the Merge operation combines the two HuffmanTree (<code>Leaf</code> / <code>Node</code>) with smallest weights—the first two elements in the list—into a new Node. This function helps reposition the newly generated Node after merging.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hs" data-lang="hs"><span style="display:flex;"><span><span style="color:#6639ba">adjoinTree</span> <span style="color:#0550ae">::</span> <span style="color:#cf222e">HuffmanTree</span> a  <span style="color:#0550ae">-&gt;</span> <span style="color:#1f2328">[</span><span style="color:#cf222e">HuffmanTree</span> a<span style="color:#1f2328">]</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#1f2328">[</span><span style="color:#cf222e">HuffmanTree</span> a<span style="color:#1f2328">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">adjoinTree</span> t <span style="color:#cf222e">[]</span> <span style="color:#0550ae">=</span> <span style="color:#1f2328">[</span>t<span style="color:#1f2328">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">adjoinTree</span> t <span style="color:#1f2328">(</span>t&#39;<span style="color:#cf222e">:</span>ts<span style="color:#1f2328">)</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#0550ae">|</span> w <span style="color:#0550ae">&lt;</span> w&#39;   <span style="color:#0550ae">=</span> t<span style="color:#cf222e">:</span> t&#39;<span style="color:#cf222e">:</span> ts 
+</span></span><span style="display:flex;"><span>    <span style="color:#0550ae">|</span> otherwise <span style="color:#0550ae">=</span> t&#39;<span style="color:#cf222e">:</span> <span style="color:#1f2328">(</span>adjoinTree t ts<span style="color:#1f2328">)</span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">where</span> w  <span style="color:#0550ae">=</span> getWeight t 
+</span></span><span style="display:flex;"><span>          w&#39; <span style="color:#0550ae">=</span> getWeight t&#39; 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">initLeafs</span> <span style="color:#0550ae">::</span> <span style="color:#1f2328">[</span><span style="color:#cf222e">HuffmanTree</span> a<span style="color:#1f2328">]</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#1f2328">[</span><span style="color:#cf222e">HuffmanTree</span> a<span style="color:#1f2328">]</span>     <span style="color:#57606a">-- I know pl(leaf) = leaves, btw. ^^   </span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">initLeafs</span> <span style="color:#cf222e">[]</span> <span style="color:#0550ae">=</span> <span style="color:#cf222e">[]</span>   
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">initLeafs</span> <span style="color:#1f2328">(</span>p<span style="color:#cf222e">:</span>ps<span style="color:#1f2328">)</span> <span style="color:#0550ae">=</span> adjoinLeaf p <span style="color:#1f2328">(</span>initLeafs ps<span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">moveFirstNode</span> <span style="color:#0550ae">::</span> <span style="color:#1f2328">[</span><span style="color:#cf222e">HuffmanTree</span> a<span style="color:#1f2328">]</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#1f2328">[</span><span style="color:#cf222e">HuffmanTree</span> a<span style="color:#1f2328">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">moveFirstNode</span> <span style="color:#1f2328">(</span>t<span style="color:#cf222e">:</span>ts<span style="color:#1f2328">)</span> <span style="color:#0550ae">=</span> adjoinLeaf t ts 
+</span></span></code></pre></div><h4 id="tree-construction"><a href="#tree-construction" class="header-anchor"></a>Tree Construction
+</h4><p>» <code>makeNode</code>: Combines two <code>HuffmanTree</code>s into a <code>Node</code>.
+» <code>constructHuffTree</code>: Bottom-up tree construction, building the Huffman Tree using tail recursion.</p>
+<ul>
+<li>
+<p>Recursive step: Merge the first two elements in the current list into a parent <code>Node</code> using <code>makeNode</code>, move the parent node to get a new ordered list, and recursively process the new list.</p>
+</li>
+<li>
+<p>Base case: List contains only one element, which is the root node.</p>
+</li>
+</ul>
+<p>» <code>initAndConstructHuffTree</code>: Final encapsulation, using Point-less composition to combine leaf list initialization initLeafs and tree construction constructHuffTree.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hs" data-lang="hs"><span style="display:flex;"><span><span style="color:#6639ba">makeNode</span> <span style="color:#0550ae">::</span> <span style="color:#cf222e">HuffmanTree</span> a <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">HuffmanTree</span> a <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">HuffmanTree</span> a 
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">makeNode</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Leaf</span> s1 w1<span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Leaf</span> s2 w2<span style="color:#1f2328">)</span> <span style="color:#0550ae">=</span> <span style="color:#cf222e">Node</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Leaf</span> s1 w1<span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Leaf</span> s2 w2<span style="color:#1f2328">)</span> <span style="color:#1f2328">[</span>s1<span style="color:#1f2328">,</span> s2<span style="color:#1f2328">]</span> <span style="color:#1f2328">(</span>w1 <span style="color:#0550ae">+</span> w2<span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">makeNode</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Leaf</span> s w<span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Node</span> l r ss w&#39;<span style="color:#1f2328">)</span> <span style="color:#0550ae">=</span> <span style="color:#cf222e">Node</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Leaf</span> s w<span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Node</span> l r ss w&#39;<span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span>s<span style="color:#cf222e">:</span>ss<span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span>w <span style="color:#0550ae">+</span> w&#39;<span style="color:#1f2328">)</span>  
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">makeNode</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Node</span> l r ss w&#39;<span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Leaf</span> s w<span style="color:#1f2328">)</span>  <span style="color:#0550ae">=</span> <span style="color:#cf222e">Node</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Node</span> l r ss w&#39;<span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Leaf</span> s w<span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span>ss <span style="color:#0550ae">++</span> <span style="color:#1f2328">[</span>s<span style="color:#1f2328">])</span> <span style="color:#1f2328">(</span>w <span style="color:#0550ae">+</span> w&#39;<span style="color:#1f2328">)</span>  
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">makeNode</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Node</span> l1 r1 ss1 w1<span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Node</span> l2 r2 ss2 w2<span style="color:#1f2328">)</span> <span style="color:#0550ae">=</span> <span style="color:#cf222e">Node</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Node</span> l1 r1 ss1 w1<span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Node</span> l2 r2 ss2 w2<span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span>ss1 <span style="color:#0550ae">++</span> ss2<span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span>w1 <span style="color:#0550ae">+</span> w2<span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">constructHuffTree</span> <span style="color:#0550ae">::</span> <span style="color:#1f2328">[</span><span style="color:#cf222e">HuffmanTree</span> a<span style="color:#1f2328">]</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">HuffmanTree</span> a
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">constructHuffTree</span> <span style="color:#cf222e">[]</span> <span style="color:#0550ae">=</span> <span style="color:#cf222e">Empty</span>    
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">constructHuffTree</span> <span style="color:#1f2328">[</span>t<span style="color:#1f2328">]</span> <span style="color:#0550ae">=</span> t      
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">constructHuffTree</span> <span style="color:#1f2328">(</span>x<span style="color:#cf222e">:</span>y<span style="color:#cf222e">:</span>ts<span style="color:#1f2328">)</span> <span style="color:#0550ae">=</span> constructHuffTree <span style="color:#0550ae">$</span> moveFirstNode <span style="color:#0550ae">$</span> <span style="color:#1f2328">(</span>makeNode x y<span style="color:#1f2328">)</span><span style="color:#cf222e">:</span> ts
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">initAndConstructHuffTree</span> <span style="color:#0550ae">::</span> <span style="color:#1f2328">[</span><span style="color:#cf222e">HuffmanTree</span> a<span style="color:#1f2328">]</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">HuffmanTree</span> a
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">initAndConstructHuffTree</span> <span style="color:#0550ae">=</span> constructHuffTree <span style="color:#0550ae">.</span> initLeafs 
+</span></span></code></pre></div><h3 id="huffman-tree-encoding-and-decoding"><a href="#huffman-tree-encoding-and-decoding" class="header-anchor"></a>Huffman Tree Encoding and Decoding
+</h3><h4 id="getting-symbol-encoding"><a href="#getting-symbol-encoding" class="header-anchor"></a>Getting Symbol Encoding
+</h4><p>The process of building a Huffman tree is the encoding process itself. A node&rsquo;s position in the tree represents its encoding. Here we present the encoding in binary form.</p>
+<p>Encoding representation:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hs" data-lang="hs"><span style="display:flex;"><span><span style="color:#cf222e">data</span> <span style="color:#cf222e">Bit</span> <span style="color:#0550ae">=</span> <span style="color:#cf222e">L</span> <span style="color:#0550ae">|</span> <span style="color:#cf222e">R</span> <span style="color:#cf222e">deriving</span> <span style="color:#cf222e">Show</span> 
+</span></span><span style="display:flex;"><span><span style="color:#cf222e">type</span> <span style="color:#cf222e">Bits</span> <span style="color:#0550ae">=</span> <span style="color:#1f2328">[</span><span style="color:#cf222e">Bit</span><span style="color:#1f2328">]</span> 
+</span></span></code></pre></div><p><code>L</code> corresponds to binary <code>0</code>, <code>R</code> corresponds to binary <code>1</code>.</p>
+<p>Getting the encoding involves traversing and recording the Huffman tree:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hs" data-lang="hs"><span style="display:flex;"><span><span style="color:#6639ba">getCode&#39;</span> <span style="color:#0550ae">::</span> <span style="color:#cf222e">HuffmanTree</span> a <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">Bits</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#1f2328">[(</span>a<span style="color:#1f2328">,</span> <span style="color:#cf222e">Bits</span><span style="color:#1f2328">)]</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">getCode&#39;</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Node</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Leaf</span> s1 <span style="color:#cf222e">_</span><span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Leaf</span> s2 <span style="color:#cf222e">_</span><span style="color:#1f2328">)</span> <span style="color:#cf222e">_</span> <span style="color:#cf222e">_</span><span style="color:#1f2328">)</span> rec <span style="color:#0550ae">=</span> <span style="color:#1f2328">[(</span>s1<span style="color:#1f2328">,</span> rec <span style="color:#0550ae">++</span> <span style="color:#1f2328">[</span><span style="color:#cf222e">L</span><span style="color:#1f2328">]),</span> <span style="color:#1f2328">(</span>s2<span style="color:#1f2328">,</span> rec <span style="color:#0550ae">++</span> <span style="color:#1f2328">[</span><span style="color:#cf222e">R</span><span style="color:#1f2328">])]</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">getCode&#39;</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Node</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Leaf</span> s&#39; <span style="color:#cf222e">_</span><span style="color:#1f2328">)</span> node <span style="color:#cf222e">_</span> <span style="color:#cf222e">_</span><span style="color:#1f2328">)</span> rec <span style="color:#0550ae">=</span> <span style="color:#1f2328">[(</span>s&#39;<span style="color:#1f2328">,</span> rec <span style="color:#0550ae">++</span> <span style="color:#1f2328">[</span><span style="color:#cf222e">L</span><span style="color:#1f2328">])]</span> <span style="color:#0550ae">++</span> getCode&#39; node <span style="color:#1f2328">(</span>rec<span style="color:#0550ae">++</span><span style="color:#1f2328">[</span><span style="color:#cf222e">R</span><span style="color:#1f2328">])</span> 
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">getCode&#39;</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Node</span> node <span style="color:#1f2328">(</span><span style="color:#cf222e">Leaf</span> s&#39; <span style="color:#cf222e">_</span><span style="color:#1f2328">)</span> <span style="color:#cf222e">_</span> <span style="color:#cf222e">_</span><span style="color:#1f2328">)</span> rec <span style="color:#0550ae">=</span>  getCode&#39; node <span style="color:#1f2328">(</span>rec<span style="color:#0550ae">++</span><span style="color:#1f2328">[</span><span style="color:#cf222e">L</span><span style="color:#1f2328">])</span> <span style="color:#0550ae">++</span> <span style="color:#1f2328">[(</span>s&#39;<span style="color:#1f2328">,</span> rec <span style="color:#0550ae">++</span> <span style="color:#1f2328">[</span><span style="color:#cf222e">R</span><span style="color:#1f2328">])]</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">getCode&#39;</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Node</span> nodel noder  <span style="color:#cf222e">_</span> <span style="color:#cf222e">_</span><span style="color:#1f2328">)</span> rec <span style="color:#0550ae">=</span> getCode&#39; nodel <span style="color:#1f2328">(</span>rec<span style="color:#0550ae">++</span><span style="color:#1f2328">[</span><span style="color:#cf222e">L</span><span style="color:#1f2328">])</span> <span style="color:#0550ae">++</span> getCode&#39; noder <span style="color:#1f2328">(</span>rec<span style="color:#0550ae">++</span><span style="color:#1f2328">[</span><span style="color:#cf222e">R</span><span style="color:#1f2328">])</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">getCode</span> <span style="color:#0550ae">::</span> <span style="color:#cf222e">HuffmanTree</span> a <span style="color:#0550ae">-&gt;</span> <span style="color:#1f2328">[(</span>a<span style="color:#1f2328">,</span> <span style="color:#cf222e">Bits</span><span style="color:#1f2328">)]</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">getCode</span> t  <span style="color:#0550ae">=</span> getCode&#39; t <span style="color:#cf222e">[]</span>
+</span></span></code></pre></div><p>» <code>getCode'</code>: Traverse the Huffman tree Recursively</p>
+<ul>
+<li>
+<p>Recursive step: For a node, match left and right subtrees, continue recursive traversal for non-leaf nodes (<code>node</code>), recording branch directions in <code>rec</code>.</p>
+</li>
+<li>
+<p>Base case: When matching a <code>Leaf</code> in left/right subtree, it indicates reaching a <code>Symbol</code>. At this point, <code>rec ++ [L]</code> / <code>rec ++ [R]</code> is the encoding for that <code>Symbol</code>.</p>
+</li>
+<li>
+<p>Pattern matching explanation: Reviewing the Huffman tree construction process, we always merge two nodes into their parent node, so there&rsquo;s no case where a subtree is <code>Empty</code>. Therefore, every branch node&rsquo;s pattern is <code>Node lhs rhs _ _</code>. Also, we use <code>Leaf</code> as the base case without recursing on it, which is why we only pattern match different forms of the <code>Node</code> constructor and put the <code>Leaf</code> recursive base cases first.</p>
+</li>
+</ul>
+<p>» <code>getCode</code>：Wraps <code>getCode'</code>, giving <code>rec</code> an initial value of <code>[]</code>, meaning no path record at the Huffman tree&rsquo;s root node.</p>
+<h4 id="decoding"><a href="#decoding" class="header-anchor"></a>Decoding
+</h4><p>Basic approach: Move through the tree based on <code>Bit</code>, <code>L</code> - move to left subtree, <code>R</code> - move to right subtree. When reaching a <code>Leaf</code> subtree, one character is decoded. Then return to the root node to continue decoding the next character until the <code>Bit</code> list is empty.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hs" data-lang="hs"><span style="display:flex;"><span><span style="color:#57606a">-- decode one symbol</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">decodeOne</span> <span style="color:#0550ae">::</span> <span style="color:#cf222e">HuffmanTree</span> a <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">Bits</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#1f2328">(</span>a<span style="color:#1f2328">,</span> <span style="color:#cf222e">Bits</span><span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">decodeOne</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Node</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Leaf</span> s <span style="color:#cf222e">_</span><span style="color:#1f2328">)</span> <span style="color:#cf222e">_</span> <span style="color:#cf222e">_</span> <span style="color:#cf222e">_</span><span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">L:</span>bs<span style="color:#1f2328">)</span> <span style="color:#0550ae">=</span> <span style="color:#1f2328">(</span>s<span style="color:#1f2328">,</span> bs<span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">decodeOne</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Node</span> <span style="color:#cf222e">_</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Leaf</span> s <span style="color:#cf222e">_</span><span style="color:#1f2328">)</span> <span style="color:#cf222e">_</span> <span style="color:#cf222e">_</span><span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">R:</span>bs<span style="color:#1f2328">)</span> <span style="color:#0550ae">=</span> <span style="color:#1f2328">(</span>s<span style="color:#1f2328">,</span> bs<span style="color:#1f2328">)</span> 
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">decodeOne</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Node</span> node <span style="color:#cf222e">_</span> <span style="color:#cf222e">_</span> <span style="color:#cf222e">_</span><span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">L:</span>bs<span style="color:#1f2328">)</span> <span style="color:#0550ae">=</span> decodeOne node bs
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">decodeOne</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Node</span> <span style="color:#cf222e">_</span> node <span style="color:#cf222e">_</span> <span style="color:#cf222e">_</span><span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">R:</span>bs<span style="color:#1f2328">)</span> <span style="color:#0550ae">=</span> decodeOne node bs
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#57606a">-- decode from scratch </span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">decode</span> <span style="color:#0550ae">::</span> <span style="color:#cf222e">HuffmanTree</span> a <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">Bits</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#1f2328">[</span>a<span style="color:#1f2328">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">decode</span> <span style="color:#cf222e">_</span> <span style="color:#cf222e">[]</span> <span style="color:#0550ae">=</span> <span style="color:#cf222e">[]</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">decode</span> t bs <span style="color:#0550ae">=</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">let</span> <span style="color:#1f2328">(</span>s<span style="color:#1f2328">,</span> remainBits<span style="color:#1f2328">)</span> <span style="color:#0550ae">=</span> decodeOne t bs
+</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">in</span> s<span style="color:#cf222e">:</span> decode t remainBits
+</span></span></code></pre></div><p>» <code>decodeOne</code>:</p>
+<ul>
+<li>
+<p>Base case: When the current <code>Bit</code>&rsquo;s corresponding subtree is a <code>Leaf</code>, one character is decoded. Return that character and the remaining <code>Bit</code>s.</p>
+</li>
+<li>
+<p>Recursive step: When the current <code>Bit</code>&rsquo;s corresponding subtree is a <code>Node</code>, continue recursive decoding on that <code>Node</code> until reaching the base case.</p>
+</li>
+</ul>
+<p>» <code>decode</code>:</p>
+<ul>
+<li>
+<p>Base case: Empty <code>Bit</code> list means decoding is complete.</p>
+</li>
+<li>
+<p>Recursive step: For non-empty <code>Bit</code> list, pass the root node and current <code>Bit</code> list to <code>decodeOne</code> for single character decoding. After one character is decoded, continue decoding remaining <code>Bit</code>s from the root node until the <code>Bit</code> list is empty.</p>
+</li>
+</ul>
+<p>» How to return to root node:</p>
+<p>Initially, the function signature I wrote was <code>decode :: HuffmanTree a -&gt; HuffmanTree a -&gt; Bits -&gt; [a]</code>, with two <code>HuffmanTree</code> parameters representing the original root node and current node. Implementation was roughly:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hs" data-lang="hs"><span style="display:flex;"><span><span style="color:#6639ba">decode&#39;</span> <span style="color:#0550ae">::</span> <span style="color:#cf222e">HuffmanTree</span> a <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">HuffmanTree</span> a <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">Bits</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#1f2328">[</span>a<span style="color:#1f2328">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">decode&#39;</span> originT <span style="color:#1f2328">(</span><span style="color:#cf222e">Node</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Leaf</span> s <span style="color:#cf222e">_</span><span style="color:#1f2328">)</span> <span style="color:#cf222e">_</span> <span style="color:#cf222e">_</span> <span style="color:#cf222e">_</span><span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">L:</span>bs<span style="color:#1f2328">)</span> <span style="color:#0550ae">=</span> s<span style="color:#cf222e">:</span> <span style="color:#1f2328">(</span>decode&#39; originT originT bs<span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#57606a">--snip--</span>
+</span></span></code></pre></div><p>This didn&rsquo;t feel quite right since the <code>originT</code> parameter never changed during recursion, so I slightly modified the recursive structure to write the above <code>decode</code> and <code>decodeOne</code>. SICP uses closures to remember the initial root node.</p>
+<hr>
+<h2 id="structure-and-destructure-of-compound-data"><a href="#structure-and-destructure-of-compound-data" class="header-anchor"></a>Structure and Destructure of Compound Data
+</h2><h3 id="sicp-data-but-functions"><a href="#sicp-data-but-functions" class="header-anchor"></a>SICP: Data, but Functions?
+</h3><h4 id="consistency"><a href="#consistency" class="header-anchor"></a>Consistency
+</h4><p>We want to use <strong>structured</strong> data—rather than scattered variables—as program components, thus we have compound data like <code>struct</code> / <code>class</code>. The question then becomes how to extract the fields used to construct compound data. One thing extraction needs to ensure is consistency of fields before and after extraction. This is mainly the compiler&rsquo;s work, but if we want to demonstrate this at the source code level, how can we do it? SICP 2.1.3 (Page 124) does it this way:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span><span style="color:#1f2328">(</span><span style="color:#cf222e">define </span><span style="color:#1f2328">(</span><span style="color:#6639ba">cons </span><span style="color:#953800">x</span> <span style="color:#953800">y</span><span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#1f2328">(</span><span style="color:#cf222e">define </span><span style="color:#1f2328">(</span><span style="color:#6639ba">dispatch</span> <span style="color:#953800">m</span><span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#1f2328">(</span><span style="color:#cf222e">cond </span><span style="color:#1f2328">((</span><span style="color:#6639ba">= </span><span style="color:#953800">m</span> <span style="color:#0550ae">0</span><span style="color:#1f2328">)</span> <span style="color:#953800">x</span><span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#1f2328">((</span><span style="color:#6639ba">= </span><span style="color:#953800">m</span> <span style="color:#0550ae">1</span><span style="color:#1f2328">)</span> <span style="color:#953800">y</span><span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#1f2328">(</span><span style="color:#cf222e">else </span><span style="color:#1f2328">(</span><span style="color:#6639ba">error</span> <span style="color:#0a3069">&#34;Argument not 0 or 1: CONS&#34;</span> <span style="color:#953800">m</span><span style="color:#1f2328">))))</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#953800">dispatch</span><span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#1f2328">(</span><span style="color:#cf222e">define </span><span style="color:#1f2328">(</span><span style="color:#6639ba">car </span><span style="color:#953800">z</span><span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#6639ba">z</span> <span style="color:#0550ae">0</span><span style="color:#1f2328">))</span>
+</span></span><span style="display:flex;"><span><span style="color:#1f2328">(</span><span style="color:#cf222e">define </span><span style="color:#1f2328">(</span><span style="color:#6639ba">cdr </span><span style="color:#953800">z</span><span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#6639ba">z</span> <span style="color:#0550ae">1</span><span style="color:#1f2328">))</span>
+</span></span></code></pre></div><p>Exercise 2.4 (Page 125) has an elegant implementation using lambda:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span><span style="color:#1f2328">(</span><span style="color:#cf222e">define </span><span style="color:#1f2328">(</span><span style="color:#6639ba">cons </span><span style="color:#953800">x</span> <span style="color:#953800">y</span><span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#1f2328">(</span><span style="color:#cf222e">lambda </span><span style="color:#1f2328">(</span><span style="color:#6639ba">m</span><span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#6639ba">m</span> <span style="color:#953800">x</span> <span style="color:#953800">y</span><span style="color:#1f2328">)))</span>
+</span></span><span style="display:flex;"><span><span style="color:#1f2328">(</span><span style="color:#cf222e">define </span><span style="color:#1f2328">(</span><span style="color:#6639ba">car </span><span style="color:#953800">z</span><span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#1f2328">(</span><span style="color:#6639ba">z</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">lambda </span><span style="color:#1f2328">(</span><span style="color:#6639ba">p</span> <span style="color:#953800">q</span><span style="color:#1f2328">)</span> <span style="color:#953800">p</span><span style="color:#1f2328">)))</span>
+</span></span></code></pre></div><p>（For Pure Lambda Calculus implementation of this example, see the <a class="link" href="#lambda-calculus---pair-abstraction" >last section of this article</a>.）</p>
+<p>A key point this chapter of SICP emphasizes is: The boundary between data and procedures isn&rsquo;t so clear-cut. The above two programs demonstrate this precisely: the list constructor returns a procedure that provides an interface to access the <strong>elements composing the list</strong>, which enables the definition of <code>car</code> / <code>cdr</code>.</p>
+<h4 id="data-combination-and-extraction--program-construction-abstraction-layer"><a href="#data-combination-and-extraction--program-construction-abstraction-layer" class="header-anchor"></a>Data Combination and Extraction → Program Construction: Abstraction Layer
+</h4><p>Combination in LISP (<strong>LIS</strong>t <strong>P</strong>rogramming) can be simple - data is combined by constructing lists, like <code>(list 1 2 3)</code> / <code>(list 3 4 (list 9 7) 5)</code>, you can implement pair, tree, etc. with lists.</p>
+<p>However, data within programs can&rsquo;t directly flow between functions in this form, so we have abstraction layers:</p>
+<img src="abstraction_barrier.png" alt="abstraction barrier" style="zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);" />
+<p>Constructor (<code>make-rat</code>) and selector (<code>denom</code>, <code>numer</code>) represent one level of abstraction from primitive data types to compound data, giving programs (functions above this abstraction layer, like <code>add-rat</code> / <code>sub-rat</code>) a higher perspective to view data. Data is no longer just scattered integers/floats, but <code>rat</code> that can be constructed/extracted/analyzed. Functions above <code>add-rat</code> / <code>sub-rat</code> don&rsquo;t need to care about rat&rsquo;s implementation details, they just need to use operations like <code>add-rat</code> to solve problems. The process of program construction is a process of raising abstraction levels.</p>
+<h3 id="haskell-pattern-match"><a href="#haskell-pattern-match" class="header-anchor"></a>Haskell: Pattern Match
+</h3><!-- 写过 Lisp 会更懂 Haskell 的好，就像写过 C 可以更好地体会 Python 开发的便捷，这里只是考量语法的易用性，没有对于性能/应用场景等其他方面的比较. -->
+<p>In Haskell, how do we handle the issue of <strong>data construction and extraction</strong>?</p>
+<!-- <span style="color: #888888; font-size: 0.85em;">（构造子 constructor， 构造 compound data 的函数，确实是有这个词；提取子，不知道是不是有这个词，我编的，意思是将组成的 compound data 的字段提取出来，一个例子是圆点/成员运算符 `person.age` ）</span> -->
+<p><strong>Construction:</strong></p>
+<p>The syntax for declaring compound data is:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hs" data-lang="hs"><span style="display:flex;"><span><span style="color:#cf222e">data</span> <span style="color:#cf222e">Point</span> <span style="color:#0550ae">=</span> <span style="color:#cf222e">Point</span> <span style="color:#cf222e">Int</span> <span style="color:#cf222e">Int</span>
+</span></span></code></pre></div><p>This defines the <code>Point</code> type with a constructor <code>Point Int Int</code>, which can then be used to construct compound data of type <code>Point</code>, like <code>p = Point 1 2</code>.</p>
+<p><strong>Extraction:</strong></p>
+<p><mark><strong>Pattern Match</strong></mark></p>
+<p>A simple example:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hs" data-lang="hs"><span style="display:flex;"><span><span style="color:#6639ba">getX</span> <span style="color:#0550ae">::</span> <span style="color:#cf222e">Point</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">Int</span> 
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">getX</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Point</span> x <span style="color:#cf222e">_</span><span style="color:#1f2328">)</span> <span style="color:#0550ae">=</span> x
+</span></span></code></pre></div><p>Notably: How you construct the compound data (<code>Point Int Int</code>) is how you match it (<code>Point x _</code>). That is—<strong>how you structure is how you destructure</strong>.</p>
+<p>One advantage of this syntax is that you can <strong>parse function parameters</strong> through Pattern Matching. For example:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hs" data-lang="hs"><span style="display:flex;"><span><span style="color:#6639ba">constructHuffTree</span> <span style="color:#0550ae">::</span> <span style="color:#1f2328">[</span><span style="color:#cf222e">HuffmanTree</span> a<span style="color:#1f2328">]</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">HuffmanTree</span> a
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">constructHuffTree</span> <span style="color:#cf222e">[]</span> <span style="color:#0550ae">=</span> <span style="color:#0550ae">...</span>          <span style="color:#57606a">-- empty leaf list → return empty tree</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">constructHuffTree</span> <span style="color:#1f2328">[</span>t<span style="color:#1f2328">]</span> <span style="color:#0550ae">=</span> <span style="color:#0550ae">...</span>         <span style="color:#57606a">-- only one leaf → return tree with just root node</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">constructHuffTree</span> <span style="color:#1f2328">(</span>x<span style="color:#cf222e">:</span>y<span style="color:#cf222e">:</span>ts<span style="color:#1f2328">)</span> <span style="color:#0550ae">=</span> <span style="color:#0550ae">...</span>    <span style="color:#57606a">-- two or more leaves → recursively build Huffman tree</span>
+</span></span></code></pre></div><p>This demonstrates that: <strong>The way function parameters are destructured determines the function&rsquo;s behavior.</strong></p>
+<p>For example, consider this problem: counting the number of nodes in a binary tree</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hs" data-lang="hs"><span style="display:flex;"><span><span style="color:#cf222e">data</span> <span style="color:#cf222e">Tree</span> a <span style="color:#0550ae">=</span> <span style="color:#cf222e">Empty</span> <span style="color:#0550ae">|</span> <span style="color:#cf222e">Node</span> a <span style="color:#1f2328">(</span><span style="color:#cf222e">Tree</span> a<span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Tree</span> a<span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">treeSize</span> <span style="color:#0550ae">::</span> <span style="color:#cf222e">Tree</span> a <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">Int</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">treeSize</span> <span style="color:#cf222e">Empty</span> <span style="color:#0550ae">=</span> <span style="color:#0550ae">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">treeSize</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Node</span> <span style="color:#cf222e">_</span> left right<span style="color:#1f2328">)</span> <span style="color:#0550ae">=</span> <span style="color:#0550ae">1</span> <span style="color:#0550ae">+</span> treeSize left <span style="color:#0550ae">+</span> treeSize right
+</span></span></code></pre></div><ul>
+<li>
+<p>Empty tree constructed with <code>Empty</code> constructor → directly return <code>0</code> (base case)</p>
+</li>
+<li>
+<p>Non-empty tree constructed with <code>Node</code> constructor → solve recursively (recursive step)</p>
+</li>
+</ul>
+<p>How we construct data determines how we process it, and in Haskell, the form of constructing data matches the form of pattern matching on data, so we can do pattern matching in function parameter positions, with each pattern corresponding to a function behavior.</p>
+<h3 id="lambda-calculus---pair-abstraction"><a href="#lambda-calculus---pair-abstraction" class="header-anchor"></a>Lambda Calculus - <code>pair</code> abstraction
+</h3><h4 id="pair-abstraction-in-pure-lambda-calculus"><a href="#pair-abstraction-in-pure-lambda-calculus" class="header-anchor"></a><code>pair</code> abstraction in Pure Lambda Calculus
+</h4><p>上The example mentioned in the <a class="link" href="#consistency" >Consistency</a>section can be <cite>implemented in pure Lambda Calculus:<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></cite>：</p>
+<pre tabindex="0"><code>pair = λm λn λb. b m n
+pair v w = λb. b v w
+</code></pre><p>This abstraction provides this perspective: through two applications of <code>pair</code>, we instantiate <code>m</code> and <code>n</code>, determining the elements contained in the pair, leaving <code>b</code> as an interface for subsequent operations on the pair elements. To extract elements from the pair in order, we can define <code>fst</code> and <code>snd</code>:</p>
+<pre tabindex="0"><code>fst = λa λb. a
+snd = λa λb. b
+
+(pair v w) fst  → v     // parentheses here can be omitted , according to left associativity convention
+(pair v w) snd  → w
+</code></pre><p>If you prefer programming style like <code>fst (pair v w)</code>, that&rsquo;s also possible:</p>
+<pre tabindex="0"><code class="language-block" data-lang="block">tru = λt λf. t      // α-equivalent to `fst` defined in previous code block, we can understand the same abstraction differently
+fls = λt λf. f      //          ...    `snd`    ...
+
+fst = λp. p tru
+snd = λp. p fls
+
+fst (pair v w)  → v 
+snd (pair v w)  → w 
+</code></pre><p>Let&rsquo;s examine this abstraction again: <code>pair = λm λn λb. b m n</code>. In Lambda Calculus, what we commonly call functions are termed abstractions, and this <code>pair</code> abstraction provides an abstraction over the construction and operation of pairs. We first determine the contained elements through outer parameters <code>m</code> and <code>n</code> to build the pair, then use inner parameter <code>b</code> to execute operations on the existing elements. From this perspective, pair naturally possesses the ability to interact with other functions (abstractions) within the Lambda Calculus system, because after instantiating the pair elements, it provides the interaction interface <code>b</code>, waiting for other abstractions to interact with the pair&rsquo;s existing elements through application.</p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>Types and Programming Languages - Chapter 5 The Untyped Lambda-Calculus&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/sicp/">SICP</a>
+        
+            <a href="/tags/haskell/">Haskell</a>
+        
+            <a href="/tags/lambda-calculus/">Lambda Calculus</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/message-passing-perspective-on-bool-sicp-2.4.3-generic-data-and-functions/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Message Passing Perspective on Bool - SICP § 2.4.3 | Generic | Data and Functions</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/nested-mapping-examples-implemented-in-haskell-sicp-2.2.3-list-monad/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Nested Mapping Examples Implemented in Haskell - SICP § 2.2.3  | List Monad </h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/programming-in-lambda-calculus-basic/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Programming in Lambda Calculus, Basic</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/how-to-avoid-redundant-computations--pure-functions-and-their-evaluation-strategies/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">How to Avoid Redundant Computations &#43; Pure Functions and Their Evaluation Strategies</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/the-construction-of-the-iteration-combinator-lcac-4c-theorem-4.20/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">The Construction of the Iteration Combinator - LCaC § 4C, Theorem 4.20</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2024 - 
+        
+        2025 fyshXplore
+    </section>
+    
+    <section class="powerby">
+        
+            Wish You a Nice Day! <br/>
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

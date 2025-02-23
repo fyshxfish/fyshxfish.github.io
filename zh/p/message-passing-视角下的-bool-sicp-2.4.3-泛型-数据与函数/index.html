@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="zh" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="前言 SICP § 2.4.3 中描述了以查表（ type × operation 二维表）为实现方式的泛型系统，具体函数被隐藏在“泛型函数 + Selector”这样的抽象之下，那么如果将具体函数放在“数据 + Selector”这样的抽象之下是什么样的呢，本文呈现了符合此抽象（SICP 中称为 Message Passing）的 Boolean. 数据和函数对程序而言的重要性不言而喻，那么接下来从三个角度探讨数据与函数之间可能存在什么样的关系：Message Passing ↦ 让数据自己携带函数；Haskell $的应用 ↦ 将数据变成某种函数；Haskell中的代数数据类型 ↦ 使用函数构造数据.\n">
+<title>Message Passing 视角下的 Bool - SICP § 2.4.3 | 泛型 | 数据与函数</title>
+
+<link rel='canonical' href='http://localhost:1313/zh/p/message-passing-%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84-bool-sicp-2.4.3-%E6%B3%9B%E5%9E%8B-%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%87%BD%E6%95%B0/'>
+
+<link rel="stylesheet" href="/scss/style.min.be0d5e0eb92c2fa09941c16ce5a24165e9552d4dcbea0a1a378c27e26cc08e23.css"><meta property='og:title' content="Message Passing 视角下的 Bool - SICP § 2.4.3 | 泛型 | 数据与函数">
+<meta property='og:description' content="前言 SICP § 2.4.3 中描述了以查表（ type × operation 二维表）为实现方式的泛型系统，具体函数被隐藏在“泛型函数 + Selector”这样的抽象之下，那么如果将具体函数放在“数据 + Selector”这样的抽象之下是什么样的呢，本文呈现了符合此抽象（SICP 中称为 Message Passing）的 Boolean. 数据和函数对程序而言的重要性不言而喻，那么接下来从三个角度探讨数据与函数之间可能存在什么样的关系：Message Passing ↦ 让数据自己携带函数；Haskell $的应用 ↦ 将数据变成某种函数；Haskell中的代数数据类型 ↦ 使用函数构造数据.\n">
+<meta property='og:url' content='http://localhost:1313/zh/p/message-passing-%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84-bool-sicp-2.4.3-%E6%B3%9B%E5%9E%8B-%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%87%BD%E6%95%B0/'>
+<meta property='og:site_name' content='fyshXplore'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='SICP' /><meta property='article:tag' content='Scheme' /><meta property='article:tag' content='Haskell' /><meta property='article:published_time' content='2024-09-07T23:18:00&#43;08:00'/><meta property='article:modified_time' content='2024-09-07T23:18:00&#43;08:00'/>
+<meta name="twitter:title" content="Message Passing 视角下的 Bool - SICP § 2.4.3 | 泛型 | 数据与函数">
+<meta name="twitter:description" content="前言 SICP § 2.4.3 中描述了以查表（ type × operation 二维表）为实现方式的泛型系统，具体函数被隐藏在“泛型函数 + Selector”这样的抽象之下，那么如果将具体函数放在“数据 + Selector”这样的抽象之下是什么样的呢，本文呈现了符合此抽象（SICP 中称为 Message Passing）的 Boolean. 数据和函数对程序而言的重要性不言而喻，那么接下来从三个角度探讨数据与函数之间可能存在什么样的关系：Message Passing ↦ 让数据自己携带函数；Haskell $的应用 ↦ 将数据变成某种函数；Haskell中的代数数据类型 ↦ 使用函数构造数据.\n"><style>
+  :root {
+     
+    --zh-font-family: "Noto Serif SC";
+     
+     
+     
+    --code-font-family: Consolas, Menlo, Monaco, "Courier New", var(--zh-font-family), monospace;
+    --article-font-family: "Noto Serif SC";
+  }
+</style>
+
+<script>
+  (function () {
+    const customFont = document.createElement("link");
+    customFont.href =
+      "https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap";
+
+    customFont.type = "text/css";
+    customFont.rel = "stylesheet";
+
+    document.head.appendChild(customFont);
+  })();
+</script>
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            localStorage.setItem(colorSchemeKey, "auto");
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/zh/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/fyshx_avatar_hu_4b64fe58c612edf3.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🫧</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/zh">fyshXplore</a></h1>
+            <h2 class="site-description">Just for 𝐅𝐮𝐧</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/fyshxfish'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/zh/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/zh/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-infinity" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M9.828 9.172a4 4 0 1 0 0 5.656 a10 10 0 0 0 2.172 -2.828a10 10 0 0 1 2.172 -2.828 a4 4 0 1 1 0 5.656a10 10 0 0 1 -2.172 -2.828a10 10 0 0 0 -2.172 -2.828" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/zh/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/zh/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/zh/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="http://localhost:1313/zh/" selected>中文</option>
+                                
+                                    <option value="http://localhost:1313/" >English</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">&thinsp;Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#泛型函数intelligent-operations">泛型函数：Intelligent Operations</a></li>
+    <li><a href="#数据与函数">数据与函数</a>
+      <ol>
+        <li><a href="#intelligent-operation-what-if-intelligent-data-objects">Intelligent Operation? WHAT IF Intelligent Data Objects?</a></li>
+        <li><a href="#携带函数的-boolean">携带函数的 Boolean</a></li>
+        <li><a href="#-message-passing-看待数据的另一种视角">→ Message Passing: 看待数据的另一种视角</a></li>
+        <li><a href="#haskell-中的-">Haskell 中的 <code>$</code></a></li>
+        <li><a href="#haskell-中的代数数据类型">Haskell 中的代数数据类型</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/zh/categories/fp/" style="background-color: #b7c9e2; color: #fff;">
+                FP
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/zh/p/message-passing-%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84-bool-sicp-2.4.3-%E6%B3%9B%E5%9E%8B-%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%87%BD%E6%95%B0/">Message Passing 视角下的 Bool - SICP § 2.4.3 | 泛型 | 数据与函数</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Sep 7, 2024</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    5 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+        <footer class="article-translations">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+            <div>
+                
+                    <a href="http://localhost:1313/p/message-passing-perspective-on-bool-sicp-2.4.3-generic-data-and-functions/" class="link">English</a>
+                
+            </div>
+        </footer>
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <h2 id="前言"><a href="#%e5%89%8d%e8%a8%80" class="header-anchor"></a>前言
+</h2><p>SICP § 2.4.3 中描述了以查表（ type × operation 二维表）为实现方式的泛型系统，具体函数被隐藏在“泛型函数 + Selector”这样的抽象之下，那么如果将具体函数放在“数据 + Selector”这样的抽象之下是什么样的呢，本文呈现了符合此抽象（SICP 中称为 Message Passing）的 Boolean.   <strong>数据</strong>和<strong>函数</strong>对程序而言的重要性不言而喻，那么接下来从三个角度探讨数据与函数之间可能存在什么样的关系：Message Passing ↦ 让数据自己携带函数；Haskell <code>$</code>的应用 ↦ 将数据变成某种函数；Haskell中的代数数据类型 ↦ 使用函数构造数据.</p>
+<h2 id="泛型函数intelligent-operations"><a href="#%e6%b3%9b%e5%9e%8b%e5%87%bd%e6%95%b0intelligent-operations" class="header-anchor"></a>泛型函数：Intelligent Operations
+</h2><p>在 2.4.3 这一节中，作者构建了一个泛型系统，泛型是什么呢，是一种抽象；对于若干个具备某种相同<strong>特性</strong>的类型，如果我们可以对于其中某个类型，依赖这个<strong>特性</strong>写一个函数，那么我们希望将这个函数推广到具备这个<strong>特性</strong>的其他类型，例如：对于两个 <code>Int</code> 类型的值，我可以对其最大值进行计算（<code>max Int Int</code>），因为 <code>Int</code> 是<strong>可以比较 (Orderable)</strong> 的，即，<code>Int</code> 类型提供了 <code>&gt;</code> / <code>&lt;</code> / &hellip; 等比较函数的实现，那么，对于其他<strong>可比</strong>的（提供比较函数实现的）类型，我们希望可以将 <code>max</code> 推广到这些类型：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-haskell" data-lang="haskell"><span style="display:flex;"><span><span style="color:#6639ba">max</span> <span style="color:#0550ae">::</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Ord</span> a<span style="color:#1f2328">)</span> <span style="color:#0550ae">=&gt;</span> a <span style="color:#0550ae">-&gt;</span> a <span style="color:#0550ae">-&gt;</span> a
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">max</span> x y <span style="color:#0550ae">=</span> <span style="color:#cf222e">if</span> x <span style="color:#0550ae">&gt;=</span> y <span style="color:#cf222e">then</span> x <span style="color:#cf222e">else</span> y
+</span></span></code></pre></div><p>我们将<strong>可比</strong>这个特性抽象成 <code>Ord</code> 类型类（type class），<code>max</code> 函数可以作用于任意该类的成员类型.</p>
+<p>当我们在任意 <code>Ord</code> 类的类型上应用 <code>max</code> 函数时，编译器会帮我们<u>找到</u>对应类型的 <code>&gt;=</code> 的具体实现.</p>
+<p>那么如何<u>找到</u>？一种答案是：查表. 当我需要对 <code>Float</code> (type) 执行 <code>max</code> (operation) ，那么我在 type × operation 的笛卡尔积中找到 (<code>Float</code>, <code>max</code>) 对应的函数 (也就是 <code>Float</code> 对应的 <code>max</code> 非泛型具体实现) 就可以了.</p>
+<img src="generic_table.png" alt="generic_table" style="zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);" />
+<p>SICP Page 252: 泛型就是把 type × operation 这张表分解成一行一行的，每个泛型函数占据一行. ✨</p>
+<img src="table_rows.png" alt="table_rows" style="zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);" />
+<!-- ## Intelligent Operations V.S. Intelligent Data Objects -->
+<!-- ## Intelligent Data Objects -->
+<h2 id="数据与函数"><a href="#%e6%95%b0%e6%8d%ae%e4%b8%8e%e5%87%bd%e6%95%b0" class="header-anchor"></a>数据与函数
+</h2><h3 id="intelligent-operation-what-if-intelligent-data-objects"><a href="#intelligent-operation-what-if-intelligent-data-objects" class="header-anchor"></a>Intelligent Operation? WHAT IF Intelligent Data Objects?
+</h3><p>在本文上一节中提到的泛型（泛型函数）中，数据作为被操作的客体存在，数据的工作就是<strong>被</strong>函数作用，我们的泛型针对的是函数（operation），在我们的预期中，我们希望函数是聪明的，比如 <code>max :: (Ord a) =&gt; a -&gt; a -&gt; a</code> 是聪明的，对于它所作用的具体类型，它可以&quot;自动&quot;转变成该类型对应的非泛型具体实现 <code>max :: Int -&gt; Int -&gt; Int</code>. 而数据只需要等待被作用就可以了.</p>
+<p>𝐖𝐡𝐚𝐭 𝐢𝐟: 让泛型函数找到数据对应的具体实现 → 让数据找到函数对应的具体实现？从分解 type × operation 表的角度说，将这张表分解成一列一列的，让某种数据（对应generic operation，暂且称之为 generic? data）代表一列，这样如何呢？</p>
+<img src="table_cols.png" alt="table_cols" style="zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);" />
+<p>在 SICP 2.1.3 中谈及组合数据的提取时对此就有所呈现，本站的<a class="link" href="https://fyshxfish.github.io/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-sicp-2.3.4-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/#%e4%b8%80%e8%87%b4%e6%80%a7"  target="_blank" rel="noopener"
+    >上一篇博客</a>也有提到. 在 SICP 2.1.3 中的侧重点在对组合数据本身的操作（提取字段）上：为了保证列表元素存取前后的一致性，我们将列表写成一个 procedure 向外提供，此 procedure 接收参数，并根据参数返回对应的列表元素.</p>
+<p>这里我们关心的是数据在程序中的行为，即 数据如何与函数、其他数据进行交互，我们希望<strong>数据自己携带与其他数据的交互方式</strong>，而不是让数据作为只能被其他函数作用的静态实体. 基于这样的想法，尝试着写一个这样符合这样的行为规范的 Boolean.</p>
+<h3 id="携带函数的-boolean"><a href="#%e6%90%ba%e5%b8%a6%e5%87%bd%e6%95%b0%e7%9a%84-boolean" class="header-anchor"></a>携带函数的 Boolean
+</h3><!-- 示例：让 `Bool` (`tru` / `fls`) 找到 `and` / `or` 的具体实现： -->
+<p>首先给出类似的 type × operation 二维表，只是简单建模，所以只考虑与（<code>logic_and</code>）或（<code>logic_or</code>）两种运算：</p>
+<img src="tf_table.png" alt="tf_table" style="zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);" />
+<p>类似于代表一行的泛型函数，写一个可以代表一列的&quot;数据&quot;，<code>TRUE</code>, <code>FALSE</code>列对应的标识符分别为 <code>tru</code>, <code>fls</code>，如何让数据携带函数，一种答案是 让数据本身就是一个可以接收参数的函数，由参数来提取数据携带的函数：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span><span style="color:#1f2328">(</span><span style="color:#cf222e">define </span><span style="color:#953800">tru</span>                                   <span style="color:#57606a">; (define tru (lambda ...))</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#1f2328">(</span><span style="color:#cf222e">lambda </span><span style="color:#1f2328">(</span><span style="color:#6639ba">op</span><span style="color:#1f2328">)</span> 
+</span></span><span style="display:flex;"><span>        <span style="color:#1f2328">(</span><span style="color:#cf222e">cond </span><span style="color:#1f2328">((</span><span style="color:#6639ba">eq? </span><span style="color:#953800">op</span> <span style="color:#032f62">&#39;and</span><span style="color:#1f2328">)</span> <span style="color:#953800">tru_logic_and</span><span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#1f2328">((</span><span style="color:#6639ba">eq? </span><span style="color:#953800">op</span> <span style="color:#032f62">&#39;or</span><span style="color:#1f2328">)</span>  <span style="color:#953800">tru_logic_or</span><span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#1f2328">(</span><span style="color:#cf222e">define </span><span style="color:#953800">fls</span>                                   <span style="color:#57606a">; (define fls (lambda ...))</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#1f2328">(</span><span style="color:#cf222e">lambda </span><span style="color:#1f2328">(</span><span style="color:#6639ba">op</span><span style="color:#1f2328">)</span> 
+</span></span><span style="display:flex;"><span>        <span style="color:#1f2328">(</span><span style="color:#cf222e">cond </span><span style="color:#1f2328">((</span><span style="color:#6639ba">eq? </span><span style="color:#953800">op</span> <span style="color:#032f62">&#39;and</span><span style="color:#1f2328">)</span> <span style="color:#953800">fls_logic_and</span><span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#1f2328">((</span><span style="color:#6639ba">eq? </span><span style="color:#953800">op</span> <span style="color:#032f62">&#39;or</span><span style="color:#1f2328">)</span>  <span style="color:#953800">fls_logic_or</span><span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#1f2328">)</span>
+</span></span></code></pre></div><p><code>lambda - cond</code> 对应的函数（也就是柯里化的逻辑与或）实现如下：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scm" data-lang="scm"><span style="display:flex;"><span><span style="color:#1f2328">(</span><span style="color:#cf222e">define </span><span style="color:#1f2328">(</span><span style="color:#6639ba">tru_logic_and</span> <span style="color:#953800">x</span><span style="color:#1f2328">)</span>  <span style="color:#1f2328">(</span><span style="color:#cf222e">if </span><span style="color:#1f2328">(</span><span style="color:#6639ba">eq? </span><span style="color:#953800">x</span> <span style="color:#953800">tru</span><span style="color:#1f2328">)</span> <span style="color:#953800">tru</span> <span style="color:#953800">fls</span><span style="color:#1f2328">))</span>    <span style="color:#57606a">; 1 AND x</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#1f2328">(</span><span style="color:#cf222e">define </span><span style="color:#1f2328">(</span><span style="color:#6639ba">tru_logic_or</span> <span style="color:#953800">x</span><span style="color:#1f2328">)</span> <span style="color:#953800">tru</span><span style="color:#1f2328">)</span>                           <span style="color:#57606a">; 1 OR _ = 1        </span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#1f2328">(</span><span style="color:#cf222e">define </span><span style="color:#1f2328">(</span><span style="color:#6639ba">fls_logic_and</span> <span style="color:#953800">x</span><span style="color:#1f2328">)</span> <span style="color:#953800">fls</span><span style="color:#1f2328">)</span>                          <span style="color:#57606a">; 0 AND _ = 0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#1f2328">(</span><span style="color:#cf222e">define </span><span style="color:#1f2328">(</span><span style="color:#6639ba">fls_logic_or</span> <span style="color:#953800">x</span><span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">if </span><span style="color:#1f2328">(</span><span style="color:#6639ba">eq? </span><span style="color:#953800">x</span> <span style="color:#953800">tru</span><span style="color:#1f2328">)</span> <span style="color:#953800">tru</span> <span style="color:#953800">fls</span><span style="color:#1f2328">))</span>      <span style="color:#57606a">; 0 OR x</span>
+</span></span></code></pre></div><p>在 REPL 中查看 <code>tru</code> <code>fls</code>：毫无疑问两者都是 compound procedure</p>
+<pre tabindex="0"><code>1 ]=&gt; tru
+
+;Value: #[compound-procedure 13 tru]
+
+1 ]=&gt; fls
+
+;Value: #[compound-procedure 12 fls]
+</code></pre><p>做一个简单的测试：</p>
+<pre tabindex="0"><code>1 ]=&gt; ((tru &#39;and) fls)
+
+;Value: #[compound-procedure 12 fls]
+</code></pre><p>这里我们做了什么事情呢？首先 <code>tru</code> 是接收符号参数的一个 <code>lambda</code> 表达式，<code>(tru 'and)</code> 得到的是 <code>tru_logic_and</code> —— 一个柯里化的逻辑与（也就是已经传入了一个 <code>TRUE</code> 的逻辑与），然后将 <code>tru_logic_and</code> 应用于 <code>fls</code> ，最后的返回值是 compound procedure <code>fls</code>.</p>
+<p>给出图示如下：</p>
+<img src="msg_pasing_tru.png" alt="message passing `tru`" style="zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);" />
+<p>如果表达式长一些：如果忽略一部分括号，看起来就是中缀的逻辑表达式</p>
+<pre tabindex="0"><code>1 ]=&gt; ((((fls &#39;or) tru) &#39;and) fls)      ; ((0 or 1) and 0)
+
+;Value: #[compound-procedure 12 fls]
+</code></pre><p>如果更偏好前缀调用，可以做一层小封装：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scm" data-lang="scm"><span style="display:flex;"><span><span style="color:#1f2328">(</span><span style="color:#cf222e">define </span><span style="color:#1f2328">(</span><span style="color:#6639ba">logic</span> <span style="color:#953800">op</span> <span style="color:#953800">x</span> <span style="color:#953800">y</span><span style="color:#1f2328">)</span> <span style="color:#1f2328">((</span><span style="color:#6639ba">x</span> <span style="color:#953800">op</span><span style="color:#1f2328">)</span> <span style="color:#953800">y</span><span style="color:#1f2328">))</span>
+</span></span></code></pre></div><p>对 <code>logic</code> 进行测试：</p>
+<pre tabindex="0"><code>1 ]=&gt; (logic &#39;and tru fls)
+
+;Value: #[compound-procedure 12 fls]
+
+1 ]=&gt; (logic &#39;or (logic &#39;and fls fls) tru)      ; (or (and 0 0) 1)
+
+;Value: #[compound-procedure 13 tru]
+</code></pre><h3 id="-message-passing-看待数据的另一种视角"><a href="#-message-passing-%e7%9c%8b%e5%be%85%e6%95%b0%e6%8d%ae%e7%9a%84%e5%8f%a6%e4%b8%80%e7%a7%8d%e8%a7%86%e8%a7%92" class="header-anchor"></a>→ Message Passing: 看待数据的另一种视角
+</h3><p>上面这种构建 Boolean 的编程风格被称为 Message Passing：一个数据是一个接收操作名（message）的实体，例如：<code>tru</code> 可以接收 <code>'and</code> / <code>'or</code> 这样的 Message 并返回对应的柯里化函数供我们后续使用. 在这样的视角下，数据本身和<strong>数据所携带的方法</strong>一样重要，也是&quot;数据即程序&quot;的一种体现. 不知道看到这里的你是否也在此处察觉到了一点点面向对象的风味，对象的核心是“状态 + 方法”，这里的数据包含了“状态 + 函数”，不过这里的状态是不可修改的.</p>
+<h3 id="haskell-中的-"><a href="#haskell-%e4%b8%ad%e7%9a%84-" class="header-anchor"></a>Haskell 中的 <code>$</code>
+</h3><p><code>$</code> 是一个中缀调用的函数，其类型签名和优先级如下，它的作用是改变表达式求值顺序，一个客观结果是 <code>$</code> 的使用减少了代码中的括号量，</p>
+<pre tabindex="0"><code>ghci&gt; :i ($)
+($) :: (a -&gt; b) -&gt; a -&gt; b       -- Defined in ‘GHC.Base’
+infixr 0 $
+</code></pre><p>将 <code>$</code> （柯里化）应用于一个<strong>值</strong>，返回值是一个<strong>函数</strong>：</p>
+<!-- 从类型签名上去观察，可以看到，`$` 把一个数据变成了一个函数： -->
+<pre tabindex="0"><code>ghci&gt; x = 5 :: Int
+ghci&gt; :t ($ x)
+($ x) :: (Int -&gt; b) -&gt; b
+</code></pre><!-- `($ x)`是一个可以被其他函数（也就是类型签名中的 `Int -> b` ）作用的一个函数. -->
+<p>一种理解是：<code>($ x)</code> 把 <code>x</code> 从静态数据，变成了一个等待被函数 <code>Int -&gt; b</code> 作用的数据<span style="color: #888888; font-size: 0.85em;">（从类型签名上看，这是一个函数）</span>. 基于这种理解，可以写这样的代码：</p>
+<pre tabindex="0"><code>ghci&gt; map ($ 5) [(* 2), (+ 10), (^ 3)]
+[10,15,125]
+</code></pre><h3 id="haskell-中的代数数据类型"><a href="#haskell-%e4%b8%ad%e7%9a%84%e4%bb%a3%e6%95%b0%e6%95%b0%e6%8d%ae%e7%b1%bb%e5%9e%8b" class="header-anchor"></a>Haskell 中的代数数据类型
+</h3><p>经典的代数数据类型对二叉树进行递归定义：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hs" data-lang="hs"><span style="display:flex;"><span><span style="color:#cf222e">data</span> <span style="color:#cf222e">Tree</span> a <span style="color:#0550ae">=</span> <span style="color:#cf222e">Empty</span> <span style="color:#0550ae">|</span> <span style="color:#cf222e">Node</span> a <span style="color:#1f2328">(</span><span style="color:#cf222e">Tree</span> a<span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Tree</span> a<span style="color:#1f2328">)</span>
+</span></span></code></pre></div><p><code>Empty</code> 和 <code>Node</code> 是 <code>Tree a</code> 的值构造子，值构造子就是返回某种类型的<strong>值</strong>的<strong>函数</strong>. <code>Empty</code> 是无参构造子，<code>Node</code> 接受 <code>a</code>，<code>Tree a</code>，<code>Tree a</code>三个<strong>值</strong>参数.</p>
+<p><code>Tree a</code> 是类型构造子，类型构造子是返回某种<strong>具体类型</strong>的函数，<code>Tree a</code> 接受 <code>a</code> 一个类型参数，返回相应的具体的 <code>Tree</code> 类型. 例如 <code>Tree Int</code>，<code>Tree Char</code> 分别是结点数据类型为 <code>Int</code>, <code>Char</code> 的 <code>Tree</code>.</p>
+<p>这里可以看出 Haskell 非常漂亮的语言设计上的一致性，没有特殊的泛型语法，只有函数贯穿始终.</p>
+<!-- ### 丘奇数
+
+Church Encoding 是一种用函数表示自然数的方法. -->
+<!-- ### Church Encoding  -->
+<!-- 如何在 lambda 演算中表示自然数？ -->
+<!-- 从丘奇数出现在我的世界里的那一刻起，这个 -->
+<!-- 
+参考：
+
+- [Church Encoding wiki](https://en.wikipedia.org/wiki/Church_encoding)
+
+- 给了我很大启发的一则[知乎回答](https://www.zhihu.com/question/39930042/answer/2415190431?utm_psn=1816166240617631745) -->
+<!-- <span style="color: #888888; font-size: 0.85em;">我对 Church Encoding 的理解不是很到位，所以先不在这里陈述，我一直对 Church Encoding 比较困惑，前两天看到一个[知乎回答](https://www.zhihu.com/question/39930042/answer/2415190431?utm_psn=1816166240617631745)给了我很大的启发. 不要像理解物理计算机所存储的数字一样去理解 Church Encoding，尽管 Church Encoding 经常被翻译成丘奇数，但就像前面提到的知乎回答中陈述的观点一样，Church Encoding 更多表达的是一种**对计算过程的抽象**，而不是某个预备被存储在物理存储器中的具体数字. 接触以 lambda calculus 为起点的 FP 内容，尽量避免过拟合，甚至最好不要试图去拟合，很多困扰可能是过往的经验带给你的. </span> -->
+<!-- 陈述待补充
+
+--- 
+
+
+
+睡觉了 Sun Sep  8 00:30:22 CST 2024
+
+[TODO]:
+
+- Haskell 中的 `$`
+
+- 丘奇数
+
+看待数据的视角有很多，内存与指针、代数数据类型、数据即程序（也就是 SICP / 本文中想陈述的视角）... 对于 # 数据即程序 # 这样的情况，也许我们更加关注的是: 数据携带了什么方法，数据可以为我们提供什么方法 / 函数
+ -->
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/zh/tags/sicp/">SICP</a>
+        
+            <a href="/zh/tags/scheme/">Scheme</a>
+        
+            <a href="/zh/tags/haskell/">Haskell</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/zh/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Huffman 树的 Haskell 实现 | 组合数据的结构与解构</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/zh/p/nested-mapping-examples-implemented-in-haskell-sicp-2.2.3-list-monad/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Nested Mapping Examples Implemented in Haskell - SICP § 2.2.3  | List Monad </h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/zh/p/scheme-let-%E7%9A%84%E8%AF%AD%E4%B9%89-feat.-if-%E7%9A%84%E8%AF%AD%E4%B9%89/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Scheme: `let` 的语义 (feat. `if` 的语义)</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/zh/p/mit-scheme-%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">mit-scheme 配置与基本使用</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/zh/p/%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E9%87%8D%E5%A4%8D%E8%AE%A1%E7%AE%97-/-%E7%BA%AF%E5%87%BD%E6%95%B0%E5%8F%8A%E5%85%B6%E6%B1%82%E5%80%BC%E7%AD%96%E7%95%A5/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">如何避免重复计算 / 纯函数及其求值策略</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2024 - 
+        
+        2025 fyshXplore
+    </section>
+    
+    <section class="powerby">
+        
+            Wish You a Nice Day! <br/>
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

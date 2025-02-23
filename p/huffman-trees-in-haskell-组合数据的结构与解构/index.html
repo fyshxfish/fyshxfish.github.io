@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" Code Here: Huffman Tree in Haskell\n">
+<title>Huffman Trees in Haskell | 组合数据的结构与解构</title>
+
+<link rel='canonical' href='http://localhost:1313/p/huffman-trees-in-haskell-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/'>
+
+<link rel="stylesheet" href="/scss/style.min.be0d5e0eb92c2fa09941c16ce5a24165e9552d4dcbea0a1a378c27e26cc08e23.css"><meta property='og:title' content="Huffman Trees in Haskell | 组合数据的结构与解构">
+<meta property='og:description' content=" Code Here: Huffman Tree in Haskell\n">
+<meta property='og:url' content='http://localhost:1313/p/huffman-trees-in-haskell-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/'>
+<meta property='og:site_name' content='fyshXplore'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='SICP' /><meta property='article:tag' content='Haskell' /><meta property='article:tag' content='lambda calculus' /><meta property='article:published_time' content='2024-09-02T01:53:00&#43;08:00'/><meta property='article:modified_time' content='2024-09-02T01:53:00&#43;08:00'/>
+<meta name="twitter:title" content="Huffman Trees in Haskell | 组合数据的结构与解构">
+<meta name="twitter:description" content=" Code Here: Huffman Tree in Haskell\n"><style>
+  :root {
+     
+    --zh-font-family: "Noto Serif SC";
+     
+     
+     
+    --code-font-family: Consolas, Menlo, Monaco, "Courier New", var(--zh-font-family), monospace;
+    --article-font-family: "Noto Serif SC";
+  }
+</style>
+
+<script>
+  (function () {
+    const customFont = document.createElement("link");
+    customFont.href =
+      "https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap";
+
+    customFont.type = "text/css";
+    customFont.rel = "stylesheet";
+
+    document.head.appendChild(customFont);
+  })();
+</script>
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            localStorage.setItem(colorSchemeKey, "auto");
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/fyshx_avatar_hu_4b64fe58c612edf3.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🫧</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">fyshXplore</a></h1>
+            <h2 class="site-description">Just for 𝐅𝐮𝐧</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/fyshxfish'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-infinity" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M9.828 9.172a4 4 0 1 0 0 5.656 a10 10 0 0 0 2.172 -2.828a10 10 0 0 1 2.172 -2.828 a4 4 0 1 1 0 5.656a10 10 0 0 1 -2.172 -2.828a10 10 0 0 0 -2.172 -2.828" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="http://localhost:1313/zh/" >中文</option>
+                                
+                                    <option value="http://localhost:1313/" selected>English</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">&thinsp;Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#huffman-树的-haskell-实现">Huffman 树的 Haskell 实现</a>
+      <ol>
+        <li><a href="#数据抽象">数据抽象</a>
+          <ol>
+            <li><a href="#symbol--weight--leaf"><code>Symbol</code> + <code>Weight</code> → <code>Leaf</code></a></li>
+            <li><a href="#huffmantree-的递归定义"><code>HuffmanTree</code> 的递归定义</a></li>
+          </ol>
+        </li>
+        <li><a href="#huffman-树的构建">Huffman 树的构建</a>
+          <ol>
+            <li><a href="#权重获取">权重获取</a></li>
+            <li><a href="#列表整理">列表整理</a></li>
+            <li><a href="#树的建立">树的建立</a></li>
+          </ol>
+        </li>
+        <li><a href="#huffman-树的编解码">Huffman 树的编解码</a>
+          <ol>
+            <li><a href="#获取符号编码">获取符号编码</a></li>
+            <li><a href="#解码">解码</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+    <li><a href="#组合数据-compound-data-的结构与解构-construct--extract">组合数据 (compound data) 的结构与解构 (construct / extract)</a>
+      <ol>
+        <li><a href="#sicp-数据但是函数">SICP: 数据，但是函数</a>
+          <ol>
+            <li><a href="#一致性">一致性</a></li>
+            <li><a href="#数据的组合与提取--程序的构造抽象层">数据的组合与提取 → 程序的构造：抽象层</a></li>
+          </ol>
+        </li>
+        <li><a href="#haskell-pattern-match">Haskell: Pattern Match</a></li>
+        <li><a href="#lambda-calculus---pair-abstraction">Lambda Calculus - <code>pair</code> abstraction</a>
+          <ol>
+            <li><a href="#pure-lambda-calculus-中的-pair-abstraction">Pure Lambda Calculus 中的 <code>pair</code> abstraction</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/fp/" style="background-color: #b7c9e2; color: #fff;">
+                FP
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/huffman-trees-in-haskell-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/">Huffman Trees in Haskell | 组合数据的结构与解构</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Sep 2, 2024</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    8 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+        <footer class="article-translations">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+            <div>
+                
+                    <a href="http://localhost:1313/zh/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/" class="link">中文</a>
+                
+            </div>
+        </footer>
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <!-- 在看 SICP Section 2.3.4，对这节中 Huffman 树的实现中使用的组合 / 抽象有相当程度的参考. -->
+<!-- 其实我应该把代码放在某个仓库里，比如把一些数据结构的 Haskell 实现整合在一个仓库里，但是我还没有这么多可供整合的材料，所以以后再说吧. -->
+<p>Code Here: <a class="link" href="https://github.com/fyshxfish/sicp-playground/blob/main/sicp-note/ch2/ch2-3-huffman_tree.hs"  target="_blank" rel="noopener"
+    >Huffman Tree in Haskell</a></p>
+<h2 id="huffman-树的-haskell-实现"><a href="#huffman-%e6%a0%91%e7%9a%84-haskell-%e5%ae%9e%e7%8e%b0" class="header-anchor"></a>Huffman 树的 Haskell 实现
+</h2><!-- (对照图示: SICP Figure 2.18) -->
+<img src="huffmantree_more_padding.png" alt="huffmantree diagram" style="zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);" />
+<!-- <img src="huffmantree.png" alt="huffmantree" style="zoom:80%;" /> -->
+<h3 id="数据抽象"><a href="#%e6%95%b0%e6%8d%ae%e6%8a%bd%e8%b1%a1" class="header-anchor"></a>数据抽象
+</h3><div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-haskell" data-lang="haskell"><span style="display:flex;"><span><span style="color:#cf222e">type</span> <span style="color:#cf222e">Weight</span> <span style="color:#0550ae">=</span> <span style="color:#cf222e">Int</span> 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#cf222e">data</span> <span style="color:#cf222e">Symbol</span> <span style="color:#0550ae">=</span> <span style="color:#cf222e">A</span> <span style="color:#0550ae">|</span> <span style="color:#cf222e">B</span> <span style="color:#0550ae">|</span> <span style="color:#cf222e">C</span> <span style="color:#0550ae">|</span> <span style="color:#cf222e">D</span> <span style="color:#0550ae">|</span> <span style="color:#cf222e">E</span> <span style="color:#0550ae">|</span> <span style="color:#cf222e">F</span> <span style="color:#0550ae">|</span> <span style="color:#cf222e">G</span> <span style="color:#0550ae">|</span> <span style="color:#cf222e">H</span> <span style="color:#cf222e">deriving</span> <span style="color:#cf222e">Show</span> 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#cf222e">data</span> <span style="color:#cf222e">HuffmanTree</span> a <span style="color:#0550ae">=</span> <span style="color:#cf222e">Empty</span> <span style="color:#0550ae">|</span> 
+</span></span><span style="display:flex;"><span>                    <span style="color:#cf222e">Leaf</span> a <span style="color:#cf222e">Weight</span> <span style="color:#0550ae">|</span> 
+</span></span><span style="display:flex;"><span>                    <span style="color:#cf222e">Node</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">HuffmanTree</span> a<span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">HuffmanTree</span> a<span style="color:#1f2328">)</span> <span style="color:#1f2328">[</span>a<span style="color:#1f2328">]</span> <span style="color:#cf222e">Weight</span> 
+</span></span><span style="display:flex;"><span>                    <span style="color:#cf222e">deriving</span> <span style="color:#cf222e">Show</span>
+</span></span></code></pre></div><h4 id="symbol--weight--leaf"><a href="#symbol--weight--leaf" class="header-anchor"></a><code>Symbol</code> + <code>Weight</code> → <code>Leaf</code>
+</h4><p>设定对符号 (<code>Symbol</code> / 泛型 <code>a</code>) 根据使用频率/权重 (<code>Weight</code>) 进行 Huffman 编码，将这两个信息整合抽象成 <code>Leaf</code>，对应 SICP 中的 (<code>(define (make-leaf symbol weight) (list 'leaf symbol weight))</code>).</p>
+<p>泛型与类型约束：对符号没有类型约束，对权重的约束是 <code>Weight</code> 属于 <code>Ord</code> typeclass，因为需要权重是可以比较的，这里没有写泛型，直接用 <code>Int</code> 作为权重的类型 .</p>
+<h4 id="huffmantree-的递归定义"><a href="#huffmantree-%e7%9a%84%e9%80%92%e5%bd%92%e5%ae%9a%e4%b9%89" class="header-anchor"></a><code>HuffmanTree</code> 的递归定义
+</h4><p>含 <code>Empty</code>, <code>Leaf</code>, <code>Node</code> 三种构造子:</p>
+<ul>
+<li><code>Empty</code>: 空树</li>
+<li><code>Leaf</code>: 包含符号 <code>a</code> 和权重 <code>Weight</code> 的叶子结点</li>
+<li><code>Node</code>: 包含左右子树 <code>(HuffmanTree a)</code>、子树符号并集 <code>[a]</code> 和子树总权重 <code>Weight</code> 的分支结点.</li>
+</ul>
+<h3 id="huffman-树的构建"><a href="#huffman-%e6%a0%91%e7%9a%84%e6%9e%84%e5%bb%ba" class="header-anchor"></a>Huffman 树的构建
+</h3><h4 id="权重获取"><a href="#%e6%9d%83%e9%87%8d%e8%8e%b7%e5%8f%96" class="header-anchor"></a>权重获取
+</h4><p>通过模式匹配获取 <code>Leaf</code>，<code>Node</code>的权重.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hs" data-lang="hs"><span style="display:flex;"><span><span style="color:#6639ba">getWeight</span> <span style="color:#0550ae">::</span> <span style="color:#cf222e">HuffmanTree</span> a <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">Weight</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">getWeight</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Leaf</span> <span style="color:#cf222e">_</span> w<span style="color:#1f2328">)</span> <span style="color:#0550ae">=</span> w 
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">getWeight</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Node</span> <span style="color:#cf222e">_</span> <span style="color:#cf222e">_</span> <span style="color:#cf222e">_</span> w<span style="color:#1f2328">)</span> <span style="color:#0550ae">=</span> w
+</span></span></code></pre></div><div class="highlight-paragraph-grey">为了简便，这里没有考虑空树 `Empty` 的情况，更安全的话，应该写 `getWeight :: HuffmanTree a -> Maybe Weight`，匹配到 `Empty` 时返回 `Nothing`.</div><br>
+<h4 id="列表整理"><a href="#%e5%88%97%e8%a1%a8%e6%95%b4%e7%90%86" class="header-anchor"></a>列表整理
+</h4><p>Huffman 树建立的起点是一个有序的叶子列表，建立过程中也需要保持 <code>[HuffmanTree a]</code> 列表的有序. 这一部分的函数的目标是将一个无序的列表整理成一个有序的列表.</p>
+<p>» <code>adjoinLeaf</code>: 根据权重将 <code>HuffmanTree a</code> 插入到已有的有序 <code>[HuffmanTree a]</code> 中. （升序排列）</p>
+<p>» <code>initLeafs</code>: 将已有的无序叶子列表整理成有序的叶子列表.</p>
+<p>» <code>moveFirstNode</code>: Huffman Tree 建立过程中的 Merge 操作将把权重最小的两个 <code>HuffmanTree (Leaf / Node)</code> ——也就是列表前两个元素——组成一个新的 <code>Node</code>，所以 Merge 后需要将新生成的 Node 重新放置，利用此函数实现这个重置.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hs" data-lang="hs"><span style="display:flex;"><span><span style="color:#6639ba">adjoinTree</span> <span style="color:#0550ae">::</span> <span style="color:#cf222e">HuffmanTree</span> a  <span style="color:#0550ae">-&gt;</span> <span style="color:#1f2328">[</span><span style="color:#cf222e">HuffmanTree</span> a<span style="color:#1f2328">]</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#1f2328">[</span><span style="color:#cf222e">HuffmanTree</span> a<span style="color:#1f2328">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">adjoinTree</span> t <span style="color:#cf222e">[]</span> <span style="color:#0550ae">=</span> <span style="color:#1f2328">[</span>t<span style="color:#1f2328">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">adjoinTree</span> t <span style="color:#1f2328">(</span>t&#39;<span style="color:#cf222e">:</span>ts<span style="color:#1f2328">)</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#0550ae">|</span> w <span style="color:#0550ae">&lt;</span> w&#39;   <span style="color:#0550ae">=</span> t<span style="color:#cf222e">:</span> t&#39;<span style="color:#cf222e">:</span> ts 
+</span></span><span style="display:flex;"><span>    <span style="color:#0550ae">|</span> otherwise <span style="color:#0550ae">=</span> t&#39;<span style="color:#cf222e">:</span> <span style="color:#1f2328">(</span>adjoinTree t ts<span style="color:#1f2328">)</span>  
+</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">where</span> w  <span style="color:#0550ae">=</span> getWeight t 
+</span></span><span style="display:flex;"><span>          w&#39; <span style="color:#0550ae">=</span> getWeight t&#39; 
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">initLeafs</span> <span style="color:#0550ae">::</span> <span style="color:#1f2328">[</span><span style="color:#cf222e">HuffmanTree</span> a<span style="color:#1f2328">]</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#1f2328">[</span><span style="color:#cf222e">HuffmanTree</span> a<span style="color:#1f2328">]</span>     <span style="color:#57606a">-- I know pl(leaf) = leaves, btw. ^^   </span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">initLeafs</span> <span style="color:#cf222e">[]</span> <span style="color:#0550ae">=</span> <span style="color:#cf222e">[]</span>   
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">initLeafs</span> <span style="color:#1f2328">(</span>p<span style="color:#cf222e">:</span>ps<span style="color:#1f2328">)</span> <span style="color:#0550ae">=</span> adjoinLeaf p <span style="color:#1f2328">(</span>initLeafs ps<span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">moveFirstNode</span> <span style="color:#0550ae">::</span> <span style="color:#1f2328">[</span><span style="color:#cf222e">HuffmanTree</span> a<span style="color:#1f2328">]</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#1f2328">[</span><span style="color:#cf222e">HuffmanTree</span> a<span style="color:#1f2328">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">moveFirstNode</span> <span style="color:#1f2328">(</span>t<span style="color:#cf222e">:</span>ts<span style="color:#1f2328">)</span> <span style="color:#0550ae">=</span> adjoinLeaf t ts 
+</span></span></code></pre></div><h4 id="树的建立"><a href="#%e6%a0%91%e7%9a%84%e5%bb%ba%e7%ab%8b" class="header-anchor"></a>树的建立
+</h4><p>» <code>makeNode</code>: 将两个 <code>HuffmanTree</code> 组合成一个 <code>Node</code>.</p>
+<p>» <code>constructHuffTree</code>: 树的自底向上建立，<strong>尾递归</strong>建立 Huffman Tree.</p>
+<ul>
+<li>
+<p>递归步：将当前列表中的前两个元素通过 <code>makeNode</code> 合并成一个父结点 <code>Node</code>，移动父结点得到新的有序列表，对新列表执行递归;</p>
+</li>
+<li>
+<p>递归基：列表中只有一个元素，即根结点.</p>
+</li>
+</ul>
+<p>» <code>initAndConstructHuffTree</code>: 最后的封装，对叶子列表的初始化 <code>initLeafs</code> 和树的建立 <code>constructHuffTree</code> 进行 Point-less 的组合.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hs" data-lang="hs"><span style="display:flex;"><span><span style="color:#6639ba">makeNode</span> <span style="color:#0550ae">::</span> <span style="color:#cf222e">HuffmanTree</span> a <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">HuffmanTree</span> a <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">HuffmanTree</span> a 
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">makeNode</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Leaf</span> s1 w1<span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Leaf</span> s2 w2<span style="color:#1f2328">)</span> <span style="color:#0550ae">=</span> <span style="color:#cf222e">Node</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Leaf</span> s1 w1<span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Leaf</span> s2 w2<span style="color:#1f2328">)</span> <span style="color:#1f2328">[</span>s1<span style="color:#1f2328">,</span> s2<span style="color:#1f2328">]</span> <span style="color:#1f2328">(</span>w1 <span style="color:#0550ae">+</span> w2<span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">makeNode</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Leaf</span> s w<span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Node</span> l r ss w&#39;<span style="color:#1f2328">)</span> <span style="color:#0550ae">=</span> <span style="color:#cf222e">Node</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Leaf</span> s w<span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Node</span> l r ss w&#39;<span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span>s<span style="color:#cf222e">:</span>ss<span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span>w <span style="color:#0550ae">+</span> w&#39;<span style="color:#1f2328">)</span>  
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">makeNode</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Node</span> l r ss w&#39;<span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Leaf</span> s w<span style="color:#1f2328">)</span>  <span style="color:#0550ae">=</span> <span style="color:#cf222e">Node</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Node</span> l r ss w&#39;<span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Leaf</span> s w<span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span>ss <span style="color:#0550ae">++</span> <span style="color:#1f2328">[</span>s<span style="color:#1f2328">])</span> <span style="color:#1f2328">(</span>w <span style="color:#0550ae">+</span> w&#39;<span style="color:#1f2328">)</span>  
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">makeNode</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Node</span> l1 r1 ss1 w1<span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Node</span> l2 r2 ss2 w2<span style="color:#1f2328">)</span> <span style="color:#0550ae">=</span> <span style="color:#cf222e">Node</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Node</span> l1 r1 ss1 w1<span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Node</span> l2 r2 ss2 w2<span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span>ss1 <span style="color:#0550ae">++</span> ss2<span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span>w1 <span style="color:#0550ae">+</span> w2<span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">constructHuffTree</span> <span style="color:#0550ae">::</span> <span style="color:#1f2328">[</span><span style="color:#cf222e">HuffmanTree</span> a<span style="color:#1f2328">]</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">HuffmanTree</span> a
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">constructHuffTree</span> <span style="color:#cf222e">[]</span> <span style="color:#0550ae">=</span> <span style="color:#cf222e">Empty</span>    
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">constructHuffTree</span> <span style="color:#1f2328">[</span>t<span style="color:#1f2328">]</span> <span style="color:#0550ae">=</span> t      
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">constructHuffTree</span> <span style="color:#1f2328">(</span>x<span style="color:#cf222e">:</span>y<span style="color:#cf222e">:</span>ts<span style="color:#1f2328">)</span> <span style="color:#0550ae">=</span> constructHuffTree <span style="color:#0550ae">$</span> moveFirstNode <span style="color:#0550ae">$</span> <span style="color:#1f2328">(</span>makeNode x y<span style="color:#1f2328">)</span><span style="color:#cf222e">:</span> ts
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">initAndConstructHuffTree</span> <span style="color:#0550ae">::</span> <span style="color:#1f2328">[</span><span style="color:#cf222e">HuffmanTree</span> a<span style="color:#1f2328">]</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">HuffmanTree</span> a
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">initAndConstructHuffTree</span> <span style="color:#0550ae">=</span> constructHuffTree <span style="color:#0550ae">.</span> initLeafs 
+</span></span></code></pre></div><h3 id="huffman-树的编解码"><a href="#huffman-%e6%a0%91%e7%9a%84%e7%bc%96%e8%a7%a3%e7%a0%81" class="header-anchor"></a>Huffman 树的编解码
+</h3><h4 id="获取符号编码"><a href="#%e8%8e%b7%e5%8f%96%e7%ac%a6%e5%8f%b7%e7%bc%96%e7%a0%81" class="header-anchor"></a>获取符号编码
+</h4><p>Huffman 树的建立过程就是编码过程，结点所在的树的位置代表了结点的编码，这里将编码用二进制的形式呈现出来.</p>
+<p>此处的编码表示：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hs" data-lang="hs"><span style="display:flex;"><span><span style="color:#cf222e">data</span> <span style="color:#cf222e">Bit</span> <span style="color:#0550ae">=</span> <span style="color:#cf222e">L</span> <span style="color:#0550ae">|</span> <span style="color:#cf222e">R</span> <span style="color:#cf222e">deriving</span> <span style="color:#cf222e">Show</span> 
+</span></span><span style="display:flex;"><span><span style="color:#cf222e">type</span> <span style="color:#cf222e">Bits</span> <span style="color:#0550ae">=</span> <span style="color:#1f2328">[</span><span style="color:#cf222e">Bit</span><span style="color:#1f2328">]</span> 
+</span></span></code></pre></div><p><code>L</code> 对应二进制 <code>0</code>，<code>R</code> 对应二进制 <code>1</code>.</p>
+<p>编码的获取过程就是对 Huffman 树进行遍历与记录的过程：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hs" data-lang="hs"><span style="display:flex;"><span><span style="color:#6639ba">getCode&#39;</span> <span style="color:#0550ae">::</span> <span style="color:#cf222e">HuffmanTree</span> a <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">Bits</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#1f2328">[(</span>a<span style="color:#1f2328">,</span> <span style="color:#cf222e">Bits</span><span style="color:#1f2328">)]</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">getCode&#39;</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Node</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Leaf</span> s1 <span style="color:#cf222e">_</span><span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Leaf</span> s2 <span style="color:#cf222e">_</span><span style="color:#1f2328">)</span> <span style="color:#cf222e">_</span> <span style="color:#cf222e">_</span><span style="color:#1f2328">)</span> rec <span style="color:#0550ae">=</span> <span style="color:#1f2328">[(</span>s1<span style="color:#1f2328">,</span> rec <span style="color:#0550ae">++</span> <span style="color:#1f2328">[</span><span style="color:#cf222e">L</span><span style="color:#1f2328">]),</span> <span style="color:#1f2328">(</span>s2<span style="color:#1f2328">,</span> rec <span style="color:#0550ae">++</span> <span style="color:#1f2328">[</span><span style="color:#cf222e">R</span><span style="color:#1f2328">])]</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">getCode&#39;</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Node</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Leaf</span> s&#39; <span style="color:#cf222e">_</span><span style="color:#1f2328">)</span> node <span style="color:#cf222e">_</span> <span style="color:#cf222e">_</span><span style="color:#1f2328">)</span> rec <span style="color:#0550ae">=</span> <span style="color:#1f2328">[(</span>s&#39;<span style="color:#1f2328">,</span> rec <span style="color:#0550ae">++</span> <span style="color:#1f2328">[</span><span style="color:#cf222e">L</span><span style="color:#1f2328">])]</span> <span style="color:#0550ae">++</span> getCode&#39; node <span style="color:#1f2328">(</span>rec<span style="color:#0550ae">++</span><span style="color:#1f2328">[</span><span style="color:#cf222e">R</span><span style="color:#1f2328">])</span> 
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">getCode&#39;</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Node</span> node <span style="color:#1f2328">(</span><span style="color:#cf222e">Leaf</span> s&#39; <span style="color:#cf222e">_</span><span style="color:#1f2328">)</span> <span style="color:#cf222e">_</span> <span style="color:#cf222e">_</span><span style="color:#1f2328">)</span> rec <span style="color:#0550ae">=</span>  getCode&#39; node <span style="color:#1f2328">(</span>rec<span style="color:#0550ae">++</span><span style="color:#1f2328">[</span><span style="color:#cf222e">L</span><span style="color:#1f2328">])</span> <span style="color:#0550ae">++</span> <span style="color:#1f2328">[(</span>s&#39;<span style="color:#1f2328">,</span> rec <span style="color:#0550ae">++</span> <span style="color:#1f2328">[</span><span style="color:#cf222e">R</span><span style="color:#1f2328">])]</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">getCode&#39;</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Node</span> nodel noder  <span style="color:#cf222e">_</span> <span style="color:#cf222e">_</span><span style="color:#1f2328">)</span> rec <span style="color:#0550ae">=</span> getCode&#39; nodel <span style="color:#1f2328">(</span>rec<span style="color:#0550ae">++</span><span style="color:#1f2328">[</span><span style="color:#cf222e">L</span><span style="color:#1f2328">])</span> <span style="color:#0550ae">++</span> getCode&#39; noder <span style="color:#1f2328">(</span>rec<span style="color:#0550ae">++</span><span style="color:#1f2328">[</span><span style="color:#cf222e">R</span><span style="color:#1f2328">])</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">getCode</span> <span style="color:#0550ae">::</span> <span style="color:#cf222e">HuffmanTree</span> a <span style="color:#0550ae">-&gt;</span> <span style="color:#1f2328">[(</span>a<span style="color:#1f2328">,</span> <span style="color:#cf222e">Bits</span><span style="color:#1f2328">)]</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">getCode</span> t  <span style="color:#0550ae">=</span> getCode&#39; t <span style="color:#cf222e">[]</span>
+</span></span></code></pre></div><p>» <code>getCode'</code>：实现对 Huffman 树的递归遍历</p>
+<ul>
+<li>
+<p>递归步：对于一个结点，对左右子树进行匹配，对非叶结点（<code>node</code>）继续递归遍历，在 <code>rec</code> 中记录途径的分叉方向.</p>
+</li>
+<li>
+<p>递归基：当对左/右子树匹配到 <code>Leaf</code> 时，表明已经抵达了一个 <code>Symbol</code>，此时的 <code>rec ++ [L]</code> / <code>rec ++ [R]</code> 就是 <code>Symbol</code> 对应的编码.</p>
+</li>
+<li>
+<p>模式匹配的解释：回顾 Huffman 树的构造过程，我们总是把<strong>两个结点</strong>合并成其父结点，所以不存在某个子树为 <code>Empty</code> 的情况，也即——每个分支结点的模式都是 <code>Node lhs rhs _ _</code>；同时，我们将 <code>Leaf</code> 作为递归基，不再对 <code>Leaf</code> 做递归，这就是为什么这里只对不同形态的 <code>Node</code> 构造子做模式匹配，并把含 <code>Leaf</code> 递归基的情形放在前面的原因.</p>
+</li>
+</ul>
+<p>» <code>getCode</code>：对 <code>getCode'</code> 做一个封装，给 <code>rec</code> 一个起始值 <code>[]</code>，即 在 Huffman 树的根结点，没有任何途径记录.</p>
+<h4 id="解码"><a href="#%e8%a7%a3%e7%a0%81" class="header-anchor"></a>解码
+</h4><p>基本思路：根据 <code>Bit</code> 在树上移动，<code>L</code> - 向左子树移动，<code>R</code> - 向右子树移动，抵达子树为 <code>Leaf</code> 时，完成一个字符的解码，此时回到根结点继续对下一个字符解码，直到 <code>Bit</code> 列表为空.</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hs" data-lang="hs"><span style="display:flex;"><span><span style="color:#57606a">-- decode one symbol</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">decodeOne</span> <span style="color:#0550ae">::</span> <span style="color:#cf222e">HuffmanTree</span> a <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">Bits</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#1f2328">(</span>a<span style="color:#1f2328">,</span> <span style="color:#cf222e">Bits</span><span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">decodeOne</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Node</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Leaf</span> s <span style="color:#cf222e">_</span><span style="color:#1f2328">)</span> <span style="color:#cf222e">_</span> <span style="color:#cf222e">_</span> <span style="color:#cf222e">_</span><span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">L:</span>bs<span style="color:#1f2328">)</span> <span style="color:#0550ae">=</span> <span style="color:#1f2328">(</span>s<span style="color:#1f2328">,</span> bs<span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">decodeOne</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Node</span> <span style="color:#cf222e">_</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Leaf</span> s <span style="color:#cf222e">_</span><span style="color:#1f2328">)</span> <span style="color:#cf222e">_</span> <span style="color:#cf222e">_</span><span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">R:</span>bs<span style="color:#1f2328">)</span> <span style="color:#0550ae">=</span> <span style="color:#1f2328">(</span>s<span style="color:#1f2328">,</span> bs<span style="color:#1f2328">)</span> 
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">decodeOne</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Node</span> node <span style="color:#cf222e">_</span> <span style="color:#cf222e">_</span> <span style="color:#cf222e">_</span><span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">L:</span>bs<span style="color:#1f2328">)</span> <span style="color:#0550ae">=</span> decodeOne node bs
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">decodeOne</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Node</span> <span style="color:#cf222e">_</span> node <span style="color:#cf222e">_</span> <span style="color:#cf222e">_</span><span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">R:</span>bs<span style="color:#1f2328">)</span> <span style="color:#0550ae">=</span> decodeOne node bs
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#57606a">-- decode from scratch </span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">decode</span> <span style="color:#0550ae">::</span> <span style="color:#cf222e">HuffmanTree</span> a <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">Bits</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#1f2328">[</span>a<span style="color:#1f2328">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">decode</span> <span style="color:#cf222e">_</span> <span style="color:#cf222e">[]</span> <span style="color:#0550ae">=</span> <span style="color:#cf222e">[]</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">decode</span> t bs <span style="color:#0550ae">=</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">let</span> <span style="color:#1f2328">(</span>s<span style="color:#1f2328">,</span> remainBits<span style="color:#1f2328">)</span> <span style="color:#0550ae">=</span> decodeOne t bs
+</span></span><span style="display:flex;"><span>    <span style="color:#cf222e">in</span> s<span style="color:#cf222e">:</span> decode t remainBits
+</span></span></code></pre></div><p>» <code>decodeOne</code>:</p>
+<ul>
+<li>
+<p>递归基：当前 <code>Bit</code> 对应的子树为 <code>Leaf</code> ，即完成了一个字符的解码，将该字符和剩余的 <code>Bit</code> 返回</p>
+</li>
+<li>
+<p>递归步：当前 <code>Bit</code> 对应的子树为 <code>Node</code> ，继续在该 <code>Node</code> 上递归解码，直到遇到递归基的情况</p>
+</li>
+</ul>
+<p>» <code>decode</code>:</p>
+<ul>
+<li>
+<p>递归基：<code>Bit</code> 列表为空，代表解码完毕.</p>
+</li>
+<li>
+<p>递归步：<code>Bit</code> 列表非空，将根结点和当前 <code>Bit</code> 列表交给 <code>decodeOne</code> 进行单字符的解码，单字符解码完毕后，继续对剩余的 <code>Bit</code> 在根结点上做单字符解码，直到 <code>Bit</code> 列表空.</p>
+</li>
+</ul>
+<p>» 如何回到根结点：</p>
+<p>一开始写的函数类型签名是这样的 <code>decode :: HuffmanTree a -&gt; HuffmanTree a -&gt; Bits -&gt; [a]</code>，两个 <code>HuffmanTree</code> 分别是原始根结点和当前所在的根结点，实现大致如下：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hs" data-lang="hs"><span style="display:flex;"><span><span style="color:#6639ba">decode&#39;</span> <span style="color:#0550ae">::</span> <span style="color:#cf222e">HuffmanTree</span> a <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">HuffmanTree</span> a <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">Bits</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#1f2328">[</span>a<span style="color:#1f2328">]</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">decode&#39;</span> originT <span style="color:#1f2328">(</span><span style="color:#cf222e">Node</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Leaf</span> s <span style="color:#cf222e">_</span><span style="color:#1f2328">)</span> <span style="color:#cf222e">_</span> <span style="color:#cf222e">_</span> <span style="color:#cf222e">_</span><span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">L:</span>bs<span style="color:#1f2328">)</span> <span style="color:#0550ae">=</span> s<span style="color:#cf222e">:</span> <span style="color:#1f2328">(</span>decode&#39; originT originT bs<span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span><span style="color:#57606a">--snip--</span>
+</span></span></code></pre></div><p>看着不是很舒服，因为 <code>originT</code> 这个参数在递归过程中没有变过，所以稍稍改变了递归结构，写了上面的 <code>decode</code> 和 <code>decodeOne</code>. SICP 中使用闭包来记忆初始根结点.</p>
+<hr>
+<h2 id="组合数据-compound-data-的结构与解构-construct--extract"><a href="#%e7%bb%84%e5%90%88%e6%95%b0%e6%8d%ae-compound-data-%e7%9a%84%e7%bb%93%e6%9e%84%e4%b8%8e%e8%a7%a3%e6%9e%84-construct--extract" class="header-anchor"></a>组合数据 (compound data) 的结构与解构 (construct / extract)
+</h2><h3 id="sicp-数据但是函数"><a href="#sicp-%e6%95%b0%e6%8d%ae%e4%bd%86%e6%98%af%e5%87%bd%e6%95%b0" class="header-anchor"></a>SICP: 数据，但是函数
+</h3><h4 id="一致性"><a href="#%e4%b8%80%e8%87%b4%e6%80%a7" class="header-anchor"></a>一致性
+</h4><p>我们希望将<strong>有结构</strong>的数据——而不是散落的变量——作为程序的组件，所以有了组合数据 (compound data)，比如 <code>struct</code> / <code>class</code>，于是出现的问题是，如何把用于构造 compound data 的字段重新提取出来，<strong>提取</strong>的行为需要保证的一件事情是：字段被提取前后是一致的，主要是编译器的工作，如果一定要在源代码的层面上去体现这一点，如何做到？SICP 2.1.3 (Page 124) 是这样做的：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span><span style="color:#1f2328">(</span><span style="color:#cf222e">define </span><span style="color:#1f2328">(</span><span style="color:#6639ba">cons </span><span style="color:#953800">x</span> <span style="color:#953800">y</span><span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#1f2328">(</span><span style="color:#cf222e">define </span><span style="color:#1f2328">(</span><span style="color:#6639ba">dispatch</span> <span style="color:#953800">m</span><span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#1f2328">(</span><span style="color:#cf222e">cond </span><span style="color:#1f2328">((</span><span style="color:#6639ba">= </span><span style="color:#953800">m</span> <span style="color:#0550ae">0</span><span style="color:#1f2328">)</span> <span style="color:#953800">x</span><span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#1f2328">((</span><span style="color:#6639ba">= </span><span style="color:#953800">m</span> <span style="color:#0550ae">1</span><span style="color:#1f2328">)</span> <span style="color:#953800">y</span><span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>              <span style="color:#1f2328">(</span><span style="color:#cf222e">else </span><span style="color:#1f2328">(</span><span style="color:#6639ba">error</span> <span style="color:#0a3069">&#34;Argument not 0 or 1: CONS&#34;</span> <span style="color:#953800">m</span><span style="color:#1f2328">))))</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#953800">dispatch</span><span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#1f2328">(</span><span style="color:#cf222e">define </span><span style="color:#1f2328">(</span><span style="color:#6639ba">car </span><span style="color:#953800">z</span><span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#6639ba">z</span> <span style="color:#0550ae">0</span><span style="color:#1f2328">))</span>
+</span></span><span style="display:flex;"><span><span style="color:#1f2328">(</span><span style="color:#cf222e">define </span><span style="color:#1f2328">(</span><span style="color:#6639ba">cdr </span><span style="color:#953800">z</span><span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#6639ba">z</span> <span style="color:#0550ae">1</span><span style="color:#1f2328">))</span>
+</span></span></code></pre></div><p>Exercise 2.4 (Page 125) 中的通过 lambda 实现也很漂亮：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scheme" data-lang="scheme"><span style="display:flex;"><span><span style="color:#1f2328">(</span><span style="color:#cf222e">define </span><span style="color:#1f2328">(</span><span style="color:#6639ba">cons </span><span style="color:#953800">x</span> <span style="color:#953800">y</span><span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#1f2328">(</span><span style="color:#cf222e">lambda </span><span style="color:#1f2328">(</span><span style="color:#6639ba">m</span><span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#6639ba">m</span> <span style="color:#953800">x</span> <span style="color:#953800">y</span><span style="color:#1f2328">)))</span>
+</span></span><span style="display:flex;"><span><span style="color:#1f2328">(</span><span style="color:#cf222e">define </span><span style="color:#1f2328">(</span><span style="color:#6639ba">car </span><span style="color:#953800">z</span><span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#1f2328">(</span><span style="color:#6639ba">z</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">lambda </span><span style="color:#1f2328">(</span><span style="color:#6639ba">p</span> <span style="color:#953800">q</span><span style="color:#1f2328">)</span> <span style="color:#953800">p</span><span style="color:#1f2328">)))</span>
+</span></span></code></pre></div><p>（用 Pure Lambda Calculus 实现此例，参见本节的<a class="link" href="#lambda-calculus---pair-abstraction" >最后一小节</a>.）</p>
+<p>SICP 这一章重点呈现的一个点是: 数据（data）与程序（procedure）的分界线并不是那么泾渭分明的. 以上的两个程序很准确地体现了这一点：列表的构造子返回的是一个 procedure，该 procedure 提供了访问<strong>组成列表的元素</strong>的接口，所以可以基于此定义 <code>car</code>/ <code>cdr</code>.</p>
+<h4 id="数据的组合与提取--程序的构造抽象层"><a href="#%e6%95%b0%e6%8d%ae%e7%9a%84%e7%bb%84%e5%90%88%e4%b8%8e%e6%8f%90%e5%8f%96--%e7%a8%8b%e5%ba%8f%e7%9a%84%e6%9e%84%e9%80%a0%e6%8a%bd%e8%b1%a1%e5%b1%82" class="header-anchor"></a>数据的组合与提取 → 程序的构造：抽象层
+</h4><p>组合这件事情在 LISP (<strong>LIS</strong>t <strong>P</strong>rogramming) 中可以很简单，数据的组合方式就是构造列表，如 <code>(list 1 2 3)</code> / <code>(list 3 4 (list 9 7) 5)</code>.</p>
+<p>而处于程序之中的数据不可能直接以这样的形式在函数之间流转，所以有了抽象层:</p>
+<img src="abstraction_barrier.png" alt="abstraction barrier" style="zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);" />
+<p>constructor (<code>make-rat</code>) 和 selector (<code>denom</code>, <code>numer</code>) 是从基本类型 (primitive data type) 到组合数据 (compound data) 的一次抽象，给了程序（在此抽象层之上的函数，<code>add-rat</code> / <code>sub-rat</code>）一个更高的视角去看待数据，数据不再只是零散的整型/浮点型，而是可以被构造 / 提取 / 分析的 <code>rat</code>；在 <code>add-rat</code> / <code>sub-rat</code> 之上的函数无需关心 <code>rat</code> 的实现细节，只需使用 <code>add-rat</code> 等运算来解决问题即可. 程序的构造过程是抽象层次提升的过程.</p>
+<h3 id="haskell-pattern-match"><a href="#haskell-pattern-match" class="header-anchor"></a>Haskell: Pattern Match
+</h3><!-- 写过 Lisp 会更懂 Haskell 的好，就像写过 C 可以更好地体会 Python 开发的便捷，这里只是考量语法的易用性，没有对于性能/应用场景等其他方面的比较. -->
+<p>在 Scheme 中写 <code>(define (make-leaf symbol weight))</code>/ <code>(define (leaf? object )) </code> / <code>(define (weight tree))</code> 这样的函数写得太多的时刻，会想 Haskell 中是如何应对<strong>数据的构造和提取</strong>这个问题的呢？</p>
+<!-- <span style="color: #888888; font-size: 0.85em;">（构造子 constructor， 构造 compound data 的函数，确实是有这个词；提取子，不知道是不是有这个词，我编的，意思是将组成的 compound data 的字段提取出来，一个例子是圆点/成员运算符 `person.age` ）</span> -->
+<p><strong>构造：</strong></p>
+<p>声明组合数据的语法如下：</p>
+<!-- _代数数据类型（Algebraic Data Types, ADTs）_ -->
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hs" data-lang="hs"><span style="display:flex;"><span><span style="color:#cf222e">data</span> <span style="color:#cf222e">Point</span> <span style="color:#0550ae">=</span> <span style="color:#cf222e">Point</span> <span style="color:#cf222e">Int</span> <span style="color:#cf222e">Int</span>
+</span></span></code></pre></div><p>定义了 <code>Point</code> 类型，对应一个构造子 <code>Point Int Int</code>，即后续可以通过此构造子构造 <code>Point</code> 类型的组合数据，比如 <code>p = Point 1 2</code>.</p>
+<p><strong>提取：</strong></p>
+<p><mark><strong>模式匹配 Pattern Match</strong></mark></p>
+<p>一个简单的例子:</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hs" data-lang="hs"><span style="display:flex;"><span><span style="color:#6639ba">getX</span> <span style="color:#0550ae">::</span> <span style="color:#cf222e">Point</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">Int</span> 
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">getX</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Point</span> x <span style="color:#cf222e">_</span><span style="color:#1f2328">)</span> <span style="color:#0550ae">=</span> x
+</span></span></code></pre></div><p>值得注意的一点是：如何构造（<code>Point Int Int</code>）这个组合数据就如何去匹配它 （<code>Point x _</code>），形式是一样的. 即——<strong>如何结构，就如何解构.</strong></p>
+<!-- 很多语言都有 Pattern Match 的语法，但是 Haskell 设计得真的太丝滑，我写这篇博客的目的就在于呈现上面加黑的那句话. -->
+<p>这个语法提供的一个优势是，可以对函数参数通过 Pattern Match 做解析，比如上面的例子：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hs" data-lang="hs"><span style="display:flex;"><span><span style="color:#6639ba">constructHuffTree</span> <span style="color:#0550ae">::</span> <span style="color:#1f2328">[</span><span style="color:#cf222e">HuffmanTree</span> a<span style="color:#1f2328">]</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">HuffmanTree</span> a
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">constructHuffTree</span> <span style="color:#cf222e">[]</span> <span style="color:#0550ae">=</span> <span style="color:#0550ae">...</span>          <span style="color:#57606a">-- 空叶子列表 → 返回空树</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">constructHuffTree</span> <span style="color:#1f2328">[</span>t<span style="color:#1f2328">]</span> <span style="color:#0550ae">=</span> <span style="color:#0550ae">...</span>         <span style="color:#57606a">-- 只有一个叶子 → 返回只有根结点的树</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">constructHuffTree</span> <span style="color:#1f2328">(</span>x<span style="color:#cf222e">:</span>y<span style="color:#cf222e">:</span>ts<span style="color:#1f2328">)</span> <span style="color:#0550ae">=</span> <span style="color:#0550ae">...</span>    <span style="color:#57606a">-- 有两个及以上叶子 → 递归建立 Huffman 树</span>
+</span></span></code></pre></div><p>呈现出来的表现是：<strong>函数参数被解构的方式，决定了函数的行为.</strong></p>
+<p>比如对于这样的问题：求解二叉树的结点的数量</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hs" data-lang="hs"><span style="display:flex;"><span><span style="color:#cf222e">data</span> <span style="color:#cf222e">Tree</span> a <span style="color:#0550ae">=</span> <span style="color:#cf222e">Empty</span> <span style="color:#0550ae">|</span> <span style="color:#cf222e">Node</span> a <span style="color:#1f2328">(</span><span style="color:#cf222e">Tree</span> a<span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Tree</span> a<span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">treeSize</span> <span style="color:#0550ae">::</span> <span style="color:#cf222e">Tree</span> a <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">Int</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">treeSize</span> <span style="color:#cf222e">Empty</span> <span style="color:#0550ae">=</span> <span style="color:#0550ae">0</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">treeSize</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">Node</span> <span style="color:#cf222e">_</span> left right<span style="color:#1f2328">)</span> <span style="color:#0550ae">=</span> <span style="color:#0550ae">1</span> <span style="color:#0550ae">+</span> treeSize left <span style="color:#0550ae">+</span> treeSize right
+</span></span></code></pre></div><ul>
+<li>
+<p>使用 <code>Empty</code> 构造子构造出的空树 → 直接返回 0 (递归基)</p>
+</li>
+<li>
+<p>使用 <code>Node</code> 构造子构造出的非空树 → 递归求解 (递归步)</p>
+</li>
+</ul>
+<p>数据的构造方式决定了我们对数据的处理方式，而在 Haskell 中，<strong>构造</strong>数据的形式和对数据进行<strong>模式匹配</strong>的形式是一致的，所以可以在函数参数位做模式匹配，一种模式对应一种函数行为.</p>
+<h3 id="lambda-calculus---pair-abstraction"><a href="#lambda-calculus---pair-abstraction" class="header-anchor"></a>Lambda Calculus - <code>pair</code> abstraction
+</h3><h4 id="pure-lambda-calculus-中的-pair-abstraction"><a href="#pure-lambda-calculus-%e4%b8%ad%e7%9a%84-pair-abstraction" class="header-anchor"></a>Pure Lambda Calculus 中的 <code>pair</code> abstraction
+</h4><p>上面<a class="link" href="#%e4%b8%80%e8%87%b4%e6%80%a7" >一致性</a>这一节提到的例子，可以使用<cite>纯 Lambda Calculus 来实现<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></cite>：</p>
+<pre tabindex="0"><code>pair = λm λn λb. b m n
+pair v w = λb. b v w
+</code></pre><p>这样的 abstraction 提供的视角是：通过对 <code>pair</code> 的两次应用（application），对 <code>m</code>, <code>n</code> 进行实例化，即 确定 <code>pair</code> 中所含的元素，剩下的 <code>b</code> 为后续在 <code>pair</code> 元素上进行的操作留接口.  若想对 <code>pair</code> 中的元素进行按序提取，可定义 <code>fst</code> 和 <code>snd</code>：</p>
+<pre tabindex="0"><code>fst = λa λb. a
+snd = λa λb. b
+
+(pair v w) fst  → v     // 根据 left associativity convention，这里的括号是可以省略的
+(pair v w) snd  → w
+</code></pre><p>如果你更希望以 <code>fst (pair v w)</code> 这样的编程风格呈现，当然也可以做到：</p>
+<pre tabindex="0"><code class="language-block" data-lang="block">tru = λt λf. t      // α 等价于上一个代码段定义的 `fst`，我们可以对同一个抽象做不同的理解
+fls = λt λf. f      //                   ...    `snd`    ...
+
+fst = λp. p tru
+snd = λp. p fls
+
+fst (pair v w)  → v 
+snd (pair v w)  → w 
+</code></pre><p>再次审视这个 abstraction：<code>pair = λm λn λb. b m n</code>. Lambda Calculus 中将我们惯常称之为函数的结构称为 abstraction（抽象），这里的 <code>pair</code> abstraction 就对 <code>pair</code> 的构造与操作进行了抽象，我们首先通过外层参 <code>m</code>, <code>n</code> 确定包含的元素，构建 <code>pair</code>，最后通过内层参 <code>b</code> 来执行对已有元素的操作；在这样的视角下，<code>pair</code> 天然具备与 Lambda Calculus 体系内其他函数（abstraction）交互的属性，因为在实例化 <code>pair</code> 元素之后，它向外界提供 <code>b</code> 这个交互接口，等待其他 abstraction 与 <code>pair</code> 已有的元素通过应用（application）交互.</p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>Types and Programming Languages - Chapter 5 The Untyped Lambda-Calculus&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/sicp/">SICP</a>
+        
+            <a href="/tags/haskell/">Haskell</a>
+        
+            <a href="/tags/lambda-calculus/">Lambda Calculus</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/boolean-from-a-message-passing-perspective-sicp-2.4.3-generics-boundaries-of-data-and-functions/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Boolean from a Message Passing Perspective - SICP § 2.4.3 | Generics | Boundaries of Data and Functions</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/nested-mapping-examples-implemented-in-haskell-sicp-2.2.3-list-monad/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Nested Mapping Examples Implemented in Haskell - SICP § 2.2.3  | List Monad </h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/programming-in-lambda-calculus-basic/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Programming in Lambda Calculus, Basic</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/how-to-avoid-redundant-computations--pure-functions-and-their-evaluation-strategies/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">How to Avoid Redundant Computations &#43; Pure Functions and Their Evaluation Strategies</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/the-construction-of-the-iteration-combinator-lcac-4c-theorem-4.20/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">The Construction of the Iteration Combinator - LCaC § 4C, Theorem 4.20</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2024 - 
+        
+        2025 fyshXplore
+    </section>
+    
+    <section class="powerby">
+        
+            Wish You a Nice Day! <br/>
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+    </body>
+</html>

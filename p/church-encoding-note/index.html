@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-    <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Motivation: Abstraction Level Up! 对 2 应用 $3$ 次 square\n1 ]=&gt; (square (square (square 2))) ;Value: 256 2 → x: 对某个数 x 应用 $3$ 次 square\n(define square3 (lambda (x) (square (square (square x))))) square → f: 对某个值 x 应用 $3$ 次某个函数 f\n(define three_times_f (lambda (f x) (f (f (f x))))) $3 → i$ : 对某个值 x 应用 $i$ 次某个函数 f $(i \\in \\mathbb{N})$\n">
+    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Motivation: Abstraction Level Up! Apply square 3 times to 2\n1 ]=&gt; (square (square (square 2))) ;Value: 256 2 → x: Apply square 3 times to some number x, use lambda to abstract 2 to x\n(define square3 (lambda (x) (square (square (square x))))) square → f: Apply some function f 3 times to some value x, similarly, use lambda to abstract square to f\n(define three_times_f (lambda (f x) (f (f (f x))))) $3 → i$ : Apply some function f to value x for $i$ times $(i \\in \\mathbb{N})$\n">
 <title>Church Encoding Note</title>
 
-<link rel='canonical' href='http://fyshxfish.github.io/p/church-encoding-note/'>
+<link rel='canonical' href='http://localhost:1313/p/church-encoding-note/'>
 
-<link rel="stylesheet" href="/scss/style.min.40db8f9e04bd213ebfbcd7be0a9fb1a9857a662aba6bf8c2157b3a29a553d615.css"><meta property='og:title' content="Church Encoding Note">
-<meta property='og:description' content="Motivation: Abstraction Level Up! 对 2 应用 $3$ 次 square\n1 ]=&gt; (square (square (square 2))) ;Value: 256 2 → x: 对某个数 x 应用 $3$ 次 square\n(define square3 (lambda (x) (square (square (square x))))) square → f: 对某个值 x 应用 $3$ 次某个函数 f\n(define three_times_f (lambda (f x) (f (f (f x))))) $3 → i$ : 对某个值 x 应用 $i$ 次某个函数 f $(i \\in \\mathbb{N})$\n">
-<meta property='og:url' content='http://fyshxfish.github.io/p/church-encoding-note/'>
+<link rel="stylesheet" href="/scss/style.min.be0d5e0eb92c2fa09941c16ce5a24165e9552d4dcbea0a1a378c27e26cc08e23.css"><meta property='og:title' content="Church Encoding Note">
+<meta property='og:description' content="Motivation: Abstraction Level Up! Apply square 3 times to 2\n1 ]=&gt; (square (square (square 2))) ;Value: 256 2 → x: Apply square 3 times to some number x, use lambda to abstract 2 to x\n(define square3 (lambda (x) (square (square (square x))))) square → f: Apply some function f 3 times to some value x, similarly, use lambda to abstract square to f\n(define three_times_f (lambda (f x) (f (f (f x))))) $3 → i$ : Apply some function f to value x for $i$ times $(i \\in \\mathbb{N})$\n">
+<meta property='og:url' content='http://localhost:1313/p/church-encoding-note/'>
 <meta property='og:site_name' content='fyshXplore'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='Scheme' /><meta property='article:tag' content='lambda calculus' /><meta property='article:published_time' content='2024-09-08T20:13:00&#43;08:00'/><meta property='article:modified_time' content='2024-09-08T20:13:00&#43;08:00'/>
 <meta name="twitter:title" content="Church Encoding Note">
-<meta name="twitter:description" content="Motivation: Abstraction Level Up! 对 2 应用 $3$ 次 square\n1 ]=&gt; (square (square (square 2))) ;Value: 256 2 → x: 对某个数 x 应用 $3$ 次 square\n(define square3 (lambda (x) (square (square (square x))))) square → f: 对某个值 x 应用 $3$ 次某个函数 f\n(define three_times_f (lambda (f x) (f (f (f x))))) $3 → i$ : 对某个值 x 应用 $i$ 次某个函数 f $(i \\in \\mathbb{N})$\n"><style>
+<meta name="twitter:description" content="Motivation: Abstraction Level Up! Apply square 3 times to 2\n1 ]=&gt; (square (square (square 2))) ;Value: 256 2 → x: Apply square 3 times to some number x, use lambda to abstract 2 to x\n(define square3 (lambda (x) (square (square (square x))))) square → f: Apply some function f 3 times to some value x, similarly, use lambda to abstract square to f\n(define three_times_f (lambda (f x) (f (f (f x))))) $3 → i$ : Apply some function f to value x for $i$ times $(i \\in \\mathbb{N})$\n"><style>
   :root {
      
     --zh-font-family: "Noto Serif SC";
@@ -232,9 +232,9 @@
 
                             <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
                                 
-                                    <option value="http://fyshxfish.github.io/zh/" >中文</option>
+                                    <option value="http://localhost:1313/zh/" >中文</option>
                                 
-                                    <option value="http://fyshxfish.github.io/" selected>English</option>
+                                    <option value="http://localhost:1313/" selected>English</option>
                                 
                             </select>
                         </li>
@@ -270,10 +270,10 @@
             <nav id="TableOfContents">
   <ol>
     <li><a href="#motivation-abstraction-level-up">Motivation: Abstraction Level Up!</a></li>
-    <li><a href="#理解-church-encoding">理解 Church Encoding</a></li>
+    <li><a href="#understanding-church-encoding">Understanding Church Encoding</a></li>
     <li><a href="#church-encoding-in-scheme">Church Encoding in Scheme</a></li>
-    <li><a href="#应用举例">应用举例</a></li>
-    <li><a href="#参考资料">参考资料</a></li>
+    <li><a href="#application-examples">Application Examples</a></li>
+    <li><a href="#references">References</a></li>
   </ol>
 </nav>
         </div>
@@ -338,7 +338,7 @@
 
 
                 <time class="article-time--reading">
-                    2 minute read
+                    3 minute read
                 </time>
             </div>
         
@@ -360,7 +360,7 @@
 
             <div>
                 
-                    <a href="http://fyshxfish.github.io/zh/p/church-encoding-note/" class="link">中文</a>
+                    <a href="http://localhost:1313/zh/p/church-encoding-%E7%AE%80%E5%8D%95%E7%AC%94%E8%AE%B0/" class="link">中文</a>
                 
             </div>
         </footer>
@@ -375,21 +375,21 @@
     <h2 id="motivation-abstraction-level-up"><a href="#motivation-abstraction-level-up" class="header-anchor"></a>Motivation: Abstraction Level Up!
 </h2><ol>
 <li>
-<p>对 <code>2</code> 应用 $3$ 次 <code>square</code></p>
+<p>Apply <code>square</code> 3 times to <code>2</code></p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scm" data-lang="scm"><span style="display:flex;"><span><span style="color:#0550ae">1</span> <span style="color:#1f2328">]</span><span style="color:#cf222e">=&gt; </span><span style="color:#1f2328">(</span><span style="color:#6639ba">square</span> <span style="color:#1f2328">(</span><span style="color:#6639ba">square</span> <span style="color:#1f2328">(</span><span style="color:#6639ba">square</span> <span style="color:#0550ae">2</span><span style="color:#1f2328">)))</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#57606a">;Value: 256</span>
 </span></span></code></pre></div></li>
 <li>
-<p><code>2</code> → <code>x</code>: 对某个数 <code>x</code> 应用 $3$ 次 <code>square</code></p>
+<p><code>2</code> → <code>x</code>: Apply <code>square</code> 3 times to some number <code>x</code>, use <code>lambda</code> to abstract <code>2</code> to <code>x</code></p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scm" data-lang="scm"><span style="display:flex;"><span><span style="color:#1f2328">(</span><span style="color:#cf222e">define </span><span style="color:#953800">square3</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">lambda </span><span style="color:#1f2328">(</span><span style="color:#6639ba">x</span><span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#6639ba">square</span> <span style="color:#1f2328">(</span><span style="color:#6639ba">square</span> <span style="color:#1f2328">(</span><span style="color:#6639ba">square</span> <span style="color:#953800">x</span><span style="color:#1f2328">)))))</span>
 </span></span></code></pre></div></li>
 <li>
-<p><code>square</code> → <code>f</code>: 对某个值 <code>x</code> 应用 $3$ 次某个函数 <code>f</code></p>
+<p><code>square</code> → <code>f</code>: Apply some function <code>f</code> 3 times to some value <code>x</code>, similarly, use <code>lambda</code> to abstract <code>square</code> to <code>f</code></p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scm" data-lang="scm"><span style="display:flex;"><span><span style="color:#1f2328">(</span><span style="color:#cf222e">define </span><span style="color:#953800">three_times_f</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">lambda </span><span style="color:#1f2328">(</span><span style="color:#6639ba">f</span> <span style="color:#953800">x</span><span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#6639ba">f</span> <span style="color:#1f2328">(</span><span style="color:#6639ba">f</span> <span style="color:#1f2328">(</span><span style="color:#6639ba">f</span> <span style="color:#953800">x</span><span style="color:#1f2328">)))))</span>
 </span></span></code></pre></div></li>
 <li>
-<p>$3 → i$ : 对某个值 <code>x</code> 应用 $i$ 次某个函数 <code>f</code> $(i \in \mathbb{N})$</p>
+<p>$3 → i$ : Apply some function <code>f</code> to value <code>x</code> for $i$ times $(i \in \mathbb{N})$</p>
 <ul>
 <li>
 <p>$i=0$</p>
@@ -404,26 +404,26 @@
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scm" data-lang="scm"><span style="display:flex;"><span><span style="color:#1f2328">(</span><span style="color:#cf222e">define </span><span style="color:#953800">two_times_f</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">lambda </span><span style="color:#1f2328">(</span><span style="color:#6639ba">f</span> <span style="color:#953800">x</span><span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#6639ba">f</span> <span style="color:#1f2328">(</span><span style="color:#6639ba">f</span> <span style="color:#953800">x</span><span style="color:#1f2328">))))</span>
 </span></span></code></pre></div></li>
 <li>
-<p>递归定义 $i$ 次应用</p>
+<p>Recursive definition of $i$ applications</p>
 <ul>
 <li>
-<p>递归基：</p>
+<p>Base case:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scm" data-lang="scm"><span style="display:flex;"><span><span style="color:#1f2328">(</span><span style="color:#cf222e">define </span><span style="color:#953800">zero_time_f</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">lambda </span><span style="color:#1f2328">(</span><span style="color:#6639ba">f</span> <span style="color:#953800">x</span><span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#6639ba">x</span><span style="color:#1f2328">)))</span>
 </span></span></code></pre></div></li>
 <li>
-<p>递归步：</p>
+<p>Recursive step:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scm" data-lang="scm"><span style="display:flex;"><span><span style="color:#1f2328">(</span><span style="color:#cf222e">define </span><span style="color:#1f2328">(</span><span style="color:#6639ba">succ</span> <span style="color:#953800">z</span><span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">lambda </span><span style="color:#1f2328">(</span><span style="color:#6639ba">f</span> <span style="color:#953800">x</span><span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#6639ba">f</span> <span style="color:#1f2328">(</span><span style="color:#6639ba">z</span> <span style="color:#953800">f</span> <span style="color:#953800">x</span><span style="color:#1f2328">))))</span>
 </span></span></code></pre></div></li>
 <li>
-<p>递归求解 $i$ 对应的 $i$ 次应用：</p>
+<p>Recursively solve for $i$ applications corresponding to $i$:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scm" data-lang="scm"><span style="display:flex;"><span><span style="color:#1f2328">(</span><span style="color:#cf222e">define </span><span style="color:#1f2328">(</span><span style="color:#6639ba">church</span> <span style="color:#953800">i</span><span style="color:#1f2328">)</span> 
 </span></span><span style="display:flex;"><span>    <span style="color:#1f2328">(</span><span style="color:#cf222e">if </span><span style="color:#1f2328">(</span><span style="color:#6639ba">= </span><span style="color:#953800">i</span> <span style="color:#0550ae">0</span><span style="color:#1f2328">)</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#953800">zero_time_f</span>
 </span></span><span style="display:flex;"><span>        <span style="color:#1f2328">(</span><span style="color:#6639ba">succ</span> <span style="color:#1f2328">(</span><span style="color:#6639ba">church</span> <span style="color:#1f2328">(</span><span style="color:#6639ba">- </span><span style="color:#953800">i</span> <span style="color:#0550ae">1</span><span style="color:#1f2328">)))</span>
 </span></span><span style="display:flex;"><span>    <span style="color:#1f2328">)</span>
 </span></span><span style="display:flex;"><span><span style="color:#1f2328">)</span>     
-</span></span></code></pre></div><p>这就是自然数 $i$ 对应的 <mark>Church Encoding</mark>.</p>
-<p>在 REPL 中简单做一个测试：对 <code>3</code> 应用 $2$ 次 <code>cube</code> $((3^3)^3=19683)$</p>
+</span></span></code></pre></div><p>This is the <mark>Church Encoding</mark> corresponding to natural number $i$.</p>
+<p>A simple test in REPL: Apply <code>cube</code> 2 times to <code>3</code> $((3^3)^3=19683)$</p>
 <pre tabindex="0"><code>1 ]=&gt; (church 2)
 ;Value: #[compound-procedure 15]
 
@@ -435,25 +435,24 @@
 </ul>
 </li>
 </ol>
-<hr>
-<h2 id="理解-church-encoding"><a href="#%e7%90%86%e8%a7%a3-church-encoding" class="header-anchor"></a>理解 Church Encoding
-</h2><p>Church Encoding <strong><span style="color: darkred;">不是</span></strong>：</p>
+<h2 id="understanding-church-encoding"><a href="#understanding-church-encoding" class="header-anchor"></a>Understanding Church Encoding
+</h2><p>Church Encoding is <strong><span style="color: darkred;">NOT</span></strong>:</p>
 <ul>
 <li>
-<p>可以被存储在物理存储器中的，可以用 bit 表示的数字</p>
+<p>Numbers that target to be stored in physical memory or represented in bits</p>
 </li>
 <li>
-<p>为了算数运算（类似 $3.14 × 2.17$ ）而设计</p>
+<p>Designed for arithmetic operations (like $3.14 × 2.17$)</p>
 </li>
 </ul>
-<p>Church Encoding 是：</p>
+<p>Church Encoding is:</p>
 <ul>
-<li>对 &quot; <strong>计数</strong> &quot; 的<strong>抽象</strong></li>
+<li>An <strong>abstraction</strong> of <strong>counting</strong></li>
 </ul>
-<p>Church Encoding 是对计数过程的一种抽象，在 Lambda Calculus 的语境里，归纳定义 $λ-term$ 的三条规则分别涉及了 $atom$, $abstraction$, $application$，Church Encoding 可以理解为：有一个起始的 $atom$ 和一个 $abstraction$ ，我们希望对这个 $atom$ 进行<strong>若干次</strong> $abstraction$ 的应用（$apply$），我们使用更高一层的 $abstraction$ 来抽象对 &quot; <strong>若干次</strong> &quot; 进行计数的过程，这一层对于计数过程的抽象就是 Church Encoding.</p>
+<p>Church Encoding is an abstraction of the counting process. In the context of Lambda Calculus, the three rules for inductively defining $λ-terms$ involve $atom$, $abstraction$, and $application$. Church Encoding can be understood as: given an initial $term$ and an $abstraction$, we want to apply this $abstraction$ to the $atom$ <strong>multiple times</strong> ($apply$). We use a higher-level $abstraction$ to abstract the process of counting these &ldquo;<strong>multiple times</strong>&rdquo;, and this layer of abstraction for the counting process is Church Encoding.</p>
 <h2 id="church-encoding-in-scheme"><a href="#church-encoding-in-scheme" class="header-anchor"></a>Church Encoding in Scheme
 </h2><p>$zero：λf.λx.x$</p>
-<p>对某个 $term$ 进行 $0$ 次任意 $abstraction$ 的应用，返回值依然是原来的 $term$.</p>
+<p>Applying any $abstraction$ 0 times to a $term$ returns the original $term$.</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scm" data-lang="scm"><span style="display:flex;"><span><span style="color:#1f2328">(</span><span style="color:#cf222e">define </span><span style="color:#953800">zero</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">lambda </span><span style="color:#1f2328">(</span><span style="color:#6639ba">f</span> <span style="color:#953800">x</span><span style="color:#1f2328">)</span> <span style="color:#953800">x</span><span style="color:#1f2328">))</span>
 </span></span></code></pre></div><p>$one：λf.λx.(f x)$</br>
 $two：λf.λx.(f (f x))$</br>
@@ -461,23 +460,19 @@ $three: λf.λx.(f (f (f x)))$</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scm" data-lang="scm"><span style="display:flex;"><span><span style="color:#1f2328">(</span><span style="color:#cf222e">define </span><span style="color:#953800">one</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">lambda </span><span style="color:#1f2328">(</span><span style="color:#6639ba">f</span> <span style="color:#953800">x</span><span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#6639ba">f</span> <span style="color:#953800">x</span><span style="color:#1f2328">)))</span>
 </span></span><span style="display:flex;"><span><span style="color:#1f2328">(</span><span style="color:#cf222e">define </span><span style="color:#953800">two</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">lambda </span><span style="color:#1f2328">(</span><span style="color:#6639ba">f</span> <span style="color:#953800">x</span><span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#6639ba">f</span> <span style="color:#1f2328">(</span><span style="color:#6639ba">f</span> <span style="color:#953800">x</span><span style="color:#1f2328">))))</span>
 </span></span><span style="display:flex;"><span><span style="color:#1f2328">(</span><span style="color:#cf222e">define </span><span style="color:#953800">thr</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">lambda </span><span style="color:#1f2328">(</span><span style="color:#6639ba">f</span> <span style="color:#953800">x</span><span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#6639ba">f</span> <span style="color:#1f2328">(</span><span style="color:#6639ba">f</span> <span style="color:#1f2328">(</span><span style="color:#6639ba">f</span> <span style="color:#953800">x</span><span style="color:#1f2328">)))))</span>
-</span></span></code></pre></div><p>写到 <code>thr</code> 的时候注意到这里的递归结构，递归基毫无疑问是 <code>zero</code>，递归步 <code>succ</code> 如下：</p>
+</span></span></code></pre></div><p>When writing <code>thr</code>, we notice the recursive structure. The base case is clearly <code>zero</code>, and the recursive step <code>succ</code> is as follows:</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-scm" data-lang="scm"><span style="display:flex;"><span><span style="color:#1f2328">(</span><span style="color:#cf222e">define </span><span style="color:#1f2328">(</span><span style="color:#6639ba">succ</span> <span style="color:#953800">z</span><span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#cf222e">lambda </span><span style="color:#1f2328">(</span><span style="color:#6639ba">f</span> <span style="color:#953800">x</span><span style="color:#1f2328">)</span> <span style="color:#1f2328">(</span><span style="color:#6639ba">f</span> <span style="color:#1f2328">(</span><span style="color:#6639ba">z</span> <span style="color:#953800">f</span> <span style="color:#953800">x</span><span style="color:#1f2328">)))</span> <span style="color:#1f2328">)</span>
-</span></span></code></pre></div><!-- `z` 的后继是 -->
-<!-- （如果觉得直接写 `succ z` 不好写，可以先不考虑 `lambda`，假设 f x 是和 z 同位置的参数，先写一个 (succ_result z f x) 
-        (define (succ_result z f x) (f (z f x)) )
-      ） -->
-<h2 id="应用举例"><a href="#%e5%ba%94%e7%94%a8%e4%b8%be%e4%be%8b" class="header-anchor"></a>应用举例
-</h2><p>Church Encoding 是对计数的抽象，如果我们希望对 <code>2</code> 进行 3 次平方（<code>square</code>）操作： $((2^2)^2)^2=256$</p>
+</span></span></code></pre></div><h2 id="application-examples"><a href="#application-examples" class="header-anchor"></a>Application Examples
+</h2><p>Church Encoding is an abstraction of counting. If we want to square (<code>square</code>) the number <code>2</code> three times: $((2^2)^2)^2=256$</p>
 <pre tabindex="0"><code>1 ]=&gt; (thr square 2)
 ;Value: 256
-</code></pre><p>验证 <code>succ</code> 的正确性：</p>
+</code></pre><p>Verify the correctness of <code>succ</code>:</p>
 <pre tabindex="0"><code>1 ]=&gt; (succ (succ (succ zero)))
 ;Value: #[compound-procedure 17]
 
 1 ]=&gt; (#[compound-procedure 17] square 2)
 ;Value: 256
-</code></pre><h2 id="参考资料"><a href="#%e5%8f%82%e8%80%83%e8%b5%84%e6%96%99" class="header-anchor"></a>参考资料
+</code></pre><h2 id="references"><a href="#references" class="header-anchor"></a>References
 </h2><ul>
 <li>
 <p><a class="link" href="https://en.wikipedia.org/wiki/Church_encoding"  target="_blank" rel="noopener"
@@ -485,16 +480,12 @@ $three: λf.λx.(f (f (f x)))$</p>
 </li>
 <li>
 <p>Types and Programming Languages, Chapter 5 The Untyped Lambda-Calculus</p>
-  <!-- 见证 Lambda-Calculus 的强大魅力 -->
 </li>
 <li>
-<p>一则<a class="link" href="https://www.zhihu.com/question/39930042/answer/2415190431?utm_psn=1816166240617631745"  target="_blank" rel="noopener"
-    >知乎回答</a></p>
+<p>A <a class="link" href="https://www.zhihu.com/question/39930042/answer/2415190431?utm_psn=1816166240617631745"  target="_blank" rel="noopener"
+    >Zhihu answer</a></p>
 </li>
 </ul>
-<!-- ## 后记
-
-Church Encoding 让我困惑了很久，每次我听到一些视频 / 博客里说 "zero 就是把函数应用 0 次，one 就是把函数应用 1 次"，我都感觉是不是我的直觉太差了，不是很能懂得这句话的意思，至于 $two：λf.λx.(f&thinsp;(f&thinsp;x))$ 更是拆开都认识，合起来不知道它是如何 make sense 的. 我想应该是我潜意识里一直试图把它和算术运算挂靠在一起，所以一直不理解. Church Encoding 被翻译成丘奇**数**，我觉得这个翻译也给我造成了某种困扰，这也是前文完全不提供翻译的原因. 很多材料（比如 SICP ）谈及丘奇数给出的例子是：把 `add-1` 作用于 `0`，我觉得这个例子也是容易给人造成误会的，好吧其实是给我造成误会了，让我觉得 `1`,`2`,`3` 和 `one`, `two`, `thr` 之间有某种 Church Encoding 设计上的必然的联系，所以我给出的例子是对`2`应用 3 次 `square`. 接触以 Lambda Calculus 为起点的 FP 内容，尽量避免过拟合，甚至最好不要试图去拟合，很多困扰可能是 过往的经验 / 经验所塑造的潜意识 带给你的. -->
 
 </section>
 
@@ -589,12 +580,12 @@ Church Encoding 让我困惑了很久，每次我听到一些视频 / 博客里�
             
                 
 <article class="">
-    <a href="/p/boolean-from-a-message-passing-perspective-sicp-2.4.3-generics-boundaries-of-data-and-functions/">
+    <a href="/p/message-passing-perspective-on-bool-sicp-2.4.3-generic-data-and-functions/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">Boolean from a Message Passing Perspective - SICP § 2.4.3 | Generics | Boundaries of Data and Functions</h2>
+            <h2 class="article-title">Message Passing Perspective on Bool - SICP § 2.4.3 | Generic | Data and Functions</h2>
         </div>
     </a>
 </article>
@@ -602,12 +593,12 @@ Church Encoding 让我困惑了很久，每次我听到一些视频 / 博客里�
             
                 
 <article class="">
-    <a href="/p/huffman-tree-implementation-in-haskell-sicp-2.3.4-structuring-and-destructuring-of-composed-data/">
+    <a href="/p/huffman-trees-in-haskell-structure-and-destructure-of-compound-data/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">Huffman Tree Implementation in Haskell - SICP § 2.3.4 | Structuring and Destructuring of Composed Data</h2>
+            <h2 class="article-title">Huffman Trees in Haskell | Structure and Destructure of Compound Data</h2>
         </div>
     </a>
 </article>
