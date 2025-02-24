@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Xplore on fyshXplore</title>
-        <link>http://localhost:1313/zh/categories/xplore/</link>
+        <link>http://fyshxfish.github.io/zh/categories/xplore/</link>
         <description>Recent content in Xplore on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh</language>
-        <lastBuildDate>Mon, 17 Feb 2025 16:32:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/zh/categories/xplore/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 17 Feb 2025 16:32:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/zh/categories/xplore/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>杂谈向：为什么编译需要做语义分析 / 上下文（Context）与语法语义分析</title>
-        <link>http://localhost:1313/zh/p/%E6%9D%82%E8%B0%88%E5%90%91%E4%B8%BA%E4%BB%80%E4%B9%88%E7%BC%96%E8%AF%91%E9%9C%80%E8%A6%81%E5%81%9A%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90-/-%E4%B8%8A%E4%B8%8B%E6%96%87context%E4%B8%8E%E8%AF%AD%E6%B3%95%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90/</link>
+        <link>http://fyshxfish.github.io/zh/p/%E6%9D%82%E8%B0%88%E5%90%91%E4%B8%BA%E4%BB%80%E4%B9%88%E7%BC%96%E8%AF%91%E9%9C%80%E8%A6%81%E5%81%9A%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90-/-%E4%B8%8A%E4%B8%8B%E6%96%87context%E4%B8%8E%E8%AF%AD%E6%B3%95%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90/</link>
         <pubDate>Mon, 17 Feb 2025 16:32:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/zh/p/%E6%9D%82%E8%B0%88%E5%90%91%E4%B8%BA%E4%BB%80%E4%B9%88%E7%BC%96%E8%AF%91%E9%9C%80%E8%A6%81%E5%81%9A%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90-/-%E4%B8%8A%E4%B8%8B%E6%96%87context%E4%B8%8E%E8%AF%AD%E6%B3%95%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90/</guid>
+        <guid>http://fyshxfish.github.io/zh/p/%E6%9D%82%E8%B0%88%E5%90%91%E4%B8%BA%E4%BB%80%E4%B9%88%E7%BC%96%E8%AF%91%E9%9C%80%E8%A6%81%E5%81%9A%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90-/-%E4%B8%8A%E4%B8%8B%E6%96%87context%E4%B8%8E%E8%AF%AD%E6%B3%95%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90/</guid>
         <description>&lt;!-- 最近在看一点编译原理的材料， --&gt;
 &lt;h2 id=&#34;引言&#34;&gt;&lt;a href=&#34;#%e5%bc%95%e8%a8%80&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;引言
 &lt;/h2&gt;&lt;p&gt;标题的这个问题，其实是一个不太正确的问题，因为对于语言而言，设计先于实现——先设计语言的语法和语义，然后写编译器去检查一个程序语法是否正确，然后根据设定好的语义将它转写成目标机器代码。从“上下文”这个视角去思考，常见情况下，语法是&lt;strong&gt;上下文无关&lt;/strong&gt;的，而语义正是用来处理&lt;strong&gt;上下文相关&lt;/strong&gt;的问题的，&lt;code&gt;x = 1; print(x);&lt;/code&gt; 和 &lt;code&gt;x = 2; print(x);&lt;/code&gt;，同样是 &lt;code&gt;print(x)&lt;/code&gt;，它的上文是不一样的，所以它导致的结果也不一样.&lt;/p&gt;
@@ -52,22 +52,28 @@ main
         </item>
         <item>
         <title>在终端里播放幻灯片</title>
-        <link>http://localhost:1313/zh/p/%E5%9C%A8%E7%BB%88%E7%AB%AF%E9%87%8C%E6%92%AD%E6%94%BE%E5%B9%BB%E7%81%AF%E7%89%87/</link>
+        <link>http://fyshxfish.github.io/zh/p/%E5%9C%A8%E7%BB%88%E7%AB%AF%E9%87%8C%E6%92%AD%E6%94%BE%E5%B9%BB%E7%81%AF%E7%89%87/</link>
         <pubDate>Fri, 07 Feb 2025 22:52:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/zh/p/%E5%9C%A8%E7%BB%88%E7%AB%AF%E9%87%8C%E6%92%AD%E6%94%BE%E5%B9%BB%E7%81%AF%E7%89%87/</guid>
+        <guid>http://fyshxfish.github.io/zh/p/%E5%9C%A8%E7%BB%88%E7%AB%AF%E9%87%8C%E6%92%AD%E6%94%BE%E5%B9%BB%E7%81%AF%E7%89%87/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;&lt;a href=&#34;#%e5%89%8d%e8%a8%80&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;前言
 &lt;/h2&gt;&lt;p&gt;灵感来自蒋炎岩老师的一次讲座：&lt;a class=&#34;link&#34; href=&#34;https://www.bilibili.com/video/BV1MV411F738/?share_source=copy_web&amp;amp;vd_source=09e32470959b198a596693ee5235cca9&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;[算法竞赛入门] 为什么要逼大家用 NOILinux？&lt;/a&gt;，有参考，但不完全一样.&lt;/p&gt;
 &lt;p&gt;掌握此技能，你将可以——在某种程度上达成“在终端展示幻灯片”的效果，实用性一般，但是可以玩一玩 &lt;code&gt;·^v^·&lt;/code&gt;&lt;/p&gt;
 &lt;h2 id=&#34;效果展示&#34;&gt;&lt;a href=&#34;#%e6%95%88%e6%9e%9c%e5%b1%95%e7%a4%ba&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;效果展示
-&lt;/h2&gt;&lt;img src=&#34;1.png&#34; alt=&#34;1&#34; style=&#34;zoom:80%;&#34; /&gt;
-&lt;img src=&#34;2.png&#34; alt=&#34;2&#34; style=&#34;zoom:80%;&#34; /&gt;
-&lt;img src=&#34;3.png&#34; alt=&#34;3&#34; style=&#34;zoom:80%;&#34; /&gt;
-&lt;img src=&#34;4.png&#34; alt=&#34;4&#34; style=&#34;zoom:80%;&#34; /&gt;
-&lt;img src=&#34;5.png&#34; alt=&#34;5&#34; style=&#34;zoom:80%;&#34; /&gt;
-&lt;img src=&#34;6.png&#34; alt=&#34;6&#34; style=&#34;zoom:80%;&#34; /&gt;
-&lt;img src=&#34;7.png&#34; alt=&#34;7&#34; style=&#34;zoom:80%;&#34; /&gt;
+&lt;/h2&gt;&lt;div class=&#34;image-gallery&#34;&gt;
+  &lt;div class=&#34;image-container&#34;&gt;
+    &lt;img src=&#34;1.png&#34; alt=&#34;Image 1&#34;&gt;
+    &lt;img src=&#34;2.png&#34; alt=&#34;Image 2&#34;&gt;
+    &lt;img src=&#34;3.png&#34; alt=&#34;Image 3&#34;&gt;
+    &lt;img src=&#34;4.png&#34; alt=&#34;Image 4&#34;&gt;
+    &lt;img src=&#34;5.png&#34; alt=&#34;Image 5&#34;&gt;
+    &lt;img src=&#34;6.png&#34; alt=&#34;Image 6&#34;&gt;
+    &lt;img src=&#34;7.png&#34; alt=&#34;Image 7&#34;&gt;
+  &lt;/div&gt;
+  &lt;button class=&#34;prev-btn&#34; onclick=&#34;moveSlide(-1)&#34;&gt;&amp;#10094; &lt;/button&gt;
+  &lt;button class=&#34;next-btn&#34; onclick=&#34;moveSlide(1)&#34;&gt; &amp;#10095;&lt;/button&gt;
+&lt;/div&gt;
 &lt;h2 id=&#34;具体实现&#34;&gt;&lt;a href=&#34;#%e5%85%b7%e4%bd%93%e5%ae%9e%e7%8e%b0&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;具体实现
 &lt;/h2&gt;&lt;h3 id=&#34;整体框架&#34;&gt;&lt;a href=&#34;#%e6%95%b4%e4%bd%93%e6%a1%86%e6%9e%b6&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;整体框架
 &lt;/h3&gt;&lt;h4 id=&#34;目录&#34;&gt;&lt;a href=&#34;#%e7%9b%ae%e5%bd%95&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;目录
@@ -184,10 +190,10 @@ main
         </item>
         <item>
         <title>Rust 基础与 gdb 使用拾遗</title>
-        <link>http://localhost:1313/zh/p/rust-%E5%9F%BA%E7%A1%80%E4%B8%8E-gdb-%E4%BD%BF%E7%94%A8%E6%8B%BE%E9%81%97/</link>
+        <link>http://fyshxfish.github.io/zh/p/rust-%E5%9F%BA%E7%A1%80%E4%B8%8E-gdb-%E4%BD%BF%E7%94%A8%E6%8B%BE%E9%81%97/</link>
         <pubDate>Mon, 05 Aug 2024 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/zh/p/rust-%E5%9F%BA%E7%A1%80%E4%B8%8E-gdb-%E4%BD%BF%E7%94%A8%E6%8B%BE%E9%81%97/</guid>
+        <guid>http://fyshxfish.github.io/zh/p/rust-%E5%9F%BA%E7%A1%80%E4%B8%8E-gdb-%E4%BD%BF%E7%94%A8%E6%8B%BE%E9%81%97/</guid>
         <description>&lt;p&gt; &lt;/p&gt;
 &lt;h2 id=&#34;如何调试一个rust程序&#34;&gt;&lt;a href=&#34;#%e5%a6%82%e4%bd%95%e8%b0%83%e8%af%95%e4%b8%80%e4%b8%aarust%e7%a8%8b%e5%ba%8f&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;如何调试一个rust程序？
 &lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ gdb excutable
@@ -349,10 +355,10 @@ main
         </item>
         <item>
         <title>简单的 Bash CLI 程序 &amp; 简单的元编程</title>
-        <link>http://localhost:1313/zh/p/%E7%AE%80%E5%8D%95%E7%9A%84-bash-cli-%E7%A8%8B%E5%BA%8F-%E7%AE%80%E5%8D%95%E7%9A%84%E5%85%83%E7%BC%96%E7%A8%8B/</link>
+        <link>http://fyshxfish.github.io/zh/p/%E7%AE%80%E5%8D%95%E7%9A%84-bash-cli-%E7%A8%8B%E5%BA%8F-%E7%AE%80%E5%8D%95%E7%9A%84%E5%85%83%E7%BC%96%E7%A8%8B/</link>
         <pubDate>Wed, 03 Apr 2024 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/zh/p/%E7%AE%80%E5%8D%95%E7%9A%84-bash-cli-%E7%A8%8B%E5%BA%8F-%E7%AE%80%E5%8D%95%E7%9A%84%E5%85%83%E7%BC%96%E7%A8%8B/</guid>
+        <guid>http://fyshxfish.github.io/zh/p/%E7%AE%80%E5%8D%95%E7%9A%84-bash-cli-%E7%A8%8B%E5%BA%8F-%E7%AE%80%E5%8D%95%E7%9A%84%E5%85%83%E7%BC%96%E7%A8%8B/</guid>
         <description>&lt;h2 id=&#34;简单的前言&#34;&gt;&lt;a href=&#34;#%e7%ae%80%e5%8d%95%e7%9a%84%e5%89%8d%e8%a8%80&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;简单的前言
 &lt;/h2&gt;&lt;p&gt;虽然这里的日期是 2024-04-03，但是我写这篇博客的时候其实是 2025-02-18，写 2025-02-17 那篇博客的时候，提到 polyglot 相关的内容，这部分内容其实是上上个学期的计算机系统的讨论课的产出，于是想着把沉睡在 &amp;hellip;/Downloads，&amp;hellip;/Courses/CS24Spring，小组群文件等目录里的讨论课材料里有点意思的部分翻出来晾晾，所以这一页博客出现在你的眼前.&lt;/p&gt;
 &lt;p&gt;我看到相当多的说法说 bash 的语法很不舒服，然而我在接触到这种说法之前，已然习惯了 bash 的语法，“我比流言蜚语先认识你”??😶‍🌫️&lt;/p&gt;
@@ -422,10 +428,10 @@ main
         </item>
         <item>
         <title>简单看看 `file` 命令</title>
-        <link>http://localhost:1313/zh/p/%E7%AE%80%E5%8D%95%E7%9C%8B%E7%9C%8B-file-%E5%91%BD%E4%BB%A4/</link>
+        <link>http://fyshxfish.github.io/zh/p/%E7%AE%80%E5%8D%95%E7%9C%8B%E7%9C%8B-file-%E5%91%BD%E4%BB%A4/</link>
         <pubDate>Wed, 20 Mar 2024 20:50:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/zh/p/%E7%AE%80%E5%8D%95%E7%9C%8B%E7%9C%8B-file-%E5%91%BD%E4%BB%A4/</guid>
+        <guid>http://fyshxfish.github.io/zh/p/%E7%AE%80%E5%8D%95%E7%9C%8B%E7%9C%8B-file-%E5%91%BD%E4%BB%A4/</guid>
         <description>&lt;h2 id=&#34;简单的前言&#34;&gt;&lt;a href=&#34;#%e7%ae%80%e5%8d%95%e7%9a%84%e5%89%8d%e8%a8%80&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;简单的前言
 &lt;/h2&gt;&lt;p&gt;虽然这里的日期是 2024-03-20，但是我写这篇博客的时候其实是 2025-02-18，来自我的计算机系统的讨论课材料. 如果你想知道一个文件的类型，那么你可能会用到 &lt;code&gt;file&lt;/code&gt; 这个命令，&lt;code&gt;file&lt;/code&gt; 会告诉你这个文件的类型，那么 &lt;code&gt;file&lt;/code&gt; 是如何知道文件的类型的，或者说，系统中的文件如何告诉 &lt;code&gt;file&lt;/code&gt;（或者任意一个想知道其类型的程序）自己的类型，文件把类型的信息放在哪里？&lt;/p&gt;
 &lt;h2 id=&#34;阅读手册&#34;&gt;&lt;a href=&#34;#%e9%98%85%e8%af%bb%e6%89%8b%e5%86%8c&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;阅读手册

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="-Inspired by Algorithm Design and Analysis course, 2024 Fall-\nIntroduction In this semester&rsquo;s algorithms course, we focused on two major categories of search algorithms: backtracking and branch-and-bound. Previously, I always treated various search algorithms like DFS and BFS separately, comparing their differences. In this article, I aim to abstract search algorithms, expecting to derive familiar search strategies from a concise abstract model.\nAbstracting the Search Model and Process Here&rsquo;s the model I&rsquo;ve summarized, demonstrated in Haskell:\n">
 <title>Abstractions for Search Algorithms</title>
 
-<link rel='canonical' href='http://localhost:1313/p/abstractions-for-search-algorithms/'>
+<link rel='canonical' href='http://fyshxfish.github.io/p/abstractions-for-search-algorithms/'>
 
-<link rel="stylesheet" href="/scss/style.min.be0d5e0eb92c2fa09941c16ce5a24165e9552d4dcbea0a1a378c27e26cc08e23.css"><meta property='og:title' content="Abstractions for Search Algorithms">
+<link rel="stylesheet" href="/scss/style.min.6e82346d850613bc57230e4ca20f047ed0a92acdad6f653aee5a2f927e2e7c86.css"><meta property='og:title' content="Abstractions for Search Algorithms">
 <meta property='og:description' content="-Inspired by Algorithm Design and Analysis course, 2024 Fall-\nIntroduction In this semester&rsquo;s algorithms course, we focused on two major categories of search algorithms: backtracking and branch-and-bound. Previously, I always treated various search algorithms like DFS and BFS separately, comparing their differences. In this article, I aim to abstract search algorithms, expecting to derive familiar search strategies from a concise abstract model.\nAbstracting the Search Model and Process Here&rsquo;s the model I&rsquo;ve summarized, demonstrated in Haskell:\n">
-<meta property='og:url' content='http://localhost:1313/p/abstractions-for-search-algorithms/'>
+<meta property='og:url' content='http://fyshxfish.github.io/p/abstractions-for-search-algorithms/'>
 <meta property='og:site_name' content='fyshXplore'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='haskell' /><meta property='article:published_time' content='2024-11-24T12:09:00&#43;08:00'/><meta property='article:modified_time' content='2024-11-24T12:09:00&#43;08:00'/>
 <meta name="twitter:title" content="Abstractions for Search Algorithms">
@@ -36,6 +36,8 @@
     document.head.appendChild(customFont);
   })();
 </script>
+
+
 
     </head>
     <body class="
@@ -232,9 +234,9 @@
 
                             <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
                                 
-                                    <option value="http://localhost:1313/zh/" >中文</option>
+                                    <option value="http://fyshxfish.github.io/zh/" >中文</option>
                                 
-                                    <option value="http://localhost:1313/" selected>English</option>
+                                    <option value="http://fyshxfish.github.io/" selected>English</option>
                                 
                             </select>
                         </li>
@@ -360,7 +362,7 @@
 
             <div>
                 
-                    <a href="http://localhost:1313/zh/p/%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95%E7%9A%84%E6%8A%BD%E8%B1%A1/" class="link">中文</a>
+                    <a href="http://fyshxfish.github.io/zh/p/%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95%E7%9A%84%E6%8A%BD%E8%B1%A1/" class="link">中文</a>
                 
             </div>
         </footer>
@@ -483,7 +485,7 @@
 </li>
 <li>
 <p>Overall Program Framework:</p>
- <img src="view1.png" alt="framework" style="zoom:80%; " />
+ <img src="view2.png" alt="framework" style="zoom:80%; " />
 </li>
 </ol>
 <h2 id="brief-description-of-other-instances"><a href="#brief-description-of-other-instances" class="header-anchor"></a>Brief Description of Other Instances
@@ -585,25 +587,12 @@
             
                 
 <article class="">
-    <a href="/p/programming-in-lambda-calculus-basic/">
+    <a href="/p/basic-lambda-calculus-programming-solutions-for-game-functional-on-steam/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">Programming in Lambda Calculus, Basic</h2>
-        </div>
-    </a>
-</article>
-
-            
-                
-<article class="">
-    <a href="/p/how-to-avoid-redundant-computations--pure-functions-and-their-evaluation-strategies/">
-        
-        
-
-        <div class="article-details">
-            <h2 class="article-title">How to Avoid Redundant Computations &#43; Pure Functions and Their Evaluation Strategies</h2>
+            <h2 class="article-title">Basic Lambda Calculus Programming (Solutions for game functional on Steam)</h2>
         </div>
     </a>
 </article>
@@ -643,6 +632,19 @@
 
         <div class="article-details">
             <h2 class="article-title">Message Passing Perspective on Bool - SICP § 2.4.3 | Generic | Data and Functions</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/huffman-trees-in-haskell-structure-and-destructure-of-compound-data/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Huffman Trees in Haskell | Structure and Destructure of Compound Data</h2>
         </div>
     </a>
 </article>
@@ -772,5 +774,27 @@
     }());
 </script>
 
+  
+  
+<script>
+let currentIndex = 0;
+const images = document.querySelectorAll('.image-container img');
+const totalImages = images.length;
+
+
+images[currentIndex].classList.add('active');
+
+function moveSlide(step) {
+    
+    images[currentIndex].classList.remove('active');
+
+    
+    currentIndex = (currentIndex + step + totalImages) % totalImages;
+
+    
+    images[currentIndex].classList.add('active');
+}
+</script>
+    
     </body>
 </html>

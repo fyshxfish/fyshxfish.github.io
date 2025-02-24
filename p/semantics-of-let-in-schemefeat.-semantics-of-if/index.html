@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" Semantics of let Key point: A let scope is evaluated immediately (including both bindings and expressions after bindings, i.e., everything within the outer parentheses of the let), even if the let is nested inside an inner function that hasn&rsquo;t been called yet.\nExample:\n(define (comp x) (if (&gt; 3 x) (display &#34;then-clause&#34;) (display &#34;else-clause&#34;) ) #| (define foo1 (let ((bar1 (/ 2 0))) ; * evaluted immediately (display &#34;should not be printed&#34;) ) ) |# (define foo2 (let ((bar2 (/ 5 2))) ; * evaluted immediately (newline) (display &#34;let in `foo2`, bar2: &#34;) (display bar2) ) ) ) Running examples:\n">
 <title>Semantics of `let` in Scheme(feat. Semantics of `if`)</title>
 
-<link rel='canonical' href='http://localhost:1313/p/semantics-of-let-in-schemefeat.-semantics-of-if/'>
+<link rel='canonical' href='http://fyshxfish.github.io/p/semantics-of-let-in-schemefeat.-semantics-of-if/'>
 
-<link rel="stylesheet" href="/scss/style.min.be0d5e0eb92c2fa09941c16ce5a24165e9552d4dcbea0a1a378c27e26cc08e23.css"><meta property='og:title' content="Semantics of `let` in Scheme(feat. Semantics of `if`)">
+<link rel="stylesheet" href="/scss/style.min.6e82346d850613bc57230e4ca20f047ed0a92acdad6f653aee5a2f927e2e7c86.css"><meta property='og:title' content="Semantics of `let` in Scheme(feat. Semantics of `if`)">
 <meta property='og:description' content=" Semantics of let Key point: A let scope is evaluated immediately (including both bindings and expressions after bindings, i.e., everything within the outer parentheses of the let), even if the let is nested inside an inner function that hasn&rsquo;t been called yet.\nExample:\n(define (comp x) (if (&gt; 3 x) (display &#34;then-clause&#34;) (display &#34;else-clause&#34;) ) #| (define foo1 (let ((bar1 (/ 2 0))) ; * evaluted immediately (display &#34;should not be printed&#34;) ) ) |# (define foo2 (let ((bar2 (/ 5 2))) ; * evaluted immediately (newline) (display &#34;let in `foo2`, bar2: &#34;) (display bar2) ) ) ) Running examples:\n">
-<meta property='og:url' content='http://localhost:1313/p/semantics-of-let-in-schemefeat.-semantics-of-if/'>
+<meta property='og:url' content='http://fyshxfish.github.io/p/semantics-of-let-in-schemefeat.-semantics-of-if/'>
 <meta property='og:site_name' content='fyshXplore'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='SICP' /><meta property='article:tag' content='Scheme' /><meta property='article:published_time' content='2024-08-29T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2024-08-29T00:00:00&#43;08:00'/>
 <meta name="twitter:title" content="Semantics of `let` in Scheme(feat. Semantics of `if`)">
@@ -36,6 +36,8 @@
     document.head.appendChild(customFont);
   })();
 </script>
+
+
 
     </head>
     <body class="
@@ -232,9 +234,9 @@
 
                             <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
                                 
-                                    <option value="http://localhost:1313/zh/" >中文</option>
+                                    <option value="http://fyshxfish.github.io/zh/" >中文</option>
                                 
-                                    <option value="http://localhost:1313/" selected>English</option>
+                                    <option value="http://fyshxfish.github.io/" selected>English</option>
                                 
                             </select>
                         </li>
@@ -358,7 +360,7 @@
 
             <div>
                 
-                    <a href="http://localhost:1313/zh/p/scheme-let-%E7%9A%84%E8%AF%AD%E4%B9%89-feat.-if-%E7%9A%84%E8%AF%AD%E4%B9%89/" class="link">中文</a>
+                    <a href="http://fyshxfish.github.io/zh/p/scheme-let-%E7%9A%84%E8%AF%AD%E4%B9%89-feat.-if-%E7%9A%84%E8%AF%AD%E4%B9%89/" class="link">中文</a>
                 
             </div>
         </footer>
@@ -715,5 +717,27 @@
     }());
 </script>
 
+  
+  
+<script>
+let currentIndex = 0;
+const images = document.querySelectorAll('.image-container img');
+const totalImages = images.length;
+
+
+images[currentIndex].classList.add('active');
+
+function moveSlide(step) {
+    
+    images[currentIndex].classList.remove('active');
+
+    
+    currentIndex = (currentIndex + step + totalImages) % totalImages;
+
+    
+    images[currentIndex].classList.add('active');
+}
+</script>
+    
     </body>
 </html>

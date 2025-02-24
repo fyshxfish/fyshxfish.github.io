@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Just for 𝐅𝐮𝐧">
 <title>Tag: VSCode - fyshXplore</title>
 
-<link rel='canonical' href='http://localhost:1313/tags/vscode/'>
+<link rel='canonical' href='http://fyshxfish.github.io/tags/vscode/'>
 
-<link rel="stylesheet" href="/scss/style.min.be0d5e0eb92c2fa09941c16ce5a24165e9552d4dcbea0a1a378c27e26cc08e23.css"><meta property='og:title' content="Tag: VSCode - fyshXplore">
+<link rel="stylesheet" href="/scss/style.min.6e82346d850613bc57230e4ca20f047ed0a92acdad6f653aee5a2f927e2e7c86.css"><meta property='og:title' content="Tag: VSCode - fyshXplore">
 <meta property='og:description' content="Just for 𝐅𝐮𝐧">
-<meta property='og:url' content='http://localhost:1313/tags/vscode/'>
+<meta property='og:url' content='http://fyshxfish.github.io/tags/vscode/'>
 <meta property='og:site_name' content='fyshXplore'>
 <meta property='og:type' content='website'><meta property='og:updated_time' content=' 2025-02-17T16:32:00&#43;08:00 '/>
 <meta name="twitter:title" content="Tag: VSCode - fyshXplore">
-<meta name="twitter:description" content="Just for 𝐅𝐮𝐧"><link rel="alternate" type="application/rss&#43;xml" href="http://localhost:1313/tags/vscode/index.xml"><style>
+<meta name="twitter:description" content="Just for 𝐅𝐮𝐧"><link rel="alternate" type="application/rss&#43;xml" href="http://fyshxfish.github.io/tags/vscode/index.xml"><style>
   :root {
      
     --zh-font-family: "Noto Serif SC";
@@ -36,6 +36,8 @@
     document.head.appendChild(customFont);
   })();
 </script>
+
+
 
     </head>
     <body class="">
@@ -230,9 +232,9 @@
 
                             <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
                                 
-                                    <option value="http://localhost:1313/zh/" >中文</option>
+                                    <option value="http://fyshxfish.github.io/zh/" >中文</option>
                                 
-                                    <option value="http://localhost:1313/" selected>English</option>
+                                    <option value="http://fyshxfish.github.io/" selected>English</option>
                                 
                             </select>
                         </li>
@@ -298,7 +300,7 @@
                     <a href="/archives/#2024">
                         
                             <span class="year">2024</span>
-                            <span class="count">14</span>
+                            <span class="count">13</span>
                         
                     </a> 
                 </div>
@@ -329,7 +331,7 @@
 
     <div class="tagCloud-tags">
         
-            <a href="/categories/fp/" class="font_size_10">
+            <a href="/categories/fp/" class="font_size_9">
                 FP
             </a>
         
@@ -366,12 +368,12 @@
 
     <div class="tagCloud-tags">
         
-            <a href="/tags/haskell/" class="font_size_5">
-                Haskell
-            </a>
-        
             <a href="/tags/sicp/" class="font_size_5">
                 SICP
+            </a>
+        
+            <a href="/tags/haskell/" class="font_size_4">
+                Haskell
             </a>
         
             <a href="/tags/lambda-calculus/" class="font_size_4">
@@ -384,6 +386,10 @@
         
             <a href="/tags/cli/" class="font_size_2">
                 CLI
+            </a>
+        
+            <a href="/tags/combinator-logic/" class="font_size_2">
+                Combinator Logic
             </a>
         
             <a href="/tags/course/" class="font_size_2">
@@ -400,10 +406,6 @@
         
             <a href="/tags/rust/" class="font_size_1">
                 Rust
-            </a>
-        
-            <a href="/tags/tapl/" class="font_size_1">
-                TaPL
             </a>
         
     </div>
@@ -481,5 +483,27 @@
     }());
 </script>
 
+  
+  
+<script>
+let currentIndex = 0;
+const images = document.querySelectorAll('.image-container img');
+const totalImages = images.length;
+
+
+images[currentIndex].classList.add('active');
+
+function moveSlide(step) {
+    
+    images[currentIndex].classList.remove('active');
+
+    
+    currentIndex = (currentIndex + step + totalImages) % totalImages;
+
+    
+    images[currentIndex].classList.add('active');
+}
+</script>
+    
     </body>
 </html>

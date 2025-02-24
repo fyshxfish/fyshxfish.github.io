@@ -1,0 +1,1196 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+    <head><meta charset='utf-8'>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Following problems come from functional, available on Steam.\nBasic anything Any term that conforms to Lambda Calculus syntax (1. variable 2. abstraction 3. application) is okay.\nidentity x: x two arguments x:y: y x squaring f:x: f (f x) indirection f:x:y: f y x Boolean Definitions:\nTRUE = t:f: t FALSE = t:f: f IF p:t:f: p t f Simple LC has no type system, so programmers need to ensure that p can always evaluate to TRUE / FALSE, then p t f further evaluates to t/ f. If p cannot evaluate to TRUE / FALSE, then p t f will be retained or produce unexpected evaluation behavior.\n">
+<title>Basic Lambda Calculus Programming (Solutions for game functional on Steam)</title>
+
+<link rel='canonical' href='http://fyshxfish.github.io/p/basic-lambda-calculus-programming-solutions-for-game-functional-on-steam/'>
+
+<link rel="stylesheet" href="/scss/style.min.6e82346d850613bc57230e4ca20f047ed0a92acdad6f653aee5a2f927e2e7c86.css"><meta property='og:title' content="Basic Lambda Calculus Programming (Solutions for game functional on Steam)">
+<meta property='og:description' content="Following problems come from functional, available on Steam.\nBasic anything Any term that conforms to Lambda Calculus syntax (1. variable 2. abstraction 3. application) is okay.\nidentity x: x two arguments x:y: y x squaring f:x: f (f x) indirection f:x:y: f y x Boolean Definitions:\nTRUE = t:f: t FALSE = t:f: f IF p:t:f: p t f Simple LC has no type system, so programmers need to ensure that p can always evaluate to TRUE / FALSE, then p t f further evaluates to t/ f. If p cannot evaluate to TRUE / FALSE, then p t f will be retained or produce unexpected evaluation behavior.\n">
+<meta property='og:url' content='http://fyshxfish.github.io/p/basic-lambda-calculus-programming-solutions-for-game-functional-on-steam/'>
+<meta property='og:site_name' content='fyshXplore'>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='lambda calculus' /><meta property='article:tag' content='Combinator Logic' /><meta property='article:published_time' content='2025-02-02T21:29:00&#43;08:00'/><meta property='article:modified_time' content='2025-02-02T21:29:00&#43;08:00'/>
+<meta name="twitter:title" content="Basic Lambda Calculus Programming (Solutions for game functional on Steam)">
+<meta name="twitter:description" content="Following problems come from functional, available on Steam.\nBasic anything Any term that conforms to Lambda Calculus syntax (1. variable 2. abstraction 3. application) is okay.\nidentity x: x two arguments x:y: y x squaring f:x: f (f x) indirection f:x:y: f y x Boolean Definitions:\nTRUE = t:f: t FALSE = t:f: f IF p:t:f: p t f Simple LC has no type system, so programmers need to ensure that p can always evaluate to TRUE / FALSE, then p t f further evaluates to t/ f. If p cannot evaluate to TRUE / FALSE, then p t f will be retained or produce unexpected evaluation behavior.\n"><style>
+  :root {
+     
+    --zh-font-family: "Noto Serif SC";
+     
+     
+     
+    --code-font-family: Consolas, Menlo, Monaco, "Courier New", var(--zh-font-family), monospace;
+    --article-font-family: "Noto Serif SC";
+  }
+</style>
+
+<script>
+  (function () {
+    const customFont = document.createElement("link");
+    customFont.href =
+      "https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@400;700&display=swap";
+
+    customFont.type = "text/css";
+    customFont.rel = "stylesheet";
+
+    document.head.appendChild(customFont);
+  })();
+</script>
+
+
+
+    </head>
+    <body class="
+    article-page
+    ">
+    <script>
+        (function() {
+            const colorSchemeKey = 'StackColorScheme';
+            localStorage.setItem(colorSchemeKey, "auto");
+        })();
+    </script><script>
+    (function() {
+        const colorSchemeKey = 'StackColorScheme';
+        const colorSchemeItem = localStorage.getItem(colorSchemeKey);
+        const supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches === true;
+
+        if (colorSchemeItem == 'dark' || colorSchemeItem === 'auto' && supportDarkMode) {
+            
+
+            document.documentElement.dataset.scheme = 'dark';
+        } else {
+            document.documentElement.dataset.scheme = 'light';
+        }
+    })();
+</script>
+<div class="container main-container flex on-phone--column extended"><aside class="sidebar left-sidebar sticky ">
+    <button class="hamburger hamburger--spin" type="button" id="toggle-menu" aria-label="Toggle Menu">
+        <span class="hamburger-box">
+            <span class="hamburger-inner"></span>
+        </span>
+    </button>
+
+    <header>
+        
+            
+            <figure class="site-avatar">
+                <a href="/">
+                
+                    
+                    
+                    
+                        
+                        <img src="/img/fyshx_avatar_hu_4b64fe58c612edf3.jpg" width="300"
+                            height="300" class="site-logo" loading="lazy" alt="Avatar">
+                    
+                
+                </a>
+                
+                    <span class="emoji">🫧</span>
+                
+            </figure>
+            
+        
+        
+        <div class="site-meta">
+            <h1 class="site-name"><a href="/">fyshXplore</a></h1>
+            <h2 class="site-description">Just for 𝐅𝐮𝐧</h2>
+        </div>
+    </header><ol class="menu-social">
+            
+                <li>
+                    <a 
+                        href='https://github.com/fyshxfish'
+                        target="_blank"
+                        title="GitHub"
+                        rel="me"
+                    >
+                        
+                        
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-brand-github" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M9 19c-4.3 1.4 -4.3 -2.5 -6 -3m12 5v-3.5c0 -1 .1 -1.4 -.5 -2c2.8 -.3 5.5 -1.4 5.5 -6a4.6 4.6 0 0 0 -1.3 -3.2a4.2 4.2 0 0 0 -.1 -3.2s-1.1 -.3 -3.5 1.3a12.3 12.3 0 0 0 -6.2 0c-2.4 -1.6 -3.5 -1.3 -3.5 -1.3a4.2 4.2 0 0 0 -.1 3.2a4.6 4.6 0 0 0 -1.3 3.2c0 4.6 2.7 5.7 5.5 6c-.6 .6 -.6 1.2 -.5 2v3.5" />
+</svg>
+
+
+
+                        
+                    </a>
+                </li>
+            
+        </ol><ol class="menu" id="main-menu">
+        
+        
+        
+        <li >
+            <a href='/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-home" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <polyline points="5 12 3 12 12 3 21 12 19 12" />
+  <path d="M5 12v7a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-7" />
+  <path d="M9 21v-6a2 2 0 0 1 2 -2h2a2 2 0 0 1 2 2v6" />
+</svg>
+
+
+
+                
+                <span>Home</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/about/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-infinity" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M9.828 9.172a4 4 0 1 0 0 5.656 a10 10 0 0 0 2.172 -2.828a10 10 0 0 1 2.172 -2.828 a4 4 0 1 1 0 5.656a10 10 0 0 1 -2.172 -2.828a10 10 0 0 0 -2.172 -2.828" />
+</svg>
+
+
+
+                
+                <span>About</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/archives/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-archive" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <rect x="3" y="4" width="18" height="4" rx="2" />
+  <path d="M5 8v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2 -2v-10" />
+  <line x1="10" y1="12" x2="14" y2="12" />
+</svg>
+
+
+
+                
+                <span>Archives</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/search/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-search" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="10" cy="10" r="7" />
+  <line x1="21" y1="21" x2="15" y2="15" />
+</svg>
+
+
+
+                
+                <span>Search</span>
+            </a>
+        </li>
+        
+        
+        <li >
+            <a href='/links/' >
+                
+                
+                
+                    <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-link" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M10 14a3.5 3.5 0 0 0 5 0l4 -4a3.5 3.5 0 0 0 -5 -5l-.5 .5" />
+  <path d="M14 10a3.5 3.5 0 0 0 -5 0l-4 4a3.5 3.5 0 0 0 5 5l.5 -.5" />
+</svg>
+
+
+
+                
+                <span>Links</span>
+            </a>
+        </li>
+        
+        <li class="menu-bottom-section">
+            <ol class="menu">
+                    
+                        <li id="i18n-switch">  
+                            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+                            <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
+                                
+                                    <option value="http://fyshxfish.github.io/zh/" >中文</option>
+                                
+                                    <option value="http://fyshxfish.github.io/" selected>English</option>
+                                
+                            </select>
+                        </li>
+                    
+                
+
+                
+            </ol>
+        </li>
+    </ol>
+</aside>
+
+    <aside class="sidebar right-sidebar sticky">
+        
+            
+                
+    <section class="widget archives">
+        <div class="widget-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-hash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <line x1="5" y1="9" x2="19" y2="9" />
+  <line x1="5" y1="15" x2="19" y2="15" />
+  <line x1="11" y1="4" x2="7" y2="20" />
+  <line x1="17" y1="4" x2="13" y2="20" />
+</svg>
+
+
+
+        </div>
+        <h2 class="widget-title section-title">&thinsp;Table of contents</h2>
+        
+        <div class="widget--toc">
+            <nav id="TableOfContents">
+  <ol>
+    <li><a href="#basic">Basic</a>
+      <ol>
+        <li><a href="#anything">anything</a></li>
+        <li><a href="#identity">identity</a></li>
+        <li><a href="#two-arguments">two arguments</a></li>
+        <li><a href="#squaring">squaring</a></li>
+        <li><a href="#indirection">indirection</a></li>
+      </ol>
+    </li>
+    <li><a href="#boolean">Boolean</a>
+      <ol>
+        <li><a href="#if">IF</a></li>
+        <li><a href="#not">NOT</a></li>
+        <li><a href="#and">AND</a></li>
+        <li><a href="#or">OR</a></li>
+        <li><a href="#xor">XOR</a></li>
+      </ol>
+    </li>
+    <li><a href="#pair-and-list">Pair and List</a>
+      <ol>
+        <li><a href="#pair">PAIR</a></li>
+        <li><a href="#fst">FST</a></li>
+        <li><a href="#snd">SND</a></li>
+        <li><a href="#simple-list">simple list</a></li>
+        <li><a href="#any">ANY</a></li>
+        <li><a href="#push">PUSH</a></li>
+        <li><a href="#pop">POP</a></li>
+        <li><a href="#empty">EMPTY</a></li>
+      </ol>
+    </li>
+    <li><a href="#recursion">Recursion</a>
+      <ol>
+        <li><a href="#create-recursion---y-combinator">create recursion - Y combinator</a>
+          <ol>
+            <li><a href="#motivation-recursion-in-lc">Motivation: Recursion in LC</a></li>
+            <li><a href="#designing-the-y-combinator">Designing the Y Combinator</a></li>
+            <li><a href="#using-the-y-combinator">Using the Y combinator</a></li>
+          </ol>
+        </li>
+        <li><a href="#strip-prefix">strip prefix</a></li>
+        <li><a href="#acc">ACC</a></li>
+        <li><a href="#all">ALL</a></li>
+        <li><a href="#reverse">REVERSE</a></li>
+        <li><a href="#map">MAP</a></li>
+        <li><a href="#none">NONE</a></li>
+        <li><a href="#filter">FILTER</a></li>
+        <li><a href="#zip">ZIP</a></li>
+        <li><a href="#eqblist">EQBLIST</a></li>
+        <li><a href="#concat">CONCAT</a></li>
+      </ol>
+    </li>
+    <li><a href="#numerals">Numerals</a>
+      <ol>
+        <li><a href="#suc">SUC</a></li>
+        <li><a href="#zero">ZERO</a></li>
+        <li><a href="#pre">PRE</a></li>
+        <li><a href="#add">ADD</a></li>
+        <li><a href="#sub">SUB</a></li>
+        <li><a href="#mul">MUL</a></li>
+        <li><a href="#div">DIV</a></li>
+        <li><a href="#eq">EQ</a></li>
+        <li><a href="#min">MIN</a></li>
+        <li><a href="#max">MAX</a></li>
+      </ol>
+    </li>
+    <li><a href="#more-numerals">More Numerals</a>
+      <ol>
+        <li><a href="#is-odd">is odd</a></li>
+        <li><a href="#increasing-list">increasing list</a></li>
+        <li><a href="#decomposition">decomposition</a></li>
+        <li><a href="#primes">primes</a></li>
+        <li><a href="#sort">sort</a></li>
+      </ol>
+    </li>
+    <li><a href="#trees">trees</a>
+      <ol>
+        <li><a href="#node">NODE</a></li>
+        <li><a href="#lef">LEF</a></li>
+        <li><a href="#rig">RIG</a></li>
+        <li><a href="#val">VAL</a></li>
+        <li><a href="#bempty">BEMPTY</a></li>
+        <li><a href="#find">FIND</a></li>
+        <li><a href="#bsize">BSIZE</a></li>
+        <li><a href="#build">BUILD</a></li>
+        <li><a href="#preorder">PREORDER</a></li>
+        <li><a href="#inorder">INORDER</a></li>
+        <li><a href="#split">SPLIT</a></li>
+        <li><a href="#kth">KTH</a></li>
+        <li><a href="#inverse-6">inverse 6</a></li>
+      </ol>
+    </li>
+  </ol>
+</nav>
+        </div>
+    </section>
+
+            
+        
+    </aside>
+
+
+            <main class="main full-width">
+    <article class="main-article">
+    <header class="article-header">
+
+    <div class="article-details">
+    
+    <header class="article-category">
+        
+            <a href="/categories/fp/" style="background-color: #b7c9e2; color: #fff;">
+                FP
+            </a>
+        
+    </header>
+    
+
+    <div class="article-title-wrapper">
+        <h2 class="article-title">
+            <a href="/p/basic-lambda-calculus-programming-solutions-for-game-functional-on-steam/">Basic Lambda Calculus Programming (Solutions for game functional on Steam)</a>
+        </h2>
+    
+        
+    </div>
+
+    
+    
+    
+    
+    <footer class="article-time">
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-calendar-time" width="56" height="56" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <path d="M11.795 21h-6.795a2 2 0 0 1 -2 -2v-12a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v4" />
+  <circle cx="18" cy="18" r="4" />
+  <path d="M15 3v4" />
+  <path d="M7 3v4" />
+  <path d="M3 11h16" />
+  <path d="M18 16.496v1.504l1 1" />
+</svg>
+                <time class="article-time--published">Feb 2, 2025</time>
+            </div>
+        
+
+        
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-clock" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <polyline points="12 7 12 12 15 15" />
+</svg>
+
+
+
+                <time class="article-time--reading">
+                    15 minute read
+                </time>
+            </div>
+        
+    </footer>
+    
+
+    
+        <footer class="article-translations">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+            <div>
+                
+                    <a href="http://fyshxfish.github.io/zh/p/%E5%9F%BA%E7%A1%80%E7%9A%84-lambda-%E6%BC%94%E7%AE%97%E7%BC%96%E7%A8%8B/" class="link">中文</a>
+                
+            </div>
+        </footer>
+    
+</div>
+
+</header>
+
+    <section class="article-content">
+    
+    
+    <p>Following problems come from <em>functional</em>, available on Steam.</p>
+<h2 id="basic"><a href="#basic" class="header-anchor"></a>Basic
+</h2><h3 id="anything"><a href="#anything" class="header-anchor"></a>anything
+</h3><p>Any term that conforms to Lambda Calculus syntax (1. variable 2. abstraction 3. application) is okay.</p>
+<h3 id="identity"><a href="#identity" class="header-anchor"></a>identity
+</h3><pre tabindex="0"><code class="language-lambda" data-lang="lambda">x: x
+</code></pre><h3 id="two-arguments"><a href="#two-arguments" class="header-anchor"></a>two arguments
+</h3><pre tabindex="0"><code>x:y: y x
+</code></pre><h3 id="squaring"><a href="#squaring" class="header-anchor"></a>squaring
+</h3><pre tabindex="0"><code>f:x: f (f x) 
+</code></pre><h3 id="indirection"><a href="#indirection" class="header-anchor"></a>indirection
+</h3><pre tabindex="0"><code>f:x:y: f y x
+</code></pre><h2 id="boolean"><a href="#boolean" class="header-anchor"></a>Boolean
+</h2><p>Definitions:</p>
+<pre tabindex="0"><code>TRUE = t:f: t
+FALSE = t:f: f
+</code></pre><h3 id="if"><a href="#if" class="header-anchor"></a>IF
+</h3><pre tabindex="0"><code>p:t:f: p t f
+</code></pre><p>Simple LC has no type system, so programmers need to ensure that <code>p</code> can always evaluate to <code>TRUE</code> / <code>FALSE</code>, then <code>p t f</code> further evaluates to <code>t</code>/ <code>f</code>. If <code>p</code> cannot evaluate to <code>TRUE</code> / <code>FALSE</code>, then <code>p t f</code> will be retained or produce unexpected evaluation behavior.</p>
+<p>One thing you can easily notice is: <code>IF P A B ≡ P A B</code>, you can completely omit <code>IF</code> in all occasions where it&rsquo;s used. This doesn&rsquo;t change the semantics and can reduce one reduction, but for readability, there&rsquo;s still reason to keep <code>IF</code> in somewhat complex programs.</p>
+<h3 id="not"><a href="#not" class="header-anchor"></a>NOT
+</h3><pre tabindex="0"><code>b: b FALSE TRUE
+</code></pre><p>This looks subtly clever. It can be obtained straightforwardly through <code>b: IF b FALSE TRUE → b FALSE TRUE</code>, or directly by utilizing the meaning of <code>TRUE</code> / <code>FALSE</code> - selecting the first/second item.</p>
+<h3 id="and"><a href="#and" class="header-anchor"></a>AND
+</h3><pre tabindex="0"><code>p:q: p q p
+</code></pre><p>If <code>p = TRUE</code>, then <code>AND p q ≡ q</code>; if <code>p = FALSE</code>, then <code>AND p q ≡ FALSE ≡ p</code>.</p>
+<h3 id="or"><a href="#or" class="header-anchor"></a>OR
+</h3><pre tabindex="0"><code>p:q: p p q
+</code></pre><p>If <code>p = TRUE</code>, then <code>OR p q ≡ p ≡ TRUE</code>; if <code>p = FALSE</code>, then <code>OR p q ≡ q</code>.</p>
+<h3 id="xor"><a href="#xor" class="header-anchor"></a>XOR
+</h3><pre tabindex="0"><code>p:q: p (NOT q) q
+</code></pre><p>Similar to <code>AND</code>, <code>OR</code>, you can draw a truth table to organize your thoughts.</p>
+<h2 id="pair-and-list"><a href="#pair-and-list" class="header-anchor"></a>Pair and List
+</h2><h3 id="pair"><a href="#pair" class="header-anchor"></a>PAIR
+</h3><pre tabindex="0"><code>x:y:f: f x y
+</code></pre><p><code>PAIR A B → (x:y:f: f x y) A B → (f: f A B)</code> is an abstraction that: contains <code>A</code>, <code>B</code> in order, waiting for a function <code>f</code> to act on the contained <code>A</code>, <code>B</code>. For example, when <code>A</code>, <code>B</code> are Boolean, <code>f</code> can be <code>AND</code> / <code>OR</code> / &hellip; (of course, the syntax doesn&rsquo;t restrict the shape of <code>f</code>,<code>A</code>,<code>B</code>, if you want to write <code>PAIR TRUE 0 PAIR</code> the interpreter won&rsquo;t stop you)</p>
+<h3 id="fst"><a href="#fst" class="header-anchor"></a>FST
+</h3><pre tabindex="0"><code>p: p TRUE
+</code></pre><p>When <code>p = PAIR A B</code>, <code>p TRUE → (PAIR A B) TRUE → (f: f A B) TRUE → TRUE A B → A</code>. Note that <code>p</code> is a function that can receive a parameter <code>f</code>, here we make it receive the <code>TRUE</code> function to select the first element. In LC, <code>TRUE</code> / <code>FALSE</code> are more appropriately interpreted as <strong>selecting</strong> the first/second item that follows, rather than expressing the truth/falsity of a proposition. This is meaningful because when we write programs in other high-level languages, if we need a Boolean value <code>X</code>, <code>X</code>&rsquo;s ultimate utility is often in the <strong>selection</strong> of <code>then-clause</code> / <code>else-clause</code>.</p>
+<h3 id="snd"><a href="#snd" class="header-anchor"></a>SND
+</h3><pre tabindex="0"><code>p: p FALSE
+</code></pre><p>Similar to <code>FST</code>.</p>
+<h3 id="simple-list"><a href="#simple-list" class="header-anchor"></a>simple list
+</h3><p>Get the 3rd item from the list (1-indexed):</p>
+<pre tabindex="0"><code>l: FST ( SND ( SND l ) )
+</code></pre><p>A list is a simple recursive structure. The recursive base is an empty list, represented here by <code>FALSE</code>. The recursive step is adding elements to a list, implemented here using <code>PAIR</code>. e.g. <code>[] ↦ FALSE</code>, <code>1 ↦ (PAIR 1 FALSE)</code>, <code>[1,3] ↦ (PAIR 1 (PAIR 3 FALSE))</code>. <span style="color: gray">Note in the <code>[1,3]</code> example, if viewed from the perspective of <strong>adding elements to a list</strong>, the head is the item closest to <code>FALSE</code>, the closer to <code>FALSE</code>, the smaller the index, because it was added earlier. Under this interpretation, <code>[1,3] ↦ (PAIR 3 (PAIR 1 FALSE))</code>.</span> However, the game doesn&rsquo;t adopt this interpretation, but maintains visual alignment with familiar <code>[a,b,..]</code>, making the most recently added item - the leftmost item - the head. Keep this in mind when dealing with ascending/descending order problems later.</p>
+<h3 id="any"><a href="#any" class="header-anchor"></a>ANY
+</h3><p>For a list containing 3 Boolean values, return <code>TRUE</code> if any item is <code>TRUE</code>, otherwise return <code>FALSE</code>:</p>
+<pre tabindex="0"><code>(l: IF 
+  (OR 
+    (FST (SND (SND l))) 
+    (OR 
+      (FST l) 
+      (FST (SND l))
+    )
+  )
+  TRUE FALSE
+)
+</code></pre><p>Just write according to logic straightforwardly. Here the list has fixed length, which is easy to deal with. Variable-length lists would require recursion, see later.</p>
+<h3 id="push"><a href="#push" class="header-anchor"></a>PUSH
+</h3><pre tabindex="0"><code>(m:l: PAIR m l)
+</code></pre><p>Use <code>PUSH</code> to add new item <code>m</code> to list <code>l</code>. According to η-reduction, <code>PUSH ≡ PAIR</code>, so writing <code>PAIR</code> directly is sufficient here.</p>
+<h3 id="pop"><a href="#pop" class="header-anchor"></a>POP
+</h3><pre tabindex="0"><code>SND
+</code></pre><p>Pop out the outermost / leftmost item.</p>
+<h3 id="empty"><a href="#empty" class="header-anchor"></a>EMPTY
+</h3><pre tabindex="0"><code>l: l (t:x:y: FALSE) TRUE
+</code></pre><p>First, <code>EMPTY</code> needs to receive a list, so its basic shape is <code>EMPTY = l: ...</code>.</p>
+<p>Consider case <code>l' = FALSE</code>, <code>EMPTY l' ~expected→ TRUE</code>. Using <code>FALSE</code>&rsquo;s selection ability, we make <code>EMPTY = l: l 𝕏 TRUE</code>.</p>
+<p>Consider case <code>l* = PAIR a (PAIR b (...)) = (f: f a (PAIR b (...))) ≈ (f: f a _tail)</code>, viewing <code>l*</code> as a function receiving one parameter, <code>EMPTY l* = (f: f a _tail) 𝕏 TRUE → 𝕏 a _tail TRUE ~expected→ FALSE</code>. Then <code>𝕏</code>&rsquo;s job is to receive the following 3 items and return <code>FALSE</code>, so <code>𝕏 = (t:x:y: FALSE)</code>.</p>
+<p>Combining all above gives the final solution <code>EMPTY = l: l (t:x:y: FALSE) TRUE</code></p>
+<hr>
+<h2 id="recursion"><a href="#recursion" class="header-anchor"></a>Recursion
+</h2><h3 id="create-recursion---y-combinator"><a href="#create-recursion---y-combinator" class="header-anchor"></a>create recursion - Y combinator
+</h3><h4 id="motivation-recursion-in-lc"><a href="#motivation-recursion-in-lc" class="header-anchor"></a>Motivation: Recursion in LC
+</h4><p>Try to define recursive factorial function in LC:</p>
+<pre tabindex="0"><code>f = a: IF (EQ a 1)
+     1
+     (a * f (a - 1))
+</code></pre><p>The above definition doesn&rsquo;t conform to LC syntax because LC functions are anonymous functions and don&rsquo;t support calling functions by name (like <code>f</code> above). Yet recursive functions inevitably need self-reference. How to solve this problem?</p>
+<p>Applying function $F$ to parameter $A$ can be expressed as $F A$, or using higher-order functions like this: $(\lambda fa.\ f\ a) F A$. Building on this, add some logic, like expressing &ldquo;with parameters $a$ and $p$, function $f$, if $p\ a$ is true, return $f\ a$, otherwise return $a$ itself&rdquo;: $(\lambda fap.\ IF\ (p\ a)\ (f\ a)\ a)$. Based on this idea, assuming our target factorial function is <code>F</code>, then <code>F</code> satisfies this equation, denoting <code>(f:a: ..)</code> as <code>F'</code>:</p>
+<pre tabindex="0"><code>F = (f:a: IF (EQ a 1)
+      1 
+      (a * f (a - 1))
+  )  F 
+  ≡ F&#39; F 
+</code></pre><p>Looking at the right side of the equation, <code>F'</code>&rsquo;s meaning is to receive function <code>f</code> and parameter <code>a</code>, if <code>EQ a 1</code> return <code>1</code>, otherwise return <code>a * f (a - 1)</code>. Passing recursive function <code>F</code> to <code>F'</code>, the behavior of resulting function <code>F' F</code> matches our target factorial function <code>F</code>, semantically making both sides equal.</p>
+<p>Currently we have equation <code>F = F' F</code> ①, where <code>F'</code> is a known closed term. Since <code>F</code> involves self-reference, no normal form exists, so consider if there exists some <code>Y</code> s.t. <code>Y F' = F</code> ②. Substituting ② into ①, we get <code>Y F' = F' (Y F')</code>. The next goal is to solve for <code>Y</code>&rsquo;s normal form. Once we get <code>Y</code>, target recursive function <code>F = Y F'</code> follows.</p>
+<span style="color: gray">
+<ul>
+<li>
+<p>Why try to decompose <code>F</code> into <code>Y F'</code>?</p>
+<p>Speaking loosely, from equation perspective <code>F = F' F</code> has only one unknown <code>F</code>. Transforming <code>F</code> to <code>Y F'</code> similarly contains only one unknown <code>Y</code>, while <code>F'</code> is known and closely related to our solution target (recursive function <code>F</code>).</p>
+</li>
+</ul>
+</span>
+<h4 id="designing-the-y-combinator"><a href="#designing-the-y-combinator" class="header-anchor"></a>Designing the Y Combinator
+</h4><p><code>Y</code> is a term that satisfies: <code>Y F = F (Y F) = F (F (Y F)) = ...</code>. (Note: How/When the term expands depends on the evaluaton strategy.)</p>
+<p>To design <code>Y</code> that meets the above requirements, let&rsquo;s analyze:</p>
+<ol>
+<li>
+<p><code>Y</code> must be of the form <code>(f: ...)</code>.</p>
+</li>
+<li>
+<p>Self-reference in <code>Y</code>? — We need to repeat <code>Y</code>, or <strong>construct</strong> the right-side <code>Y</code>.</p>
+<p>Function/Abstraction is All You Need — Since LC has no storage, in <code>Y F = F (Y F)</code>, the <code>Y</code>s on both sides aren&rsquo;t the same instance. They&rsquo;re not value or address copies (LC has no storage concept). The right-side <code>Y</code> needs to be constructed, being <strong>equal under alpha-conversion</strong> to the left-side <code>Y</code>.</p>
+</li>
+<li>
+<p>How to repeat <code>F</code>? Simple - <code>Y = (f: ...)</code> receives parameter <code>F</code>, and within <code>Y</code>&rsquo;s body, we can repeat it as needed.</p>
+</li>
+<li>
+<p>Design an abstraction <code>M</code> for construction. <code>M</code> will receive necessary parameters and organize them to form a structure identical to <code>Y</code>.</p>
+<ol>
+<li><code>Y = f: M f ...</code> ~ᴇxᴘᴇᴄᴛᴇᴅ→ <code>M = f: f (Wai f)</code>: <code>M</code> needs <code>Y</code>&rsquo;s parameter <code>f</code> and must build structure matching <code>Y F</code>;</li>
+<li><code>Y = f: M f M ...</code> ~ᴇxᴘᴇᴄᴛᴇᴅ→ <code>M = f:m: f (m f m)</code>: Since we want <code>M</code> to match <code>Y F</code>&rsquo;s structure, and <code>Y</code> contains <code>M</code>, <code>M</code> must contain <code>M</code> too, passed via parameter <code>m</code>. In <code>M</code>&rsquo;s body, leftmost <code>f</code> implements <code>f</code>&rsquo;s reapplication, <code>(m f m)</code> constructs structure alpha-equivalent to left-side <code>Y F</code>.</li>
+<li><code>Y = f: M f M, where M = f:m: f (m f m)</code> is a valid Y combinator, verifiable by <code>Y F = M F M = (f:m: f (m f m)) F M = F (M F M) = F (M F M) = F (Y F)</code>.</li>
+</ol>
+</li>
+<li>
+<p>There are countless Y combinators, like (a) <code>Y = f: M M f, M = m:f: f (m m f)</code> - similar but more concise via η-reduction to <code>Y = M M, M = ...</code>, as given by Turing; (b) <code>Y = f: E (E f) E f, E = r:s:f: f (s r s f)</code> works too but less elegant; (c) most concise <code>Y = f: (x: f (x x)) (x: f (x x))</code> which differs by not containing combinator sub-terms.</p>
+</li>
+</ol>
+<ul>
+<li>
+<p>Exercise: How to implement combinator <code>D</code> satisfying <code>D F D = D (D F D) D = ...</code>?</p>
+<p>One solution: <code>D = f:d: d (d f d) d</code>, following similar principles.</p>
+</li>
+<li>
+<p>Must <code>Y</code> be a combinator? Can it have free variables?</p>
+<p>If <code>Y</code> had free variable <code>z</code>, constructing <code>Y</code> with <code>M</code> must consider <code>z</code>:</p>
+<ol>
+<li>closed <code>M</code>: Pass <code>z</code> as parameter giving <code>Y = f: M f c M, M = f:c:m: f (m f c m)</code> - works but adds unnecessary complexity;</li>
+<li>open <code>M</code>: If <code>M</code> contains free <code>z</code>, like <code>Y = f: K f K z, K = f:k: f (k f k z)</code>, it fails producing: <code>Y F = F (K F K z) z = F (Y F) z = F (F (Y F) z) z</code>.</li>
+</ol>
+<p>Conclusion: Possible but pointless. Intuitively, arbitrary free variables serve no purpose.</p>
+</li>
+</ul>
+<h4 id="using-the-y-combinator"><a href="#using-the-y-combinator" class="header-anchor"></a>Using the Y combinator
+</h4><p>Following the motivation section, we use <code>F' = f:a: ...</code> to express the application logic between recursive function <code>f</code> and its parameter <code>a</code>. With target recursive function <code>F</code>, we have <code>F = F' F</code>. Since self-reference is invalid, we consider using <code>Y F'</code> to represent <code>F</code>. In the previous section we derived a viable <code>Y</code>, so <code>F = Y F'</code> gives us our desired target function.</p>
+<p>The problems in this section become straightforward once you understand the Y combinator. Key points to note:</p>
+<ol>
+<li>When using previously defined functions, pay attention to parameter order. For example, <code>FILTER</code> takes the list first, then the filtering function. Since Simple LC has few syntax constraints, programmers need to be extra careful;</li>
+<li>Several problems may involve list reversal, so write <code>REVERSE</code> first and reuse it;</li>
+<li>Watch your bracket matching - write in an advanced editor first to avoid basic errors, then copy the code into the game for evaluation. The answers below pass evaluation but may not be the most concise.</li>
+</ol>
+<h3 id="strip-prefix"><a href="#strip-prefix" class="header-anchor"></a>strip prefix
+</h3><p>Remove <code>FALSE</code> prefix from variable length list:</p>
+<pre tabindex="0"><code>Y (f:l:
+    IF 
+    (FST l)
+    l 
+    (f (SND l))
+    )
+</code></pre><h3 id="acc"><a href="#acc" class="header-anchor"></a>ACC
+</h3><pre tabindex="0"><code>Y  (a:l:f:i: 
+    IF (EMPTY l)
+    i 
+    (a (SND l) f (f i (FST l))) 
+    )
+</code></pre><h3 id="all"><a href="#all" class="header-anchor"></a>ALL
+</h3><pre tabindex="0"><code>l: ACC l AND TRUE
+</code></pre><h3 id="reverse"><a href="#reverse" class="header-anchor"></a>REVERSE
+</h3><pre tabindex="0"><code>Y (i:c:l: 
+    IF 
+    (EMPTY l) 
+    c 
+    (i (PAIR (FST l) c) (SND l))
+    ) 
+    FALSE 
+</code></pre><h3 id="map"><a href="#map" class="header-anchor"></a>MAP
+</h3><pre tabindex="0"><code>Y  (m:c:l:f:
+        IF 
+        (EMPTY l)
+        (REVERSE c)
+        (m (PAIR (f (FST l)) c)  (SND l) f) 
+    )
+FALSE
+</code></pre><h3 id="none"><a href="#none" class="header-anchor"></a>NONE
+</h3><pre tabindex="0"><code>(l: ALL (MAP l NOT))
+</code></pre><h3 id="filter"><a href="#filter" class="header-anchor"></a>FILTER
+</h3><pre tabindex="0"><code>Y (m:c:l:f:
+        IF 
+        (EMPTY l)
+        (REVERSE c)
+        (   IF 
+        (f (FST l))
+        (m (PAIR (FST l) c) (SND l) f) 
+        (m c (SND l) f)
+        )
+    )
+    FALSE
+</code></pre><h3 id="zip"><a href="#zip" class="header-anchor"></a>ZIP
+</h3><pre tabindex="0"><code>Y (z:c:m:n:
+    IF 
+    (EMPTY m)
+    (REVERSE c)    
+    (z (PAIR (PAIR (FST m) (FST n)) c) (SND m) (SND n)) 
+    ) 
+    FALSE
+</code></pre><h3 id="eqblist"><a href="#eqblist" class="header-anchor"></a>EQBLIST
+</h3><pre tabindex="0"><code>(m:n: ALL 
+    (MAP 
+        (MAP 
+        (ZIP m n) 
+        (p: XOR (FST p) (SND p))
+        ) 
+        NOT
+    ) 
+)
+</code></pre><h3 id="concat"><a href="#concat" class="header-anchor"></a>CONCAT
+</h3><pre tabindex="0"><code>(m:n: 
+    (Y (g:c:r:
+        IF (EMPTY r)
+        c
+        (g (PAIR (FST r) c) (SND r))
+        )
+    )
+    n (REVERSE m) 
+)
+</code></pre><h2 id="numerals"><a href="#numerals" class="header-anchor"></a>Numerals
+</h2><p>Church Numerals use functions to express natural numbers. Two key points are: 1. base (<code>0 := f:x: x</code>) 2. successor (<code>SUC</code>). By repeatedly applying successor to the base, we can obtain all Church Numerals.</p>
+<h3 id="suc"><a href="#suc" class="header-anchor"></a>SUC
+</h3><p>Given Church Numeral <code>n</code>, <code>n</code> is a function that takes parameters <code>f</code>, <code>x</code>, where <code>n f x</code> means applying <code>f</code> to <code>x</code> $n$ times. <code>SUC n</code> is a function that takes <code>f</code>, <code>x</code> and applies <code>f</code> to <code>x</code> $(n+1)$ times.</p>
+<pre tabindex="0"><code>(n: (f:x: f (n f x) ) )
+</code></pre><h3 id="zero"><a href="#zero" class="header-anchor"></a>ZERO
+</h3><p>Use logical operations to determine if given <code>n</code> is <code>(f:x: x)</code>.</p>
+<pre tabindex="0"><code>(n: n (x: AND FALSE x) TRUE)
+</code></pre><h3 id="pre"><a href="#pre" class="header-anchor"></a>PRE
+</h3><p>A basic observation is <code>n = n SUC 0</code>, where equality means intensional equality. So iterating on <code>PAIR 0 0</code> $n$ times, where each iteration: 1. aligns right number with left 2. increments left number, means right number always lags left by one step. After $n$ iterations, left number is <code>n</code>, right number is its predecessor.</p>
+<pre tabindex="0"><code>(n: SND (n (p: PAIR (SUC (FST p)) (FST p)) (PAIR 0 0) ) )
+</code></pre><h3 id="add"><a href="#add" class="header-anchor"></a>ADD
+</h3><p>Given <code>x</code>, <code>y</code>, the goal is <code>x+y</code>, meaning: ready to receive <code>f</code>, <code>z</code>, apply <code>f</code> to <code>z</code> $(x+y)$ times. First apply <code>f</code> to <code>z</code> $x$ times getting <code>x f z</code>, then apply <code>f</code> to <code>(x f z)</code> $y$ times.</p>
+<pre tabindex="0"><code>(x:y: (f:z: y f (x f z)) )
+</code></pre><h3 id="sub"><a href="#sub" class="header-anchor"></a>SUB
+</h3><pre tabindex="0"><code>(x:y: (f:z: (y PRE x) f z))
+</code></pre><h3 id="mul"><a href="#mul" class="header-anchor"></a>MUL
+</h3><pre tabindex="0"><code>(x:y:f:z: y (x f) z )
+</code></pre><h3 id="div"><a href="#div" class="header-anchor"></a>DIV
+</h3><pre tabindex="0"><code>(Y (d:c:x:y:
+    IF (ZERO x)
+    0    
+    ( 
+      IF (ZERO (y PRE x))
+      (SUC c)
+      (d (SUC c) (y PRE x) y)
+    ) 
+   ) 
+) 0
+</code></pre><h3 id="eq"><a href="#eq" class="header-anchor"></a>EQ
+</h3><pre tabindex="0"><code>(x:y: AND 
+    (ZERO (x PRE y)) 
+    (ZERO (y PRE x))
+)
+</code></pre><h3 id="min"><a href="#min" class="header-anchor"></a>MIN
+</h3><pre tabindex="0"><code>(x:y: IF (ZERO (x PRE y))
+      y
+      x
+)
+</code></pre><h3 id="max"><a href="#max" class="header-anchor"></a>MAX
+</h3><pre tabindex="0"><code>(x:y: IF (ZERO (x PRE y))
+      x
+      y
+)
+</code></pre><h2 id="more-numerals"><a href="#more-numerals" class="header-anchor"></a>More Numerals
+</h2><h3 id="is-odd"><a href="#is-odd" class="header-anchor"></a>is odd
+</h3><pre tabindex="0"><code>(n: (n NOT FALSE))
+</code></pre><p>As a side note, here&rsquo;s a recursive method for checking odd/even numbers (looks interesting, fresher than familiar <code>mod 2</code>):</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hs" data-lang="hs"><span style="display:flex;"><span><span style="color:#6639ba">isEven</span> <span style="color:#0550ae">::</span> <span style="color:#cf222e">Int</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">Bool</span> 
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">isEven</span> <span style="color:#0550ae">0</span> <span style="color:#0550ae">=</span> <span style="color:#cf222e">True</span> 
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">isEven</span> x <span style="color:#0550ae">=</span> isOdd <span style="color:#1f2328">(</span>x<span style="color:#0550ae">-</span><span style="color:#0550ae">1</span><span style="color:#1f2328">)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">isOdd</span> <span style="color:#0550ae">::</span> <span style="color:#cf222e">Int</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">Bool</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">isOdd</span> <span style="color:#0550ae">0</span> <span style="color:#0550ae">=</span> <span style="color:#cf222e">False</span>
+</span></span><span style="display:flex;"><span><span style="color:#6639ba">isOdd</span> x <span style="color:#0550ae">=</span> isEven <span style="color:#1f2328">(</span>x<span style="color:#0550ae">-</span><span style="color:#0550ae">1</span><span style="color:#1f2328">)</span>
+</span></span></code></pre></div><h3 id="increasing-list"><a href="#increasing-list" class="header-anchor"></a>increasing list
+</h3><p>Tail recursive:</p>
+<pre tabindex="0"><code>(Y (f:c:n: IF (ZERO n)
+           (PAIR 0 c)
+           (f (PAIR n c) (PRE n))
+   ) 
+) FALSE
+</code></pre><p>Non-tail recursive:</p>
+<pre tabindex="0"><code>(n: REVERSE 
+    ( 
+     (Y (f:x: 
+            IF (ZERO x)
+            (PAIR 0 FALSE)
+            (PAIR x (f (PRE x))))
+     ) n
+    )
+)
+</code></pre><h3 id="decomposition"><a href="#decomposition" class="header-anchor"></a>decomposition
+</h3><p>Decompose given number into sum of powers of 2:</p>
+<pre tabindex="0"><code>(Y (f:c:k:n:
+     IF (ZERO n)
+     c
+     (IF (AND (EQ n (MIN k n)) (NOT (EQ k n)))  
+         (f c (DIV k 2) n)
+         (f (PAIR k c) (DIV k 2) (SUB n k) )
+     )
+   )
+) FALSE 8
+</code></pre><p><strong>*</strong> primes and sort both need significant runtime (local tests show around 30min each level)</p>
+<h3 id="primes"><a href="#primes" class="header-anchor"></a>primes
+</h3><pre tabindex="0"><code>Y (f:l:p:n: 
+     IF (EQ n (FST p)) 
+     (PAIR n l)
+     (IF (EQ (FST p) (MAX n (FST p)))
+      (f l (SND p) n)
+      ( IF (
+            (Y (f:n:p:
+                IF (EQ n (MIN n p) )
+                (IF (EQ n p) TRUE FALSE )
+                (f (SUB n p) p)   
+               )
+            ) n (FST p)
+           )
+        (f (PAIR (FST p) l) p (DIV n (FST p)))
+        (f l (SND p) n)
+      )
+     )
+  )
+  FALSE
+  (PAIR 47 (PAIR 43 (PAIR 41 (PAIR 37 (PAIR 31 (PAIR 29 
+  (PAIR 23 (PAIR 19 (PAIR 17 (PAIR 13 (PAIR 11 (PAIR 7 
+  (PAIR 3  (PAIR 2 FALSE))))))))))))))
+</code></pre><h3 id="sort"><a href="#sort" class="header-anchor"></a>sort
+</h3><p>Selection sort:</p>
+<pre tabindex="0"><code>Y (f:c:l: 
+    IF (EMPTY l)
+    c
+    (
+        (m: (f (PAIR m c) (FILTER l (x: NOT (EQ x m)) )) ) 
+        (ACC l MAX 0)
+    )
+  ) FALSE
+</code></pre><h2 id="trees"><a href="#trees" class="header-anchor"></a>trees
+</h2><h3 id="node"><a href="#node" class="header-anchor"></a>NODE
+</h3><pre tabindex="0"><code>l:v:r:f: f l v r
+</code></pre><h3 id="lef"><a href="#lef" class="header-anchor"></a>LEF
+</h3><pre tabindex="0"><code>t: t (l:v:r: l) 
+</code></pre><h3 id="rig"><a href="#rig" class="header-anchor"></a>RIG
+</h3><pre tabindex="0"><code>t: t (l:v:r: r)
+</code></pre><h3 id="val"><a href="#val" class="header-anchor"></a>VAL
+</h3><pre tabindex="0"><code>t: t (l:v:r: v)
+</code></pre><h3 id="bempty"><a href="#bempty" class="header-anchor"></a>BEMPTY
+</h3><p>Similar to checking empty list. Non-empty trees have the form of <code>NODE l v r = f: f l v r</code>,and empty tree is represented by <code>FALSE := a:b: b</code>. Using a tree <code>t</code> as a function: if empty tree, <code>t A B = FALSE A B = B ~ᴇxᴘᴇᴄᴛᴇᴅ→ TRUE</code>, if non-empty <code>t A B = (f: f l v r) A B = A l v r B ~ᴇxᴘᴇᴄᴛᴇᴅ→ FALSE</code>. Thus with <code>B = TRUE, A = l:v:r:x: FALSE</code>:</p>
+<pre tabindex="0"><code>(t: t (l:v:r:x: FALSE) TRUE )
+</code></pre><h3 id="find"><a href="#find" class="header-anchor"></a>FIND
+</h3><p>Check if tree <code>t</code> contains node with value <code>v</code>:</p>
+<pre tabindex="0"><code>Y (f:t:v:
+    IF (BEMPTY t)
+    FALSE
+    (IF (EQ (VAL t) v)
+     TRUE
+     (OR (f (LEF t) v) (f (RIG t) v))    
+    )
+  )
+</code></pre><h3 id="bsize"><a href="#bsize" class="header-anchor"></a>BSIZE
+</h3><p>Calculate tree size:</p>
+<pre tabindex="0"><code>Y (f:t:
+    IF (BEMPTY t)
+    0
+    (SUC (ADD (f (LEF t)) (f (RIG t))))
+  )
+</code></pre><h3 id="build"><a href="#build" class="header-anchor"></a>BUILD
+</h3><p>Binary search tree construction:</p>
+<pre tabindex="0"><code>Y (f:c:l:
+    IF (EMPTY l)
+    c
+    (   f
+        (
+          (
+          Y (f:v:t:
+              IF (BEMPTY t)
+              (NODE FALSE v FALSE)
+              ( IF (EQ v (MIN v (VAL t)))
+                (NODE (f v (LEF t)) (VAL t) (RIG t))
+                (NODE (LEF t) (VAL t) (f v (RIG t)))
+              )
+            )
+          )           
+          (FST l) c)
+        (SND l)
+    ) 
+  ) FALSE
+</code></pre><p><em>[ Seems like PREORDER and INORDER functions are swapped in the game? ]</em></p>
+<h3 id="preorder"><a href="#preorder" class="header-anchor"></a>PREORDER
+</h3><p>Inorder traversal of binary tree:</p>
+<pre tabindex="0"><code>Y (f:t: 
+    IF (BEMPTY t)
+    FALSE
+    (CONCAT (f (LEF t))
+        (PUSH (VAL t)  
+              (f (RIG t))
+        )
+    )
+  )
+</code></pre><h3 id="inorder"><a href="#inorder" class="header-anchor"></a>INORDER
+</h3><p>Preorder traversal of binary tree:</p>
+<pre tabindex="0"><code>Y (f:t: 
+    IF (BEMPTY t)
+    FALSE
+    (PUSH (VAL t)
+        (CONCAT (f (LEF t)) 
+                (f (RIG t))
+        )
+    )
+  )
+</code></pre><h3 id="split"><a href="#split" class="header-anchor"></a>SPLIT
+</h3><p>Split tree <code>t</code> using value <code>v</code> as boundary:</p>
+<pre tabindex="0"><code>Y (f:t:v:
+    IF (BEMPTY t)
+    (PAIR FALSE FALSE)
+    (
+      IF (EQ v (MAX v (VAL t)))
+      (
+        (p: PAIR (NODE (LEF t) (VAL t) (FST p)) (SND p)) 
+        (f (RIG t) v)
+      )
+      (
+        (p: (PAIR (FST p) (NODE (SND p) (VAL t) (RIG t) ))) 
+        (f (LEF t) v)
+      )
+    )
+  )
+</code></pre><h3 id="kth"><a href="#kth" class="header-anchor"></a>KTH
+</h3><p>Find kth largest element in given binary search tree by getting kth item from inorder traversal list:</p>
+<pre tabindex="0"><code>(t:k: 
+    Y (f:c:l:
+        IF (EQ c 0)
+        (FST l)
+        (f (PRE c) (SND l) )
+    ) k (PREORDER t)
+)
+</code></pre><h3 id="inverse-6"><a href="#inverse-6" class="header-anchor"></a>inverse 6
+</h3><p>For given binary search tree <code>t</code>, find missing numbers from <code>[1..6]</code> in ascending order:</p>
+<pre tabindex="0"><code>t: 
+  IF (BEMPTY t)
+  (PAIR 1 (PAIR 2 (PAIR 3 (PAIR 4 (PAIR 5 (PAIR 6 FALSE))))))
+  (
+   Y (f:c:m:n:
+        IF (EMPTY n)
+        (REVERSE c)
+        (
+          IF (EQ (FST m) (FST n))
+          (f c (SND m) (SND n))
+          (f (PAIR (FST n) c) m (SND n))
+        )
+    ) 
+    FALSE
+    (PREORDER t)
+    (PAIR 1 (PAIR 2 (PAIR 3 (PAIR 4 (PAIR 5 (PAIR 6 FALSE))))))
+  )
+</code></pre><hr>
+
+</section>
+
+
+    <footer class="article-footer">
+    
+    <section class="article-tags">
+        
+            <a href="/tags/lambda-calculus/">Lambda Calculus</a>
+        
+            <a href="/tags/combinator-logic/">Combinator Logic</a>
+        
+    </section>
+
+
+    
+    <section class="article-copyright">
+        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-copyright" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z"/>
+  <circle cx="12" cy="12" r="9" />
+  <path d="M14.5 9a3.5 4 0 1 0 0 6" />
+</svg>
+
+
+
+        <span>Licensed under CC BY-NC-SA 4.0</span>
+    </section>
+    </footer>
+
+
+    
+        <link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css"integrity="sha384-n8MVd4RsNIU0tAv4ct0nTaAbDJwPJzDEaqSD1odI&#43;WdtXRGWt2kTvGFasHpSy3SV"crossorigin="anonymous"
+            ><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"integrity="sha384-XjKyOOlGwcjNTAIQHIpgOno0Hl1YQqzUOEleOLALmuqehneUG&#43;vnGctmUb0ZY0l8"crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"integrity="sha384-&#43;VBxd3r6XgURycqtZ117nYw44OOcIax56Z4dCRWbxyPt0Koah1uHoK0o4&#43;/RRE05"crossorigin="anonymous"
+                defer
+                >
+            </script><script>
+    window.addEventListener("DOMContentLoaded", () => {
+        renderMathInElement(document.body, {
+            delimiters: [
+                { left: "$$", right: "$$", display: true },
+                { left: "$", right: "$", display: false },
+                { left: "\\(", right: "\\)", display: false },
+                { left: "\\[", right: "\\]", display: true }
+            ],
+            ignoredClasses: ["gist"]
+        });})
+</script>
+    
+</article>
+
+    
+
+    
+
+<aside class="related-content--wrapper">
+    <h2 class="section-title">Related content</h2>
+    <div class="related-content">
+        <div class="flex article-list--tile">
+            
+                
+<article class="">
+    <a href="/p/the-construction-of-the-iteration-combinator-lcac-4c-theorem-4.20/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">The Construction of the Iteration Combinator - LCaC § 4C, Theorem 4.20</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/church-encoding-note/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Church Encoding Note</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/huffman-trees-in-haskell-structure-and-destructure-of-compound-data/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Huffman Trees in Haskell | Structure and Destructure of Compound Data</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/abstractions-for-search-algorithms/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Abstractions for Search Algorithms</h2>
+        </div>
+    </a>
+</article>
+
+            
+                
+<article class="">
+    <a href="/p/message-passing-perspective-on-bool-sicp-2.4.3-generic-data-and-functions/">
+        
+        
+
+        <div class="article-details">
+            <h2 class="article-title">Message Passing Perspective on Bool - SICP § 2.4.3 | Generic | Data and Functions</h2>
+        </div>
+    </a>
+</article>
+
+            
+        </div>
+    </div>
+</aside>
+
+     
+    
+        
+    
+
+    <footer class="site-footer">
+    <section class="copyright">
+        &copy; 
+        
+            2024 - 
+        
+        2025 fyshXplore
+    </section>
+    
+    <section class="powerby">
+        
+            Wish You a Nice Day! <br/>
+        Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
+        Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
+    </section>
+</footer>
+
+
+    
+<div class="pswp" tabindex="-1" role="dialog" aria-hidden="true">
+
+    
+    <div class="pswp__bg"></div>
+
+    
+    <div class="pswp__scroll-wrap">
+
+        
+        <div class="pswp__container">
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+            <div class="pswp__item"></div>
+        </div>
+
+        
+        <div class="pswp__ui pswp__ui--hidden">
+
+            <div class="pswp__top-bar">
+
+                
+
+                <div class="pswp__counter"></div>
+
+                <button class="pswp__button pswp__button--close" title="Close (Esc)"></button>
+
+                <button class="pswp__button pswp__button--share" title="Share"></button>
+
+                <button class="pswp__button pswp__button--fs" title="Toggle fullscreen"></button>
+
+                <button class="pswp__button pswp__button--zoom" title="Zoom in/out"></button>
+
+                
+                
+                <div class="pswp__preloader">
+                    <div class="pswp__preloader__icn">
+                        <div class="pswp__preloader__cut">
+                            <div class="pswp__preloader__donut"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="pswp__share-modal pswp__share-modal--hidden pswp__single-tap">
+                <div class="pswp__share-tooltip"></div>
+            </div>
+
+            <button class="pswp__button pswp__button--arrow--left" title="Previous (arrow left)">
+            </button>
+
+            <button class="pswp__button pswp__button--arrow--right" title="Next (arrow right)">
+            </button>
+
+            <div class="pswp__caption">
+                <div class="pswp__caption__center"></div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.js"integrity="sha256-ePwmChbbvXbsO02lbM3HoHbSHTHFAeChekF1xKJdleo="crossorigin="anonymous"
+                defer
+                >
+            </script><script 
+                src="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe-ui-default.min.js"integrity="sha256-UKkzOn/w1mBxRmLLGrSeyB4e1xbrp4xylgAWb3M42pU="crossorigin="anonymous"
+                defer
+                >
+            </script><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/default-skin/default-skin.min.css"crossorigin="anonymous"
+            ><link 
+                rel="stylesheet" 
+                href="https://cdn.jsdelivr.net/npm/photoswipe@4.1.3/dist/photoswipe.min.css"crossorigin="anonymous"
+            >
+
+            </main>
+        </div>
+        <script 
+                src="https://cdn.jsdelivr.net/npm/node-vibrant@3.1.6/dist/vibrant.min.js"integrity="sha256-awcR2jno4kI5X0zL8ex0vi2z&#43;KMkF24hUW8WePSA9HM="crossorigin="anonymous"
+                
+                >
+            </script><script type="text/javascript" src="/ts/main.js" defer></script>
+<script>
+    (function () {
+        const customFont = document.createElement('link');
+        customFont.href = "https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap";
+
+        customFont.type = "text/css";
+        customFont.rel = "stylesheet";
+
+        document.head.appendChild(customFont);
+    }());
+</script>
+
+  
+  
+<script>
+let currentIndex = 0;
+const images = document.querySelectorAll('.image-container img');
+const totalImages = images.length;
+
+
+images[currentIndex].classList.add('active');
+
+function moveSlide(step) {
+    
+    images[currentIndex].classList.remove('active');
+
+    
+    currentIndex = (currentIndex + step + totalImages) % totalImages;
+
+    
+    images[currentIndex].classList.add('active');
+}
+</script>
+    
+    </body>
+</html>

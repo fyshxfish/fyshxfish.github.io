@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>CLI on fyshXplore</title>
-        <link>http://localhost:1313/tags/cli/</link>
+        <link>http://fyshxfish.github.io/tags/cli/</link>
         <description>Recent content in CLI on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Wed, 03 Apr 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/cli/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 03 Apr 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://fyshxfish.github.io/tags/cli/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Simple Bash CLI Programs &amp; Simple Metaprogramming</title>
-        <link>http://localhost:1313/p/simple-bash-cli-programs-simple-metaprogramming/</link>
+        <link>http://fyshxfish.github.io/p/simple-bash-cli-programs-simple-metaprogramming/</link>
         <pubDate>Wed, 03 Apr 2024 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/p/simple-bash-cli-programs-simple-metaprogramming/</guid>
+        <guid>http://fyshxfish.github.io/p/simple-bash-cli-programs-simple-metaprogramming/</guid>
         <description>&lt;h2 id=&#34;simple-introduction&#34;&gt;&lt;a href=&#34;#simple-introduction&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Simple Introduction
 &lt;/h2&gt;&lt;p&gt;&lt;em&gt;Based on materials I prepared for Computer System course&lt;/em&gt;&lt;/p&gt;
 &lt;!-- Although the date here is April 3, 2024, I&#39;m actually writing this blog on February 18, 2025. When writing yesterday&#39;s blog post that mentioned polyglot content, I realized these materials came from discussion sessions in my computer systems course from two semesters ago. I decided to dig up some interesting parts of those materials that had been sleeping in various directories like .../Downloads, .../Courses/CS24Spring, and group file folders - and that&#39;s how this blog post came to be. --&gt;
@@ -81,10 +81,10 @@
         </item>
         <item>
         <title>A Quick Look at the `file` Command</title>
-        <link>http://localhost:1313/p/a-quick-look-at-the-file-command/</link>
+        <link>http://fyshxfish.github.io/p/a-quick-look-at-the-file-command/</link>
         <pubDate>Wed, 20 Mar 2024 20:50:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/a-quick-look-at-the-file-command/</guid>
+        <guid>http://fyshxfish.github.io/p/a-quick-look-at-the-file-command/</guid>
         <description>&lt;h2 id=&#34;simple-introduction&#34;&gt;&lt;a href=&#34;#simple-introduction&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Simple Introduction
 &lt;/h2&gt;&lt;p&gt;Although the date here is March 20, 2024, I&amp;rsquo;m actually writing this blog on February 18, 2025, based on materials from my Computer System discussion course. If you want to know a file&amp;rsquo;s type, you might use the &lt;code&gt;file&lt;/code&gt; command. But how does &lt;code&gt;file&lt;/code&gt; determine file types, or more specifically, how do files in the system tell &lt;code&gt;file&lt;/code&gt; (or any program wanting to know its type) what type they are? Where do files store their type information?&lt;/p&gt;
 &lt;h2 id=&#34;manuals-are-always-your-friend&#34;&gt;&lt;a href=&#34;#manuals-are-always-your-friend&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Manuals Are Always Your Friend

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="zh" dir="ltr">
-    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" 让工具更趁手✨\n">
 <title>我的常用 VSCode 快捷键</title>
 
-<link rel='canonical' href='http://localhost:1313/zh/p/%E6%88%91%E7%9A%84%E5%B8%B8%E7%94%A8-vscode-%E5%BF%AB%E6%8D%B7%E9%94%AE/'>
+<link rel='canonical' href='http://fyshxfish.github.io/zh/p/%E6%88%91%E7%9A%84%E5%B8%B8%E7%94%A8-vscode-%E5%BF%AB%E6%8D%B7%E9%94%AE/'>
 
-<link rel="stylesheet" href="/scss/style.min.be0d5e0eb92c2fa09941c16ce5a24165e9552d4dcbea0a1a378c27e26cc08e23.css"><meta property='og:title' content="我的常用 VSCode 快捷键">
+<link rel="stylesheet" href="/scss/style.min.6e82346d850613bc57230e4ca20f047ed0a92acdad6f653aee5a2f927e2e7c86.css"><meta property='og:title' content="我的常用 VSCode 快捷键">
 <meta property='og:description' content=" 让工具更趁手✨\n">
-<meta property='og:url' content='http://localhost:1313/zh/p/%E6%88%91%E7%9A%84%E5%B8%B8%E7%94%A8-vscode-%E5%BF%AB%E6%8D%B7%E9%94%AE/'>
+<meta property='og:url' content='http://fyshxfish.github.io/zh/p/%E6%88%91%E7%9A%84%E5%B8%B8%E7%94%A8-vscode-%E5%BF%AB%E6%8D%B7%E9%94%AE/'>
 <meta property='og:site_name' content='fyshXplore'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='VSCode' /><meta property='article:published_time' content='2024-08-26T00:00:00&#43;08:00'/><meta property='article:modified_time' content='2024-08-26T00:00:00&#43;08:00'/>
 <meta name="twitter:title" content="我的常用 VSCode 快捷键">
@@ -36,6 +36,8 @@
     document.head.appendChild(customFont);
   })();
 </script>
+
+
 
     </head>
     <body class="
@@ -232,9 +234,9 @@
 
                             <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
                                 
-                                    <option value="http://localhost:1313/zh/" selected>中文</option>
+                                    <option value="http://fyshxfish.github.io/zh/" selected>中文</option>
                                 
-                                    <option value="http://localhost:1313/" >English</option>
+                                    <option value="http://fyshxfish.github.io/" >English</option>
                                 
                             </select>
                         </li>
@@ -371,7 +373,7 @@
 
             <div>
                 
-                    <a href="http://localhost:1313/p/my-common-vscode-shortcuts/" class="link">English</a>
+                    <a href="http://fyshxfish.github.io/p/my-common-vscode-shortcuts/" class="link">English</a>
                 
             </div>
         </footer>
@@ -746,5 +748,27 @@ Win + ↓：退出全屏 / 最小化<br></p>
     }());
 </script>
 
+  
+  
+<script>
+let currentIndex = 0;
+const images = document.querySelectorAll('.image-container img');
+const totalImages = images.length;
+
+
+images[currentIndex].classList.add('active');
+
+function moveSlide(step) {
+    
+    images[currentIndex].classList.remove('active');
+
+    
+    currentIndex = (currentIndex + step + totalImages) % totalImages;
+
+    
+    images[currentIndex].classList.add('active');
+}
+</script>
+    
     </body>
 </html>

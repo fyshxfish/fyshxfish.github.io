@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Rust on fyshXplore</title>
-        <link>http://localhost:1313/tags/rust/</link>
+        <link>http://fyshxfish.github.io/tags/rust/</link>
         <description>Recent content in Rust on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Mon, 05 Aug 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/rust/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 05 Aug 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://fyshxfish.github.io/tags/rust/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Explore Rust (Basic) &amp; Revisiting gdb</title>
-        <link>http://localhost:1313/p/explore-rust-basic-revisiting-gdb/</link>
+        <link>http://fyshxfish.github.io/p/explore-rust-basic-revisiting-gdb/</link>
         <pubDate>Mon, 05 Aug 2024 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/p/explore-rust-basic-revisiting-gdb/</guid>
+        <guid>http://fyshxfish.github.io/p/explore-rust-basic-revisiting-gdb/</guid>
         <description>&lt;p&gt; &lt;/p&gt;
 &lt;h2 id=&#34;how-to-debug-a-rust-program&#34;&gt;&lt;a href=&#34;#how-to-debug-a-rust-program&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;How to debug a Rust program?
 &lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ gdb excutable
@@ -49,7 +49,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;&lt;/span&gt;dbg!&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;&amp;amp;&lt;/span&gt;new_var&lt;span style=&#34;color:#1f2328&#34;&gt;);&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;// if you want to
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;explore-with-gdb&#34;&gt;&lt;a href=&#34;#explore-with-gdb&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Explore with gdb
 &lt;/h2&gt;&lt;p&gt;For things you want to explore, use gdb, for example: [How is enum represented at a low level?] -&amp;gt; Write a simple program, compile it to an executable, then use gdb, using &lt;code&gt;print var&lt;/code&gt; &lt;code&gt;print &amp;amp;var&lt;/code&gt; &lt;code&gt;x/x &amp;lt;addr&amp;gt;&lt;/code&gt; to explore.&lt;/p&gt;
-&lt;h2 id=&#34;关于对-vector-的引用&#34;&gt;&lt;a href=&#34;#%e5%85%b3%e4%ba%8e%e5%af%b9-vector-%e7%9a%84%e5%bc%95%e7%94%a8&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;关于对 vector 的引用
+&lt;h2 id=&#34;about-reference-to-vector&#34;&gt;&lt;a href=&#34;#about-reference-to-vector&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;About: reference to vector
 &lt;/h2&gt;&lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;An excerpt from ch08-01&lt;/p&gt;

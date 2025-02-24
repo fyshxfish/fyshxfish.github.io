@@ -2,45 +2,35 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>LCaC on fyshXplore</title>
-        <link>http://localhost:1313/tags/lcac/</link>
+        <link>http://fyshxfish.github.io/tags/lcac/</link>
         <description>Recent content in LCaC on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Tue, 17 Sep 2024 23:48:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/lcac/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 17 Sep 2024 23:48:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/tags/lcac/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>The Construction of the Iteration Combinator - LCaC § 4C, Theorem 4.20</title>
-        <link>http://localhost:1313/p/the-construction-of-the-iteration-combinator-lcac-4c-theorem-4.20/</link>
+        <link>http://fyshxfish.github.io/p/the-construction-of-the-iteration-combinator-lcac-4c-theorem-4.20/</link>
         <pubDate>Tue, 17 Sep 2024 23:48:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/the-construction-of-the-iteration-combinator-lcac-4c-theorem-4.20/</guid>
-        <description>&lt;p&gt;来自 Lambda-Calculus and Combinator § 4C Theorem 4.20 的 proof 部分，整体意图是证明符合 Definition 4.18 的全称递归函数可以用组合子来表示. 这里对该证明的关键部分，即迭代组合子的构造，做简要的陈述. 也可以理解为：&lt;strong&gt;在 Pure Lambda Calculus 中编写一个具有特定终止条件的迭代程序.&lt;/strong&gt; 如果你好奇 &amp;quot; 如何在 Lambda Calculus 中编写一个指定&lt;strong&gt;迭代 / 递归次数&lt;/strong&gt;的迭代 / 递归函数 &amp;quot; ，可以参考 Lambda-Calculus and Combinator § 4B Theorem 4.11 的 proof 中 $R_{\text{Bernays}}$ 组合子的构造，这个构造过程也十分精巧.&lt;/p&gt;
-&lt;p&gt;递归与迭代：在 $R_{\text{Bernays}}$ 递归组合子的构造中，求解某个递归函数 $\phi $ 的值 $ \phi(n) $，用的方法就是从 $ \phi(0) $ 开始，做 $n$ 次迭代得到的（大致如下：记递归步更新函数为 $\chi$，$\phi(n) = \chi^n \phi(0)$）. 迭代和递归是正向与逆向的区别. 本文中的&amp;quot;递归&amp;quot;意在描述&amp;quot;&lt;strong&gt;调用自身&lt;/strong&gt;&amp;quot; 的结构特点，探讨的中心问题还是对迭代（$0 \rightarrow 1 \rightarrow  &amp;hellip;  \rightarrow n$）问题的求解.&lt;/p&gt;
-&lt;h2 id=&#34;构造目标&#34;&gt;&lt;a href=&#34;#%e6%9e%84%e9%80%a0%e7%9b%ae%e6%a0%87&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;构造目标
-&lt;/h2&gt;&lt;p&gt;假设有一个检查函数 $X$，迭代的终止条件为 $XY=_{\beta,w}\bar{0}$, 我们希望构造一个组合子 $P$,得到最小的符合终止条件的 $Y$. 即从 $Y = \bar{0}$ 开始，检查 $(XY) = _{\beta,w}? \bar{0}$ ，若条件满足，则返回值为此 $Y$，否则继续检查 $X(\bar{\sigma}Y)$，我们希望构造一个组合子 $P$ 自动化此检查过程，形式化地，我们预期 $P$ 的行为如下:&lt;/p&gt;
+        <guid>http://fyshxfish.github.io/p/the-construction-of-the-iteration-combinator-lcac-4c-theorem-4.20/</guid>
+        <description>&lt;p&gt;This blog post provides supplementary material for the proof section of &lt;em&gt;Lambda-Calculus and Combinator § 4C Theorem 4.20&lt;/em&gt;, the overall intention of the proof is to prove that total recursive functions conforming to Definition 4.18 can be represented using combinators. Here we briefly explain the key part of this proof - the construction of the iteration combinator. This can also be understood as: &lt;strong&gt;Writing an iterative program with specific termination conditions in Pure Lambda Calculus.&lt;/strong&gt;&lt;/p&gt;
+&lt;!-- If you&#39;re curious about &#34;how to write an iteration/recursive function with a specified **number of iterations/recursions** in Lambda Calculus&#34;, you can refer to the construction of the $R_{\text{Bernays}}$ combinator in the proof of Lambda-Calculus and Combinators § 4B Theorem 4.11, which is also quite ingenious. --&gt;
+&lt;p&gt;Recursion and Iteration: In constructing the $R_{\text{Bernays}}$ recursive combinator, to solve for the value $\phi(n)$ of some recursive function $\phi$, one feasible method is to start from $\phi(0)$ and iterate $n$ times to get $\phi(n)$ (roughly as follows: denoting the recursive step update function as $\chi$, $\phi(n) = \chi^n \phi(0)$). Iteration and recursion differ in forward versus reverse direction. The &amp;ldquo;recursion&amp;rdquo; in this article aims to describe the structural characteristic of &amp;ldquo;&lt;strong&gt;self-calling&lt;/strong&gt;&amp;rdquo;, while the central focus is on solving iteration problems ($0 \rightarrow 1 \rightarrow &amp;hellip; \rightarrow n$).&lt;/p&gt;
+&lt;h2 id=&#34;construction-goal&#34;&gt;&lt;a href=&#34;#construction-goal&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Construction Goal
+&lt;/h2&gt;&lt;p&gt;Assuming we have a check function $X$, with iteration termination condition $XY=_{\beta,w}\bar{0}$, we want to construct a combinator $P$ to obtain the minimal $Y$ satisfying the termination condition. Starting from $Y = \bar{0}$, check if $(XY) =_{\beta,w} \bar{0}$. If the condition is met, return this $Y$, otherwise continue checking $X(\bar{\sigma}Y)$. We want to construct a combinator $P$ to automate this checking process. Formally, we expect $P$ to behave as follows:&lt;/p&gt;
 &lt;p&gt;$$ PXY =_{\beta,w}Y \quad \text{, if } XY = _{\beta,w}\bar{0};$$&lt;/p&gt;
 &lt;p&gt;$$ PXY =_{\beta,w}PX(\bar{\sigma}Y), \text{    otherwise} $$&lt;/p&gt;
-&lt;!-- 用伪代码表示：
-
-```
-combinator p(x,y):
-    if (xy == 0):
-        y
-    else:
-        p(x, σ y)
-``` --&gt;
-&lt;!-- 从 $\bar{0}$ 开始迭代，检查 $XY=_{\beta,w}\bar{0}$ 是否成立，是则输出此时的 $Y$ , 否则 --&gt;
-&lt;!-- $$ PXY =_{\beta,w} Y, if XY=_{\beta,w}\bar{0}, $$ --&gt;
-&lt;p&gt;完全尊重预期，写一个 $P$ 组合子：$P \equiv \lambda xy.\textbf{D}y(Px(\bar{\sigma}y))(xy)$，其中 $\textbf{D}=\lambda xyz.z(\textbf{K}y)x$, 可以用 $\textbf{Y}$ 对这个递归的 $P$ 组合子进行求解（$P = \textbf{Y}(\lambda uxy.\textbf{D}y(ux(\bar{\sigma}y))(xy))$），使用 $\textbf{Y} $ 组合子求解出的 $P$ 没有 normal form，这里不采用此 $P$，我们尝试逐层构造一个具备 normal form 的 $P$ 组合子.&lt;/p&gt;
-&lt;h2 id=&#34;构造过程&#34;&gt;&lt;a href=&#34;#%e6%9e%84%e9%80%a0%e8%bf%87%e7%a8%8b&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;构造过程
-&lt;/h2&gt;&lt;h3 id=&#34;基本结构&#34;&gt;&lt;a href=&#34;#%e5%9f%ba%e6%9c%ac%e7%bb%93%e6%9e%84&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;基本结构
-&lt;/h3&gt;&lt;p&gt;用高级语言的伪代码表示现有的 $P$:&lt;/p&gt;
+&lt;p&gt;Fully respecting expectations, write a $P$ combinator: $\textcolor{red}{P} \equiv \lambda xy.\textbf{D}y(\textcolor{red}{P}x(\bar{\sigma}y))(xy)$, where $\textbf{D}=\lambda xyz.z(\textbf{K}y)x$. We can use the $\textbf{Y}$ combinator to fix this $P$ ($P \equiv \textbf{Y}(\lambda pxy.\textbf{D}y(px(\bar{\sigma}y))(xy))$). The $P$ solved using the $\textbf{Y}$ combinator has no normal form. We won&amp;rsquo;t use this $P$ here; instead, we&amp;rsquo;ll try to construct a $P$ combinator with normal.&lt;/p&gt;
+&lt;h2 id=&#34;construction-process&#34;&gt;&lt;a href=&#34;#construction-process&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Construction Process
+&lt;/h2&gt;&lt;h3 id=&#34;basic-structure&#34;&gt;&lt;a href=&#34;#basic-structure&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Basic Structure
+&lt;/h3&gt;&lt;p&gt;Express the existing $P$ in high-level language pseudocode:&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;combinator p(x,y):            // L1: define p
     if (xy == 0):
         return const(y)                     
     else:
         return p(x, σ y)       // L5: call p
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;递归的 $\lambda $，形如 $P \equiv \lambda x. MPN $，像这样的 $\lambda$-term，符合我们在高级语言程序设计的经验，但是不符合 Lambda Calculus 中的规范，因为 Lambda Calculus 对 $\lambda$-term 的归纳定义并不包含为 abstraction 赋标识符的规则，我们写 $P$ 等标识符的目的只在于提升可读性和明确表达式结构，而不是借助标识符的复用来像高级语言编程一样定义递归函数. 一个细节是，我们在书里看到的为某个 $\lambda$-term 记标识符用的符号是 $\equiv$ 而不是 $=$.&lt;/p&gt;
-&lt;p&gt;我们不能通过标识符的复用定义递归不意味着我们不能定义递归，只是我们需要依赖&lt;strong&gt;多一层的抽象&lt;/strong&gt;来构造出 形式上的非递归，事实意义上的递归.&lt;/p&gt;
-&lt;p&gt;从高级语言编程的角度出发，如果我们希望用某种方式取代 L5 中对 &lt;code&gt;p&lt;/code&gt; 自身的调用，我们可以如下修改我们的代码. 为了两个分支的结构一致，我们设计一个函数列表 &lt;code&gt;t&lt;/code&gt;，&lt;code&gt;t&lt;/code&gt; 中的两个函数对应两个分支，函数 &lt;code&gt;getCurrentY&lt;/code&gt; 将返回当前 &lt;code&gt;y&lt;/code&gt; 值，&lt;code&gt;recursion_p&lt;/code&gt; 将承担递归的工作：（这里先不考虑函数的具体结构和参数设计/参数传递的问题，后面总有办法的，这里我们只关心整体结构）&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Recursive $\lambda$, like $P \equiv \lambda x. MPN$, matches our experience in high-level language programming but doesn&amp;rsquo;t conform to Lambda Calculus rules, as Lambda Calculus&amp;rsquo;s inductive definition of $\lambda$-terms doesn&amp;rsquo;t include rules for assigning identifiers to abstractions. We write identifiers like $P$ only to improve readability and clarify expression structure, not to define recursive functions through identifier reuse like in high-level languages. A detail worth noting is that the symbol we see in books for recording identifiers for $\lambda$-terms is $\equiv$ rather than $=$.&lt;/p&gt;
+&lt;p&gt;The fact that we can&amp;rsquo;t define recursion through identifier reuse doesn&amp;rsquo;t mean we can&amp;rsquo;t define recursion at all - we just need to rely on &lt;strong&gt;an additional layer of abstraction&lt;/strong&gt; to construct something that is formally non-recursive but effectively recursive.&lt;/p&gt;
+&lt;p&gt;From a high-level programming perspective, if we want to replace the call to &lt;code&gt;p&lt;/code&gt; itself in L5, we can modify our code as follows. For consistency between branches, we design a function list &lt;code&gt;t&lt;/code&gt; where two functions correspond to two branches - function &lt;code&gt;getCurrentY&lt;/code&gt; will return the current &lt;code&gt;y&lt;/code&gt; value, and &lt;code&gt;recursion_p&lt;/code&gt; will handle recursion: (Let&amp;rsquo;s not worry about specific function structure and parameter design/passing yet, we&amp;rsquo;ll figure that out later, here we only care about the overall structure)&lt;/p&gt;
 &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;t = [getCurrentY, recursion_p]      // list of functions
 
 combinator p(x,y):            
@@ -48,68 +38,64 @@ combinator p(x,y):
         return t[0]                     
     else:
         return t[1]    
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;如何在 Lambda Calculus 中表达以上的代码？为了专注于我们目前处理的抽象层次，先将 $P \equiv \lambda xy.\textbf{D}y(Px(\bar{\sigma}y))(xy)$ 的结构简化为 $P \equiv \lambda xy.\textbf{D}AB(xy)$&lt;/p&gt;
-&lt;!-- 语义上的解释是，根据 $(xy)$ 的检查结果决定走 $A$ 分支 / $B$ 分支， --&gt;
-&lt;p&gt;根据预期 / 上面的伪代码，我们可以写出大致的 $\lambda $ 框架如下:&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;How do we express this code in Lambda Calculus? To focus on our current level of abstraction, let&amp;rsquo;s first simplify the structure of $P \equiv \lambda xy.\textbf{D}y(Px(\bar{\sigma}y))(xy)$ to $P \equiv \lambda xy.\textbf{D}AB(xy)$&lt;/p&gt;
+&lt;p&gt;Based on expectations/above pseudocode, we can write out the rough $\lambda$ framework as follows:&lt;/p&gt;
 &lt;p&gt;$$ P \equiv \lambda xy. T(xy)[params] $$
 $$ T \equiv \textbf{D}AB $$
 $$ A \equiv \lambda [params]. \dots$$
 $$ B \equiv \lambda [params]. &amp;hellip;$$&lt;/p&gt;
-&lt;p&gt;此时 $PXY = _{\beta,w} T(XY) $，$ XY = _{\beta, w} \bar{0} \longrightarrow PXY = A; XY \neq _{\beta, w} \bar{0} \longrightarrow PXY = B  $ .&lt;/p&gt;
-&lt;p&gt;我们预期：将&lt;strong&gt;分支的具体逻辑&lt;/strong&gt;放在 $T$ 中，将&lt;strong&gt;分支的选择&lt;/strong&gt;和分支函数参数传递放在 $P$ 中.&lt;/p&gt;
-&lt;h3 id=&#34;具体细节&#34;&gt;&lt;a href=&#34;#%e5%85%b7%e4%bd%93%e7%bb%86%e8%8a%82&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;具体细节
-&lt;/h3&gt;&lt;p&gt;上面我们忽略了许多细节，现在是考虑细节的时候了 :)&lt;/p&gt;
-&lt;p&gt;首先注意一个事实：我们将分支函数参数传递的工作放在 $P$ 中，意味着无论当前 $P$ 中的 $(xy)$ 将导向哪个分支，我们传递的参数列表都是一致的 / 都&lt;strong&gt;只能&lt;/strong&gt;是一致的. 因为 $(xy) = _{\beta,w}\bar{0}$ 对应的情况更简单，只需返回当前 $y$，所以我们延后考虑这一情况，先考虑 $(xy) ≠ _{\beta,w}\bar{0}$ 的情况，让前者迁就后者（，因为两个分支都与 $y$ 有关，所以参数列表中必然有 $y$，在这一点上两个分支是有共性的；另一方面，我们甚至可以两个分支函数对应的参数并列传递，然后在 $A$,$B$ 的具体实现中 不对与本分支无关的参数进行绑定）.&lt;/p&gt;
-&lt;h4 id=&#34;递归迭代分支的构造&#34;&gt;&lt;a href=&#34;#%e9%80%92%e5%bd%92%e8%bf%ad%e4%bb%a3%e5%88%86%e6%94%af%e7%9a%84%e6%9e%84%e9%80%a0&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;递归（迭代）分支的构造
-&lt;/h4&gt;&lt;p&gt;目标是：$XY \neq _{\beta, w} \bar{0} \longrightarrow PXY = B \xlongequal{\text{expected}} PX(\bar{\sigma}Y) $，我们希望函数 $B$ 与 $P$ 中传递的 $[params]$ &lt;strong&gt;应用后&lt;/strong&gt;得到的 $\lambda$-term 和 $PXY$ 具备&lt;strong&gt;一样的结构&lt;/strong&gt;（注意&lt;strong&gt;不是&lt;/strong&gt; $B$ 和 $P$ 两个 abstraction 本身结构一致），只是 $Y$ 位置的值替换成了 $(\bar{\sigma}Y)$，为了得到和 $P$ 一样的结构，最简单的方法是——把 $P$ 现有的组件作为 $[params]$ 传递到 $B$（，当然也传递到了 $A$），然后在 $B$ 中把这些组件重组成 $P$ 的结构：&lt;/p&gt;
+&lt;p&gt;Now $PXY = _{\beta,w} T(XY) $, $ XY = _{\beta, w} \bar{0} \longrightarrow PXY = A; XY \neq _{\beta, w} \bar{0} \longrightarrow PXY = B  $ .&lt;/p&gt;
+&lt;p&gt;We expect to put &lt;strong&gt;branch-specific logic&lt;/strong&gt; in $T$, and put &lt;strong&gt;branch selection&lt;/strong&gt; and branch function parameter passing in $P$.&lt;/p&gt;
+&lt;h3 id=&#34;specific-details&#34;&gt;&lt;a href=&#34;#specific-details&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Specific Details
+&lt;/h3&gt;&lt;p&gt;We ignored many details above, now it&amp;rsquo;s time to consider them :)&lt;/p&gt;
+&lt;p&gt;First note a fact: putting branch function parameter passing work in $P$ means that regardless of which branch the current $P$&amp;rsquo;s $(xy)$ will lead to, our parameter list must be consistent / can &lt;strong&gt;only&lt;/strong&gt; be consistent. Since the case corresponding to $(xy) = _{\beta,w}\bar{0}$ is simpler, only needing to return the current $y$, we&amp;rsquo;ll consider it later and focus on the $(xy) \neq _{\beta,w}\bar{0}$ case first, letting the former accommodate the latter (since both branches relate to $y$, the parameter list must include $y$ - this is a commonality between branches; moreover, we can even pass all parameters corresponding to both branch functions, then in specific implementations of $A$,$B$ not bind parameters irrelevant to that branch).&lt;/p&gt;
+&lt;h4 id=&#34;constructing-the-recursive-iterative-branch&#34;&gt;&lt;a href=&#34;#constructing-the-recursive-iterative-branch&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Constructing the Recursive (Iterative) Branch
+&lt;/h4&gt;&lt;p&gt;Goal: $XY \neq _{\beta, w} \bar{0} \longrightarrow PXY = B \xlongequal{\text{expected}} PX(\bar{\sigma}Y) $. We want the &lt;u&gt;$\lambda$-term resulting from applying function $\underline{B}$ with $[\underline{params}]$ passed in $\underline{P}$&lt;/u&gt; to have the &lt;strong&gt;same structure&lt;/strong&gt; as $\underline{PXY}$ (note this is &lt;strong&gt;not&lt;/strong&gt; that $B$ and $P$ abstractions themselves having the same structure), just with $Y$ replaced by $(\bar{\sigma}Y)$. To get the same structure as $P$, the simplest method is to pass $P$&amp;rsquo;s existing components as $[params]$ to $B$ (and also to $A$), then reassemble these components in $B$ to form $P$&amp;rsquo;s structure:&lt;/p&gt;
 &lt;p&gt;$$ P \equiv \lambda xy. T(xy)Txy $$
 $$ T \equiv \textbf{D}AB $$
 $$ A \equiv \lambda tuv. \dots$$
 $$ B \equiv \lambda tuv. q(uv) $$&lt;/p&gt;
-&lt;p&gt;（$ T \mapsto t, x \mapsto u, y \mapsto v$）&lt;/p&gt;
-&lt;p&gt;由于 $[params]$ 的传递，现在 $P$ 的结构发生了改变，我们需要让 $B$ 与新的 $P$ 结构同步；另一方面，我们需要在 $B$ 的内部将传递进来的 $y$ （由 $v$ 绑定）变为 $\bar{\sigma}y$：&lt;/p&gt;
+&lt;p&gt;($ T \mapsto t, x \mapsto u, y \mapsto v$)&lt;/p&gt;
+&lt;p&gt;Due to $[params]$ passing, $P$&amp;rsquo;s structure has changed, so we need to synchronize $B$ with the new $P$ structure; additionally, we need to change the passed-in $y$ (bound by $v$) to $\bar{\sigma}y$ inside $B$:&lt;/p&gt;
 &lt;p&gt;$$ P \equiv \lambda xy. T(xy)Txy $$
 $$ T \equiv \textbf{D}AB $$
 $$ A \equiv \lambda tuv. \dots$$
 $$ B \equiv \lambda tuv. q(u(\bar{\sigma}v))qu(\bar{\sigma}v) $$&lt;/p&gt;
-&lt;p&gt;做一个检查：当 $XY \neq _{\beta, w} \bar{0}$：&lt;/p&gt;
+&lt;p&gt;Let&amp;rsquo;s check: when $XY \neq _{\beta, w} \bar{0}$:&lt;/p&gt;
 &lt;p&gt;$ \quad PXY $&lt;/br&gt;
 $ = _{\beta,w} T(XY)TXY $ &lt;/br&gt;
 $ = _{\beta,w} BTXY $&lt;/br&gt;
 $ = _{\beta,w} T(X(\bar{\sigma}Y))TX(\bar{\sigma}Y) $&lt;/br&gt;
 $ = _{\beta,w} PX(\bar{\sigma}Y) $ &lt;/br&gt;&lt;/p&gt;
-&lt;p&gt;符合我们的预期，至此，迭代分支的构造就完成了.&lt;/p&gt;
-&lt;h4 id=&#34;迭代终止分支的构造&#34;&gt;&lt;a href=&#34;#%e8%bf%ad%e4%bb%a3%e7%bb%88%e6%ad%a2%e5%88%86%e6%94%af%e7%9a%84%e6%9e%84%e9%80%a0&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;迭代终止分支的构造
-&lt;/h4&gt;&lt;p&gt;目标是：$XY = _{\beta, w} \bar{0} \longrightarrow PXY = A \xlongequal{\text{expected}} Y $，在 $B$ 的构造过程中，我们已有的参数列表是 $ t \mapsto T, u \mapsto x, v \mapsto y$，在 $A$ 中，我们只需要把 $y$ 提取出来即可，所以 $A = \lambda tuv.v$ ，如果你希望和 Definition 4.8 的记法保持一致，那么 $A = \Pi^3_3$.&lt;/p&gt;
-&lt;h4 id=&#34;完整-lambda&#34;&gt;&lt;a href=&#34;#%e5%ae%8c%e6%95%b4-lambda&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;完整 $\lambda$
+&lt;p&gt;This matches our expectations, completing the iteration branch construction.&lt;/p&gt;
+&lt;h4 id=&#34;constructing-the-iteration-termination-branch&#34;&gt;&lt;a href=&#34;#constructing-the-iteration-termination-branch&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Constructing the Iteration Termination Branch
+&lt;/h4&gt;&lt;p&gt;Goal: $XY = _{\beta, w} \bar{0} \longrightarrow PXY = A \xlongequal{\text{expected}} Y $. During $B$&amp;rsquo;s construction, our existing parameter list is $ t \mapsto T, u \mapsto x, v \mapsto y$. In $A$, we just need to extract $y$, so $A = \lambda tuv.v$. If you want to stay consistent with Definition 4.8&amp;rsquo;s notation, then $A = \Pi^3_3$.&lt;/p&gt;
+&lt;h4 id=&#34;complete-lambda&#34;&gt;&lt;a href=&#34;#complete-lambda&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Complete $\lambda$
 &lt;/h4&gt;&lt;p&gt;$$ P \equiv \lambda xy. T(xy)Txy $$
 $$ T \equiv \textbf{D}AB $$
 $$ A \equiv \lambda tuv. v (= _{\beta,w} \Pi^3_3) $$
 $$ B \equiv \lambda tuv. q(u(\bar{\sigma}v))qu(\bar{\sigma}v) $$&lt;/p&gt;
-&lt;h4 id=&#34;lcac-theorem-420-中的-p-简述&#34;&gt;&lt;a href=&#34;#lcac-theorem-420-%e4%b8%ad%e7%9a%84-p-%e7%ae%80%e8%bf%b0&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;LCaC Theorem 4.20 中的 $P$ 简述
-&lt;/h4&gt;&lt;p&gt;LCaC Theorem 4.20 中给出的 $P$ 定义如下：&lt;/p&gt;
+&lt;h4 id=&#34;brief-note-on-p-in-lcac-theorem-420&#34;&gt;&lt;a href=&#34;#brief-note-on-p-in-lcac-theorem-420&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Brief Note on $P$ in LCaC Theorem 4.20
+&lt;/h4&gt;&lt;p&gt;The definition of $P$ given in LCaC Theorem 4.20 is:&lt;/p&gt;
 &lt;p&gt;$$ T \equiv \lambda x.\textbf{D}\bar{0}(\lambda uv.u(x(\bar{\sigma}v))u(\bar{\sigma}v)) $$
 $$ P \equiv \lambda xy.Tx(xy)(Tx)y $$&lt;/p&gt;
-&lt;p&gt;以与前文一致的格式转写：&lt;/p&gt;
+&lt;p&gt;Rewritten in format consistent with above:&lt;/p&gt;
 &lt;p&gt;$$ P \equiv \lambda xy.Tx(xy)(Tx)y $$
 $$ T \equiv \lambda x.\textbf{D}AB $$
 $$ A \equiv \bar{0} $$
 $$ B \equiv \lambda uv.u(x(\bar{\sigma}v))u(\bar{\sigma}v) $$&lt;/p&gt;
-&lt;p&gt;在一些时刻把 $(Tx)$ 作为一个整体，让表达式更简洁了一些，同时让 $x$ 和 $T$ 有绑定关系（$T \equiv \lambda x&amp;hellip;.$），在 $T$ 的内部依然可以单独地拿出 $x$ 使用；$P$ 中的 $(Tx)$ 闭包，使得传参的形态是 $B(Tx)y$  —— 而不是 $BTxy$  ——让 $A$ 的设计更简洁了，$A \equiv \bar{0}$.&lt;/p&gt;
-&lt;p&gt;虽然在细节上略有差别，但是整体结构与本文给出的 $P$ 是一致的，我觉得可能是包含一些直觉 / 灵感 / 优化上的差异.&lt;/p&gt;
-&lt;h2 id=&#34;其他&#34;&gt;&lt;a href=&#34;#%e5%85%b6%e4%bb%96&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;其他
-&lt;/h2&gt;&lt;p&gt;尝试着展开上面的 $P$:&lt;/p&gt;
+&lt;p&gt;Treating $(Tx)$ as a whole at times makes the expression more concise, while letting $x$ and $T$ have a binding relationship ($T \equiv \lambda x&amp;hellip;.$) - still allowing separate use of $x$ inside $T$; the closure of $(Tx)$ in $P$ makes the parameter passing form $B(Tx)y$ - rather than $BTxy$ - making $A$&amp;rsquo;s design more concise with $A \equiv \bar{0}$.&lt;/p&gt;
+&lt;p&gt;Though there are slight differences in details, the overall structure is consistent with the $P$ given in this article.&lt;/p&gt;
+&lt;h2 id=&#34;other&#34;&gt;&lt;a href=&#34;#other&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Other
+&lt;/h2&gt;&lt;p&gt;Try expanding the above $P$:&lt;/p&gt;
 &lt;p&gt;$$ \lambda xy.\lambda x.\textbf{D}\bar{0}(\lambda uv.u(x(\bar{\sigma}v))u(\bar{\sigma}v))x(xy)(\lambda x.\textbf{D}\bar{0}(\lambda uv.u(x(\bar{\sigma}v))u(\bar{\sigma}v))x)y$$&lt;/p&gt;
-&lt;p&gt;如果你愿意把以下也全部展开：&lt;/br&gt;
+&lt;p&gt;If you&amp;rsquo;re willing to expand all of these too:&lt;/br&gt;
 $ \textbf{D} = _{\beta, w} \lambda xyz.z(\textbf{K}y)x, \quad \textbf{K} = _{\beta, w} \lambda xy.x $ &lt;/br&gt;
 $ \bar{0} = _{\beta, w} \lambda xy.y $ &lt;/br&gt;
 $ \bar{\sigma} = _{\beta, w} \lambda nfz. f (n f z)$ &lt;/br&gt;&lt;/p&gt;
 &lt;p&gt;$$ \lambda xy.\lambda x.(\lambda xyz.z((\lambda xy.x)y)x)(\lambda xy.y)(\lambda uv.u(x(\lambda nfz. f (n f z)))u(\lambda nfz. f (n f z)))x(xy)(\lambda x.(\lambda xyz.z((\lambda xy.x)y)x)(\lambda xy.y)(\lambda uv.u(x(\lambda nfz. f (n f z)))u(\lambda nfz. f (n f z)))x)y$$&lt;/p&gt;
-&lt;p&gt;可以说，我们用这一堆符号 + Pure Lambda Culculus 的演算规则完成了一个迭代程序的构造——&lt;mark&gt;Programming in Pure Lambda Calculus.&lt;/mark&gt;&lt;/p&gt;
-&lt;!-- λxy.λx.D0(λuv.u(x(σˉv))u(σv))x(xy)(λx.D0(λuv.u(x(σv))u(σv))x)y --&gt;
+&lt;p&gt;We can say that we&amp;rsquo;ve completed the construction of an iterative program using this pile of symbols + Pure Lambda Calculus computation rules - &lt;mark&gt;Programming in Pure Lambda Calculus.&lt;/mark&gt;, great!&lt;/p&gt;
 &lt;hr&gt;
-&lt;!-- &lt;span style=&#34;color: #888888; font-size: 0.85em;&#34;&gt;一周前看 SICP 觉得有点没劲了，于是又折回来看组合子逻辑，点开电子书，停在阅读进度的位置，右上角还有我自己留下的笔迹 &#34;2024-06-05 重回 combinatory logic&#34; 再往后翻了翻，好家伙，6月份只看了5页，暑假在忙别的事情，又一点没看；我意图在这里写点什么读后感性质的文字（，因为最近情绪有点上来了，但是只看了五分之一我什么资格写读**后**感:），其实我没有总结自己感受的习惯，想通了某个问题的细节 / 联系起两个自己接触过的东西（&#34;Connect the dots&#34;）这些醍醐灌顶的瞬间的感受是很难用语言来表述的.&amp;ensp;最近看组合子时常有一些感激的情绪，感觉有机会看到这样漂亮的理论是一件相当幸运的事情. &lt;/span&gt; --&gt;
-&lt;!-- 让我有了想接近、想习得的东西，在面对自己所处的评价体系万分拧巴的时刻有一些慰藉. --&gt;
 </description>
         </item>
         

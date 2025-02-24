@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>CLI on fyshXplore</title>
-        <link>http://localhost:1313/zh/tags/cli/</link>
+        <link>http://fyshxfish.github.io/zh/tags/cli/</link>
         <description>Recent content in CLI on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh</language>
-        <lastBuildDate>Wed, 03 Apr 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/zh/tags/cli/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 03 Apr 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://fyshxfish.github.io/zh/tags/cli/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>简单的 Bash CLI 程序 &amp; 简单的元编程</title>
-        <link>http://localhost:1313/zh/p/%E7%AE%80%E5%8D%95%E7%9A%84-bash-cli-%E7%A8%8B%E5%BA%8F-%E7%AE%80%E5%8D%95%E7%9A%84%E5%85%83%E7%BC%96%E7%A8%8B/</link>
+        <link>http://fyshxfish.github.io/zh/p/%E7%AE%80%E5%8D%95%E7%9A%84-bash-cli-%E7%A8%8B%E5%BA%8F-%E7%AE%80%E5%8D%95%E7%9A%84%E5%85%83%E7%BC%96%E7%A8%8B/</link>
         <pubDate>Wed, 03 Apr 2024 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/zh/p/%E7%AE%80%E5%8D%95%E7%9A%84-bash-cli-%E7%A8%8B%E5%BA%8F-%E7%AE%80%E5%8D%95%E7%9A%84%E5%85%83%E7%BC%96%E7%A8%8B/</guid>
+        <guid>http://fyshxfish.github.io/zh/p/%E7%AE%80%E5%8D%95%E7%9A%84-bash-cli-%E7%A8%8B%E5%BA%8F-%E7%AE%80%E5%8D%95%E7%9A%84%E5%85%83%E7%BC%96%E7%A8%8B/</guid>
         <description>&lt;h2 id=&#34;简单的前言&#34;&gt;&lt;a href=&#34;#%e7%ae%80%e5%8d%95%e7%9a%84%e5%89%8d%e8%a8%80&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;简单的前言
 &lt;/h2&gt;&lt;p&gt;虽然这里的日期是 2024-04-03，但是我写这篇博客的时候其实是 2025-02-18，写 2025-02-17 那篇博客的时候，提到 polyglot 相关的内容，这部分内容其实是上上个学期的计算机系统的讨论课的产出，于是想着把沉睡在 &amp;hellip;/Downloads，&amp;hellip;/Courses/CS24Spring，小组群文件等目录里的讨论课材料里有点意思的部分翻出来晾晾，所以这一页博客出现在你的眼前.&lt;/p&gt;
 &lt;p&gt;我看到相当多的说法说 bash 的语法很不舒服，然而我在接触到这种说法之前，已然习惯了 bash 的语法，“我比流言蜚语先认识你”??😶‍🌫️&lt;/p&gt;
@@ -81,10 +81,10 @@
         </item>
         <item>
         <title>简单看看 `file` 命令</title>
-        <link>http://localhost:1313/zh/p/%E7%AE%80%E5%8D%95%E7%9C%8B%E7%9C%8B-file-%E5%91%BD%E4%BB%A4/</link>
+        <link>http://fyshxfish.github.io/zh/p/%E7%AE%80%E5%8D%95%E7%9C%8B%E7%9C%8B-file-%E5%91%BD%E4%BB%A4/</link>
         <pubDate>Wed, 20 Mar 2024 20:50:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/zh/p/%E7%AE%80%E5%8D%95%E7%9C%8B%E7%9C%8B-file-%E5%91%BD%E4%BB%A4/</guid>
+        <guid>http://fyshxfish.github.io/zh/p/%E7%AE%80%E5%8D%95%E7%9C%8B%E7%9C%8B-file-%E5%91%BD%E4%BB%A4/</guid>
         <description>&lt;h2 id=&#34;简单的前言&#34;&gt;&lt;a href=&#34;#%e7%ae%80%e5%8d%95%e7%9a%84%e5%89%8d%e8%a8%80&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;简单的前言
 &lt;/h2&gt;&lt;p&gt;虽然这里的日期是 2024-03-20，但是我写这篇博客的时候其实是 2025-02-18，来自我的计算机系统的讨论课材料. 如果你想知道一个文件的类型，那么你可能会用到 &lt;code&gt;file&lt;/code&gt; 这个命令，&lt;code&gt;file&lt;/code&gt; 会告诉你这个文件的类型，那么 &lt;code&gt;file&lt;/code&gt; 是如何知道文件的类型的，或者说，系统中的文件如何告诉 &lt;code&gt;file&lt;/code&gt;（或者任意一个想知道其类型的程序）自己的类型，文件把类型的信息放在哪里？&lt;/p&gt;
 &lt;h2 id=&#34;阅读手册&#34;&gt;&lt;a href=&#34;#%e9%98%85%e8%af%bb%e6%89%8b%e5%86%8c&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;阅读手册

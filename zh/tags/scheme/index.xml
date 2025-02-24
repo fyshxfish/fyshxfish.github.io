@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Scheme on fyshXplore</title>
-        <link>http://localhost:1313/zh/tags/scheme/</link>
+        <link>http://fyshxfish.github.io/zh/tags/scheme/</link>
         <description>Recent content in Scheme on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh</language>
-        <lastBuildDate>Sun, 08 Sep 2024 20:13:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/zh/tags/scheme/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Church Encoding Note</title>
-        <link>http://localhost:1313/zh/p/church-encoding-note/</link>
+        <lastBuildDate>Sun, 08 Sep 2024 20:13:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/zh/tags/scheme/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Church Encoding 简单笔记</title>
+        <link>http://fyshxfish.github.io/zh/p/church-encoding-%E7%AE%80%E5%8D%95%E7%AC%94%E8%AE%B0/</link>
         <pubDate>Sun, 08 Sep 2024 20:13:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/zh/p/church-encoding-note/</guid>
+        <guid>http://fyshxfish.github.io/zh/p/church-encoding-%E7%AE%80%E5%8D%95%E7%AC%94%E8%AE%B0/</guid>
         <description>&lt;h2 id=&#34;motivation-abstraction-level-up&#34;&gt;&lt;a href=&#34;#motivation-abstraction-level-up&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Motivation: Abstraction Level Up!
 &lt;/h2&gt;&lt;ol&gt;
 &lt;li&gt;
@@ -21,11 +21,11 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;;Value: 256&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;code&gt;2&lt;/code&gt; → &lt;code&gt;x&lt;/code&gt;: 对某个数 &lt;code&gt;x&lt;/code&gt; 应用 $3$ 次 &lt;code&gt;square&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;2&lt;/code&gt; → &lt;code&gt;x&lt;/code&gt;: 对某个数 &lt;code&gt;x&lt;/code&gt; 应用 $3$ 次 &lt;code&gt;square&lt;/code&gt;，用 &lt;code&gt;lambda&lt;/code&gt; 把 &lt;code&gt;2&lt;/code&gt; 抽象到 &lt;code&gt;x&lt;/code&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-scm&#34; data-lang=&#34;scm&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;define &lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;square3&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;lambda &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;x&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;square&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;square&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;square&lt;/span&gt; &lt;span style=&#34;color:#953800&#34;&gt;x&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)))))&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;code&gt;square&lt;/code&gt; → &lt;code&gt;f&lt;/code&gt;: 对某个值 &lt;code&gt;x&lt;/code&gt; 应用 $3$ 次某个函数 &lt;code&gt;f&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;square&lt;/code&gt; → &lt;code&gt;f&lt;/code&gt;: 对某个值 &lt;code&gt;x&lt;/code&gt; 应用 $3$ 次某个函数 &lt;code&gt;f&lt;/code&gt;，类似地，用 &lt;code&gt;lambda&lt;/code&gt; 把 &lt;code&gt;square&lt;/code&gt; 抽象到 &lt;code&gt;f&lt;/code&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-scm&#34; data-lang=&#34;scm&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;define &lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;three_times_f&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;lambda &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;f&lt;/span&gt; &lt;span style=&#34;color:#953800&#34;&gt;x&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;f&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;f&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;f&lt;/span&gt; &lt;span style=&#34;color:#953800&#34;&gt;x&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)))))&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;li&gt;
@@ -90,7 +90,7 @@
 &lt;ul&gt;
 &lt;li&gt;对 &amp;quot; &lt;strong&gt;计数&lt;/strong&gt; &amp;quot; 的&lt;strong&gt;抽象&lt;/strong&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;Church Encoding 是对计数过程的一种抽象，在 Lambda Calculus 的语境里，归纳定义 $λ-term$ 的三条规则分别涉及了 $atom$, $abstraction$, $application$，Church Encoding 可以理解为：有一个起始的 $atom$ 和一个 $abstraction$ ，我们希望对这个 $atom$ 进行&lt;strong&gt;若干次&lt;/strong&gt; $abstraction$ 的应用（$apply$），我们使用更高一层的 $abstraction$ 来抽象对 &amp;quot; &lt;strong&gt;若干次&lt;/strong&gt; &amp;quot; 进行计数的过程，这一层对于计数过程的抽象就是 Church Encoding.&lt;/p&gt;
+&lt;p&gt;Church Encoding 是对计数过程的一种抽象，在 Lambda Calculus 的语境里，归纳定义 $λ-term$ 的三条规则分别涉及了 $atom$, $abstraction$, $application$，Church Encoding 可以理解为：有一个起始的 $atom$ 和一个 $abstraction$ ，我们希望对这个 $term$ 进行&lt;strong&gt;若干次&lt;/strong&gt; $abstraction$ 的应用（$apply$），我们使用更高一层的 $abstraction$ 来抽象对 &amp;quot; &lt;strong&gt;若干次&lt;/strong&gt; &amp;quot; 进行计数的过程，这一层对于计数过程的抽象就是 Church Encoding.&lt;/p&gt;
 &lt;h2 id=&#34;church-encoding-in-scheme&#34;&gt;&lt;a href=&#34;#church-encoding-in-scheme&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Church Encoding in Scheme
 &lt;/h2&gt;&lt;p&gt;$zero：λf.λx.x$&lt;/p&gt;
 &lt;p&gt;对某个 $term$ 进行 $0$ 次任意 $abstraction$ 的应用，返回值依然是原来的 $term$.&lt;/p&gt;
@@ -139,10 +139,10 @@ Church Encoding 让我困惑了很久，每次我听到一些视频 / 博客里�
         </item>
         <item>
         <title>Message Passing 视角下的 Bool - SICP § 2.4.3 | 泛型 | 数据与函数</title>
-        <link>http://localhost:1313/zh/p/message-passing-%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84-bool-sicp-2.4.3-%E6%B3%9B%E5%9E%8B-%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%87%BD%E6%95%B0/</link>
+        <link>http://fyshxfish.github.io/zh/p/message-passing-%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84-bool-sicp-2.4.3-%E6%B3%9B%E5%9E%8B-%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%87%BD%E6%95%B0/</link>
         <pubDate>Sat, 07 Sep 2024 23:18:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/zh/p/message-passing-%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84-bool-sicp-2.4.3-%E6%B3%9B%E5%9E%8B-%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%87%BD%E6%95%B0/</guid>
+        <guid>http://fyshxfish.github.io/zh/p/message-passing-%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84-bool-sicp-2.4.3-%E6%B3%9B%E5%9E%8B-%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%87%BD%E6%95%B0/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;&lt;a href=&#34;#%e5%89%8d%e8%a8%80&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;前言
 &lt;/h2&gt;&lt;p&gt;SICP § 2.4.3 中描述了以查表（ type × operation 二维表）为实现方式的泛型系统，具体函数被隐藏在“泛型函数 + Selector”这样的抽象之下，那么如果将具体函数放在“数据 + Selector”这样的抽象之下是什么样的呢，本文呈现了符合此抽象（SICP 中称为 Message Passing）的 Boolean.   &lt;strong&gt;数据&lt;/strong&gt;和&lt;strong&gt;函数&lt;/strong&gt;对程序而言的重要性不言而喻，那么接下来从三个角度探讨数据与函数之间可能存在什么样的关系：Message Passing ↦ 让数据自己携带函数；Haskell &lt;code&gt;$&lt;/code&gt;的应用 ↦ 将数据变成某种函数；Haskell中的代数数据类型 ↦ 使用函数构造数据.&lt;/p&gt;
 &lt;h2 id=&#34;泛型函数intelligent-operations&#34;&gt;&lt;a href=&#34;#%e6%b3%9b%e5%9e%8b%e5%87%bd%e6%95%b0intelligent-operations&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;泛型函数：Intelligent Operations
@@ -278,10 +278,10 @@ Church Encoding 是一种用函数表示自然数的方法. --&gt;
         </item>
         <item>
         <title>Scheme: `let` 的语义 (feat. `if` 的语义)</title>
-        <link>http://localhost:1313/zh/p/scheme-let-%E7%9A%84%E8%AF%AD%E4%B9%89-feat.-if-%E7%9A%84%E8%AF%AD%E4%B9%89/</link>
+        <link>http://fyshxfish.github.io/zh/p/scheme-let-%E7%9A%84%E8%AF%AD%E4%B9%89-feat.-if-%E7%9A%84%E8%AF%AD%E4%B9%89/</link>
         <pubDate>Thu, 29 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/zh/p/scheme-let-%E7%9A%84%E8%AF%AD%E4%B9%89-feat.-if-%E7%9A%84%E8%AF%AD%E4%B9%89/</guid>
+        <guid>http://fyshxfish.github.io/zh/p/scheme-let-%E7%9A%84%E8%AF%AD%E4%B9%89-feat.-if-%E7%9A%84%E8%AF%AD%E4%B9%89/</guid>
         <description>&lt;hr&gt;
 &lt;h2 id=&#34;let-的语义&#34;&gt;&lt;a href=&#34;#let-%e7%9a%84%e8%af%ad%e4%b9%89&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;&lt;code&gt;let&lt;/code&gt; 的语义
 &lt;/h2&gt;&lt;p&gt;&lt;mark&gt;结论&lt;/mark&gt;: &lt;code&gt;let&lt;/code&gt; scope 会立即求值 (包括绑定和绑定之后的表达式, 也就是 &lt;code&gt;let&lt;/code&gt; 之外的一层括号所包裹的范围), 即使你把 &lt;code&gt;let&lt;/code&gt; 嵌套在内层函数里而且这个函数还完全没有被调用.&lt;/p&gt;
@@ -376,10 +376,10 @@ Church Encoding 是一种用函数表示自然数的方法. --&gt;
         </item>
         <item>
         <title>mit-scheme 配置与基本使用</title>
-        <link>http://localhost:1313/zh/p/mit-scheme-%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</link>
+        <link>http://fyshxfish.github.io/zh/p/mit-scheme-%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</link>
         <pubDate>Sat, 24 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/zh/p/mit-scheme-%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</guid>
+        <guid>http://fyshxfish.github.io/zh/p/mit-scheme-%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</guid>
         <description>&lt;blockquote&gt;
 &lt;p&gt;Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away.
 &lt;br&gt;&amp;ndash; Antoine de Saint-Exupéry&lt;/p&gt;&lt;/blockquote&gt;

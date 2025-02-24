@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>VSCode on fyshXplore</title>
-        <link>http://localhost:1313/tags/vscode/</link>
+        <link>http://fyshxfish.github.io/tags/vscode/</link>
         <description>Recent content in VSCode on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Mon, 26 Aug 2024 00:00:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/vscode/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 26 Aug 2024 00:00:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/tags/vscode/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>My Common VSCode Shortcuts</title>
-        <link>http://localhost:1313/p/my-common-vscode-shortcuts/</link>
+        <link>http://fyshxfish.github.io/p/my-common-vscode-shortcuts/</link>
         <pubDate>Mon, 26 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/my-common-vscode-shortcuts/</guid>
+        <guid>http://fyshxfish.github.io/p/my-common-vscode-shortcuts/</guid>
         <description>&lt;p&gt;&lt;strong&gt;&lt;em&gt;Code, easier✨&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;h2 id=&#34;your-vscode-assistant&#34;&gt;&lt;a href=&#34;#your-vscode-assistant&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Your VSCode Assistant
 &lt;/h2&gt;&lt;p&gt;&lt;mark&gt;&lt;strong&gt;Ctrl + Shift + P&lt;/strong&gt;&lt;/mark&gt;&lt;/p&gt;

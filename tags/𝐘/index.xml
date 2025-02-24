@@ -1,0 +1,474 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+    <channel>
+        <title>𝐘 on fyshXplore</title>
+        <link>http://localhost:1313/tags/%F0%9D%90%98/</link>
+        <description>Recent content in 𝐘 on fyshXplore</description>
+        <generator>Hugo -- gohugo.io</generator>
+        <language>en</language>
+        <lastBuildDate>Sun, 02 Feb 2025 21:29:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/%F0%9D%90%98/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Basic Lambda Calculus Programming (Solutions for game functional on Steam)</title>
+        <link>http://localhost:1313/p/basic-lambda-calculus-programming-solutions-for-game-functional-on-steam/</link>
+        <pubDate>Sun, 02 Feb 2025 21:29:00 +0800</pubDate>
+        
+        <guid>http://localhost:1313/p/basic-lambda-calculus-programming-solutions-for-game-functional-on-steam/</guid>
+        <description>&lt;p&gt;Following problems come from &lt;em&gt;functional&lt;/em&gt;, available on Steam.&lt;/p&gt;
+&lt;h2 id=&#34;basic&#34;&gt;&lt;a href=&#34;#basic&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Basic
+&lt;/h2&gt;&lt;h3 id=&#34;anything&#34;&gt;&lt;a href=&#34;#anything&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;anything
+&lt;/h3&gt;&lt;p&gt;Any term that conforms to Lambda Calculus syntax (1. variable 2. abstraction 3. application) is okay.&lt;/p&gt;
+&lt;h3 id=&#34;identity&#34;&gt;&lt;a href=&#34;#identity&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;identity
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code class=&#34;language-lambda&#34; data-lang=&#34;lambda&#34;&gt;x: x
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;two-arguments&#34;&gt;&lt;a href=&#34;#two-arguments&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;two arguments
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;x:y: y x
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;squaring&#34;&gt;&lt;a href=&#34;#squaring&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;squaring
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;f:x: f (f x) 
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;indirection&#34;&gt;&lt;a href=&#34;#indirection&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;indirection
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;f:x:y: f y x
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;boolean&#34;&gt;&lt;a href=&#34;#boolean&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Boolean
+&lt;/h2&gt;&lt;p&gt;Definitions:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;TRUE = t:f: t
+FALSE = t:f: f
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;if&#34;&gt;&lt;a href=&#34;#if&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;IF
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;p:t:f: p t f
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Simple LC has no type system, so programmers need to ensure that &lt;code&gt;p&lt;/code&gt; can always evaluate to &lt;code&gt;TRUE&lt;/code&gt; / &lt;code&gt;FALSE&lt;/code&gt;, then &lt;code&gt;p t f&lt;/code&gt; further evaluates to &lt;code&gt;t&lt;/code&gt;/ &lt;code&gt;f&lt;/code&gt;. If &lt;code&gt;p&lt;/code&gt; cannot evaluate to &lt;code&gt;TRUE&lt;/code&gt; / &lt;code&gt;FALSE&lt;/code&gt;, then &lt;code&gt;p t f&lt;/code&gt; will be retained or produce unexpected evaluation behavior.&lt;/p&gt;
+&lt;p&gt;One thing you can easily notice is: &lt;code&gt;IF P A B ≡ P A B&lt;/code&gt;, you can completely omit &lt;code&gt;IF&lt;/code&gt; in all occasions where it&amp;rsquo;s used. This doesn&amp;rsquo;t change the semantics and can reduce one reduction, but for readability, there&amp;rsquo;s still reason to keep &lt;code&gt;IF&lt;/code&gt; in somewhat complex programs.&lt;/p&gt;
+&lt;h3 id=&#34;not&#34;&gt;&lt;a href=&#34;#not&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;NOT
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;b: b FALSE TRUE
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;This looks subtly clever. It can be obtained straightforwardly through &lt;code&gt;b: IF b FALSE TRUE → b FALSE TRUE&lt;/code&gt;, or directly by utilizing the meaning of &lt;code&gt;TRUE&lt;/code&gt; / &lt;code&gt;FALSE&lt;/code&gt; - selecting the first/second item.&lt;/p&gt;
+&lt;h3 id=&#34;and&#34;&gt;&lt;a href=&#34;#and&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;AND
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;p:q: p q p
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;If &lt;code&gt;p = TRUE&lt;/code&gt;, then &lt;code&gt;AND p q ≡ q&lt;/code&gt;; if &lt;code&gt;p = FALSE&lt;/code&gt;, then &lt;code&gt;AND p q ≡ FALSE ≡ p&lt;/code&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;or&#34;&gt;&lt;a href=&#34;#or&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;OR
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;p:q: p p q
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;If &lt;code&gt;p = TRUE&lt;/code&gt;, then &lt;code&gt;OR p q ≡ p ≡ TRUE&lt;/code&gt;; if &lt;code&gt;p = FALSE&lt;/code&gt;, then &lt;code&gt;OR p q ≡ q&lt;/code&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;xor&#34;&gt;&lt;a href=&#34;#xor&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;XOR
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;p:q: p (NOT q) q
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Similar to &lt;code&gt;AND&lt;/code&gt;, &lt;code&gt;OR&lt;/code&gt;, you can draw a truth table to organize your thoughts.&lt;/p&gt;
+&lt;h2 id=&#34;pair-and-list&#34;&gt;&lt;a href=&#34;#pair-and-list&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Pair and List
+&lt;/h2&gt;&lt;h3 id=&#34;pair&#34;&gt;&lt;a href=&#34;#pair&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;PAIR
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;x:y:f: f x y
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;code&gt;PAIR A B → (x:y:f: f x y) A B → (f: f A B)&lt;/code&gt; is an abstraction that: contains &lt;code&gt;A&lt;/code&gt;, &lt;code&gt;B&lt;/code&gt; in order, waiting for a function &lt;code&gt;f&lt;/code&gt; to act on the contained &lt;code&gt;A&lt;/code&gt;, &lt;code&gt;B&lt;/code&gt;. For example, when &lt;code&gt;A&lt;/code&gt;, &lt;code&gt;B&lt;/code&gt; are Boolean, &lt;code&gt;f&lt;/code&gt; can be &lt;code&gt;AND&lt;/code&gt; / &lt;code&gt;OR&lt;/code&gt; / &amp;hellip; (of course, the syntax doesn&amp;rsquo;t restrict the shape of &lt;code&gt;f&lt;/code&gt;,&lt;code&gt;A&lt;/code&gt;,&lt;code&gt;B&lt;/code&gt;, if you want to write &lt;code&gt;PAIR TRUE 0 PAIR&lt;/code&gt; the interpreter won&amp;rsquo;t stop you)&lt;/p&gt;
+&lt;h3 id=&#34;fst&#34;&gt;&lt;a href=&#34;#fst&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;FST
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;p: p TRUE
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;When &lt;code&gt;p = PAIR A B&lt;/code&gt;, &lt;code&gt;p TRUE → (PAIR A B) TRUE → (f: f A B) TRUE → TRUE A B → A&lt;/code&gt;. Note that &lt;code&gt;p&lt;/code&gt; is a function that can receive a parameter &lt;code&gt;f&lt;/code&gt;, here we make it receive the &lt;code&gt;TRUE&lt;/code&gt; function to select the first element. In LC, &lt;code&gt;TRUE&lt;/code&gt; / &lt;code&gt;FALSE&lt;/code&gt; are more appropriately interpreted as &lt;strong&gt;selecting&lt;/strong&gt; the first/second item that follows, rather than expressing the truth/falsity of a proposition. This is meaningful because when we write programs in other high-level languages, if we need a Boolean value &lt;code&gt;X&lt;/code&gt;, &lt;code&gt;X&lt;/code&gt;&amp;rsquo;s ultimate utility is often in the &lt;strong&gt;selection&lt;/strong&gt; of &lt;code&gt;then-clause&lt;/code&gt; / &lt;code&gt;else-clause&lt;/code&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;snd&#34;&gt;&lt;a href=&#34;#snd&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;SND
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;p: p FALSE
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Similar to &lt;code&gt;FST&lt;/code&gt;.&lt;/p&gt;
+&lt;h3 id=&#34;simple-list&#34;&gt;&lt;a href=&#34;#simple-list&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;simple list
+&lt;/h3&gt;&lt;p&gt;Get the 3rd item from the list (1-indexed):&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;l: FST ( SND ( SND l ) )
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;A list is a simple recursive structure. The recursive base is an empty list, represented here by &lt;code&gt;FALSE&lt;/code&gt;. The recursive step is adding elements to a list, implemented here using &lt;code&gt;PAIR&lt;/code&gt;. e.g. &lt;code&gt;[] ↦ FALSE&lt;/code&gt;, &lt;code&gt;1 ↦ (PAIR 1 FALSE)&lt;/code&gt;, &lt;code&gt;[1,3] ↦ (PAIR 1 (PAIR 3 FALSE))&lt;/code&gt;. &lt;span style=&#34;color: gray&#34;&gt;Note in the &lt;code&gt;[1,3]&lt;/code&gt; example, if viewed from the perspective of &lt;strong&gt;adding elements to a list&lt;/strong&gt;, the head is the item closest to &lt;code&gt;FALSE&lt;/code&gt;, the closer to &lt;code&gt;FALSE&lt;/code&gt;, the smaller the index, because it was added earlier. Under this interpretation, &lt;code&gt;[1,3] ↦ (PAIR 3 (PAIR 1 FALSE))&lt;/code&gt;.&lt;/span&gt; However, the game doesn&amp;rsquo;t adopt this interpretation, but maintains visual alignment with familiar &lt;code&gt;[a,b,..]&lt;/code&gt;, making the most recently added item - the leftmost item - the head. Keep this in mind when dealing with ascending/descending order problems later.&lt;/p&gt;
+&lt;h3 id=&#34;any&#34;&gt;&lt;a href=&#34;#any&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;ANY
+&lt;/h3&gt;&lt;p&gt;For a list containing 3 Boolean values, return &lt;code&gt;TRUE&lt;/code&gt; if any item is &lt;code&gt;TRUE&lt;/code&gt;, otherwise return &lt;code&gt;FALSE&lt;/code&gt;:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(l: IF 
+  (OR 
+    (FST (SND (SND l))) 
+    (OR 
+      (FST l) 
+      (FST (SND l))
+    )
+  )
+  TRUE FALSE
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Just write according to logic straightforwardly. Here the list has fixed length, which is easy to deal with. Variable-length lists would require recursion, see later.&lt;/p&gt;
+&lt;h3 id=&#34;push&#34;&gt;&lt;a href=&#34;#push&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;PUSH
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(m:l: PAIR m l)
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Use &lt;code&gt;PUSH&lt;/code&gt; to add new item &lt;code&gt;m&lt;/code&gt; to list &lt;code&gt;l&lt;/code&gt;. According to η-reduction, &lt;code&gt;PUSH ≡ PAIR&lt;/code&gt;, so writing &lt;code&gt;PAIR&lt;/code&gt; directly is sufficient here.&lt;/p&gt;
+&lt;h3 id=&#34;pop&#34;&gt;&lt;a href=&#34;#pop&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;POP
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;SND
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Pop out the outermost / leftmost item.&lt;/p&gt;
+&lt;h3 id=&#34;empty&#34;&gt;&lt;a href=&#34;#empty&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;EMPTY
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;l: l (t:x:y: FALSE) TRUE
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;First, &lt;code&gt;EMPTY&lt;/code&gt; needs to receive a list, so its basic shape is &lt;code&gt;EMPTY = l: ...&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Consider case &lt;code&gt;l&#39; = FALSE&lt;/code&gt;, &lt;code&gt;EMPTY l&#39; ~expected→ TRUE&lt;/code&gt;. Using &lt;code&gt;FALSE&lt;/code&gt;&amp;rsquo;s selection ability, we make &lt;code&gt;EMPTY = l: l 𝕏 TRUE&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Consider case &lt;code&gt;l* = PAIR a (PAIR b (...)) = (f: f a (PAIR b (...))) ≈ (f: f a _tail)&lt;/code&gt;, viewing &lt;code&gt;l*&lt;/code&gt; as a function receiving one parameter, &lt;code&gt;EMPTY l* = (f: f a _tail) 𝕏 TRUE → 𝕏 a _tail TRUE ~expected→ FALSE&lt;/code&gt;. Then &lt;code&gt;𝕏&lt;/code&gt;&amp;rsquo;s job is to receive the following 3 items and return &lt;code&gt;FALSE&lt;/code&gt;, so &lt;code&gt;𝕏 = (t:x:y: FALSE)&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Combining all above gives the final solution &lt;code&gt;EMPTY = l: l (t:x:y: FALSE) TRUE&lt;/code&gt;&lt;/p&gt;
+&lt;hr&gt;
+&lt;h2 id=&#34;recursion&#34;&gt;&lt;a href=&#34;#recursion&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Recursion
+&lt;/h2&gt;&lt;h3 id=&#34;create-recursion---y-combinator&#34;&gt;&lt;a href=&#34;#create-recursion---y-combinator&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;create recursion - Y combinator
+&lt;/h3&gt;&lt;h4 id=&#34;motivation-recursion-in-lc&#34;&gt;&lt;a href=&#34;#motivation-recursion-in-lc&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Motivation: Recursion in LC
+&lt;/h4&gt;&lt;p&gt;Try to define recursive factorial function in LC:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;f = a: IF (EQ a 1)
+     1
+     (a * f (a - 1))
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The above definition doesn&amp;rsquo;t conform to LC syntax because LC functions are anonymous functions and don&amp;rsquo;t support calling functions by name (like &lt;code&gt;f&lt;/code&gt; above). Yet recursive functions inevitably need self-reference. How to solve this problem?&lt;/p&gt;
+&lt;p&gt;Applying function $F$ to parameter $A$ can be expressed as $F A$, or using higher-order functions like this: $(\lambda fa.\ f\ a) F A$. Building on this, add some logic, like expressing &amp;ldquo;with parameters $a$ and $p$, function $f$, if $p\ a$ is true, return $f\ a$, otherwise return $a$ itself&amp;rdquo;: $(\lambda fap.\ IF\ (p\ a)\ (f\ a)\ a)$. Based on this idea, assuming our target factorial function is &lt;code&gt;F&lt;/code&gt;, then &lt;code&gt;F&lt;/code&gt; satisfies this equation, denoting &lt;code&gt;(f:a: ..)&lt;/code&gt; as &lt;code&gt;F&#39;&lt;/code&gt;:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;F = (f:a: IF (EQ a 1)
+      1 
+      (a * f (a - 1))
+  )  F 
+  ≡ F&amp;#39; F 
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Looking at the right side of the equation, &lt;code&gt;F&#39;&lt;/code&gt;&amp;rsquo;s meaning is to receive function &lt;code&gt;f&lt;/code&gt; and parameter &lt;code&gt;a&lt;/code&gt;, if &lt;code&gt;EQ a 1&lt;/code&gt; return &lt;code&gt;1&lt;/code&gt;, otherwise return &lt;code&gt;a * f (a - 1)&lt;/code&gt;. Passing recursive function &lt;code&gt;F&lt;/code&gt; to &lt;code&gt;F&#39;&lt;/code&gt;, the behavior of resulting function &lt;code&gt;F&#39; F&lt;/code&gt; matches our target factorial function &lt;code&gt;F&lt;/code&gt;, semantically making both sides equal.&lt;/p&gt;
+&lt;p&gt;Currently we have equation &lt;code&gt;F = F&#39; F&lt;/code&gt; ①, where &lt;code&gt;F&#39;&lt;/code&gt; is a known closed term. Since &lt;code&gt;F&lt;/code&gt; involves self-reference, no normal form exists, so consider if there exists some &lt;code&gt;Y&lt;/code&gt; s.t. &lt;code&gt;Y F&#39; = F&lt;/code&gt; ②. Substituting ② into ①, we get &lt;code&gt;Y F&#39; = F&#39; (Y F&#39;)&lt;/code&gt;. The next goal is to solve for &lt;code&gt;Y&lt;/code&gt;&amp;rsquo;s normal form. Once we get &lt;code&gt;Y&lt;/code&gt;, target recursive function &lt;code&gt;F = Y F&#39;&lt;/code&gt; follows.&lt;/p&gt;
+&lt;span style=&#34;color: gray&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Why try to decompose &lt;code&gt;F&lt;/code&gt; into &lt;code&gt;Y F&#39;&lt;/code&gt;?&lt;/p&gt;
+&lt;p&gt;Speaking loosely, from equation perspective &lt;code&gt;F = F&#39; F&lt;/code&gt; has only one unknown &lt;code&gt;F&lt;/code&gt;. Transforming &lt;code&gt;F&lt;/code&gt; to &lt;code&gt;Y F&#39;&lt;/code&gt; similarly contains only one unknown &lt;code&gt;Y&lt;/code&gt;, while &lt;code&gt;F&#39;&lt;/code&gt; is known and closely related to our solution target (recursive function &lt;code&gt;F&lt;/code&gt;).&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/span&gt;
+&lt;h4 id=&#34;designing-the-y-combinator&#34;&gt;&lt;a href=&#34;#designing-the-y-combinator&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Designing the Y Combinator
+&lt;/h4&gt;&lt;p&gt;&lt;code&gt;Y&lt;/code&gt; is a term that satisfies: &lt;code&gt;Y F = F (Y F) = F (F (Y F)) = ...&lt;/code&gt;. (Note: How/When the term expands depends on the evaluaton strategy.)&lt;/p&gt;
+&lt;p&gt;To design &lt;code&gt;Y&lt;/code&gt; that meets the above requirements, let&amp;rsquo;s analyze:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;Y&lt;/code&gt; must be of the form &lt;code&gt;(f: ...)&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Self-reference in &lt;code&gt;Y&lt;/code&gt;? — We need to repeat &lt;code&gt;Y&lt;/code&gt;, or &lt;strong&gt;construct&lt;/strong&gt; the right-side &lt;code&gt;Y&lt;/code&gt;.&lt;/p&gt;
+&lt;p&gt;Function/Abstraction is All You Need — Since LC has no storage, in &lt;code&gt;Y F = F (Y F)&lt;/code&gt;, the &lt;code&gt;Y&lt;/code&gt;s on both sides aren&amp;rsquo;t the same instance. They&amp;rsquo;re not value or address copies (LC has no storage concept). The right-side &lt;code&gt;Y&lt;/code&gt; needs to be constructed, being &lt;strong&gt;equal under alpha-conversion&lt;/strong&gt; to the left-side &lt;code&gt;Y&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;How to repeat &lt;code&gt;F&lt;/code&gt;? Simple - &lt;code&gt;Y = (f: ...)&lt;/code&gt; receives parameter &lt;code&gt;F&lt;/code&gt;, and within &lt;code&gt;Y&lt;/code&gt;&amp;rsquo;s body, we can repeat it as needed.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Design an abstraction &lt;code&gt;M&lt;/code&gt; for construction. &lt;code&gt;M&lt;/code&gt; will receive necessary parameters and organize them to form a structure identical to &lt;code&gt;Y&lt;/code&gt;.&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;Y = f: M f ...&lt;/code&gt; ~ᴇxᴘᴇᴄᴛᴇᴅ→ &lt;code&gt;M = f: f (Wai f)&lt;/code&gt;: &lt;code&gt;M&lt;/code&gt; needs &lt;code&gt;Y&lt;/code&gt;&amp;rsquo;s parameter &lt;code&gt;f&lt;/code&gt; and must build structure matching &lt;code&gt;Y F&lt;/code&gt;;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Y = f: M f M ...&lt;/code&gt; ~ᴇxᴘᴇᴄᴛᴇᴅ→ &lt;code&gt;M = f:m: f (m f m)&lt;/code&gt;: Since we want &lt;code&gt;M&lt;/code&gt; to match &lt;code&gt;Y F&lt;/code&gt;&amp;rsquo;s structure, and &lt;code&gt;Y&lt;/code&gt; contains &lt;code&gt;M&lt;/code&gt;, &lt;code&gt;M&lt;/code&gt; must contain &lt;code&gt;M&lt;/code&gt; too, passed via parameter &lt;code&gt;m&lt;/code&gt;. In &lt;code&gt;M&lt;/code&gt;&amp;rsquo;s body, leftmost &lt;code&gt;f&lt;/code&gt; implements &lt;code&gt;f&lt;/code&gt;&amp;rsquo;s reapplication, &lt;code&gt;(m f m)&lt;/code&gt; constructs structure alpha-equivalent to left-side &lt;code&gt;Y F&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;Y = f: M f M, where M = f:m: f (m f m)&lt;/code&gt; is a valid Y combinator, verifiable by &lt;code&gt;Y F = M F M = (f:m: f (m f m)) F M = F (M F M) = F (M F M) = F (Y F)&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;There are countless Y combinators, like (a) &lt;code&gt;Y = f: M M f, M = m:f: f (m m f)&lt;/code&gt; - similar but more concise via η-reduction to &lt;code&gt;Y = M M, M = ...&lt;/code&gt;, as given by Turing; (b) &lt;code&gt;Y = f: E (E f) E f, E = r:s:f: f (s r s f)&lt;/code&gt; works too but less elegant; (c) most concise &lt;code&gt;Y = f: (x: f (x x)) (x: f (x x))&lt;/code&gt; which differs by not containing combinator sub-terms.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Exercise: How to implement combinator &lt;code&gt;D&lt;/code&gt; satisfying &lt;code&gt;D F D = D (D F D) D = ...&lt;/code&gt;?&lt;/p&gt;
+&lt;p&gt;One solution: &lt;code&gt;D = f:d: d (d f d) d&lt;/code&gt;, following similar principles.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Must &lt;code&gt;Y&lt;/code&gt; be a combinator? Can it have free variables?&lt;/p&gt;
+&lt;p&gt;If &lt;code&gt;Y&lt;/code&gt; had free variable &lt;code&gt;z&lt;/code&gt;, constructing &lt;code&gt;Y&lt;/code&gt; with &lt;code&gt;M&lt;/code&gt; must consider &lt;code&gt;z&lt;/code&gt;:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;closed &lt;code&gt;M&lt;/code&gt;: Pass &lt;code&gt;z&lt;/code&gt; as parameter giving &lt;code&gt;Y = f: M f c M, M = f:c:m: f (m f c m)&lt;/code&gt; - works but adds unnecessary complexity;&lt;/li&gt;
+&lt;li&gt;open &lt;code&gt;M&lt;/code&gt;: If &lt;code&gt;M&lt;/code&gt; contains free &lt;code&gt;z&lt;/code&gt;, like &lt;code&gt;Y = f: K f K z, K = f:k: f (k f k z)&lt;/code&gt;, it fails producing: &lt;code&gt;Y F = F (K F K z) z = F (Y F) z = F (F (Y F) z) z&lt;/code&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;Conclusion: Possible but pointless. Intuitively, arbitrary free variables serve no purpose.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h4 id=&#34;using-the-y-combinator&#34;&gt;&lt;a href=&#34;#using-the-y-combinator&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Using the Y combinator
+&lt;/h4&gt;&lt;p&gt;Following the motivation section, we use &lt;code&gt;F&#39; = f:a: ...&lt;/code&gt; to express the application logic between recursive function &lt;code&gt;f&lt;/code&gt; and its parameter &lt;code&gt;a&lt;/code&gt;. With target recursive function &lt;code&gt;F&lt;/code&gt;, we have &lt;code&gt;F = F&#39; F&lt;/code&gt;. Since self-reference is invalid, we consider using &lt;code&gt;Y F&#39;&lt;/code&gt; to represent &lt;code&gt;F&lt;/code&gt;. In the previous section we derived a viable &lt;code&gt;Y&lt;/code&gt;, so &lt;code&gt;F = Y F&#39;&lt;/code&gt; gives us our desired target function.&lt;/p&gt;
+&lt;p&gt;The problems in this section become straightforward once you understand the Y combinator. Key points to note:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;When using previously defined functions, pay attention to parameter order. For example, &lt;code&gt;FILTER&lt;/code&gt; takes the list first, then the filtering function. Since Simple LC has few syntax constraints, programmers need to be extra careful;&lt;/li&gt;
+&lt;li&gt;Several problems may involve list reversal, so write &lt;code&gt;REVERSE&lt;/code&gt; first and reuse it;&lt;/li&gt;
+&lt;li&gt;Watch your bracket matching - write in an advanced editor first to avoid basic errors, then copy the code into the game for evaluation. The answers below pass evaluation but may not be the most concise.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;strip-prefix&#34;&gt;&lt;a href=&#34;#strip-prefix&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;strip prefix
+&lt;/h3&gt;&lt;p&gt;Remove &lt;code&gt;FALSE&lt;/code&gt; prefix from variable length list:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Y (f:l:
+    IF 
+    (FST l)
+    l 
+    (f (SND l))
+    )
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;acc&#34;&gt;&lt;a href=&#34;#acc&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;ACC
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Y  (a:l:f:i: 
+    IF (EMPTY l)
+    i 
+    (a (SND l) f (f i (FST l))) 
+    )
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;all&#34;&gt;&lt;a href=&#34;#all&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;ALL
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;l: ACC l AND TRUE
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;reverse&#34;&gt;&lt;a href=&#34;#reverse&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;REVERSE
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Y (i:c:l: 
+    IF 
+    (EMPTY l) 
+    c 
+    (i (PAIR (FST l) c) (SND l))
+    ) 
+    FALSE 
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;map&#34;&gt;&lt;a href=&#34;#map&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;MAP
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Y  (m:c:l:f:
+        IF 
+        (EMPTY l)
+        (REVERSE c)
+        (m (PAIR (f (FST l)) c)  (SND l) f) 
+    )
+FALSE
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;none&#34;&gt;&lt;a href=&#34;#none&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;NONE
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(l: ALL (MAP l NOT))
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;filter&#34;&gt;&lt;a href=&#34;#filter&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;FILTER
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Y (m:c:l:f:
+        IF 
+        (EMPTY l)
+        (REVERSE c)
+        (   IF 
+        (f (FST l))
+        (m (PAIR (FST l) c) (SND l) f) 
+        (m c (SND l) f)
+        )
+    )
+    FALSE
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;zip&#34;&gt;&lt;a href=&#34;#zip&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;ZIP
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Y (z:c:m:n:
+    IF 
+    (EMPTY m)
+    (REVERSE c)    
+    (z (PAIR (PAIR (FST m) (FST n)) c) (SND m) (SND n)) 
+    ) 
+    FALSE
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;eqblist&#34;&gt;&lt;a href=&#34;#eqblist&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;EQBLIST
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(m:n: ALL 
+    (MAP 
+        (MAP 
+        (ZIP m n) 
+        (p: XOR (FST p) (SND p))
+        ) 
+        NOT
+    ) 
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;concat&#34;&gt;&lt;a href=&#34;#concat&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;CONCAT
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(m:n: 
+    (Y (g:c:r:
+        IF (EMPTY r)
+        c
+        (g (PAIR (FST r) c) (SND r))
+        )
+    )
+    n (REVERSE m) 
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;numerals&#34;&gt;&lt;a href=&#34;#numerals&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Numerals
+&lt;/h2&gt;&lt;p&gt;Church Numerals use functions to express natural numbers. Two key points are: 1. base (&lt;code&gt;0 := f:x: x&lt;/code&gt;) 2. successor (&lt;code&gt;SUC&lt;/code&gt;). By repeatedly applying successor to the base, we can obtain all Church Numerals.&lt;/p&gt;
+&lt;h3 id=&#34;suc&#34;&gt;&lt;a href=&#34;#suc&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;SUC
+&lt;/h3&gt;&lt;p&gt;Given Church Numeral &lt;code&gt;n&lt;/code&gt;, &lt;code&gt;n&lt;/code&gt; is a function that takes parameters &lt;code&gt;f&lt;/code&gt;, &lt;code&gt;x&lt;/code&gt;, where &lt;code&gt;n f x&lt;/code&gt; means applying &lt;code&gt;f&lt;/code&gt; to &lt;code&gt;x&lt;/code&gt; $n$ times. &lt;code&gt;SUC n&lt;/code&gt; is a function that takes &lt;code&gt;f&lt;/code&gt;, &lt;code&gt;x&lt;/code&gt; and applies &lt;code&gt;f&lt;/code&gt; to &lt;code&gt;x&lt;/code&gt; $(n+1)$ times.&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(n: (f:x: f (n f x) ) )
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;zero&#34;&gt;&lt;a href=&#34;#zero&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;ZERO
+&lt;/h3&gt;&lt;p&gt;Use logical operations to determine if given &lt;code&gt;n&lt;/code&gt; is &lt;code&gt;(f:x: x)&lt;/code&gt;.&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(n: n (x: AND FALSE x) TRUE)
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;pre&#34;&gt;&lt;a href=&#34;#pre&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;PRE
+&lt;/h3&gt;&lt;p&gt;A basic observation is &lt;code&gt;n = n SUC 0&lt;/code&gt;, where equality means intensional equality. So iterating on &lt;code&gt;PAIR 0 0&lt;/code&gt; $n$ times, where each iteration: 1. aligns right number with left 2. increments left number, means right number always lags left by one step. After $n$ iterations, left number is &lt;code&gt;n&lt;/code&gt;, right number is its predecessor.&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(n: SND (n (p: PAIR (SUC (FST p)) (FST p)) (PAIR 0 0) ) )
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;add&#34;&gt;&lt;a href=&#34;#add&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;ADD
+&lt;/h3&gt;&lt;p&gt;Given &lt;code&gt;x&lt;/code&gt;, &lt;code&gt;y&lt;/code&gt;, the goal is &lt;code&gt;x+y&lt;/code&gt;, meaning: ready to receive &lt;code&gt;f&lt;/code&gt;, &lt;code&gt;z&lt;/code&gt;, apply &lt;code&gt;f&lt;/code&gt; to &lt;code&gt;z&lt;/code&gt; $(x+y)$ times. First apply &lt;code&gt;f&lt;/code&gt; to &lt;code&gt;z&lt;/code&gt; $x$ times getting &lt;code&gt;x f z&lt;/code&gt;, then apply &lt;code&gt;f&lt;/code&gt; to &lt;code&gt;(x f z)&lt;/code&gt; $y$ times.&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(x:y: (f:z: y f (x f z)) )
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;sub&#34;&gt;&lt;a href=&#34;#sub&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;SUB
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(x:y: (f:z: (y PRE x) f z))
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;mul&#34;&gt;&lt;a href=&#34;#mul&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;MUL
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(x:y:f:z: y (x f) z )
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;div&#34;&gt;&lt;a href=&#34;#div&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;DIV
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(Y (d:c:x:y:
+    IF (ZERO x)
+    0    
+    ( 
+      IF (ZERO (y PRE x))
+      (SUC c)
+      (d (SUC c) (y PRE x) y)
+    ) 
+   ) 
+) 0
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;eq&#34;&gt;&lt;a href=&#34;#eq&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;EQ
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(x:y: AND 
+    (ZERO (x PRE y)) 
+    (ZERO (y PRE x))
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;min&#34;&gt;&lt;a href=&#34;#min&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;MIN
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(x:y: IF (ZERO (x PRE y))
+      y
+      x
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;max&#34;&gt;&lt;a href=&#34;#max&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;MAX
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(x:y: IF (ZERO (x PRE y))
+      x
+      y
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;more-numerals&#34;&gt;&lt;a href=&#34;#more-numerals&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;More Numerals
+&lt;/h2&gt;&lt;h3 id=&#34;is-odd&#34;&gt;&lt;a href=&#34;#is-odd&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;is odd
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(n: (n NOT FALSE))
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;As a side note, here&amp;rsquo;s a recursive method for checking odd/even numbers (looks interesting, fresher than familiar &lt;code&gt;mod 2&lt;/code&gt;):&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-hs&#34; data-lang=&#34;hs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;isEven&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;::&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;Int&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;Bool&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;isEven&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;True&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;isEven&lt;/span&gt; x &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; isOdd &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;x&lt;span style=&#34;color:#0550ae&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;isOdd&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;::&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;Int&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;Bool&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;isOdd&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;False&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;isOdd&lt;/span&gt; x &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; isEven &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;x&lt;span style=&#34;color:#0550ae&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;increasing-list&#34;&gt;&lt;a href=&#34;#increasing-list&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;increasing list
+&lt;/h3&gt;&lt;p&gt;Tail recursive:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(Y (f:c:n: IF (ZERO n)
+           (PAIR 0 c)
+           (f (PAIR n c) (PRE n))
+   ) 
+) FALSE
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Non-tail recursive:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(n: REVERSE 
+    ( 
+     (Y (f:x: 
+            IF (ZERO x)
+            (PAIR 0 FALSE)
+            (PAIR x (f (PRE x))))
+     ) n
+    )
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;decomposition&#34;&gt;&lt;a href=&#34;#decomposition&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;decomposition
+&lt;/h3&gt;&lt;p&gt;Decompose given number into sum of powers of 2:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(Y (f:c:k:n:
+     IF (ZERO n)
+     c
+     (IF (AND (EQ n (MIN k n)) (NOT (EQ k n)))  
+         (f c (DIV k 2) n)
+         (f (PAIR k c) (DIV k 2) (SUB n k) )
+     )
+   )
+) FALSE 8
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;*&lt;/strong&gt; primes and sort both need significant runtime (local tests show around 30min each level)&lt;/p&gt;
+&lt;h3 id=&#34;primes&#34;&gt;&lt;a href=&#34;#primes&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;primes
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Y (f:l:p:n: 
+     IF (EQ n (FST p)) 
+     (PAIR n l)
+     (IF (EQ (FST p) (MAX n (FST p)))
+      (f l (SND p) n)
+      ( IF (
+            (Y (f:n:p:
+                IF (EQ n (MIN n p) )
+                (IF (EQ n p) TRUE FALSE )
+                (f (SUB n p) p)   
+               )
+            ) n (FST p)
+           )
+        (f (PAIR (FST p) l) p (DIV n (FST p)))
+        (f l (SND p) n)
+      )
+     )
+  )
+  FALSE
+  (PAIR 47 (PAIR 43 (PAIR 41 (PAIR 37 (PAIR 31 (PAIR 29 
+  (PAIR 23 (PAIR 19 (PAIR 17 (PAIR 13 (PAIR 11 (PAIR 7 
+  (PAIR 3  (PAIR 2 FALSE))))))))))))))
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;sort&#34;&gt;&lt;a href=&#34;#sort&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;sort
+&lt;/h3&gt;&lt;p&gt;Selection sort:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Y (f:c:l: 
+    IF (EMPTY l)
+    c
+    (
+        (m: (f (PAIR m c) (FILTER l (x: NOT (EQ x m)) )) ) 
+        (ACC l MAX 0)
+    )
+  ) FALSE
+&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;trees&#34;&gt;&lt;a href=&#34;#trees&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;trees
+&lt;/h2&gt;&lt;h3 id=&#34;node&#34;&gt;&lt;a href=&#34;#node&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;NODE
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;l:v:r:f: f l v r
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;lef&#34;&gt;&lt;a href=&#34;#lef&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;LEF
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;t: t (l:v:r: l) 
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;rig&#34;&gt;&lt;a href=&#34;#rig&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;RIG
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;t: t (l:v:r: r)
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;val&#34;&gt;&lt;a href=&#34;#val&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;VAL
+&lt;/h3&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;t: t (l:v:r: v)
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;bempty&#34;&gt;&lt;a href=&#34;#bempty&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;BEMPTY
+&lt;/h3&gt;&lt;p&gt;Similar to checking empty list. Non-empty trees have the form of &lt;code&gt;NODE l v r = f: f l v r&lt;/code&gt;,and empty tree is represented by &lt;code&gt;FALSE := a:b: b&lt;/code&gt;. Using a tree &lt;code&gt;t&lt;/code&gt; as a function: if empty tree, &lt;code&gt;t A B = FALSE A B = B ~ᴇxᴘᴇᴄᴛᴇᴅ→ TRUE&lt;/code&gt;, if non-empty &lt;code&gt;t A B = (f: f l v r) A B = A l v r B ~ᴇxᴘᴇᴄᴛᴇᴅ→ FALSE&lt;/code&gt;. Thus with &lt;code&gt;B = TRUE, A = l:v:r:x: FALSE&lt;/code&gt;:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(t: t (l:v:r:x: FALSE) TRUE )
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;find&#34;&gt;&lt;a href=&#34;#find&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;FIND
+&lt;/h3&gt;&lt;p&gt;Check if tree &lt;code&gt;t&lt;/code&gt; contains node with value &lt;code&gt;v&lt;/code&gt;:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Y (f:t:v:
+    IF (BEMPTY t)
+    FALSE
+    (IF (EQ (VAL t) v)
+     TRUE
+     (OR (f (LEF t) v) (f (RIG t) v))    
+    )
+  )
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;bsize&#34;&gt;&lt;a href=&#34;#bsize&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;BSIZE
+&lt;/h3&gt;&lt;p&gt;Calculate tree size:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Y (f:t:
+    IF (BEMPTY t)
+    0
+    (SUC (ADD (f (LEF t)) (f (RIG t))))
+  )
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;build&#34;&gt;&lt;a href=&#34;#build&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;BUILD
+&lt;/h3&gt;&lt;p&gt;Binary search tree construction:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Y (f:c:l:
+    IF (EMPTY l)
+    c
+    (   f
+        (
+          (
+          Y (f:v:t:
+              IF (BEMPTY t)
+              (NODE FALSE v FALSE)
+              ( IF (EQ v (MIN v (VAL t)))
+                (NODE (f v (LEF t)) (VAL t) (RIG t))
+                (NODE (LEF t) (VAL t) (f v (RIG t)))
+              )
+            )
+          )           
+          (FST l) c)
+        (SND l)
+    ) 
+  ) FALSE
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;em&gt;[ Seems like PREORDER and INORDER functions are swapped in the game? ]&lt;/em&gt;&lt;/p&gt;
+&lt;h3 id=&#34;preorder&#34;&gt;&lt;a href=&#34;#preorder&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;PREORDER
+&lt;/h3&gt;&lt;p&gt;Inorder traversal of binary tree:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Y (f:t: 
+    IF (BEMPTY t)
+    FALSE
+    (CONCAT (f (LEF t))
+        (PUSH (VAL t)  
+              (f (RIG t))
+        )
+    )
+  )
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;inorder&#34;&gt;&lt;a href=&#34;#inorder&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;INORDER
+&lt;/h3&gt;&lt;p&gt;Preorder traversal of binary tree:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Y (f:t: 
+    IF (BEMPTY t)
+    FALSE
+    (PUSH (VAL t)
+        (CONCAT (f (LEF t)) 
+                (f (RIG t))
+        )
+    )
+  )
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;split&#34;&gt;&lt;a href=&#34;#split&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;SPLIT
+&lt;/h3&gt;&lt;p&gt;Split tree &lt;code&gt;t&lt;/code&gt; using value &lt;code&gt;v&lt;/code&gt; as boundary:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;Y (f:t:v:
+    IF (BEMPTY t)
+    (PAIR FALSE FALSE)
+    (
+      IF (EQ v (MAX v (VAL t)))
+      (
+        (p: PAIR (NODE (LEF t) (VAL t) (FST p)) (SND p)) 
+        (f (RIG t) v)
+      )
+      (
+        (p: (PAIR (FST p) (NODE (SND p) (VAL t) (RIG t) ))) 
+        (f (LEF t) v)
+      )
+    )
+  )
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;kth&#34;&gt;&lt;a href=&#34;#kth&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;KTH
+&lt;/h3&gt;&lt;p&gt;Find kth largest element in given binary search tree by getting kth item from inorder traversal list:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;(t:k: 
+    Y (f:c:l:
+        IF (EQ c 0)
+        (FST l)
+        (f (PRE c) (SND l) )
+    ) k (PREORDER t)
+)
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;inverse-6&#34;&gt;&lt;a href=&#34;#inverse-6&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;inverse 6
+&lt;/h3&gt;&lt;p&gt;For given binary search tree &lt;code&gt;t&lt;/code&gt;, find missing numbers from &lt;code&gt;[1..6]&lt;/code&gt; in ascending order:&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;t: 
+  IF (BEMPTY t)
+  (PAIR 1 (PAIR 2 (PAIR 3 (PAIR 4 (PAIR 5 (PAIR 6 FALSE))))))
+  (
+   Y (f:c:m:n:
+        IF (EMPTY n)
+        (REVERSE c)
+        (
+          IF (EQ (FST m) (FST n))
+          (f c (SND m) (SND n))
+          (f (PAIR (FST n) c) m (SND n))
+        )
+    ) 
+    FALSE
+    (PREORDER t)
+    (PAIR 1 (PAIR 2 (PAIR 3 (PAIR 4 (PAIR 5 (PAIR 6 FALSE))))))
+  )
+&lt;/code&gt;&lt;/pre&gt;&lt;hr&gt;
+</description>
+        </item>
+        
+    </channel>
+</rss>

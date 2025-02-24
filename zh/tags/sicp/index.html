@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh" dir="ltr">
-    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Just for 𝐅𝐮𝐧">
 <title>Tag: SICP - fyshXplore</title>
 
-<link rel='canonical' href='http://localhost:1313/zh/tags/sicp/'>
+<link rel='canonical' href='http://fyshxfish.github.io/zh/tags/sicp/'>
 
-<link rel="stylesheet" href="/scss/style.min.be0d5e0eb92c2fa09941c16ce5a24165e9552d4dcbea0a1a378c27e26cc08e23.css"><meta property='og:title' content="Tag: SICP - fyshXplore">
+<link rel="stylesheet" href="/scss/style.min.6e82346d850613bc57230e4ca20f047ed0a92acdad6f653aee5a2f927e2e7c86.css"><meta property='og:title' content="Tag: SICP - fyshXplore">
 <meta property='og:description' content="Just for 𝐅𝐮𝐧">
-<meta property='og:url' content='http://localhost:1313/zh/tags/sicp/'>
+<meta property='og:url' content='http://fyshxfish.github.io/zh/tags/sicp/'>
 <meta property='og:site_name' content='fyshXplore'>
 <meta property='og:type' content='website'><meta property='og:updated_time' content=' 2025-02-17T16:32:00&#43;08:00 '/>
 <meta name="twitter:title" content="Tag: SICP - fyshXplore">
-<meta name="twitter:description" content="Just for 𝐅𝐮𝐧"><link rel="alternate" type="application/rss&#43;xml" href="http://localhost:1313/zh/tags/sicp/index.xml"><style>
+<meta name="twitter:description" content="Just for 𝐅𝐮𝐧"><link rel="alternate" type="application/rss&#43;xml" href="http://fyshxfish.github.io/zh/tags/sicp/index.xml"><style>
   :root {
      
     --zh-font-family: "Noto Serif SC";
@@ -36,6 +36,8 @@
     document.head.appendChild(customFont);
   })();
 </script>
+
+
 
     </head>
     <body class="">
@@ -230,9 +232,9 @@
 
                             <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
                                 
-                                    <option value="http://localhost:1313/zh/" selected>中文</option>
+                                    <option value="http://fyshxfish.github.io/zh/" selected>中文</option>
                                 
-                                    <option value="http://localhost:1313/" >English</option>
+                                    <option value="http://fyshxfish.github.io/" >English</option>
                                 
                             </select>
                         </li>
@@ -386,6 +388,10 @@
                 CLI
             </a>
         
+            <a href="/zh/tags/combinator-logic/" class="font_size_2">
+                Combinator Logic
+            </a>
+        
             <a href="/zh/tags/course/" class="font_size_2">
                 Course
             </a>
@@ -400,10 +406,6 @@
         
             <a href="/zh/tags/rust/" class="font_size_1">
                 Rust
-            </a>
-        
-            <a href="/zh/tags/tapl/" class="font_size_1">
-                TaPL
             </a>
         
     </div>
@@ -525,5 +527,27 @@
     }());
 </script>
 
+  
+  
+<script>
+let currentIndex = 0;
+const images = document.querySelectorAll('.image-container img');
+const totalImages = images.length;
+
+
+images[currentIndex].classList.add('active');
+
+function moveSlide(step) {
+    
+    images[currentIndex].classList.remove('active');
+
+    
+    currentIndex = (currentIndex + step + totalImages) % totalImages;
+
+    
+    images[currentIndex].classList.add('active');
+}
+</script>
+    
     </body>
 </html>

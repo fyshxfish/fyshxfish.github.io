@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="zh" dir="ltr">
-    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="前言 SICP § 2.4.3 中描述了以查表（ type × operation 二维表）为实现方式的泛型系统，具体函数被隐藏在“泛型函数 + Selector”这样的抽象之下，那么如果将具体函数放在“数据 + Selector”这样的抽象之下是什么样的呢，本文呈现了符合此抽象（SICP 中称为 Message Passing）的 Boolean. 数据和函数对程序而言的重要性不言而喻，那么接下来从三个角度探讨数据与函数之间可能存在什么样的关系：Message Passing ↦ 让数据自己携带函数；Haskell $的应用 ↦ 将数据变成某种函数；Haskell中的代数数据类型 ↦ 使用函数构造数据.\n">
 <title>Message Passing 视角下的 Bool - SICP § 2.4.3 | 泛型 | 数据与函数</title>
 
-<link rel='canonical' href='http://localhost:1313/zh/p/message-passing-%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84-bool-sicp-2.4.3-%E6%B3%9B%E5%9E%8B-%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%87%BD%E6%95%B0/'>
+<link rel='canonical' href='http://fyshxfish.github.io/zh/p/message-passing-%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84-bool-sicp-2.4.3-%E6%B3%9B%E5%9E%8B-%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%87%BD%E6%95%B0/'>
 
-<link rel="stylesheet" href="/scss/style.min.be0d5e0eb92c2fa09941c16ce5a24165e9552d4dcbea0a1a378c27e26cc08e23.css"><meta property='og:title' content="Message Passing 视角下的 Bool - SICP § 2.4.3 | 泛型 | 数据与函数">
+<link rel="stylesheet" href="/scss/style.min.6e82346d850613bc57230e4ca20f047ed0a92acdad6f653aee5a2f927e2e7c86.css"><meta property='og:title' content="Message Passing 视角下的 Bool - SICP § 2.4.3 | 泛型 | 数据与函数">
 <meta property='og:description' content="前言 SICP § 2.4.3 中描述了以查表（ type × operation 二维表）为实现方式的泛型系统，具体函数被隐藏在“泛型函数 + Selector”这样的抽象之下，那么如果将具体函数放在“数据 + Selector”这样的抽象之下是什么样的呢，本文呈现了符合此抽象（SICP 中称为 Message Passing）的 Boolean. 数据和函数对程序而言的重要性不言而喻，那么接下来从三个角度探讨数据与函数之间可能存在什么样的关系：Message Passing ↦ 让数据自己携带函数；Haskell $的应用 ↦ 将数据变成某种函数；Haskell中的代数数据类型 ↦ 使用函数构造数据.\n">
-<meta property='og:url' content='http://localhost:1313/zh/p/message-passing-%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84-bool-sicp-2.4.3-%E6%B3%9B%E5%9E%8B-%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%87%BD%E6%95%B0/'>
+<meta property='og:url' content='http://fyshxfish.github.io/zh/p/message-passing-%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84-bool-sicp-2.4.3-%E6%B3%9B%E5%9E%8B-%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%87%BD%E6%95%B0/'>
 <meta property='og:site_name' content='fyshXplore'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='SICP' /><meta property='article:tag' content='Scheme' /><meta property='article:tag' content='Haskell' /><meta property='article:published_time' content='2024-09-07T23:18:00&#43;08:00'/><meta property='article:modified_time' content='2024-09-07T23:18:00&#43;08:00'/>
 <meta name="twitter:title" content="Message Passing 视角下的 Bool - SICP § 2.4.3 | 泛型 | 数据与函数">
@@ -36,6 +36,8 @@
     document.head.appendChild(customFont);
   })();
 </script>
+
+
 
     </head>
     <body class="
@@ -232,9 +234,9 @@
 
                             <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
                                 
-                                    <option value="http://localhost:1313/zh/" selected>中文</option>
+                                    <option value="http://fyshxfish.github.io/zh/" selected>中文</option>
                                 
-                                    <option value="http://localhost:1313/" >English</option>
+                                    <option value="http://fyshxfish.github.io/" >English</option>
                                 
                             </select>
                         </li>
@@ -366,7 +368,7 @@
 
             <div>
                 
-                    <a href="http://localhost:1313/p/message-passing-perspective-on-bool-sicp-2.4.3-generic-data-and-functions/" class="link">English</a>
+                    <a href="http://fyshxfish.github.io/p/message-passing-perspective-on-bool-sicp-2.4.3-generic-data-and-functions/" class="link">English</a>
                 
             </div>
         </footer>
@@ -766,5 +768,27 @@ Church Encoding 是一种用函数表示自然数的方法. -->
     }());
 </script>
 
+  
+  
+<script>
+let currentIndex = 0;
+const images = document.querySelectorAll('.image-container img');
+const totalImages = images.length;
+
+
+images[currentIndex].classList.add('active');
+
+function moveSlide(step) {
+    
+    images[currentIndex].classList.remove('active');
+
+    
+    currentIndex = (currentIndex + step + totalImages) % totalImages;
+
+    
+    images[currentIndex].classList.add('active');
+}
+</script>
+    
     </body>
 </html>

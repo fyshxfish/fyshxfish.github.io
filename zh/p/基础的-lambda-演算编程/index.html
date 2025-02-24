@@ -1,16 +1,16 @@
 <!DOCTYPE html>
 <html lang="zh" dir="ltr">
-    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="题目来自 functional，发售于 Steam (29 CNY).\nBasic anything 写出任意一个符合 Lambda Calculus 语法 (1. variable 2. abstraction 3. application) 的 term 即可.\nidentity x: x two arguments x:y: y x squaring f:x: f (f x) indirection f:x:y: f y x Boolean 定义：\nTRUE = t:f: t FALSE = t:f: f IF p:t:f: p t f Simple LC 没有类型系统，所以编程者需要自己确保 p 一定能求值到 TRUE / FALSE，然后 p t f 进一步求值到 t/ f，如果 p 不能被求值到 TRUE / FALSE，那么 p t f 会被保留下来或者产生预期外的求值行为.\n">
 <title>基础的 Lambda 演算编程</title>
 
-<link rel='canonical' href='http://localhost:1313/zh/p/%E5%9F%BA%E7%A1%80%E7%9A%84-lambda-%E6%BC%94%E7%AE%97%E7%BC%96%E7%A8%8B/'>
+<link rel='canonical' href='http://fyshxfish.github.io/zh/p/%E5%9F%BA%E7%A1%80%E7%9A%84-lambda-%E6%BC%94%E7%AE%97%E7%BC%96%E7%A8%8B/'>
 
-<link rel="stylesheet" href="/scss/style.min.be0d5e0eb92c2fa09941c16ce5a24165e9552d4dcbea0a1a378c27e26cc08e23.css"><meta property='og:title' content="基础的 Lambda 演算编程">
+<link rel="stylesheet" href="/scss/style.min.6e82346d850613bc57230e4ca20f047ed0a92acdad6f653aee5a2f927e2e7c86.css"><meta property='og:title' content="基础的 Lambda 演算编程">
 <meta property='og:description' content="题目来自 functional，发售于 Steam (29 CNY).\nBasic anything 写出任意一个符合 Lambda Calculus 语法 (1. variable 2. abstraction 3. application) 的 term 即可.\nidentity x: x two arguments x:y: y x squaring f:x: f (f x) indirection f:x:y: f y x Boolean 定义：\nTRUE = t:f: t FALSE = t:f: f IF p:t:f: p t f Simple LC 没有类型系统，所以编程者需要自己确保 p 一定能求值到 TRUE / FALSE，然后 p t f 进一步求值到 t/ f，如果 p 不能被求值到 TRUE / FALSE，那么 p t f 会被保留下来或者产生预期外的求值行为.\n">
-<meta property='og:url' content='http://localhost:1313/zh/p/%E5%9F%BA%E7%A1%80%E7%9A%84-lambda-%E6%BC%94%E7%AE%97%E7%BC%96%E7%A8%8B/'>
+<meta property='og:url' content='http://fyshxfish.github.io/zh/p/%E5%9F%BA%E7%A1%80%E7%9A%84-lambda-%E6%BC%94%E7%AE%97%E7%BC%96%E7%A8%8B/'>
 <meta property='og:site_name' content='fyshXplore'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='lambda calculus' /><meta property='article:published_time' content='2025-02-02T21:29:00&#43;08:00'/><meta property='article:modified_time' content='2025-02-02T21:29:00&#43;08:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='lambda calculus' /><meta property='article:tag' content='Combinator Logic' /><meta property='article:published_time' content='2025-02-02T21:29:00&#43;08:00'/><meta property='article:modified_time' content='2025-02-02T21:29:00&#43;08:00'/>
 <meta name="twitter:title" content="基础的 Lambda 演算编程">
 <meta name="twitter:description" content="题目来自 functional，发售于 Steam (29 CNY).\nBasic anything 写出任意一个符合 Lambda Calculus 语法 (1. variable 2. abstraction 3. application) 的 term 即可.\nidentity x: x two arguments x:y: y x squaring f:x: f (f x) indirection f:x:y: f y x Boolean 定义：\nTRUE = t:f: t FALSE = t:f: f IF p:t:f: p t f Simple LC 没有类型系统，所以编程者需要自己确保 p 一定能求值到 TRUE / FALSE，然后 p t f 进一步求值到 t/ f，如果 p 不能被求值到 TRUE / FALSE，那么 p t f 会被保留下来或者产生预期外的求值行为.\n"><style>
   :root {
@@ -36,6 +36,8 @@
     document.head.appendChild(customFont);
   })();
 </script>
+
+
 
     </head>
     <body class="
@@ -232,9 +234,9 @@
 
                             <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
                                 
-                                    <option value="http://localhost:1313/zh/" selected>中文</option>
+                                    <option value="http://fyshxfish.github.io/zh/" selected>中文</option>
                                 
-                                    <option value="http://localhost:1313/" >English</option>
+                                    <option value="http://fyshxfish.github.io/" >English</option>
                                 
                             </select>
                         </li>
@@ -446,7 +448,7 @@
 
             <div>
                 
-                    <a href="http://localhost:1313/p/programming-in-lambda-calculus-basic/" class="link">English</a>
+                    <a href="http://fyshxfish.github.io/p/basic-lambda-calculus-programming-solutions-for-game-functional-on-steam/" class="link">English</a>
                 
             </div>
         </footer>
@@ -552,11 +554,11 @@ FALSE = t:f: f
 </ul>
 </span>
 <h4 id="y-combinator-设计"><a href="#y-combinator-%e8%ae%be%e8%ae%a1" class="header-anchor"></a>Y combinator 设计
-</h4><p><code>Y</code> 是一个这样的 term：<code>Y F = F (Y F) = F (F (Y F)) = ...</code>.</p>
+</h4><p><code>Y</code> 是一个这样的 term：<code>Y F = F (Y F) = F (F (Y F)) = ...</code>. （注意：是否持续展开取决于我们使用的求值策略）</p>
 <p>为设计满足以上目标的 <code>Y</code> ，做出如下的初步分析：</p>
 <ol>
 <li>
-<p>根据 inversion lemma，<code>Y</code> 的形状毫无疑问是 <code>(f: ...)</code>.</p>
+<p><code>Y</code> 的形状毫无疑问是 <code>(f: ...)</code>.</p>
 </li>
 <li>
 <p><code>Y</code> 的自指？—— 我们需要重复 <code>Y</code>，或者说<strong>构建</strong>右侧的 <code>Y</code>.</p>
@@ -816,7 +818,7 @@ FALSE
 </code></pre><h3 id="val"><a href="#val" class="header-anchor"></a>VAL
 </h3><pre tabindex="0"><code>t: t (l:v:r: v)
 </code></pre><h3 id="bempty"><a href="#bempty" class="header-anchor"></a>BEMPTY
-</h3><p>类似于列表判空，<code>NODE l v r = f: f l v r</code>，空树用 <code>FALSE := a:b: b</code>，将一个树 <code>t</code> 作为函数使用，若是空树，<code>t A B = FALSE A B = B ~ᴇxᴘᴇᴄᴛᴇᴅ→ TRUE</code>，若不是空树 <code>t A B = (f: f l v r) A B = A l v r B ~ᴇxᴘᴇᴄᴛᴇᴅ→ FALSE</code>，根据以上，<code>B = TRUE, A = l:v:r:x FALSE</code>，所以：</p>
+</h3><p>类似于列表判空，<code>NODE l v r = f: f l v r</code>，空树用 <code>FALSE := a:b: b</code> 表示，将一个树 <code>t</code> 作为函数使用，若是空树，<code>t A B = FALSE A B = B ~ᴇxᴘᴇᴄᴛᴇᴅ→ TRUE</code>，若不是空树 <code>t A B = (f: f l v r) A B = A l v r B ~ᴇxᴘᴇᴄᴛᴇᴅ→ FALSE</code>，根据以上，<code>B = TRUE, A = l:v:r:x FALSE</code>，所以：</p>
 <pre tabindex="0"><code>(t: t (l:v:r:x: FALSE) TRUE )
 </code></pre><h3 id="find"><a href="#find" class="header-anchor"></a>FIND
 </h3><p>判断树 <code>t</code> 中是否存在值为 <code>v</code> 的结点：</p>
@@ -935,6 +937,8 @@ FALSE
         
             <a href="/zh/tags/lambda-calculus/">Lambda Calculus</a>
         
+            <a href="/zh/tags/combinator-logic/">Combinator Logic</a>
+        
     </section>
 
 
@@ -1004,12 +1008,12 @@ FALSE
             
                 
 <article class="">
-    <a href="/zh/p/church-encoding-note/">
+    <a href="/zh/p/church-encoding-%E7%AE%80%E5%8D%95%E7%AC%94%E8%AE%B0/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">Church Encoding Note</h2>
+            <h2 class="article-title">Church Encoding 简单笔记</h2>
         </div>
     </a>
 </article>
@@ -1178,5 +1182,27 @@ FALSE
     }());
 </script>
 
+  
+  
+<script>
+let currentIndex = 0;
+const images = document.querySelectorAll('.image-container img');
+const totalImages = images.length;
+
+
+images[currentIndex].classList.add('active');
+
+function moveSlide(step) {
+    
+    images[currentIndex].classList.remove('active');
+
+    
+    currentIndex = (currentIndex + step + totalImages) % totalImages;
+
+    
+    images[currentIndex].classList.add('active');
+}
+</script>
+    
     </body>
 </html>

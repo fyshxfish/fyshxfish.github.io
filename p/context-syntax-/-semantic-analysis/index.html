@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='http://localhost:1313/p/context-syntax-/-semantic-analysis/'>
 
-<link rel="stylesheet" href="/scss/style.min.be0d5e0eb92c2fa09941c16ce5a24165e9552d4dcbea0a1a378c27e26cc08e23.css"><meta property='og:title' content="Context & Syntax / Semantic Analysis">
+<link rel="stylesheet" href="/scss/style.min.d415936bb13e07165cd7def1b9d697908dfdb06a073fe7cba4468a0b13f6d5f4.css"><meta property='og:title' content="Context & Syntax / Semantic Analysis">
 <meta property='og:description' content=" 引言 标题的这个问题，其实是一个不太正确的问题，因为对于语言而言，设计先于实现——先设计语言的语法和语义，然后写编译器去检查一个程序语法是否正确，然后根据设定好的语义将它转写成目标机器代码。从“上下文”这个视角去思考，常见情况下，语法是上下文无关的，而语义正是用来处理上下文相关的问题的，x = 1; print(x); 和 x = 2; print(x);，同样是 print(x)，它的上文是不一样的，所以它导致的结果也不一样.\n">
 <meta property='og:url' content='http://localhost:1313/p/context-syntax-/-semantic-analysis/'>
 <meta property='og:site_name' content='fyshXplore'>
@@ -36,6 +36,19 @@
     document.head.appendChild(customFont);
   })();
 </script>
+
+<script>
+  let currentIndex = 0;
+  const images = document.querySelectorAll('.image-container img');
+  const totalImages = images.length;
+  
+  function moveSlide(step) {
+    currentIndex = (currentIndex + step + totalImages) % totalImages;
+    const offset = -currentIndex * (images[0].width + 10); 
+    document.querySelector('.image-container').style.transform = `translateX(${offset}px)`;
+  }
+</script>
+  
 
     </head>
     <body class="
