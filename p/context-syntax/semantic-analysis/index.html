@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='http://fyshxfish.github.io/p/context-syntax/semantic-analysis/'>
 
-<link rel="stylesheet" href="/scss/style.min.6e82346d850613bc57230e4ca20f047ed0a92acdad6f653aee5a2f927e2e7c86.css"><meta property='og:title' content="Context & Syntax/Semantic Analysis">
+<link rel="stylesheet" href="/scss/style.min.9fd75ac0c4624d72ea9c7250e94ce2784fe9bc67fbc2f9c4a42d42ce591efcb7.css"><meta property='og:title' content="Context & Syntax/Semantic Analysis">
 <meta property='og:description' content="Introduction Recently, while studying compiler theory materials, I pondered the question &ldquo;why do we need lexical, syntactic, and semantic analysis?&rdquo; This is actually not quite the right question, because for programming languages, design precedes implementation—first, we design the language&rsquo;s syntax and semantics, then write a compiler to check if a program is syntactically correct and conforms to semantic rules, and convert it to target machine code based on predefined semantics. From a &ldquo;context&rdquo; perspective, typically, syntax is context-free, while semantics handles context-dependent issues. For example, in x = 1; print(x); and x = 2; print(x);, although both use print(x), they have different contexts, leading to different results.\n">
 <meta property='og:url' content='http://fyshxfish.github.io/p/context-syntax/semantic-analysis/'>
 <meta property='og:site_name' content='fyshXplore'>
@@ -654,5 +654,30 @@ function moveSlide(step) {
 }
 </script>
     
+
+<script>
+  
+  const copyText = document.getElementById("copyText");
+  const notification = document.getElementById("notification");
+
+  
+  copyText.addEventListener("click", function() {
+    
+    const tempInput = document.createElement("input");
+    document.body.appendChild(tempInput);
+    tempInput.value = copyText.innerText; 
+    tempInput.select();
+    document.execCommand("copy"); 
+    document.body.removeChild(tempInput); 
+
+    
+    notification.classList.add("show");
+
+    
+    setTimeout(function() {
+      notification.classList.remove("show");
+    }, 2000);
+  });
+</script>
     </body>
 </html>

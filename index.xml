@@ -188,15 +188,6 @@ main
 </description>
         </item>
         <item>
-        <title>About</title>
-        <link>http://fyshxfish.github.io/about/</link>
-        <pubDate>Thu, 06 Feb 2025 00:00:00 +0000</pubDate>
-        
-        <guid>http://fyshxfish.github.io/about/</guid>
-        <description>&lt;p&gt;No Tag Attached.&lt;/p&gt;
-</description>
-        </item>
-        <item>
         <title>Basic Lambda Calculus Programming (Solutions for game functional on Steam)</title>
         <link>http://fyshxfish.github.io/p/basic-lambda-calculus-programming-solutions-for-game-functional-on-steam/</link>
         <pubDate>Sun, 02 Feb 2025 21:29:00 +0800</pubDate>
@@ -1786,6 +1777,18 @@ Win + ↓：Exit fullscreen / Minimize&lt;br&gt;&lt;/p&gt;
 &lt;hr&gt;
 &lt;h2 id=&#34;afterword&#34;&gt;&lt;a href=&#34;#afterword&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Afterword
 &lt;/h2&gt;&lt;p&gt;This Scheme REPL is &lt;strong&gt;quite&lt;/strong&gt; basic. It doesn’t support history backtracking or cursor movement, however, since I don&amp;rsquo;t need it for anything too complex, it&amp;rsquo;s good enough for me.&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>About</title>
+        <link>http://fyshxfish.github.io/about/</link>
+        <pubDate>Fri, 16 Aug 2024 00:00:00 +0000</pubDate>
+        
+        <guid>http://fyshxfish.github.io/about/</guid>
+        <description>&lt;p&gt;I&amp;rsquo;m a third-year student at Hunan University, majoring in Computer Science and Technology.&lt;/p&gt;
+&lt;p&gt;Thank you for stopping by, hope the contents here won&amp;rsquo;t disappoint you.&lt;/p&gt;
+&lt;p&gt;Feel free to contact me with suggestions, questions, or just to chat at &lt;a class=&#34;link&#34; href=&#34;mailto:hnu_yuxin@hnu.edu.cn&#34; &gt;hnu_yuxin@hnu.edu.cn&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;./cv1.pdf&#34; download=&#34;cv_xinyu.pdf&#34;  class=&#34;download-link&#34;&gt;Click to Download My CV.&lt;/a&gt;&lt;/p&gt;
 </description>
         </item>
         <item>

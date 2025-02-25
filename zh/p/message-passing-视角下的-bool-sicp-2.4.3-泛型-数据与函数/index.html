@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='http://fyshxfish.github.io/zh/p/message-passing-%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84-bool-sicp-2.4.3-%E6%B3%9B%E5%9E%8B-%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%87%BD%E6%95%B0/'>
 
-<link rel="stylesheet" href="/scss/style.min.6e82346d850613bc57230e4ca20f047ed0a92acdad6f653aee5a2f927e2e7c86.css"><meta property='og:title' content="Message Passing 视角下的 Bool - SICP § 2.4.3 | 泛型 | 数据与函数">
+<link rel="stylesheet" href="/scss/style.min.9fd75ac0c4624d72ea9c7250e94ce2784fe9bc67fbc2f9c4a42d42ce591efcb7.css"><meta property='og:title' content="Message Passing 视角下的 Bool - SICP § 2.4.3 | 泛型 | 数据与函数">
 <meta property='og:description' content="前言 SICP § 2.4.3 中描述了以查表（ type × operation 二维表）为实现方式的泛型系统，具体函数被隐藏在“泛型函数 + Selector”这样的抽象之下，那么如果将具体函数放在“数据 + Selector”这样的抽象之下是什么样的呢，本文呈现了符合此抽象（SICP 中称为 Message Passing）的 Boolean. 数据和函数对程序而言的重要性不言而喻，那么接下来从三个角度探讨数据与函数之间可能存在什么样的关系：Message Passing ↦ 让数据自己携带函数；Haskell $的应用 ↦ 将数据变成某种函数；Haskell中的代数数据类型 ↦ 使用函数构造数据.\n">
 <meta property='og:url' content='http://fyshxfish.github.io/zh/p/message-passing-%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84-bool-sicp-2.4.3-%E6%B3%9B%E5%9E%8B-%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%87%BD%E6%95%B0/'>
 <meta property='og:site_name' content='fyshXplore'>
@@ -790,5 +790,30 @@ function moveSlide(step) {
 }
 </script>
     
+
+<script>
+  
+  const copyText = document.getElementById("copyText");
+  const notification = document.getElementById("notification");
+
+  
+  copyText.addEventListener("click", function() {
+    
+    const tempInput = document.createElement("input");
+    document.body.appendChild(tempInput);
+    tempInput.value = copyText.innerText; 
+    tempInput.select();
+    document.execCommand("copy"); 
+    document.body.removeChild(tempInput); 
+
+    
+    notification.classList.add("show");
+
+    
+    setTimeout(function() {
+      notification.classList.remove("show");
+    }, 2000);
+  });
+</script>
     </body>
 </html>

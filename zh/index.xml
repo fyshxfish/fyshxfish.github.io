@@ -189,17 +189,6 @@ main
 </description>
         </item>
         <item>
-        <title>About</title>
-        <link>http://fyshxfish.github.io/zh/about/</link>
-        <pubDate>Thu, 06 Feb 2025 00:00:00 +0000</pubDate>
-        
-        <guid>http://fyshxfish.github.io/zh/about/</guid>
-        <description>&lt;!-- 计算机科学与技术系的大三学生 --&gt;
-&lt;p&gt;说点什么呢？&lt;/p&gt;
-&lt;p&gt;最后更新于：2025-02-18&lt;/p&gt;
-</description>
-        </item>
-        <item>
         <title>基础的 Lambda 演算编程</title>
         <link>http://fyshxfish.github.io/zh/p/%E5%9F%BA%E7%A1%80%E7%9A%84-lambda-%E6%BC%94%E7%AE%97%E7%BC%96%E7%A8%8B/</link>
         <pubDate>Sun, 02 Feb 2025 21:29:00 +0800</pubDate>
@@ -2161,6 +2150,18 @@ Win + ↓：退出全屏 / 最小化&lt;br&gt;&lt;/p&gt;
 &lt;h2 id=&#34;后记&#34;&gt;&lt;a href=&#34;#%e5%90%8e%e8%ae%b0&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;后记
 &lt;/h2&gt;&lt;p&gt;不知道是否有更好用的 Scheme REPL，这个 REPL 确实是比较原始，不支持历史表达式的回溯，不支持光标移动，不过我并不需要用它做太多复杂的工作，所以能用就行了.&lt;/p&gt;
 &lt;!-- &lt;span style=&#34;color: #888888; font-size: 0.85em;&#34;&gt;（不像写 Haskell 的时候 LSP 出了问题，我必通过重启 VSCode / 重启电脑 / 更改 LSP 版本先把 LSP 重新拉起来，而不是先把代码写了。）&lt;/span&gt; --&gt;
+</description>
+        </item>
+        <item>
+        <title>About</title>
+        <link>http://fyshxfish.github.io/zh/about/</link>
+        <pubDate>Fri, 16 Aug 2024 00:00:00 +0000</pubDate>
+        
+        <guid>http://fyshxfish.github.io/zh/about/</guid>
+        <description>&lt;p&gt;湖南大学计算机科学与技术专业，大三在读.&lt;/p&gt;
+&lt;p&gt;欢迎来到这里，希望这里的内容没有让你失望.&lt;/p&gt;
+&lt;p&gt;欢迎所有建议、问题、闲聊： &lt;a class=&#34;link&#34; href=&#34;mailto:hnu_yuxin@hnu.edu.cn&#34; &gt;hnu_yuxin@hnu.edu.cn&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;./cv1.pdf&#34; download=&#34;cv_xinyu.pdf&#34;  class=&#34;download-link&#34;&gt;点击下载我的简历.&lt;/a&gt;&lt;/p&gt;
 </description>
         </item>
         <item>

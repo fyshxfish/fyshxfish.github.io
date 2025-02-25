@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" 说点什么呢？\n最后更新于：2025-02-18\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="湖南大学计算机科学与技术专业，大三在读.\n欢迎来到这里，希望这里的内容没有让你失望.\n欢迎所有建议、问题、闲聊： hnu_yuxin@hnu.edu.cn.\n点击下载我的简历.\n">
 <title>About</title>
 
 <link rel='canonical' href='http://fyshxfish.github.io/zh/about/'>
 
-<link rel="stylesheet" href="/scss/style.min.6e82346d850613bc57230e4ca20f047ed0a92acdad6f653aee5a2f927e2e7c86.css"><meta property='og:title' content="About">
-<meta property='og:description' content=" 说点什么呢？\n最后更新于：2025-02-18\n">
+<link rel="stylesheet" href="/scss/style.min.9fd75ac0c4624d72ea9c7250e94ce2784fe9bc67fbc2f9c4a42d42ce591efcb7.css"><meta property='og:title' content="About">
+<meta property='og:description' content="湖南大学计算机科学与技术专业，大三在读.\n欢迎来到这里，希望这里的内容没有让你失望.\n欢迎所有建议、问题、闲聊： hnu_yuxin@hnu.edu.cn.\n点击下载我的简历.\n">
 <meta property='og:url' content='http://fyshxfish.github.io/zh/about/'>
 <meta property='og:site_name' content='fyshXplore'>
-<meta property='og:type' content='article'><meta property='article:section' content='Page' /><meta property='article:published_time' content='2025-02-06T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2025-02-06T00:00:00&#43;00:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Page' /><meta property='article:published_time' content='2024-08-16T00:00:00&#43;00:00'/><meta property='article:modified_time' content='2024-08-16T00:00:00&#43;00:00'/>
 <meta name="twitter:title" content="About">
-<meta name="twitter:description" content=" 说点什么呢？\n最后更新于：2025-02-18\n"><style>
+<meta name="twitter:description" content="湖南大学计算机科学与技术专业，大三在读.\n欢迎来到这里，希望这里的内容没有让你失望.\n欢迎所有建议、问题、闲聊： hnu_yuxin@hnu.edu.cn.\n点击下载我的简历.\n"><style>
   :root {
      
     --zh-font-family: "Noto Serif SC";
@@ -282,7 +282,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Feb 6, 2025</time>
+                <time class="article-time--published">Aug 16, 2024</time>
             </div>
         
 
@@ -331,9 +331,10 @@
     <section class="article-content">
     
     
-    <!-- 计算机科学与技术系的大三学生 -->
-<p>说点什么呢？</p>
-<p>最后更新于：2025-02-18</p>
+    <p>湖南大学计算机科学与技术专业，大三在读.</p>
+<p>欢迎来到这里，希望这里的内容没有让你失望.</p>
+<p>欢迎所有建议、问题、闲聊： <a class="link" href="mailto:hnu_yuxin@hnu.edu.cn" >hnu_yuxin@hnu.edu.cn</a>.</p>
+<p><a href="./cv1.pdf" download="cv_xinyu.pdf"  class="download-link">点击下载我的简历.</a></p>
 
 </section>
 
@@ -529,5 +530,30 @@ function moveSlide(step) {
 }
 </script>
     
+
+<script>
+  
+  const copyText = document.getElementById("copyText");
+  const notification = document.getElementById("notification");
+
+  
+  copyText.addEventListener("click", function() {
+    
+    const tempInput = document.createElement("input");
+    document.body.appendChild(tempInput);
+    tempInput.value = copyText.innerText; 
+    tempInput.select();
+    document.execCommand("copy"); 
+    document.body.removeChild(tempInput); 
+
+    
+    notification.classList.add("show");
+
+    
+    setTimeout(function() {
+      notification.classList.remove("show");
+    }, 2000);
+  });
+</script>
     </body>
 </html>

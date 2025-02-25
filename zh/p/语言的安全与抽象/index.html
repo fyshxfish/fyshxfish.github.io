@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='http://fyshxfish.github.io/zh/p/%E8%AF%AD%E8%A8%80%E7%9A%84%E5%AE%89%E5%85%A8%E4%B8%8E%E6%8A%BD%E8%B1%A1/'>
 
-<link rel="stylesheet" href="/scss/style.min.6e82346d850613bc57230e4ca20f047ed0a92acdad6f653aee5a2f927e2e7c86.css"><meta property='og:title' content="语言的安全与抽象">
+<link rel="stylesheet" href="/scss/style.min.9fd75ac0c4624d72ea9c7250e94ce2784fe9bc67fbc2f9c4a42d42ce591efcb7.css"><meta property='og:title' content="语言的安全与抽象">
 <meta property='og:description' content="来自 Types and Programming Languages § 1.2 What Type Systems Are Good For\nA safe language is one that protects its own abstractions. A safe language is completely defined by its programmer&rsquo;s manual.\n完备的抽象意味着使用者可以完全信赖语言设计，只关心高级语言这一抽象层，而无需关心硬件层的具体实现.\n">
 <meta property='og:url' content='http://fyshxfish.github.io/zh/p/%E8%AF%AD%E8%A8%80%E7%9A%84%E5%AE%89%E5%85%A8%E4%B8%8E%E6%8A%BD%E8%B1%A1/'>
 <meta property='og:site_name' content='fyshXplore'>
@@ -547,5 +547,30 @@ function moveSlide(step) {
 }
 </script>
     
+
+<script>
+  
+  const copyText = document.getElementById("copyText");
+  const notification = document.getElementById("notification");
+
+  
+  copyText.addEventListener("click", function() {
+    
+    const tempInput = document.createElement("input");
+    document.body.appendChild(tempInput);
+    tempInput.value = copyText.innerText; 
+    tempInput.select();
+    document.execCommand("copy"); 
+    document.body.removeChild(tempInput); 
+
+    
+    notification.classList.add("show");
+
+    
+    setTimeout(function() {
+      notification.classList.remove("show");
+    }, 2000);
+  });
+</script>
     </body>
 </html>

@@ -80,32 +80,6 @@
                 href="http://fyshxfish.github.io/zh/p/%E5%9C%A8%E7%BB%88%E7%AB%AF%E9%87%8C%E6%92%AD%E6%94%BE%E5%B9%BB%E7%81%AF%E7%89%87/"
                 />
   </url><url>
-    <loc>http://fyshxfish.github.io/zh/about/</loc>
-    <lastmod>2025-02-06T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="http://fyshxfish.github.io/about/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="http://fyshxfish.github.io/zh/about/"
-                />
-  </url><url>
-    <loc>http://fyshxfish.github.io/zh/page/</loc>
-    <lastmod>2025-02-06T00:00:00+00:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="http://fyshxfish.github.io/page/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="http://fyshxfish.github.io/zh/page/"
-                />
-  </url><url>
     <loc>http://fyshxfish.github.io/zh/tags/combinator-logic/</loc>
     <lastmod>2025-02-02T21:29:00+08:00</lastmod>
     <xhtml:link
@@ -343,6 +317,19 @@
                 href="http://fyshxfish.github.io/zh/archives/"
                 />
   </url><url>
+    <loc>http://fyshxfish.github.io/zh/page/</loc>
+    <lastmod>2024-08-31T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://fyshxfish.github.io/page/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="http://fyshxfish.github.io/zh/page/"
+                />
+  </url><url>
     <loc>http://fyshxfish.github.io/zh/p/nested-mapping-examples-implemented-in-haskell-sicp-2.2.3-list-monad/</loc>
     <lastmod>2024-08-29T00:00:00+08:00</lastmod>
     <xhtml:link
@@ -419,6 +406,19 @@
                 rel="alternate"
                 hreflang="zh"
                 href="http://fyshxfish.github.io/zh/p/mit-scheme-%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/"
+                />
+  </url><url>
+    <loc>http://fyshxfish.github.io/zh/about/</loc>
+    <lastmod>2024-08-16T00:00:00+00:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://fyshxfish.github.io/about/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="http://fyshxfish.github.io/zh/about/"
                 />
   </url><url>
     <loc>http://fyshxfish.github.io/zh/p/haskell-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-vscode--ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</loc>

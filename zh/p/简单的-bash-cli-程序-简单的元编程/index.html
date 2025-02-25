@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='http://fyshxfish.github.io/zh/p/%E7%AE%80%E5%8D%95%E7%9A%84-bash-cli-%E7%A8%8B%E5%BA%8F-%E7%AE%80%E5%8D%95%E7%9A%84%E5%85%83%E7%BC%96%E7%A8%8B/'>
 
-<link rel="stylesheet" href="/scss/style.min.6e82346d850613bc57230e4ca20f047ed0a92acdad6f653aee5a2f927e2e7c86.css"><meta property='og:title' content="简单的 Bash CLI 程序 & 简单的元编程">
+<link rel="stylesheet" href="/scss/style.min.9fd75ac0c4624d72ea9c7250e94ce2784fe9bc67fbc2f9c4a42d42ce591efcb7.css"><meta property='og:title' content="简单的 Bash CLI 程序 & 简单的元编程">
 <meta property='og:description' content="简单的前言 虽然这里的日期是 2024-04-03，但是我写这篇博客的时候其实是 2025-02-18，写 2025-02-17 那篇博客的时候，提到 polyglot 相关的内容，这部分内容其实是上上个学期的计算机系统的讨论课的产出，于是想着把沉睡在 &hellip;/Downloads，&hellip;/Courses/CS24Spring，小组群文件等目录里的讨论课材料里有点意思的部分翻出来晾晾，所以这一页博客出现在你的眼前.\n">
 <meta property='og:url' content='http://fyshxfish.github.io/zh/p/%E7%AE%80%E5%8D%95%E7%9A%84-bash-cli-%E7%A8%8B%E5%BA%8F-%E7%AE%80%E5%8D%95%E7%9A%84%E5%85%83%E7%BC%96%E7%A8%8B/'>
 <meta property='og:site_name' content='fyshXplore'>
@@ -678,5 +678,30 @@ function moveSlide(step) {
 }
 </script>
     
+
+<script>
+  
+  const copyText = document.getElementById("copyText");
+  const notification = document.getElementById("notification");
+
+  
+  copyText.addEventListener("click", function() {
+    
+    const tempInput = document.createElement("input");
+    document.body.appendChild(tempInput);
+    tempInput.value = copyText.innerText; 
+    tempInput.select();
+    document.execCommand("copy"); 
+    document.body.removeChild(tempInput); 
+
+    
+    notification.classList.add("show");
+
+    
+    setTimeout(function() {
+      notification.classList.remove("show");
+    }, 2000);
+  });
+</script>
     </body>
 </html>

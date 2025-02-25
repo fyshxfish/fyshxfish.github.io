@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='http://fyshxfish.github.io/p/message-passing-perspective-on-bool-sicp-2.4.3-generic-data-and-functions/'>
 
-<link rel="stylesheet" href="/scss/style.min.6e82346d850613bc57230e4ca20f047ed0a92acdad6f653aee5a2f927e2e7c86.css"><meta property='og:title' content="Message Passing Perspective on Bool - SICP § 2.4.3 | Generic | Data and Functions">
+<link rel="stylesheet" href="/scss/style.min.9fd75ac0c4624d72ea9c7250e94ce2784fe9bc67fbc2f9c4a42d42ce591efcb7.css"><meta property='og:title' content="Message Passing Perspective on Bool - SICP § 2.4.3 | Generic | Data and Functions">
 <meta property='og:description' content="Introduction SICP § 2.4.3 describes a generic system implemented using table lookup (type × operation two-dimensional table), where concrete functions are hidden under abstractions like &ldquo;generic function + Selector&rdquo;. What would it look like if we put concrete functions under &ldquo;data + Selector&rdquo; abstractions? This article presents a Boolean implementation that conforms to this abstraction (called Message Passing in SICP). The importance of data and functions in programming is self-evident. Let&rsquo;s explore three perspectives on the possible relationships between data and functions: Message Passing ↦ letting data carry its own functions; $ in Haskell ↦ transforming data into functions; Algebraic data types in Haskell ↦ constructing data using functions.\n">
 <meta property='og:url' content='http://fyshxfish.github.io/p/message-passing-perspective-on-bool-sicp-2.4.3-generic-data-and-functions/'>
 <meta property='og:site_name' content='fyshXplore'>
@@ -752,5 +752,30 @@ function moveSlide(step) {
 }
 </script>
     
+
+<script>
+  
+  const copyText = document.getElementById("copyText");
+  const notification = document.getElementById("notification");
+
+  
+  copyText.addEventListener("click", function() {
+    
+    const tempInput = document.createElement("input");
+    document.body.appendChild(tempInput);
+    tempInput.value = copyText.innerText; 
+    tempInput.select();
+    document.execCommand("copy"); 
+    document.body.removeChild(tempInput); 
+
+    
+    notification.classList.add("show");
+
+    
+    setTimeout(function() {
+      notification.classList.remove("show");
+    }, 2000);
+  });
+</script>
     </body>
 </html>

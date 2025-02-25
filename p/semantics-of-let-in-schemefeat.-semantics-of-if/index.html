@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='http://fyshxfish.github.io/p/semantics-of-let-in-schemefeat.-semantics-of-if/'>
 
-<link rel="stylesheet" href="/scss/style.min.6e82346d850613bc57230e4ca20f047ed0a92acdad6f653aee5a2f927e2e7c86.css"><meta property='og:title' content="Semantics of `let` in Scheme(feat. Semantics of `if`)">
+<link rel="stylesheet" href="/scss/style.min.9fd75ac0c4624d72ea9c7250e94ce2784fe9bc67fbc2f9c4a42d42ce591efcb7.css"><meta property='og:title' content="Semantics of `let` in Scheme(feat. Semantics of `if`)">
 <meta property='og:description' content=" Semantics of let Key point: A let scope is evaluated immediately (including both bindings and expressions after bindings, i.e., everything within the outer parentheses of the let), even if the let is nested inside an inner function that hasn&rsquo;t been called yet.\nExample:\n(define (comp x) (if (&gt; 3 x) (display &#34;then-clause&#34;) (display &#34;else-clause&#34;) ) #| (define foo1 (let ((bar1 (/ 2 0))) ; * evaluted immediately (display &#34;should not be printed&#34;) ) ) |# (define foo2 (let ((bar2 (/ 5 2))) ; * evaluted immediately (newline) (display &#34;let in `foo2`, bar2: &#34;) (display bar2) ) ) ) Running examples:\n">
 <meta property='og:url' content='http://fyshxfish.github.io/p/semantics-of-let-in-schemefeat.-semantics-of-if/'>
 <meta property='og:site_name' content='fyshXplore'>
@@ -739,5 +739,30 @@ function moveSlide(step) {
 }
 </script>
     
+
+<script>
+  
+  const copyText = document.getElementById("copyText");
+  const notification = document.getElementById("notification");
+
+  
+  copyText.addEventListener("click", function() {
+    
+    const tempInput = document.createElement("input");
+    document.body.appendChild(tempInput);
+    tempInput.value = copyText.innerText; 
+    tempInput.select();
+    document.execCommand("copy"); 
+    document.body.removeChild(tempInput); 
+
+    
+    notification.classList.add("show");
+
+    
+    setTimeout(function() {
+      notification.classList.remove("show");
+    }, 2000);
+  });
+</script>
     </body>
 </html>
