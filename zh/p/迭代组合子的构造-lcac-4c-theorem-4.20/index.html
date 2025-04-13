@@ -350,7 +350,7 @@
 
 
                 <time class="article-time--reading">
-                    5 minute read
+                    6 minute read
                 </time>
             </div>
         
@@ -406,22 +406,221 @@ combinator p(x,y):
 <h2 id="构造过程"><a href="#%e6%9e%84%e9%80%a0%e8%bf%87%e7%a8%8b" class="header-anchor"></a>构造过程
 </h2><h3 id="基本结构"><a href="#%e5%9f%ba%e6%9c%ac%e7%bb%93%e6%9e%84" class="header-anchor"></a>基本结构
 </h3><p>用高级语言的伪代码表示现有的 $P$:</p>
-<pre tabindex="0"><code>combinator p(x,y):            // L1: define p
-    if (xy == 0):
-        return const(y)                     
-    else:
-        return p(x, σ y)       // L5: call p
-</code></pre><p>递归的 $\lambda $，形如 $P \equiv \lambda x. MPN $，像这样的 $\lambda$-term，符合我们在高级语言程序设计的经验，但是不符合 Lambda Calculus 中的规范，因为 Lambda Calculus 对 $\lambda$-term 的归纳定义并不包含为 abstraction 赋标识符的规则，我们写 $P$ 等标识符的目的只在于提升可读性和明确表达式结构，而不是借助标识符的复用来像高级语言编程一样定义递归函数. 一个细节是，我们在书里看到的为某个 $\lambda$-term 记标识符用的符号是 $\equiv$ 而不是 $=$.</p>
+
+
+
+<div class="goat svg-container ">
+  
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      font-family="Menlo,Lucida Console,monospace"
+      
+        viewBox="0 0 368 89"
+      >
+      <g transform='translate(8,16)'>
+<path d='M 236,8 L 204,88' fill='none' stroke='currentColor'></path>
+<path d='M 244,8 L 212,88' fill='none' stroke='currentColor'></path>
+<path d='M 244,72 L 252,56' fill='none' stroke='currentColor'></path>
+<path d='M 252,72 L 260,56' fill='none' stroke='currentColor'></path>
+<text text-anchor='middle' x='0' y='4' fill='currentColor' style='font-size:1em'>c</text>
+<text text-anchor='middle' x='8' y='4' fill='currentColor' style='font-size:1em'>o</text>
+<text text-anchor='middle' x='16' y='4' fill='currentColor' style='font-size:1em'>m</text>
+<text text-anchor='middle' x='24' y='4' fill='currentColor' style='font-size:1em'>b</text>
+<text text-anchor='middle' x='32' y='4' fill='currentColor' style='font-size:1em'>i</text>
+<text text-anchor='middle' x='32' y='20' fill='currentColor' style='font-size:1em'>i</text>
+<text text-anchor='middle' x='32' y='52' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='40' y='4' fill='currentColor' style='font-size:1em'>n</text>
+<text text-anchor='middle' x='40' y='20' fill='currentColor' style='font-size:1em'>f</text>
+<text text-anchor='middle' x='40' y='52' fill='currentColor' style='font-size:1em'>l</text>
+<text text-anchor='middle' x='48' y='4' fill='currentColor' style='font-size:1em'>a</text>
+<text text-anchor='middle' x='48' y='52' fill='currentColor' style='font-size:1em'>s</text>
+<text text-anchor='middle' x='56' y='4' fill='currentColor' style='font-size:1em'>t</text>
+<text text-anchor='middle' x='56' y='20' fill='currentColor' style='font-size:1em'>(</text>
+<text text-anchor='middle' x='56' y='52' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='64' y='4' fill='currentColor' style='font-size:1em'>o</text>
+<text text-anchor='middle' x='64' y='20' fill='currentColor' style='font-size:1em'>x</text>
+<text text-anchor='middle' x='64' y='36' fill='currentColor' style='font-size:1em'>r</text>
+<text text-anchor='middle' x='64' y='52' fill='currentColor' style='font-size:1em'>:</text>
+<text text-anchor='middle' x='64' y='68' fill='currentColor' style='font-size:1em'>r</text>
+<text text-anchor='middle' x='72' y='4' fill='currentColor' style='font-size:1em'>r</text>
+<text text-anchor='middle' x='72' y='20' fill='currentColor' style='font-size:1em'>y</text>
+<text text-anchor='middle' x='72' y='36' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='72' y='68' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='80' y='36' fill='currentColor' style='font-size:1em'>t</text>
+<text text-anchor='middle' x='80' y='68' fill='currentColor' style='font-size:1em'>t</text>
+<text text-anchor='middle' x='88' y='4' fill='currentColor' style='font-size:1em'>p</text>
+<text text-anchor='middle' x='88' y='20' fill='currentColor' style='font-size:1em'>=</text>
+<text text-anchor='middle' x='88' y='36' fill='currentColor' style='font-size:1em'>u</text>
+<text text-anchor='middle' x='88' y='68' fill='currentColor' style='font-size:1em'>u</text>
+<text text-anchor='middle' x='96' y='4' fill='currentColor' style='font-size:1em'>(</text>
+<text text-anchor='middle' x='96' y='20' fill='currentColor' style='font-size:1em'>=</text>
+<text text-anchor='middle' x='96' y='36' fill='currentColor' style='font-size:1em'>r</text>
+<text text-anchor='middle' x='96' y='68' fill='currentColor' style='font-size:1em'>r</text>
+<text text-anchor='middle' x='104' y='4' fill='currentColor' style='font-size:1em'>x</text>
+<text text-anchor='middle' x='104' y='36' fill='currentColor' style='font-size:1em'>n</text>
+<text text-anchor='middle' x='104' y='68' fill='currentColor' style='font-size:1em'>n</text>
+<text text-anchor='middle' x='112' y='4' fill='currentColor' style='font-size:1em'>,</text>
+<text text-anchor='middle' x='112' y='20' fill='currentColor' style='font-size:1em'>0</text>
+<text text-anchor='middle' x='120' y='4' fill='currentColor' style='font-size:1em'>y</text>
+<text text-anchor='middle' x='120' y='20' fill='currentColor' style='font-size:1em'>)</text>
+<text text-anchor='middle' x='120' y='36' fill='currentColor' style='font-size:1em'>c</text>
+<text text-anchor='middle' x='120' y='68' fill='currentColor' style='font-size:1em'>p</text>
+<text text-anchor='middle' x='128' y='4' fill='currentColor' style='font-size:1em'>)</text>
+<text text-anchor='middle' x='128' y='20' fill='currentColor' style='font-size:1em'>:</text>
+<text text-anchor='middle' x='128' y='36' fill='currentColor' style='font-size:1em'>o</text>
+<text text-anchor='middle' x='128' y='68' fill='currentColor' style='font-size:1em'>(</text>
+<text text-anchor='middle' x='136' y='4' fill='currentColor' style='font-size:1em'>:</text>
+<text text-anchor='middle' x='136' y='36' fill='currentColor' style='font-size:1em'>n</text>
+<text text-anchor='middle' x='136' y='68' fill='currentColor' style='font-size:1em'>x</text>
+<text text-anchor='middle' x='144' y='36' fill='currentColor' style='font-size:1em'>s</text>
+<text text-anchor='middle' x='144' y='68' fill='currentColor' style='font-size:1em'>,</text>
+<text text-anchor='middle' x='152' y='36' fill='currentColor' style='font-size:1em'>t</text>
+<text text-anchor='middle' x='160' y='36' fill='currentColor' style='font-size:1em'>(</text>
+<text text-anchor='middle' x='160' y='68' fill='currentColor' style='font-size:1em'>σ</text>
+<text text-anchor='middle' x='168' y='36' fill='currentColor' style='font-size:1em'>y</text>
+<text text-anchor='middle' x='176' y='36' fill='currentColor' style='font-size:1em'>)</text>
+<text text-anchor='middle' x='176' y='68' fill='currentColor' style='font-size:1em'>y</text>
+<text text-anchor='middle' x='184' y='68' fill='currentColor' style='font-size:1em'>)</text>
+<text text-anchor='middle' x='264' y='4' fill='currentColor' style='font-size:1em'>L</text>
+<text text-anchor='middle' x='272' y='4' fill='currentColor' style='font-size:1em'>1</text>
+<text text-anchor='middle' x='272' y='68' fill='currentColor' style='font-size:1em'>L</text>
+<text text-anchor='middle' x='280' y='4' fill='currentColor' style='font-size:1em'>:</text>
+<text text-anchor='middle' x='280' y='68' fill='currentColor' style='font-size:1em'>5</text>
+<text text-anchor='middle' x='288' y='68' fill='currentColor' style='font-size:1em'>:</text>
+<text text-anchor='middle' x='296' y='4' fill='currentColor' style='font-size:1em'>d</text>
+<text text-anchor='middle' x='304' y='4' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='304' y='68' fill='currentColor' style='font-size:1em'>c</text>
+<text text-anchor='middle' x='312' y='4' fill='currentColor' style='font-size:1em'>f</text>
+<text text-anchor='middle' x='312' y='68' fill='currentColor' style='font-size:1em'>a</text>
+<text text-anchor='middle' x='320' y='4' fill='currentColor' style='font-size:1em'>i</text>
+<text text-anchor='middle' x='320' y='68' fill='currentColor' style='font-size:1em'>l</text>
+<text text-anchor='middle' x='328' y='4' fill='currentColor' style='font-size:1em'>n</text>
+<text text-anchor='middle' x='328' y='68' fill='currentColor' style='font-size:1em'>l</text>
+<text text-anchor='middle' x='336' y='4' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='344' y='68' fill='currentColor' style='font-size:1em'>p</text>
+<text text-anchor='middle' x='352' y='4' fill='currentColor' style='font-size:1em'>p</text>
+</g>
+
+    </svg>
+  
+</div>
+<p>递归的 $\lambda $，形如 $P \equiv \lambda x. MPN $，像这样的 $\lambda$-term，符合我们在高级语言程序设计的经验，但是不符合 Lambda Calculus 中的规范，因为 Lambda Calculus 对 $\lambda$-term 的归纳定义并不包含为 abstraction 赋标识符的规则，我们写 $P$ 等标识符的目的只在于提升可读性和明确表达式结构，而不是借助标识符的复用来像高级语言编程一样定义递归函数. 一个细节是，我们在书里看到的为某个 $\lambda$-term 记标识符用的符号是 $\equiv$ 而不是 $=$.</p>
 <p>我们不能通过标识符的复用定义递归不意味着我们不能定义递归，只是我们需要依赖<strong>多一层的抽象</strong>来构造出 形式上的非递归，事实意义上的递归.</p>
 <p>从高级语言编程的角度出发，如果我们希望用某种方式取代 L5 中对 <code>p</code> 自身的调用，我们可以如下修改我们的代码. 为了两个分支的结构一致，我们设计一个函数列表 <code>t</code>，<code>t</code> 中的两个函数对应两个分支，函数 <code>getCurrentY</code> 将返回当前 <code>y</code> 值，<code>recursion_p</code> 将承担递归的工作：（这里先不考虑函数的具体结构和参数设计/参数传递的问题，后面总有办法的，这里我们只关心整体结构）</p>
-<pre tabindex="0"><code>t = [getCurrentY, recursion_p]      // list of functions
 
-combinator p(x,y):            
-    if (xy == 0):
-        return t[0]                     
-    else:
-        return t[1]    
-</code></pre><p>如何在 Lambda Calculus 中表达以上的代码？为了专注于我们目前处理的抽象层次，先将 $P \equiv \lambda xy.\textbf{D}y(Px(\bar{\sigma}y))(xy)$ 的结构简化为 $P \equiv \lambda xy.\textbf{D}AB(xy)$</p>
+
+
+<div class="goat svg-container ">
+  
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      font-family="Menlo,Lucida Console,monospace"
+      
+        viewBox="0 0 456 121"
+      >
+      <g transform='translate(8,16)'>
+<path d='M 284,8 L 236,120' fill='none' stroke='currentColor'></path>
+<path d='M 292,8 L 244,120' fill='none' stroke='currentColor'></path>
+<text text-anchor='middle' x='0' y='4' fill='currentColor' style='font-size:1em'>t</text>
+<text text-anchor='middle' x='0' y='36' fill='currentColor' style='font-size:1em'>c</text>
+<text text-anchor='middle' x='8' y='36' fill='currentColor' style='font-size:1em'>o</text>
+<text text-anchor='middle' x='16' y='4' fill='currentColor' style='font-size:1em'>=</text>
+<text text-anchor='middle' x='16' y='36' fill='currentColor' style='font-size:1em'>m</text>
+<text text-anchor='middle' x='24' y='36' fill='currentColor' style='font-size:1em'>b</text>
+<text text-anchor='middle' x='32' y='4' fill='currentColor' style='font-size:1em'>[</text>
+<text text-anchor='middle' x='32' y='36' fill='currentColor' style='font-size:1em'>i</text>
+<text text-anchor='middle' x='32' y='52' fill='currentColor' style='font-size:1em'>i</text>
+<text text-anchor='middle' x='32' y='84' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='40' y='4' fill='currentColor' style='font-size:1em'>g</text>
+<text text-anchor='middle' x='40' y='36' fill='currentColor' style='font-size:1em'>n</text>
+<text text-anchor='middle' x='40' y='52' fill='currentColor' style='font-size:1em'>f</text>
+<text text-anchor='middle' x='40' y='84' fill='currentColor' style='font-size:1em'>l</text>
+<text text-anchor='middle' x='48' y='4' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='48' y='36' fill='currentColor' style='font-size:1em'>a</text>
+<text text-anchor='middle' x='48' y='84' fill='currentColor' style='font-size:1em'>s</text>
+<text text-anchor='middle' x='56' y='4' fill='currentColor' style='font-size:1em'>t</text>
+<text text-anchor='middle' x='56' y='36' fill='currentColor' style='font-size:1em'>t</text>
+<text text-anchor='middle' x='56' y='52' fill='currentColor' style='font-size:1em'>(</text>
+<text text-anchor='middle' x='56' y='84' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='64' y='4' fill='currentColor' style='font-size:1em'>C</text>
+<text text-anchor='middle' x='64' y='36' fill='currentColor' style='font-size:1em'>o</text>
+<text text-anchor='middle' x='64' y='52' fill='currentColor' style='font-size:1em'>x</text>
+<text text-anchor='middle' x='64' y='68' fill='currentColor' style='font-size:1em'>r</text>
+<text text-anchor='middle' x='64' y='84' fill='currentColor' style='font-size:1em'>:</text>
+<text text-anchor='middle' x='64' y='100' fill='currentColor' style='font-size:1em'>r</text>
+<text text-anchor='middle' x='72' y='4' fill='currentColor' style='font-size:1em'>u</text>
+<text text-anchor='middle' x='72' y='36' fill='currentColor' style='font-size:1em'>r</text>
+<text text-anchor='middle' x='72' y='52' fill='currentColor' style='font-size:1em'>y</text>
+<text text-anchor='middle' x='72' y='68' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='72' y='100' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='80' y='4' fill='currentColor' style='font-size:1em'>r</text>
+<text text-anchor='middle' x='80' y='68' fill='currentColor' style='font-size:1em'>t</text>
+<text text-anchor='middle' x='80' y='100' fill='currentColor' style='font-size:1em'>t</text>
+<text text-anchor='middle' x='88' y='4' fill='currentColor' style='font-size:1em'>r</text>
+<text text-anchor='middle' x='88' y='36' fill='currentColor' style='font-size:1em'>p</text>
+<text text-anchor='middle' x='88' y='52' fill='currentColor' style='font-size:1em'>=</text>
+<text text-anchor='middle' x='88' y='68' fill='currentColor' style='font-size:1em'>u</text>
+<text text-anchor='middle' x='88' y='100' fill='currentColor' style='font-size:1em'>u</text>
+<text text-anchor='middle' x='96' y='4' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='96' y='36' fill='currentColor' style='font-size:1em'>(</text>
+<text text-anchor='middle' x='96' y='52' fill='currentColor' style='font-size:1em'>=</text>
+<text text-anchor='middle' x='96' y='68' fill='currentColor' style='font-size:1em'>r</text>
+<text text-anchor='middle' x='96' y='100' fill='currentColor' style='font-size:1em'>r</text>
+<text text-anchor='middle' x='104' y='4' fill='currentColor' style='font-size:1em'>n</text>
+<text text-anchor='middle' x='104' y='36' fill='currentColor' style='font-size:1em'>x</text>
+<text text-anchor='middle' x='104' y='68' fill='currentColor' style='font-size:1em'>n</text>
+<text text-anchor='middle' x='104' y='100' fill='currentColor' style='font-size:1em'>n</text>
+<text text-anchor='middle' x='112' y='4' fill='currentColor' style='font-size:1em'>t</text>
+<text text-anchor='middle' x='112' y='36' fill='currentColor' style='font-size:1em'>,</text>
+<text text-anchor='middle' x='112' y='52' fill='currentColor' style='font-size:1em'>0</text>
+<text text-anchor='middle' x='120' y='4' fill='currentColor' style='font-size:1em'>Y</text>
+<text text-anchor='middle' x='120' y='36' fill='currentColor' style='font-size:1em'>y</text>
+<text text-anchor='middle' x='120' y='52' fill='currentColor' style='font-size:1em'>)</text>
+<text text-anchor='middle' x='120' y='68' fill='currentColor' style='font-size:1em'>t</text>
+<text text-anchor='middle' x='120' y='100' fill='currentColor' style='font-size:1em'>t</text>
+<text text-anchor='middle' x='128' y='4' fill='currentColor' style='font-size:1em'>,</text>
+<text text-anchor='middle' x='128' y='36' fill='currentColor' style='font-size:1em'>)</text>
+<text text-anchor='middle' x='128' y='52' fill='currentColor' style='font-size:1em'>:</text>
+<text text-anchor='middle' x='128' y='68' fill='currentColor' style='font-size:1em'>[</text>
+<text text-anchor='middle' x='128' y='100' fill='currentColor' style='font-size:1em'>[</text>
+<text text-anchor='middle' x='136' y='36' fill='currentColor' style='font-size:1em'>:</text>
+<text text-anchor='middle' x='136' y='68' fill='currentColor' style='font-size:1em'>0</text>
+<text text-anchor='middle' x='136' y='100' fill='currentColor' style='font-size:1em'>1</text>
+<text text-anchor='middle' x='144' y='4' fill='currentColor' style='font-size:1em'>r</text>
+<text text-anchor='middle' x='144' y='68' fill='currentColor' style='font-size:1em'>]</text>
+<text text-anchor='middle' x='144' y='100' fill='currentColor' style='font-size:1em'>]</text>
+<text text-anchor='middle' x='152' y='4' fill='currentColor' style='font-size:1em'>e</text>
+<text text-anchor='middle' x='160' y='4' fill='currentColor' style='font-size:1em'>c</text>
+<text text-anchor='middle' x='168' y='4' fill='currentColor' style='font-size:1em'>u</text>
+<text text-anchor='middle' x='176' y='4' fill='currentColor' style='font-size:1em'>r</text>
+<text text-anchor='middle' x='184' y='4' fill='currentColor' style='font-size:1em'>s</text>
+<text text-anchor='middle' x='192' y='4' fill='currentColor' style='font-size:1em'>i</text>
+<text text-anchor='middle' x='200' y='4' fill='currentColor' style='font-size:1em'>o</text>
+<text text-anchor='middle' x='208' y='4' fill='currentColor' style='font-size:1em'>n</text>
+<text text-anchor='middle' x='216' y='4' fill='currentColor' style='font-size:1em'>_</text>
+<text text-anchor='middle' x='224' y='4' fill='currentColor' style='font-size:1em'>p</text>
+<text text-anchor='middle' x='232' y='4' fill='currentColor' style='font-size:1em'>]</text>
+<text text-anchor='middle' x='312' y='4' fill='currentColor' style='font-size:1em'>l</text>
+<text text-anchor='middle' x='320' y='4' fill='currentColor' style='font-size:1em'>i</text>
+<text text-anchor='middle' x='328' y='4' fill='currentColor' style='font-size:1em'>s</text>
+<text text-anchor='middle' x='336' y='4' fill='currentColor' style='font-size:1em'>t</text>
+<text text-anchor='middle' x='352' y='4' fill='currentColor' style='font-size:1em'>o</text>
+<text text-anchor='middle' x='360' y='4' fill='currentColor' style='font-size:1em'>f</text>
+<text text-anchor='middle' x='376' y='4' fill='currentColor' style='font-size:1em'>f</text>
+<text text-anchor='middle' x='384' y='4' fill='currentColor' style='font-size:1em'>u</text>
+<text text-anchor='middle' x='392' y='4' fill='currentColor' style='font-size:1em'>n</text>
+<text text-anchor='middle' x='400' y='4' fill='currentColor' style='font-size:1em'>c</text>
+<text text-anchor='middle' x='408' y='4' fill='currentColor' style='font-size:1em'>t</text>
+<text text-anchor='middle' x='416' y='4' fill='currentColor' style='font-size:1em'>i</text>
+<text text-anchor='middle' x='424' y='4' fill='currentColor' style='font-size:1em'>o</text>
+<text text-anchor='middle' x='432' y='4' fill='currentColor' style='font-size:1em'>n</text>
+<text text-anchor='middle' x='440' y='4' fill='currentColor' style='font-size:1em'>s</text>
+</g>
+
+    </svg>
+  
+</div>
+<p>如何在 Lambda Calculus 中表达以上的代码？为了专注于我们目前处理的抽象层次，先将 $P \equiv \lambda xy.\textbf{D}y(Px(\bar{\sigma}y))(xy)$ 的结构简化为 $P \equiv \lambda xy.\textbf{D}AB(xy)$</p>
 <!-- 语义上的解释是，根据 $(xy)$ 的检查结果决定走 $A$ 分支 / $B$ 分支， -->
 <p>根据预期 / 上面的伪代码，我们可以写出大致的 $\lambda $ 框架如下:</p>
 <p>$$ P \equiv \lambda xy. T(xy)[params] $$
