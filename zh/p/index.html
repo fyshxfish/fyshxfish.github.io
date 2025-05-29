@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="zh" dir="ltr">
-    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="">
 <title></title>
 
-<link rel='canonical' href='http://localhost:1313/zh/p/'>
+<link rel='canonical' href='http://fyshxfish.github.io/zh/p/'>
 
-<link rel="stylesheet" href="/scss/style.min.ba5cc34af4430963fcfe2f9afd2fb80f7251aa5d621efcdd72c32002a6e56cae.css"><meta property='og:title' content="">
+<link rel="stylesheet" href="/scss/style.min.ca8e73f914c0e48d09b6dc36c97037f15a283dbaba328e73f133fd9c13b277ad.css"><meta property='og:title' content="">
 <meta property='og:description' content="">
-<meta property='og:url' content='http://localhost:1313/zh/p/'>
+<meta property='og:url' content='http://fyshxfish.github.io/zh/p/'>
 <meta property='og:site_name' content='fyshXplore'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' />
 <meta name="twitter:title" content="">
@@ -36,6 +36,8 @@
     document.head.appendChild(customFont);
   })();
 </script>
+
+
 
     </head>
     <body class="
@@ -232,9 +234,9 @@
 
                             <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
                                 
-                                    <option value="http://localhost:1313/zh/" selected>中文</option>
+                                    <option value="http://fyshxfish.github.io/zh/" selected>中文</option>
                                 
-                                    <option value="http://localhost:1313/" >English</option>
+                                    <option value="http://fyshxfish.github.io/" >English</option>
                                 
                             </select>
                         </li>
@@ -289,6 +291,25 @@
     </footer>
     
 
+    
+        <footer class="article-translations">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-language" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+  <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+  <path d="M4 5h7" />
+  <path d="M9 3v2c0 4.418 -2.239 8 -5 8" />
+  <path d="M5 9c-.003 2.144 2.952 3.908 6.7 4" />
+  <path d="M12 20l4 -9l4 9" />
+  <path d="M19.1 18h-6.2" />
+</svg>
+
+
+
+            <div>
+                
+                    <a href="http://fyshxfish.github.io/p/" class="link">English</a>
+                
+            </div>
+        </footer>
     
 </div>
 
@@ -470,5 +491,52 @@
     }());
 </script>
 
+  
+  
+<script>
+let currentIndex = 0;
+const images = document.querySelectorAll('.image-container img');
+const totalImages = images.length;
+
+
+images[currentIndex].classList.add('active');
+
+function moveSlide(step) {
+    
+    images[currentIndex].classList.remove('active');
+
+    
+    currentIndex = (currentIndex + step + totalImages) % totalImages;
+
+    
+    images[currentIndex].classList.add('active');
+}
+</script>
+    
+
+<script>
+  
+  const copyText = document.getElementById("copyText");
+  const notification = document.getElementById("notification");
+
+  
+  copyText.addEventListener("click", function() {
+    
+    const tempInput = document.createElement("input");
+    document.body.appendChild(tempInput);
+    tempInput.value = copyText.innerText; 
+    tempInput.select();
+    document.execCommand("copy"); 
+    document.body.removeChild(tempInput); 
+
+    
+    notification.classList.add("show");
+
+    
+    setTimeout(function() {
+      notification.classList.remove("show");
+    }, 2000);
+  });
+</script>
     </body>
 </html>

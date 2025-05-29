@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='http://fyshxfish.github.io/zh/p/nested-mapping-examples-implemented-in-haskell-sicp-2.2.3-list-monad/'>
 
-<link rel="stylesheet" href="/scss/style.min.9fd75ac0c4624d72ea9c7250e94ce2784fe9bc67fbc2f9c4a42d42ce591efcb7.css"><meta property='og:title' content="Nested Mapping Examples Implemented in Haskell - SICP § 2.2.3  | List Monad ">
+<link rel="stylesheet" href="/scss/style.min.ca8e73f914c0e48d09b6dc36c97037f15a283dbaba328e73f133fd9c13b277ad.css"><meta property='og:title' content="Nested Mapping Examples Implemented in Haskell - SICP § 2.2.3  | List Monad ">
 <meta property='og:description' content="Problem Description Problem: Given a positive integer $n$, find all ordered pairs of distinct positive integers $i$ and $j$, where $ 1 \\leq i \\leq j \\leq n $, such that $ i + j $ is prime.\nImplementation in Haskell isDivisible :: Int -&gt; Int -&gt; Bool isDivisible x y | mod x y == 0 = True | otherwise = False isPrime :: Int -&gt; Bool isPrime x | x &lt;= 2 = True | otherwise = not (foldr (||) False (map (isDivisible x) [2..((floor . sqrt . fromIntegral) x)])) genPairs :: Int -&gt; [((Int, Int), Int)] genPairs n = do x &lt;- [1..n] y &lt;- [1..(x-1)] return ((y, x), (x + y)) sumPrimePairs :: Int -&gt; [((Int, Int), Int)] sumPrimePairs = (filter (\\(_, s) -&gt; (isPrime s))) . genPairs About List Monad: Context, Nested lambda and do-notation Context of List Monad : nondeterministic result.\n">
 <meta property='og:url' content='http://fyshxfish.github.io/zh/p/nested-mapping-examples-implemented-in-haskell-sicp-2.2.3-list-monad/'>
 <meta property='og:site_name' content='fyshXplore'>

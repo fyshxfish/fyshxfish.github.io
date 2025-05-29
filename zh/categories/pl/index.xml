@@ -6,7 +6,18 @@
         <description>Recent content in PL on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh</language>
-        <lastBuildDate>Tue, 10 Sep 2024 14:10:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/zh/categories/pl/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 29 May 2025 18:06:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/zh/categories/pl/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Foundations and Applications of Intersection and Union Types</title>
+        <link>http://fyshxfish.github.io/zh/p/foundations-and-applications-of-intersection-and-union-types/</link>
+        <pubDate>Thu, 29 May 2025 18:06:00 +0800</pubDate>
+        
+        <guid>http://fyshxfish.github.io/zh/p/foundations-and-applications-of-intersection-and-union-types/</guid>
+        <description>&lt;iframe src=&#34;http://fyshxfish.github.io/pdfs/Foundations_and_Applications_of_Intersection_and_Union_Types.pdf&#34; width=&#34;100%&#34; height=&#34;750px&#34;&gt;
+  你的浏览器不支持内嵌 PDF 文件，请&lt;a href=&#34;http://fyshxfish.github.io/pdfs/Foundations_and_Applications_of_Intersection_and_Union_Types.pdf&#34;&gt;点击这里下载&lt;/a&gt;
+&lt;/iframe&gt;
+</description>
+        </item>
+        <item>
         <title>语言的安全与抽象</title>
         <link>http://fyshxfish.github.io/zh/p/%E8%AF%AD%E8%A8%80%E7%9A%84%E5%AE%89%E5%85%A8%E4%B8%8E%E6%8A%BD%E8%B1%A1/</link>
         <pubDate>Tue, 10 Sep 2024 14:10:00 +0800</pubDate>

@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='http://fyshxfish.github.io/zh/p/mit-scheme-%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/'>
 
-<link rel="stylesheet" href="/scss/style.min.9fd75ac0c4624d72ea9c7250e94ce2784fe9bc67fbc2f9c4a42d42ce591efcb7.css"><meta property='og:title' content="mit-scheme 配置与基本使用">
+<link rel="stylesheet" href="/scss/style.min.ca8e73f914c0e48d09b6dc36c97037f15a283dbaba328e73f133fd9c13b277ad.css"><meta property='og:title' content="mit-scheme 配置与基本使用">
 <meta property='og:description' content=" Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away. &ndash; Antoine de Saint-Exupéry\n通过包管理器下载 mit-scheme MacOS:\nbrew install mit-scheme Ubuntu:\nsudo apt-get update sudo apt-get install mit-scheme REPL 基本使用 （REPL: Read-Evaluate-Print Loop）\n进入 REPL:\nmit-scheme 在 REPL 加载中加载 scheme 代码:\n">
 <meta property='og:url' content='http://fyshxfish.github.io/zh/p/mit-scheme-%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/'>
 <meta property='og:site_name' content='fyshXplore'>
@@ -390,52 +390,8 @@
 </span></span></code></pre></div></li>
 <li>
 <p>在 REPL 加载中加载 scheme 代码:</p>
-
-
-
-<div class="goat svg-container ">
-  
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      font-family="Menlo,Lucida Console,monospace"
-      
-        viewBox="0 0 264 25"
-      >
-      <g transform='translate(8,16)'>
-<text text-anchor='middle' x='0' y='4' fill='currentColor' style='font-size:1em'>1</text>
-<text text-anchor='middle' x='16' y='4' fill='currentColor' style='font-size:1em'>]</text>
-<text text-anchor='middle' x='32' y='4' fill='currentColor' style='font-size:1em'>=</text>
-<text text-anchor='middle' x='40' y='4' fill='currentColor' style='font-size:1em'>&gt;</text>
-<text text-anchor='middle' x='56' y='4' fill='currentColor' style='font-size:1em'>(</text>
-<text text-anchor='middle' x='64' y='4' fill='currentColor' style='font-size:1em'>l</text>
-<text text-anchor='middle' x='72' y='4' fill='currentColor' style='font-size:1em'>o</text>
-<text text-anchor='middle' x='80' y='4' fill='currentColor' style='font-size:1em'>a</text>
-<text text-anchor='middle' x='88' y='4' fill='currentColor' style='font-size:1em'>d</text>
-<text text-anchor='middle' x='104' y='4' fill='currentColor' style='font-size:1em'>"</text>
-<text text-anchor='middle' x='112' y='4' fill='currentColor' style='font-size:1em'>p</text>
-<text text-anchor='middle' x='120' y='4' fill='currentColor' style='font-size:1em'>a</text>
-<text text-anchor='middle' x='128' y='4' fill='currentColor' style='font-size:1em'>t</text>
-<text text-anchor='middle' x='136' y='4' fill='currentColor' style='font-size:1em'>h</text>
-<text text-anchor='middle' x='144' y='4' fill='currentColor' style='font-size:1em'>/</text>
-<text text-anchor='middle' x='152' y='4' fill='currentColor' style='font-size:1em'>t</text>
-<text text-anchor='middle' x='160' y='4' fill='currentColor' style='font-size:1em'>o</text>
-<text text-anchor='middle' x='168' y='4' fill='currentColor' style='font-size:1em'>/</text>
-<text text-anchor='middle' x='176' y='4' fill='currentColor' style='font-size:1em'>f</text>
-<text text-anchor='middle' x='184' y='4' fill='currentColor' style='font-size:1em'>i</text>
-<text text-anchor='middle' x='192' y='4' fill='currentColor' style='font-size:1em'>l</text>
-<text text-anchor='middle' x='200' y='4' fill='currentColor' style='font-size:1em'>e</text>
-<text text-anchor='middle' x='208' y='4' fill='currentColor' style='font-size:1em'>.</text>
-<text text-anchor='middle' x='216' y='4' fill='currentColor' style='font-size:1em'>s</text>
-<text text-anchor='middle' x='224' y='4' fill='currentColor' style='font-size:1em'>c</text>
-<text text-anchor='middle' x='232' y='4' fill='currentColor' style='font-size:1em'>m</text>
-<text text-anchor='middle' x='240' y='4' fill='currentColor' style='font-size:1em'>"</text>
-<text text-anchor='middle' x='248' y='4' fill='currentColor' style='font-size:1em'>)</text>
-</g>
-
-    </svg>
-  
-</div>
-<p>(后缀 <code>.scm</code> 可以省略.)</p>
+<pre tabindex="0"><code>1 ] =&gt; (load &#34;path/to/file.scm&#34;)
+</code></pre><p>(后缀 <code>.scm</code> 可以省略.)</p>
 </li>
 <li>
 <p>查看手册:</p>

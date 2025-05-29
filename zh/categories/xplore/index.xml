@@ -6,7 +6,18 @@
         <description>Recent content in Xplore on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh</language>
-        <lastBuildDate>Mon, 17 Feb 2025 16:32:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/zh/categories/xplore/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 29 May 2025 18:06:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/zh/categories/xplore/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Foundations and Applications of Intersection and Union Types</title>
+        <link>http://fyshxfish.github.io/zh/p/foundations-and-applications-of-intersection-and-union-types/</link>
+        <pubDate>Thu, 29 May 2025 18:06:00 +0800</pubDate>
+        
+        <guid>http://fyshxfish.github.io/zh/p/foundations-and-applications-of-intersection-and-union-types/</guid>
+        <description>&lt;iframe src=&#34;http://fyshxfish.github.io/pdfs/Foundations_and_Applications_of_Intersection_and_Union_Types.pdf&#34; width=&#34;100%&#34; height=&#34;750px&#34;&gt;
+  你的浏览器不支持内嵌 PDF 文件，请&lt;a href=&#34;http://fyshxfish.github.io/pdfs/Foundations_and_Applications_of_Intersection_and_Union_Types.pdf&#34;&gt;点击这里下载&lt;/a&gt;
+&lt;/iframe&gt;
+</description>
+        </item>
+        <item>
         <title>杂谈向：为什么编译需要做语义分析 / 上下文（Context）与语法语义分析</title>
         <link>http://fyshxfish.github.io/zh/p/%E6%9D%82%E8%B0%88%E5%90%91%E4%B8%BA%E4%BB%80%E4%B9%88%E7%BC%96%E8%AF%91%E9%9C%80%E8%A6%81%E5%81%9A%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90-/-%E4%B8%8A%E4%B8%8B%E6%96%87context%E4%B8%8E%E8%AF%AD%E6%B3%95%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90/</link>
         <pubDate>Mon, 17 Feb 2025 16:32:00 +0800</pubDate>
@@ -17,403 +28,35 @@
 &lt;/h2&gt;&lt;p&gt;标题的这个问题，其实是一个不太正确的问题，因为对于语言而言，设计先于实现——先设计语言的语法和语义，然后写编译器去检查一个程序语法是否正确，然后根据设定好的语义将它转写成目标机器代码。从“上下文”这个视角去思考，常见情况下，语法是&lt;strong&gt;上下文无关&lt;/strong&gt;的，而语义正是用来处理&lt;strong&gt;上下文相关&lt;/strong&gt;的问题的，&lt;code&gt;x = 1; print(x);&lt;/code&gt; 和 &lt;code&gt;x = 2; print(x);&lt;/code&gt;，同样是 &lt;code&gt;print(x)&lt;/code&gt;，它的上文是不一样的，所以它导致的结果也不一样.&lt;/p&gt;
 &lt;h2 id=&#34;举例-1---&#34;&gt;&lt;a href=&#34;#%e4%b8%be%e4%be%8b-1---&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;举例 1 - &lt;code&gt;=&lt;/code&gt;
 &lt;/h2&gt;&lt;p&gt;比如：&lt;/p&gt;
-
-
-
-&lt;div class=&#34;goat svg-container &#34;&gt;
-  
-    &lt;svg
-      xmlns=&#34;http://www.w3.org/2000/svg&#34;
-      font-family=&#34;Menlo,Lucida Console,monospace&#34;
-      
-        viewBox=&#34;0 0 64 41&#34;
-      &gt;
-      &lt;g transform=&#39;translate(8,16)&#39;&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;0&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;f&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;0&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;f&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;8&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;o&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;8&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;o&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;16&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;o&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;16&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;o&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;32&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;=&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;32&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;=&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;48&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;3&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;48&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;4&lt;/text&gt;
-&lt;/g&gt;
-
-    &lt;/svg&gt;
-  
-&lt;/div&gt;
-&lt;p&gt;假设对这个程序只做语法分析，那么它符合 Python 语法，也符合 Haskell 语法，但是对它做语义分析，作为一个 Python 程序，它的意思是，“先将 &lt;code&gt;3&lt;/code&gt; 赋值给 &lt;code&gt;foo&lt;/code&gt;，然后将 &lt;code&gt;4&lt;/code&gt; 赋值给 &lt;code&gt;foo&lt;/code&gt;”；作为一个 Haskell 程序，它不是一个合格的 Haskell 程序，因为 Haskell 语义不允许做重复的绑定，所以核心原因是，Python 的 &lt;code&gt;=&lt;/code&gt; 的语义是赋值（assign），内存覆写，Haskell 的 &lt;code&gt;=&lt;/code&gt; 的语义是绑定（name binding），为了保证无副作用、执行顺序无关等特性，只允许单次绑定.&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;foo = 3
+foo = 4
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;假设对这个程序只做语法分析，那么它符合 Python 语法，也符合 Haskell 语法，但是对它做语义分析，作为一个 Python 程序，它的意思是，“先将 &lt;code&gt;3&lt;/code&gt; 赋值给 &lt;code&gt;foo&lt;/code&gt;，然后将 &lt;code&gt;4&lt;/code&gt; 赋值给 &lt;code&gt;foo&lt;/code&gt;”；作为一个 Haskell 程序，它不是一个合格的 Haskell 程序，因为 Haskell 语义不允许做重复的绑定，所以核心原因是，Python 的 &lt;code&gt;=&lt;/code&gt; 的语义是赋值（assign），内存覆写，Haskell 的 &lt;code&gt;=&lt;/code&gt; 的语义是绑定（name binding），为了保证无副作用、执行顺序无关等特性，只允许单次绑定.&lt;/p&gt;
 &lt;h2 id=&#34;举例2---polyglot&#34;&gt;&lt;a href=&#34;#%e4%b8%be%e4%be%8b2---polyglot&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;举例2 - polyglot
 &lt;/h2&gt;&lt;p&gt;下面这个程序改写自 &lt;a class=&#34;link&#34; href=&#34;https://en.wikipedia.org/wiki/Polyglot_%28computing%29#C,_PHP,_and_Bash&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;polyglot(computing) wikipedia&lt;/a&gt;&lt;/p&gt;
-
-
-
-&lt;div class=&#34;goat svg-container &#34;&gt;
-  
-    &lt;svg
-      xmlns=&#34;http://www.w3.org/2000/svg&#34;
-      font-family=&#34;Menlo,Lucida Console,monospace&#34;
-      
-        viewBox=&#34;0 0 728 361&#34;
-      &gt;
-      &lt;g transform=&#39;translate(8,16)&#39;&gt;
-&lt;path d=&#39;M 640,256 L 648,256&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
-&lt;path d=&#39;M -4,72 L 4,56&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
-&lt;path d=&#39;M 4,72 L 12,56&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
-&lt;path d=&#39;M -4,104 L 4,88&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
-&lt;path d=&#39;M 4,104 L 12,88&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
-&lt;path d=&#39;M 76,8 L -4,184&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
-&lt;path d=&#39;M 84,136 L 92,120&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
-&lt;path d=&#39;M 76,312 L 84,296&#39; fill=&#39;none&#39; stroke=&#39;currentColor&#39;&gt;&lt;/path&gt;
-&lt;polygon points=&#39;656.000000,256.000000 644.000000,250.399994 644.000000,261.600006&#39; fill=&#39;currentColor&#39; transform=&#39;rotate(90.000000, 648.000000, 256.000000)&#39;&gt;&lt;/polygon&gt;
-&lt;circle cx=&#39;80&#39; cy=&#39;128&#39; r=&#39;6&#39; stroke=&#39;currentColor&#39; fill=&#39;currentColor&#39;&gt;&lt;/circle&gt;
-&lt;circle cx=&#39;88&#39; cy=&#39;0&#39; r=&#39;6&#39; stroke=&#39;currentColor&#39; fill=&#39;currentColor&#39;&gt;&lt;/circle&gt;
-&lt;circle cx=&#39;88&#39; cy=&#39;304&#39; r=&#39;6&#39; stroke=&#39;currentColor&#39; fill=&#39;currentColor&#39;&gt;&lt;/circle&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;0&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;#&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;0&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;0&#39; y=&#39;36&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;x&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;0&#39; y=&#39;52&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;i&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;0&#39; y=&#39;84&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;r&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;0&#39; y=&#39;116&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;#&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;0&#39; y=&#39;132&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;#&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;0&#39; y=&#39;148&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;#&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;0&#39; y=&#39;164&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;#&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;0&#39; y=&#39;180&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;#&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;0&#39; y=&#39;196&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;#&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;0&#39; y=&#39;212&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;#&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;0&#39; y=&#39;228&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;f&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;0&#39; y=&#39;244&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;{&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;0&#39; y=&#39;292&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;}&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;0&#39; y=&#39;308&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;#&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;0&#39; y=&#39;324&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;m&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;0&#39; y=&#39;340&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;#&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;8&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;d&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;8&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;c&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;8&#39; y=&#39;36&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;=&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;8&#39; y=&#39;52&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;f&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;8&#39; y=&#39;84&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;8&#39; y=&#39;116&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;d&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;8&#39; y=&#39;132&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;d&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;8&#39; y=&#39;148&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;i&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;8&#39; y=&#39;164&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;d&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;8&#39; y=&#39;180&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;d&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;8&#39; y=&#39;196&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;d&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;8&#39; y=&#39;212&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;d&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;8&#39; y=&#39;228&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;u&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;8&#39; y=&#39;308&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;d&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;8&#39; y=&#39;324&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;a&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;8&#39; y=&#39;340&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;*&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;16&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;16&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;h&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;16&#39; y=&#39;36&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;5&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;16&#39; y=&#39;84&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;t&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;16&#39; y=&#39;116&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;16&#39; y=&#39;132&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;16&#39; y=&#39;148&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;n&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;16&#39; y=&#39;164&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;16&#39; y=&#39;180&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;16&#39; y=&#39;196&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;16&#39; y=&#39;212&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;16&#39; y=&#39;228&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;n&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;16&#39; y=&#39;308&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;16&#39; y=&#39;324&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;i&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;16&#39; y=&#39;340&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;/&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;24&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;f&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;24&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;o&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;24&#39; y=&#39;36&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;;&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;24&#39; y=&#39;68&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;2&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;24&#39; y=&#39;84&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;u&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;24&#39; y=&#39;100&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;2&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;24&#39; y=&#39;116&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;f&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;24&#39; y=&#39;132&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;f&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;24&#39; y=&#39;148&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;c&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;24&#39; y=&#39;164&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;f&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;24&#39; y=&#39;180&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;f&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;24&#39; y=&#39;196&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;f&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;24&#39; y=&#39;212&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;f&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;24&#39; y=&#39;228&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;c&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;24&#39; y=&#39;308&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;f&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;24&#39; y=&#39;324&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;n&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;32&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;i&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;32&#39; y=&#39;52&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;(&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;32&#39; y=&#39;68&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;&amp;gt;&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;32&#39; y=&#39;84&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;r&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;32&#39; y=&#39;100&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;&amp;gt;&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;32&#39; y=&#39;116&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;i&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;32&#39; y=&#39;132&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;i&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;32&#39; y=&#39;148&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;l&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;32&#39; y=&#39;164&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;i&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;32&#39; y=&#39;180&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;i&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;32&#39; y=&#39;196&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;i&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;32&#39; y=&#39;212&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;i&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;32&#39; y=&#39;228&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;t&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;32&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;p&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;32&#39; y=&#39;276&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;r&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;32&#39; y=&#39;308&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;i&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;40&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;n&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;40&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;-&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;40&#39; y=&#39;52&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;$&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;40&#39; y=&#39;84&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;n&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;40&#39; y=&#39;116&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;n&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;40&#39; y=&#39;132&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;n&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;40&#39; y=&#39;148&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;u&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;40&#39; y=&#39;164&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;n&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;40&#39; y=&#39;180&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;n&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;40&#39; y=&#39;196&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;n&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;40&#39; y=&#39;212&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;n&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;40&#39; y=&#39;228&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;i&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;40&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;r&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;40&#39; y=&#39;276&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;40&#39; y=&#39;308&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;n&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;48&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;48&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;48&#39; y=&#39;52&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;x&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;48&#39; y=&#39;68&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;/&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;48&#39; y=&#39;100&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;/&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;48&#39; y=&#39;116&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;48&#39; y=&#39;132&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;48&#39; y=&#39;148&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;d&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;48&#39; y=&#39;164&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;48&#39; y=&#39;180&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;48&#39; y=&#39;196&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;48&#39; y=&#39;212&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;48&#39; y=&#39;228&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;o&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;48&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;i&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;48&#39; y=&#39;276&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;t&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;48&#39; y=&#39;308&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;56&#39; y=&#39;52&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;)&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;56&#39; y=&#39;68&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;d&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;56&#39; y=&#39;84&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;0&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;56&#39; y=&#39;100&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;d&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;56&#39; y=&#39;148&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;56&#39; y=&#39;228&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;n&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;56&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;n&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;56&#39; y=&#39;276&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;u&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;64&#39; y=&#39;4&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;a&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;64&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;&#34;&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;64&#39; y=&#39;52&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;)&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;64&#39; y=&#39;68&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;64&#39; y=&#39;84&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;;&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;64&#39; y=&#39;100&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;64&#39; y=&#39;116&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;64&#39; y=&#39;132&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;b&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;64&#39; y=&#39;164&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;m&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;64&#39; y=&#39;180&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;p&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;64&#39; y=&#39;196&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;t&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;64&#39; y=&#39;212&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;f&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;64&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;t&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;64&#39; y=&#39;276&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;r&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;64&#39; y=&#39;308&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;c&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;72&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;\&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;72&#39; y=&#39;68&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;v&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;72&#39; y=&#39;100&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;v&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;72&#39; y=&#39;148&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;&amp;lt;&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;72&#39; y=&#39;164&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;a&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;72&#39; y=&#39;180&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;r&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;72&#39; y=&#39;196&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;r&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;72&#39; y=&#39;212&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;u&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;72&#39; y=&#39;228&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;m&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;72&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;f&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;72&#39; y=&#39;276&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;n&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;80&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;0&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;80&#39; y=&#39;68&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;/&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;80&#39; y=&#39;100&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;/&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;80&#39; y=&#39;116&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;?&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;80&#39; y=&#39;148&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;s&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;80&#39; y=&#39;164&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;i&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;80&#39; y=&#39;180&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;i&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;80&#39; y=&#39;196&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;u&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;80&#39; y=&#39;212&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;n&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;80&#39; y=&#39;228&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;a&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;88&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;3&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;88&#39; y=&#39;68&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;n&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;88&#39; y=&#39;100&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;n&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;88&#39; y=&#39;116&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;&amp;gt;&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;88&#39; y=&#39;148&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;t&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;88&#39; y=&#39;164&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;n&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;88&#39; y=&#39;180&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;n&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;88&#39; y=&#39;196&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;88&#39; y=&#39;212&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;c&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;88&#39; y=&#39;228&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;i&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;88&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;&#34;&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;88&#39; y=&#39;276&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;0&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;96&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;3&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;96&#39; y=&#39;68&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;u&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;96&#39; y=&#39;100&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;u&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;96&#39; y=&#39;148&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;d&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;96&#39; y=&#39;164&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;(&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;96&#39; y=&#39;180&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;t&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;96&#39; y=&#39;212&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;t&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;96&#39; y=&#39;228&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;n&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;96&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;\&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;96&#39; y=&#39;276&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;;&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;104&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;[&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;104&#39; y=&#39;68&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;l&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;104&#39; y=&#39;100&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;l&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;104&#39; y=&#39;148&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;i&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;104&#39; y=&#39;164&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;)&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;104&#39; y=&#39;180&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;f&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;104&#39; y=&#39;196&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;)&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;104&#39; y=&#39;212&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;i&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;104&#39; y=&#39;228&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;(&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;104&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;0&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;112&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;3&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;112&#39; y=&#39;68&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;l&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;112&#39; y=&#39;100&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;l&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;112&#39; y=&#39;148&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;o&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;112&#39; y=&#39;212&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;o&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;112&#39; y=&#39;228&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;)&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;112&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;3&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;120&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;4&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;120&#39; y=&#39;68&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;;&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;120&#39; y=&#39;100&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;;&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;120&#39; y=&#39;148&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;.&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;120&#39; y=&#39;164&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;i&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;120&#39; y=&#39;180&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;p&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;120&#39; y=&#39;212&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;n&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;120&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;3&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;128&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;m&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;128&#39; y=&#39;148&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;h&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;128&#39; y=&#39;164&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;n&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;128&#39; y=&#39;180&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;r&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;128&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;[&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;136&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;H&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;136&#39; y=&#39;68&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;t&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;136&#39; y=&#39;100&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;f&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;136&#39; y=&#39;148&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;&amp;gt;&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;136&#39; y=&#39;164&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;t&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;136&#39; y=&#39;180&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;i&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;136&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;3&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;144&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;144&#39; y=&#39;68&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;h&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;144&#39; y=&#39;100&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;i&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;144&#39; y=&#39;180&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;n&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;144&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;1&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;152&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;l&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;152&#39; y=&#39;68&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;152&#39; y=&#39;164&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;m&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;152&#39; y=&#39;180&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;t&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;152&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;m&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;160&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;l&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;160&#39; y=&#39;68&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;n&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;160&#39; y=&#39;164&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;a&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;160&#39; y=&#39;180&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;f&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;160&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;H&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;168&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;o&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;168&#39; y=&#39;164&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;i&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;168&#39; y=&#39;180&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;(&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;168&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;176&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;,&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;176&#39; y=&#39;164&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;n&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;176&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;l&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;184&#39; y=&#39;164&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;(&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;184&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;l&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;192&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;W&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;192&#39; y=&#39;164&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;v&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;192&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;o&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;200&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;o&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;200&#39; y=&#39;164&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;o&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;200&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;,&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;208&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;r&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;208&#39; y=&#39;164&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;i&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;216&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;l&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;216&#39; y=&#39;164&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;d&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;216&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;W&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;224&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;d&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;224&#39; y=&#39;164&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;)&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;224&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;o&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;232&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;!&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;232&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;r&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;240&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;l&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;248&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;f&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;248&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;d&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;256&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;r&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;256&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;!&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;264&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;o&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;272&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;m&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;272&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;f&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;280&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;r&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;288&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;288&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;o&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;296&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;c&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;296&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;m&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;304&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;h&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;312&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;o&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;312&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;m&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;320&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;\&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;320&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;a&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;328&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;0&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;328&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;i&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;336&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;3&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;336&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;n&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;344&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;3&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;344&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;\&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;352&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;[&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;352&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;0&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;360&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;0&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;360&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;3&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;368&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;m&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;368&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;3&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;376&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;&#34;&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;376&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;[&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;384&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;;&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;384&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;0&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;392&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;/&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;392&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;m&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;400&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;/&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;400&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;\&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;408&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;n&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;416&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;&amp;amp;&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;416&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;&#34;&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;424&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;&amp;gt;&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;424&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;t&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;432&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;r&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;440&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;/&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;440&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;u&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;448&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;d&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;448&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;456&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;456&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;/&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;464&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;v&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;464&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;*&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;472&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;/&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;480&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;n&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;480&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;2&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;488&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;u&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;488&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;&amp;gt;&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;496&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;l&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;504&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;l&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;504&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;/&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;512&#39; y=&#39;20&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;;&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;512&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;d&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;520&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;528&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;v&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;536&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;/&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;544&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;n&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;552&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;u&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;560&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;l&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;568&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;l&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;584&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;|&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;600&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;g&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;608&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;r&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;616&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;624&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;p&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;664&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;t&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;672&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;r&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;680&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;u&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;688&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;e&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;696&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;*&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;704&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;/&lt;/text&gt;
-&lt;text text-anchor=&#39;middle&#39; x=&#39;712&#39; y=&#39;260&#39; fill=&#39;currentColor&#39; style=&#39;font-size:1em&#39;&gt;;&lt;/text&gt;
-&lt;/g&gt;
-
-    &lt;/svg&gt;
-  
-&lt;/div&gt;
-&lt;p&gt;它既符合 C 语法，又符合 Bash 语法，编译/解释执行它得到的结果也是不一样的，因为两个程序的语义不同（当然 C 和 Bash 的语法也是不一样的，polyglot 编写的核心就是利用各语言之间的注释/宏/&amp;hellip;使用的&lt;strong&gt;符号&lt;/strong&gt;不同，符号（广义）的使用和布局正是语法&lt;span style=&#34;font-size: smaller;&#34;&gt;&amp;amp;词法&lt;/span&gt;关心的事情）：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;#define a /*
+echo -e &amp;#34;\033[34mHello, World! from echo\033[0m&amp;#34;;// &amp;amp;&amp;gt; /dev/null;
+x=5; 
+if (($x))
+// 2&amp;gt; /dev/null; then
+return 0;
+// 2&amp;gt; /dev/null; fi
+#define e ?&amp;gt;
+#define b */
+#include &amp;lt;stdio.h&amp;gt;
+#define main() int main(void)
+#define printf printf(
+#define true )
+#define function
+function main()
+{
+    printf &amp;#34;\033[31mHello, World! from main\033[0m\n&amp;#34;true/* 2&amp;gt; /dev/null | grep -v true*/;
+    return 0;
+}
+#define c /*
+main
+#*/
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;它既符合 C 语法，又符合 Bash 语法，编译/解释执行它得到的结果也是不一样的，因为两个程序的语义不同（当然 C 和 Bash 的语法也是不一样的，polyglot 编写的核心就是利用各语言之间的注释/宏/&amp;hellip;使用的&lt;strong&gt;符号&lt;/strong&gt;不同，符号（广义）的使用和布局正是语法&lt;span style=&#34;font-size: smaller;&#34;&gt;&amp;amp;词法&lt;/span&gt;关心的事情）：&lt;/p&gt;
 &lt;img src=&#34;poly.png&#34; alt=&#34;poly&#34; style=&#34;zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
 &lt;!-- &lt;span style=&#34;font-size: smaller;&#34;&gt;你可能注意到了这里的一行 `file` 命令，它通过关键字判断出这是一个 C 源文件，所以 `file` 也不一定完全正确，&lt;/span&gt; --&gt;
 </description>
@@ -589,14 +232,14 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;提要：&lt;code&gt;p &amp;lt;variable&amp;gt;&lt;/code&gt;  &lt;code&gt;p &amp;amp;&amp;lt;variable&amp;gt;&lt;/code&gt;  &lt;code&gt;ptype &amp;lt;variable&amp;gt;&lt;/code&gt;&lt;/p&gt;
 &lt;h2 id=&#34;dbg-辅助输出调试信息中的所有权问题&#34;&gt;&lt;a href=&#34;#dbg-%e8%be%85%e5%8a%a9%e8%be%93%e5%87%ba%e8%b0%83%e8%af%95%e4%bf%a1%e6%81%af%e4%b8%ad%e7%9a%84%e6%89%80%e6%9c%89%e6%9d%83%e9%97%ae%e9%a2%98&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;&lt;code&gt;dbg!&lt;/code&gt; 辅助输出调试信息中的所有权问题
 &lt;/h2&gt;&lt;p&gt;错误的：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;dbg!&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;var&lt;span style=&#34;color:#1f2328&#34;&gt;);&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;      &lt;/span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;// move
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;&lt;/span&gt;dbg!&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;var&lt;span style=&#34;color:#1f2328&#34;&gt;);&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;      &lt;/span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;// invalid reference
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;dbg!&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;var&lt;span style=&#34;color:#1f2328&#34;&gt;);&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;      &lt;/span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;// move
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;dbg!&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;var&lt;span style=&#34;color:#1f2328&#34;&gt;);&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;      &lt;/span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;// invalid reference
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;code&gt;dbg!&lt;/code&gt;将拿走&lt;code&gt;var&lt;/code&gt;的所有权(&lt;strong&gt;Move&lt;/strong&gt;)，&lt;code&gt;var&lt;/code&gt;就不能再用了。&lt;/p&gt;
 &lt;p&gt;正确的：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;dbg!&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;&amp;amp;&lt;/span&gt;var&lt;span style=&#34;color:#1f2328&#34;&gt;);&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;dbg!&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;&amp;amp;&lt;/span&gt;var&lt;span style=&#34;color:#1f2328&#34;&gt;);&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;// or
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;let&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;new_var&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;dbg!&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;var&lt;span style=&#34;color:#1f2328&#34;&gt;);&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;&lt;/span&gt;dbg!&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;&amp;amp;&lt;/span&gt;new_var&lt;span style=&#34;color:#1f2328&#34;&gt;);&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;// if u will 
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;let&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;new_var&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;dbg!&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;var&lt;span style=&#34;color:#1f2328&#34;&gt;);&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;dbg!&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;&amp;amp;&lt;/span&gt;new_var&lt;span style=&#34;color:#1f2328&#34;&gt;);&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;// if u will 
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;关于-gdb&#34;&gt;&lt;a href=&#34;#%e5%85%b3%e4%ba%8e-gdb&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;关于 gdb
 &lt;/h2&gt;&lt;p&gt;对于想探究的东西，使用gdb去进行探索，例如：[&lt;code&gt;enum&lt;/code&gt;的底层表示？] -&amp;gt; 写一个简单的例程，编译成可执行文件，然后进行gdb，使用&lt;code&gt;print var&lt;/code&gt; &lt;code&gt;print &amp;amp;var&lt;/code&gt; &lt;code&gt;x/x &amp;lt;addr&amp;gt;&lt;/code&gt;进行探索。&lt;/p&gt;
 &lt;h2 id=&#34;关于对-vector-的引用&#34;&gt;&lt;a href=&#34;#%e5%85%b3%e4%ba%8e%e5%af%b9-vector-%e7%9a%84%e5%bc%95%e7%94%a8&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;关于对 vector 的引用
@@ -605,13 +248,13 @@
 &lt;p&gt;一个摘录&lt;/p&gt;
 &lt;p&gt;ch08-01&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;/* CANNOT COMPILE */&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;    
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;let&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;mut&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;v&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;vec!&lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;3&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;4&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;5&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;];&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;let&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;mut&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;v&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;vec!&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;3&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;4&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;5&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;];&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;let&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;first&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;&amp;amp;&lt;/span&gt;v&lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;];&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;    &lt;/span&gt;v&lt;span style=&#34;color:#1f2328&#34;&gt;.&lt;/span&gt;push&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;6&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;);&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;    &lt;/span&gt;println!&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;The first element is: &lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;{first}&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;);&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;println!&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;The first element is: &lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;{first}&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;);&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
 &lt;p&gt;The code in Listing 8-6 might look like it should work: &lt;em&gt;&lt;strong&gt;why should a reference to the first element care about changes at the end of the vector?&lt;/strong&gt;&lt;/em&gt; This error is due to the way vectors work: because vectors put the values next to each other in memory, adding a new element onto the end of the vector might &lt;u&gt;require allocating new memory and copying the old elements to the new space&lt;/u&gt;, if there isn’t enough room to put all the elements next to each other where the vector is currently stored. In that case, the reference to the first element would be pointing to &lt;u&gt;deallocated memory&lt;/u&gt;. The borrowing rules prevent programs from ending up in that situation.&lt;/p&gt;&lt;/blockquote&gt;
 &lt;/li&gt;
@@ -619,7 +262,7 @@
 &lt;h2 id=&#34;一个问题如何让一个vector看起来存储了多种类型的数据&#34;&gt;&lt;a href=&#34;#%e4%b8%80%e4%b8%aa%e9%97%ae%e9%a2%98%e5%a6%82%e4%bd%95%e8%ae%a9%e4%b8%80%e4%b8%aavector%e7%9c%8b%e8%b5%b7%e6%9d%a5%e5%ad%98%e5%82%a8%e4%ba%86%e5%a4%9a%e7%a7%8d%e7%b1%bb%e5%9e%8b%e7%9a%84%e6%95%b0%e6%8d%ae&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;一个问题：如何让一个Vector看起来存储了多种类型的数据？
 &lt;/h2&gt;&lt;p&gt;答案：让Vector存储enum，enum含有多种类型的variant，在某种程度上可以说Vector存储了多种类型的数据。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#6639ba&#34;&gt;main&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(){&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;let&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;v: &lt;span style=&#34;color:#6639ba&#34;&gt;Vec&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;&amp;lt;&lt;/span&gt;CellType&lt;span style=&#34;color:#0550ae&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;vec!&lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;let&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;v: &lt;span style=&#34;color:#6639ba&#34;&gt;Vec&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;&amp;lt;&lt;/span&gt;CellType&lt;span style=&#34;color:#0550ae&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;vec!&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;        &lt;/span&gt;CellType::Int&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;12&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;),&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;        &lt;/span&gt;CellType::Text&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;String&lt;/span&gt;::from&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;word&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)),&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;        &lt;/span&gt;CellType::Float&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;3.14&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;),&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
@@ -636,7 +279,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;gdb-调试-enum-示例与-gdb以及其他repl中的-history-variable&#34;&gt;&lt;a href=&#34;#gdb-%e8%b0%83%e8%af%95-enum-%e7%a4%ba%e4%be%8b%e4%b8%8e-gdb%e4%bb%a5%e5%8f%8a%e5%85%b6%e4%bb%96repl%e4%b8%ad%e7%9a%84-history-variable&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;gdb 调试 enum 示例与 gdb（以及其他REPL）中的 history variable
 &lt;/h2&gt;&lt;p&gt;&lt;strong&gt;源代码：&lt;/strong&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#6639ba&#34;&gt;main&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(){&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;let&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;v: &lt;span style=&#34;color:#6639ba&#34;&gt;Vec&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;&amp;lt;&lt;/span&gt;CellType&lt;span style=&#34;color:#0550ae&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;vec!&lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;let&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;v: &lt;span style=&#34;color:#6639ba&#34;&gt;Vec&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;&amp;lt;&lt;/span&gt;CellType&lt;span style=&#34;color:#0550ae&#34;&gt;&amp;gt;&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;vec!&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;        &lt;/span&gt;CellType::Int&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;12&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;),&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;        &lt;/span&gt;CellType::Float&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;3.14&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;),&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;];&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
@@ -644,7 +287,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;let&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;v1: &lt;span style=&#34;color:#cf222e&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;CellType&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;&amp;amp;&lt;/span&gt;v&lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;];&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;let&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;v2: &lt;span style=&#34;color:#cf222e&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;CellType&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;&amp;amp;&lt;/span&gt;v&lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;];&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;    &lt;/span&gt;println!&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;END&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;);&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;println!&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;END&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;);&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;enum&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;CellType&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
@@ -679,7 +322,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ &lt;span style=&#34;color:#953800&#34;&gt;A&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;12&lt;/span&gt; &lt;span style=&#34;color:#953800&#34;&gt;B&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;23&lt;/span&gt; &lt;span style=&#34;color:#6639ba&#34;&gt;echo&lt;/span&gt; &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;$A&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;$B&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在命令的最左可以写临时的环境变量。&lt;/p&gt;
 &lt;h2 id=&#34;花里胡哨的技术rust的println的色彩转义&#34;&gt;&lt;a href=&#34;#%e8%8a%b1%e9%87%8c%e8%83%a1%e5%93%a8%e7%9a%84%e6%8a%80%e6%9c%afrust%e7%9a%84println%e7%9a%84%e8%89%b2%e5%bd%a9%e8%bd%ac%e4%b9%89&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;花里胡哨的技术：rust的&lt;code&gt;println&lt;/code&gt;的色彩转义
-&lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;println!&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;\x1b&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;[34mMESSAGE&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;\x1b&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;[0m&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;);&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-rust&#34; data-lang=&#34;rust&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;println!&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;\x1b&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;[34mMESSAGE&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;\x1b&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;[0m&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;);&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;使用&lt;code&gt;\x1b[34m&lt;/code&gt;进行转义&lt;/p&gt;
@@ -717,7 +360,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;fn&lt;/span&gt; &lt;span style=&#34;color:#6639ba&#34;&gt;unwrap_failed&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;msg: &lt;span style=&#34;color:#cf222e&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;str&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;error: &lt;span style=&#34;color:#cf222e&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;dyn&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;fmt::Debug&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;-&amp;gt; &lt;span style=&#34;color:#0550ae&#34;&gt;!&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt; &lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;{&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;    &lt;/span&gt;panic!&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;{msg}&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;: &lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;{error:?}&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;    &lt;/span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;panic!&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;{msg}&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;: &lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;{error:?}&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#fff&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;}&lt;/span&gt;&lt;span style=&#34;color:#fff&#34;&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;</description>
         </item>

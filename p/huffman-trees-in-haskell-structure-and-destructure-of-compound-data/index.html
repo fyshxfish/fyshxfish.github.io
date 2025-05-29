@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='http://fyshxfish.github.io/p/huffman-trees-in-haskell-structure-and-destructure-of-compound-data/'>
 
-<link rel="stylesheet" href="/scss/style.min.9fd75ac0c4624d72ea9c7250e94ce2784fe9bc67fbc2f9c4a42d42ce591efcb7.css"><meta property='og:title' content="Huffman Trees in Haskell | Structure and Destructure of Compound Data">
+<link rel="stylesheet" href="/scss/style.min.ca8e73f914c0e48d09b6dc36c97037f15a283dbaba328e73f133fd9c13b277ad.css"><meta property='og:title' content="Huffman Trees in Haskell | Structure and Destructure of Compound Data">
 <meta property='og:description' content="Code Here: Huffman Tree in Haskell\nHaskell Implementation of Huffman Trees Data Abstraction type Weight = Int data Symbol = A | B | C | D | E | F | G | H deriving Show data HuffmanTree a = Empty | Leaf a Weight | Node (HuffmanTree a) (HuffmanTree a) [a] Weight deriving Show Symbol + Weight → Leaf We encode symbols (Symbol / generic a) based on their frequency/weight (Weight), combining these two pieces of information into a Leaf abstraction, corresponding to SICP&rsquo;s (define (make-leaf symbol weight) (list 'leaf symbol weight)).\n">
 <meta property='og:url' content='http://fyshxfish.github.io/p/huffman-trees-in-haskell-structure-and-destructure-of-compound-data/'>
 <meta property='og:site_name' content='fyshXplore'>
@@ -614,184 +614,15 @@
 <h3 id="lambda-calculus---pair-abstraction"><a href="#lambda-calculus---pair-abstraction" class="header-anchor"></a>Lambda Calculus - <code>pair</code> abstraction
 </h3><h4 id="pair-abstraction-in-pure-lambda-calculus"><a href="#pair-abstraction-in-pure-lambda-calculus" class="header-anchor"></a><code>pair</code> abstraction in Pure Lambda Calculus
 </h4><p>上The example mentioned in the <a class="link" href="#consistency" >Consistency</a>section can be <cite>implemented in pure Lambda Calculus:<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></cite>：</p>
+<pre tabindex="0"><code>pair = λm λn λb. b m n
+pair v w = λb. b v w
+</code></pre><p>This abstraction provides this perspective: through two applications of <code>pair</code>, we instantiate <code>m</code> and <code>n</code>, determining the elements contained in the pair, leaving <code>b</code> as an interface for subsequent operations on the pair elements. To extract elements from the pair in order, we can define <code>fst</code> and <code>snd</code>:</p>
+<pre tabindex="0"><code>fst = λa λb. a
+snd = λa λb. b
 
-
-
-<div class="goat svg-container ">
-  
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      font-family="Menlo,Lucida Console,monospace"
-      
-        viewBox="0 0 184 41"
-      >
-      <g transform='translate(8,16)'>
-<text text-anchor='middle' x='0' y='4' fill='currentColor' style='font-size:1em'>p</text>
-<text text-anchor='middle' x='0' y='20' fill='currentColor' style='font-size:1em'>p</text>
-<text text-anchor='middle' x='8' y='4' fill='currentColor' style='font-size:1em'>a</text>
-<text text-anchor='middle' x='8' y='20' fill='currentColor' style='font-size:1em'>a</text>
-<text text-anchor='middle' x='16' y='4' fill='currentColor' style='font-size:1em'>i</text>
-<text text-anchor='middle' x='16' y='20' fill='currentColor' style='font-size:1em'>i</text>
-<text text-anchor='middle' x='24' y='4' fill='currentColor' style='font-size:1em'>r</text>
-<text text-anchor='middle' x='24' y='20' fill='currentColor' style='font-size:1em'>r</text>
-<text text-anchor='middle' x='40' y='4' fill='currentColor' style='font-size:1em'>=</text>
-<text text-anchor='middle' x='40' y='20' fill='currentColor' style='font-size:1em'>v</text>
-<text text-anchor='middle' x='56' y='4' fill='currentColor' style='font-size:1em'>λ</text>
-<text text-anchor='middle' x='56' y='20' fill='currentColor' style='font-size:1em'>w</text>
-<text text-anchor='middle' x='64' y='4' fill='currentColor' style='font-size:1em'>m</text>
-<text text-anchor='middle' x='72' y='20' fill='currentColor' style='font-size:1em'>=</text>
-<text text-anchor='middle' x='80' y='4' fill='currentColor' style='font-size:1em'>λ</text>
-<text text-anchor='middle' x='88' y='4' fill='currentColor' style='font-size:1em'>n</text>
-<text text-anchor='middle' x='88' y='20' fill='currentColor' style='font-size:1em'>λ</text>
-<text text-anchor='middle' x='96' y='20' fill='currentColor' style='font-size:1em'>b</text>
-<text text-anchor='middle' x='104' y='4' fill='currentColor' style='font-size:1em'>λ</text>
-<text text-anchor='middle' x='104' y='20' fill='currentColor' style='font-size:1em'>.</text>
-<text text-anchor='middle' x='112' y='4' fill='currentColor' style='font-size:1em'>b</text>
-<text text-anchor='middle' x='120' y='4' fill='currentColor' style='font-size:1em'>.</text>
-<text text-anchor='middle' x='120' y='20' fill='currentColor' style='font-size:1em'>b</text>
-<text text-anchor='middle' x='136' y='4' fill='currentColor' style='font-size:1em'>b</text>
-<text text-anchor='middle' x='136' y='20' fill='currentColor' style='font-size:1em'>v</text>
-<text text-anchor='middle' x='152' y='4' fill='currentColor' style='font-size:1em'>m</text>
-<text text-anchor='middle' x='152' y='20' fill='currentColor' style='font-size:1em'>w</text>
-<text text-anchor='middle' x='168' y='4' fill='currentColor' style='font-size:1em'>n</text>
-</g>
-
-    </svg>
-  
-</div>
-<p>This abstraction provides this perspective: through two applications of <code>pair</code>, we instantiate <code>m</code> and <code>n</code>, determining the elements contained in the pair, leaving <code>b</code> as an interface for subsequent operations on the pair elements. To extract elements from the pair in order, we can define <code>fst</code> and <code>snd</code>:</p>
-
-
-
-<div class="goat svg-container ">
-  
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      font-family="Menlo,Lucida Console,monospace"
-      
-        viewBox="0 0 832 89"
-      >
-      <g transform='translate(8,16)'>
-<path d='M 188,56 L 196,40' fill='none' stroke='currentColor'></path>
-<path d='M 196,56 L 204,40' fill='none' stroke='currentColor'></path>
-<text text-anchor='middle' x='0' y='4' fill='currentColor' style='font-size:1em'>f</text>
-<text text-anchor='middle' x='0' y='20' fill='currentColor' style='font-size:1em'>s</text>
-<text text-anchor='middle' x='0' y='52' fill='currentColor' style='font-size:1em'>(</text>
-<text text-anchor='middle' x='0' y='68' fill='currentColor' style='font-size:1em'>(</text>
-<text text-anchor='middle' x='8' y='4' fill='currentColor' style='font-size:1em'>s</text>
-<text text-anchor='middle' x='8' y='20' fill='currentColor' style='font-size:1em'>n</text>
-<text text-anchor='middle' x='8' y='52' fill='currentColor' style='font-size:1em'>p</text>
-<text text-anchor='middle' x='8' y='68' fill='currentColor' style='font-size:1em'>p</text>
-<text text-anchor='middle' x='16' y='4' fill='currentColor' style='font-size:1em'>t</text>
-<text text-anchor='middle' x='16' y='20' fill='currentColor' style='font-size:1em'>d</text>
-<text text-anchor='middle' x='16' y='52' fill='currentColor' style='font-size:1em'>a</text>
-<text text-anchor='middle' x='16' y='68' fill='currentColor' style='font-size:1em'>a</text>
-<text text-anchor='middle' x='24' y='52' fill='currentColor' style='font-size:1em'>i</text>
-<text text-anchor='middle' x='24' y='68' fill='currentColor' style='font-size:1em'>i</text>
-<text text-anchor='middle' x='32' y='4' fill='currentColor' style='font-size:1em'>=</text>
-<text text-anchor='middle' x='32' y='20' fill='currentColor' style='font-size:1em'>=</text>
-<text text-anchor='middle' x='32' y='52' fill='currentColor' style='font-size:1em'>r</text>
-<text text-anchor='middle' x='32' y='68' fill='currentColor' style='font-size:1em'>r</text>
-<text text-anchor='middle' x='48' y='4' fill='currentColor' style='font-size:1em'>λ</text>
-<text text-anchor='middle' x='48' y='20' fill='currentColor' style='font-size:1em'>λ</text>
-<text text-anchor='middle' x='48' y='52' fill='currentColor' style='font-size:1em'>v</text>
-<text text-anchor='middle' x='48' y='68' fill='currentColor' style='font-size:1em'>v</text>
-<text text-anchor='middle' x='56' y='4' fill='currentColor' style='font-size:1em'>a</text>
-<text text-anchor='middle' x='56' y='20' fill='currentColor' style='font-size:1em'>a</text>
-<text text-anchor='middle' x='64' y='52' fill='currentColor' style='font-size:1em'>w</text>
-<text text-anchor='middle' x='64' y='68' fill='currentColor' style='font-size:1em'>w</text>
-<text text-anchor='middle' x='72' y='4' fill='currentColor' style='font-size:1em'>λ</text>
-<text text-anchor='middle' x='72' y='20' fill='currentColor' style='font-size:1em'>λ</text>
-<text text-anchor='middle' x='72' y='52' fill='currentColor' style='font-size:1em'>)</text>
-<text text-anchor='middle' x='72' y='68' fill='currentColor' style='font-size:1em'>)</text>
-<text text-anchor='middle' x='80' y='4' fill='currentColor' style='font-size:1em'>b</text>
-<text text-anchor='middle' x='80' y='20' fill='currentColor' style='font-size:1em'>b</text>
-<text text-anchor='middle' x='88' y='4' fill='currentColor' style='font-size:1em'>.</text>
-<text text-anchor='middle' x='88' y='20' fill='currentColor' style='font-size:1em'>.</text>
-<text text-anchor='middle' x='88' y='52' fill='currentColor' style='font-size:1em'>f</text>
-<text text-anchor='middle' x='88' y='68' fill='currentColor' style='font-size:1em'>s</text>
-<text text-anchor='middle' x='96' y='52' fill='currentColor' style='font-size:1em'>s</text>
-<text text-anchor='middle' x='96' y='68' fill='currentColor' style='font-size:1em'>n</text>
-<text text-anchor='middle' x='104' y='4' fill='currentColor' style='font-size:1em'>a</text>
-<text text-anchor='middle' x='104' y='20' fill='currentColor' style='font-size:1em'>b</text>
-<text text-anchor='middle' x='104' y='52' fill='currentColor' style='font-size:1em'>t</text>
-<text text-anchor='middle' x='104' y='68' fill='currentColor' style='font-size:1em'>d</text>
-<text text-anchor='middle' x='128' y='52' fill='currentColor' style='font-size:1em'>→</text>
-<text text-anchor='middle' x='128' y='68' fill='currentColor' style='font-size:1em'>→</text>
-<text text-anchor='middle' x='144' y='52' fill='currentColor' style='font-size:1em'>v</text>
-<text text-anchor='middle' x='144' y='68' fill='currentColor' style='font-size:1em'>w</text>
-<text text-anchor='middle' x='216' y='52' fill='currentColor' style='font-size:1em'>p</text>
-<text text-anchor='middle' x='224' y='52' fill='currentColor' style='font-size:1em'>a</text>
-<text text-anchor='middle' x='232' y='52' fill='currentColor' style='font-size:1em'>r</text>
-<text text-anchor='middle' x='240' y='52' fill='currentColor' style='font-size:1em'>e</text>
-<text text-anchor='middle' x='248' y='52' fill='currentColor' style='font-size:1em'>n</text>
-<text text-anchor='middle' x='256' y='52' fill='currentColor' style='font-size:1em'>t</text>
-<text text-anchor='middle' x='264' y='52' fill='currentColor' style='font-size:1em'>h</text>
-<text text-anchor='middle' x='272' y='52' fill='currentColor' style='font-size:1em'>e</text>
-<text text-anchor='middle' x='280' y='52' fill='currentColor' style='font-size:1em'>s</text>
-<text text-anchor='middle' x='288' y='52' fill='currentColor' style='font-size:1em'>e</text>
-<text text-anchor='middle' x='296' y='52' fill='currentColor' style='font-size:1em'>s</text>
-<text text-anchor='middle' x='312' y='52' fill='currentColor' style='font-size:1em'>h</text>
-<text text-anchor='middle' x='320' y='52' fill='currentColor' style='font-size:1em'>e</text>
-<text text-anchor='middle' x='328' y='52' fill='currentColor' style='font-size:1em'>r</text>
-<text text-anchor='middle' x='336' y='52' fill='currentColor' style='font-size:1em'>e</text>
-<text text-anchor='middle' x='352' y='52' fill='currentColor' style='font-size:1em'>c</text>
-<text text-anchor='middle' x='360' y='52' fill='currentColor' style='font-size:1em'>a</text>
-<text text-anchor='middle' x='368' y='52' fill='currentColor' style='font-size:1em'>n</text>
-<text text-anchor='middle' x='384' y='52' fill='currentColor' style='font-size:1em'>b</text>
-<text text-anchor='middle' x='392' y='52' fill='currentColor' style='font-size:1em'>e</text>
-<text text-anchor='middle' x='408' y='52' fill='currentColor' style='font-size:1em'>o</text>
-<text text-anchor='middle' x='416' y='52' fill='currentColor' style='font-size:1em'>m</text>
-<text text-anchor='middle' x='424' y='52' fill='currentColor' style='font-size:1em'>i</text>
-<text text-anchor='middle' x='432' y='52' fill='currentColor' style='font-size:1em'>t</text>
-<text text-anchor='middle' x='440' y='52' fill='currentColor' style='font-size:1em'>t</text>
-<text text-anchor='middle' x='448' y='52' fill='currentColor' style='font-size:1em'>e</text>
-<text text-anchor='middle' x='456' y='52' fill='currentColor' style='font-size:1em'>d</text>
-<text text-anchor='middle' x='472' y='52' fill='currentColor' style='font-size:1em'>,</text>
-<text text-anchor='middle' x='488' y='52' fill='currentColor' style='font-size:1em'>a</text>
-<text text-anchor='middle' x='496' y='52' fill='currentColor' style='font-size:1em'>c</text>
-<text text-anchor='middle' x='504' y='52' fill='currentColor' style='font-size:1em'>c</text>
-<text text-anchor='middle' x='512' y='52' fill='currentColor' style='font-size:1em'>o</text>
-<text text-anchor='middle' x='520' y='52' fill='currentColor' style='font-size:1em'>r</text>
-<text text-anchor='middle' x='528' y='52' fill='currentColor' style='font-size:1em'>d</text>
-<text text-anchor='middle' x='536' y='52' fill='currentColor' style='font-size:1em'>i</text>
-<text text-anchor='middle' x='544' y='52' fill='currentColor' style='font-size:1em'>n</text>
-<text text-anchor='middle' x='552' y='52' fill='currentColor' style='font-size:1em'>g</text>
-<text text-anchor='middle' x='568' y='52' fill='currentColor' style='font-size:1em'>t</text>
-<text text-anchor='middle' x='576' y='52' fill='currentColor' style='font-size:1em'>o</text>
-<text text-anchor='middle' x='592' y='52' fill='currentColor' style='font-size:1em'>l</text>
-<text text-anchor='middle' x='600' y='52' fill='currentColor' style='font-size:1em'>e</text>
-<text text-anchor='middle' x='608' y='52' fill='currentColor' style='font-size:1em'>f</text>
-<text text-anchor='middle' x='616' y='52' fill='currentColor' style='font-size:1em'>t</text>
-<text text-anchor='middle' x='632' y='52' fill='currentColor' style='font-size:1em'>a</text>
-<text text-anchor='middle' x='640' y='52' fill='currentColor' style='font-size:1em'>s</text>
-<text text-anchor='middle' x='648' y='52' fill='currentColor' style='font-size:1em'>s</text>
-<text text-anchor='middle' x='656' y='52' fill='currentColor' style='font-size:1em'>o</text>
-<text text-anchor='middle' x='664' y='52' fill='currentColor' style='font-size:1em'>c</text>
-<text text-anchor='middle' x='672' y='52' fill='currentColor' style='font-size:1em'>i</text>
-<text text-anchor='middle' x='680' y='52' fill='currentColor' style='font-size:1em'>a</text>
-<text text-anchor='middle' x='688' y='52' fill='currentColor' style='font-size:1em'>t</text>
-<text text-anchor='middle' x='696' y='52' fill='currentColor' style='font-size:1em'>i</text>
-<text text-anchor='middle' x='704' y='52' fill='currentColor' style='font-size:1em'>v</text>
-<text text-anchor='middle' x='712' y='52' fill='currentColor' style='font-size:1em'>i</text>
-<text text-anchor='middle' x='720' y='52' fill='currentColor' style='font-size:1em'>t</text>
-<text text-anchor='middle' x='728' y='52' fill='currentColor' style='font-size:1em'>y</text>
-<text text-anchor='middle' x='744' y='52' fill='currentColor' style='font-size:1em'>c</text>
-<text text-anchor='middle' x='752' y='52' fill='currentColor' style='font-size:1em'>o</text>
-<text text-anchor='middle' x='760' y='52' fill='currentColor' style='font-size:1em'>n</text>
-<text text-anchor='middle' x='768' y='52' fill='currentColor' style='font-size:1em'>v</text>
-<text text-anchor='middle' x='776' y='52' fill='currentColor' style='font-size:1em'>e</text>
-<text text-anchor='middle' x='784' y='52' fill='currentColor' style='font-size:1em'>n</text>
-<text text-anchor='middle' x='792' y='52' fill='currentColor' style='font-size:1em'>t</text>
-<text text-anchor='middle' x='800' y='52' fill='currentColor' style='font-size:1em'>i</text>
-<text text-anchor='middle' x='808' y='52' fill='currentColor' style='font-size:1em'>o</text>
-<text text-anchor='middle' x='816' y='52' fill='currentColor' style='font-size:1em'>n</text>
-</g>
-
-    </svg>
-  
-</div>
-<p>If you prefer programming style like <code>fst (pair v w)</code>, that&rsquo;s also possible:</p>
+(pair v w) fst  → v     // parentheses here can be omitted , according to left associativity convention
+(pair v w) snd  → w
+</code></pre><p>If you prefer programming style like <code>fst (pair v w)</code>, that&rsquo;s also possible:</p>
 <pre tabindex="0"><code class="language-block" data-lang="block">tru = λt λf. t      // α-equivalent to `fst` defined in previous code block, we can understand the same abstraction differently
 fls = λt λf. f      //          ...    `snd`    ...
 

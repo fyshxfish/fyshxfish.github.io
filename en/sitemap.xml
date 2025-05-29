@@ -3,7 +3,7 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>http://fyshxfish.github.io/</loc>
-    <lastmod>2025-02-17T16:32:00+08:00</lastmod>
+    <lastmod>2025-05-29T18:06:00+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
@@ -16,7 +16,7 @@
                 />
   </url><url>
     <loc>http://fyshxfish.github.io/categories/</loc>
-    <lastmod>2025-02-17T16:32:00+08:00</lastmod>
+    <lastmod>2025-05-29T18:06:00+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
@@ -26,6 +26,58 @@
                 rel="alternate"
                 hreflang="en"
                 href="http://fyshxfish.github.io/categories/"
+                />
+  </url><url>
+    <loc>http://fyshxfish.github.io/p/foundations-and-applications-of-intersection-and-union-types/</loc>
+    <lastmod>2025-05-29T18:06:00+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="http://fyshxfish.github.io/zh/p/foundations-and-applications-of-intersection-and-union-types/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://fyshxfish.github.io/p/foundations-and-applications-of-intersection-and-union-types/"
+                />
+  </url><url>
+    <loc>http://fyshxfish.github.io/categories/pl/</loc>
+    <lastmod>2025-05-29T18:06:00+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="http://fyshxfish.github.io/zh/categories/pl/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://fyshxfish.github.io/categories/pl/"
+                />
+  </url><url>
+    <loc>http://fyshxfish.github.io/post/</loc>
+    <lastmod>2025-05-29T18:06:00+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="http://fyshxfish.github.io/zh/post/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://fyshxfish.github.io/post/"
+                />
+  </url><url>
+    <loc>http://fyshxfish.github.io/categories/xplore/</loc>
+    <lastmod>2025-05-29T18:06:00+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="http://fyshxfish.github.io/zh/categories/xplore/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://fyshxfish.github.io/categories/xplore/"
                 />
   </url><url>
     <loc>http://fyshxfish.github.io/p/context-syntax/semantic-analysis/</loc>
@@ -39,32 +91,6 @@
                 rel="alternate"
                 hreflang="en"
                 href="http://fyshxfish.github.io/p/context-syntax/semantic-analysis/"
-                />
-  </url><url>
-    <loc>http://fyshxfish.github.io/post/</loc>
-    <lastmod>2025-02-17T16:32:00+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="http://fyshxfish.github.io/zh/post/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="http://fyshxfish.github.io/post/"
-                />
-  </url><url>
-    <loc>http://fyshxfish.github.io/categories/xplore/</loc>
-    <lastmod>2025-02-17T16:32:00+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="http://fyshxfish.github.io/zh/categories/xplore/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="http://fyshxfish.github.io/categories/xplore/"
                 />
   </url><url>
     <loc>http://fyshxfish.github.io/p/slides-but-in-terminal/</loc>
@@ -195,19 +221,6 @@
                 rel="alternate"
                 hreflang="en"
                 href="http://fyshxfish.github.io/p/the-construction-of-the-iteration-combinator-lcac-4c-theorem-4.20/"
-                />
-  </url><url>
-    <loc>http://fyshxfish.github.io/categories/pl/</loc>
-    <lastmod>2024-09-10T14:10:00+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="http://fyshxfish.github.io/zh/categories/pl/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="http://fyshxfish.github.io/categories/pl/"
                 />
   </url><url>
     <loc>http://fyshxfish.github.io/p/safety-abstraction/</loc>
@@ -507,6 +520,18 @@
                 rel="alternate"
                 hreflang="en"
                 href="http://fyshxfish.github.io/p/a-quick-look-at-the-file-command/"
+                />
+  </url><url>
+    <loc>http://fyshxfish.github.io/p/</loc>
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="http://fyshxfish.github.io/zh/p/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://fyshxfish.github.io/p/"
                 />
   </url><url>
     <loc>http://fyshxfish.github.io/links/</loc>
