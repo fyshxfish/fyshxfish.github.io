@@ -2,27 +2,27 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Xplore on fyshXplore</title>
-        <link>http://fyshxfish.github.io/categories/xplore/</link>
+        <link>http://localhost:1313/categories/xplore/</link>
         <description>Recent content in Xplore on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Thu, 29 May 2025 18:06:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/categories/xplore/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 29 May 2025 18:06:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/categories/xplore/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Foundations and Applications of Intersection and Union Types</title>
-        <link>http://fyshxfish.github.io/p/foundations-and-applications-of-intersection-and-union-types/</link>
+        <link>http://localhost:1313/p/foundations-and-applications-of-intersection-and-union-types/</link>
         <pubDate>Thu, 29 May 2025 18:06:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/p/foundations-and-applications-of-intersection-and-union-types/</guid>
-        <description>&lt;iframe src=&#34;http://fyshxfish.github.io/pdfs/Foundations_and_Applications_of_Intersection_and_Union_Types.pdf&#34; width=&#34;100%&#34; height=&#34;750px&#34;&gt;
-  Embedde PDF is not supported, &lt;a href=&#34;http://fyshxfish.github.io/pdfs/Foundations_and_Applications_of_Intersection_and_Union_Types.pdf&#34;&gt; please clike here to download.&lt;/a&gt;
+        <guid>http://localhost:1313/p/foundations-and-applications-of-intersection-and-union-types/</guid>
+        <description>&lt;iframe src=&#34;http://localhost:1313/pdfs/Foundations_and_Applications_of_Intersection_and_Union_Types.pdf&#34; width=&#34;100%&#34; height=&#34;750px&#34;&gt;
+  Embedde PDF is not supported, &lt;a href=&#34;http://localhost:1313/pdfs/Foundations_and_Applications_of_Intersection_and_Union_Types.pdf&#34;&gt; please clike here to download.&lt;/a&gt;
 &lt;/iframe&gt;
 </description>
         </item>
         <item>
         <title>Context &amp; Syntax/Semantic Analysis</title>
-        <link>http://fyshxfish.github.io/p/context-syntax/semantic-analysis/</link>
+        <link>http://localhost:1313/p/context-syntax/semantic-analysis/</link>
         <pubDate>Mon, 17 Feb 2025 16:32:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/p/context-syntax/semantic-analysis/</guid>
+        <guid>http://localhost:1313/p/context-syntax/semantic-analysis/</guid>
         <description>&lt;h2 id=&#34;introduction&#34;&gt;&lt;a href=&#34;#introduction&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Introduction
 &lt;/h2&gt;&lt;p&gt;Recently, while studying compiler theory materials, I pondered the question &amp;ldquo;why do we need lexical, syntactic, and semantic analysis?&amp;rdquo; This is actually not quite the right question, because for programming languages, design precedes implementation—first, we design the language&amp;rsquo;s syntax and semantics, then write a compiler to check if a program is syntactically correct and conforms to semantic rules, and convert it to target machine code based on predefined semantics. From a &amp;ldquo;context&amp;rdquo; perspective, typically, syntax is &lt;strong&gt;context-free&lt;/strong&gt;, while semantics handles &lt;strong&gt;context-dependent&lt;/strong&gt; issues. For example, in &lt;code&gt;x = 1; print(x);&lt;/code&gt; and &lt;code&gt;x = 2; print(x);&lt;/code&gt;, although both use &lt;code&gt;print(x)&lt;/code&gt;, they have different contexts, leading to different results.&lt;/p&gt;
 &lt;h2 id=&#34;example-1---&#34;&gt;&lt;a href=&#34;#example-1---&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Example 1 - &lt;code&gt;=&lt;/code&gt;
@@ -62,10 +62,10 @@ main
         </item>
         <item>
         <title>Slides, But in Terminal</title>
-        <link>http://fyshxfish.github.io/p/slides-but-in-terminal/</link>
+        <link>http://localhost:1313/p/slides-but-in-terminal/</link>
         <pubDate>Fri, 07 Feb 2025 22:52:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/p/slides-but-in-terminal/</guid>
+        <guid>http://localhost:1313/p/slides-but-in-terminal/</guid>
         <description>&lt;h2 id=&#34;preface&#34;&gt;&lt;a href=&#34;#preface&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Preface
 &lt;/h2&gt;&lt;p&gt;Inspiration came from a lecture by Yanyan Jiang: &lt;a class=&#34;link&#34; href=&#34;https://www.bilibili.com/video/BV1MV411F738/?share_source=copy_web&amp;amp;vd_source=09e32470959b198a596693ee5235cca9&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;[算法竞赛入门] 为什么要逼大家用 NOILinux？&lt;/a&gt;, referenced but not entirely the same.&lt;/p&gt;
@@ -200,10 +200,10 @@ main
         </item>
         <item>
         <title>Explore Rust (Basic) &amp; Revisiting gdb</title>
-        <link>http://fyshxfish.github.io/p/explore-rust-basic-revisiting-gdb/</link>
+        <link>http://localhost:1313/p/explore-rust-basic-revisiting-gdb/</link>
         <pubDate>Mon, 05 Aug 2024 00:00:00 +0000</pubDate>
         
-        <guid>http://fyshxfish.github.io/p/explore-rust-basic-revisiting-gdb/</guid>
+        <guid>http://localhost:1313/p/explore-rust-basic-revisiting-gdb/</guid>
         <description>&lt;p&gt; &lt;/p&gt;
 &lt;h2 id=&#34;how-to-debug-a-rust-program&#34;&gt;&lt;a href=&#34;#how-to-debug-a-rust-program&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;How to debug a Rust program?
 &lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ gdb excutable
@@ -370,10 +370,10 @@ main
         </item>
         <item>
         <title>Simple Bash CLI Programs &amp; Simple Metaprogramming</title>
-        <link>http://fyshxfish.github.io/p/simple-bash-cli-programs-simple-metaprogramming/</link>
+        <link>http://localhost:1313/p/simple-bash-cli-programs-simple-metaprogramming/</link>
         <pubDate>Wed, 03 Apr 2024 00:00:00 +0000</pubDate>
         
-        <guid>http://fyshxfish.github.io/p/simple-bash-cli-programs-simple-metaprogramming/</guid>
+        <guid>http://localhost:1313/p/simple-bash-cli-programs-simple-metaprogramming/</guid>
         <description>&lt;h2 id=&#34;simple-introduction&#34;&gt;&lt;a href=&#34;#simple-introduction&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Simple Introduction
 &lt;/h2&gt;&lt;p&gt;&lt;em&gt;Based on materials I prepared for Computer System course&lt;/em&gt;&lt;/p&gt;
 &lt;!-- Although the date here is April 3, 2024, I&#39;m actually writing this blog on February 18, 2025. When writing yesterday&#39;s blog post that mentioned polyglot content, I realized these materials came from discussion sessions in my computer systems course from two semesters ago. I decided to dig up some interesting parts of those materials that had been sleeping in various directories like .../Downloads, .../Courses/CS24Spring, and group file folders - and that&#39;s how this blog post came to be. --&gt;
@@ -443,10 +443,10 @@ main
         </item>
         <item>
         <title>A Quick Look at the `file` Command</title>
-        <link>http://fyshxfish.github.io/p/a-quick-look-at-the-file-command/</link>
+        <link>http://localhost:1313/p/a-quick-look-at-the-file-command/</link>
         <pubDate>Wed, 20 Mar 2024 20:50:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/p/a-quick-look-at-the-file-command/</guid>
+        <guid>http://localhost:1313/p/a-quick-look-at-the-file-command/</guid>
         <description>&lt;h2 id=&#34;simple-introduction&#34;&gt;&lt;a href=&#34;#simple-introduction&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Simple Introduction
 &lt;/h2&gt;&lt;p&gt;Although the date here is March 20, 2024, I&amp;rsquo;m actually writing this blog on February 18, 2025, based on materials from my Computer System discussion course. If you want to know a file&amp;rsquo;s type, you might use the &lt;code&gt;file&lt;/code&gt; command. But how does &lt;code&gt;file&lt;/code&gt; determine file types, or more specifically, how do files in the system tell &lt;code&gt;file&lt;/code&gt; (or any program wanting to know its type) what type they are? Where do files store their type information?&lt;/p&gt;
 &lt;h2 id=&#34;manuals-are-always-your-friend&#34;&gt;&lt;a href=&#34;#manuals-are-always-your-friend&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Manuals Are Always Your Friend

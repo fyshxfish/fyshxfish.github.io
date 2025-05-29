@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Bash on fyshXplore</title>
-        <link>http://fyshxfish.github.io/tags/bash/</link>
+        <link>http://localhost:1313/tags/bash/</link>
         <description>Recent content in Bash on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Wed, 03 Apr 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://fyshxfish.github.io/tags/bash/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 03 Apr 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/tags/bash/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Simple Bash CLI Programs &amp; Simple Metaprogramming</title>
-        <link>http://fyshxfish.github.io/p/simple-bash-cli-programs-simple-metaprogramming/</link>
+        <link>http://localhost:1313/p/simple-bash-cli-programs-simple-metaprogramming/</link>
         <pubDate>Wed, 03 Apr 2024 00:00:00 +0000</pubDate>
         
-        <guid>http://fyshxfish.github.io/p/simple-bash-cli-programs-simple-metaprogramming/</guid>
+        <guid>http://localhost:1313/p/simple-bash-cli-programs-simple-metaprogramming/</guid>
         <description>&lt;h2 id=&#34;simple-introduction&#34;&gt;&lt;a href=&#34;#simple-introduction&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Simple Introduction
 &lt;/h2&gt;&lt;p&gt;&lt;em&gt;Based on materials I prepared for Computer System course&lt;/em&gt;&lt;/p&gt;
 &lt;!-- Although the date here is April 3, 2024, I&#39;m actually writing this blog on February 18, 2025. When writing yesterday&#39;s blog post that mentioned polyglot content, I realized these materials came from discussion sessions in my computer systems course from two semesters ago. I decided to dig up some interesting parts of those materials that had been sleeping in various directories like .../Downloads, .../Courses/CS24Spring, and group file folders - and that&#39;s how this blog post came to be. --&gt;

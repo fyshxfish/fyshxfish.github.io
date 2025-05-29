@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>VSCode on fyshXplore</title>
-        <link>http://fyshxfish.github.io/zh/tags/vscode/</link>
+        <link>http://localhost:1313/zh/tags/vscode/</link>
         <description>Recent content in VSCode on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh</language>
-        <lastBuildDate>Mon, 26 Aug 2024 00:00:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/zh/tags/vscode/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 26 Aug 2024 00:00:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/zh/tags/vscode/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>我的常用 VSCode 快捷键</title>
-        <link>http://fyshxfish.github.io/zh/p/%E6%88%91%E7%9A%84%E5%B8%B8%E7%94%A8-vscode-%E5%BF%AB%E6%8D%B7%E9%94%AE/</link>
+        <link>http://localhost:1313/zh/p/%E6%88%91%E7%9A%84%E5%B8%B8%E7%94%A8-vscode-%E5%BF%AB%E6%8D%B7%E9%94%AE/</link>
         <pubDate>Mon, 26 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/zh/p/%E6%88%91%E7%9A%84%E5%B8%B8%E7%94%A8-vscode-%E5%BF%AB%E6%8D%B7%E9%94%AE/</guid>
+        <guid>http://localhost:1313/zh/p/%E6%88%91%E7%9A%84%E5%B8%B8%E7%94%A8-vscode-%E5%BF%AB%E6%8D%B7%E9%94%AE/</guid>
         <description>&lt;!-- 来自 2025-02 的一次维护更新——现在进入 VSCode 的基本动作是，Win 键打开菜单搜索并打开 wezterm，进入 wezterm 后 cd 到工作目录，`code .` 进入 VSCode，Win + ↑ 进入全屏，丝滑~ --&gt;
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;让工具更趁手✨&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;!-- 包含对于 VSCode 作为文本编辑器的配置，不包含对语言环境的配置. --&gt;

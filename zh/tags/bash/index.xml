@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Bash on fyshXplore</title>
-        <link>http://fyshxfish.github.io/zh/tags/bash/</link>
+        <link>http://localhost:1313/zh/tags/bash/</link>
         <description>Recent content in Bash on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh</language>
-        <lastBuildDate>Wed, 03 Apr 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://fyshxfish.github.io/zh/tags/bash/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 03 Apr 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/zh/tags/bash/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>简单的 Bash CLI 程序 &amp; 简单的元编程</title>
-        <link>http://fyshxfish.github.io/zh/p/%E7%AE%80%E5%8D%95%E7%9A%84-bash-cli-%E7%A8%8B%E5%BA%8F-%E7%AE%80%E5%8D%95%E7%9A%84%E5%85%83%E7%BC%96%E7%A8%8B/</link>
+        <link>http://localhost:1313/zh/p/%E7%AE%80%E5%8D%95%E7%9A%84-bash-cli-%E7%A8%8B%E5%BA%8F-%E7%AE%80%E5%8D%95%E7%9A%84%E5%85%83%E7%BC%96%E7%A8%8B/</link>
         <pubDate>Wed, 03 Apr 2024 00:00:00 +0000</pubDate>
         
-        <guid>http://fyshxfish.github.io/zh/p/%E7%AE%80%E5%8D%95%E7%9A%84-bash-cli-%E7%A8%8B%E5%BA%8F-%E7%AE%80%E5%8D%95%E7%9A%84%E5%85%83%E7%BC%96%E7%A8%8B/</guid>
+        <guid>http://localhost:1313/zh/p/%E7%AE%80%E5%8D%95%E7%9A%84-bash-cli-%E7%A8%8B%E5%BA%8F-%E7%AE%80%E5%8D%95%E7%9A%84%E5%85%83%E7%BC%96%E7%A8%8B/</guid>
         <description>&lt;h2 id=&#34;简单的前言&#34;&gt;&lt;a href=&#34;#%e7%ae%80%e5%8d%95%e7%9a%84%e5%89%8d%e8%a8%80&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;简单的前言
 &lt;/h2&gt;&lt;p&gt;虽然这里的日期是 2024-04-03，但是我写这篇博客的时候其实是 2025-02-18，写 2025-02-17 那篇博客的时候，提到 polyglot 相关的内容，这部分内容其实是上上个学期的计算机系统的讨论课的产出，于是想着把沉睡在 &amp;hellip;/Downloads，&amp;hellip;/Courses/CS24Spring，小组群文件等目录里的讨论课材料里有点意思的部分翻出来晾晾，所以这一页博客出现在你的眼前.&lt;/p&gt;
 &lt;p&gt;我看到相当多的说法说 bash 的语法很不舒服，然而我在接触到这种说法之前，已然习惯了 bash 的语法，“我比流言蜚语先认识你”??😶‍🌫️&lt;/p&gt;

@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Enviroment Setup on fyshXplore</title>
-        <link>http://fyshxfish.github.io/zh/categories/enviroment_setup/</link>
+        <link>http://localhost:1313/zh/categories/enviroment_setup/</link>
         <description>Recent content in Enviroment Setup on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh</language>
-        <lastBuildDate>Mon, 26 Aug 2024 00:00:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/zh/categories/enviroment_setup/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Mon, 26 Aug 2024 00:00:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/zh/categories/enviroment_setup/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>我的常用 VSCode 快捷键</title>
-        <link>http://fyshxfish.github.io/zh/p/%E6%88%91%E7%9A%84%E5%B8%B8%E7%94%A8-vscode-%E5%BF%AB%E6%8D%B7%E9%94%AE/</link>
+        <link>http://localhost:1313/zh/p/%E6%88%91%E7%9A%84%E5%B8%B8%E7%94%A8-vscode-%E5%BF%AB%E6%8D%B7%E9%94%AE/</link>
         <pubDate>Mon, 26 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/zh/p/%E6%88%91%E7%9A%84%E5%B8%B8%E7%94%A8-vscode-%E5%BF%AB%E6%8D%B7%E9%94%AE/</guid>
+        <guid>http://localhost:1313/zh/p/%E6%88%91%E7%9A%84%E5%B8%B8%E7%94%A8-vscode-%E5%BF%AB%E6%8D%B7%E9%94%AE/</guid>
         <description>&lt;!-- 来自 2025-02 的一次维护更新——现在进入 VSCode 的基本动作是，Win 键打开菜单搜索并打开 wezterm，进入 wezterm 后 cd 到工作目录，`code .` 进入 VSCode，Win + ↑ 进入全屏，丝滑~ --&gt;
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;让工具更趁手✨&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;!-- 包含对于 VSCode 作为文本编辑器的配置，不包含对语言环境的配置. --&gt;
@@ -178,10 +178,10 @@ Win + ↓：退出全屏 / 最小化&lt;br&gt;&lt;/p&gt;
         </item>
         <item>
         <title>Haskell 开发环境 (VSCode &#43; GHCup &#43; HLS) 修复记录</title>
-        <link>http://fyshxfish.github.io/zh/p/haskell-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-vscode--ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</link>
+        <link>http://localhost:1313/zh/p/haskell-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-vscode--ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</link>
         <pubDate>Fri, 16 Aug 2024 00:00:00 +0000</pubDate>
         
-        <guid>http://fyshxfish.github.io/zh/p/haskell-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-vscode--ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</guid>
+        <guid>http://localhost:1313/zh/p/haskell-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-vscode--ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</guid>
         <description>&lt;!-- *不知不觉我已经在MacOS, Windows, Linux三种平台上配置过Haskell环境了，我觉得我已经是环境配置大师了，POWER!* --&gt;
 &lt;!-- # Mac上重新配置Haskell开发环境记录 --&gt;
 &lt;h2 id=&#34;ghcup-修复&#34;&gt;&lt;a href=&#34;#ghcup-%e4%bf%ae%e5%a4%8d&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;ghcup 修复

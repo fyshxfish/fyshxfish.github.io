@@ -2,27 +2,35 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>PL on fyshXplore</title>
-        <link>http://fyshxfish.github.io/categories/pl/</link>
+        <link>http://localhost:1313/categories/pl/</link>
         <description>Recent content in PL on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Thu, 29 May 2025 18:06:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/categories/pl/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 29 May 2025 18:06:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/categories/pl/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Foundations and Applications of Intersection and Union Types</title>
-        <link>http://fyshxfish.github.io/p/foundations-and-applications-of-intersection-and-union-types/</link>
+        <link>http://localhost:1313/p/foundations-and-applications-of-intersection-and-union-types/</link>
         <pubDate>Thu, 29 May 2025 18:06:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/p/foundations-and-applications-of-intersection-and-union-types/</guid>
-        <description>&lt;iframe src=&#34;http://fyshxfish.github.io/pdfs/Foundations_and_Applications_of_Intersection_and_Union_Types.pdf&#34; width=&#34;100%&#34; height=&#34;750px&#34;&gt;
-  Embedde PDF is not supported, &lt;a href=&#34;http://fyshxfish.github.io/pdfs/Foundations_and_Applications_of_Intersection_and_Union_Types.pdf&#34;&gt; please clike here to download.&lt;/a&gt;
+        <guid>http://localhost:1313/p/foundations-and-applications-of-intersection-and-union-types/</guid>
+        <description>&lt;iframe src=&#34;http://localhost:1313/pdfs/Foundations_and_Applications_of_Intersection_and_Union_Types.pdf&#34; width=&#34;100%&#34; height=&#34;750px&#34;&gt;
+  Embedde PDF is not supported, &lt;a href=&#34;http://localhost:1313/pdfs/Foundations_and_Applications_of_Intersection_and_Union_Types.pdf&#34;&gt; please clike here to download.&lt;/a&gt;
 &lt;/iframe&gt;
 </description>
         </item>
         <item>
+        <title>A Piece of Python&#39;s OOP Heart</title>
+        <link>http://localhost:1313/p/a-piece-of-pythons-oop-heart/</link>
+        <pubDate>Sun, 25 May 2025 12:00:00 +0800</pubDate>
+        
+        <guid>http://localhost:1313/p/a-piece-of-pythons-oop-heart/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>Safety &amp; Abstraction</title>
-        <link>http://fyshxfish.github.io/p/safety-abstraction/</link>
+        <link>http://localhost:1313/p/safety-abstraction/</link>
         <pubDate>Tue, 10 Sep 2024 14:10:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/p/safety-abstraction/</guid>
+        <guid>http://localhost:1313/p/safety-abstraction/</guid>
         <description>&lt;p&gt;From &lt;em&gt;Types and Programming Languages § 1.2 What Type Systems Are Good For&lt;/em&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;A safe language is one that protects its own &lt;strong&gt;abstractions&lt;/strong&gt;.

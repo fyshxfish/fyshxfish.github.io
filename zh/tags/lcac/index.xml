@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>LCaC on fyshXplore</title>
-        <link>http://fyshxfish.github.io/zh/tags/lcac/</link>
+        <link>http://localhost:1313/zh/tags/lcac/</link>
         <description>Recent content in LCaC on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh</language>
-        <lastBuildDate>Tue, 17 Sep 2024 23:48:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/zh/tags/lcac/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 17 Sep 2024 23:48:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/zh/tags/lcac/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>迭代组合子的构造 - LCaC § 4C, Theorem 4.20</title>
-        <link>http://fyshxfish.github.io/zh/p/%E8%BF%AD%E4%BB%A3%E7%BB%84%E5%90%88%E5%AD%90%E7%9A%84%E6%9E%84%E9%80%A0-lcac-4c-theorem-4.20/</link>
+        <link>http://localhost:1313/zh/p/%E8%BF%AD%E4%BB%A3%E7%BB%84%E5%90%88%E5%AD%90%E7%9A%84%E6%9E%84%E9%80%A0-lcac-4c-theorem-4.20/</link>
         <pubDate>Tue, 17 Sep 2024 23:48:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/zh/p/%E8%BF%AD%E4%BB%A3%E7%BB%84%E5%90%88%E5%AD%90%E7%9A%84%E6%9E%84%E9%80%A0-lcac-4c-theorem-4.20/</guid>
+        <guid>http://localhost:1313/zh/p/%E8%BF%AD%E4%BB%A3%E7%BB%84%E5%90%88%E5%AD%90%E7%9A%84%E6%9E%84%E9%80%A0-lcac-4c-theorem-4.20/</guid>
         <description>&lt;p&gt;这篇博客对 &lt;em&gt;Lambda-Calculus and Combinator § 4C Theorem 4.20&lt;/em&gt; 的 proof 部分做一些补充，证明的整体意图是证明符合 Definition 4.18 的全称递归函数可以用组合子来表示. 这里对该证明的关键部分，即迭代组合子的构造，做简要的陈述. 也可以理解为：&lt;strong&gt;在 Pure Lambda Calculus 中编写一个具有特定终止条件的迭代程序.&lt;/strong&gt;&lt;/p&gt;
 &lt;!-- 如果你好奇 &#34; 如何在 Lambda Calculus 中编写一个指定**迭代 / 递归次数**的迭代 / 递归函数 &#34; ，可以参考 Lambda-Calculus and Combinator § 4B Theorem 4.11 的 proof 中 $R_{\text{Bernays}}$ 组合子的构造，这个构造过程也十分精巧. --&gt;
 &lt;p&gt;递归与迭代：在 $R_{\text{Bernays}}$ 递归组合子的构造中，求解某个递归函数 $\phi $ 的值 $ \phi(n) $，一种可行的方法是，从 $ \phi(0) $ 开始，做 $n$ 次迭代得到 $ \phi(n) $（大致如下：记递归步更新函数为 $\chi$，$\phi(n) = \chi^n \phi(0)$）. 迭代和递归是正向与逆向的区别. 本文中的&amp;quot;递归&amp;quot;意在描述&amp;quot;&lt;strong&gt;调用自身&lt;/strong&gt;&amp;quot; 的结构特点，探讨的中心问题还是对迭代（$0 \rightarrow 1 \rightarrow  &amp;hellip;  \rightarrow n$）问题的求解.&lt;/p&gt;
