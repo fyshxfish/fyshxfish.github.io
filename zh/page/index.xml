@@ -20,7 +20,14 @@
         <pubDate>Fri, 16 Aug 2024 00:00:00 +0000</pubDate>
         
         <guid>http://localhost:1313/zh/about/</guid>
-        <description>&lt;p&gt;WELCOME!&lt;/p&gt;
+        <description>&lt;!-- &lt;link href=&#34;https://fonts.googleapis.com/css2?family=Long+Cang&amp;display=swap&#34; rel=&#34;stylesheet&#34;&gt;
+&lt;div style=&#34;font-family: &#39;Long Cang&#39;, serif; font-size: 2.8rem; text-align:center; letter-spacing:0.04em;&#34;&gt;  --&gt;
+&lt;link href=&#34;https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&amp;display=swap&#34; rel=&#34;stylesheet&#34;&gt;
+&lt;div style=&#34;font-family: &#39;ZCOOL XiaoWei&#39;, serif; font-size: 5rem; text-align:center; letter-spacing:0.03em;&#34;&gt;
+  &lt;p&gt;我是假面舞会珠宝的守护者&lt;/p&gt;
+  &lt;p&gt;等待着你 抑或等待永恒&lt;/p&gt;
+&lt;/div&gt;
+&lt;!-- WELCOME! --&gt;
 &lt;!-- 湖南大学计算机科学与技术专业，大三在读.
 
 欢迎来到这里，希望这里的内容没有让你失望.

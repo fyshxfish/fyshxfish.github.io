@@ -80,19 +80,6 @@
                 href="http://localhost:1313/categories/xplore/"
                 />
   </url><url>
-    <loc>http://localhost:1313/p/a-piece-of-pythons-oop-heart/</loc>
-    <lastmod>2025-05-25T12:00:00+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="http://localhost:1313/zh/p/python-oop-%E4%B9%8B%E9%AD%82%E7%9A%84%E7%A2%8E%E7%89%87/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="http://localhost:1313/p/a-piece-of-pythons-oop-heart/"
-                />
-  </url><url>
     <loc>http://localhost:1313/p/context-syntax/semantic-analysis/</loc>
     <lastmod>2025-02-17T16:32:00+08:00</lastmod>
     <xhtml:link

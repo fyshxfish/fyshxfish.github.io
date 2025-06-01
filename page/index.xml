@@ -20,7 +20,16 @@
         <pubDate>Fri, 16 Aug 2024 00:00:00 +0000</pubDate>
         
         <guid>http://localhost:1313/about/</guid>
-        <description>&lt;p&gt;WELCOME!&lt;/p&gt;
+        <description>&lt;div style=&#34;text-align: center; font-family: &#39;IM Fell Double Pica SC&#39;, &#39;IM Fell English SC&#39;, &#39;Garamond&#39;, &#39;Times New Roman&#39;, serif; margin: 3em auto; max-width: 700px; line-height: 1.6; letter-spacing: 0.02em;&#34;&gt;
+  &lt;p style=&#34;font-size: 3.5rem;&#34;&gt;I AM THE KEEPER OF&lt;/p&gt;
+  &lt;p style=&#34;font-size: 3.5rem;&#34;&gt;THE JEWEL OF&lt;/p&gt;
+  &lt;p style=&#34;font-size: 5rem; font-weight: bold; margin: 0.6em 0;&#34;&gt;MASQUERADE&lt;/p&gt;
+  &lt;p style=&#34;font-size: 3.5rem;&#34;&gt;WHICH LIES WAITING&lt;/p&gt;
+  &lt;p style=&#34;font-size: 3.5rem;&#34;&gt;SAFE INSIDE ME&lt;/p&gt;
+  &lt;p&gt;&lt;span style=&#34;font-size: 3.5rem;&#34;&gt;FOR&lt;/span&gt; &lt;span style=&#34;font-size: 4.4rem; font-weight: ;&#34;&gt;You&lt;/span&gt;&lt;/p&gt;
+  &lt;p&gt;&lt;span style=&#34;font-size: 3.5rem;&#34;&gt;OR&lt;/span&gt; &lt;span style=&#34;font-size: 4.4rem; font-weight: ;&#34;&gt;ETERNITY&lt;/span&gt;&lt;/p&gt;  
+&lt;/div&gt;
+&lt;!-- WELCOME! --&gt;
 &lt;!--  
 I&#39;m a third-year student at Hunan University, majoring in Computer Science and Technology.
 
