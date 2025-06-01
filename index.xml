@@ -7,22 +7,22 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
         <lastBuildDate>Thu, 29 May 2025 18:06:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Foundations and Applications of Intersection and Union Types</title>
-        <link>http://fyshxfish.github.io/p/foundations-and-applications-of-intersection-and-union-types/</link>
+        <title>Foundations and Applications of Intersection and Union Types (PDF)</title>
+        <link>http://fyshxfish.github.io/p/foundations-and-applications-of-intersection-and-union-types-pdf/</link>
         <pubDate>Thu, 29 May 2025 18:06:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/p/foundations-and-applications-of-intersection-and-union-types/</guid>
+        <guid>http://fyshxfish.github.io/p/foundations-and-applications-of-intersection-and-union-types-pdf/</guid>
         <description>&lt;iframe src=&#34;http://fyshxfish.github.io/pdfs/Foundations_and_Applications_of_Intersection_and_Union_Types.pdf&#34; width=&#34;100%&#34; height=&#34;750px&#34;&gt;
   Embedde PDF is not supported, &lt;a href=&#34;http://fyshxfish.github.io/pdfs/Foundations_and_Applications_of_Intersection_and_Union_Types.pdf&#34;&gt; please clike here to download.&lt;/a&gt;
 &lt;/iframe&gt;
 </description>
         </item>
         <item>
-        <title>Basic Lambda Calculus Programming</title>
-        <link>http://fyshxfish.github.io/p/basic-lambda-calculus-programming/</link>
+        <title>Basic Lambda Calculus Programming (feat. Y combinator)</title>
+        <link>http://fyshxfish.github.io/p/basic-lambda-calculus-programming-feat.-y-combinator/</link>
         <pubDate>Sun, 02 Feb 2025 21:29:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/p/basic-lambda-calculus-programming/</guid>
+        <guid>http://fyshxfish.github.io/p/basic-lambda-calculus-programming-feat.-y-combinator/</guid>
         <description>&lt;p&gt;Following problems come from &lt;em&gt;functional&lt;/em&gt;, available on Steam.&lt;/p&gt;
 &lt;h2 id=&#34;basic&#34;&gt;&lt;a href=&#34;#basic&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Basic
 &lt;/h2&gt;&lt;h3 id=&#34;anything&#34;&gt;&lt;a href=&#34;#anything&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;anything
@@ -486,7 +486,7 @@ FALSE
         <pubDate>Sun, 24 Nov 2024 12:09:00 +0800</pubDate>
         
         <guid>http://fyshxfish.github.io/p/abstractions-for-search-algorithms/</guid>
-        <description>&lt;p&gt;&lt;em&gt;-Inspired by Algorithm Design and Analysis course, 2024 Fall-&lt;/em&gt;&lt;/p&gt;
+        <description>&lt;!-- *-Inspired by Algorithm Design and Analysis course, 2024 Fall-*  --&gt;
 &lt;h2 id=&#34;introduction&#34;&gt;&lt;a href=&#34;#introduction&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Introduction
 &lt;/h2&gt;&lt;p&gt;In this semester&amp;rsquo;s algorithms course, we focused on two major categories of search algorithms: backtracking and branch-and-bound. Previously, I always treated various search algorithms like DFS and BFS separately, comparing their differences. In this article, I aim to abstract search algorithms, expecting to derive familiar search strategies from a concise abstract model.&lt;/p&gt;
 &lt;h2 id=&#34;abstracting-the-search-model-and-process&#34;&gt;&lt;a href=&#34;#abstracting-the-search-model-and-process&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Abstracting the Search Model and Process

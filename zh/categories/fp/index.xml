@@ -7,12 +7,12 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>zh</language>
         <lastBuildDate>Sun, 02 Feb 2025 21:29:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/zh/categories/fp/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>基础的 Lambda 演算编程</title>
-        <link>http://fyshxfish.github.io/zh/p/%E5%9F%BA%E7%A1%80%E7%9A%84-lambda-%E6%BC%94%E7%AE%97%E7%BC%96%E7%A8%8B/</link>
+        <title>基础的 Lambda 演算编程（feat. Y combinator）</title>
+        <link>http://fyshxfish.github.io/zh/p/%E5%9F%BA%E7%A1%80%E7%9A%84-lambda-%E6%BC%94%E7%AE%97%E7%BC%96%E7%A8%8Bfeat.-y-combinator/</link>
         <pubDate>Sun, 02 Feb 2025 21:29:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/zh/p/%E5%9F%BA%E7%A1%80%E7%9A%84-lambda-%E6%BC%94%E7%AE%97%E7%BC%96%E7%A8%8B/</guid>
-        <description>&lt;p&gt;题目来自 &lt;em&gt;functional&lt;/em&gt;，发售于 Steam (29 CNY).&lt;/p&gt;
+        <guid>http://fyshxfish.github.io/zh/p/%E5%9F%BA%E7%A1%80%E7%9A%84-lambda-%E6%BC%94%E7%AE%97%E7%BC%96%E7%A8%8Bfeat.-y-combinator/</guid>
+        <description>&lt;p&gt;题目来自 &lt;em&gt;functional&lt;/em&gt;，发售于 Steam.&lt;/p&gt;
 &lt;h2 id=&#34;basic&#34;&gt;&lt;a href=&#34;#basic&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Basic
 &lt;/h2&gt;&lt;h3 id=&#34;anything&#34;&gt;&lt;a href=&#34;#anything&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;anything
 &lt;/h3&gt;&lt;p&gt;写出任意一个符合 Lambda Calculus 语法 (1. variable 2. abstraction 3. application) 的 term 即可.&lt;/p&gt;
@@ -487,7 +487,7 @@ FALSE
         <pubDate>Sun, 24 Nov 2024 12:09:00 +0800</pubDate>
         
         <guid>http://fyshxfish.github.io/zh/p/%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95%E7%9A%84%E6%8A%BD%E8%B1%A1/</guid>
-        <description>&lt;p&gt;&lt;em&gt;-灵感来自2024秋的算法设计与分析课-&lt;/em&gt;&lt;/p&gt;
+        <description>&lt;!-- *-灵感来自2024秋的算法设计与分析课-* --&gt;
 &lt;h2 id=&#34;前言&#34;&gt;&lt;a href=&#34;#%e5%89%8d%e8%a8%80&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;前言
 &lt;/h2&gt;&lt;p&gt;在这个学期的算法课中，我们重点学习了回溯法和分支限界法两大类搜索算法，过去我总是把DFS、BFS等各种搜索算法分开来，比较其差异，在本文中，我希望对搜索算法做一个抽象，预期可以由一个简洁的抽象模型延伸出我们熟悉的具体的搜索策略。&lt;/p&gt;
 &lt;h2 id=&#34;搜索模型与搜索过程的抽象&#34;&gt;&lt;a href=&#34;#%e6%90%9c%e7%b4%a2%e6%a8%a1%e5%9e%8b%e4%b8%8e%e6%90%9c%e7%b4%a2%e8%bf%87%e7%a8%8b%e7%9a%84%e6%8a%bd%e8%b1%a1&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;搜索模型与搜索过程的抽象

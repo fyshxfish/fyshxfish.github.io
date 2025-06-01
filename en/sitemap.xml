@@ -2,30 +2,30 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>http://fyshxfish.github.io/p/foundations-and-applications-of-intersection-and-union-types/</loc>
+    <loc>http://fyshxfish.github.io/p/foundations-and-applications-of-intersection-and-union-types-pdf/</loc>
     <lastmod>2025-05-29T18:06:00+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="http://fyshxfish.github.io/zh/p/foundations-and-applications-of-intersection-and-union-types/"
+                href="http://fyshxfish.github.io/zh/p/foundations-and-applications-of-intersection-and-union-types-pdf/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://fyshxfish.github.io/p/foundations-and-applications-of-intersection-and-union-types/"
+                href="http://fyshxfish.github.io/p/foundations-and-applications-of-intersection-and-union-types-pdf/"
                 />
   </url><url>
-    <loc>http://fyshxfish.github.io/p/basic-lambda-calculus-programming/</loc>
+    <loc>http://fyshxfish.github.io/p/basic-lambda-calculus-programming-feat.-y-combinator/</loc>
     <lastmod>2025-02-02T21:29:00+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="zh"
-                href="http://fyshxfish.github.io/zh/p/%E5%9F%BA%E7%A1%80%E7%9A%84-lambda-%E6%BC%94%E7%AE%97%E7%BC%96%E7%A8%8B/"
+                href="http://fyshxfish.github.io/zh/p/%E5%9F%BA%E7%A1%80%E7%9A%84-lambda-%E6%BC%94%E7%AE%97%E7%BC%96%E7%A8%8Bfeat.-y-combinator/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="http://fyshxfish.github.io/p/basic-lambda-calculus-programming/"
+                href="http://fyshxfish.github.io/p/basic-lambda-calculus-programming-feat.-y-combinator/"
                 />
   </url><url>
     <loc>http://fyshxfish.github.io/p/abstractions-for-search-algorithms/</loc>

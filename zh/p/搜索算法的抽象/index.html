@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="-灵感来自2024秋的算法设计与分析课-\n前言 在这个学期的算法课中，我们重点学习了回溯法和分支限界法两大类搜索算法，过去我总是把DFS、BFS等各种搜索算法分开来，比较其差异，在本文中，我希望对搜索算法做一个抽象，预期可以由一个简洁的抽象模型延伸出我们熟悉的具体的搜索策略。\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content=" 前言 在这个学期的算法课中，我们重点学习了回溯法和分支限界法两大类搜索算法，过去我总是把DFS、BFS等各种搜索算法分开来，比较其差异，在本文中，我希望对搜索算法做一个抽象，预期可以由一个简洁的抽象模型延伸出我们熟悉的具体的搜索策略。\n">
 <title>搜索算法的抽象</title>
 
 <link rel='canonical' href='http://fyshxfish.github.io/zh/p/%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95%E7%9A%84%E6%8A%BD%E8%B1%A1/'>
 
 <link rel="stylesheet" href="/scss/style.min.ca8e73f914c0e48d09b6dc36c97037f15a283dbaba328e73f133fd9c13b277ad.css"><meta property='og:title' content="搜索算法的抽象">
-<meta property='og:description' content="-灵感来自2024秋的算法设计与分析课-\n前言 在这个学期的算法课中，我们重点学习了回溯法和分支限界法两大类搜索算法，过去我总是把DFS、BFS等各种搜索算法分开来，比较其差异，在本文中，我希望对搜索算法做一个抽象，预期可以由一个简洁的抽象模型延伸出我们熟悉的具体的搜索策略。\n">
+<meta property='og:description' content=" 前言 在这个学期的算法课中，我们重点学习了回溯法和分支限界法两大类搜索算法，过去我总是把DFS、BFS等各种搜索算法分开来，比较其差异，在本文中，我希望对搜索算法做一个抽象，预期可以由一个简洁的抽象模型延伸出我们熟悉的具体的搜索策略。\n">
 <meta property='og:url' content='http://fyshxfish.github.io/zh/p/%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95%E7%9A%84%E6%8A%BD%E8%B1%A1/'>
 <meta property='og:site_name' content='fyshXplore'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='haskell' /><meta property='article:published_time' content='2024-11-24T12:09:00&#43;08:00'/><meta property='article:modified_time' content='2024-11-24T12:09:00&#43;08:00'/>
 <meta name="twitter:title" content="搜索算法的抽象">
-<meta name="twitter:description" content="-灵感来自2024秋的算法设计与分析课-\n前言 在这个学期的算法课中，我们重点学习了回溯法和分支限界法两大类搜索算法，过去我总是把DFS、BFS等各种搜索算法分开来，比较其差异，在本文中，我希望对搜索算法做一个抽象，预期可以由一个简洁的抽象模型延伸出我们熟悉的具体的搜索策略。\n"><style>
+<meta name="twitter:description" content=" 前言 在这个学期的算法课中，我们重点学习了回溯法和分支限界法两大类搜索算法，过去我总是把DFS、BFS等各种搜索算法分开来，比较其差异，在本文中，我希望对搜索算法做一个抽象，预期可以由一个简洁的抽象模型延伸出我们熟悉的具体的搜索策略。\n"><style>
   :root {
      
     --zh-font-family: "Noto Serif SC";
@@ -377,7 +377,7 @@
     <section class="article-content">
     
     
-    <p><em>-灵感来自2024秋的算法设计与分析课-</em></p>
+    <!-- *-灵感来自2024秋的算法设计与分析课-* -->
 <h2 id="前言"><a href="#%e5%89%8d%e8%a8%80" class="header-anchor"></a>前言
 </h2><p>在这个学期的算法课中，我们重点学习了回溯法和分支限界法两大类搜索算法，过去我总是把DFS、BFS等各种搜索算法分开来，比较其差异，在本文中，我希望对搜索算法做一个抽象，预期可以由一个简洁的抽象模型延伸出我们熟悉的具体的搜索策略。</p>
 <h2 id="搜索模型与搜索过程的抽象"><a href="#%e6%90%9c%e7%b4%a2%e6%a8%a1%e5%9e%8b%e4%b8%8e%e6%90%9c%e7%b4%a2%e8%bf%87%e7%a8%8b%e7%9a%84%e6%8a%bd%e8%b1%a1" class="header-anchor"></a>搜索模型与搜索过程的抽象
@@ -594,12 +594,12 @@
             
                 
 <article class="">
-    <a href="/zh/p/%E5%9F%BA%E7%A1%80%E7%9A%84-lambda-%E6%BC%94%E7%AE%97%E7%BC%96%E7%A8%8B/">
+    <a href="/zh/p/%E5%9F%BA%E7%A1%80%E7%9A%84-lambda-%E6%BC%94%E7%AE%97%E7%BC%96%E7%A8%8Bfeat.-y-combinator/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">基础的 Lambda 演算编程</h2>
+            <h2 class="article-title">基础的 Lambda 演算编程（feat. Y combinator）</h2>
         </div>
     </a>
 </article>
@@ -677,7 +677,7 @@
     
     <section class="powerby">
         
-            Wish You a Nice Day! <br/>
+            Contact: hnu_yuxin@hnu.edu.cn <br/>
         Built with <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a> <br />
         Theme <b><a href="https://github.com/CaiJimmy/hugo-theme-stack" target="_blank" rel="noopener" data-version="3.26.0">Stack</a></b> designed by <a href="https://jimmycai.com" target="_blank" rel="noopener">Jimmy</a>
     </section>

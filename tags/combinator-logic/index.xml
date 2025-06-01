@@ -7,11 +7,11 @@
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
         <lastBuildDate>Sun, 02 Feb 2025 21:29:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/tags/combinator-logic/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Basic Lambda Calculus Programming</title>
-        <link>http://fyshxfish.github.io/p/basic-lambda-calculus-programming/</link>
+        <title>Basic Lambda Calculus Programming (feat. Y combinator)</title>
+        <link>http://fyshxfish.github.io/p/basic-lambda-calculus-programming-feat.-y-combinator/</link>
         <pubDate>Sun, 02 Feb 2025 21:29:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/p/basic-lambda-calculus-programming/</guid>
+        <guid>http://fyshxfish.github.io/p/basic-lambda-calculus-programming-feat.-y-combinator/</guid>
         <description>&lt;p&gt;Following problems come from &lt;em&gt;functional&lt;/em&gt;, available on Steam.&lt;/p&gt;
 &lt;h2 id=&#34;basic&#34;&gt;&lt;a href=&#34;#basic&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Basic
 &lt;/h2&gt;&lt;h3 id=&#34;anything&#34;&gt;&lt;a href=&#34;#anything&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;anything
