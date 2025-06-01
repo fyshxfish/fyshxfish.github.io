@@ -2,24 +2,24 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Pages on fyshXplore</title>
-        <link>http://localhost:1313/zh/page/</link>
+        <link>http://fyshxfish.github.io/zh/page/</link>
         <description>Recent content in Pages on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh</language>
-        <lastBuildDate>Sat, 31 Aug 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://localhost:1313/zh/page/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sat, 31 Aug 2024 00:00:00 +0000</lastBuildDate><atom:link href="http://fyshxfish.github.io/zh/page/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Archives</title>
-        <link>http://localhost:1313/zh/archives/</link>
+        <link>http://fyshxfish.github.io/zh/archives/</link>
         <pubDate>Sat, 31 Aug 2024 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/zh/archives/</guid>
+        <guid>http://fyshxfish.github.io/zh/archives/</guid>
         <description></description>
         </item>
         <item>
         <title>About</title>
-        <link>http://localhost:1313/zh/about/</link>
+        <link>http://fyshxfish.github.io/zh/about/</link>
         <pubDate>Fri, 16 Aug 2024 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/zh/about/</guid>
+        <guid>http://fyshxfish.github.io/zh/about/</guid>
         <description>&lt;!-- &lt;link href=&#34;https://fonts.googleapis.com/css2?family=Long+Cang&amp;display=swap&#34; rel=&#34;stylesheet&#34;&gt;
 &lt;div style=&#34;font-family: &#39;Long Cang&#39;, serif; font-size: 2.8rem; text-align:center; letter-spacing:0.04em;&#34;&gt;  --&gt;
 &lt;link href=&#34;https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&amp;display=swap&#34; rel=&#34;stylesheet&#34;&gt;
@@ -41,19 +41,19 @@
         </item>
         <item>
         <title>Links</title>
-        <link>http://localhost:1313/zh/links/</link>
+        <link>http://fyshxfish.github.io/zh/links/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/zh/links/</guid>
+        <guid>http://fyshxfish.github.io/zh/links/</guid>
         <description>&lt;p&gt;✨ &lt;strong&gt;Friends Here&lt;/strong&gt; ✨&lt;/p&gt;
 </description>
         </item>
         <item>
         <title>Search</title>
-        <link>http://localhost:1313/zh/search/</link>
+        <link>http://fyshxfish.github.io/zh/search/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/zh/search/</guid>
+        <guid>http://fyshxfish.github.io/zh/search/</guid>
         <description></description>
         </item>
         

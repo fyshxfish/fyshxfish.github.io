@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Haskell on fyshXplore</title>
-        <link>http://localhost:1313/tags/haskell/</link>
+        <link>http://fyshxfish.github.io/tags/haskell/</link>
         <description>Recent content in Haskell on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Sun, 24 Nov 2024 12:09:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/haskell/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 24 Nov 2024 12:09:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/tags/haskell/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Abstractions for Search Algorithms</title>
-        <link>http://localhost:1313/p/abstractions-for-search-algorithms/</link>
+        <link>http://fyshxfish.github.io/p/abstractions-for-search-algorithms/</link>
         <pubDate>Sun, 24 Nov 2024 12:09:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/abstractions-for-search-algorithms/</guid>
+        <guid>http://fyshxfish.github.io/p/abstractions-for-search-algorithms/</guid>
         <description>&lt;p&gt;&lt;em&gt;-Inspired by Algorithm Design and Analysis course, 2024 Fall-&lt;/em&gt;&lt;/p&gt;
 &lt;h2 id=&#34;introduction&#34;&gt;&lt;a href=&#34;#introduction&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Introduction
 &lt;/h2&gt;&lt;p&gt;In this semester&amp;rsquo;s algorithms course, we focused on two major categories of search algorithms: backtracking and branch-and-bound. Previously, I always treated various search algorithms like DFS and BFS separately, comparing their differences. In this article, I aim to abstract search algorithms, expecting to derive familiar search strategies from a concise abstract model.&lt;/p&gt;
@@ -163,10 +163,10 @@
         </item>
         <item>
         <title>Message Passing Perspective on Bool - SICP § 2.4.3 | Generic | Data and Functions</title>
-        <link>http://localhost:1313/p/message-passing-perspective-on-bool-sicp-2.4.3-generic-data-and-functions/</link>
+        <link>http://fyshxfish.github.io/p/message-passing-perspective-on-bool-sicp-2.4.3-generic-data-and-functions/</link>
         <pubDate>Sat, 07 Sep 2024 23:18:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/message-passing-perspective-on-bool-sicp-2.4.3-generic-data-and-functions/</guid>
+        <guid>http://fyshxfish.github.io/p/message-passing-perspective-on-bool-sicp-2.4.3-generic-data-and-functions/</guid>
         <description>&lt;h2 id=&#34;introduction&#34;&gt;&lt;a href=&#34;#introduction&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Introduction
 &lt;/h2&gt;&lt;p&gt;SICP § 2.4.3 describes a generic system implemented using table lookup (type × operation two-dimensional table), where concrete functions are hidden under abstractions like &amp;ldquo;generic function + Selector&amp;rdquo;. What would it look like if we put concrete functions under &amp;ldquo;data + Selector&amp;rdquo; abstractions? This article presents a Boolean implementation that conforms to this abstraction (called Message Passing in SICP). The importance of &lt;strong&gt;data&lt;/strong&gt; and &lt;strong&gt;functions&lt;/strong&gt; in programming is self-evident. Let&amp;rsquo;s explore three perspectives on the possible relationships between data and functions: Message Passing ↦ letting data carry its own functions; &lt;code&gt;$&lt;/code&gt; in Haskell ↦ transforming data into functions; Algebraic data types in Haskell ↦ constructing data using functions.&lt;/p&gt;
 &lt;h2 id=&#34;generic-functions-intelligent-operations&#34;&gt;&lt;a href=&#34;#generic-functions-intelligent-operations&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Generic Functions: Intelligent Operations
@@ -264,10 +264,10 @@ ghci&amp;gt; :t ($ x)
         </item>
         <item>
         <title>Huffman Trees in Haskell | Structure and Destructure of Compound Data</title>
-        <link>http://localhost:1313/p/huffman-trees-in-haskell-structure-and-destructure-of-compound-data/</link>
+        <link>http://fyshxfish.github.io/p/huffman-trees-in-haskell-structure-and-destructure-of-compound-data/</link>
         <pubDate>Mon, 02 Sep 2024 01:53:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/huffman-trees-in-haskell-structure-and-destructure-of-compound-data/</guid>
+        <guid>http://fyshxfish.github.io/p/huffman-trees-in-haskell-structure-and-destructure-of-compound-data/</guid>
         <description>&lt;p&gt;Code Here: &lt;a class=&#34;link&#34; href=&#34;https://github.com/fyshxfish/sicp-playground/blob/main/sicp-note/ch2/ch2-3-huffman_tree.hs&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Huffman Tree in Haskell&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;haskell-implementation-of-huffman-trees&#34;&gt;&lt;a href=&#34;#haskell-implementation-of-huffman-trees&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Haskell Implementation of Huffman Trees
@@ -504,10 +504,10 @@ snd (pair v w)  → w
         </item>
         <item>
         <title>Nested Mapping Examples Implemented in Haskell - SICP § 2.2.3  | List Monad </title>
-        <link>http://localhost:1313/p/nested-mapping-examples-implemented-in-haskell-sicp-2.2.3-list-monad/</link>
+        <link>http://fyshxfish.github.io/p/nested-mapping-examples-implemented-in-haskell-sicp-2.2.3-list-monad/</link>
         <pubDate>Thu, 29 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/nested-mapping-examples-implemented-in-haskell-sicp-2.2.3-list-monad/</guid>
+        <guid>http://fyshxfish.github.io/p/nested-mapping-examples-implemented-in-haskell-sicp-2.2.3-list-monad/</guid>
         <description>&lt;h2 id=&#34;problem-description&#34;&gt;&lt;a href=&#34;#problem-description&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Problem Description
 &lt;/h2&gt;&lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Problem&lt;/strong&gt;: Given a positive integer $n$, find all ordered pairs of distinct positive integers $i$ and $j$, where $ 1 \leq i \leq j \leq n $, such that $ i + j $ is prime.&lt;/p&gt;&lt;/blockquote&gt;

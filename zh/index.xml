@@ -2,209 +2,27 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>fyshXplore</title>
-        <link>http://localhost:1313/zh/</link>
+        <link>http://fyshxfish.github.io/zh/</link>
         <description>Recent content on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh</language>
-        <lastBuildDate>Thu, 29 May 2025 18:06:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/zh/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 29 May 2025 18:06:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/zh/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Foundations and Applications of Intersection and Union Types</title>
-        <link>http://localhost:1313/zh/p/foundations-and-applications-of-intersection-and-union-types/</link>
+        <link>http://fyshxfish.github.io/zh/p/foundations-and-applications-of-intersection-and-union-types/</link>
         <pubDate>Thu, 29 May 2025 18:06:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/zh/p/foundations-and-applications-of-intersection-and-union-types/</guid>
-        <description>&lt;iframe src=&#34;http://localhost:1313/pdfs/Foundations_and_Applications_of_Intersection_and_Union_Types.pdf&#34; width=&#34;100%&#34; height=&#34;750px&#34;&gt;
-  你的浏览器不支持内嵌 PDF 文件，请&lt;a href=&#34;http://localhost:1313/pdfs/Foundations_and_Applications_of_Intersection_and_Union_Types.pdf&#34;&gt;点击这里下载&lt;/a&gt;
+        <guid>http://fyshxfish.github.io/zh/p/foundations-and-applications-of-intersection-and-union-types/</guid>
+        <description>&lt;iframe src=&#34;http://fyshxfish.github.io/pdfs/Foundations_and_Applications_of_Intersection_and_Union_Types.pdf&#34; width=&#34;100%&#34; height=&#34;750px&#34;&gt;
+  你的浏览器不支持内嵌 PDF 文件，请&lt;a href=&#34;http://fyshxfish.github.io/pdfs/Foundations_and_Applications_of_Intersection_and_Union_Types.pdf&#34;&gt;点击这里下载&lt;/a&gt;
 &lt;/iframe&gt;
 </description>
         </item>
         <item>
-        <title>杂谈向：为什么编译需要做语义分析 / 上下文（Context）与语法语义分析</title>
-        <link>http://localhost:1313/zh/p/%E6%9D%82%E8%B0%88%E5%90%91%E4%B8%BA%E4%BB%80%E4%B9%88%E7%BC%96%E8%AF%91%E9%9C%80%E8%A6%81%E5%81%9A%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90-/-%E4%B8%8A%E4%B8%8B%E6%96%87context%E4%B8%8E%E8%AF%AD%E6%B3%95%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90/</link>
-        <pubDate>Mon, 17 Feb 2025 16:32:00 +0800</pubDate>
-        
-        <guid>http://localhost:1313/zh/p/%E6%9D%82%E8%B0%88%E5%90%91%E4%B8%BA%E4%BB%80%E4%B9%88%E7%BC%96%E8%AF%91%E9%9C%80%E8%A6%81%E5%81%9A%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90-/-%E4%B8%8A%E4%B8%8B%E6%96%87context%E4%B8%8E%E8%AF%AD%E6%B3%95%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90/</guid>
-        <description>&lt;!-- 最近在看一点编译原理的材料， --&gt;
-&lt;h2 id=&#34;引言&#34;&gt;&lt;a href=&#34;#%e5%bc%95%e8%a8%80&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;引言
-&lt;/h2&gt;&lt;p&gt;标题的这个问题，其实是一个不太正确的问题，因为对于语言而言，设计先于实现——先设计语言的语法和语义，然后写编译器去检查一个程序语法是否正确，然后根据设定好的语义将它转写成目标机器代码。从“上下文”这个视角去思考，常见情况下，语法是&lt;strong&gt;上下文无关&lt;/strong&gt;的，而语义正是用来处理&lt;strong&gt;上下文相关&lt;/strong&gt;的问题的，&lt;code&gt;x = 1; print(x);&lt;/code&gt; 和 &lt;code&gt;x = 2; print(x);&lt;/code&gt;，同样是 &lt;code&gt;print(x)&lt;/code&gt;，它的上文是不一样的，所以它导致的结果也不一样.&lt;/p&gt;
-&lt;h2 id=&#34;举例-1---&#34;&gt;&lt;a href=&#34;#%e4%b8%be%e4%be%8b-1---&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;举例 1 - &lt;code&gt;=&lt;/code&gt;
-&lt;/h2&gt;&lt;p&gt;比如：&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;foo = 3
-foo = 4
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;假设对这个程序只做语法分析，那么它符合 Python 语法，也符合 Haskell 语法，但是对它做语义分析，作为一个 Python 程序，它的意思是，“先将 &lt;code&gt;3&lt;/code&gt; 赋值给 &lt;code&gt;foo&lt;/code&gt;，然后将 &lt;code&gt;4&lt;/code&gt; 赋值给 &lt;code&gt;foo&lt;/code&gt;”；作为一个 Haskell 程序，它不是一个合格的 Haskell 程序，因为 Haskell 语义不允许做重复的绑定，所以核心原因是，Python 的 &lt;code&gt;=&lt;/code&gt; 的语义是赋值（assign），内存覆写，Haskell 的 &lt;code&gt;=&lt;/code&gt; 的语义是绑定（name binding），为了保证无副作用、执行顺序无关等特性，只允许单次绑定.&lt;/p&gt;
-&lt;h2 id=&#34;举例2---polyglot&#34;&gt;&lt;a href=&#34;#%e4%b8%be%e4%be%8b2---polyglot&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;举例2 - polyglot
-&lt;/h2&gt;&lt;p&gt;下面这个程序改写自 &lt;a class=&#34;link&#34; href=&#34;https://en.wikipedia.org/wiki/Polyglot_%28computing%29#C,_PHP,_and_Bash&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;polyglot(computing) wikipedia&lt;/a&gt;&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;#define a /*
-echo -e &amp;#34;\033[34mHello, World! from echo\033[0m&amp;#34;;// &amp;amp;&amp;gt; /dev/null;
-x=5; 
-if (($x))
-// 2&amp;gt; /dev/null; then
-return 0;
-// 2&amp;gt; /dev/null; fi
-#define e ?&amp;gt;
-#define b */
-#include &amp;lt;stdio.h&amp;gt;
-#define main() int main(void)
-#define printf printf(
-#define true )
-#define function
-function main()
-{
-    printf &amp;#34;\033[31mHello, World! from main\033[0m\n&amp;#34;true/* 2&amp;gt; /dev/null | grep -v true*/;
-    return 0;
-}
-#define c /*
-main
-#*/
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;它既符合 C 语法，又符合 Bash 语法，编译/解释执行它得到的结果也是不一样的，因为两个程序的语义不同（当然 C 和 Bash 的语法也是不一样的，polyglot 编写的核心就是利用各语言之间的注释/宏/&amp;hellip;使用的&lt;strong&gt;符号&lt;/strong&gt;不同，符号（广义）的使用和布局正是语法&lt;span style=&#34;font-size: smaller;&#34;&gt;&amp;amp;词法&lt;/span&gt;关心的事情）：&lt;/p&gt;
-&lt;img src=&#34;poly.png&#34; alt=&#34;poly&#34; style=&#34;zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
-&lt;!-- &lt;span style=&#34;font-size: smaller;&#34;&gt;你可能注意到了这里的一行 `file` 命令，它通过关键字判断出这是一个 C 源文件，所以 `file` 也不一定完全正确，&lt;/span&gt; --&gt;
-</description>
-        </item>
-        <item>
-        <title>在终端里播放幻灯片</title>
-        <link>http://localhost:1313/zh/p/%E5%9C%A8%E7%BB%88%E7%AB%AF%E9%87%8C%E6%92%AD%E6%94%BE%E5%B9%BB%E7%81%AF%E7%89%87/</link>
-        <pubDate>Fri, 07 Feb 2025 22:52:00 +0800</pubDate>
-        
-        <guid>http://localhost:1313/zh/p/%E5%9C%A8%E7%BB%88%E7%AB%AF%E9%87%8C%E6%92%AD%E6%94%BE%E5%B9%BB%E7%81%AF%E7%89%87/</guid>
-        <description>&lt;h2 id=&#34;前言&#34;&gt;&lt;a href=&#34;#%e5%89%8d%e8%a8%80&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;前言
-&lt;/h2&gt;&lt;p&gt;灵感来自蒋炎岩老师的一次讲座：&lt;a class=&#34;link&#34; href=&#34;https://www.bilibili.com/video/BV1MV411F738/?share_source=copy_web&amp;amp;vd_source=09e32470959b198a596693ee5235cca9&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;[算法竞赛入门] 为什么要逼大家用 NOILinux？&lt;/a&gt;，有参考，但不完全一样.&lt;/p&gt;
-&lt;p&gt;掌握此技能，你将可以——在某种程度上达成“在终端展示幻灯片”的效果，实用性一般，但是可以玩一玩 &lt;code&gt;·^v^·&lt;/code&gt;&lt;/p&gt;
-&lt;h2 id=&#34;效果展示&#34;&gt;&lt;a href=&#34;#%e6%95%88%e6%9e%9c%e5%b1%95%e7%a4%ba&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;效果展示
-&lt;/h2&gt;&lt;div class=&#34;image-gallery&#34;&gt;
-  &lt;div class=&#34;image-container&#34;&gt;
-    &lt;img src=&#34;1.png&#34; alt=&#34;Image 1&#34;&gt;
-    &lt;img src=&#34;2.png&#34; alt=&#34;Image 2&#34;&gt;
-    &lt;img src=&#34;3.png&#34; alt=&#34;Image 3&#34;&gt;
-    &lt;img src=&#34;4.png&#34; alt=&#34;Image 4&#34;&gt;
-    &lt;img src=&#34;5.png&#34; alt=&#34;Image 5&#34;&gt;
-    &lt;img src=&#34;6.png&#34; alt=&#34;Image 6&#34;&gt;
-    &lt;img src=&#34;7.png&#34; alt=&#34;Image 7&#34;&gt;
-  &lt;/div&gt;
-  &lt;button class=&#34;prev-btn&#34; onclick=&#34;moveSlide(-1)&#34;&gt;&amp;#10094; &lt;/button&gt;
-  &lt;button class=&#34;next-btn&#34; onclick=&#34;moveSlide(1)&#34;&gt; &amp;#10095;&lt;/button&gt;
-&lt;/div&gt;
-&lt;h2 id=&#34;具体实现&#34;&gt;&lt;a href=&#34;#%e5%85%b7%e4%bd%93%e5%ae%9e%e7%8e%b0&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;具体实现
-&lt;/h2&gt;&lt;h3 id=&#34;整体框架&#34;&gt;&lt;a href=&#34;#%e6%95%b4%e4%bd%93%e6%a1%86%e6%9e%b6&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;整体框架
-&lt;/h3&gt;&lt;h4 id=&#34;目录&#34;&gt;&lt;a href=&#34;#%e7%9b%ae%e5%bd%95&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;目录
-&lt;/h4&gt;&lt;img src=&#34;dir1.png&#34; alt=&#34;directory&#34; style=&#34;zoom:80%;&#34; /&gt;
-&lt;p&gt;.sh 为展示一张幻灯片的 bash 脚本，.md 为需要渲染的 Markdown，.png 为待展示的图片.&lt;/p&gt;
-&lt;h4 id=&#34;启动器&#34;&gt;&lt;a href=&#34;#%e5%90%af%e5%8a%a8%e5%99%a8&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;启动器
-&lt;/h4&gt;&lt;p&gt;首先打印封面（本质上是在终端输出一页渲染过的文本），然后通过 &lt;code&gt;read&lt;/code&gt; 读入文本，控制幻灯片的行为，如换页、图片展示、退出等.&lt;/p&gt;
-&lt;p&gt;0_flow.sh：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;#!/bin/bash
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;bash ./1_banner.sh         &lt;span style=&#34;color:#57606a&#34;&gt;## 打印封面&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#953800&#34;&gt;pc&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;1	&lt;span style=&#34;color:#57606a&#34;&gt;# 页码&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;while&lt;/span&gt; &lt;span style=&#34;color:#6639ba&#34;&gt;true&lt;/span&gt; 
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;do&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#6639ba&#34;&gt;read&lt;/span&gt; -p &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;:&amp;#34;&lt;/span&gt; choice     &lt;span style=&#34;color:#57606a&#34;&gt;## 读取文本，控制翻页、图片展示、退出等&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;[&lt;/span&gt; &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;$choice&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;p&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;then&lt;/span&gt;           &lt;span style=&#34;color:#57606a&#34;&gt;# 翻到前一页&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#0550ae&#34;&gt;((&lt;/span&gt;pc--&lt;span style=&#34;color:#0550ae&#34;&gt;))&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        bash ./&lt;span style=&#34;color:#0a3069&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;pc&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;}&lt;/span&gt;*
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;elif&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;[&lt;/span&gt; &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;$choice&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;g&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;then&lt;/span&gt;         &lt;span style=&#34;color:#57606a&#34;&gt;# 展示一张图片&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        xdg-open ./load_init.png
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;elif&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;[[&lt;/span&gt; &lt;span style=&#34;color:#953800&#34;&gt;$choice&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;~ ^&lt;span style=&#34;color:#0550ae&#34;&gt;[&lt;/span&gt;1-7&lt;span style=&#34;color:#0550ae&#34;&gt;]&lt;/span&gt;$ &lt;span style=&#34;color:#0550ae&#34;&gt;]]&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;then&lt;/span&gt;     &lt;span style=&#34;color:#57606a&#34;&gt;# 跳转到指定页码&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#953800&#34;&gt;pc&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;$choice&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        bash ./&lt;span style=&#34;color:#0a3069&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;pc&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;}&lt;/span&gt;*
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;elif&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;[&lt;/span&gt; &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;$choice&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;E&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;then&lt;/span&gt;         &lt;span style=&#34;color:#57606a&#34;&gt;# 退出幻灯片&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#6639ba&#34;&gt;break&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;else&lt;/span&gt;                                    &lt;span style=&#34;color:#57606a&#34;&gt;# 缺省：翻到下一页&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#0550ae&#34;&gt;((&lt;/span&gt;pc++&lt;span style=&#34;color:#0550ae&#34;&gt;))&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        bash ./&lt;span style=&#34;color:#0a3069&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;pc&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;}&lt;/span&gt;*
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;fi&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;done&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;单页展示&#34;&gt;&lt;a href=&#34;#%e5%8d%95%e9%a1%b5%e5%b1%95%e7%a4%ba&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;单页展示
-&lt;/h3&gt;&lt;p&gt;单页展示，说到底，就是展示出一页的文本，基本步骤如下：&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;通过 &lt;code&gt;clear&lt;/code&gt; 清空上一页的内容；&lt;/li&gt;
-&lt;li&gt;计算渲染后的文本的总行数；&lt;/li&gt;
-&lt;li&gt;为了将内容居于竖直方向的中心，计算上下的空行 padding 数量；&lt;/li&gt;
-&lt;li&gt;先打印上部的 padding，再渲染并打印内容文本，最后打印下部的 padding.&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;比如：（2_question.sh）&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;clear
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#953800&#34;&gt;length&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;`&lt;/span&gt;python3 renderer.py question.md &lt;span style=&#34;color:#1f2328&#34;&gt;|&lt;/span&gt; wc -l&lt;span style=&#34;color:#0a3069&#34;&gt;`&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#953800&#34;&gt;total&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;`&lt;/span&gt;tput lines&lt;span style=&#34;color:#0a3069&#34;&gt;`&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#953800&#34;&gt;sus&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;$((&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;$total&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;$length&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;)/&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;))&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;((&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;i&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;1&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt; i&amp;lt;&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;$sus&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt; i++&lt;span style=&#34;color:#0550ae&#34;&gt;))&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;do&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#6639ba&#34;&gt;echo&lt;/span&gt; 
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;done&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;python3 renderer.py question.md
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;((&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;i&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;1&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt; i&amp;lt;&lt;span style=&#34;color:#953800&#34;&gt;$sus&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt; i++&lt;span style=&#34;color:#0550ae&#34;&gt;))&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;do&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#6639ba&#34;&gt;echo&lt;/span&gt; 
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;done&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;图片展示与外部程序调用&#34;&gt;&lt;a href=&#34;#%e5%9b%be%e7%89%87%e5%b1%95%e7%a4%ba%e4%b8%8e%e5%a4%96%e9%83%a8%e7%a8%8b%e5%ba%8f%e8%b0%83%e7%94%a8&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;图片展示与外部程序调用
-&lt;/h3&gt;&lt;img src=&#34;show_pic.png&#34; alt=&#34;show picture&#34; style=&#34;zoom:80%;&#34; /&gt;
-&lt;p&gt;通过 &lt;code&gt;read&lt;/code&gt; 接收输入，当输入为指定字符时，通过 &lt;code&gt;xdg-open&lt;/code&gt; 打开特定图片，展示完毕后通过 ESC 键关闭即可.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;read&lt;/span&gt; -p &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;:&amp;#34;&lt;/span&gt; choice     
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;[&lt;/span&gt; &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;$choice&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;g&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;then&lt;/span&gt;         
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    xdg-open ./picture.png
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;fi&lt;/span&gt; 
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;类似地，将 &lt;code&gt;xdg-open ...&lt;/code&gt; 改成其他命令，可以播放音视频，执行各种程序.&lt;/p&gt;
-&lt;h3 id=&#34;文本渲染&#34;&gt;&lt;a href=&#34;#%e6%96%87%e6%9c%ac%e6%b8%b2%e6%9f%93&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;文本渲染
-&lt;/h3&gt;&lt;h4 id=&#34;适用于封面页的-ascii-art&#34;&gt;&lt;a href=&#34;#%e9%80%82%e7%94%a8%e4%ba%8e%e5%b0%81%e9%9d%a2%e9%a1%b5%e7%9a%84-ascii-art&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;适用于封面页的 ASCII Art
-&lt;/h4&gt;&lt;p&gt;使用 &lt;code&gt;figlet&lt;/code&gt; 展现主题词，并使用 &lt;code&gt;lolcat&lt;/code&gt; 改色. 除了 &lt;code&gt;figlet&lt;/code&gt; 下载时自带的字体样式之外，还可以在&lt;a class=&#34;link&#34; href=&#34;https://github.com/xero/figlet-fonts&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;Github 上的 figlet-fonts 项目&lt;/a&gt;找到并下载更多的字体样式. 上面的展示的&amp;quot;Boot&amp;quot;对应的命令是 &lt;code&gt;figlet &amp;quot; Boot&amp;quot; -f roman | lolcat -S 30&lt;/code&gt;. （另外可选的同类命令行工具为 &lt;code&gt;toilet&lt;/code&gt;）&lt;/p&gt;
-&lt;img src=&#34;boot.png&#34; alt=&#34;boot&#34; style=&#34;zoom:80%;&#34; /&gt;
-&lt;h4 id=&#34;esc-转义&#34;&gt;&lt;a href=&#34;#esc-%e8%bd%ac%e4%b9%89&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;ESC 转义
-&lt;/h4&gt;&lt;p&gt;&lt;code&gt;printf&lt;/code&gt; 命令，通过 &lt;code&gt;\033&lt;/code&gt; 转义可以在终端输出更花哨的文字，可以做简单的效果，如彩色、加粗、斜体等，可以多个效果叠加使用，如下图中最后一行对应的命令是&lt;code&gt;printf &amp;quot;\033[2;34;01;21;09myour text\033[0m\n&amp;quot;&lt;/code&gt;.（此条同样适用于其他编程语言的输出，033 是 ESC 的八进制 ASCII 编码. 呈现的具体颜色和终端的配色方案有关.）&lt;/p&gt;
-&lt;img src=&#34;escape1.png&#34; alt=&#34;escape&#34; style=&#34;zoom:80%;&#34; /&gt;
-&lt;h4 id=&#34;markdown-渲染&#34;&gt;&lt;a href=&#34;#markdown-%e6%b8%b2%e6%9f%93&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Markdown 渲染
-&lt;/h4&gt;&lt;ul&gt;
-&lt;li&gt;glow: &lt;code&gt;glow&lt;/code&gt; 是命令行工具，用法为 &lt;code&gt;glow foo.md&lt;/code&gt;.&lt;/li&gt;
-&lt;li&gt;rich: rich 是一个可以用来渲染 Markdown 的 python 库.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h2 id=&#34;其他有趣的命令行工具&#34;&gt;&lt;a href=&#34;#%e5%85%b6%e4%bb%96%e6%9c%89%e8%b6%a3%e7%9a%84%e5%91%bd%e4%bb%a4%e8%a1%8c%e5%b7%a5%e5%85%b7&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;其他有趣的命令行工具
-&lt;/h2&gt;&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;asciiquarium&lt;/p&gt;
-&lt;p&gt;ASCII Art 水族馆，非常漂亮，我的头像的 ASCII 鱼就是从这里挖来的，在下图的从左往右数第三个海草上方：&lt;/p&gt;
-  &lt;img src=&#34;ascii.png&#34; alt=&#34;asciiquarium&#34; style=&#34;zoom:80%;box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;oneko&lt;/p&gt;
-&lt;p&gt;呼出一只小猫，非常可爱：&lt;/p&gt;
-  &lt;img src=&#34;oneko.png&#34; alt=&#34;oneko&#34; style=&#34;display: block; margin: auto; zoom:60%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;cowsay&lt;/p&gt;
-  &lt;img src=&#34;cowsay1.png&#34; alt=&#34;cowsay&#34; style=&#34;zoom:80%;box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;dialog&lt;/p&gt;
-  &lt;img src=&#34;dialog1.png&#34; alt=&#34;dialog&#34; style=&#34;zoom:80%;box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
-&lt;p&gt;可交互的 TUI 对话框，这个用来做单页的幻灯片呈现也是非常合适的，比如：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;#!/bin/bash
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;choice&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;$(&lt;/span&gt;dialog --clear --title &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;Menu&amp;#34;&lt;/span&gt; --menu &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;Make Your Choice&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;10&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;40&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;3&lt;/span&gt; &lt;span style=&#34;color:#0a3069&#34;&gt;\
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&lt;/span&gt;         &lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;Show Greeting&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;Enter Something&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;3&lt;/span&gt; &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;Show Figure&amp;#34;&lt;/span&gt;  2&amp;gt;&lt;span style=&#34;color:#1f2328&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt; &amp;gt;/dev/tty&lt;span style=&#34;color:#cf222e&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color:#953800&#34;&gt;$choice&lt;/span&gt; in
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    3&lt;span style=&#34;color:#0550ae&#34;&gt;)&lt;/span&gt; 
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        xdg-open ./figure_1.png
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#1f2328&#34;&gt;;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#57606a&#34;&gt;# SNIP # &lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;esac&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;/ul&gt;
-</description>
-        </item>
-        <item>
         <title>基础的 Lambda 演算编程</title>
-        <link>http://localhost:1313/zh/p/%E5%9F%BA%E7%A1%80%E7%9A%84-lambda-%E6%BC%94%E7%AE%97%E7%BC%96%E7%A8%8B/</link>
+        <link>http://fyshxfish.github.io/zh/p/%E5%9F%BA%E7%A1%80%E7%9A%84-lambda-%E6%BC%94%E7%AE%97%E7%BC%96%E7%A8%8B/</link>
         <pubDate>Sun, 02 Feb 2025 21:29:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/zh/p/%E5%9F%BA%E7%A1%80%E7%9A%84-lambda-%E6%BC%94%E7%AE%97%E7%BC%96%E7%A8%8B/</guid>
+        <guid>http://fyshxfish.github.io/zh/p/%E5%9F%BA%E7%A1%80%E7%9A%84-lambda-%E6%BC%94%E7%AE%97%E7%BC%96%E7%A8%8B/</guid>
         <description>&lt;p&gt;题目来自 &lt;em&gt;functional&lt;/em&gt;，发售于 Steam (29 CNY).&lt;/p&gt;
 &lt;h2 id=&#34;basic&#34;&gt;&lt;a href=&#34;#basic&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Basic
 &lt;/h2&gt;&lt;h3 id=&#34;anything&#34;&gt;&lt;a href=&#34;#anything&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;anything
@@ -676,10 +494,10 @@ FALSE
         </item>
         <item>
         <title>搜索算法的抽象</title>
-        <link>http://localhost:1313/zh/p/%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95%E7%9A%84%E6%8A%BD%E8%B1%A1/</link>
+        <link>http://fyshxfish.github.io/zh/p/%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95%E7%9A%84%E6%8A%BD%E8%B1%A1/</link>
         <pubDate>Sun, 24 Nov 2024 12:09:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/zh/p/%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95%E7%9A%84%E6%8A%BD%E8%B1%A1/</guid>
+        <guid>http://fyshxfish.github.io/zh/p/%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95%E7%9A%84%E6%8A%BD%E8%B1%A1/</guid>
         <description>&lt;p&gt;&lt;em&gt;-灵感来自2024秋的算法设计与分析课-&lt;/em&gt;&lt;/p&gt;
 &lt;h2 id=&#34;前言&#34;&gt;&lt;a href=&#34;#%e5%89%8d%e8%a8%80&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;前言
 &lt;/h2&gt;&lt;p&gt;在这个学期的算法课中，我们重点学习了回溯法和分支限界法两大类搜索算法，过去我总是把DFS、BFS等各种搜索算法分开来，比较其差异，在本文中，我希望对搜索算法做一个抽象，预期可以由一个简洁的抽象模型延伸出我们熟悉的具体的搜索策略。&lt;/p&gt;
@@ -834,253 +652,11 @@ FALSE
 </description>
         </item>
         <item>
-        <title>如何避免重复计算 / 纯函数及其求值策略</title>
-        <link>http://localhost:1313/zh/p/%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E9%87%8D%E5%A4%8D%E8%AE%A1%E7%AE%97-/-%E7%BA%AF%E5%87%BD%E6%95%B0%E5%8F%8A%E5%85%B6%E6%B1%82%E5%80%BC%E7%AD%96%E7%95%A5/</link>
-        <pubDate>Sun, 20 Oct 2024 19:48:00 +0800</pubDate>
-        
-        <guid>http://localhost:1313/zh/p/%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E9%87%8D%E5%A4%8D%E8%AE%A1%E7%AE%97-/-%E7%BA%AF%E5%87%BD%E6%95%B0%E5%8F%8A%E5%85%B6%E6%B1%82%E5%80%BC%E7%AD%96%E7%95%A5/</guid>
-        <description>&lt;h2 id=&#34;前言&#34;&gt;&lt;a href=&#34;#%e5%89%8d%e8%a8%80&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;前言
-&lt;/h2&gt;&lt;p&gt;这个学期包含编译系统和算法设计与分析两门专业课，遇到一些问题总会想着放在 Haskell 里实现一下，对于程序构造多少有点新的体会，也度过了对于 Haskell 不平静的狂热期，现在的我已经不会想着到处传教了（☺️）. 本来只是准备随便写写做 0-1 背包的 Haskell 实现中的一些小思考，不过真开始动笔了就越写越正式了，也算是接触 FP / Haskell 以来的一点点小总结. &lt;a class=&#34;link&#34; href=&#34;https://www.haskell.org/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;Haskell 官网&lt;/a&gt; 对 Haskell 的描述是 &amp;ldquo;An advanced, purely functional programming language&amp;rdquo;，本文试图围绕 &amp;ldquo;purely&amp;rdquo; 做一些讨论：什么是纯，怎么样算不纯，追求纯度的理由是什么，纯度带来的效益是什么.&lt;/p&gt;
-&lt;!-- 另一个视角的，对于性能的追求. --&gt;
-&lt;p&gt;首先从 0-1 背包的过程式实现出发，我把过程式实现 1:1 投射到 Haskell 里，感觉这段代码不是很符合 Haskell 的气质（😯），于是回到了递推式，回到了算法课上一笔带过的递归实现，对过程式语言的递推实现和函数式语言的递归实现做了一些比较，看看两者对于“如何避免重复计算的开销”这个问题（不局限于 0-1 背包问题）给出的不同答案，前者利用源代码上的记忆数组，后者则可以利用纯函数的特性，通过求值策略实现减少重复计算.&lt;/p&gt;
-&lt;p&gt;&lt;span style = &#34;color:#565656;&#34; &gt; 一段算法设计与计算模型的讨论：从 0-1 背包问题这个例子里也可以看出&amp;quot;算法设计&amp;quot;其实是不完全独立于编程范式的，也许更合适的说法是，算法设计强相关于物理计算机的实际运行方式，毕竟算法设计除了解决问题，还有一个追求是降低在物理机上运行时的时空计算资源消耗，这和命令式语言的特性是相契合的，而函数式语言有点 Lambda Calculus 虚拟机的意思；比如复杂度的计算，直接把命令式程序的时间复杂度计算方式照搬给函数式程序是有问题的，前者的理论基础是图灵机 - 状态转移次数，后者的理论基础是 $λ$ 演算 - 规约次数，计算模型的不同势必带来一些差异. 因为我们使用的计算机采取冯诺依曼体系结构，即 图灵机的物理实现，所以算法课也采用更接近硬件的命令式的编程范式，还是很合理的. 不由得想起大一上 CPP 程序设计时老师说 “只要冯诺依曼体系结构还存在，我们就&amp;hellip;(后半句忘了)”，不知不觉我已经尝试走了走另一条路. 说起函数式语言的机器这件事情，其实 1970s,1980s 有学者为函数式的语言设计过专门的非冯诺依曼机器（combinator machine, dataflow machine, etc.），后来大家发现在效率的方面，现有机器 + 好的编译器 &amp;gt; 专用机器，可参考 &lt;a class=&#34;link&#34; href=&#34;https://www.microsoft.com/en-us/research/wp-content/uploads/2016/07/history.pdf?from=https://research.microsoft.com/~simonpj/papers/history-of-haskell/history.pdf&amp;amp;type=exact&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;A History of Haskell: Being Lazy With Class&lt;/a&gt;, Part I - 2.1&lt;/span&gt;&lt;/p&gt;
-&lt;h2 id=&#34;命令式程序如何避免重复计算&#34;&gt;&lt;a href=&#34;#%e5%91%bd%e4%bb%a4%e5%bc%8f%e7%a8%8b%e5%ba%8f%e5%a6%82%e4%bd%95%e9%81%bf%e5%85%8d%e9%87%8d%e5%a4%8d%e8%ae%a1%e7%ae%97&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;命令式程序如何避免重复计算
-&lt;/h2&gt;&lt;p&gt;关于过程式的 0-1 背包，你熟悉到几乎可以默写的一段程序：&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;回忆：使用 &lt;code&gt;dp&lt;/code&gt; 数组，而不是递归的原因是 —— 将递归转为迭代，避免重复计算；另一种陈述是将函数调用 &lt;code&gt;dp(i, j)&lt;/code&gt; 的结果存储到内存中的数组 &lt;code&gt;dp[i][j]&lt;/code&gt; 里，实现记忆化.&lt;/li&gt;
-&lt;/ul&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#6639ba&#34;&gt;knapsack&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;int&lt;/span&gt; n&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;int&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;*&lt;/span&gt; weight&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;int&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;*&lt;/span&gt; value&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;int&lt;/span&gt; capacity&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;int&lt;/span&gt; dp&lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;n&lt;span style=&#34;color:#0550ae&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;][&lt;/span&gt;capacity&lt;span style=&#34;color:#0550ae&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;];&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#57606a&#34;&gt;// INIT: BASE CASE// 
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;int&lt;/span&gt; j &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt; j &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;lt;=&lt;/span&gt; capacity&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt; j&lt;span style=&#34;color:#0550ae&#34;&gt;++&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt; 
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        dp&lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;][&lt;/span&gt;j&lt;span style=&#34;color:#1f2328&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt;  
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;int&lt;/span&gt; i &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt;i &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;lt;=&lt;/span&gt; n&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt;i&lt;span style=&#34;color:#0550ae&#34;&gt;++&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt;  
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        dp&lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;i&lt;span style=&#34;color:#1f2328&#34;&gt;][&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt; 
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#57606a&#34;&gt;// DP // 
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;int&lt;/span&gt; i &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt; i &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;lt;=&lt;/span&gt; n&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt;i&lt;span style=&#34;color:#0550ae&#34;&gt;++&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#cf222e&#34;&gt;int&lt;/span&gt; w &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; weight&lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;i&lt;span style=&#34;color:#1f2328&#34;&gt;],&lt;/span&gt; v &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; value&lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;i&lt;span style=&#34;color:#1f2328&#34;&gt;];&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#cf222e&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;int&lt;/span&gt; j &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt; j &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;lt;=&lt;/span&gt; capacity&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt; j&lt;span style=&#34;color:#0550ae&#34;&gt;++&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#cf222e&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;j &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;lt;&lt;/span&gt; w&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt; dp&lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;i&lt;span style=&#34;color:#1f2328&#34;&gt;][&lt;/span&gt;j&lt;span style=&#34;color:#1f2328&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; dp&lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;i&lt;span style=&#34;color:#0550ae&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;][&lt;/span&gt;j&lt;span style=&#34;color:#1f2328&#34;&gt;];&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#cf222e&#34;&gt;else&lt;/span&gt; dp&lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;i&lt;span style=&#34;color:#1f2328&#34;&gt;][&lt;/span&gt;j&lt;span style=&#34;color:#1f2328&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; max&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;dp&lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;i&lt;span style=&#34;color:#0550ae&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;][&lt;/span&gt;j&lt;span style=&#34;color:#1f2328&#34;&gt;],&lt;/span&gt; dp&lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;i&lt;span style=&#34;color:#1f2328&#34;&gt;][&lt;/span&gt;j&lt;span style=&#34;color:#0550ae&#34;&gt;-&lt;/span&gt;w&lt;span style=&#34;color:#1f2328&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;+&lt;/span&gt;v&lt;span style=&#34;color:#1f2328&#34;&gt;);&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#1f2328&#34;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#1f2328&#34;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;return&lt;/span&gt; dp&lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;n&lt;span style=&#34;color:#1f2328&#34;&gt;][&lt;/span&gt;capacity&lt;span style=&#34;color:#1f2328&#34;&gt;];&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;将上述代码 1:1 翻译成 Haskell 程序，你将得到：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-hs&#34; data-lang=&#34;hs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#24292e&#34;&gt;Data.Array&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;type&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;Value&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;Int&lt;/span&gt; 
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;type&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;Weight&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;Int&lt;/span&gt; 
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;type&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;Item&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;Value&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;Weight&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;knapsack01&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;::&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;Weight&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;Item&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;Value&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;knapsack01&lt;/span&gt; capacity items &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; dp &lt;span style=&#34;color:#0550ae&#34;&gt;!&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;n&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt; capacity&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt; 
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;where&lt;/span&gt; 
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        n &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; length items 
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        dp &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; array&lt;span style=&#34;color:#1f2328&#34;&gt;((&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;),&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;n&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;capacity&lt;span style=&#34;color:#1f2328&#34;&gt;))&lt;/span&gt; 
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;             &lt;span style=&#34;color:#1f2328&#34;&gt;[((&lt;/span&gt;i&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt; w&lt;span style=&#34;color:#1f2328&#34;&gt;),&lt;/span&gt; step i w&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;|&lt;/span&gt; i &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;..&lt;/span&gt;n&lt;span style=&#34;color:#1f2328&#34;&gt;],&lt;/span&gt; w &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;..&lt;/span&gt;capacity&lt;span style=&#34;color:#1f2328&#34;&gt;]]&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        step &lt;span style=&#34;color:#0550ae&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;_&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;0&lt;/span&gt; 
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        step &lt;span style=&#34;color:#cf222e&#34;&gt;_&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;0&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        step i w 
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#0550ae&#34;&gt;|&lt;/span&gt; curWgt &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;gt;&lt;/span&gt; w 
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; dp &lt;span style=&#34;color:#0550ae&#34;&gt;!&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;i &lt;span style=&#34;color:#0550ae&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt; w&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt; 
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#0550ae&#34;&gt;|&lt;/span&gt; otherwise     
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; max &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;dp &lt;span style=&#34;color:#0550ae&#34;&gt;!&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;i &lt;span style=&#34;color:#0550ae&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt; w&lt;span style=&#34;color:#1f2328&#34;&gt;))&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;curVal &lt;span style=&#34;color:#0550ae&#34;&gt;+&lt;/span&gt; dp &lt;span style=&#34;color:#0550ae&#34;&gt;!&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;i &lt;span style=&#34;color:#0550ae&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt; w &lt;span style=&#34;color:#0550ae&#34;&gt;-&lt;/span&gt; curWgt&lt;span style=&#34;color:#1f2328&#34;&gt;))&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#cf222e&#34;&gt;where&lt;/span&gt; curVal &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; fst &lt;span style=&#34;color:#0550ae&#34;&gt;$&lt;/span&gt; items &lt;span style=&#34;color:#0550ae&#34;&gt;!!&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;i &lt;span style=&#34;color:#0550ae&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt; 
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                  curWgt &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; snd &lt;span style=&#34;color:#0550ae&#34;&gt;$&lt;/span&gt; items &lt;span style=&#34;color:#0550ae&#34;&gt;!!&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;i &lt;span style=&#34;color:#0550ae&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;写的时候感觉不太对劲，第一感觉是：这两段代码没有区别. 这就是在函数式的语言里写命令式程序. 周五晚上我从炸鸡店走出来的时候，有了一些新的想法：&lt;/p&gt;
-&lt;h2 id=&#34;函数式程序如何避免重复计算&#34;&gt;&lt;a href=&#34;#%e5%87%bd%e6%95%b0%e5%bc%8f%e7%a8%8b%e5%ba%8f%e5%a6%82%e4%bd%95%e9%81%bf%e5%85%8d%e9%87%8d%e5%a4%8d%e8%ae%a1%e7%ae%97&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;函数式程序如何避免重复计算
-&lt;/h2&gt;&lt;p&gt;当我们不能像过程式语言那样在内存条里随机存取的时候，当我们建立起一层层抽象的时候，如何追求性能呢？除了在 CSAPP 第五章里学习利用局部性、循环展开、提高并行性等方法，还有什么方式可以提高程序的性能？除了程序员本身从源代码层面提高性能，还可以在哪里优化性能？编译器从程序员手上接管代码，编译器可以做什么？&lt;/p&gt;
-&lt;!-- 就 是 要 递 归 --&gt;
-&lt;h3 id=&#34;0-1-背包回到起点&#34;&gt;&lt;a href=&#34;#0-1-%e8%83%8c%e5%8c%85%e5%9b%9e%e5%88%b0%e8%b5%b7%e7%82%b9&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;0-1 背包：回到起点
-&lt;/h3&gt;&lt;p&gt;所有物品为 $items$，规模为 $N$, 物品属性为价值 $v_i, w_i$，背包总容量为 $W$，定义 $z(i, j)$ 为可选物品为 $items[1..i]$，背包容量为 $j$ 时，可获得的最大价值，那么&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;递推基：$\forall i, j,\quad z(i, 0) = 0, z(0,j) = 0;$&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;递推步：$z(i,j) = max(z(i-1, j), v_i + z(i-1, j-w_i));$&lt;br&gt;&lt;/li&gt;
-&lt;li&gt;目标值：$z(N, W)$&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;毫无疑问这是递归的结构，在 Haskell 里写递归实现，如同呼吸般自然：&lt;br&gt;&lt;span style=&#34;color: gray; font-size: smaller;&#34;&gt;（NOTE：1. 看到这里也许你已经开始担忧重复计算、内存占用的事情了 ；2. 值得稍稍注意的一点是，这一段代码完全不涉及基于索引的数据存取）&lt;/span&gt;&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-hs&#34; data-lang=&#34;hs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;type&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;Item&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;Value&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;Weight&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;knapsack&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;::&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;Item&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;Int&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;Int&lt;/span&gt;        &lt;span style=&#34;color:#57606a&#34;&gt;-- items + capacity -&amp;gt; maximal value &lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;knapsack&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;_&lt;/span&gt;  &lt;span style=&#34;color:#0550ae&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;0&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;knapsack&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;[]&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;_&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;0&lt;/span&gt; 
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;knapsack&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;((&lt;/span&gt;v&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;w&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;:&lt;/span&gt;items&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt; c &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; 
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;let&lt;/span&gt; 
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        choose &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; v &lt;span style=&#34;color:#0550ae&#34;&gt;+&lt;/span&gt; knapsack items &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;c&lt;span style=&#34;color:#0550ae&#34;&gt;-&lt;/span&gt;w&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt;   &lt;span style=&#34;color:#57606a&#34;&gt;-- choose current item &lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        chxxse &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; knapsack items c           &lt;span style=&#34;color:#57606a&#34;&gt;-- not choose current item&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;in&lt;/span&gt; 
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#cf222e&#34;&gt;if&lt;/span&gt; w &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;gt;&lt;/span&gt; c &lt;span style=&#34;color:#cf222e&#34;&gt;then&lt;/span&gt; chxxse &lt;span style=&#34;color:#cf222e&#34;&gt;else&lt;/span&gt; max choose chxxse 
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;严格求值---不递归的理由&#34;&gt;&lt;a href=&#34;#%e4%b8%a5%e6%a0%bc%e6%b1%82%e5%80%bc---%e4%b8%8d%e9%80%92%e5%bd%92%e7%9a%84%e7%90%86%e7%94%b1&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;严格求值 - 不递归的理由
-&lt;/h3&gt;&lt;p&gt;在背包问题的 C++ （&lt;strong&gt;严格求值语言&lt;/strong&gt;）实现中，我们不用递归的理由是对于性能的追求，因而使用 &lt;code&gt;dp[i][j]&lt;/code&gt; 用空间换时间，将递归中的重复计算转换为数组的索引访问. 这个&lt;strong&gt;记忆化&lt;/strong&gt;的工作，除了我们自己做（也就是使用 &lt;code&gt;dp&lt;/code&gt; 数组），还可以 —— 交给编译器. 当然这种形式的记忆化就不是在源代码层面上呈现一个记忆数组了，而是通过求值策略来实现. 在讨论求值策略前，先看看什么是纯函数.&lt;/p&gt;
-&lt;h3 id=&#34;对于--纯--函数的讨论&#34;&gt;&lt;a href=&#34;#%e5%af%b9%e4%ba%8e--%e7%ba%af--%e5%87%bd%e6%95%b0%e7%9a%84%e8%ae%a8%e8%ae%ba&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;对于 &amp;quot; &lt;strong&gt;纯&lt;/strong&gt; &amp;quot; 函数的讨论
-&lt;/h3&gt;&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;函数是什么？/ 函数的表示法 / LUT 的类比 / 编译器行为 / 纯函数的求值策略&lt;/p&gt;
-&lt;p&gt;&lt;em&gt;—— 多年以后，面对 &amp;ldquo;函数式程序设计&amp;rdquo;，🐟将会回想起数学老师带她去见识函数的那节遥远的数学课.&lt;/em&gt;&lt;/p&gt;
-&lt;p&gt;函数是一种映射关系. 体现这种关系的方式，即 函数的表示法，除了函数表达式、函数图像，还有&lt;strong&gt;表格&lt;/strong&gt;.&lt;/p&gt;
-&lt;p&gt;如果我们需要一台机器来执行定义域为某有穷集的完全平方函数 &lt;code&gt;f(x, y) = x*x + y*y&lt;/code&gt;，除了依赖加法器、乘法器构成的组合逻辑电路，我们还可以用 LUT（LookUp Table），虽然听起来有点离谱，但是它的可行性是不可否认的.&lt;/p&gt;
-&lt;p&gt;&lt;span style=&#34;color:gray&#34;&gt;&lt;b&gt;NOTE: &lt;/b&gt; 可能产生的疑惑 - 如何确定 / 如何描述电路实现的函数与我们预期的函数之间的等价性？或者说，我们预期的是函数 $f$，电路实现的是函数 $f&amp;rsquo;$，如何确定 $f&amp;rsquo; \equiv f$？如果你对 $λ$ 演算（逻辑学）中函数等价的形式化理论感兴趣，可以参看 &lt;i&gt;Lambda Calculus and Combinators, an introduction - Chapter 5~8&lt;/i&gt;. 这里 LUT 实现的函数 $f_1&amp;rsquo;$ 与预期函数 $f$ 外延等价（extensional equivalence），组合逻辑实现的函数 $f_2&amp;rsquo;$ 与预期函数 $f$ 内涵等价（intensional equivalence）.&lt;/span&gt;&lt;/p&gt;
-  &lt;img src=&#34;img/3-input-LUT.png&#34; alt=&#34;3 input LUT&#34; style=&#34;zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
-&lt;p&gt;我们习惯的编译器的行为大致是：看到函数+参数 → 放入组合逻辑电路计算；如果&lt;strong&gt;只&lt;/strong&gt;依赖映射表（LUT），那么编译器的行为大致是：看到函数+参数 → 在 LUT 中查找对应输出，这需要 LUT 存储好&lt;strong&gt;所有&lt;/strong&gt;函数输入对应的输出，于是压力给到 LUT；折中的策略是，第一次见到函数+参数时，利用组合逻辑电路计算，并&lt;strong&gt;缓存&lt;/strong&gt;到 LUT，再次见到这组函数+参数，直接在 LUT 中查找.（函数式有自己的高速缓存:）&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;子过程与函数 / 副作用与纯度&lt;/p&gt;
-&lt;p&gt;这里我们用函数指代“纯”函数（定义见下），将非纯的过程称为子过程.&lt;/p&gt;
-&lt;p&gt;使用 LUT 实现函数的前提是：函数是&lt;strong&gt;纯&lt;/strong&gt;的，即对相同的输入总是返回相同的输出，并且不产生副作用. 形象地说，我们希望 LUT 是严格的，IN / OUT 引脚保持干净，IN 接收函数参数，OUT 给出函数输出，不希望在 IN 之外，再从某个寄存器接进来一个输入，也不希望在 OUT 的旁边，多连接一个寄存器，把寄存器存储值的改变作为函数执行的结果；即 函数本身总是&lt;strong&gt;独立&lt;/strong&gt;于程序的其他部分 - LUT 总是独立于电路的其他部分，不受其他部分影响.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;输入输出的纯度：&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;addx&lt;/code&gt; 是不纯的，因为这个函数无法保证对于同样的 &lt;code&gt;a&lt;/code&gt; 总是给出相同的输出，因为全局变量 &lt;code&gt;x&lt;/code&gt; 可能随时被修改，导致修改前后 &lt;code&gt;a + x&lt;/code&gt; 的值不同；&lt;code&gt;readOneWord&lt;/code&gt; 是不纯的，因为无法保证对于同一个路径 &lt;code&gt;p&lt;/code&gt;，始终返回同样的 &lt;code&gt;firstWord&lt;/code&gt;，因为 &lt;code&gt;p&lt;/code&gt; 对应的文件可能被其他程序随时修改.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;int&lt;/span&gt; x&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt;              &lt;span style=&#34;color:#57606a&#34;&gt;// global 
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#6639ba&#34;&gt;addx&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;int&lt;/span&gt; a&lt;span style=&#34;color:#1f2328&#34;&gt;){&lt;/span&gt;    
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;return&lt;/span&gt; a &lt;span style=&#34;color:#0550ae&#34;&gt;+&lt;/span&gt; x&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;string &lt;span style=&#34;color:#6639ba&#34;&gt;readOneWord&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;path p&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;{&lt;/span&gt;    &lt;span style=&#34;color:#57606a&#34;&gt;// IO
-&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;return&lt;/span&gt; head&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;getFile&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;p&lt;span style=&#34;color:#1f2328&#34;&gt;));&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;副作用：&lt;/p&gt;
-&lt;p&gt;&lt;code&gt;greeting&lt;/code&gt; 是不纯的，因为它产生了 &lt;code&gt;print&lt;/code&gt; 的副作用； &lt;code&gt;write&lt;/code&gt; 是不纯的，因为它造成了写文件的副作用.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#6639ba&#34;&gt;greeting&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;string name&lt;span style=&#34;color:#1f2328&#34;&gt;){&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    print&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;f&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;Hello, {name}&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;);&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#6639ba&#34;&gt;writeLine&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;path p&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    getFile&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;p&lt;span style=&#34;color:#1f2328&#34;&gt;).&lt;/span&gt;append&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;Append this line&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;);&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&amp;ldquo;提纯&amp;rdquo;？&lt;/p&gt;
-&lt;p&gt;对于上述的非纯函数，我们可以&lt;strong&gt;将副作用分离&lt;/strong&gt;，得到对应的纯函数如下：&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#6639ba&#34;&gt;addx&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;int&lt;/span&gt; a&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;int&lt;/span&gt; x&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;{&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;return&lt;/span&gt; a &lt;span style=&#34;color:#0550ae&#34;&gt;+&lt;/span&gt; x&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;string &lt;span style=&#34;color:#6639ba&#34;&gt;readOneWord&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;file f&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;{&lt;/span&gt;    
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    string firstWord &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; head&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;f&lt;span style=&#34;color:#1f2328&#34;&gt;);&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;return&lt;/span&gt; firstWord&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;string &lt;span style=&#34;color:#6639ba&#34;&gt;greeting&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;string name&lt;span style=&#34;color:#1f2328&#34;&gt;){&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;return&lt;/span&gt; f&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;Hello, {name}&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;file &lt;span style=&#34;color:#6639ba&#34;&gt;writeLine&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;file f&lt;span style=&#34;color:#1f2328&#34;&gt;){&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;return&lt;/span&gt; f&lt;span style=&#34;color:#1f2328&#34;&gt;.&lt;/span&gt;append&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;Append this line&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;);&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;}&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;分离副作用的示例 / Imperative Shell, Functional Core&lt;/p&gt;
-&lt;p&gt;提问：假设有两个类 &lt;code&gt;Camera&lt;/code&gt;, &lt;code&gt;FaceRecognizer&lt;/code&gt;，&lt;code&gt;Camera&lt;/code&gt; 类有一个方法 &lt;code&gt;getFrame&lt;/code&gt; 用于从物理摄像头捕获一帧图像，&lt;code&gt;FaceRecognizer&lt;/code&gt; 类有一个方法 &lt;code&gt;recognizePerson&lt;/code&gt; 用于识别一帧图像中的人脸并返回对应用户名. 若需要实现函数 &lt;code&gt;getFrameAndRecognize&lt;/code&gt; 用于捕获当前帧、识别并返回用户名，如何组织程序结构？&lt;/p&gt;
-&lt;p&gt;一种答案：将 &lt;code&gt;FaceRecognizer&lt;/code&gt; 的实例作为 &lt;code&gt;Camera&lt;/code&gt; 的成员，保证 &lt;code&gt;FaceRecognizer&lt;/code&gt; 的纯度，即 &lt;code&gt;FaceRecognizer&lt;/code&gt; 的方法总是对帧做计算，将 &lt;code&gt;getFrame&lt;/code&gt; 这样的副作用分离、止步于 &lt;code&gt;Camera&lt;/code&gt; 类.&lt;/p&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;Camera&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#6a737d&#34;&gt;self&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;.&lt;/span&gt;face_recognizer &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; FaceRecognizer&lt;span style=&#34;color:#1f2328&#34;&gt;()&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#6639ba&#34;&gt;getFrame&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;():&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#57606a&#34;&gt;# snip # &lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#cf222e&#34;&gt;return&lt;/span&gt; frame
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#6639ba&#34;&gt;getFrameAndRecognize&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;():&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        frame &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; getFrame&lt;span style=&#34;color:#1f2328&#34;&gt;()&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        name &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; face_recognizer&lt;span style=&#34;color:#0550ae&#34;&gt;.&lt;/span&gt;recognizePerson&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;frame&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#cf222e&#34;&gt;return&lt;/span&gt; name 
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;FaceRecognizer&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#6639ba&#34;&gt;recognizePerson&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;frame&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt; image&lt;span style=&#34;color:#1f2328&#34;&gt;):&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#57606a&#34;&gt;# snip #&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#cf222e&#34;&gt;return&lt;/span&gt; name
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;即：保证功能函数的纯度，并将其作为程序的核心，将 IO 等非纯操作分离到外层 ——  Imperative Shell, Functional Core. （此处应有一场 Simon Peyton Jones 的讲座链接，但我一时找不到了.）&lt;/p&gt;
-  &lt;div style=&#34;text-align: center;&#34;&gt;
-      &lt;img src=&#34;img/shellcore.png&#34; alt=&#34;Imperative Shell, Functional Core&#34; style=&#34;zoom:40%;&#34; /&gt;
-  &lt;/div&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;追求纯度的理由&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;方便&lt;strong&gt;单元&lt;/strong&gt;测试与维护；&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;易于并行；&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;可以用查表作为一种求值策略，或者作为求值策略的一部分，避免了重复计算带来的开销.&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;语法树与语法图 / 重复计算 / 求值策略&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;一些参考资料&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://en.wikibooks.org/wiki/Haskell/Graph_reduction&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
-    &gt;Haskell Wiki - Graph Reduction&lt;/a&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;从 Lambda Calculus 角度解释操作语义 call-by-value / call-by-name / call-by-need，可以参考 Types and Programming Language, Section 5.1&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;[TODO]&lt;/p&gt;
-&lt;p&gt;&lt;span style=&#34;color: gray; font-size: smaller;&#34;&gt;  这一节还没写的原因是：我 也 不 是 很 懂.&lt;/span&gt;&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;
-&lt;p&gt;graph reduction 的图示&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;语法树与语法图比较&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;let&lt;/code&gt; 对应的语法图（及其 Core 解释？）&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&amp;hellip;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;h3 id=&#34;惰性求值---递归的理由&#34;&gt;&lt;a href=&#34;#%e6%83%b0%e6%80%a7%e6%b1%82%e5%80%bc---%e9%80%92%e5%bd%92%e7%9a%84%e7%90%86%e7%94%b1&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;惰性求值 - 递归的理由
-&lt;/h3&gt;&lt;p&gt;照应本文 &lt;a class=&#34;link&#34; href=&#34;#%e4%b8%8d%e9%80%92%e5%bd%92%e7%9a%84%e7%90%86%e7%94%b1&#34; &gt;3.2 不递归的理由&lt;/a&gt; 避免重复计算的方式除了通过显式缓存（记忆数组），还可以依赖编译器采取的求值策略（惰性求值 Lazy Evaluation），将语法树中的所有相同的表达式结点指向同一个结点，实现计算结果的复用.&lt;/p&gt;
-&lt;h2 id=&#34;其他&#34;&gt;&lt;a href=&#34;#%e5%85%b6%e4%bb%96&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;其他
-&lt;/h2&gt;&lt;p&gt;前文试图在 命令式语言 / 函数式语言，递归 / 非递归 之间做比较明确的区分，其实，当然递归不是 FP 的专利，记忆化数组也不只是在命令式程序里好用，只是不同语言 / 编程范式本身的特性（例如 C++ 的严格求值 / Haskell 的惰性求值），使得我们对于程序产生了不一样的思考和不一样的惯性. 对于纯度与惰性求值，命令式语言也可以有灵活的求值策略，比如判断函数的纯度，对非纯函数严格求值，对纯函数惰性求值.&lt;/p&gt;
-&lt;!-- ## [TODO]
-
-- Haskell 程序对应的指令，反汇编 / Core 代码结果？惰性求值机制的底层表现？
-    
-    &lt;span style=&#34;color: gray; font-size: smaller;&#34;&gt;不是完全没做过，当时编译然后反汇编，得到的代码长得不得了，然后暂时放弃了.&lt;/span&gt;
-
-- 组合子机器的原理？
-
-    &lt;span style=&#34;color: gray; font-size: smaller;&#34;&gt;好奇心. &lt;br&gt;顺便国庆的时候接触了 uiua 语言，听说了 BQN 语言，然后发现 BQN 语言里真的有活的组合子（W combinator, B combinator, etc.），没想到有一天我也可以有在 CS 领域有先接触理论（Combinatory Logic），再偶遇其实践的体验，神奇神奇. 看到这里就是缘分，不日这段[TODO]文本估计会被我删掉，向看到这里的你介绍 uiua, Stack-Based Array-Oriented Language, 很有意思，掌握了它你就是编程界的符文法师，APL 系语言——由于其对于 glyph 的使用——堪称所谓中英文编程之争的版本答案，不妨抽出 10 分钟看看语言官网，真的很吸引人：[uiua lang](https://www.uiua.org/)&lt;/span&gt;
-
-
-###  --&gt;
-</description>
-        </item>
-        <item>
         <title>迭代组合子的构造 - LCaC § 4C, Theorem 4.20</title>
-        <link>http://localhost:1313/zh/p/%E8%BF%AD%E4%BB%A3%E7%BB%84%E5%90%88%E5%AD%90%E7%9A%84%E6%9E%84%E9%80%A0-lcac-4c-theorem-4.20/</link>
+        <link>http://fyshxfish.github.io/zh/p/%E8%BF%AD%E4%BB%A3%E7%BB%84%E5%90%88%E5%AD%90%E7%9A%84%E6%9E%84%E9%80%A0-lcac-4c-theorem-4.20/</link>
         <pubDate>Tue, 17 Sep 2024 23:48:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/zh/p/%E8%BF%AD%E4%BB%A3%E7%BB%84%E5%90%88%E5%AD%90%E7%9A%84%E6%9E%84%E9%80%A0-lcac-4c-theorem-4.20/</guid>
+        <guid>http://fyshxfish.github.io/zh/p/%E8%BF%AD%E4%BB%A3%E7%BB%84%E5%90%88%E5%AD%90%E7%9A%84%E6%9E%84%E9%80%A0-lcac-4c-theorem-4.20/</guid>
         <description>&lt;p&gt;这篇博客对 &lt;em&gt;Lambda-Calculus and Combinator § 4C Theorem 4.20&lt;/em&gt; 的 proof 部分做一些补充，证明的整体意图是证明符合 Definition 4.18 的全称递归函数可以用组合子来表示. 这里对该证明的关键部分，即迭代组合子的构造，做简要的陈述. 也可以理解为：&lt;strong&gt;在 Pure Lambda Calculus 中编写一个具有特定终止条件的迭代程序.&lt;/strong&gt;&lt;/p&gt;
 &lt;!-- 如果你好奇 &#34; 如何在 Lambda Calculus 中编写一个指定**迭代 / 递归次数**的迭代 / 递归函数 &#34; ，可以参考 Lambda-Calculus and Combinator § 4B Theorem 4.11 的 proof 中 $R_{\text{Bernays}}$ 组合子的构造，这个构造过程也十分精巧. --&gt;
 &lt;p&gt;递归与迭代：在 $R_{\text{Bernays}}$ 递归组合子的构造中，求解某个递归函数 $\phi $ 的值 $ \phi(n) $，一种可行的方法是，从 $ \phi(0) $ 开始，做 $n$ 次迭代得到 $ \phi(n) $（大致如下：记递归步更新函数为 $\chi$，$\phi(n) = \chi^n \phi(0)$）. 迭代和递归是正向与逆向的区别. 本文中的&amp;quot;递归&amp;quot;意在描述&amp;quot;&lt;strong&gt;调用自身&lt;/strong&gt;&amp;quot; 的结构特点，探讨的中心问题还是对迭代（$0 \rightarrow 1 \rightarrow  &amp;hellip;  \rightarrow n$）问题的求解.&lt;/p&gt;
@@ -1184,26 +760,11 @@ $ \bar{\sigma} = _{\beta, w} \lambda nfz. f (n f z)$ &lt;/br&gt;&lt;/p&gt;
 </description>
         </item>
         <item>
-        <title>语言的安全与抽象</title>
-        <link>http://localhost:1313/zh/p/%E8%AF%AD%E8%A8%80%E7%9A%84%E5%AE%89%E5%85%A8%E4%B8%8E%E6%8A%BD%E8%B1%A1/</link>
-        <pubDate>Tue, 10 Sep 2024 14:10:00 +0800</pubDate>
-        
-        <guid>http://localhost:1313/zh/p/%E8%AF%AD%E8%A8%80%E7%9A%84%E5%AE%89%E5%85%A8%E4%B8%8E%E6%8A%BD%E8%B1%A1/</guid>
-        <description>&lt;p&gt;来自 &lt;em&gt;Types and Programming Languages § 1.2 What Type Systems Are Good For&lt;/em&gt;&lt;/p&gt;
-&lt;blockquote&gt;
-&lt;p&gt;A safe language is one that protects its own &lt;strong&gt;abstractions&lt;/strong&gt;.
-&lt;br&gt;A safe language is completely defined by its programmer&amp;rsquo;s manual.&lt;/p&gt;&lt;/blockquote&gt;
-&lt;p&gt;完备的&lt;strong&gt;抽象&lt;/strong&gt;意味着使用者可以完全信赖语言设计，&lt;strong&gt;只&lt;/strong&gt;关心高级语言这一抽象层，而无需关心硬件层的具体实现.&lt;/p&gt;
-&lt;p&gt;高级语言提供对物理设备的抽象，比如，数组是对于内存的抽象，程序员对于数组的预期是：数组&lt;strong&gt;只能&lt;/strong&gt;通过&lt;strong&gt;显式&lt;/strong&gt;的更新操作（如 &lt;code&gt;arr[1] = 1024&lt;/code&gt; ）修改，&amp;ldquo;修改了某个变量，某个数组中的若干元素也莫名其妙地改变了&amp;rdquo;（e.g. 缓冲区溢出攻击）是抽象被破坏的一种表现，这意味着程序员必须对&lt;strong&gt;变量&lt;/strong&gt;（高级语言提供的抽象）在&lt;strong&gt;内存&lt;/strong&gt;（真实存在的物理设备）中的布局有详细了解，才能写出符合预期的程序.&lt;/p&gt;
-&lt;p&gt;想起了 CSAPP 的一系列实验，因为 CSAPP 的目标是从程序员的角度考察计算机系统，即从软件视角看硬件，如果使用的编程语言是安全的，那么我们可以完全相信它提供的抽象，那么我们就不能透过软件看到硬件，如果 c 是安全的，那么 CSAPP 的实验就没法做了🧐&lt;/p&gt;
-</description>
-        </item>
-        <item>
         <title>Church Encoding 简单笔记</title>
-        <link>http://localhost:1313/zh/p/church-encoding-%E7%AE%80%E5%8D%95%E7%AC%94%E8%AE%B0/</link>
+        <link>http://fyshxfish.github.io/zh/p/church-encoding-%E7%AE%80%E5%8D%95%E7%AC%94%E8%AE%B0/</link>
         <pubDate>Sun, 08 Sep 2024 20:13:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/zh/p/church-encoding-%E7%AE%80%E5%8D%95%E7%AC%94%E8%AE%B0/</guid>
+        <guid>http://fyshxfish.github.io/zh/p/church-encoding-%E7%AE%80%E5%8D%95%E7%AC%94%E8%AE%B0/</guid>
         <description>&lt;h2 id=&#34;motivation-abstraction-level-up&#34;&gt;&lt;a href=&#34;#motivation-abstraction-level-up&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Motivation: Abstraction Level Up!
 &lt;/h2&gt;&lt;ol&gt;
 &lt;li&gt;
@@ -1331,10 +892,10 @@ Church Encoding 让我困惑了很久，每次我听到一些视频 / 博客里�
         </item>
         <item>
         <title>Message Passing 视角下的 Bool - SICP § 2.4.3 | 泛型 | 数据与函数</title>
-        <link>http://localhost:1313/zh/p/message-passing-%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84-bool-sicp-2.4.3-%E6%B3%9B%E5%9E%8B-%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%87%BD%E6%95%B0/</link>
+        <link>http://fyshxfish.github.io/zh/p/message-passing-%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84-bool-sicp-2.4.3-%E6%B3%9B%E5%9E%8B-%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%87%BD%E6%95%B0/</link>
         <pubDate>Sat, 07 Sep 2024 23:18:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/zh/p/message-passing-%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84-bool-sicp-2.4.3-%E6%B3%9B%E5%9E%8B-%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%87%BD%E6%95%B0/</guid>
+        <guid>http://fyshxfish.github.io/zh/p/message-passing-%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84-bool-sicp-2.4.3-%E6%B3%9B%E5%9E%8B-%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%87%BD%E6%95%B0/</guid>
         <description>&lt;h2 id=&#34;前言&#34;&gt;&lt;a href=&#34;#%e5%89%8d%e8%a8%80&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;前言
 &lt;/h2&gt;&lt;p&gt;SICP § 2.4.3 中描述了以查表（ type × operation 二维表）为实现方式的泛型系统，具体函数被隐藏在“泛型函数 + Selector”这样的抽象之下，那么如果将具体函数放在“数据 + Selector”这样的抽象之下是什么样的呢，本文呈现了符合此抽象（SICP 中称为 Message Passing）的 Boolean.   &lt;strong&gt;数据&lt;/strong&gt;和&lt;strong&gt;函数&lt;/strong&gt;对程序而言的重要性不言而喻，那么接下来从三个角度探讨数据与函数之间可能存在什么样的关系：Message Passing ↦ 让数据自己携带函数；Haskell &lt;code&gt;$&lt;/code&gt;的应用 ↦ 将数据变成某种函数；Haskell中的代数数据类型 ↦ 使用函数构造数据.&lt;/p&gt;
 &lt;h2 id=&#34;泛型函数intelligent-operations&#34;&gt;&lt;a href=&#34;#%e6%b3%9b%e5%9e%8b%e5%87%bd%e6%95%b0intelligent-operations&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;泛型函数：Intelligent Operations
@@ -1470,10 +1031,10 @@ Church Encoding 是一种用函数表示自然数的方法. --&gt;
         </item>
         <item>
         <title>Huffman 树的 Haskell 实现 | 组合数据的结构与解构</title>
-        <link>http://localhost:1313/zh/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/</link>
+        <link>http://fyshxfish.github.io/zh/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/</link>
         <pubDate>Mon, 02 Sep 2024 01:53:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/zh/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/</guid>
+        <guid>http://fyshxfish.github.io/zh/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/</guid>
         <description>&lt;!-- 在看 SICP Section 2.3.4，对这节中 Huffman 树的实现中使用的组合 / 抽象有相当程度的参考. --&gt;
 &lt;!-- 其实我应该把代码放在某个仓库里，比如把一些数据结构的 Haskell 实现整合在一个仓库里，但是我还没有这么多可供整合的材料，所以以后再说吧. --&gt;
 &lt;p&gt;代码链接：&lt;a class=&#34;link&#34; href=&#34;https://github.com/fyshxfish/sicp-playground/blob/main/sicp-note/ch2/ch2-3-huffman_tree.hs&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -1729,19 +1290,11 @@ Böhm&#39;s theorem 提供的视角是：在不等的两个组合子（即不含
 </description>
         </item>
         <item>
-        <title>Archives</title>
-        <link>http://localhost:1313/zh/archives/</link>
-        <pubDate>Sat, 31 Aug 2024 00:00:00 +0000</pubDate>
-        
-        <guid>http://localhost:1313/zh/archives/</guid>
-        <description></description>
-        </item>
-        <item>
         <title>Nested Mapping Examples Implemented in Haskell - SICP § 2.2.3  | List Monad </title>
-        <link>http://localhost:1313/zh/p/nested-mapping-examples-implemented-in-haskell-sicp-2.2.3-list-monad/</link>
+        <link>http://fyshxfish.github.io/zh/p/nested-mapping-examples-implemented-in-haskell-sicp-2.2.3-list-monad/</link>
         <pubDate>Thu, 29 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/zh/p/nested-mapping-examples-implemented-in-haskell-sicp-2.2.3-list-monad/</guid>
+        <guid>http://fyshxfish.github.io/zh/p/nested-mapping-examples-implemented-in-haskell-sicp-2.2.3-list-monad/</guid>
         <description>&lt;h2 id=&#34;problem-description&#34;&gt;&lt;a href=&#34;#problem-description&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Problem Description
 &lt;/h2&gt;&lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Problem&lt;/strong&gt;: Given a positive integer $n$, find all ordered pairs of distinct positive integers $i$ and $j$, where $ 1 \leq i \leq j \leq n $, such that $ i + j $ is prime.&lt;/p&gt;&lt;/blockquote&gt;
@@ -1794,11 +1347,458 @@ Title of this section is *Nested Mappings*, which represented in code with neste
 </description>
         </item>
         <item>
+        <title>杂谈向：为什么编译需要做语义分析 / 上下文（Context）与语法语义分析</title>
+        <link>http://fyshxfish.github.io/zh/p/%E6%9D%82%E8%B0%88%E5%90%91%E4%B8%BA%E4%BB%80%E4%B9%88%E7%BC%96%E8%AF%91%E9%9C%80%E8%A6%81%E5%81%9A%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90-/-%E4%B8%8A%E4%B8%8B%E6%96%87context%E4%B8%8E%E8%AF%AD%E6%B3%95%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90/</link>
+        <pubDate>Mon, 17 Feb 2025 16:32:00 +0800</pubDate>
+        
+        <guid>http://fyshxfish.github.io/zh/p/%E6%9D%82%E8%B0%88%E5%90%91%E4%B8%BA%E4%BB%80%E4%B9%88%E7%BC%96%E8%AF%91%E9%9C%80%E8%A6%81%E5%81%9A%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90-/-%E4%B8%8A%E4%B8%8B%E6%96%87context%E4%B8%8E%E8%AF%AD%E6%B3%95%E8%AF%AD%E4%B9%89%E5%88%86%E6%9E%90/</guid>
+        <description>&lt;!-- 最近在看一点编译原理的材料， --&gt;
+&lt;h2 id=&#34;引言&#34;&gt;&lt;a href=&#34;#%e5%bc%95%e8%a8%80&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;引言
+&lt;/h2&gt;&lt;p&gt;标题的这个问题，其实是一个不太正确的问题，因为对于语言而言，设计先于实现——先设计语言的语法和语义，然后写编译器去检查一个程序语法是否正确，然后根据设定好的语义将它转写成目标机器代码。从“上下文”这个视角去思考，常见情况下，语法是&lt;strong&gt;上下文无关&lt;/strong&gt;的，而语义正是用来处理&lt;strong&gt;上下文相关&lt;/strong&gt;的问题的，&lt;code&gt;x = 1; print(x);&lt;/code&gt; 和 &lt;code&gt;x = 2; print(x);&lt;/code&gt;，同样是 &lt;code&gt;print(x)&lt;/code&gt;，它的上文是不一样的，所以它导致的结果也不一样.&lt;/p&gt;
+&lt;h2 id=&#34;举例-1---&#34;&gt;&lt;a href=&#34;#%e4%b8%be%e4%be%8b-1---&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;举例 1 - &lt;code&gt;=&lt;/code&gt;
+&lt;/h2&gt;&lt;p&gt;比如：&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;foo = 3
+foo = 4
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;假设对这个程序只做语法分析，那么它符合 Python 语法，也符合 Haskell 语法，但是对它做语义分析，作为一个 Python 程序，它的意思是，“先将 &lt;code&gt;3&lt;/code&gt; 赋值给 &lt;code&gt;foo&lt;/code&gt;，然后将 &lt;code&gt;4&lt;/code&gt; 赋值给 &lt;code&gt;foo&lt;/code&gt;”；作为一个 Haskell 程序，它不是一个合格的 Haskell 程序，因为 Haskell 语义不允许做重复的绑定，所以核心原因是，Python 的 &lt;code&gt;=&lt;/code&gt; 的语义是赋值（assign），内存覆写，Haskell 的 &lt;code&gt;=&lt;/code&gt; 的语义是绑定（name binding），为了保证无副作用、执行顺序无关等特性，只允许单次绑定.&lt;/p&gt;
+&lt;h2 id=&#34;举例2---polyglot&#34;&gt;&lt;a href=&#34;#%e4%b8%be%e4%be%8b2---polyglot&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;举例2 - polyglot
+&lt;/h2&gt;&lt;p&gt;下面这个程序改写自 &lt;a class=&#34;link&#34; href=&#34;https://en.wikipedia.org/wiki/Polyglot_%28computing%29#C,_PHP,_and_Bash&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;polyglot(computing) wikipedia&lt;/a&gt;&lt;/p&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;#define a /*
+echo -e &amp;#34;\033[34mHello, World! from echo\033[0m&amp;#34;;// &amp;amp;&amp;gt; /dev/null;
+x=5; 
+if (($x))
+// 2&amp;gt; /dev/null; then
+return 0;
+// 2&amp;gt; /dev/null; fi
+#define e ?&amp;gt;
+#define b */
+#include &amp;lt;stdio.h&amp;gt;
+#define main() int main(void)
+#define printf printf(
+#define true )
+#define function
+function main()
+{
+    printf &amp;#34;\033[31mHello, World! from main\033[0m\n&amp;#34;true/* 2&amp;gt; /dev/null | grep -v true*/;
+    return 0;
+}
+#define c /*
+main
+#*/
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;它既符合 C 语法，又符合 Bash 语法，编译/解释执行它得到的结果也是不一样的，因为两个程序的语义不同（当然 C 和 Bash 的语法也是不一样的，polyglot 编写的核心就是利用各语言之间的注释/宏/&amp;hellip;使用的&lt;strong&gt;符号&lt;/strong&gt;不同，符号（广义）的使用和布局正是语法&lt;span style=&#34;font-size: smaller;&#34;&gt;&amp;amp;词法&lt;/span&gt;关心的事情）：&lt;/p&gt;
+&lt;img src=&#34;poly.png&#34; alt=&#34;poly&#34; style=&#34;zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
+&lt;!-- &lt;span style=&#34;font-size: smaller;&#34;&gt;你可能注意到了这里的一行 `file` 命令，它通过关键字判断出这是一个 C 源文件，所以 `file` 也不一定完全正确，&lt;/span&gt; --&gt;
+</description>
+        </item>
+        <item>
+        <title>在终端里播放幻灯片</title>
+        <link>http://fyshxfish.github.io/zh/p/%E5%9C%A8%E7%BB%88%E7%AB%AF%E9%87%8C%E6%92%AD%E6%94%BE%E5%B9%BB%E7%81%AF%E7%89%87/</link>
+        <pubDate>Fri, 07 Feb 2025 22:52:00 +0800</pubDate>
+        
+        <guid>http://fyshxfish.github.io/zh/p/%E5%9C%A8%E7%BB%88%E7%AB%AF%E9%87%8C%E6%92%AD%E6%94%BE%E5%B9%BB%E7%81%AF%E7%89%87/</guid>
+        <description>&lt;h2 id=&#34;前言&#34;&gt;&lt;a href=&#34;#%e5%89%8d%e8%a8%80&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;前言
+&lt;/h2&gt;&lt;p&gt;灵感来自蒋炎岩老师的一次讲座：&lt;a class=&#34;link&#34; href=&#34;https://www.bilibili.com/video/BV1MV411F738/?share_source=copy_web&amp;amp;vd_source=09e32470959b198a596693ee5235cca9&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;[算法竞赛入门] 为什么要逼大家用 NOILinux？&lt;/a&gt;，有参考，但不完全一样.&lt;/p&gt;
+&lt;p&gt;掌握此技能，你将可以——在某种程度上达成“在终端展示幻灯片”的效果，实用性一般，但是可以玩一玩 &lt;code&gt;·^v^·&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;效果展示&#34;&gt;&lt;a href=&#34;#%e6%95%88%e6%9e%9c%e5%b1%95%e7%a4%ba&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;效果展示
+&lt;/h2&gt;&lt;div class=&#34;image-gallery&#34;&gt;
+  &lt;div class=&#34;image-container&#34;&gt;
+    &lt;img src=&#34;1.png&#34; alt=&#34;Image 1&#34;&gt;
+    &lt;img src=&#34;2.png&#34; alt=&#34;Image 2&#34;&gt;
+    &lt;img src=&#34;3.png&#34; alt=&#34;Image 3&#34;&gt;
+    &lt;img src=&#34;4.png&#34; alt=&#34;Image 4&#34;&gt;
+    &lt;img src=&#34;5.png&#34; alt=&#34;Image 5&#34;&gt;
+    &lt;img src=&#34;6.png&#34; alt=&#34;Image 6&#34;&gt;
+    &lt;img src=&#34;7.png&#34; alt=&#34;Image 7&#34;&gt;
+  &lt;/div&gt;
+  &lt;button class=&#34;prev-btn&#34; onclick=&#34;moveSlide(-1)&#34;&gt;&amp;#10094; &lt;/button&gt;
+  &lt;button class=&#34;next-btn&#34; onclick=&#34;moveSlide(1)&#34;&gt; &amp;#10095;&lt;/button&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;具体实现&#34;&gt;&lt;a href=&#34;#%e5%85%b7%e4%bd%93%e5%ae%9e%e7%8e%b0&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;具体实现
+&lt;/h2&gt;&lt;h3 id=&#34;整体框架&#34;&gt;&lt;a href=&#34;#%e6%95%b4%e4%bd%93%e6%a1%86%e6%9e%b6&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;整体框架
+&lt;/h3&gt;&lt;h4 id=&#34;目录&#34;&gt;&lt;a href=&#34;#%e7%9b%ae%e5%bd%95&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;目录
+&lt;/h4&gt;&lt;img src=&#34;dir1.png&#34; alt=&#34;directory&#34; style=&#34;zoom:80%;&#34; /&gt;
+&lt;p&gt;.sh 为展示一张幻灯片的 bash 脚本，.md 为需要渲染的 Markdown，.png 为待展示的图片.&lt;/p&gt;
+&lt;h4 id=&#34;启动器&#34;&gt;&lt;a href=&#34;#%e5%90%af%e5%8a%a8%e5%99%a8&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;启动器
+&lt;/h4&gt;&lt;p&gt;首先打印封面（本质上是在终端输出一页渲染过的文本），然后通过 &lt;code&gt;read&lt;/code&gt; 读入文本，控制幻灯片的行为，如换页、图片展示、退出等.&lt;/p&gt;
+&lt;p&gt;0_flow.sh：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;#!/bin/bash
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;bash ./1_banner.sh         &lt;span style=&#34;color:#57606a&#34;&gt;## 打印封面&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#953800&#34;&gt;pc&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;1	&lt;span style=&#34;color:#57606a&#34;&gt;# 页码&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;while&lt;/span&gt; &lt;span style=&#34;color:#6639ba&#34;&gt;true&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#6639ba&#34;&gt;read&lt;/span&gt; -p &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;:&amp;#34;&lt;/span&gt; choice     &lt;span style=&#34;color:#57606a&#34;&gt;## 读取文本，控制翻页、图片展示、退出等&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;[&lt;/span&gt; &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;$choice&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;p&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;then&lt;/span&gt;           &lt;span style=&#34;color:#57606a&#34;&gt;# 翻到前一页&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#0550ae&#34;&gt;((&lt;/span&gt;pc--&lt;span style=&#34;color:#0550ae&#34;&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        bash ./&lt;span style=&#34;color:#0a3069&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;pc&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;}&lt;/span&gt;*
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;elif&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;[&lt;/span&gt; &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;$choice&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;g&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;then&lt;/span&gt;         &lt;span style=&#34;color:#57606a&#34;&gt;# 展示一张图片&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        xdg-open ./load_init.png
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;elif&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;[[&lt;/span&gt; &lt;span style=&#34;color:#953800&#34;&gt;$choice&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;~ ^&lt;span style=&#34;color:#0550ae&#34;&gt;[&lt;/span&gt;1-7&lt;span style=&#34;color:#0550ae&#34;&gt;]&lt;/span&gt;$ &lt;span style=&#34;color:#0550ae&#34;&gt;]]&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;then&lt;/span&gt;     &lt;span style=&#34;color:#57606a&#34;&gt;# 跳转到指定页码&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#953800&#34;&gt;pc&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;$choice&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        bash ./&lt;span style=&#34;color:#0a3069&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;pc&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;}&lt;/span&gt;*
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;elif&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;[&lt;/span&gt; &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;$choice&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;E&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;then&lt;/span&gt;         &lt;span style=&#34;color:#57606a&#34;&gt;# 退出幻灯片&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#6639ba&#34;&gt;break&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;else&lt;/span&gt;                                    &lt;span style=&#34;color:#57606a&#34;&gt;# 缺省：翻到下一页&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#0550ae&#34;&gt;((&lt;/span&gt;pc++&lt;span style=&#34;color:#0550ae&#34;&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        bash ./&lt;span style=&#34;color:#0a3069&#34;&gt;${&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;pc&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;}&lt;/span&gt;*
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;fi&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;done&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;单页展示&#34;&gt;&lt;a href=&#34;#%e5%8d%95%e9%a1%b5%e5%b1%95%e7%a4%ba&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;单页展示
+&lt;/h3&gt;&lt;p&gt;单页展示，说到底，就是展示出一页的文本，基本步骤如下：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;通过 &lt;code&gt;clear&lt;/code&gt; 清空上一页的内容；&lt;/li&gt;
+&lt;li&gt;计算渲染后的文本的总行数；&lt;/li&gt;
+&lt;li&gt;为了将内容居于竖直方向的中心，计算上下的空行 padding 数量；&lt;/li&gt;
+&lt;li&gt;先打印上部的 padding，再渲染并打印内容文本，最后打印下部的 padding.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;比如：（2_question.sh）&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;clear
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#953800&#34;&gt;length&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;`&lt;/span&gt;python3 renderer.py question.md &lt;span style=&#34;color:#1f2328&#34;&gt;|&lt;/span&gt; wc -l&lt;span style=&#34;color:#0a3069&#34;&gt;`&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#953800&#34;&gt;total&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;`&lt;/span&gt;tput lines&lt;span style=&#34;color:#0a3069&#34;&gt;`&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#953800&#34;&gt;sus&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;$((&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;$total&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;$length&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;)/&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;((&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;i&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;1&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt; i&amp;lt;&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;$sus&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt; i++&lt;span style=&#34;color:#0550ae&#34;&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#6639ba&#34;&gt;echo&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;done&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;python3 renderer.py question.md
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;((&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;i&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;1&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt; i&amp;lt;&lt;span style=&#34;color:#953800&#34;&gt;$sus&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt; i++&lt;span style=&#34;color:#0550ae&#34;&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;do&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#6639ba&#34;&gt;echo&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;done&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;图片展示与外部程序调用&#34;&gt;&lt;a href=&#34;#%e5%9b%be%e7%89%87%e5%b1%95%e7%a4%ba%e4%b8%8e%e5%a4%96%e9%83%a8%e7%a8%8b%e5%ba%8f%e8%b0%83%e7%94%a8&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;图片展示与外部程序调用
+&lt;/h3&gt;&lt;img src=&#34;show_pic.png&#34; alt=&#34;show picture&#34; style=&#34;zoom:80%;&#34; /&gt;
+&lt;p&gt;通过 &lt;code&gt;read&lt;/code&gt; 接收输入，当输入为指定字符时，通过 &lt;code&gt;xdg-open&lt;/code&gt; 打开特定图片，展示完毕后通过 ESC 键关闭即可.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;read&lt;/span&gt; -p &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;:&amp;#34;&lt;/span&gt; choice     
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;[&lt;/span&gt; &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;$choice&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;g&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;then&lt;/span&gt;         
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    xdg-open ./picture.png
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;fi&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;类似地，将 &lt;code&gt;xdg-open ...&lt;/code&gt; 改成其他命令，可以播放音视频，执行各种程序.&lt;/p&gt;
+&lt;h3 id=&#34;文本渲染&#34;&gt;&lt;a href=&#34;#%e6%96%87%e6%9c%ac%e6%b8%b2%e6%9f%93&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;文本渲染
+&lt;/h3&gt;&lt;h4 id=&#34;适用于封面页的-ascii-art&#34;&gt;&lt;a href=&#34;#%e9%80%82%e7%94%a8%e4%ba%8e%e5%b0%81%e9%9d%a2%e9%a1%b5%e7%9a%84-ascii-art&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;适用于封面页的 ASCII Art
+&lt;/h4&gt;&lt;p&gt;使用 &lt;code&gt;figlet&lt;/code&gt; 展现主题词，并使用 &lt;code&gt;lolcat&lt;/code&gt; 改色. 除了 &lt;code&gt;figlet&lt;/code&gt; 下载时自带的字体样式之外，还可以在&lt;a class=&#34;link&#34; href=&#34;https://github.com/xero/figlet-fonts&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Github 上的 figlet-fonts 项目&lt;/a&gt;找到并下载更多的字体样式. 上面的展示的&amp;quot;Boot&amp;quot;对应的命令是 &lt;code&gt;figlet &amp;quot; Boot&amp;quot; -f roman | lolcat -S 30&lt;/code&gt;. （另外可选的同类命令行工具为 &lt;code&gt;toilet&lt;/code&gt;）&lt;/p&gt;
+&lt;img src=&#34;boot.png&#34; alt=&#34;boot&#34; style=&#34;zoom:80%;&#34; /&gt;
+&lt;h4 id=&#34;esc-转义&#34;&gt;&lt;a href=&#34;#esc-%e8%bd%ac%e4%b9%89&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;ESC 转义
+&lt;/h4&gt;&lt;p&gt;&lt;code&gt;printf&lt;/code&gt; 命令，通过 &lt;code&gt;\033&lt;/code&gt; 转义可以在终端输出更花哨的文字，可以做简单的效果，如彩色、加粗、斜体等，可以多个效果叠加使用，如下图中最后一行对应的命令是&lt;code&gt;printf &amp;quot;\033[2;34;01;21;09myour text\033[0m\n&amp;quot;&lt;/code&gt;.（此条同样适用于其他编程语言的输出，033 是 ESC 的八进制 ASCII 编码. 呈现的具体颜色和终端的配色方案有关.）&lt;/p&gt;
+&lt;img src=&#34;escape1.png&#34; alt=&#34;escape&#34; style=&#34;zoom:80%;&#34; /&gt;
+&lt;h4 id=&#34;markdown-渲染&#34;&gt;&lt;a href=&#34;#markdown-%e6%b8%b2%e6%9f%93&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Markdown 渲染
+&lt;/h4&gt;&lt;ul&gt;
+&lt;li&gt;glow: &lt;code&gt;glow&lt;/code&gt; 是命令行工具，用法为 &lt;code&gt;glow foo.md&lt;/code&gt;.&lt;/li&gt;
+&lt;li&gt;rich: rich 是一个可以用来渲染 Markdown 的 python 库.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;其他有趣的命令行工具&#34;&gt;&lt;a href=&#34;#%e5%85%b6%e4%bb%96%e6%9c%89%e8%b6%a3%e7%9a%84%e5%91%bd%e4%bb%a4%e8%a1%8c%e5%b7%a5%e5%85%b7&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;其他有趣的命令行工具
+&lt;/h2&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;asciiquarium&lt;/p&gt;
+&lt;p&gt;ASCII Art 水族馆，非常漂亮，我的头像的 ASCII 鱼就是从这里挖来的，在下图的从左往右数第三个海草上方：&lt;/p&gt;
+  &lt;img src=&#34;ascii.png&#34; alt=&#34;asciiquarium&#34; style=&#34;zoom:80%;box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;oneko&lt;/p&gt;
+&lt;p&gt;呼出一只小猫，非常可爱：&lt;/p&gt;
+  &lt;img src=&#34;oneko.png&#34; alt=&#34;oneko&#34; style=&#34;display: block; margin: auto; zoom:60%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;cowsay&lt;/p&gt;
+  &lt;img src=&#34;cowsay1.png&#34; alt=&#34;cowsay&#34; style=&#34;zoom:80%;box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;dialog&lt;/p&gt;
+  &lt;img src=&#34;dialog1.png&#34; alt=&#34;dialog&#34; style=&#34;zoom:80%;box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
+&lt;p&gt;可交互的 TUI 对话框，这个用来做单页的幻灯片呈现也是非常合适的，比如：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;#!/bin/bash
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#953800&#34;&gt;choice&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;$(&lt;/span&gt;dialog --clear --title &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;Menu&amp;#34;&lt;/span&gt; --menu &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;Make Your Choice&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;10&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;40&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;3&lt;/span&gt; &lt;span style=&#34;color:#0a3069&#34;&gt;\
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&lt;/span&gt;         &lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;Show Greeting&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;Enter Something&amp;#34;&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;3&lt;/span&gt; &lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;Show Figure&amp;#34;&lt;/span&gt;  2&amp;gt;&lt;span style=&#34;color:#1f2328&#34;&gt;&amp;amp;&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt; &amp;gt;/dev/tty&lt;span style=&#34;color:#cf222e&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;case&lt;/span&gt; &lt;span style=&#34;color:#953800&#34;&gt;$choice&lt;/span&gt; in
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    3&lt;span style=&#34;color:#0550ae&#34;&gt;)&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        xdg-open ./figure_1.png
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#1f2328&#34;&gt;;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#57606a&#34;&gt;# SNIP # &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;esac&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
+        <title>如何避免重复计算 / 纯函数及其求值策略</title>
+        <link>http://fyshxfish.github.io/zh/p/%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E9%87%8D%E5%A4%8D%E8%AE%A1%E7%AE%97-/-%E7%BA%AF%E5%87%BD%E6%95%B0%E5%8F%8A%E5%85%B6%E6%B1%82%E5%80%BC%E7%AD%96%E7%95%A5/</link>
+        <pubDate>Sun, 20 Oct 2024 19:48:00 +0800</pubDate>
+        
+        <guid>http://fyshxfish.github.io/zh/p/%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E9%87%8D%E5%A4%8D%E8%AE%A1%E7%AE%97-/-%E7%BA%AF%E5%87%BD%E6%95%B0%E5%8F%8A%E5%85%B6%E6%B1%82%E5%80%BC%E7%AD%96%E7%95%A5/</guid>
+        <description>&lt;h2 id=&#34;前言&#34;&gt;&lt;a href=&#34;#%e5%89%8d%e8%a8%80&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;前言
+&lt;/h2&gt;&lt;p&gt;这个学期包含编译系统和算法设计与分析两门专业课，遇到一些问题总会想着放在 Haskell 里实现一下，对于程序构造多少有点新的体会，也度过了对于 Haskell 不平静的狂热期，现在的我已经不会想着到处传教了（☺️）. 本来只是准备随便写写做 0-1 背包的 Haskell 实现中的一些小思考，不过真开始动笔了就越写越正式了，也算是接触 FP / Haskell 以来的一点点小总结. &lt;a class=&#34;link&#34; href=&#34;https://www.haskell.org/&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Haskell 官网&lt;/a&gt; 对 Haskell 的描述是 &amp;ldquo;An advanced, purely functional programming language&amp;rdquo;，本文试图围绕 &amp;ldquo;purely&amp;rdquo; 做一些讨论：什么是纯，怎么样算不纯，追求纯度的理由是什么，纯度带来的效益是什么.&lt;/p&gt;
+&lt;!-- 另一个视角的，对于性能的追求. --&gt;
+&lt;p&gt;首先从 0-1 背包的过程式实现出发，我把过程式实现 1:1 投射到 Haskell 里，感觉这段代码不是很符合 Haskell 的气质（😯），于是回到了递推式，回到了算法课上一笔带过的递归实现，对过程式语言的递推实现和函数式语言的递归实现做了一些比较，看看两者对于“如何避免重复计算的开销”这个问题（不局限于 0-1 背包问题）给出的不同答案，前者利用源代码上的记忆数组，后者则可以利用纯函数的特性，通过求值策略实现减少重复计算.&lt;/p&gt;
+&lt;p&gt;&lt;span style = &#34;color:#565656;&#34; &gt; 一段算法设计与计算模型的讨论：从 0-1 背包问题这个例子里也可以看出&amp;quot;算法设计&amp;quot;其实是不完全独立于编程范式的，也许更合适的说法是，算法设计强相关于物理计算机的实际运行方式，毕竟算法设计除了解决问题，还有一个追求是降低在物理机上运行时的时空计算资源消耗，这和命令式语言的特性是相契合的，而函数式语言有点 Lambda Calculus 虚拟机的意思；比如复杂度的计算，直接把命令式程序的时间复杂度计算方式照搬给函数式程序是有问题的，前者的理论基础是图灵机 - 状态转移次数，后者的理论基础是 $λ$ 演算 - 规约次数，计算模型的不同势必带来一些差异. 因为我们使用的计算机采取冯诺依曼体系结构，即 图灵机的物理实现，所以算法课也采用更接近硬件的命令式的编程范式，还是很合理的. 不由得想起大一上 CPP 程序设计时老师说 “只要冯诺依曼体系结构还存在，我们就&amp;hellip;(后半句忘了)”，不知不觉我已经尝试走了走另一条路. 说起函数式语言的机器这件事情，其实 1970s,1980s 有学者为函数式的语言设计过专门的非冯诺依曼机器（combinator machine, dataflow machine, etc.），后来大家发现在效率的方面，现有机器 + 好的编译器 &amp;gt; 专用机器，可参考 &lt;a class=&#34;link&#34; href=&#34;https://www.microsoft.com/en-us/research/wp-content/uploads/2016/07/history.pdf?from=https://research.microsoft.com/~simonpj/papers/history-of-haskell/history.pdf&amp;amp;type=exact&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;A History of Haskell: Being Lazy With Class&lt;/a&gt;, Part I - 2.1&lt;/span&gt;&lt;/p&gt;
+&lt;h2 id=&#34;命令式程序如何避免重复计算&#34;&gt;&lt;a href=&#34;#%e5%91%bd%e4%bb%a4%e5%bc%8f%e7%a8%8b%e5%ba%8f%e5%a6%82%e4%bd%95%e9%81%bf%e5%85%8d%e9%87%8d%e5%a4%8d%e8%ae%a1%e7%ae%97&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;命令式程序如何避免重复计算
+&lt;/h2&gt;&lt;p&gt;关于过程式的 0-1 背包，你熟悉到几乎可以默写的一段程序：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;回忆：使用 &lt;code&gt;dp&lt;/code&gt; 数组，而不是递归的原因是 —— 将递归转为迭代，避免重复计算；另一种陈述是将函数调用 &lt;code&gt;dp(i, j)&lt;/code&gt; 的结果存储到内存中的数组 &lt;code&gt;dp[i][j]&lt;/code&gt; 里，实现记忆化.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#6639ba&#34;&gt;knapsack&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;int&lt;/span&gt; n&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;int&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;*&lt;/span&gt; weight&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;int&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;*&lt;/span&gt; value&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;int&lt;/span&gt; capacity&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;int&lt;/span&gt; dp&lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;n&lt;span style=&#34;color:#0550ae&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;][&lt;/span&gt;capacity&lt;span style=&#34;color:#0550ae&#34;&gt;+&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;];&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#57606a&#34;&gt;// INIT: BASE CASE// 
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;int&lt;/span&gt; j &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt; j &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;lt;=&lt;/span&gt; capacity&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt; j&lt;span style=&#34;color:#0550ae&#34;&gt;++&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        dp&lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;][&lt;/span&gt;j&lt;span style=&#34;color:#1f2328&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt;  
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;int&lt;/span&gt; i &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt;i &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;lt;=&lt;/span&gt; n&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt;i&lt;span style=&#34;color:#0550ae&#34;&gt;++&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt;  
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        dp&lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;i&lt;span style=&#34;color:#1f2328&#34;&gt;][&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#57606a&#34;&gt;// DP // 
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;int&lt;/span&gt; i &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt; i &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;lt;=&lt;/span&gt; n&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt;i&lt;span style=&#34;color:#0550ae&#34;&gt;++&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#cf222e&#34;&gt;int&lt;/span&gt; w &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; weight&lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;i&lt;span style=&#34;color:#1f2328&#34;&gt;],&lt;/span&gt; v &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; value&lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;i&lt;span style=&#34;color:#1f2328&#34;&gt;];&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#cf222e&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;int&lt;/span&gt; j &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt; j &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;lt;=&lt;/span&gt; capacity&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt; j&lt;span style=&#34;color:#0550ae&#34;&gt;++&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#cf222e&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;j &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;lt;&lt;/span&gt; w&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt; dp&lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;i&lt;span style=&#34;color:#1f2328&#34;&gt;][&lt;/span&gt;j&lt;span style=&#34;color:#1f2328&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; dp&lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;i&lt;span style=&#34;color:#0550ae&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;][&lt;/span&gt;j&lt;span style=&#34;color:#1f2328&#34;&gt;];&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#cf222e&#34;&gt;else&lt;/span&gt; dp&lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;i&lt;span style=&#34;color:#1f2328&#34;&gt;][&lt;/span&gt;j&lt;span style=&#34;color:#1f2328&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; max&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;dp&lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;i&lt;span style=&#34;color:#0550ae&#34;&gt;-&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;][&lt;/span&gt;j&lt;span style=&#34;color:#1f2328&#34;&gt;],&lt;/span&gt; dp&lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;i&lt;span style=&#34;color:#1f2328&#34;&gt;][&lt;/span&gt;j&lt;span style=&#34;color:#0550ae&#34;&gt;-&lt;/span&gt;w&lt;span style=&#34;color:#1f2328&#34;&gt;]&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;+&lt;/span&gt;v&lt;span style=&#34;color:#1f2328&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#1f2328&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#1f2328&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;return&lt;/span&gt; dp&lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;n&lt;span style=&#34;color:#1f2328&#34;&gt;][&lt;/span&gt;capacity&lt;span style=&#34;color:#1f2328&#34;&gt;];&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;将上述代码 1:1 翻译成 Haskell 程序，你将得到：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-hs&#34; data-lang=&#34;hs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#24292e&#34;&gt;Data.Array&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;type&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;Value&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;Int&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;type&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;Weight&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;Int&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;type&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;Item&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;Value&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;Weight&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;knapsack01&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;::&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;Weight&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;Item&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;Value&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;knapsack01&lt;/span&gt; capacity items &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; dp &lt;span style=&#34;color:#0550ae&#34;&gt;!&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;n&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt; capacity&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;where&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        n &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; length items 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        dp &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; array&lt;span style=&#34;color:#1f2328&#34;&gt;((&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;),&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;n&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;capacity&lt;span style=&#34;color:#1f2328&#34;&gt;))&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;             &lt;span style=&#34;color:#1f2328&#34;&gt;[((&lt;/span&gt;i&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt; w&lt;span style=&#34;color:#1f2328&#34;&gt;),&lt;/span&gt; step i w&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;|&lt;/span&gt; i &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;..&lt;/span&gt;n&lt;span style=&#34;color:#1f2328&#34;&gt;],&lt;/span&gt; w &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;0&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;..&lt;/span&gt;capacity&lt;span style=&#34;color:#1f2328&#34;&gt;]]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        step &lt;span style=&#34;color:#0550ae&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;_&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;0&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        step &lt;span style=&#34;color:#cf222e&#34;&gt;_&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        step i w 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#0550ae&#34;&gt;|&lt;/span&gt; curWgt &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;gt;&lt;/span&gt; w 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; dp &lt;span style=&#34;color:#0550ae&#34;&gt;!&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;i &lt;span style=&#34;color:#0550ae&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt; w&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#0550ae&#34;&gt;|&lt;/span&gt; otherwise     
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; max &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;dp &lt;span style=&#34;color:#0550ae&#34;&gt;!&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;i &lt;span style=&#34;color:#0550ae&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt; w&lt;span style=&#34;color:#1f2328&#34;&gt;))&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;curVal &lt;span style=&#34;color:#0550ae&#34;&gt;+&lt;/span&gt; dp &lt;span style=&#34;color:#0550ae&#34;&gt;!&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;i &lt;span style=&#34;color:#0550ae&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt; w &lt;span style=&#34;color:#0550ae&#34;&gt;-&lt;/span&gt; curWgt&lt;span style=&#34;color:#1f2328&#34;&gt;))&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;            &lt;span style=&#34;color:#cf222e&#34;&gt;where&lt;/span&gt; curVal &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; fst &lt;span style=&#34;color:#0550ae&#34;&gt;$&lt;/span&gt; items &lt;span style=&#34;color:#0550ae&#34;&gt;!!&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;i &lt;span style=&#34;color:#0550ae&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;                  curWgt &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; snd &lt;span style=&#34;color:#0550ae&#34;&gt;$&lt;/span&gt; items &lt;span style=&#34;color:#0550ae&#34;&gt;!!&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;i &lt;span style=&#34;color:#0550ae&#34;&gt;-&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;写的时候感觉不太对劲，第一感觉是：这两段代码没有区别. 这就是在函数式的语言里写命令式程序. 周五晚上我从炸鸡店走出来的时候，有了一些新的想法：&lt;/p&gt;
+&lt;h2 id=&#34;函数式程序如何避免重复计算&#34;&gt;&lt;a href=&#34;#%e5%87%bd%e6%95%b0%e5%bc%8f%e7%a8%8b%e5%ba%8f%e5%a6%82%e4%bd%95%e9%81%bf%e5%85%8d%e9%87%8d%e5%a4%8d%e8%ae%a1%e7%ae%97&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;函数式程序如何避免重复计算
+&lt;/h2&gt;&lt;p&gt;当我们不能像过程式语言那样在内存条里随机存取的时候，当我们建立起一层层抽象的时候，如何追求性能呢？除了在 CSAPP 第五章里学习利用局部性、循环展开、提高并行性等方法，还有什么方式可以提高程序的性能？除了程序员本身从源代码层面提高性能，还可以在哪里优化性能？编译器从程序员手上接管代码，编译器可以做什么？&lt;/p&gt;
+&lt;!-- 就 是 要 递 归 --&gt;
+&lt;h3 id=&#34;0-1-背包回到起点&#34;&gt;&lt;a href=&#34;#0-1-%e8%83%8c%e5%8c%85%e5%9b%9e%e5%88%b0%e8%b5%b7%e7%82%b9&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;0-1 背包：回到起点
+&lt;/h3&gt;&lt;p&gt;所有物品为 $items$，规模为 $N$, 物品属性为价值 $v_i, w_i$，背包总容量为 $W$，定义 $z(i, j)$ 为可选物品为 $items[1..i]$，背包容量为 $j$ 时，可获得的最大价值，那么&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;递推基：$\forall i, j,\quad z(i, 0) = 0, z(0,j) = 0;$&lt;br&gt;&lt;/li&gt;
+&lt;li&gt;递推步：$z(i,j) = max(z(i-1, j), v_i + z(i-1, j-w_i));$&lt;br&gt;&lt;/li&gt;
+&lt;li&gt;目标值：$z(N, W)$&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;毫无疑问这是递归的结构，在 Haskell 里写递归实现，如同呼吸般自然：&lt;br&gt;&lt;span style=&#34;color: gray; font-size: smaller;&#34;&gt;（NOTE：1. 看到这里也许你已经开始担忧重复计算、内存占用的事情了 ；2. 值得稍稍注意的一点是，这一段代码完全不涉及基于索引的数据存取）&lt;/span&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-hs&#34; data-lang=&#34;hs&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;type&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;Item&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;Value&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;Weight&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;knapsack&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;::&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;[&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;Item&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;]&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;Int&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;-&amp;gt;&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;Int&lt;/span&gt;        &lt;span style=&#34;color:#57606a&#34;&gt;-- items + capacity -&amp;gt; maximal value &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;knapsack&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;_&lt;/span&gt;  &lt;span style=&#34;color:#0550ae&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;knapsack&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;[]&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;_&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; &lt;span style=&#34;color:#0550ae&#34;&gt;0&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#6639ba&#34;&gt;knapsack&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;((&lt;/span&gt;v&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt;w&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;:&lt;/span&gt;items&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt; c &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;let&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        choose &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; v &lt;span style=&#34;color:#0550ae&#34;&gt;+&lt;/span&gt; knapsack items &lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;c&lt;span style=&#34;color:#0550ae&#34;&gt;-&lt;/span&gt;w&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt;   &lt;span style=&#34;color:#57606a&#34;&gt;-- choose current item &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        chxxse &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; knapsack items c           &lt;span style=&#34;color:#57606a&#34;&gt;-- not choose current item&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;in&lt;/span&gt; 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#cf222e&#34;&gt;if&lt;/span&gt; w &lt;span style=&#34;color:#0550ae&#34;&gt;&amp;gt;&lt;/span&gt; c &lt;span style=&#34;color:#cf222e&#34;&gt;then&lt;/span&gt; chxxse &lt;span style=&#34;color:#cf222e&#34;&gt;else&lt;/span&gt; max choose chxxse 
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;严格求值---不递归的理由&#34;&gt;&lt;a href=&#34;#%e4%b8%a5%e6%a0%bc%e6%b1%82%e5%80%bc---%e4%b8%8d%e9%80%92%e5%bd%92%e7%9a%84%e7%90%86%e7%94%b1&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;严格求值 - 不递归的理由
+&lt;/h3&gt;&lt;p&gt;在背包问题的 C++ （&lt;strong&gt;严格求值语言&lt;/strong&gt;）实现中，我们不用递归的理由是对于性能的追求，因而使用 &lt;code&gt;dp[i][j]&lt;/code&gt; 用空间换时间，将递归中的重复计算转换为数组的索引访问. 这个&lt;strong&gt;记忆化&lt;/strong&gt;的工作，除了我们自己做（也就是使用 &lt;code&gt;dp&lt;/code&gt; 数组），还可以 —— 交给编译器. 当然这种形式的记忆化就不是在源代码层面上呈现一个记忆数组了，而是通过求值策略来实现. 在讨论求值策略前，先看看什么是纯函数.&lt;/p&gt;
+&lt;h3 id=&#34;对于--纯--函数的讨论&#34;&gt;&lt;a href=&#34;#%e5%af%b9%e4%ba%8e--%e7%ba%af--%e5%87%bd%e6%95%b0%e7%9a%84%e8%ae%a8%e8%ae%ba&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;对于 &amp;quot; &lt;strong&gt;纯&lt;/strong&gt; &amp;quot; 函数的讨论
+&lt;/h3&gt;&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;函数是什么？/ 函数的表示法 / LUT 的类比 / 编译器行为 / 纯函数的求值策略&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;—— 多年以后，面对 &amp;ldquo;函数式程序设计&amp;rdquo;，🐟将会回想起数学老师带她去见识函数的那节遥远的数学课.&lt;/em&gt;&lt;/p&gt;
+&lt;p&gt;函数是一种映射关系. 体现这种关系的方式，即 函数的表示法，除了函数表达式、函数图像，还有&lt;strong&gt;表格&lt;/strong&gt;.&lt;/p&gt;
+&lt;p&gt;如果我们需要一台机器来执行定义域为某有穷集的完全平方函数 &lt;code&gt;f(x, y) = x*x + y*y&lt;/code&gt;，除了依赖加法器、乘法器构成的组合逻辑电路，我们还可以用 LUT（LookUp Table），虽然听起来有点离谱，但是它的可行性是不可否认的.&lt;/p&gt;
+&lt;p&gt;&lt;span style=&#34;color:gray&#34;&gt;&lt;b&gt;NOTE: &lt;/b&gt; 可能产生的疑惑 - 如何确定 / 如何描述电路实现的函数与我们预期的函数之间的等价性？或者说，我们预期的是函数 $f$，电路实现的是函数 $f&amp;rsquo;$，如何确定 $f&amp;rsquo; \equiv f$？如果你对 $λ$ 演算（逻辑学）中函数等价的形式化理论感兴趣，可以参看 &lt;i&gt;Lambda Calculus and Combinators, an introduction - Chapter 5~8&lt;/i&gt;. 这里 LUT 实现的函数 $f_1&amp;rsquo;$ 与预期函数 $f$ 外延等价（extensional equivalence），组合逻辑实现的函数 $f_2&amp;rsquo;$ 与预期函数 $f$ 内涵等价（intensional equivalence）.&lt;/span&gt;&lt;/p&gt;
+  &lt;img src=&#34;img/3-input-LUT.png&#34; alt=&#34;3 input LUT&#34; style=&#34;zoom:80%; box-shadow: 2px 2px 3px rgba(155, 171, 187,0.7);&#34; /&gt;
+&lt;p&gt;我们习惯的编译器的行为大致是：看到函数+参数 → 放入组合逻辑电路计算；如果&lt;strong&gt;只&lt;/strong&gt;依赖映射表（LUT），那么编译器的行为大致是：看到函数+参数 → 在 LUT 中查找对应输出，这需要 LUT 存储好&lt;strong&gt;所有&lt;/strong&gt;函数输入对应的输出，于是压力给到 LUT；折中的策略是，第一次见到函数+参数时，利用组合逻辑电路计算，并&lt;strong&gt;缓存&lt;/strong&gt;到 LUT，再次见到这组函数+参数，直接在 LUT 中查找.（函数式有自己的高速缓存:）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;子过程与函数 / 副作用与纯度&lt;/p&gt;
+&lt;p&gt;这里我们用函数指代“纯”函数（定义见下），将非纯的过程称为子过程.&lt;/p&gt;
+&lt;p&gt;使用 LUT 实现函数的前提是：函数是&lt;strong&gt;纯&lt;/strong&gt;的，即对相同的输入总是返回相同的输出，并且不产生副作用. 形象地说，我们希望 LUT 是严格的，IN / OUT 引脚保持干净，IN 接收函数参数，OUT 给出函数输出，不希望在 IN 之外，再从某个寄存器接进来一个输入，也不希望在 OUT 的旁边，多连接一个寄存器，把寄存器存储值的改变作为函数执行的结果；即 函数本身总是&lt;strong&gt;独立&lt;/strong&gt;于程序的其他部分 - LUT 总是独立于电路的其他部分，不受其他部分影响.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;输入输出的纯度：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;addx&lt;/code&gt; 是不纯的，因为这个函数无法保证对于同样的 &lt;code&gt;a&lt;/code&gt; 总是给出相同的输出，因为全局变量 &lt;code&gt;x&lt;/code&gt; 可能随时被修改，导致修改前后 &lt;code&gt;a + x&lt;/code&gt; 的值不同；&lt;code&gt;readOneWord&lt;/code&gt; 是不纯的，因为无法保证对于同一个路径 &lt;code&gt;p&lt;/code&gt;，始终返回同样的 &lt;code&gt;firstWord&lt;/code&gt;，因为 &lt;code&gt;p&lt;/code&gt; 对应的文件可能被其他程序随时修改.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;int&lt;/span&gt; x&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt;              &lt;span style=&#34;color:#57606a&#34;&gt;// global 
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#6639ba&#34;&gt;addx&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;int&lt;/span&gt; a&lt;span style=&#34;color:#1f2328&#34;&gt;){&lt;/span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;return&lt;/span&gt; a &lt;span style=&#34;color:#0550ae&#34;&gt;+&lt;/span&gt; x&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;string &lt;span style=&#34;color:#6639ba&#34;&gt;readOneWord&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;path p&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;{&lt;/span&gt;    &lt;span style=&#34;color:#57606a&#34;&gt;// IO
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#57606a&#34;&gt;&lt;/span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;return&lt;/span&gt; head&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;getFile&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;p&lt;span style=&#34;color:#1f2328&#34;&gt;));&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;副作用：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;greeting&lt;/code&gt; 是不纯的，因为它产生了 &lt;code&gt;print&lt;/code&gt; 的副作用； &lt;code&gt;write&lt;/code&gt; 是不纯的，因为它造成了写文件的副作用.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#6639ba&#34;&gt;greeting&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;string name&lt;span style=&#34;color:#1f2328&#34;&gt;){&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    print&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;f&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;Hello, {name}&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;void&lt;/span&gt; &lt;span style=&#34;color:#6639ba&#34;&gt;writeLine&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;path p&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    getFile&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;p&lt;span style=&#34;color:#1f2328&#34;&gt;).&lt;/span&gt;append&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;Append this line&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&amp;ldquo;提纯&amp;rdquo;？&lt;/p&gt;
+&lt;p&gt;对于上述的非纯函数，我们可以&lt;strong&gt;将副作用分离&lt;/strong&gt;，得到对应的纯函数如下：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-cpp&#34; data-lang=&#34;cpp&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#6639ba&#34;&gt;addx&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;int&lt;/span&gt; a&lt;span style=&#34;color:#1f2328&#34;&gt;,&lt;/span&gt; &lt;span style=&#34;color:#cf222e&#34;&gt;int&lt;/span&gt; x&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;{&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;return&lt;/span&gt; a &lt;span style=&#34;color:#0550ae&#34;&gt;+&lt;/span&gt; x&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;string &lt;span style=&#34;color:#6639ba&#34;&gt;readOneWord&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;file f&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;{&lt;/span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    string firstWord &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; head&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;f&lt;span style=&#34;color:#1f2328&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;return&lt;/span&gt; firstWord&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;string &lt;span style=&#34;color:#6639ba&#34;&gt;greeting&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;string name&lt;span style=&#34;color:#1f2328&#34;&gt;){&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;return&lt;/span&gt; f&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;Hello, {name}&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;file &lt;span style=&#34;color:#6639ba&#34;&gt;writeLine&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;file f&lt;span style=&#34;color:#1f2328&#34;&gt;){&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;return&lt;/span&gt; f&lt;span style=&#34;color:#1f2328&#34;&gt;.&lt;/span&gt;append&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;&lt;span style=&#34;color:#0a3069&#34;&gt;&amp;#34;Append this line&amp;#34;&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;);&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;}&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;分离副作用的示例 / Imperative Shell, Functional Core&lt;/p&gt;
+&lt;p&gt;提问：假设有两个类 &lt;code&gt;Camera&lt;/code&gt;, &lt;code&gt;FaceRecognizer&lt;/code&gt;，&lt;code&gt;Camera&lt;/code&gt; 类有一个方法 &lt;code&gt;getFrame&lt;/code&gt; 用于从物理摄像头捕获一帧图像，&lt;code&gt;FaceRecognizer&lt;/code&gt; 类有一个方法 &lt;code&gt;recognizePerson&lt;/code&gt; 用于识别一帧图像中的人脸并返回对应用户名. 若需要实现函数 &lt;code&gt;getFrameAndRecognize&lt;/code&gt; 用于捕获当前帧、识别并返回用户名，如何组织程序结构？&lt;/p&gt;
+&lt;p&gt;一种答案：将 &lt;code&gt;FaceRecognizer&lt;/code&gt; 的实例作为 &lt;code&gt;Camera&lt;/code&gt; 的成员，保证 &lt;code&gt;FaceRecognizer&lt;/code&gt; 的纯度，即 &lt;code&gt;FaceRecognizer&lt;/code&gt; 的方法总是对帧做计算，将 &lt;code&gt;getFrame&lt;/code&gt; 这样的副作用分离、止步于 &lt;code&gt;Camera&lt;/code&gt; 类.&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-python&#34; data-lang=&#34;python&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;Camera&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#6a737d&#34;&gt;self&lt;/span&gt;&lt;span style=&#34;color:#0550ae&#34;&gt;.&lt;/span&gt;face_recognizer &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; FaceRecognizer&lt;span style=&#34;color:#1f2328&#34;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#6639ba&#34;&gt;getFrame&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;():&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#57606a&#34;&gt;# snip # &lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#cf222e&#34;&gt;return&lt;/span&gt; frame
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#6639ba&#34;&gt;getFrameAndRecognize&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;():&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        frame &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; getFrame&lt;span style=&#34;color:#1f2328&#34;&gt;()&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        name &lt;span style=&#34;color:#0550ae&#34;&gt;=&lt;/span&gt; face_recognizer&lt;span style=&#34;color:#0550ae&#34;&gt;.&lt;/span&gt;recognizePerson&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;frame&lt;span style=&#34;color:#1f2328&#34;&gt;)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#cf222e&#34;&gt;return&lt;/span&gt; name 
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#cf222e&#34;&gt;class&lt;/span&gt; &lt;span style=&#34;color:#1f2328&#34;&gt;FaceRecognizer&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#cf222e&#34;&gt;def&lt;/span&gt; &lt;span style=&#34;color:#6639ba&#34;&gt;recognizePerson&lt;/span&gt;&lt;span style=&#34;color:#1f2328&#34;&gt;(&lt;/span&gt;frame&lt;span style=&#34;color:#1f2328&#34;&gt;:&lt;/span&gt; image&lt;span style=&#34;color:#1f2328&#34;&gt;):&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#57606a&#34;&gt;# snip #&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#cf222e&#34;&gt;return&lt;/span&gt; name
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;即：保证功能函数的纯度，并将其作为程序的核心，将 IO 等非纯操作分离到外层 ——  Imperative Shell, Functional Core. （此处应有一场 Simon Peyton Jones 的讲座链接，但我一时找不到了.）&lt;/p&gt;
+  &lt;div style=&#34;text-align: center;&#34;&gt;
+      &lt;img src=&#34;img/shellcore.png&#34; alt=&#34;Imperative Shell, Functional Core&#34; style=&#34;zoom:40%;&#34; /&gt;
+  &lt;/div&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;追求纯度的理由&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;方便&lt;strong&gt;单元&lt;/strong&gt;测试与维护；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;易于并行；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;可以用查表作为一种求值策略，或者作为求值策略的一部分，避免了重复计算带来的开销.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;语法树与语法图 / 重复计算 / 求值策略&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;一些参考资料&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a class=&#34;link&#34; href=&#34;https://en.wikibooks.org/wiki/Haskell/Graph_reduction&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Haskell Wiki - Graph Reduction&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;从 Lambda Calculus 角度解释操作语义 call-by-value / call-by-name / call-by-need，可以参考 Types and Programming Language, Section 5.1&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;[TODO]&lt;/p&gt;
+&lt;p&gt;&lt;span style=&#34;color: gray; font-size: smaller;&#34;&gt;  这一节还没写的原因是：我 也 不 是 很 懂.&lt;/span&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;graph reduction 的图示&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;语法树与语法图比较&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;let&lt;/code&gt; 对应的语法图（及其 Core 解释？）&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&amp;hellip;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;惰性求值---递归的理由&#34;&gt;&lt;a href=&#34;#%e6%83%b0%e6%80%a7%e6%b1%82%e5%80%bc---%e9%80%92%e5%bd%92%e7%9a%84%e7%90%86%e7%94%b1&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;惰性求值 - 递归的理由
+&lt;/h3&gt;&lt;p&gt;照应本文 &lt;a class=&#34;link&#34; href=&#34;#%e4%b8%8d%e9%80%92%e5%bd%92%e7%9a%84%e7%90%86%e7%94%b1&#34; &gt;3.2 不递归的理由&lt;/a&gt; 避免重复计算的方式除了通过显式缓存（记忆数组），还可以依赖编译器采取的求值策略（惰性求值 Lazy Evaluation），将语法树中的所有相同的表达式结点指向同一个结点，实现计算结果的复用.&lt;/p&gt;
+&lt;h2 id=&#34;其他&#34;&gt;&lt;a href=&#34;#%e5%85%b6%e4%bb%96&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;其他
+&lt;/h2&gt;&lt;p&gt;前文试图在 命令式语言 / 函数式语言，递归 / 非递归 之间做比较明确的区分，其实，当然递归不是 FP 的专利，记忆化数组也不只是在命令式程序里好用，只是不同语言 / 编程范式本身的特性（例如 C++ 的严格求值 / Haskell 的惰性求值），使得我们对于程序产生了不一样的思考和不一样的惯性. 对于纯度与惰性求值，命令式语言也可以有灵活的求值策略，比如判断函数的纯度，对非纯函数严格求值，对纯函数惰性求值.&lt;/p&gt;
+&lt;!-- ## [TODO]
+
+- Haskell 程序对应的指令，反汇编 / Core 代码结果？惰性求值机制的底层表现？
+    
+    &lt;span style=&#34;color: gray; font-size: smaller;&#34;&gt;不是完全没做过，当时编译然后反汇编，得到的代码长得不得了，然后暂时放弃了.&lt;/span&gt;
+
+- 组合子机器的原理？
+
+    &lt;span style=&#34;color: gray; font-size: smaller;&#34;&gt;好奇心. &lt;br&gt;顺便国庆的时候接触了 uiua 语言，听说了 BQN 语言，然后发现 BQN 语言里真的有活的组合子（W combinator, B combinator, etc.），没想到有一天我也可以有在 CS 领域有先接触理论（Combinatory Logic），再偶遇其实践的体验，神奇神奇. 看到这里就是缘分，不日这段[TODO]文本估计会被我删掉，向看到这里的你介绍 uiua, Stack-Based Array-Oriented Language, 很有意思，掌握了它你就是编程界的符文法师，APL 系语言——由于其对于 glyph 的使用——堪称所谓中英文编程之争的版本答案，不妨抽出 10 分钟看看语言官网，真的很吸引人：[uiua lang](https://www.uiua.org/)&lt;/span&gt;
+
+
+###  --&gt;
+</description>
+        </item>
+        <item>
+        <title>语言的安全与抽象</title>
+        <link>http://fyshxfish.github.io/zh/p/%E8%AF%AD%E8%A8%80%E7%9A%84%E5%AE%89%E5%85%A8%E4%B8%8E%E6%8A%BD%E8%B1%A1/</link>
+        <pubDate>Tue, 10 Sep 2024 14:10:00 +0800</pubDate>
+        
+        <guid>http://fyshxfish.github.io/zh/p/%E8%AF%AD%E8%A8%80%E7%9A%84%E5%AE%89%E5%85%A8%E4%B8%8E%E6%8A%BD%E8%B1%A1/</guid>
+        <description>&lt;p&gt;来自 &lt;em&gt;Types and Programming Languages § 1.2 What Type Systems Are Good For&lt;/em&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;A safe language is one that protects its own &lt;strong&gt;abstractions&lt;/strong&gt;.
+&lt;br&gt;A safe language is completely defined by its programmer&amp;rsquo;s manual.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;完备的&lt;strong&gt;抽象&lt;/strong&gt;意味着使用者可以完全信赖语言设计，&lt;strong&gt;只&lt;/strong&gt;关心高级语言这一抽象层，而无需关心硬件层的具体实现.&lt;/p&gt;
+&lt;p&gt;高级语言提供对物理设备的抽象，比如，数组是对于内存的抽象，程序员对于数组的预期是：数组&lt;strong&gt;只能&lt;/strong&gt;通过&lt;strong&gt;显式&lt;/strong&gt;的更新操作（如 &lt;code&gt;arr[1] = 1024&lt;/code&gt; ）修改，&amp;ldquo;修改了某个变量，某个数组中的若干元素也莫名其妙地改变了&amp;rdquo;（e.g. 缓冲区溢出攻击）是抽象被破坏的一种表现，这意味着程序员必须对&lt;strong&gt;变量&lt;/strong&gt;（高级语言提供的抽象）在&lt;strong&gt;内存&lt;/strong&gt;（真实存在的物理设备）中的布局有详细了解，才能写出符合预期的程序.&lt;/p&gt;
+&lt;p&gt;想起了 CSAPP 的一系列实验，因为 CSAPP 的目标是从程序员的角度考察计算机系统，即从软件视角看硬件，如果使用的编程语言是安全的，那么我们可以完全相信它提供的抽象，那么我们就不能透过软件看到硬件，如果 c 是安全的，那么 CSAPP 的实验就没法做了🧐&lt;/p&gt;
+</description>
+        </item>
+        <item>
+        <title>Archives</title>
+        <link>http://fyshxfish.github.io/zh/archives/</link>
+        <pubDate>Sat, 31 Aug 2024 00:00:00 +0000</pubDate>
+        
+        <guid>http://fyshxfish.github.io/zh/archives/</guid>
+        <description></description>
+        </item>
+        <item>
         <title>Scheme: `let` 的语义 (feat. `if` 的语义)</title>
-        <link>http://localhost:1313/zh/p/scheme-let-%E7%9A%84%E8%AF%AD%E4%B9%89-feat.-if-%E7%9A%84%E8%AF%AD%E4%B9%89/</link>
+        <link>http://fyshxfish.github.io/zh/p/scheme-let-%E7%9A%84%E8%AF%AD%E4%B9%89-feat.-if-%E7%9A%84%E8%AF%AD%E4%B9%89/</link>
         <pubDate>Thu, 29 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/zh/p/scheme-let-%E7%9A%84%E8%AF%AD%E4%B9%89-feat.-if-%E7%9A%84%E8%AF%AD%E4%B9%89/</guid>
+        <guid>http://fyshxfish.github.io/zh/p/scheme-let-%E7%9A%84%E8%AF%AD%E4%B9%89-feat.-if-%E7%9A%84%E8%AF%AD%E4%B9%89/</guid>
         <description>&lt;hr&gt;
 &lt;h2 id=&#34;let-的语义&#34;&gt;&lt;a href=&#34;#let-%e7%9a%84%e8%af%ad%e4%b9%89&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;&lt;code&gt;let&lt;/code&gt; 的语义
 &lt;/h2&gt;&lt;p&gt;&lt;mark&gt;结论&lt;/mark&gt;: &lt;code&gt;let&lt;/code&gt; scope 会立即求值 (包括绑定和绑定之后的表达式, 也就是 &lt;code&gt;let&lt;/code&gt; 之外的一层括号所包裹的范围), 即使你把 &lt;code&gt;let&lt;/code&gt; 嵌套在内层函数里而且这个函数还完全没有被调用.&lt;/p&gt;
@@ -1893,10 +1893,10 @@ Title of this section is *Nested Mappings*, which represented in code with neste
         </item>
         <item>
         <title>我的常用 VSCode 快捷键</title>
-        <link>http://localhost:1313/zh/p/%E6%88%91%E7%9A%84%E5%B8%B8%E7%94%A8-vscode-%E5%BF%AB%E6%8D%B7%E9%94%AE/</link>
+        <link>http://fyshxfish.github.io/zh/p/%E6%88%91%E7%9A%84%E5%B8%B8%E7%94%A8-vscode-%E5%BF%AB%E6%8D%B7%E9%94%AE/</link>
         <pubDate>Mon, 26 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/zh/p/%E6%88%91%E7%9A%84%E5%B8%B8%E7%94%A8-vscode-%E5%BF%AB%E6%8D%B7%E9%94%AE/</guid>
+        <guid>http://fyshxfish.github.io/zh/p/%E6%88%91%E7%9A%84%E5%B8%B8%E7%94%A8-vscode-%E5%BF%AB%E6%8D%B7%E9%94%AE/</guid>
         <description>&lt;!-- 来自 2025-02 的一次维护更新——现在进入 VSCode 的基本动作是，Win 键打开菜单搜索并打开 wezterm，进入 wezterm 后 cd 到工作目录，`code .` 进入 VSCode，Win + ↑ 进入全屏，丝滑~ --&gt;
 &lt;p&gt;&lt;strong&gt;&lt;em&gt;让工具更趁手✨&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
 &lt;!-- 包含对于 VSCode 作为文本编辑器的配置，不包含对语言环境的配置. --&gt;
@@ -2063,10 +2063,10 @@ Win + ↓：退出全屏 / 最小化&lt;br&gt;&lt;/p&gt;
         </item>
         <item>
         <title>mit-scheme 配置与基本使用</title>
-        <link>http://localhost:1313/zh/p/mit-scheme-%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</link>
+        <link>http://fyshxfish.github.io/zh/p/mit-scheme-%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</link>
         <pubDate>Sat, 24 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/zh/p/mit-scheme-%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</guid>
+        <guid>http://fyshxfish.github.io/zh/p/mit-scheme-%E9%85%8D%E7%BD%AE%E4%B8%8E%E5%9F%BA%E6%9C%AC%E4%BD%BF%E7%94%A8/</guid>
         <description>&lt;blockquote&gt;
 &lt;p&gt;Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away.
 &lt;br&gt;&amp;ndash; Antoine de Saint-Exupéry&lt;/p&gt;&lt;/blockquote&gt;
@@ -2165,10 +2165,10 @@ Win + ↓：退出全屏 / 最小化&lt;br&gt;&lt;/p&gt;
         </item>
         <item>
         <title>About</title>
-        <link>http://localhost:1313/zh/about/</link>
+        <link>http://fyshxfish.github.io/zh/about/</link>
         <pubDate>Fri, 16 Aug 2024 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/zh/about/</guid>
+        <guid>http://fyshxfish.github.io/zh/about/</guid>
         <description>&lt;!-- &lt;link href=&#34;https://fonts.googleapis.com/css2?family=Long+Cang&amp;display=swap&#34; rel=&#34;stylesheet&#34;&gt;
 &lt;div style=&#34;font-family: &#39;Long Cang&#39;, serif; font-size: 2.8rem; text-align:center; letter-spacing:0.04em;&#34;&gt;  --&gt;
 &lt;link href=&#34;https://fonts.googleapis.com/css2?family=ZCOOL+XiaoWei&amp;display=swap&#34; rel=&#34;stylesheet&#34;&gt;
@@ -2190,10 +2190,10 @@ Win + ↓：退出全屏 / 最小化&lt;br&gt;&lt;/p&gt;
         </item>
         <item>
         <title>Haskell 开发环境 (VSCode &#43; GHCup &#43; HLS) 修复记录</title>
-        <link>http://localhost:1313/zh/p/haskell-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-vscode--ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</link>
+        <link>http://fyshxfish.github.io/zh/p/haskell-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-vscode--ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</link>
         <pubDate>Fri, 16 Aug 2024 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/zh/p/haskell-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-vscode--ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</guid>
+        <guid>http://fyshxfish.github.io/zh/p/haskell-%E5%BC%80%E5%8F%91%E7%8E%AF%E5%A2%83-vscode--ghcup--hls-%E4%BF%AE%E5%A4%8D%E8%AE%B0%E5%BD%95/</guid>
         <description>&lt;!-- *不知不觉我已经在MacOS, Windows, Linux三种平台上配置过Haskell环境了，我觉得我已经是环境配置大师了，POWER!* --&gt;
 &lt;!-- # Mac上重新配置Haskell开发环境记录 --&gt;
 &lt;h2 id=&#34;ghcup-修复&#34;&gt;&lt;a href=&#34;#ghcup-%e4%bf%ae%e5%a4%8d&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;ghcup 修复
@@ -2235,10 +2235,10 @@ Win + ↓：退出全屏 / 最小化&lt;br&gt;&lt;/p&gt;
         </item>
         <item>
         <title>Rust 基础与 gdb 使用拾遗</title>
-        <link>http://localhost:1313/zh/p/rust-%E5%9F%BA%E7%A1%80%E4%B8%8E-gdb-%E4%BD%BF%E7%94%A8%E6%8B%BE%E9%81%97/</link>
+        <link>http://fyshxfish.github.io/zh/p/rust-%E5%9F%BA%E7%A1%80%E4%B8%8E-gdb-%E4%BD%BF%E7%94%A8%E6%8B%BE%E9%81%97/</link>
         <pubDate>Mon, 05 Aug 2024 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/zh/p/rust-%E5%9F%BA%E7%A1%80%E4%B8%8E-gdb-%E4%BD%BF%E7%94%A8%E6%8B%BE%E9%81%97/</guid>
+        <guid>http://fyshxfish.github.io/zh/p/rust-%E5%9F%BA%E7%A1%80%E4%B8%8E-gdb-%E4%BD%BF%E7%94%A8%E6%8B%BE%E9%81%97/</guid>
         <description>&lt;p&gt; &lt;/p&gt;
 &lt;h2 id=&#34;如何调试一个rust程序&#34;&gt;&lt;a href=&#34;#%e5%a6%82%e4%bd%95%e8%b0%83%e8%af%95%e4%b8%80%e4%b8%aarust%e7%a8%8b%e5%ba%8f&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;如何调试一个rust程序？
 &lt;/h2&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-bash&#34; data-lang=&#34;bash&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;$ gdb excutable
@@ -2400,10 +2400,10 @@ Win + ↓：退出全屏 / 最小化&lt;br&gt;&lt;/p&gt;
         </item>
         <item>
         <title>简单的 Bash CLI 程序 &amp; 简单的元编程</title>
-        <link>http://localhost:1313/zh/p/%E7%AE%80%E5%8D%95%E7%9A%84-bash-cli-%E7%A8%8B%E5%BA%8F-%E7%AE%80%E5%8D%95%E7%9A%84%E5%85%83%E7%BC%96%E7%A8%8B/</link>
+        <link>http://fyshxfish.github.io/zh/p/%E7%AE%80%E5%8D%95%E7%9A%84-bash-cli-%E7%A8%8B%E5%BA%8F-%E7%AE%80%E5%8D%95%E7%9A%84%E5%85%83%E7%BC%96%E7%A8%8B/</link>
         <pubDate>Wed, 03 Apr 2024 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/zh/p/%E7%AE%80%E5%8D%95%E7%9A%84-bash-cli-%E7%A8%8B%E5%BA%8F-%E7%AE%80%E5%8D%95%E7%9A%84%E5%85%83%E7%BC%96%E7%A8%8B/</guid>
+        <guid>http://fyshxfish.github.io/zh/p/%E7%AE%80%E5%8D%95%E7%9A%84-bash-cli-%E7%A8%8B%E5%BA%8F-%E7%AE%80%E5%8D%95%E7%9A%84%E5%85%83%E7%BC%96%E7%A8%8B/</guid>
         <description>&lt;h2 id=&#34;简单的前言&#34;&gt;&lt;a href=&#34;#%e7%ae%80%e5%8d%95%e7%9a%84%e5%89%8d%e8%a8%80&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;简单的前言
 &lt;/h2&gt;&lt;p&gt;虽然这里的日期是 2024-04-03，但是我写这篇博客的时候其实是 2025-02-18，写 2025-02-17 那篇博客的时候，提到 polyglot 相关的内容，这部分内容其实是上上个学期的计算机系统的讨论课的产出，于是想着把沉睡在 &amp;hellip;/Downloads，&amp;hellip;/Courses/CS24Spring，小组群文件等目录里的讨论课材料里有点意思的部分翻出来晾晾，所以这一页博客出现在你的眼前.&lt;/p&gt;
 &lt;p&gt;我看到相当多的说法说 bash 的语法很不舒服，然而我在接触到这种说法之前，已然习惯了 bash 的语法，“我比流言蜚语先认识你”??😶‍🌫️&lt;/p&gt;
@@ -2473,10 +2473,10 @@ Win + ↓：退出全屏 / 最小化&lt;br&gt;&lt;/p&gt;
         </item>
         <item>
         <title>简单看看 `file` 命令</title>
-        <link>http://localhost:1313/zh/p/%E7%AE%80%E5%8D%95%E7%9C%8B%E7%9C%8B-file-%E5%91%BD%E4%BB%A4/</link>
+        <link>http://fyshxfish.github.io/zh/p/%E7%AE%80%E5%8D%95%E7%9C%8B%E7%9C%8B-file-%E5%91%BD%E4%BB%A4/</link>
         <pubDate>Wed, 20 Mar 2024 20:50:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/zh/p/%E7%AE%80%E5%8D%95%E7%9C%8B%E7%9C%8B-file-%E5%91%BD%E4%BB%A4/</guid>
+        <guid>http://fyshxfish.github.io/zh/p/%E7%AE%80%E5%8D%95%E7%9C%8B%E7%9C%8B-file-%E5%91%BD%E4%BB%A4/</guid>
         <description>&lt;h2 id=&#34;简单的前言&#34;&gt;&lt;a href=&#34;#%e7%ae%80%e5%8d%95%e7%9a%84%e5%89%8d%e8%a8%80&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;简单的前言
 &lt;/h2&gt;&lt;p&gt;虽然这里的日期是 2024-03-20，但是我写这篇博客的时候其实是 2025-02-18，来自我的计算机系统的讨论课材料. 如果你想知道一个文件的类型，那么你可能会用到 &lt;code&gt;file&lt;/code&gt; 这个命令，&lt;code&gt;file&lt;/code&gt; 会告诉你这个文件的类型，那么 &lt;code&gt;file&lt;/code&gt; 是如何知道文件的类型的，或者说，系统中的文件如何告诉 &lt;code&gt;file&lt;/code&gt;（或者任意一个想知道其类型的程序）自己的类型，文件把类型的信息放在哪里？&lt;/p&gt;
 &lt;h2 id=&#34;阅读手册&#34;&gt;&lt;a href=&#34;#%e9%98%85%e8%af%bb%e6%89%8b%e5%86%8c&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;阅读手册
@@ -2507,19 +2507,19 @@ Win + ↓：退出全屏 / 最小化&lt;br&gt;&lt;/p&gt;
         </item>
         <item>
         <title>Links</title>
-        <link>http://localhost:1313/zh/links/</link>
+        <link>http://fyshxfish.github.io/zh/links/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/zh/links/</guid>
+        <guid>http://fyshxfish.github.io/zh/links/</guid>
         <description>&lt;p&gt;✨ &lt;strong&gt;Friends Here&lt;/strong&gt; ✨&lt;/p&gt;
 </description>
         </item>
         <item>
         <title>Search</title>
-        <link>http://localhost:1313/zh/search/</link>
+        <link>http://fyshxfish.github.io/zh/search/</link>
         <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
         
-        <guid>http://localhost:1313/zh/search/</guid>
+        <guid>http://fyshxfish.github.io/zh/search/</guid>
         <description></description>
         </item>
         

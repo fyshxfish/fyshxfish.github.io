@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>LCaC on fyshXplore</title>
-        <link>http://localhost:1313/tags/lcac/</link>
+        <link>http://fyshxfish.github.io/tags/lcac/</link>
         <description>Recent content in LCaC on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Tue, 17 Sep 2024 23:48:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/lcac/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Tue, 17 Sep 2024 23:48:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/tags/lcac/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>The Construction of the Iteration Combinator - LCaC § 4C, Theorem 4.20</title>
-        <link>http://localhost:1313/p/the-construction-of-the-iteration-combinator-lcac-4c-theorem-4.20/</link>
+        <link>http://fyshxfish.github.io/p/the-construction-of-the-iteration-combinator-lcac-4c-theorem-4.20/</link>
         <pubDate>Tue, 17 Sep 2024 23:48:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/the-construction-of-the-iteration-combinator-lcac-4c-theorem-4.20/</guid>
+        <guid>http://fyshxfish.github.io/p/the-construction-of-the-iteration-combinator-lcac-4c-theorem-4.20/</guid>
         <description>&lt;p&gt;This blog post provides supplementary material for the proof section of &lt;em&gt;Lambda-Calculus and Combinator § 4C Theorem 4.20&lt;/em&gt;, the overall intention of the proof is to prove that total recursive functions conforming to Definition 4.18 can be represented using combinators. Here we briefly explain the key part of this proof - the construction of the iteration combinator. This can also be understood as: &lt;strong&gt;Writing an iterative program with specific termination conditions in Pure Lambda Calculus.&lt;/strong&gt;&lt;/p&gt;
 &lt;!-- If you&#39;re curious about &#34;how to write an iteration/recursive function with a specified **number of iterations/recursions** in Lambda Calculus&#34;, you can refer to the construction of the $R_{\text{Bernays}}$ combinator in the proof of Lambda-Calculus and Combinators § 4B Theorem 4.11, which is also quite ingenious. --&gt;
 &lt;p&gt;Recursion and Iteration: In constructing the $R_{\text{Bernays}}$ recursive combinator, to solve for the value $\phi(n)$ of some recursive function $\phi$, one feasible method is to start from $\phi(0)$ and iterate $n$ times to get $\phi(n)$ (roughly as follows: denoting the recursive step update function as $\chi$, $\phi(n) = \chi^n \phi(0)$). Iteration and recursion differ in forward versus reverse direction. The &amp;ldquo;recursion&amp;rdquo; in this article aims to describe the structural characteristic of &amp;ldquo;&lt;strong&gt;self-calling&lt;/strong&gt;&amp;rdquo;, while the central focus is on solving iteration problems ($0 \rightarrow 1 \rightarrow &amp;hellip; \rightarrow n$).&lt;/p&gt;

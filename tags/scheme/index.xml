@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>Scheme on fyshXplore</title>
-        <link>http://localhost:1313/tags/scheme/</link>
+        <link>http://fyshxfish.github.io/tags/scheme/</link>
         <description>Recent content in Scheme on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Sun, 08 Sep 2024 20:13:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/tags/scheme/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Sun, 08 Sep 2024 20:13:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/tags/scheme/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Church Encoding Note</title>
-        <link>http://localhost:1313/p/church-encoding-note/</link>
+        <link>http://fyshxfish.github.io/p/church-encoding-note/</link>
         <pubDate>Sun, 08 Sep 2024 20:13:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/church-encoding-note/</guid>
+        <guid>http://fyshxfish.github.io/p/church-encoding-note/</guid>
         <description>&lt;h2 id=&#34;motivation-abstraction-level-up&#34;&gt;&lt;a href=&#34;#motivation-abstraction-level-up&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Motivation: Abstraction Level Up!
 &lt;/h2&gt;&lt;ol&gt;
 &lt;li&gt;
@@ -130,10 +130,10 @@ $three: λf.λx.(f (f (f x)))$&lt;/p&gt;
         </item>
         <item>
         <title>Message Passing Perspective on Bool - SICP § 2.4.3 | Generic | Data and Functions</title>
-        <link>http://localhost:1313/p/message-passing-perspective-on-bool-sicp-2.4.3-generic-data-and-functions/</link>
+        <link>http://fyshxfish.github.io/p/message-passing-perspective-on-bool-sicp-2.4.3-generic-data-and-functions/</link>
         <pubDate>Sat, 07 Sep 2024 23:18:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/message-passing-perspective-on-bool-sicp-2.4.3-generic-data-and-functions/</guid>
+        <guid>http://fyshxfish.github.io/p/message-passing-perspective-on-bool-sicp-2.4.3-generic-data-and-functions/</guid>
         <description>&lt;h2 id=&#34;introduction&#34;&gt;&lt;a href=&#34;#introduction&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Introduction
 &lt;/h2&gt;&lt;p&gt;SICP § 2.4.3 describes a generic system implemented using table lookup (type × operation two-dimensional table), where concrete functions are hidden under abstractions like &amp;ldquo;generic function + Selector&amp;rdquo;. What would it look like if we put concrete functions under &amp;ldquo;data + Selector&amp;rdquo; abstractions? This article presents a Boolean implementation that conforms to this abstraction (called Message Passing in SICP). The importance of &lt;strong&gt;data&lt;/strong&gt; and &lt;strong&gt;functions&lt;/strong&gt; in programming is self-evident. Let&amp;rsquo;s explore three perspectives on the possible relationships between data and functions: Message Passing ↦ letting data carry its own functions; &lt;code&gt;$&lt;/code&gt; in Haskell ↦ transforming data into functions; Algebraic data types in Haskell ↦ constructing data using functions.&lt;/p&gt;
 &lt;h2 id=&#34;generic-functions-intelligent-operations&#34;&gt;&lt;a href=&#34;#generic-functions-intelligent-operations&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Generic Functions: Intelligent Operations
@@ -231,10 +231,10 @@ ghci&amp;gt; :t ($ x)
         </item>
         <item>
         <title>Semantics of `let` in Scheme(feat. Semantics of `if`)</title>
-        <link>http://localhost:1313/p/semantics-of-let-in-schemefeat.-semantics-of-if/</link>
+        <link>http://fyshxfish.github.io/p/semantics-of-let-in-schemefeat.-semantics-of-if/</link>
         <pubDate>Thu, 29 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/semantics-of-let-in-schemefeat.-semantics-of-if/</guid>
+        <guid>http://fyshxfish.github.io/p/semantics-of-let-in-schemefeat.-semantics-of-if/</guid>
         <description>&lt;hr&gt;
 &lt;h2 id=&#34;semantics-of-let&#34;&gt;&lt;a href=&#34;#semantics-of-let&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Semantics of &lt;code&gt;let&lt;/code&gt;
 &lt;/h2&gt;&lt;p&gt;&lt;mark&gt;Key point&lt;/mark&gt;: A &lt;code&gt;let&lt;/code&gt; scope is evaluated immediately (including both bindings and expressions after bindings, i.e., everything within the outer parentheses of the &lt;code&gt;let&lt;/code&gt;), even if the &lt;code&gt;let&lt;/code&gt; is nested inside an inner function that hasn&amp;rsquo;t been called yet.&lt;/p&gt;
@@ -328,11 +328,11 @@ ghci&amp;gt; :t ($ x)
 </description>
         </item>
         <item>
-        <title>mit-scheme Basic Usage</title>
-        <link>http://localhost:1313/p/mit-scheme-basic-usage/</link>
+        <title>MIT-Scheme Basic Usage</title>
+        <link>http://fyshxfish.github.io/p/mit-scheme-basic-usage/</link>
         <pubDate>Sat, 24 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/mit-scheme-basic-usage/</guid>
+        <guid>http://fyshxfish.github.io/p/mit-scheme-basic-usage/</guid>
         <description>&lt;blockquote&gt;
 &lt;p&gt;Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away.
 &lt;br&gt;&amp;ndash; Antoine de Saint-Exupéry&lt;/p&gt;&lt;/blockquote&gt;

@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-    <head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset='utf-8'>
+    <head><meta charset='utf-8'>
 <meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Introduction SICP § 2.4.3 describes a generic system implemented using table lookup (type × operation two-dimensional table), where concrete functions are hidden under abstractions like &ldquo;generic function + Selector&rdquo;. What would it look like if we put concrete functions under &ldquo;data + Selector&rdquo; abstractions? This article presents a Boolean implementation that conforms to this abstraction (called Message Passing in SICP). The importance of data and functions in programming is self-evident. Let&rsquo;s explore three perspectives on the possible relationships between data and functions: Message Passing ↦ letting data carry its own functions; $ in Haskell ↦ transforming data into functions; Algebraic data types in Haskell ↦ constructing data using functions.\n">
 <title>Message Passing Perspective on Bool - SICP § 2.4.3 | Generic | Data and Functions</title>
 
-<link rel='canonical' href='http://localhost:1313/p/message-passing-perspective-on-bool-sicp-2.4.3-generic-data-and-functions/'>
+<link rel='canonical' href='http://fyshxfish.github.io/p/message-passing-perspective-on-bool-sicp-2.4.3-generic-data-and-functions/'>
 
 <link rel="stylesheet" href="/scss/style.min.ca8e73f914c0e48d09b6dc36c97037f15a283dbaba328e73f133fd9c13b277ad.css"><meta property='og:title' content="Message Passing Perspective on Bool - SICP § 2.4.3 | Generic | Data and Functions">
 <meta property='og:description' content="Introduction SICP § 2.4.3 describes a generic system implemented using table lookup (type × operation two-dimensional table), where concrete functions are hidden under abstractions like &ldquo;generic function + Selector&rdquo;. What would it look like if we put concrete functions under &ldquo;data + Selector&rdquo; abstractions? This article presents a Boolean implementation that conforms to this abstraction (called Message Passing in SICP). The importance of data and functions in programming is self-evident. Let&rsquo;s explore three perspectives on the possible relationships between data and functions: Message Passing ↦ letting data carry its own functions; $ in Haskell ↦ transforming data into functions; Algebraic data types in Haskell ↦ constructing data using functions.\n">
-<meta property='og:url' content='http://localhost:1313/p/message-passing-perspective-on-bool-sicp-2.4.3-generic-data-and-functions/'>
+<meta property='og:url' content='http://fyshxfish.github.io/p/message-passing-perspective-on-bool-sicp-2.4.3-generic-data-and-functions/'>
 <meta property='og:site_name' content='fyshXplore'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='SICP' /><meta property='article:tag' content='Scheme' /><meta property='article:tag' content='Haskell' /><meta property='article:published_time' content='2024-09-07T23:18:00&#43;08:00'/><meta property='article:modified_time' content='2024-09-07T23:18:00&#43;08:00'/>
 <meta name="twitter:title" content="Message Passing Perspective on Bool - SICP § 2.4.3 | Generic | Data and Functions">
@@ -237,9 +237,9 @@
 
                             <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
                                 
-                                    <option value="http://localhost:1313/zh/" >中文</option>
+                                    <option value="http://fyshxfish.github.io/zh/" >中文</option>
                                 
-                                    <option value="http://localhost:1313/" selected>English</option>
+                                    <option value="http://fyshxfish.github.io/" selected>English</option>
                                 
                             </select>
                         </li>
@@ -371,7 +371,7 @@
 
             <div>
                 
-                    <a href="http://localhost:1313/zh/p/message-passing-%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84-bool-sicp-2.4.3-%E6%B3%9B%E5%9E%8B-%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%87%BD%E6%95%B0/" class="link">中文</a>
+                    <a href="http://fyshxfish.github.io/zh/p/message-passing-%E8%A7%86%E8%A7%92%E4%B8%8B%E7%9A%84-bool-sicp-2.4.3-%E6%B3%9B%E5%9E%8B-%E6%95%B0%E6%8D%AE%E4%B8%8E%E5%87%BD%E6%95%B0/" class="link">中文</a>
                 
             </div>
         </footer>
@@ -590,7 +590,7 @@ ghci&gt; :t ($ x)
         
 
         <div class="article-details">
-            <h2 class="article-title">mit-scheme Basic Usage</h2>
+            <h2 class="article-title">MIT-Scheme Basic Usage</h2>
         </div>
     </a>
 </article>

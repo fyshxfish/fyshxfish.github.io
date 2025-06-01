@@ -2,16 +2,16 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
         <title>FP on fyshXplore</title>
-        <link>http://localhost:1313/categories/fp/</link>
+        <link>http://fyshxfish.github.io/categories/fp/</link>
         <description>Recent content in FP on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Sun, 02 Feb 2025 21:29:00 +0800</lastBuildDate><atom:link href="http://localhost:1313/categories/fp/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Basic Lambda Calculus Programming (Solutions for game functional on Steam)</title>
-        <link>http://localhost:1313/p/basic-lambda-calculus-programming-solutions-for-game-functional-on-steam/</link>
+        <lastBuildDate>Sun, 02 Feb 2025 21:29:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/categories/fp/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Basic Lambda Calculus Programming</title>
+        <link>http://fyshxfish.github.io/p/basic-lambda-calculus-programming/</link>
         <pubDate>Sun, 02 Feb 2025 21:29:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/basic-lambda-calculus-programming-solutions-for-game-functional-on-steam/</guid>
+        <guid>http://fyshxfish.github.io/p/basic-lambda-calculus-programming/</guid>
         <description>&lt;p&gt;Following problems come from &lt;em&gt;functional&lt;/em&gt;, available on Steam.&lt;/p&gt;
 &lt;h2 id=&#34;basic&#34;&gt;&lt;a href=&#34;#basic&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Basic
 &lt;/h2&gt;&lt;h3 id=&#34;anything&#34;&gt;&lt;a href=&#34;#anything&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;anything
@@ -471,10 +471,10 @@ FALSE
         </item>
         <item>
         <title>Abstractions for Search Algorithms</title>
-        <link>http://localhost:1313/p/abstractions-for-search-algorithms/</link>
+        <link>http://fyshxfish.github.io/p/abstractions-for-search-algorithms/</link>
         <pubDate>Sun, 24 Nov 2024 12:09:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/abstractions-for-search-algorithms/</guid>
+        <guid>http://fyshxfish.github.io/p/abstractions-for-search-algorithms/</guid>
         <description>&lt;p&gt;&lt;em&gt;-Inspired by Algorithm Design and Analysis course, 2024 Fall-&lt;/em&gt;&lt;/p&gt;
 &lt;h2 id=&#34;introduction&#34;&gt;&lt;a href=&#34;#introduction&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Introduction
 &lt;/h2&gt;&lt;p&gt;In this semester&amp;rsquo;s algorithms course, we focused on two major categories of search algorithms: backtracking and branch-and-bound. Previously, I always treated various search algorithms like DFS and BFS separately, comparing their differences. In this article, I aim to abstract search algorithms, expecting to derive familiar search strategies from a concise abstract model.&lt;/p&gt;
@@ -626,10 +626,10 @@ FALSE
         </item>
         <item>
         <title>The Construction of the Iteration Combinator - LCaC § 4C, Theorem 4.20</title>
-        <link>http://localhost:1313/p/the-construction-of-the-iteration-combinator-lcac-4c-theorem-4.20/</link>
+        <link>http://fyshxfish.github.io/p/the-construction-of-the-iteration-combinator-lcac-4c-theorem-4.20/</link>
         <pubDate>Tue, 17 Sep 2024 23:48:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/the-construction-of-the-iteration-combinator-lcac-4c-theorem-4.20/</guid>
+        <guid>http://fyshxfish.github.io/p/the-construction-of-the-iteration-combinator-lcac-4c-theorem-4.20/</guid>
         <description>&lt;p&gt;This blog post provides supplementary material for the proof section of &lt;em&gt;Lambda-Calculus and Combinator § 4C Theorem 4.20&lt;/em&gt;, the overall intention of the proof is to prove that total recursive functions conforming to Definition 4.18 can be represented using combinators. Here we briefly explain the key part of this proof - the construction of the iteration combinator. This can also be understood as: &lt;strong&gt;Writing an iterative program with specific termination conditions in Pure Lambda Calculus.&lt;/strong&gt;&lt;/p&gt;
 &lt;!-- If you&#39;re curious about &#34;how to write an iteration/recursive function with a specified **number of iterations/recursions** in Lambda Calculus&#34;, you can refer to the construction of the $R_{\text{Bernays}}$ combinator in the proof of Lambda-Calculus and Combinators § 4B Theorem 4.11, which is also quite ingenious. --&gt;
 &lt;p&gt;Recursion and Iteration: In constructing the $R_{\text{Bernays}}$ recursive combinator, to solve for the value $\phi(n)$ of some recursive function $\phi$, one feasible method is to start from $\phi(0)$ and iterate $n$ times to get $\phi(n)$ (roughly as follows: denoting the recursive step update function as $\chi$, $\phi(n) = \chi^n \phi(0)$). Iteration and recursion differ in forward versus reverse direction. The &amp;ldquo;recursion&amp;rdquo; in this article aims to describe the structural characteristic of &amp;ldquo;&lt;strong&gt;self-calling&lt;/strong&gt;&amp;rdquo;, while the central focus is on solving iteration problems ($0 \rightarrow 1 \rightarrow &amp;hellip; \rightarrow n$).&lt;/p&gt;
@@ -718,10 +718,10 @@ $ \bar{\sigma} = _{\beta, w} \lambda nfz. f (n f z)$ &lt;/br&gt;&lt;/p&gt;
         </item>
         <item>
         <title>Church Encoding Note</title>
-        <link>http://localhost:1313/p/church-encoding-note/</link>
+        <link>http://fyshxfish.github.io/p/church-encoding-note/</link>
         <pubDate>Sun, 08 Sep 2024 20:13:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/church-encoding-note/</guid>
+        <guid>http://fyshxfish.github.io/p/church-encoding-note/</guid>
         <description>&lt;h2 id=&#34;motivation-abstraction-level-up&#34;&gt;&lt;a href=&#34;#motivation-abstraction-level-up&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Motivation: Abstraction Level Up!
 &lt;/h2&gt;&lt;ol&gt;
 &lt;li&gt;
@@ -840,10 +840,10 @@ $three: λf.λx.(f (f (f x)))$&lt;/p&gt;
         </item>
         <item>
         <title>Message Passing Perspective on Bool - SICP § 2.4.3 | Generic | Data and Functions</title>
-        <link>http://localhost:1313/p/message-passing-perspective-on-bool-sicp-2.4.3-generic-data-and-functions/</link>
+        <link>http://fyshxfish.github.io/p/message-passing-perspective-on-bool-sicp-2.4.3-generic-data-and-functions/</link>
         <pubDate>Sat, 07 Sep 2024 23:18:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/message-passing-perspective-on-bool-sicp-2.4.3-generic-data-and-functions/</guid>
+        <guid>http://fyshxfish.github.io/p/message-passing-perspective-on-bool-sicp-2.4.3-generic-data-and-functions/</guid>
         <description>&lt;h2 id=&#34;introduction&#34;&gt;&lt;a href=&#34;#introduction&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Introduction
 &lt;/h2&gt;&lt;p&gt;SICP § 2.4.3 describes a generic system implemented using table lookup (type × operation two-dimensional table), where concrete functions are hidden under abstractions like &amp;ldquo;generic function + Selector&amp;rdquo;. What would it look like if we put concrete functions under &amp;ldquo;data + Selector&amp;rdquo; abstractions? This article presents a Boolean implementation that conforms to this abstraction (called Message Passing in SICP). The importance of &lt;strong&gt;data&lt;/strong&gt; and &lt;strong&gt;functions&lt;/strong&gt; in programming is self-evident. Let&amp;rsquo;s explore three perspectives on the possible relationships between data and functions: Message Passing ↦ letting data carry its own functions; &lt;code&gt;$&lt;/code&gt; in Haskell ↦ transforming data into functions; Algebraic data types in Haskell ↦ constructing data using functions.&lt;/p&gt;
 &lt;h2 id=&#34;generic-functions-intelligent-operations&#34;&gt;&lt;a href=&#34;#generic-functions-intelligent-operations&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Generic Functions: Intelligent Operations
@@ -941,10 +941,10 @@ ghci&amp;gt; :t ($ x)
         </item>
         <item>
         <title>Huffman Trees in Haskell | Structure and Destructure of Compound Data</title>
-        <link>http://localhost:1313/p/huffman-trees-in-haskell-structure-and-destructure-of-compound-data/</link>
+        <link>http://fyshxfish.github.io/p/huffman-trees-in-haskell-structure-and-destructure-of-compound-data/</link>
         <pubDate>Mon, 02 Sep 2024 01:53:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/huffman-trees-in-haskell-structure-and-destructure-of-compound-data/</guid>
+        <guid>http://fyshxfish.github.io/p/huffman-trees-in-haskell-structure-and-destructure-of-compound-data/</guid>
         <description>&lt;p&gt;Code Here: &lt;a class=&#34;link&#34; href=&#34;https://github.com/fyshxfish/sicp-playground/blob/main/sicp-note/ch2/ch2-3-huffman_tree.hs&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Huffman Tree in Haskell&lt;/a&gt;&lt;/p&gt;
 &lt;h2 id=&#34;haskell-implementation-of-huffman-trees&#34;&gt;&lt;a href=&#34;#haskell-implementation-of-huffman-trees&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Haskell Implementation of Huffman Trees
@@ -1181,10 +1181,10 @@ snd (pair v w)  → w
         </item>
         <item>
         <title>Nested Mapping Examples Implemented in Haskell - SICP § 2.2.3  | List Monad </title>
-        <link>http://localhost:1313/p/nested-mapping-examples-implemented-in-haskell-sicp-2.2.3-list-monad/</link>
+        <link>http://fyshxfish.github.io/p/nested-mapping-examples-implemented-in-haskell-sicp-2.2.3-list-monad/</link>
         <pubDate>Thu, 29 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/nested-mapping-examples-implemented-in-haskell-sicp-2.2.3-list-monad/</guid>
+        <guid>http://fyshxfish.github.io/p/nested-mapping-examples-implemented-in-haskell-sicp-2.2.3-list-monad/</guid>
         <description>&lt;h2 id=&#34;problem-description&#34;&gt;&lt;a href=&#34;#problem-description&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Problem Description
 &lt;/h2&gt;&lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Problem&lt;/strong&gt;: Given a positive integer $n$, find all ordered pairs of distinct positive integers $i$ and $j$, where $ 1 \leq i \leq j \leq n $, such that $ i + j $ is prime.&lt;/p&gt;&lt;/blockquote&gt;
@@ -1238,10 +1238,10 @@ Title of this section is *Nested Mappings*, which represented in code with neste
         </item>
         <item>
         <title>Semantics of `let` in Scheme(feat. Semantics of `if`)</title>
-        <link>http://localhost:1313/p/semantics-of-let-in-schemefeat.-semantics-of-if/</link>
+        <link>http://fyshxfish.github.io/p/semantics-of-let-in-schemefeat.-semantics-of-if/</link>
         <pubDate>Thu, 29 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/semantics-of-let-in-schemefeat.-semantics-of-if/</guid>
+        <guid>http://fyshxfish.github.io/p/semantics-of-let-in-schemefeat.-semantics-of-if/</guid>
         <description>&lt;hr&gt;
 &lt;h2 id=&#34;semantics-of-let&#34;&gt;&lt;a href=&#34;#semantics-of-let&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Semantics of &lt;code&gt;let&lt;/code&gt;
 &lt;/h2&gt;&lt;p&gt;&lt;mark&gt;Key point&lt;/mark&gt;: A &lt;code&gt;let&lt;/code&gt; scope is evaluated immediately (including both bindings and expressions after bindings, i.e., everything within the outer parentheses of the &lt;code&gt;let&lt;/code&gt;), even if the &lt;code&gt;let&lt;/code&gt; is nested inside an inner function that hasn&amp;rsquo;t been called yet.&lt;/p&gt;
@@ -1335,11 +1335,11 @@ Title of this section is *Nested Mappings*, which represented in code with neste
 </description>
         </item>
         <item>
-        <title>mit-scheme Basic Usage</title>
-        <link>http://localhost:1313/p/mit-scheme-basic-usage/</link>
+        <title>MIT-Scheme Basic Usage</title>
+        <link>http://fyshxfish.github.io/p/mit-scheme-basic-usage/</link>
         <pubDate>Sat, 24 Aug 2024 00:00:00 +0800</pubDate>
         
-        <guid>http://localhost:1313/p/mit-scheme-basic-usage/</guid>
+        <guid>http://fyshxfish.github.io/p/mit-scheme-basic-usage/</guid>
         <description>&lt;blockquote&gt;
 &lt;p&gt;Perfection is achieved, not when there is nothing more to add, but when there is nothing left to take away.
 &lt;br&gt;&amp;ndash; Antoine de Saint-Exupéry&lt;/p&gt;&lt;/blockquote&gt;

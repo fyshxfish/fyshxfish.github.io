@@ -1,18 +1,18 @@
 <!DOCTYPE html>
-<html lang="zh" dir="ltr">
+<html lang="en" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="题目来自 functional，发售于 Steam (29 CNY).\nBasic anything 写出任意一个符合 Lambda Calculus 语法 (1. variable 2. abstraction 3. application) 的 term 即可.\nidentity x: x two arguments x:y: y x squaring f:x: f (f x) indirection f:x:y: f y x Boolean 定义：\nTRUE = t:f: t FALSE = t:f: f IF p:t:f: p t f Simple LC 没有类型系统，所以编程者需要自己确保 p 一定能求值到 TRUE / FALSE，然后 p t f 进一步求值到 t/ f，如果 p 不能被求值到 TRUE / FALSE，那么 p t f 会被保留下来或者产生预期外的求值行为.\n">
-<title>基础的 Lambda 演算编程</title>
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="Following problems come from functional, available on Steam.\nBasic anything Any term that conforms to Lambda Calculus syntax (1. variable 2. abstraction 3. application) is okay.\nidentity x: x two arguments x:y: y x squaring f:x: f (f x) indirection f:x:y: f y x Boolean Definitions:\nTRUE = t:f: t FALSE = t:f: f IF p:t:f: p t f Simple LC has no type system, so programmers need to ensure that p can always evaluate to TRUE / FALSE, then p t f further evaluates to t/ f. If p cannot evaluate to TRUE / FALSE, then p t f will be retained or produce unexpected evaluation behavior.\n">
+<title>Basic Lambda Calculus Programming</title>
 
-<link rel='canonical' href='http://fyshxfish.github.io/zh/p/%E5%9F%BA%E7%A1%80%E7%9A%84-lambda-%E6%BC%94%E7%AE%97%E7%BC%96%E7%A8%8B/'>
+<link rel='canonical' href='http://fyshxfish.github.io/p/basic-lambda-calculus-programming/'>
 
-<link rel="stylesheet" href="/scss/style.min.ca8e73f914c0e48d09b6dc36c97037f15a283dbaba328e73f133fd9c13b277ad.css"><meta property='og:title' content="基础的 Lambda 演算编程">
-<meta property='og:description' content="题目来自 functional，发售于 Steam (29 CNY).\nBasic anything 写出任意一个符合 Lambda Calculus 语法 (1. variable 2. abstraction 3. application) 的 term 即可.\nidentity x: x two arguments x:y: y x squaring f:x: f (f x) indirection f:x:y: f y x Boolean 定义：\nTRUE = t:f: t FALSE = t:f: f IF p:t:f: p t f Simple LC 没有类型系统，所以编程者需要自己确保 p 一定能求值到 TRUE / FALSE，然后 p t f 进一步求值到 t/ f，如果 p 不能被求值到 TRUE / FALSE，那么 p t f 会被保留下来或者产生预期外的求值行为.\n">
-<meta property='og:url' content='http://fyshxfish.github.io/zh/p/%E5%9F%BA%E7%A1%80%E7%9A%84-lambda-%E6%BC%94%E7%AE%97%E7%BC%96%E7%A8%8B/'>
+<link rel="stylesheet" href="/scss/style.min.ca8e73f914c0e48d09b6dc36c97037f15a283dbaba328e73f133fd9c13b277ad.css"><meta property='og:title' content="Basic Lambda Calculus Programming">
+<meta property='og:description' content="Following problems come from functional, available on Steam.\nBasic anything Any term that conforms to Lambda Calculus syntax (1. variable 2. abstraction 3. application) is okay.\nidentity x: x two arguments x:y: y x squaring f:x: f (f x) indirection f:x:y: f y x Boolean Definitions:\nTRUE = t:f: t FALSE = t:f: f IF p:t:f: p t f Simple LC has no type system, so programmers need to ensure that p can always evaluate to TRUE / FALSE, then p t f further evaluates to t/ f. If p cannot evaluate to TRUE / FALSE, then p t f will be retained or produce unexpected evaluation behavior.\n">
+<meta property='og:url' content='http://fyshxfish.github.io/p/basic-lambda-calculus-programming/'>
 <meta property='og:site_name' content='fyshXplore'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:tag' content='lambda calculus' /><meta property='article:tag' content='Combinator Logic' /><meta property='article:published_time' content='2025-02-02T21:29:00&#43;08:00'/><meta property='article:modified_time' content='2025-02-02T21:29:00&#43;08:00'/>
-<meta name="twitter:title" content="基础的 Lambda 演算编程">
-<meta name="twitter:description" content="题目来自 functional，发售于 Steam (29 CNY).\nBasic anything 写出任意一个符合 Lambda Calculus 语法 (1. variable 2. abstraction 3. application) 的 term 即可.\nidentity x: x two arguments x:y: y x squaring f:x: f (f x) indirection f:x:y: f y x Boolean 定义：\nTRUE = t:f: t FALSE = t:f: f IF p:t:f: p t f Simple LC 没有类型系统，所以编程者需要自己确保 p 一定能求值到 TRUE / FALSE，然后 p t f 进一步求值到 t/ f，如果 p 不能被求值到 TRUE / FALSE，那么 p t f 会被保留下来或者产生预期外的求值行为.\n"><style>
+<meta name="twitter:title" content="Basic Lambda Calculus Programming">
+<meta name="twitter:description" content="Following problems come from functional, available on Steam.\nBasic anything Any term that conforms to Lambda Calculus syntax (1. variable 2. abstraction 3. application) is okay.\nidentity x: x two arguments x:y: y x squaring f:x: f (f x) indirection f:x:y: f y x Boolean Definitions:\nTRUE = t:f: t FALSE = t:f: f IF p:t:f: p t f Simple LC has no type system, so programmers need to ensure that p can always evaluate to TRUE / FALSE, then p t f further evaluates to t/ f. If p cannot evaluate to TRUE / FALSE, then p t f will be retained or produce unexpected evaluation behavior.\n"><style>
   :root {
      
     --zh-font-family: "Noto Serif SC";
@@ -77,7 +77,7 @@
         
             
             <figure class="site-avatar">
-                <a href="/zh/">
+                <a href="/">
                 
                     
                     
@@ -96,7 +96,7 @@
         
         
         <div class="site-meta">
-            <h1 class="site-name"><a href="/zh">fyshXplore</a></h1>
+            <h1 class="site-name"><a href="/">fyshXplore</a></h1>
             <h2 class="site-description">Wait for it...</h2>
         </div>
     </header><ol class="menu-social">
@@ -126,7 +126,7 @@
         
         
         <li >
-            <a href='/zh/' >
+            <a href='/' >
                 
                 
                 
@@ -146,7 +146,7 @@
         
         
         <li >
-            <a href='/zh/about/' >
+            <a href='/about/' >
                 
                 
                 
@@ -164,7 +164,7 @@
         
         
         <li >
-            <a href='/zh/archives/' >
+            <a href='/archives/' >
                 
                 
                 
@@ -184,7 +184,7 @@
         
         
         <li >
-            <a href='/zh/search/' >
+            <a href='/search/' >
                 
                 
                 
@@ -203,7 +203,7 @@
         
         
         <li >
-            <a href='/zh/links/' >
+            <a href='/links/' >
                 
                 
                 
@@ -237,9 +237,9 @@
 
                             <select name="language" title="language" onchange="window.location.href = this.selectedOptions[0].value">
                                 
-                                    <option value="http://fyshxfish.github.io/zh/" selected>中文</option>
+                                    <option value="http://fyshxfish.github.io/zh/" >中文</option>
                                 
-                                    <option value="http://fyshxfish.github.io/" >English</option>
+                                    <option value="http://fyshxfish.github.io/" selected>English</option>
                                 
                             </select>
                         </li>
@@ -308,9 +308,9 @@
       <ol>
         <li><a href="#create-recursion---y-combinator">create recursion - Y combinator</a>
           <ol>
-            <li><a href="#动机lc-中的递归">动机：LC 中的递归</a></li>
-            <li><a href="#y-combinator-设计">Y combinator 设计</a></li>
-            <li><a href="#y-combinator-使用">Y combinator 使用</a></li>
+            <li><a href="#motivation-recursion-in-lc">Motivation: Recursion in LC</a></li>
+            <li><a href="#designing-the-y-combinator">Designing the Y Combinator</a></li>
+            <li><a href="#using-the-y-combinator">Using the Y combinator</a></li>
           </ol>
         </li>
         <li><a href="#strip-prefix">strip prefix</a></li>
@@ -383,7 +383,7 @@
     
     <header class="article-category">
         
-            <a href="/zh/categories/fp/" style="background-color: #b7c9e2; color: #fff;">
+            <a href="/categories/fp/" style="background-color: #b7c9e2; color: #fff;">
                 FP
             </a>
         
@@ -392,7 +392,7 @@
 
     <div class="article-title-wrapper">
         <h2 class="article-title">
-            <a href="/zh/p/%E5%9F%BA%E7%A1%80%E7%9A%84-lambda-%E6%BC%94%E7%AE%97%E7%BC%96%E7%A8%8B/">基础的 Lambda 演算编程</a>
+            <a href="/p/basic-lambda-calculus-programming/">Basic Lambda Calculus Programming</a>
         </h2>
     
         
@@ -429,7 +429,7 @@
 
 
                 <time class="article-time--reading">
-                    11 minute read
+                    15 minute read
                 </time>
             </div>
         
@@ -451,7 +451,7 @@
 
             <div>
                 
-                    <a href="http://fyshxfish.github.io/p/basic-lambda-calculus-programming/" class="link">English</a>
+                    <a href="http://fyshxfish.github.io/zh/p/%E5%9F%BA%E7%A1%80%E7%9A%84-lambda-%E6%BC%94%E7%AE%97%E7%BC%96%E7%A8%8B/" class="link">中文</a>
                 
             </div>
         </footer>
@@ -463,10 +463,10 @@
     <section class="article-content">
     
     
-    <p>题目来自 <em>functional</em>，发售于 Steam (29 CNY).</p>
+    <p>Following problems come from <em>functional</em>, available on Steam.</p>
 <h2 id="basic"><a href="#basic" class="header-anchor"></a>Basic
 </h2><h3 id="anything"><a href="#anything" class="header-anchor"></a>anything
-</h3><p>写出任意一个符合 Lambda Calculus 语法 (1. variable 2. abstraction 3. application) 的 term 即可.</p>
+</h3><p>Any term that conforms to Lambda Calculus syntax (1. variable 2. abstraction 3. application) is okay.</p>
 <h3 id="identity"><a href="#identity" class="header-anchor"></a>identity
 </h3><pre tabindex="0"><code class="language-lambda" data-lang="lambda">x: x
 </code></pre><h3 id="two-arguments"><a href="#two-arguments" class="header-anchor"></a>two arguments
@@ -476,174 +476,162 @@
 </code></pre><h3 id="indirection"><a href="#indirection" class="header-anchor"></a>indirection
 </h3><pre tabindex="0"><code>f:x:y: f y x
 </code></pre><h2 id="boolean"><a href="#boolean" class="header-anchor"></a>Boolean
-</h2><p>定义：</p>
+</h2><p>Definitions:</p>
 <pre tabindex="0"><code>TRUE = t:f: t
 FALSE = t:f: f
 </code></pre><h3 id="if"><a href="#if" class="header-anchor"></a>IF
 </h3><pre tabindex="0"><code>p:t:f: p t f
-</code></pre><p>Simple LC 没有类型系统，所以编程者需要自己确保 <code>p</code> 一定能求值到 <code>TRUE</code> / <code>FALSE</code>，然后 <code>p t f</code> 进一步求值到 <code>t</code>/ <code>f</code>，如果 <code>p</code> 不能被求值到 <code>TRUE</code> / <code>FALSE</code>，那么 <code>p t f</code> 会被保留下来或者产生预期外的求值行为.</p>
-<p>你可以轻松注意到的一点是：<code>IF P A B ≡ P A B</code>，你完全可以在所有使用 <code>IF</code> 的场合省略掉 <code>IF</code>，这不改变语义，同时可以减少一次 reduction，不过为了保证可读性，还是有理由在有点复杂的程序里保留 <code>IF</code>.</p>
+</code></pre><p>Simple LC has no type system, so programmers need to ensure that <code>p</code> can always evaluate to <code>TRUE</code> / <code>FALSE</code>, then <code>p t f</code> further evaluates to <code>t</code>/ <code>f</code>. If <code>p</code> cannot evaluate to <code>TRUE</code> / <code>FALSE</code>, then <code>p t f</code> will be retained or produce unexpected evaluation behavior.</p>
+<p>One thing you can easily notice is: <code>IF P A B ≡ P A B</code>, you can completely omit <code>IF</code> in all occasions where it&rsquo;s used. This doesn&rsquo;t change the semantics and can reduce one reduction, but for readability, there&rsquo;s still reason to keep <code>IF</code> in somewhat complex programs.</p>
 <h3 id="not"><a href="#not" class="header-anchor"></a>NOT
 </h3><pre tabindex="0"><code>b: b FALSE TRUE
-</code></pre><p>这个看着有点隐隐约约的巧妙. 可以直白地通过 <code>b: IF b FALSE TRUE → b FALSE TRUE</code> 得到，或者利用 <code>TRUE</code> / <code>FALSE</code> 的意义——选第一个 / 第二个——直接得到.</p>
+</code></pre><p>This looks subtly clever. It can be obtained straightforwardly through <code>b: IF b FALSE TRUE → b FALSE TRUE</code>, or directly by utilizing the meaning of <code>TRUE</code> / <code>FALSE</code> - selecting the first/second item.</p>
 <h3 id="and"><a href="#and" class="header-anchor"></a>AND
 </h3><pre tabindex="0"><code>p:q: p q p
-</code></pre><p>如果 <code>p = TRUE</code>，那么 <code>AND p q ≡ q</code>；如果 <code>p = FALSE</code>，那么 <code>AND p q ≡ FALSE ≡ p</code>.</p>
+</code></pre><p>If <code>p = TRUE</code>, then <code>AND p q ≡ q</code>; if <code>p = FALSE</code>, then <code>AND p q ≡ FALSE ≡ p</code>.</p>
 <h3 id="or"><a href="#or" class="header-anchor"></a>OR
 </h3><pre tabindex="0"><code>p:q: p p q
-</code></pre><p>如果 <code>p = TRUE</code>，那么 <code>OR p q ≡ p ≡ TRUE</code>；如果 <code>p = FALSE</code>，那么 <code>OR p q ≡ q</code>.</p>
+</code></pre><p>If <code>p = TRUE</code>, then <code>OR p q ≡ p ≡ TRUE</code>; if <code>p = FALSE</code>, then <code>OR p q ≡ q</code>.</p>
 <h3 id="xor"><a href="#xor" class="header-anchor"></a>XOR
 </h3><pre tabindex="0"><code>p:q: p (NOT q) q
-</code></pre><p>类似 <code>AND</code>, <code>OR</code>，可以画个真值表整理思绪.</p>
+</code></pre><p>Similar to <code>AND</code>, <code>OR</code>, you can draw a truth table to organize your thoughts.</p>
 <h2 id="pair-and-list"><a href="#pair-and-list" class="header-anchor"></a>Pair and List
 </h2><h3 id="pair"><a href="#pair" class="header-anchor"></a>PAIR
 </h3><pre tabindex="0"><code>x:y:f: f x y
-</code></pre><p><code>PAIR A B → (x:y:f: f x y) A B → (f: f A B)</code> 是一个这样的抽象：有序地内涵 <code>A</code>, <code>B</code>，等待一个函数 <code>f</code> 作用于内涵的 <code>A</code>, <code>B</code>，比如当 <code>A</code>, <code>B</code> 是 Boolean，那么，<code>f</code> 可以是 <code>AND</code> / <code>OR</code> / &hellip;（当然语法并不约束 <code>f</code>,<code>A</code>,<code>B</code> 的形状，如果你想写 <code>PAIR TRUE 0 PAIR</code> 解释器不会拦你）</p>
+</code></pre><p><code>PAIR A B → (x:y:f: f x y) A B → (f: f A B)</code> is an abstraction that: contains <code>A</code>, <code>B</code> in order, waiting for a function <code>f</code> to act on the contained <code>A</code>, <code>B</code>. For example, when <code>A</code>, <code>B</code> are Boolean, <code>f</code> can be <code>AND</code> / <code>OR</code> / &hellip; (of course, the syntax doesn&rsquo;t restrict the shape of <code>f</code>,<code>A</code>,<code>B</code>, if you want to write <code>PAIR TRUE 0 PAIR</code> the interpreter won&rsquo;t stop you)</p>
 <h3 id="fst"><a href="#fst" class="header-anchor"></a>FST
 </h3><pre tabindex="0"><code>p: p TRUE
-</code></pre><p>当 <code>p = PAIR A B</code> 时, <code>p TRUE → (PAIR A B) TRUE → (f: f A B) TRUE → TRUE A B → A</code>，注意 <code>p</code> 是一个可以接收一个参数 <code>f</code> 的函数，这里我们让它接收 <code>TRUE</code> 函数来选取第一个元素. 在 LC 里，<code>TRUE</code> / <code>FALSE</code> 更恰当的解释是<strong>选取</strong>其后跟随的第一 / 二个项，而不是表达某个命题的真 / 假，这是有意义的，因为我们写其他高级语言程序的时候，如果我们需要一个 Boolean 值 <code>X</code> ，<code>X</code> 最终的效用往往还是发挥在 <code>then-clause</code> / <code>else-clause</code> 的<strong>选择</strong>上.</p>
+</code></pre><p>When <code>p = PAIR A B</code>, <code>p TRUE → (PAIR A B) TRUE → (f: f A B) TRUE → TRUE A B → A</code>. Note that <code>p</code> is a function that can receive a parameter <code>f</code>, here we make it receive the <code>TRUE</code> function to select the first element. In LC, <code>TRUE</code> / <code>FALSE</code> are more appropriately interpreted as <strong>selecting</strong> the first/second item that follows, rather than expressing the truth/falsity of a proposition. This is meaningful because when we write programs in other high-level languages, if we need a Boolean value <code>X</code>, <code>X</code>&rsquo;s ultimate utility is often in the <strong>selection</strong> of <code>then-clause</code> / <code>else-clause</code>.</p>
 <h3 id="snd"><a href="#snd" class="header-anchor"></a>SND
 </h3><pre tabindex="0"><code>p: p FALSE
-</code></pre><p>类似 <code>FST</code>.</p>
+</code></pre><p>Similar to <code>FST</code>.</p>
 <h3 id="simple-list"><a href="#simple-list" class="header-anchor"></a>simple list
-</h3><p>取出列表的第 3 项 (1-indexed)：</p>
+</h3><p>Get the 3rd item from the list (1-indexed):</p>
 <pre tabindex="0"><code>l: FST ( SND ( SND l ) )
-</code></pre><p>列表是一种简单的递归结构，递归基是空列表，这里用 <code>FALSE</code> 表示，递归步是向某个列表添加元素，这里用 <code>PAIR</code> 实现，e.g. <code>[] ↦ FALSE</code>, <code>1 ↦ (PAIR 1 FALSE)</code>, <code>[1,3] ↦ (PAIR 1 (PAIR 3 FALSE))</code>，<span style="color: gray">注意 <code>[1,3]</code>的例子，如果从<strong>向列表添加元素</strong>的视角看，表头是最接近 <code>FALSE</code> 的项，越接近 <code>FALSE</code> 的元素索引越小，因为它比较早地被添加进来，在这种解释下，<code>[1,3] ↦ (PAIR 3 (PAIR 1 FALSE))</code>，</span>然而游戏里不采取这个解释，而是和我们熟悉的 <code>[a,b,..]</code> 保持视觉上的对齐，将最晚被添加的项——最左的项——作为表头，在后续涉及升降序的问题的时候记得留意这一点.</p>
+</code></pre><p>A list is a simple recursive structure. The recursive base is an empty list, represented here by <code>FALSE</code>. The recursive step is adding elements to a list, implemented here using <code>PAIR</code>. e.g. <code>[] ↦ FALSE</code>, <code>1 ↦ (PAIR 1 FALSE)</code>, <code>[1,3] ↦ (PAIR 1 (PAIR 3 FALSE))</code>. <span style="color: gray">Note in the <code>[1,3]</code> example, if viewed from the perspective of <strong>adding elements to a list</strong>, the head is the item closest to <code>FALSE</code>, the closer to <code>FALSE</code>, the smaller the index, because it was added earlier. Under this interpretation, <code>[1,3] ↦ (PAIR 3 (PAIR 1 FALSE))</code>.</span> However, the game doesn&rsquo;t adopt this interpretation, but maintains visual alignment with familiar <code>[a,b,..]</code>, making the most recently added item - the leftmost item - the head. Keep this in mind when dealing with ascending/descending order problems later.</p>
 <h3 id="any"><a href="#any" class="header-anchor"></a>ANY
-</h3><p>对一个含 3 个 Boolean 的列表，若任一项为 <code>TRUE</code>，返回 <code>TRUE</code>，否则返回 <code>FALSE</code>：</p>
+</h3><p>For a list containing 3 Boolean values, return <code>TRUE</code> if any item is <code>TRUE</code>, otherwise return <code>FALSE</code>:</p>
 <pre tabindex="0"><code>(l: IF 
+  (OR 
+    (FST (SND (SND l))) 
     (OR 
-        (FST (SND (SND l))) 
-        (OR 
-            (FST l) 
-            (FST (SND l))
-        )
+      (FST l) 
+      (FST (SND l))
     )
-    TRUE FALSE
+  )
+  TRUE FALSE
 )
-</code></pre><p>直白地按逻辑写即可. 这里的列表是定长的，比较方便，非定长列表就需要递归，见后.</p>
+</code></pre><p>Just write according to logic straightforwardly. Here the list has fixed length, which is easy to deal with. Variable-length lists would require recursion, see later.</p>
 <h3 id="push"><a href="#push" class="header-anchor"></a>PUSH
 </h3><pre tabindex="0"><code>(m:l: PAIR m l)
-</code></pre><p>用 <code>PUSH</code> 向列表 <code>l</code> 添加新项 <code>m</code>，根据 $\eta$-reduction，<code>PUSH ≡ PAIR</code>，所以这里直接写 <code>PAIR</code> 也足够了.</p>
+</code></pre><p>Use <code>PUSH</code> to add new item <code>m</code> to list <code>l</code>. According to η-reduction, <code>PUSH ≡ PAIR</code>, so writing <code>PAIR</code> directly is sufficient here.</p>
 <h3 id="pop"><a href="#pop" class="header-anchor"></a>POP
 </h3><pre tabindex="0"><code>SND
-</code></pre><p>弹出最外层的项.</p>
+</code></pre><p>Pop out the outermost / leftmost item.</p>
 <h3 id="empty"><a href="#empty" class="header-anchor"></a>EMPTY
 </h3><pre tabindex="0"><code>l: l (t:x:y: FALSE) TRUE
-</code></pre><p>首先 <code>EMPTY</code> 要接收一个列表，所以它的基本形状是 <code>EMPTY = l: ...</code>，考虑 <code>l' = FALSE</code> 的情形，<code>EMPTY l' ~ᴇxᴘᴇᴄᴛᴇᴅ→ TRUE</code>，根据 <code>FALSE</code> 的选择能力，我们使 <code>EMPTY = l: l 𝕏 TRUE</code>；考虑 <code>l* = PAIR a (PAIR b (...)) = (f: f a (PAIR b (...))) ≈ (f: f a _tail)</code>，把 <code>l*</code> 视作接收一个参数的函数，<code>EMPTY l* = (f: f a _tail) 𝕏 TRUE → 𝕏 a _tail TRUE ~ᴇxᴘᴇᴄᴛᴇᴅ→ FALSE</code>, 那么 <code>𝕏</code> 的工作就是接收后面的 3 项，然后返回 <code>FALSE</code>，所以 <code>𝕏 = (t:x:y: FALSE)</code>，综合以上得到最终的解 <code>EMPTY = l: l (t:x:y: FALSE) TRUE</code></p>
+</code></pre><p>First, <code>EMPTY</code> needs to receive a list, so its basic shape is <code>EMPTY = l: ...</code>.</p>
+<p>Consider case <code>l' = FALSE</code>, <code>EMPTY l' ~expected→ TRUE</code>. Using <code>FALSE</code>&rsquo;s selection ability, we make <code>EMPTY = l: l 𝕏 TRUE</code>.</p>
+<p>Consider case <code>l* = PAIR a (PAIR b (...)) = (f: f a (PAIR b (...))) ≈ (f: f a _tail)</code>, viewing <code>l*</code> as a function receiving one parameter, <code>EMPTY l* = (f: f a _tail) 𝕏 TRUE → 𝕏 a _tail TRUE ~expected→ FALSE</code>. Then <code>𝕏</code>&rsquo;s job is to receive the following 3 items and return <code>FALSE</code>, so <code>𝕏 = (t:x:y: FALSE)</code>.</p>
+<p>Combining all above gives the final solution <code>EMPTY = l: l (t:x:y: FALSE) TRUE</code></p>
 <hr>
 <h2 id="recursion"><a href="#recursion" class="header-anchor"></a>Recursion
 </h2><h3 id="create-recursion---y-combinator"><a href="#create-recursion---y-combinator" class="header-anchor"></a>create recursion - Y combinator
-</h3><h4 id="动机lc-中的递归"><a href="#%e5%8a%a8%e6%9c%balc-%e4%b8%ad%e7%9a%84%e9%80%92%e5%bd%92" class="header-anchor"></a>动机：LC 中的递归
-</h4><p>尝试着在 LC 中定义递归的阶乘函数：</p>
+</h3><h4 id="motivation-recursion-in-lc"><a href="#motivation-recursion-in-lc" class="header-anchor"></a>Motivation: Recursion in LC
+</h4><p>Try to define recursive factorial function in LC:</p>
 <pre tabindex="0"><code>f = a: IF (EQ a 1)
-       1
-       (a * f (a - 1))
-</code></pre><p>上述的定义是不符合 LC 的语法的，因为 LC 的函数都是匿名函数，不支持通过名称来调用函数（如上面的 <code>f</code>），而递归函数不可避免的需要自指，如何解决这个问题？</p>
-<p>将函数 $F$ 应用于参数 $A$，可以这样表达 $F A$，也可以利用高阶函数这样表达：$(\lambda fa.\ f\ a) F A$，在此基础上，添加一些逻辑，比如表达&quot;参数为 $a$ 和 $p$，函数为 $f$，若 $p\ a$ 为真，那么返回 $f\ a$，否则直接返回 $a$ 本身&quot;：$(\lambda fap.\ IF\ (p\ a)\ (f\ a)\ a)$. 根据这个想法，假设我们的目标阶乘函数为 <code>F</code>，那么 <code>F</code> 满足这个等式，将 <code>(f:a: ..)</code> 记作 <code>F'</code>：</p>
+     1
+     (a * f (a - 1))
+</code></pre><p>The above definition doesn&rsquo;t conform to LC syntax because LC functions are anonymous functions and don&rsquo;t support calling functions by name (like <code>f</code> above). Yet recursive functions inevitably need self-reference. How to solve this problem?</p>
+<p>Applying function $F$ to parameter $A$ can be expressed as $F A$, or using higher-order functions like this: $(\lambda fa.\ f\ a) F A$. Building on this, add some logic, like expressing &ldquo;with parameters $a$ and $p$, function $f$, if $p\ a$ is true, return $f\ a$, otherwise return $a$ itself&rdquo;: $(\lambda fap.\ IF\ (p\ a)\ (f\ a)\ a)$. Based on this idea, assuming our target factorial function is <code>F</code>, then <code>F</code> satisfies this equation, denoting <code>(f:a: ..)</code> as <code>F'</code>:</p>
 <pre tabindex="0"><code>F = (f:a: IF (EQ a 1)
-          1 
-          (a * f (a - 1))
-    )  F 
+      1 
+      (a * f (a - 1))
+  )  F 
   ≡ F&#39; F 
-</code></pre><p>看等式的右侧，<code>F'</code> 的涵义是，接收函数 <code>f</code> 和参数 <code>a</code>，若 <code>EQ a 1</code> 那么返回 <code>1</code>，否则返回返回 <code>a * f (a - 1)</code>. 向 <code>F'</code> 传递递归函数 <code>F</code>，由此得到的函数 <code>F' F</code> 的行为和我们目标的阶乘函数 <code>F</code> 是一致的，从语义上来讲，左右侧相等.</p>
-<p>目前我们有的等式是 <code>F = F' F</code> ①，其中 <code>F'</code> 是已知的 closed term，因为 <code>F</code> 涉及自引，所以不存在 normal form，于是考虑是否存在某个 <code>Y</code> s.t. <code>Y F' = F</code>②，将 ② 代入 ①，<code>Y F' = F' (Y F')</code>，接下来的目标就是解出 <code>Y</code> 的 normal form，得到 <code>Y</code> 之后，目标递归函数 <code>F = Y F'</code> 也随之得到了.</p>
+</code></pre><p>Looking at the right side of the equation, <code>F'</code>&rsquo;s meaning is to receive function <code>f</code> and parameter <code>a</code>, if <code>EQ a 1</code> return <code>1</code>, otherwise return <code>a * f (a - 1)</code>. Passing recursive function <code>F</code> to <code>F'</code>, the behavior of resulting function <code>F' F</code> matches our target factorial function <code>F</code>, semantically making both sides equal.</p>
+<p>Currently we have equation <code>F = F' F</code> ①, where <code>F'</code> is a known closed term. Since <code>F</code> involves self-reference, no normal form exists, so consider if there exists some <code>Y</code> s.t. <code>Y F' = F</code> ②. Substituting ② into ①, we get <code>Y F' = F' (Y F')</code>. The next goal is to solve for <code>Y</code>&rsquo;s normal form. Once we get <code>Y</code>, target recursive function <code>F = Y F'</code> follows.</p>
 <span style="color: gray">
 <ul>
 <li>
-<p>为什么要试图将 <code>F</code> 分解成 <code>Y F'</code>？</p>
-<p>不严谨地说，从方程的角度看 <code>F = F' F</code> 只有一个未知量 <code>F</code>，将 <code>F</code> 转化成 <code>Y F'</code>，同样只含一个未知量 <code>Y</code>，而 <code>F'</code>已知且和我们的求解目标（递归函数 <code>F</code>）紧密相关.</p>
+<p>Why try to decompose <code>F</code> into <code>Y F'</code>?</p>
+<p>Speaking loosely, from equation perspective <code>F = F' F</code> has only one unknown <code>F</code>. Transforming <code>F</code> to <code>Y F'</code> similarly contains only one unknown <code>Y</code>, while <code>F'</code> is known and closely related to our solution target (recursive function <code>F</code>).</p>
 </li>
 </ul>
 </span>
-<h4 id="y-combinator-设计"><a href="#y-combinator-%e8%ae%be%e8%ae%a1" class="header-anchor"></a>Y combinator 设计
-</h4><p><code>Y</code> 是一个这样的 term：<code>Y F = F (Y F) = F (F (Y F)) = ...</code>. （注意：是否持续展开取决于我们使用的求值策略）</p>
-<p>为设计满足以上目标的 <code>Y</code> ，做出如下的初步分析：</p>
+<h4 id="designing-the-y-combinator"><a href="#designing-the-y-combinator" class="header-anchor"></a>Designing the Y Combinator
+</h4><p><code>Y</code> is a term that satisfies: <code>Y F = F (Y F) = F (F (Y F)) = ...</code>. (Note: How/When the term expands depends on the evaluaton strategy.)</p>
+<p>To design <code>Y</code> that meets the above requirements, let&rsquo;s analyze:</p>
 <ol>
 <li>
-<p><code>Y</code> 的形状毫无疑问是 <code>(f: ...)</code>.</p>
+<p><code>Y</code> must be of the form <code>(f: ...)</code>.</p>
 </li>
 <li>
-<p><code>Y</code> 的自指？—— 我们需要重复 <code>Y</code>，或者说<strong>构建</strong>右侧的 <code>Y</code>.</p>
-<p>Function / Abstraction is All You Need —— 因为 LC 没有存储，所以 <code>Y F  = F (Y F)</code>，等号左右的 <code>Y</code> 并不是同一个 <code>Y</code>，不是值拷贝或者地址拷贝（因为 LC 不提供存储的概念，无处安放值或者地址，这里只有函数），右侧的 <code>Y</code> 需要通过构建得到，与左侧的 <code>Y</code> <strong>在 alpha-conversion 的意义下相等</strong>.</p>
-</li>
-</ol>
-<!-- 3. 一个观察：注意到 `Y F` 规约之后的项更长了，而不是更短，如何做到这一点？ -->
-<ol start="3">
-<li>
-<p>如何重复 <code>F</code>？这很简单，<code>Y = (f: ...)</code> 接收参数 <code>F</code>，在 <code>Y</code> 的函数体内，想怎么重复就怎么重复.</p>
+<p>Self-reference in <code>Y</code>? — We need to repeat <code>Y</code>, or <strong>construct</strong> the right-side <code>Y</code>.</p>
+<p>Function/Abstraction is All You Need — Since LC has no storage, in <code>Y F = F (Y F)</code>, the <code>Y</code>s on both sides aren&rsquo;t the same instance. They&rsquo;re not value or address copies (LC has no storage concept). The right-side <code>Y</code> needs to be constructed, being <strong>equal under alpha-conversion</strong> to the left-side <code>Y</code>.</p>
 </li>
 <li>
-<p>设计一个 abstraction <code>M</code> 做构建，<code>M</code> 将接收一些必要的参数，在函数体内组织这些参数，形成和 <code>Y</code> 一样的结构.</p>
+<p>How to repeat <code>F</code>? Simple - <code>Y = (f: ...)</code> receives parameter <code>F</code>, and within <code>Y</code>&rsquo;s body, we can repeat it as needed.</p>
+</li>
+<li>
+<p>Design an abstraction <code>M</code> for construction. <code>M</code> will receive necessary parameters and organize them to form a structure identical to <code>Y</code>.</p>
 <ol>
-<li><code>Y = f: M f ...</code> ~ᴇxᴘᴇᴄᴛᴇᴅ→ <code>M = f: f (Wai f)</code>：毫无疑问，<code>M</code> 需要拿到 <code>Y</code> 的参数 <code>f</code>，<code>M</code> 内部需要建立起和 <code>Y F</code> 一致的结构；</li>
-<li><code>Y = f: M f M ...</code> ~ᴇxᴘᴇᴄᴛᴇᴅ→ <code>M = f:m: f (m f m)</code>：因为我们希望 <code>M</code> 可以建立起和 <code>Y F</code> 一致的结构，而 <code>Y</code> 包含了 <code>M</code>，那么 <code>M</code> 也需要包含 <code>M</code>，所以通过参数 <code>m</code> 将 <code>M</code> 原封不动地传进 <code>M</code>. <code>M</code> 的函数体中，最左的 <code>f</code> 实现 <code>f</code> 的再次应用，<code>(m f m)</code> 构建了和左侧的 <code>Y F</code> alpha 等价的结构.</li>
-<li><code>Y = f: M f M, 其中 M = f:m: f (m f m)</code>，可以验证这已经是一个可行的 <code>Y</code> 组合子了，<code>Y F = M F M = (f:m: f (m f m)) F M = F (M F M) = F (M F M) = F (Y F)</code>.</li>
+<li><code>Y = f: M f ...</code> ~ᴇxᴘᴇᴄᴛᴇᴅ→ <code>M = f: f (Wai f)</code>: <code>M</code> needs <code>Y</code>&rsquo;s parameter <code>f</code> and must build structure matching <code>Y F</code>;</li>
+<li><code>Y = f: M f M ...</code> ~ᴇxᴘᴇᴄᴛᴇᴅ→ <code>M = f:m: f (m f m)</code>: Since we want <code>M</code> to match <code>Y F</code>&rsquo;s structure, and <code>Y</code> contains <code>M</code>, <code>M</code> must contain <code>M</code> too, passed via parameter <code>m</code>. In <code>M</code>&rsquo;s body, leftmost <code>f</code> implements <code>f</code>&rsquo;s reapplication, <code>(m f m)</code> constructs structure alpha-equivalent to left-side <code>Y F</code>.</li>
+<li><code>Y = f: M f M, where M = f:m: f (m f m)</code> is a valid Y combinator, verifiable by <code>Y F = M F M = (f:m: f (m f m)) F M = F (M F M) = F (M F M) = F (Y F)</code>.</li>
 </ol>
 </li>
 <li>
-<p><code>Y</code> 组合子可以有无数种，比如 (a) <code>Y = f: M M f, M = m:f: f (m m f)</code> 这和上文所呈现的 <code>Y</code> 组合子是几乎一样的，只是改变了 <code>M, f</code> 参数的顺序，利用一步 $\eta$ 规约，使之更简洁——<code>Y = M M, M = ...</code>，这也是图灵给出的 <code>Y</code> 组合子；(b) <code>Y = f: E (E f) E f, E = r:s:f: f (s r s f)</code> 也是可以的，看起来不够简洁，但是理念和上面的陈述是一致的，用 <code>E</code> 接收需要知道的参数，然后做构建，你会发现 <code>E</code> 接收了 <code>E</code> 和 <code>f</code>，又多余地接收了 <code>(E f)</code>，把 <code>(E f)</code> 拿掉并做相应的修改，就得到了本段落陈述的第一种 <code>Y</code> 组合子；(c) 最简洁的 <code>Y = f: (x: f (x x)) (x: f (x x))</code>，它和前面提到的 Y 组合子的区别在于，前面的 Y 组合子是用组合子组成的，比如 4 中的 <code>Y = f: M f M</code> 中的 <code>M</code> 本身也是组合子，而这个 <code>Y</code> 组合子不包含组合子子项.</p>
+<p>There are countless Y combinators, like (a) <code>Y = f: M M f, M = m:f: f (m m f)</code> - similar but more concise via η-reduction to <code>Y = M M, M = ...</code>, as given by Turing; (b) <code>Y = f: E (E f) E f, E = r:s:f: f (s r s f)</code> works too but less elegant; (c) most concise <code>Y = f: (x: f (x x)) (x: f (x x))</code> which differs by not containing combinator sub-terms.</p>
 </li>
 </ol>
 <ul>
 <li>
-<p>小练习：如何实现满足双边延展的 <code>D F D = D (D F D) D = ...</code> 的组合子 <code>D</code>？</p>
-<p>一种解法可以是 <code>D = f:d: d (d f d) d</code>，道理和之前所说的是一致的.</p>
+<p>Exercise: How to implement combinator <code>D</code> satisfying <code>D F D = D (D F D) D = ...</code>?</p>
+<p>One solution: <code>D = f:d: d (d f d) d</code>, following similar principles.</p>
 </li>
 <li>
-<p><code>Y</code> 一定要是组合子吗，可以引入自由变量吗？</p>
-<p>假设 <code>Y</code> 包含自由变量 <code>z</code>，因为 <code>Y</code> 包含 <code>z</code>，那么用 <code>M</code> 构建 <code>Y</code> 时也要考虑到 <code>z</code>：</p>
+<p>Must <code>Y</code> be a combinator? Can it have free variables?</p>
+<p>If <code>Y</code> had free variable <code>z</code>, constructing <code>Y</code> with <code>M</code> must consider <code>z</code>:</p>
 <ol>
-<li>closed <code>M</code>：将 <code>z</code> 作为参数传给 <code>M</code>，那么可以在之前的 Y 组合子的基础上修改，得到 <code>Y = f: M f c M, M = f:c:m: f (m f c m)</code>，可以验证，这可以达成 <code>Y F = F (Y F) = ... </code> 的目标，同时你可以注意到引入 <code>z</code> 并没有什么意义，只是平添负担;</li>
-<li>open <code>M</code>：即 <code>M</code> 本身包含了自由 <code>z</code>，可以尝试 <code>Y = f: K f K z, K = f:k: f (k f k z)</code>这个例子，你会发现这是行不通的： <code>Y F = F (K F K z) z = F (Y F) z = F (F (Y F) z) z</code>，这个 <code>Y</code> 的效果是在左侧不断做 <code>F</code> 的应用，右侧不断产生新的 <code>z</code>.</li>
+<li>closed <code>M</code>: Pass <code>z</code> as parameter giving <code>Y = f: M f c M, M = f:c:m: f (m f c m)</code> - works but adds unnecessary complexity;</li>
+<li>open <code>M</code>: If <code>M</code> contains free <code>z</code>, like <code>Y = f: K f K z, K = f:k: f (k f k z)</code>, it fails producing: <code>Y F = F (K F K z) z = F (Y F) z = F (F (Y F) z) z</code>.</li>
 </ol>
-<p>根据以上的讨论，这个问题的答案是：可以，但没必要. 且从直觉上去理解，随意地引入自由变量也没有意义. 我提出这个问题的原因是，有一瞬间突然觉得 Y 组合子太熟悉了，第一次在 LC 里见到 Y 这个大写字母后面接的就是&quot;组合子&quot;三个字，所以开始考虑，如果不是组合子是否可以.</p>
+<p>Conclusion: Possible but pointless. Intuitively, arbitrary free variables serve no purpose.</p>
 </li>
 </ul>
-<!-- - 关于自指，命令式与 LC (Y 组合子) 的比较：
-
-    简单的递归函数 `void func() { func(); } `，它的汇编代码大约如下：
-
-    ```
-    0x1a00: func:
-          :   push    rbp
-          :   mov     rbp, rsp
-          :   call    func          # self-reference 
-          :   pop     rbp
-          :   ret
-    ```
-
-    运行程序时，其代码段（当然也包括程序的其他部分）将被加载到内存，执行到 `call func` 时，程序计数器将被置为 0x1a00，下一个周期将从 0x1a00 （即 `func` 的入口）开始继续顺序执行代码段中的指令，这里 `func` 的递归符合我们对"自指"这个词的直觉，因为计算机把函数（的机器码）加载到存储空间中，`call func` 调用的就是之前被加载好的 `func`.
-
-    对于 Y 组合子而言，`Y F = F (Y F) = ...`，`Y F` 的定义依赖于其自身，这也是一种自指，LC 没有存储，所有的函数都是匿名函数，不支持通过名称调用自身实现直接递归， -->
-<h4 id="y-combinator-使用"><a href="#y-combinator-%e4%bd%bf%e7%94%a8" class="header-anchor"></a>Y combinator 使用
-</h4><p>承接动机部分，我们用 <code>F' = f:a: ...</code> 表达递归函数 <code>f</code> 与其参数 <code>a</code> 之间的应用逻辑，将目标递归函数为 <code>F</code>，那么 <code>F = F' F</code>，因为自引的不合法，考虑用 <code>Y F'</code> 来表示 <code>F</code>，在上一节中我们涉及出了可行的 <code>Y</code>，于是 <code>F = Y F'</code> 就是我们希望得到的目标函数.</p>
-<!-- TL;DR: 如果希望实现 `f` 的递归，`f` 的参数为 `a`，Y  -->
-<p>想明白 Y 组合子的使用，本 section 的关卡都很简单了，唯一值得提示的是 1. 使用以往关卡已定义过的函数时，注意函数的参数顺序，例如 <code>FILTER</code> 先传列表，再传过滤依赖的函数，因为 Simple LC 语法层面的约束很少，所以编程者自己要多当心一些 2. 有若干个关卡可能涉及列表反转，所以 <code>REVERSE</code> 可以先写，然后直接拿来用 3. 注意括号配对，可以现在先进的编辑器里先写，确保不犯低级错误，再复制进来评测. 下面给出的答案仅供参考，可以过评测，但未必最简.</p>
+<h4 id="using-the-y-combinator"><a href="#using-the-y-combinator" class="header-anchor"></a>Using the Y combinator
+</h4><p>Following the motivation section, we use <code>F' = f:a: ...</code> to express the application logic between recursive function <code>f</code> and its parameter <code>a</code>. With target recursive function <code>F</code>, we have <code>F = F' F</code>. Since self-reference is invalid, we consider using <code>Y F'</code> to represent <code>F</code>. In the previous section we derived a viable <code>Y</code>, so <code>F = Y F'</code> gives us our desired target function.</p>
+<p>The problems in this section become straightforward once you understand the Y combinator. Key points to note:</p>
+<ol>
+<li>When using previously defined functions, pay attention to parameter order. For example, <code>FILTER</code> takes the list first, then the filtering function. Since Simple LC has few syntax constraints, programmers need to be extra careful;</li>
+<li>Several problems may involve list reversal, so write <code>REVERSE</code> first and reuse it;</li>
+<li>Watch your bracket matching - write in an advanced editor first to avoid basic errors, then copy the code into the game for evaluation. The answers below pass evaluation but may not be the most concise.</li>
+</ol>
 <h3 id="strip-prefix"><a href="#strip-prefix" class="header-anchor"></a>strip prefix
-</h3><p>去除不定长列表前缀的 <code>FALSE</code>：</p>
+</h3><p>Remove <code>FALSE</code> prefix from variable length list:</p>
 <pre tabindex="0"><code>Y (f:l:
-      IF 
-      (FST l)
-      l 
-      (f (SND l))
-  )
+    IF 
+    (FST l)
+    l 
+    (f (SND l))
+    )
 </code></pre><h3 id="acc"><a href="#acc" class="header-anchor"></a>ACC
 </h3><pre tabindex="0"><code>Y  (a:l:f:i: 
-      IF (EMPTY l)
-      i 
-      (a (SND l) f (f i (FST l))) 
-   )
+    IF (EMPTY l)
+    i 
+    (a (SND l) f (f i (FST l))) 
+    )
 </code></pre><h3 id="all"><a href="#all" class="header-anchor"></a>ALL
 </h3><pre tabindex="0"><code>l: ACC l AND TRUE
 </code></pre><h3 id="reverse"><a href="#reverse" class="header-anchor"></a>REVERSE
 </h3><pre tabindex="0"><code>Y (i:c:l: 
     IF 
-      (EMPTY l) 
-      c 
-      (i (PAIR (FST l) c) (SND l))
-  ) 
-  FALSE 
+    (EMPTY l) 
+    c 
+    (i (PAIR (FST l) c) (SND l))
+    ) 
+    FALSE 
 </code></pre><h3 id="map"><a href="#map" class="header-anchor"></a>MAP
 </h3><pre tabindex="0"><code>Y  (m:c:l:f:
         IF 
@@ -660,29 +648,29 @@ FALSE
         (EMPTY l)
         (REVERSE c)
         (   IF 
-            (f (FST l))
-            (m (PAIR (FST l) c) (SND l) f) 
-            (m c (SND l) f)
+        (f (FST l))
+        (m (PAIR (FST l) c) (SND l) f) 
+        (m c (SND l) f)
         )
-  )
-  FALSE
+    )
+    FALSE
 </code></pre><h3 id="zip"><a href="#zip" class="header-anchor"></a>ZIP
 </h3><pre tabindex="0"><code>Y (z:c:m:n:
     IF 
     (EMPTY m)
     (REVERSE c)    
     (z (PAIR (PAIR (FST m) (FST n)) c) (SND m) (SND n)) 
-  ) 
-  FALSE
+    ) 
+    FALSE
 </code></pre><h3 id="eqblist"><a href="#eqblist" class="header-anchor"></a>EQBLIST
 </h3><pre tabindex="0"><code>(m:n: ALL 
-      (MAP 
-         (MAP 
-            (ZIP m n) 
-            (p: XOR (FST p) (SND p))
-         ) 
-         NOT
-      ) 
+    (MAP 
+        (MAP 
+        (ZIP m n) 
+        (p: XOR (FST p) (SND p))
+        ) 
+        NOT
+    ) 
 )
 </code></pre><h3 id="concat"><a href="#concat" class="header-anchor"></a>CONCAT
 </h3><pre tabindex="0"><code>(m:n: 
@@ -690,23 +678,23 @@ FALSE
         IF (EMPTY r)
         c
         (g (PAIR (FST r) c) (SND r))
-       )
+        )
     )
     n (REVERSE m) 
 )
 </code></pre><h2 id="numerals"><a href="#numerals" class="header-anchor"></a>Numerals
-</h2><p>Church Numeral 用函数表达自然数，两个关键点是 1. 基 (<code>0 := f:x: x</code>) 2. 后继 (<code>SUC</code>)，在基之上不断做后继，就可以得到所有 Church Numeral.</p>
+</h2><p>Church Numerals use functions to express natural numbers. Two key points are: 1. base (<code>0 := f:x: x</code>) 2. successor (<code>SUC</code>). By repeatedly applying successor to the base, we can obtain all Church Numerals.</p>
 <h3 id="suc"><a href="#suc" class="header-anchor"></a>SUC
-</h3><p>给定 Church Numeral <code>n</code>，<code>n</code> 是一个函数，参数为 <code>f</code>, <code>x</code>，<code>n f x</code> 表示将 <code>f</code> 应用于 <code>x</code> $n$ 次，<code>SUC n</code> 是一个函数，这个函数的能力是接收 <code>f</code>, <code>x</code>，将 <code>f</code> 应用于 <code>x</code> $(n+1)$ 次.</p>
+</h3><p>Given Church Numeral <code>n</code>, <code>n</code> is a function that takes parameters <code>f</code>, <code>x</code>, where <code>n f x</code> means applying <code>f</code> to <code>x</code> $n$ times. <code>SUC n</code> is a function that takes <code>f</code>, <code>x</code> and applies <code>f</code> to <code>x</code> $(n+1)$ times.</p>
 <pre tabindex="0"><code>(n: (f:x: f (n f x) ) )
 </code></pre><h3 id="zero"><a href="#zero" class="header-anchor"></a>ZERO
-</h3><p>利用逻辑运算来判断给定的 <code>n</code> 是不是 <code>f:x: x</code>.</p>
+</h3><p>Use logical operations to determine if given <code>n</code> is <code>(f:x: x)</code>.</p>
 <pre tabindex="0"><code>(n: n (x: AND FALSE x) TRUE)
 </code></pre><h3 id="pre"><a href="#pre" class="header-anchor"></a>PRE
-</h3><p>一个基本的观察是 <code>n = n SUC 0</code>，这里的等号表示内涵等价（intensional equality），那么在 <code>PAIR 0 0</code> 上做 $n$ 次迭代，一轮迭代的工作是：1. 右侧数对齐左侧数 2. 左侧数做一次后继，那么右侧数始终慢左侧数一步，即 $n$ 轮迭代后，左侧数是 <code>n</code>，右侧数是左侧数的后继.</p>
+</h3><p>A basic observation is <code>n = n SUC 0</code>, where equality means intensional equality. So iterating on <code>PAIR 0 0</code> $n$ times, where each iteration: 1. aligns right number with left 2. increments left number, means right number always lags left by one step. After $n$ iterations, left number is <code>n</code>, right number is its predecessor.</p>
 <pre tabindex="0"><code>(n: SND (n (p: PAIR (SUC (FST p)) (FST p)) (PAIR 0 0) ) )
 </code></pre><h3 id="add"><a href="#add" class="header-anchor"></a>ADD
-</h3><p>给定 <code>x</code>, <code>y</code>，目标是给出 <code>x+y</code>，<code>x+y</code> 的含义是：预备接收 <code>f</code>, <code>z</code>，将 <code>f</code> 应用于 <code>z</code> $(x+y)$ 次. 先将 <code>f</code> 应用于 <code>z</code> $x$ 次，得到结果 <code>x f z</code>，再将 <code>f</code> 应用于 <code>(x f z)</code> $y$ 次.</p>
+</h3><p>Given <code>x</code>, <code>y</code>, the goal is <code>x+y</code>, meaning: ready to receive <code>f</code>, <code>z</code>, apply <code>f</code> to <code>z</code> $(x+y)$ times. First apply <code>f</code> to <code>z</code> $x$ times getting <code>x f z</code>, then apply <code>f</code> to <code>(x f z)</code> $y$ times.</p>
 <pre tabindex="0"><code>(x:y: (f:z: y f (x f z)) )
 </code></pre><h3 id="sub"><a href="#sub" class="header-anchor"></a>SUB
 </h3><pre tabindex="0"><code>(x:y: (f:z: (y PRE x) f z))
@@ -714,19 +702,19 @@ FALSE
 </h3><pre tabindex="0"><code>(x:y:f:z: y (x f) z )
 </code></pre><h3 id="div"><a href="#div" class="header-anchor"></a>DIV
 </h3><pre tabindex="0"><code>(Y (d:c:x:y:
-        IF (ZERO x)
-        0    
-        ( 
-          IF (ZERO (y PRE x))
-          (SUC c)
-          (d (SUC c) (y PRE x) y)
-        ) 
+    IF (ZERO x)
+    0    
+    ( 
+      IF (ZERO (y PRE x))
+      (SUC c)
+      (d (SUC c) (y PRE x) y)
+    ) 
    ) 
 ) 0
 </code></pre><h3 id="eq"><a href="#eq" class="header-anchor"></a>EQ
 </h3><pre tabindex="0"><code>(x:y: AND 
-        (ZERO (x PRE y)) 
-        (ZERO (y PRE x))
+    (ZERO (x PRE y)) 
+    (ZERO (y PRE x))
 )
 </code></pre><h3 id="min"><a href="#min" class="header-anchor"></a>MIN
 </h3><pre tabindex="0"><code>(x:y: IF (ZERO (x PRE y))
@@ -741,7 +729,7 @@ FALSE
 </code></pre><h2 id="more-numerals"><a href="#more-numerals" class="header-anchor"></a>More Numerals
 </h2><h3 id="is-odd"><a href="#is-odd" class="header-anchor"></a>is odd
 </h3><pre tabindex="0"><code>(n: (n NOT FALSE))
-</code></pre><p>顺便想起了判断奇偶的递归方法：（看起来还挺有意思的，比熟悉的 <code>mod 2</code> 新鲜一些）</p>
+</code></pre><p>As a side note, here&rsquo;s a recursive method for checking odd/even numbers (looks interesting, fresher than familiar <code>mod 2</code>):</p>
 <div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hs" data-lang="hs"><span style="display:flex;"><span><span style="color:#6639ba">isEven</span> <span style="color:#0550ae">::</span> <span style="color:#cf222e">Int</span> <span style="color:#0550ae">-&gt;</span> <span style="color:#cf222e">Bool</span> 
 </span></span><span style="display:flex;"><span><span style="color:#6639ba">isEven</span> <span style="color:#0550ae">0</span> <span style="color:#0550ae">=</span> <span style="color:#cf222e">True</span> 
 </span></span><span style="display:flex;"><span><span style="color:#6639ba">isEven</span> x <span style="color:#0550ae">=</span> isOdd <span style="color:#1f2328">(</span>x<span style="color:#0550ae">-</span><span style="color:#0550ae">1</span><span style="color:#1f2328">)</span>
@@ -750,13 +738,13 @@ FALSE
 </span></span><span style="display:flex;"><span><span style="color:#6639ba">isOdd</span> <span style="color:#0550ae">0</span> <span style="color:#0550ae">=</span> <span style="color:#cf222e">False</span>
 </span></span><span style="display:flex;"><span><span style="color:#6639ba">isOdd</span> x <span style="color:#0550ae">=</span> isEven <span style="color:#1f2328">(</span>x<span style="color:#0550ae">-</span><span style="color:#0550ae">1</span><span style="color:#1f2328">)</span>
 </span></span></code></pre></div><h3 id="increasing-list"><a href="#increasing-list" class="header-anchor"></a>increasing list
-</h3><p>尾递归：</p>
+</h3><p>Tail recursive:</p>
 <pre tabindex="0"><code>(Y (f:c:n: IF (ZERO n)
            (PAIR 0 c)
            (f (PAIR n c) (PRE n))
    ) 
 ) FALSE
-</code></pre><p>非尾递归：</p>
+</code></pre><p>Non-tail recursive:</p>
 <pre tabindex="0"><code>(n: REVERSE 
     ( 
      (Y (f:x: 
@@ -767,7 +755,7 @@ FALSE
     )
 )
 </code></pre><h3 id="decomposition"><a href="#decomposition" class="header-anchor"></a>decomposition
-</h3><p>将给定数分解成 2 的幂之和：</p>
+</h3><p>Decompose given number into sum of powers of 2:</p>
 <pre tabindex="0"><code>(Y (f:c:k:n:
      IF (ZERO n)
      c
@@ -777,7 +765,7 @@ FALSE
      )
    )
 ) FALSE 8
-</code></pre><p><strong>*</strong> primes 和 sort 都需要大把时间运行（本机测试两关各自耗时都在 30min 左右）</p>
+</code></pre><p><strong>*</strong> primes and sort both need significant runtime (local tests show around 30min each level)</p>
 <h3 id="primes"><a href="#primes" class="header-anchor"></a>primes
 </h3><pre tabindex="0"><code>Y (f:l:p:n: 
      IF (EQ n (FST p)) 
@@ -802,7 +790,7 @@ FALSE
   (PAIR 23 (PAIR 19 (PAIR 17 (PAIR 13 (PAIR 11 (PAIR 7 
   (PAIR 3  (PAIR 2 FALSE))))))))))))))
 </code></pre><h3 id="sort"><a href="#sort" class="header-anchor"></a>sort
-</h3><p>选择排序：</p>
+</h3><p>Selection sort:</p>
 <pre tabindex="0"><code>Y (f:c:l: 
     IF (EMPTY l)
     c
@@ -821,10 +809,10 @@ FALSE
 </code></pre><h3 id="val"><a href="#val" class="header-anchor"></a>VAL
 </h3><pre tabindex="0"><code>t: t (l:v:r: v)
 </code></pre><h3 id="bempty"><a href="#bempty" class="header-anchor"></a>BEMPTY
-</h3><p>类似于列表判空，<code>NODE l v r = f: f l v r</code>，空树用 <code>FALSE := a:b: b</code> 表示，将一个树 <code>t</code> 作为函数使用，若是空树，<code>t A B = FALSE A B = B ~ᴇxᴘᴇᴄᴛᴇᴅ→ TRUE</code>，若不是空树 <code>t A B = (f: f l v r) A B = A l v r B ~ᴇxᴘᴇᴄᴛᴇᴅ→ FALSE</code>，根据以上，<code>B = TRUE, A = l:v:r:x FALSE</code>，所以：</p>
+</h3><p>Similar to checking empty list. Non-empty trees have the form of <code>NODE l v r = f: f l v r</code>,and empty tree is represented by <code>FALSE := a:b: b</code>. Using a tree <code>t</code> as a function: if empty tree, <code>t A B = FALSE A B = B ~ᴇxᴘᴇᴄᴛᴇᴅ→ TRUE</code>, if non-empty <code>t A B = (f: f l v r) A B = A l v r B ~ᴇxᴘᴇᴄᴛᴇᴅ→ FALSE</code>. Thus with <code>B = TRUE, A = l:v:r:x: FALSE</code>:</p>
 <pre tabindex="0"><code>(t: t (l:v:r:x: FALSE) TRUE )
 </code></pre><h3 id="find"><a href="#find" class="header-anchor"></a>FIND
-</h3><p>判断树 <code>t</code> 中是否存在值为 <code>v</code> 的结点：</p>
+</h3><p>Check if tree <code>t</code> contains node with value <code>v</code>:</p>
 <pre tabindex="0"><code>Y (f:t:v:
     IF (BEMPTY t)
     FALSE
@@ -834,14 +822,14 @@ FALSE
     )
   )
 </code></pre><h3 id="bsize"><a href="#bsize" class="header-anchor"></a>BSIZE
-</h3><p>计算树的规模：</p>
+</h3><p>Calculate tree size:</p>
 <pre tabindex="0"><code>Y (f:t:
     IF (BEMPTY t)
     0
     (SUC (ADD (f (LEF t)) (f (RIG t))))
   )
 </code></pre><h3 id="build"><a href="#build" class="header-anchor"></a>BUILD
-</h3><p>二叉搜索树的构造：</p>
+</h3><p>Binary search tree construction:</p>
 <pre tabindex="0"><code>Y (f:c:l:
     IF (EMPTY l)
     c
@@ -861,9 +849,9 @@ FALSE
         (SND l)
     ) 
   ) FALSE
-</code></pre><p><em>[ 游戏里的 PREORDER 和 INORDER 两个函数似乎反了？ ]</em></p>
+</code></pre><p><em>[ Seems like PREORDER and INORDER functions are swapped in the game? ]</em></p>
 <h3 id="preorder"><a href="#preorder" class="header-anchor"></a>PREORDER
-</h3><p>二叉树的中序遍历：</p>
+</h3><p>Inorder traversal of binary tree:</p>
 <pre tabindex="0"><code>Y (f:t: 
     IF (BEMPTY t)
     FALSE
@@ -874,7 +862,7 @@ FALSE
     )
   )
 </code></pre><h3 id="inorder"><a href="#inorder" class="header-anchor"></a>INORDER
-</h3><p>二叉树的前序遍历：</p>
+</h3><p>Preorder traversal of binary tree:</p>
 <pre tabindex="0"><code>Y (f:t: 
     IF (BEMPTY t)
     FALSE
@@ -885,7 +873,7 @@ FALSE
     )
   )
 </code></pre><h3 id="split"><a href="#split" class="header-anchor"></a>SPLIT
-</h3><p>树 <code>t</code> 以 <code>v</code> 为界进行分割：</p>
+</h3><p>Split tree <code>t</code> using value <code>v</code> as boundary:</p>
 <pre tabindex="0"><code>Y (f:t:v:
     IF (BEMPTY t)
     (PAIR FALSE FALSE)
@@ -902,7 +890,7 @@ FALSE
     )
   )
 </code></pre><h3 id="kth"><a href="#kth" class="header-anchor"></a>KTH
-</h3><p>对给定的二叉搜索树，给出其中第 <code>k</code> 大的元素，取出树的中序遍历列表中的第 <code>k</code> 项即可：</p>
+</h3><p>Find kth largest element in given binary search tree by getting kth item from inorder traversal list:</p>
 <pre tabindex="0"><code>(t:k: 
     Y (f:c:l:
         IF (EQ c 0)
@@ -911,7 +899,7 @@ FALSE
     ) k (PREORDER t)
 )
 </code></pre><h3 id="inverse-6"><a href="#inverse-6" class="header-anchor"></a>inverse 6
-</h3><p>对给定的二叉搜索树 <code>t</code>，找出 <code>[1..6]</code> 中的若干个缺席者，升序排列：</p>
+</h3><p>For given binary search tree <code>t</code>, find missing numbers from <code>[1..6]</code> in ascending order:</p>
 <pre tabindex="0"><code>t: 
   IF (BEMPTY t)
   (PAIR 1 (PAIR 2 (PAIR 3 (PAIR 4 (PAIR 5 (PAIR 6 FALSE))))))
@@ -938,9 +926,9 @@ FALSE
     
     <section class="article-tags">
         
-            <a href="/zh/tags/lambda-calculus/">Lambda Calculus</a>
+            <a href="/tags/lambda-calculus/">Lambda Calculus</a>
         
-            <a href="/zh/tags/combinator-logic/">Combinator Logic</a>
+            <a href="/tags/combinator-logic/">Combinator Logic</a>
         
     </section>
 
@@ -998,12 +986,12 @@ FALSE
             
                 
 <article class="">
-    <a href="/zh/p/%E8%BF%AD%E4%BB%A3%E7%BB%84%E5%90%88%E5%AD%90%E7%9A%84%E6%9E%84%E9%80%A0-lcac-4c-theorem-4.20/">
+    <a href="/p/the-construction-of-the-iteration-combinator-lcac-4c-theorem-4.20/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">迭代组合子的构造 - LCaC § 4C, Theorem 4.20</h2>
+            <h2 class="article-title">The Construction of the Iteration Combinator - LCaC § 4C, Theorem 4.20</h2>
         </div>
     </a>
 </article>
@@ -1011,12 +999,12 @@ FALSE
             
                 
 <article class="">
-    <a href="/zh/p/church-encoding-%E7%AE%80%E5%8D%95%E7%AC%94%E8%AE%B0/">
+    <a href="/p/church-encoding-note/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">Church Encoding 简单笔记</h2>
+            <h2 class="article-title">Church Encoding Note</h2>
         </div>
     </a>
 </article>
@@ -1024,12 +1012,12 @@ FALSE
             
                 
 <article class="">
-    <a href="/zh/p/huffman-%E6%A0%91%E7%9A%84-haskell-%E5%AE%9E%E7%8E%B0-%E7%BB%84%E5%90%88%E6%95%B0%E6%8D%AE%E7%9A%84%E7%BB%93%E6%9E%84%E4%B8%8E%E8%A7%A3%E6%9E%84/">
+    <a href="/p/huffman-trees-in-haskell-structure-and-destructure-of-compound-data/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">Huffman 树的 Haskell 实现 | 组合数据的结构与解构</h2>
+            <h2 class="article-title">Huffman Trees in Haskell | Structure and Destructure of Compound Data</h2>
         </div>
     </a>
 </article>
@@ -1037,12 +1025,12 @@ FALSE
             
                 
 <article class="">
-    <a href="/zh/p/%E6%90%9C%E7%B4%A2%E7%AE%97%E6%B3%95%E7%9A%84%E6%8A%BD%E8%B1%A1/">
+    <a href="/p/abstractions-for-search-algorithms/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">搜索算法的抽象</h2>
+            <h2 class="article-title">Abstractions for Search Algorithms</h2>
         </div>
     </a>
 </article>
@@ -1050,12 +1038,12 @@ FALSE
             
                 
 <article class="">
-    <a href="/zh/p/%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D%E9%87%8D%E5%A4%8D%E8%AE%A1%E7%AE%97-/-%E7%BA%AF%E5%87%BD%E6%95%B0%E5%8F%8A%E5%85%B6%E6%B1%82%E5%80%BC%E7%AD%96%E7%95%A5/">
+    <a href="/p/message-passing-perspective-on-bool-sicp-2.4.3-generic-data-and-functions/">
         
         
 
         <div class="article-details">
-            <h2 class="article-title">如何避免重复计算 / 纯函数及其求值策略</h2>
+            <h2 class="article-title">Message Passing Perspective on Bool - SICP § 2.4.3 | Generic | Data and Functions</h2>
         </div>
     </a>
 </article>
