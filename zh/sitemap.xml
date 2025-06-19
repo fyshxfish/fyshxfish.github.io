@@ -2,6 +2,19 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://fyshxfish.github.io/zh/p/thoughts-on-...-%E6%97%A0%E6%B3%95%E5%86%99%E5%87%BA%E5%AE%8C%E6%95%B4%E5%8D%9A%E6%96%87%E7%9A%84%E9%9B%B6%E7%A2%8E%E6%83%B3%E6%B3%95%E9%9B%86%E5%90%88/</loc>
+    <lastmod>2025-06-19T23:05:00+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://fyshxfish.github.io/p/thoughts-on-.../"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="http://fyshxfish.github.io/zh/p/thoughts-on-...-%E6%97%A0%E6%B3%95%E5%86%99%E5%87%BA%E5%AE%8C%E6%95%B4%E5%8D%9A%E6%96%87%E7%9A%84%E9%9B%B6%E7%A2%8E%E6%83%B3%E6%B3%95%E9%9B%86%E5%90%88/"
+                />
+  </url><url>
     <loc>http://fyshxfish.github.io/zh/p/foundations-and-applications-of-intersection-and-union-types-pdf/</loc>
     <lastmod>2025-05-29T18:06:00+08:00</lastmod>
     <xhtml:link
@@ -107,7 +120,7 @@
                 />
   </url><url>
     <loc>http://fyshxfish.github.io/zh/</loc>
-    <lastmod>2025-05-29T18:06:00+08:00</lastmod>
+    <lastmod>2025-06-19T23:05:00+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
@@ -117,6 +130,19 @@
                 rel="alternate"
                 hreflang="zh"
                 href="http://fyshxfish.github.io/zh/"
+                />
+  </url><url>
+    <loc>http://fyshxfish.github.io/zh/post/</loc>
+    <lastmod>2025-06-19T23:05:00+08:00</lastmod>
+    <xhtml:link
+                rel="alternate"
+                hreflang="en"
+                href="http://fyshxfish.github.io/post/"
+                />
+    <xhtml:link
+                rel="alternate"
+                hreflang="zh"
+                href="http://fyshxfish.github.io/zh/post/"
                 />
   </url><url>
     <loc>http://fyshxfish.github.io/zh/categories/</loc>
@@ -143,19 +169,6 @@
                 rel="alternate"
                 hreflang="zh"
                 href="http://fyshxfish.github.io/zh/categories/pl/"
-                />
-  </url><url>
-    <loc>http://fyshxfish.github.io/zh/post/</loc>
-    <lastmod>2025-05-29T18:06:00+08:00</lastmod>
-    <xhtml:link
-                rel="alternate"
-                hreflang="en"
-                href="http://fyshxfish.github.io/post/"
-                />
-    <xhtml:link
-                rel="alternate"
-                hreflang="zh"
-                href="http://fyshxfish.github.io/zh/post/"
                 />
   </url><url>
     <loc>http://fyshxfish.github.io/zh/categories/xplore/</loc>

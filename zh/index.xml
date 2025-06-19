@@ -6,7 +6,41 @@
         <description>Recent content on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh</language>
-        <lastBuildDate>Thu, 29 May 2025 18:06:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/zh/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Thu, 19 Jun 2025 23:05:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/zh/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Thoughts on ... | 无法写出完整博文的零碎想法集合</title>
+        <link>http://fyshxfish.github.io/zh/p/thoughts-on-...-%E6%97%A0%E6%B3%95%E5%86%99%E5%87%BA%E5%AE%8C%E6%95%B4%E5%8D%9A%E6%96%87%E7%9A%84%E9%9B%B6%E7%A2%8E%E6%83%B3%E6%B3%95%E9%9B%86%E5%90%88/</link>
+        <pubDate>Thu, 19 Jun 2025 23:05:00 +0800</pubDate>
+        
+        <guid>http://fyshxfish.github.io/zh/p/thoughts-on-...-%E6%97%A0%E6%B3%95%E5%86%99%E5%87%BA%E5%AE%8C%E6%95%B4%E5%8D%9A%E6%96%87%E7%9A%84%E9%9B%B6%E7%A2%8E%E6%83%B3%E6%B3%95%E9%9B%86%E5%90%88/</guid>
+        <description>&lt;p&gt;站点显示的日期为最后更新日期（是的，我的预期是可以持续更新&lt;code&gt;*v*&lt;/code&gt;）；这篇博文的构成为一些零零散散的想法.&lt;/p&gt;
+&lt;h2 id=&#34;20250619&#34;&gt;&lt;a href=&#34;#20250619&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;2025.06.19
+&lt;/h2&gt;&lt;h3 id=&#34;cps-一个有关承诺的故事&#34;&gt;&lt;a href=&#34;#cps-%e4%b8%80%e4%b8%aa%e6%9c%89%e5%85%b3%e6%89%bf%e8%af%ba%e7%9a%84%e6%95%85%e4%ba%8b&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;CPS: 一个有关承诺的故事
+&lt;/h3&gt;&lt;p&gt;一些参考资料：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/watch?v=0-h8bwNXaTc&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;CMU CS15-150: Lecture 11 Continuation-Passing Style | CMU Principles of Functional Programming M23&lt;/a&gt;，讲师：Bradon Wu，语言：SML，概述：CPS 的直觉、如何流程化地对普通递归函数进行CPS变换、有趣的课堂小互动&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.cs.cornell.edu/courses/cs6110/2013sp/lectures/lec13-sp13.pdf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Cornell CS6110 Lecture 13 Continuation-passing style&lt;/a&gt;，语言：(Pure) Untyped Lambda Calculus，概述：对最初最简单的 LC 做 CPS 变换&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://groups.seas.harvard.edu/courses/cs152/2010sp/lectures/lec11.pdf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Harvard CS152 Lecture 11 References; Continuation passing style&lt;/a&gt;，语言：(Applied) Untyped Lambda Calculus，概述：在原始 LC 基础上加了若干新构造子，我觉得更好理解一些&lt;/li&gt;
+&lt;li&gt;SICP §4.3 Variations on a Scheme - Nondeterministic Computing，语言：Scheme，概述：虽然原文没有说 CPS，但内核是 CPS，用 &lt;code&gt;amb&lt;/code&gt; 实现非确定编程，可以跟着用 Scheme 自己动手实现一下，我觉得蛮酷的！&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://dl.acm.org/doi/10.1145/3704848&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;POPL&#39;25 - The Duality of λ-Abstraction&lt;/a&gt;，语言：Simply Typed Lambda Calculus，概述：今年的新文章，驱动我回过头来重新学习 CPS 的动力，这篇文章用 CPS 来描述加入了 co-abstraction 构造子的新 Lambda Calculus 的语义.&lt;/li&gt;
+&lt;li&gt;在 Google 上搜索 &amp;ldquo;Continuation-Passing Style note&amp;rdquo; 可以搜到很多名校讲义&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;CPS (Continuation Passing Style) 是一种编程风格，它的存在宣告了所有的递归函数都可以改造成尾递归的形式（所以可以成为编译器优化的一部分，即尾递归优化）.&lt;/p&gt;
+&lt;p&gt;TODO&lt;/p&gt;
+&lt;h3 id=&#34;小红书根号与-syntactic&#34;&gt;&lt;a href=&#34;#%e5%b0%8f%e7%ba%a2%e4%b9%a6%e6%a0%b9%e5%8f%b7%e4%b8%8e-syntactic&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;小红书、根号与 syntactic
+&lt;/h3&gt;&lt;h3 id=&#34;所以代价是什么-no-free-lunch&#34;&gt;&lt;a href=&#34;#%e6%89%80%e4%bb%a5%e4%bb%a3%e4%bb%b7%e6%98%af%e4%bb%80%e4%b9%88-no-free-lunch&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;&amp;ldquo;所以，代价是什么？&amp;rdquo; No Free Lunch
+&lt;/h3&gt;&lt;p&gt;当你在阅读一篇提出的方法 M 的文章，作者对 M 带来的各种性质的增量会详细描述，你读完可能依然存在一些说不清的疑惑，此刻可以考虑的一个问题是：M 带来了这些好处，那么代价是什么，因为带来某方面的提高，往往意味着让渡其他方面的优越. 一些例子：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;LET (Logical Execution Time): Predictable v.s. Time consumption&lt;/li&gt;
+&lt;li&gt;Type System: inference, annotation&lt;/li&gt;
+&lt;li&gt;Safe Language as the cost of &amp;hellip;?&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        </item>
+        <item>
         <title>Foundations and Applications of Intersection and Union Types (PDF)</title>
         <link>http://fyshxfish.github.io/zh/p/foundations-and-applications-of-intersection-and-union-types-pdf/</link>
         <pubDate>Thu, 29 May 2025 18:06:00 +0800</pubDate>

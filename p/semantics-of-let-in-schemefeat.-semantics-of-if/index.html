@@ -6,7 +6,7 @@
 
 <link rel='canonical' href='http://fyshxfish.github.io/p/semantics-of-let-in-schemefeat.-semantics-of-if/'>
 
-<link rel="stylesheet" href="/scss/style.min.ca8e73f914c0e48d09b6dc36c97037f15a283dbaba328e73f133fd9c13b277ad.css"><meta property='og:title' content="Semantics of `let` in Scheme(feat. Semantics of `if`)">
+<link rel="stylesheet" href="/scss/style.min.32d39ffafd07039ac37b1f407c93fed8292d6d4f1670d493fa508706db079c45.css"><meta property='og:title' content="Semantics of `let` in Scheme(feat. Semantics of `if`)">
 <meta property='og:description' content=" Semantics of let Key point: A let scope is evaluated immediately (including both bindings and expressions after bindings, i.e., everything within the outer parentheses of the let), even if the let is nested inside an inner function that hasn&rsquo;t been called yet.\nExample:\n(define (comp x) (if (&gt; 3 x) (display &#34;then-clause&#34;) (display &#34;else-clause&#34;) ) #| (define foo1 (let ((bar1 (/ 2 0))) ; * evaluted immediately (display &#34;should not be printed&#34;) ) ) |# (define foo2 (let ((bar2 (/ 5 2))) ; * evaluted immediately (newline) (display &#34;let in `foo2`, bar2: &#34;) (display bar2) ) ) ) Running examples:\n">
 <meta property='og:url' content='http://fyshxfish.github.io/p/semantics-of-let-in-schemefeat.-semantics-of-if/'>
 <meta property='og:site_name' content='fyshXplore'>
