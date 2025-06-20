@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html lang="zh" dir="ltr">
     <head><meta charset='utf-8'>
-<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="站点显示的日期为最后更新日期（是的，我的预期是可以持续更新*v*）；这篇博文的构成为一些零零散散的想法.\n2025.06.19 CPS: 一个有关承诺的故事 一些参考资料：\nCMU CS15-150: Lecture 11 Continuation-Passing Style | CMU Principles of Functional Programming M23，讲师：Bradon Wu，语言：SML，概述：CPS 的直觉、如何流程化地对普通递归函数进行CPS变换、有趣的课堂小互动 Cornell CS6110 Lecture 13 Continuation-passing style，语言：(Pure) Untyped Lambda Calculus，概述：对最初最简单的 LC 做 CPS 变换 Harvard CS152 Lecture 11 References; Continuation passing style，语言：(Applied) Untyped Lambda Calculus，概述：在原始 LC 基础上加了若干新构造子，我觉得更好理解一些 SICP §4.3 Variations on a Scheme - Nondeterministic Computing，语言：Scheme，概述：虽然原文没有说 CPS，但内核是 CPS，用 amb 实现非确定编程，可以跟着用 Scheme 自己动手实现一下，我觉得蛮酷的！ POPL'25 - The Duality of λ-Abstraction，语言：Simply Typed Lambda Calculus，概述：今年的新文章，驱动我回过头来重新学习 CPS 的动力，这篇文章用 CPS 来描述加入了 co-abstraction 构造子的新 Lambda Calculus 的语义. 在 Google 上搜索 &ldquo;Continuation-Passing Style note&rdquo; 可以搜到很多名校讲义 CPS (Continuation Passing Style) 是一种编程风格，它的存在宣告了所有的递归函数都可以改造成尾递归的形式（所以可以成为编译器优化的一部分，即尾递归优化）.\n">
+<meta name='viewport' content='width=device-width, initial-scale=1'><meta name='description' content="站点显示的日期为最后更新日期（是的，我的预期是可以持续更新*v*）；这篇博文的构成为一些零零散散的想法. 因为没有试图组织成完整严肃的文章，所以会比较措辞上随意一些~\n">
 <title>Thoughts on ... | 无法写出完整博文的零碎想法集合</title>
 
 <link rel='canonical' href='http://fyshxfish.github.io/zh/p/thoughts-on-...-%E6%97%A0%E6%B3%95%E5%86%99%E5%87%BA%E5%AE%8C%E6%95%B4%E5%8D%9A%E6%96%87%E7%9A%84%E9%9B%B6%E7%A2%8E%E6%83%B3%E6%B3%95%E9%9B%86%E5%90%88/'>
 
 <link rel="stylesheet" href="/scss/style.min.32d39ffafd07039ac37b1f407c93fed8292d6d4f1670d493fa508706db079c45.css"><meta property='og:title' content="Thoughts on ... | 无法写出完整博文的零碎想法集合">
-<meta property='og:description' content="站点显示的日期为最后更新日期（是的，我的预期是可以持续更新*v*）；这篇博文的构成为一些零零散散的想法.\n2025.06.19 CPS: 一个有关承诺的故事 一些参考资料：\nCMU CS15-150: Lecture 11 Continuation-Passing Style | CMU Principles of Functional Programming M23，讲师：Bradon Wu，语言：SML，概述：CPS 的直觉、如何流程化地对普通递归函数进行CPS变换、有趣的课堂小互动 Cornell CS6110 Lecture 13 Continuation-passing style，语言：(Pure) Untyped Lambda Calculus，概述：对最初最简单的 LC 做 CPS 变换 Harvard CS152 Lecture 11 References; Continuation passing style，语言：(Applied) Untyped Lambda Calculus，概述：在原始 LC 基础上加了若干新构造子，我觉得更好理解一些 SICP §4.3 Variations on a Scheme - Nondeterministic Computing，语言：Scheme，概述：虽然原文没有说 CPS，但内核是 CPS，用 amb 实现非确定编程，可以跟着用 Scheme 自己动手实现一下，我觉得蛮酷的！ POPL'25 - The Duality of λ-Abstraction，语言：Simply Typed Lambda Calculus，概述：今年的新文章，驱动我回过头来重新学习 CPS 的动力，这篇文章用 CPS 来描述加入了 co-abstraction 构造子的新 Lambda Calculus 的语义. 在 Google 上搜索 &ldquo;Continuation-Passing Style note&rdquo; 可以搜到很多名校讲义 CPS (Continuation Passing Style) 是一种编程风格，它的存在宣告了所有的递归函数都可以改造成尾递归的形式（所以可以成为编译器优化的一部分，即尾递归优化）.\n">
+<meta property='og:description' content="站点显示的日期为最后更新日期（是的，我的预期是可以持续更新*v*）；这篇博文的构成为一些零零散散的想法. 因为没有试图组织成完整严肃的文章，所以会比较措辞上随意一些~\n">
 <meta property='og:url' content='http://fyshxfish.github.io/zh/p/thoughts-on-...-%E6%97%A0%E6%B3%95%E5%86%99%E5%87%BA%E5%AE%8C%E6%95%B4%E5%8D%9A%E6%96%87%E7%9A%84%E9%9B%B6%E7%A2%8E%E6%83%B3%E6%B3%95%E9%9B%86%E5%90%88/'>
 <meta property='og:site_name' content='fyshXplore'>
 <meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-06-19T23:05:00&#43;08:00'/><meta property='article:modified_time' content='2025-06-19T23:05:00&#43;08:00'/>
 <meta name="twitter:title" content="Thoughts on ... | 无法写出完整博文的零碎想法集合">
-<meta name="twitter:description" content="站点显示的日期为最后更新日期（是的，我的预期是可以持续更新*v*）；这篇博文的构成为一些零零散散的想法.\n2025.06.19 CPS: 一个有关承诺的故事 一些参考资料：\nCMU CS15-150: Lecture 11 Continuation-Passing Style | CMU Principles of Functional Programming M23，讲师：Bradon Wu，语言：SML，概述：CPS 的直觉、如何流程化地对普通递归函数进行CPS变换、有趣的课堂小互动 Cornell CS6110 Lecture 13 Continuation-passing style，语言：(Pure) Untyped Lambda Calculus，概述：对最初最简单的 LC 做 CPS 变换 Harvard CS152 Lecture 11 References; Continuation passing style，语言：(Applied) Untyped Lambda Calculus，概述：在原始 LC 基础上加了若干新构造子，我觉得更好理解一些 SICP §4.3 Variations on a Scheme - Nondeterministic Computing，语言：Scheme，概述：虽然原文没有说 CPS，但内核是 CPS，用 amb 实现非确定编程，可以跟着用 Scheme 自己动手实现一下，我觉得蛮酷的！ POPL'25 - The Duality of λ-Abstraction，语言：Simply Typed Lambda Calculus，概述：今年的新文章，驱动我回过头来重新学习 CPS 的动力，这篇文章用 CPS 来描述加入了 co-abstraction 构造子的新 Lambda Calculus 的语义. 在 Google 上搜索 &ldquo;Continuation-Passing Style note&rdquo; 可以搜到很多名校讲义 CPS (Continuation Passing Style) 是一种编程风格，它的存在宣告了所有的递归函数都可以改造成尾递归的形式（所以可以成为编译器优化的一部分，即尾递归优化）.\n"><style>
+<meta name="twitter:description" content="站点显示的日期为最后更新日期（是的，我的预期是可以持续更新*v*）；这篇博文的构成为一些零零散散的想法. 因为没有试图组织成完整严肃的文章，所以会比较措辞上随意一些~\n"><style>
   :root {
      
     --zh-font-family: "Noto Serif SC";
@@ -277,8 +277,14 @@
     <li><a href="#20250619">2025.06.19</a>
       <ol>
         <li><a href="#cps-一个有关承诺的故事">CPS: 一个有关承诺的故事</a></li>
-        <li><a href="#小红书根号与-syntactic">小红书、根号与 syntactic</a></li>
-        <li><a href="#所以代价是什么-no-free-lunch">&ldquo;所以，代价是什么？&rdquo; No Free Lunch</a></li>
+        <li><a href="#小红书根号与符号">小红书、根号与符号</a></li>
+        <li><a href="#所以代价是什么-no-free-lunch">&ldquo;所以，代价是什么？&rdquo; No Free Lunch.</a></li>
+      </ol>
+    </li>
+    <li><a href="#20250620">2025.06.20</a>
+      <ol>
+        <li><a href="#如何阅读一个-rule-set">如何阅读一个 Rule Set</a></li>
+        <li><a href="#rule-tree">Rule Tree?</a></li>
       </ol>
     </li>
   </ol>
@@ -337,7 +343,7 @@
 
 
                 <time class="article-time--reading">
-                    2 minute read
+                    4 minute read
                 </time>
             </div>
         
@@ -371,11 +377,11 @@
     <section class="article-content">
     
     
-    <p>站点显示的日期为最后更新日期（是的，我的预期是可以持续更新<code>*v*</code>）；这篇博文的构成为一些零零散散的想法.</p>
+    <p>站点显示的日期为最后更新日期（是的，我的预期是可以持续更新<code>*v*</code>）；这篇博文的构成为一些零零散散的想法. 因为没有试图组织成完整严肃的文章，所以会比较措辞上随意一些~</p>
 <h2 id="20250619"><a href="#20250619" class="header-anchor"></a>2025.06.19
 </h2><h3 id="cps-一个有关承诺的故事"><a href="#cps-%e4%b8%80%e4%b8%aa%e6%9c%89%e5%85%b3%e6%89%bf%e8%af%ba%e7%9a%84%e6%95%85%e4%ba%8b" class="header-anchor"></a>CPS: 一个有关承诺的故事
 </h3><p>一些参考资料：</p>
-<ul>
+<ol>
 <li><a class="link" href="https://www.youtube.com/watch?v=0-h8bwNXaTc"  target="_blank" rel="noopener"
     >CMU CS15-150: Lecture 11 Continuation-Passing Style | CMU Principles of Functional Programming M23</a>，讲师：Bradon Wu，语言：SML，概述：CPS 的直觉、如何流程化地对普通递归函数进行CPS变换、有趣的课堂小互动</li>
 <li><a class="link" href="https://www.cs.cornell.edu/courses/cs6110/2013sp/lectures/lec13-sp13.pdf"  target="_blank" rel="noopener"
@@ -385,19 +391,33 @@
 <li>SICP §4.3 Variations on a Scheme - Nondeterministic Computing，语言：Scheme，概述：虽然原文没有说 CPS，但内核是 CPS，用 <code>amb</code> 实现非确定编程，可以跟着用 Scheme 自己动手实现一下，我觉得蛮酷的！</li>
 <li><a class="link" href="https://dl.acm.org/doi/10.1145/3704848"  target="_blank" rel="noopener"
     >POPL'25 - The Duality of λ-Abstraction</a>，语言：Simply Typed Lambda Calculus，概述：今年的新文章，驱动我回过头来重新学习 CPS 的动力，这篇文章用 CPS 来描述加入了 co-abstraction 构造子的新 Lambda Calculus 的语义.</li>
-<li>在 Google 上搜索 &ldquo;Continuation-Passing Style note&rdquo; 可以搜到很多名校讲义</li>
-</ul>
-<p>CPS (Continuation Passing Style) 是一种编程风格，它的存在宣告了所有的递归函数都可以改造成尾递归的形式（所以可以成为编译器优化的一部分，即尾递归优化）.</p>
-<p>TODO</p>
-<h3 id="小红书根号与-syntactic"><a href="#%e5%b0%8f%e7%ba%a2%e4%b9%a6%e6%a0%b9%e5%8f%b7%e4%b8%8e-syntactic" class="header-anchor"></a>小红书、根号与 syntactic
-</h3><h3 id="所以代价是什么-no-free-lunch"><a href="#%e6%89%80%e4%bb%a5%e4%bb%a3%e4%bb%b7%e6%98%af%e4%bb%80%e4%b9%88-no-free-lunch" class="header-anchor"></a>&ldquo;所以，代价是什么？&rdquo; No Free Lunch
-</h3><p>当你在阅读一篇提出的方法 M 的文章，作者对 M 带来的各种性质的增量会详细描述，你读完可能依然存在一些说不清的疑惑，此刻可以考虑的一个问题是：M 带来了这些好处，那么代价是什么，因为带来某方面的提高，往往意味着让渡其他方面的优越. 一些例子：</p>
+</ol>
 <ul>
-<li>LET (Logical Execution Time): Predictable v.s. Time consumption</li>
-<li>Type System: inference, annotation</li>
+<li>如果把 CPS 变换看作是从源语言到目标语言的一种翻译，那么 2,3,5 中的源语言是渐次复杂的，5 尤其复杂，因为引入了 co-abstrction，但是 5 描述的是有类型的系统，类型标注解千愁；在 Google 上搜索 &ldquo;Continuation-Passing Style note&rdquo; 可以搜到很多名校讲义.</li>
+</ul>
+<p>CPS (Continuation Passing Style) 是一种编程风格，它的存在宣告了所有的递归函数都可以改造成尾递归的形式（所以可以成为编译器优化的一部分，即尾递归优化）. 我觉得 CPS 变换不是特别好理解，即使它除了基本的 Lambda Calculus 和 Currying，没有引入任何新概念（事实上用已有的工具呈现新思维正是难点所在）.我对 CPS 的理解是，做角色扮演——&ldquo;假设我是 $\lambda$-term $e$ CPS 进行变换后的结果 ，我接收一个续体 $k$，我向你承诺，我会对 $e$ 进行求值，并且把 $k$ 应用到求值结果上.&rdquo; 就像递归一样，可以用（递归基+）递归步来正规地理解，但有时候你总是需要一些信念，所谓 recursion leap of faith. 当你有了这个信念之后，你还需要想清楚这个信念的全部细节：(1) 求值 → 什么是值？或者说，你所探讨的系统里，语法规定了哪些表达式可以为值？对于 Pure Lambda Calculus，一般规定 variable 和 abstraction 是值；(2) 求值 → 如何在 CPS 变换中求值？尤其是对于 application ($e_1 e_2$) 的情况.</p>
+<p>$$[x] = \lambda k. k\ x$$
+$$[\lambda x. e] = \lambda k.\ k\ (\lambda a.\ \lambda k_B. [e]\ k_B)$$
+$$[e_1\ e_2] = \lambda k.\ [e_2] (\lambda v.\ [e_1] (\lambda f. f\ v\ k)) $$</p>
+<h3 id="小红书根号与符号"><a href="#%e5%b0%8f%e7%ba%a2%e4%b9%a6%e6%a0%b9%e5%8f%b7%e4%b8%8e%e7%ac%a6%e5%8f%b7" class="header-anchor"></a>小红书、根号与符号
+</h3><p>小红书用户的方差是在是太大了，上可藤校在读联合国演讲，下可“为什么 $\sqrt 2 + \sqrt 8 = 3 \sqrt 2$?”有一天我忽然感受到这个问题可以解决我的某个隐约的困扰：</p>
+<h3 id="所以代价是什么-no-free-lunch"><a href="#%e6%89%80%e4%bb%a5%e4%bb%a3%e4%bb%b7%e6%98%af%e4%bb%80%e4%b9%88-no-free-lunch" class="header-anchor"></a>&ldquo;所以，代价是什么？&rdquo; No Free Lunch.
+</h3><p>当你在阅读一篇提出的方法 M 的文章，作者对 M 带来的各种性质的增量会详细描述，你读完可能依然存在一些说不清的疑惑，此刻可以考虑的一个问题是：M 带来了这些好处，那么代价是什么，因为带来某方面的提高，往往意味着让渡其他方面的优越（trade-off，而作者往往不会花太多笔墨在&quot;让渡&quot;的方面），从这个角度思考可以带来一些新的理解. 一些例子：</p>
+<ul>
+<li>LET (Logical Execution Time): 这是实时系统领域的一种编程模型，旨在明确实时任务的逻辑起止时间，规定任务只能在逻辑起点 $S$ 进行输入的读取，在逻辑结束点 E 之后，后继任务可以对前驱任务的输出进行读取，至于 S~E 这段时间里，任务实际上用了多少时间进行计算，我们不关心，它增强了系统的可预测性，因为在这样的设计下，任务（尤其针对周期性任务）的 IO 时机不会抖动（假设 IO 都是瞬时完成的）. 这里可预测性的代价是时间消耗，因为设计 $S$ 和 $E$ 的时候要考虑任务的预估执行时间 $T&rsquo;$ (WCET, worst-case execution time)，设定 $E, S\ s.t.\ E - S \ge T&rsquo;$，</li>
+</ul>
+<!-- - 类型系统: 类型系统就是“约束”，约束越多越安全（如果设计合理的话），约束越多，程序员的工作量就越 -->
+<ul>
+<li>抽象与性能：这两天群友正好在讨论 Python 的抽象泄露问题，说“现在的高级语言都把指针抽象掉了，但又得让人刻意去记值类型和引用类型的概念，但说到底又还是指针，然而你还是不能直接控制内存”，最彻底的抽象是让程序员完完全全看不到（更不提控制）底下的硬件的，高级语言程序设计初学者往往会被问“知道指针是什么吗”，这个问题很别扭，最彻底的高级语言应该让人看不到指针，如果学的是汇编——那这个问题是合理的，指针不好懂的根本原因在于这个概念穿梭在计算机系统抽象层的界面之间，所以容易造成困惑. 汇编是低级语言；Haskell 这样完全抛弃了指针的是高级语言；C、Rust 这样有明确指针的语言应该叫做中级语言（其实应该是系统编程语言）<del>；那么 Python 这样疑似没指针，又依赖指针的应该叫做中高级语言.</del> 回到 trade-off 的讨论上，因为把硬件抽象掉了，获得了安全，被牺牲的是细粒度的控制，那么性能就降低了. Rust 的零成本抽象，听起来很美好，兼顾了抽象和性能，那代价是什么呢——是编译器辛苦的劳作.</li>
+</ul>
+<!-- 抽象的精神是“我管你这那的”，比如“管你这那与或非门的” -->
+<ul>
 <li>Safe Language as the cost of &hellip;?</li>
 </ul>
-
+<h2 id="20250620"><a href="#20250620" class="header-anchor"></a>2025.06.20
+</h2><h3 id="如何阅读一个-rule-set"><a href="#%e5%a6%82%e4%bd%95%e9%98%85%e8%af%bb%e4%b8%80%e4%b8%aa-rule-set" class="header-anchor"></a>如何阅读一个 Rule Set
+</h3><h3 id="rule-tree"><a href="#rule-tree" class="header-anchor"></a>Rule Tree?
+</h3>
 </section>
 
 

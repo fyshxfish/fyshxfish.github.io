@@ -12,11 +12,11 @@
         <pubDate>Thu, 19 Jun 2025 23:05:00 +0800</pubDate>
         
         <guid>http://fyshxfish.github.io/zh/p/thoughts-on-...-%E6%97%A0%E6%B3%95%E5%86%99%E5%87%BA%E5%AE%8C%E6%95%B4%E5%8D%9A%E6%96%87%E7%9A%84%E9%9B%B6%E7%A2%8E%E6%83%B3%E6%B3%95%E9%9B%86%E5%90%88/</guid>
-        <description>&lt;p&gt;站点显示的日期为最后更新日期（是的，我的预期是可以持续更新&lt;code&gt;*v*&lt;/code&gt;）；这篇博文的构成为一些零零散散的想法.&lt;/p&gt;
+        <description>&lt;p&gt;站点显示的日期为最后更新日期（是的，我的预期是可以持续更新&lt;code&gt;*v*&lt;/code&gt;）；这篇博文的构成为一些零零散散的想法. 因为没有试图组织成完整严肃的文章，所以会比较措辞上随意一些~&lt;/p&gt;
 &lt;h2 id=&#34;20250619&#34;&gt;&lt;a href=&#34;#20250619&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;2025.06.19
 &lt;/h2&gt;&lt;h3 id=&#34;cps-一个有关承诺的故事&#34;&gt;&lt;a href=&#34;#cps-%e4%b8%80%e4%b8%aa%e6%9c%89%e5%85%b3%e6%89%bf%e8%af%ba%e7%9a%84%e6%95%85%e4%ba%8b&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;CPS: 一个有关承诺的故事
 &lt;/h3&gt;&lt;p&gt;一些参考资料：&lt;/p&gt;
-&lt;ul&gt;
+&lt;ol&gt;
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/watch?v=0-h8bwNXaTc&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;CMU CS15-150: Lecture 11 Continuation-Passing Style | CMU Principles of Functional Programming M23&lt;/a&gt;，讲师：Bradon Wu，语言：SML，概述：CPS 的直觉、如何流程化地对普通递归函数进行CPS变换、有趣的课堂小互动&lt;/li&gt;
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.cs.cornell.edu/courses/cs6110/2013sp/lectures/lec13-sp13.pdf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
@@ -26,19 +26,33 @@
 &lt;li&gt;SICP §4.3 Variations on a Scheme - Nondeterministic Computing，语言：Scheme，概述：虽然原文没有说 CPS，但内核是 CPS，用 &lt;code&gt;amb&lt;/code&gt; 实现非确定编程，可以跟着用 Scheme 自己动手实现一下，我觉得蛮酷的！&lt;/li&gt;
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://dl.acm.org/doi/10.1145/3704848&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;POPL&#39;25 - The Duality of λ-Abstraction&lt;/a&gt;，语言：Simply Typed Lambda Calculus，概述：今年的新文章，驱动我回过头来重新学习 CPS 的动力，这篇文章用 CPS 来描述加入了 co-abstraction 构造子的新 Lambda Calculus 的语义.&lt;/li&gt;
-&lt;li&gt;在 Google 上搜索 &amp;ldquo;Continuation-Passing Style note&amp;rdquo; 可以搜到很多名校讲义&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;CPS (Continuation Passing Style) 是一种编程风格，它的存在宣告了所有的递归函数都可以改造成尾递归的形式（所以可以成为编译器优化的一部分，即尾递归优化）.&lt;/p&gt;
-&lt;p&gt;TODO&lt;/p&gt;
-&lt;h3 id=&#34;小红书根号与-syntactic&#34;&gt;&lt;a href=&#34;#%e5%b0%8f%e7%ba%a2%e4%b9%a6%e6%a0%b9%e5%8f%b7%e4%b8%8e-syntactic&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;小红书、根号与 syntactic
-&lt;/h3&gt;&lt;h3 id=&#34;所以代价是什么-no-free-lunch&#34;&gt;&lt;a href=&#34;#%e6%89%80%e4%bb%a5%e4%bb%a3%e4%bb%b7%e6%98%af%e4%bb%80%e4%b9%88-no-free-lunch&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;&amp;ldquo;所以，代价是什么？&amp;rdquo; No Free Lunch
-&lt;/h3&gt;&lt;p&gt;当你在阅读一篇提出的方法 M 的文章，作者对 M 带来的各种性质的增量会详细描述，你读完可能依然存在一些说不清的疑惑，此刻可以考虑的一个问题是：M 带来了这些好处，那么代价是什么，因为带来某方面的提高，往往意味着让渡其他方面的优越. 一些例子：&lt;/p&gt;
+&lt;/ol&gt;
 &lt;ul&gt;
-&lt;li&gt;LET (Logical Execution Time): Predictable v.s. Time consumption&lt;/li&gt;
-&lt;li&gt;Type System: inference, annotation&lt;/li&gt;
+&lt;li&gt;如果把 CPS 变换看作是从源语言到目标语言的一种翻译，那么 2,3,5 中的源语言是渐次复杂的，5 尤其复杂，因为引入了 co-abstrction，但是 5 描述的是有类型的系统，类型标注解千愁；在 Google 上搜索 &amp;ldquo;Continuation-Passing Style note&amp;rdquo; 可以搜到很多名校讲义.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;CPS (Continuation Passing Style) 是一种编程风格，它的存在宣告了所有的递归函数都可以改造成尾递归的形式（所以可以成为编译器优化的一部分，即尾递归优化）. 我觉得 CPS 变换不是特别好理解，即使它除了基本的 Lambda Calculus 和 Currying，没有引入任何新概念（事实上用已有的工具呈现新思维正是难点所在）.我对 CPS 的理解是，做角色扮演——&amp;ldquo;假设我是 $\lambda$-term $e$ CPS 进行变换后的结果 ，我接收一个续体 $k$，我向你承诺，我会对 $e$ 进行求值，并且把 $k$ 应用到求值结果上.&amp;rdquo; 就像递归一样，可以用（递归基+）递归步来正规地理解，但有时候你总是需要一些信念，所谓 recursion leap of faith. 当你有了这个信念之后，你还需要想清楚这个信念的全部细节：(1) 求值 → 什么是值？或者说，你所探讨的系统里，语法规定了哪些表达式可以为值？对于 Pure Lambda Calculus，一般规定 variable 和 abstraction 是值；(2) 求值 → 如何在 CPS 变换中求值？尤其是对于 application ($e_1 e_2$) 的情况.&lt;/p&gt;
+&lt;p&gt;$$[x] = \lambda k. k\ x$$
+$$[\lambda x. e] = \lambda k.\ k\ (\lambda a.\ \lambda k_B. [e]\ k_B)$$
+$$[e_1\ e_2] = \lambda k.\ [e_2] (\lambda v.\ [e_1] (\lambda f. f\ v\ k)) $$&lt;/p&gt;
+&lt;h3 id=&#34;小红书根号与符号&#34;&gt;&lt;a href=&#34;#%e5%b0%8f%e7%ba%a2%e4%b9%a6%e6%a0%b9%e5%8f%b7%e4%b8%8e%e7%ac%a6%e5%8f%b7&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;小红书、根号与符号
+&lt;/h3&gt;&lt;p&gt;小红书用户的方差是在是太大了，上可藤校在读联合国演讲，下可“为什么 $\sqrt 2 + \sqrt 8 = 3 \sqrt 2$?”有一天我忽然感受到这个问题可以解决我的某个隐约的困扰：&lt;/p&gt;
+&lt;h3 id=&#34;所以代价是什么-no-free-lunch&#34;&gt;&lt;a href=&#34;#%e6%89%80%e4%bb%a5%e4%bb%a3%e4%bb%b7%e6%98%af%e4%bb%80%e4%b9%88-no-free-lunch&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;&amp;ldquo;所以，代价是什么？&amp;rdquo; No Free Lunch.
+&lt;/h3&gt;&lt;p&gt;当你在阅读一篇提出的方法 M 的文章，作者对 M 带来的各种性质的增量会详细描述，你读完可能依然存在一些说不清的疑惑，此刻可以考虑的一个问题是：M 带来了这些好处，那么代价是什么，因为带来某方面的提高，往往意味着让渡其他方面的优越（trade-off，而作者往往不会花太多笔墨在&amp;quot;让渡&amp;quot;的方面），从这个角度思考可以带来一些新的理解. 一些例子：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;LET (Logical Execution Time): 这是实时系统领域的一种编程模型，旨在明确实时任务的逻辑起止时间，规定任务只能在逻辑起点 $S$ 进行输入的读取，在逻辑结束点 E 之后，后继任务可以对前驱任务的输出进行读取，至于 S~E 这段时间里，任务实际上用了多少时间进行计算，我们不关心，它增强了系统的可预测性，因为在这样的设计下，任务（尤其针对周期性任务）的 IO 时机不会抖动（假设 IO 都是瞬时完成的）. 这里可预测性的代价是时间消耗，因为设计 $S$ 和 $E$ 的时候要考虑任务的预估执行时间 $T&amp;rsquo;$ (WCET, worst-case execution time)，设定 $E, S\ s.t.\ E - S \ge T&amp;rsquo;$，&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- - 类型系统: 类型系统就是“约束”，约束越多越安全（如果设计合理的话），约束越多，程序员的工作量就越 --&gt;
+&lt;ul&gt;
+&lt;li&gt;抽象与性能：这两天群友正好在讨论 Python 的抽象泄露问题，说“现在的高级语言都把指针抽象掉了，但又得让人刻意去记值类型和引用类型的概念，但说到底又还是指针，然而你还是不能直接控制内存”，最彻底的抽象是让程序员完完全全看不到（更不提控制）底下的硬件的，高级语言程序设计初学者往往会被问“知道指针是什么吗”，这个问题很别扭，最彻底的高级语言应该让人看不到指针，如果学的是汇编——那这个问题是合理的，指针不好懂的根本原因在于这个概念穿梭在计算机系统抽象层的界面之间，所以容易造成困惑. 汇编是低级语言；Haskell 这样完全抛弃了指针的是高级语言；C、Rust 这样有明确指针的语言应该叫做中级语言（其实应该是系统编程语言）&lt;del&gt;；那么 Python 这样疑似没指针，又依赖指针的应该叫做中高级语言.&lt;/del&gt; 回到 trade-off 的讨论上，因为把硬件抽象掉了，获得了安全，被牺牲的是细粒度的控制，那么性能就降低了. Rust 的零成本抽象，听起来很美好，兼顾了抽象和性能，那代价是什么呢——是编译器辛苦的劳作.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- 抽象的精神是“我管你这那的”，比如“管你这那与或非门的” --&gt;
+&lt;ul&gt;
 &lt;li&gt;Safe Language as the cost of &amp;hellip;?&lt;/li&gt;
 &lt;/ul&gt;
-</description>
+&lt;h2 id=&#34;20250620&#34;&gt;&lt;a href=&#34;#20250620&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;2025.06.20
+&lt;/h2&gt;&lt;h3 id=&#34;如何阅读一个-rule-set&#34;&gt;&lt;a href=&#34;#%e5%a6%82%e4%bd%95%e9%98%85%e8%af%bb%e4%b8%80%e4%b8%aa-rule-set&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;如何阅读一个 Rule Set
+&lt;/h3&gt;&lt;h3 id=&#34;rule-tree&#34;&gt;&lt;a href=&#34;#rule-tree&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Rule Tree?
+&lt;/h3&gt;</description>
         </item>
         <item>
         <title>Foundations and Applications of Intersection and Union Types (PDF)</title>
