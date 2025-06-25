@@ -6,13 +6,54 @@
         <description>Recent content in Posts on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>en</language>
-        <lastBuildDate>Thu, 19 Jun 2025 23:05:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
-        <title>Thoughts on ... </title>
-        <link>http://fyshxfish.github.io/p/thoughts-on-.../</link>
-        <pubDate>Thu, 19 Jun 2025 23:05:00 +0800</pubDate>
+        <lastBuildDate>Wed, 25 Jun 2025 23:05:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <title>Thoughts on ... | 无法写出完整博文的零碎想法集合</title>
+        <link>http://fyshxfish.github.io/p/thoughts-on-...-%E6%97%A0%E6%B3%95%E5%86%99%E5%87%BA%E5%AE%8C%E6%95%B4%E5%8D%9A%E6%96%87%E7%9A%84%E9%9B%B6%E7%A2%8E%E6%83%B3%E6%B3%95%E9%9B%86%E5%90%88/</link>
+        <pubDate>Wed, 25 Jun 2025 23:05:00 +0800</pubDate>
         
-        <guid>http://fyshxfish.github.io/p/thoughts-on-.../</guid>
-        <description>&lt;p&gt;Coming your way&amp;hellip;&lt;/p&gt;
+        <guid>http://fyshxfish.github.io/p/thoughts-on-...-%E6%97%A0%E6%B3%95%E5%86%99%E5%87%BA%E5%AE%8C%E6%95%B4%E5%8D%9A%E6%96%87%E7%9A%84%E9%9B%B6%E7%A2%8E%E6%83%B3%E6%B3%95%E9%9B%86%E5%90%88/</guid>
+        <description>&lt;p&gt;The date shown on this site reflects the last update time (yes, I do plan to keep updating this &lt;code&gt;*v*&lt;/code&gt;). This blog post is more of a collection of scattered thoughts than a polished essay, so the wording might be a bit casual here and there.&lt;/p&gt;
+&lt;h2 id=&#34;20250625&#34;&gt;&lt;a href=&#34;#20250625&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;2025.06.25
+&lt;/h2&gt;&lt;h3 id=&#34;puzzle-games-and-figures&#34;&gt;&lt;a href=&#34;#puzzle-games-and-figures&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;Puzzle Games and Figures
+&lt;/h3&gt;&lt;p&gt;In the past half year, I played two puzzle games: &lt;em&gt;Chants of Sennaar&lt;/em&gt; and &lt;em&gt;The Witness&lt;/em&gt;. One thing they have in common is the need to spot patterns in visuals. I realized that this kind of pattern-spotting skill transfers well to reading papers. For example, when I come across a sentence like “As shown in Figure X/Table X&amp;hellip;” I’ll skip the text and jump straight to the figure then I just guess. If I can come up with a coherent interpretation on my own, I’ve often already grasped the gist of it. If some parts are still fuzzy, I’ll go back and skim the related explanation.&lt;/p&gt;
+&lt;h2 id=&#34;20250619&#34;&gt;&lt;a href=&#34;#20250619&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;2025.06.19
+&lt;/h2&gt;&lt;h3 id=&#34;cps-a-story-about-promises&#34;&gt;&lt;a href=&#34;#cps-a-story-about-promises&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;CPS: A Story About Promises
+&lt;/h3&gt;&lt;p&gt;Here are some references I found helpful:&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.youtube.com/watch?v=0-h8bwNXaTc&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;CMU CS15-150: Lecture 11 Continuation-Passing Style | CMU Principles of Functional Programming M23&lt;/a&gt;Instructor: Bradon Wu; Language: SML. Overview: CPS intuition, how to mechanically transform recursive functions into CPS, with some fun classroom interactions.&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://www.cs.cornell.edu/courses/cs6110/2013sp/lectures/lec13-sp13.pdf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Cornell CS6110 Lecture 13 Continuation-passing style&lt;/a&gt;, Language: (Pure) Untyped Lambda Calculus. Overview: A basic introduction to CPS transformation for untyped lambda terms (variable, abstraction and application).&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://groups.seas.harvard.edu/courses/cs152/2010sp/lectures/lec11.pdf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;Harvard CS152 Lecture 11 References; Continuation passing style&lt;/a&gt;，Language: (Applied) Untyped Lambda Calculus，Overview: Builds on the basic LC with a few additional constructs, which I found easier to grasp.&lt;/li&gt;
+&lt;li&gt;SICP §4.3 Variations on a Scheme - Nondeterministic Computing，Language: Scheme，Overview: It doesn’t explicitly mention CPS, but the core is CPS in disguise. You implement &lt;code&gt;amb&lt;/code&gt; to explore nondeterminism—super cool to try out in Scheme.&lt;/li&gt;
+&lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://dl.acm.org/doi/10.1145/3704848&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
+    &gt;POPL&#39;25 - The Duality of λ-Abstraction&lt;/a&gt;，Language: Simply Typed Lambda Calculus，Overview: A new paper (2025!) that got me back into CPS. It presents a typed lambda calculus extended with a co-abstraction operator, and explains it using CPS.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;ul&gt;
+&lt;li&gt;If you think of CPS transformation as a kind of translation from source to target language, then #2, #3, and #5 represent increasingly complex source languages. #5 is especially tricky because it introduces co-abstraction—but being typed helps, since type annotations can often guide your thinking. If you&amp;rsquo;re curious, just search &amp;ldquo;Continuation-Passing Style note&amp;rdquo; on Google—there are lots of good lecture notes from top universities out there. Pick one that makes sense to you.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;So, what is CPS (Continuation Passing Style)? It’s a programming style that makes it possible to transform all recursive functions into tail-recursive ones. This means it can be used for compiler optimizations (tail call elimination). But CPS transformation isn&amp;rsquo;t super intuitive—even though it’s built entirely from lambda calculus and currying, with no fancy new concepts. And that’s kind of the point: using existing tools to express a new way of thinking is where the challenge lies.&lt;/p&gt;
+&lt;p&gt;Here’s how I like to think of CPS: it’s like role-playing. Suppose I’m a lambda term $e$, and someone’s performing a CPS transform on me. What do I do? I receive a continuation $k$ and promise to evaluate $e$ and then apply $k$ to the result. Like recursion, you can explain CPS step-by-step using base cases and inductive steps—but sometimes you just need a little recursion leap of faith.&lt;/p&gt;
+&lt;p&gt;Once you have that leap, you still need to work through the details: (1)What counts as a value? In pure lambda calculus, it’s usually variables and abstractions.(2) How do you evaluate expressions like applications ($e_1 e_2$) under CPS?&lt;/p&gt;
+&lt;p&gt;Here’s the standard CPS transformation:&lt;/p&gt;
+&lt;p&gt;$$[x] = \lambda k. k\ x$$
+$$[\lambda x. e] = \lambda k.\ k\ (\lambda a.\ \lambda k_B. [e]\ k_B)$$
+$$[e_1\ e_2] = \lambda k.\ [e_2] (\lambda v.\ [e_1] (\lambda f. f\ v\ k)) $$&lt;/p&gt;
+&lt;!-- ### 小红书与符号
+
+小红书用户的方差是在是太大了，上可藤校在读联合国演讲，下可“为什么 $\sqrt 2 + \sqrt 8 = 3 \sqrt 2$?”这让我想到了一个问题， --&gt;
+&lt;h3 id=&#34;so-whats-the-cost--theres-no-free-lunch&#34;&gt;&lt;a href=&#34;#so-whats-the-cost--theres-no-free-lunch&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;“So&amp;hellip; what’s the cost?” – There’s No Free Lunch.
+&lt;/h3&gt;&lt;p&gt;When you&amp;rsquo;re reading about some cool new method &amp;ldquo;M&amp;rdquo; in a paper, the benefits are usually front and center. But if you’re left with a fuzzy feeling of “what’s the catch?”, that’s a good instinct. Every gain usually involves a trade-off—though authors often skip over those parts. Asking &amp;ldquo;what’s the cost?&amp;rdquo; can open up new perspectives.&lt;/p&gt;
+&lt;p&gt;Some examples:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;LET (Logical Execution Time): A programming model used in real-time systems. It restricts input to the logical start point $S$ and allows output only after the logical end $E$, making the system more predictable. Since we don’t care how much time the task actually takes between $S$ and $E$ (assuming instantaneous I/O), it eliminates I/O jitter—especially useful for periodic tasks. But predictability comes at a price: time overhead. You have to over-provision the logical interval to be at least the task’s worst-case execution time ($WCET$), i.e., $E - S \ge WCET$.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Abstraction vs. Performance: A friend was recently complaining about Python’s leaky abstractions: &amp;ldquo;High-level languages hide pointers, but we still have to know about value vs. reference types—it&amp;rsquo;s all just pointers in disguise!&amp;rdquo; And yet, you can’t manipulate memory directly. In a perfect abstraction, the underlying hardware would be totally invisible. But that’s not always realistic. We ask beginners “Do you know what a pointer is?” which is weird if they’re learning Python. In assembly, that question makes sense. Haskell hides pointers completely—that&amp;rsquo;s high-level. C and Rust give you direct pointer access—so maybe they&amp;rsquo;re mid-level languages (well, systems programming languages). And Python? It’s like “mid-high-level”: looks like there are no pointers, but they’re definitely there. Back to trade-offs: if you abstract away the hardware, you gain safety—but lose fine-grained control, which hurts performance. Rust’s zero-cost abstractions sound ideal—they give you both safety and performance. But what’s the cost? A more complex compiler. You can’t get something for nothing!&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
 </description>
         </item>
         <item>

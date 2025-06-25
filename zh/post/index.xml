@@ -6,13 +6,16 @@
         <description>Recent content in Posts on fyshXplore</description>
         <generator>Hugo -- gohugo.io</generator>
         <language>zh</language>
-        <lastBuildDate>Thu, 19 Jun 2025 23:05:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/zh/post/index.xml" rel="self" type="application/rss+xml" /><item>
+        <lastBuildDate>Wed, 25 Jun 2025 23:05:00 +0800</lastBuildDate><atom:link href="http://fyshxfish.github.io/zh/post/index.xml" rel="self" type="application/rss+xml" /><item>
         <title>Thoughts on ... | 无法写出完整博文的零碎想法集合</title>
         <link>http://fyshxfish.github.io/zh/p/thoughts-on-...-%E6%97%A0%E6%B3%95%E5%86%99%E5%87%BA%E5%AE%8C%E6%95%B4%E5%8D%9A%E6%96%87%E7%9A%84%E9%9B%B6%E7%A2%8E%E6%83%B3%E6%B3%95%E9%9B%86%E5%90%88/</link>
-        <pubDate>Thu, 19 Jun 2025 23:05:00 +0800</pubDate>
+        <pubDate>Wed, 25 Jun 2025 23:05:00 +0800</pubDate>
         
         <guid>http://fyshxfish.github.io/zh/p/thoughts-on-...-%E6%97%A0%E6%B3%95%E5%86%99%E5%87%BA%E5%AE%8C%E6%95%B4%E5%8D%9A%E6%96%87%E7%9A%84%E9%9B%B6%E7%A2%8E%E6%83%B3%E6%B3%95%E9%9B%86%E5%90%88/</guid>
-        <description>&lt;p&gt;站点显示的日期为最后更新日期（是的，我的预期是可以持续更新&lt;code&gt;*v*&lt;/code&gt;）；这篇博文的构成为一些零零散散的想法. 因为没有试图组织成完整严肃的文章，所以会比较措辞上随意一些.&lt;/p&gt;
+        <description>&lt;p&gt;站点显示的日期为最后更新日期（是的，我的预期是可以持续更新&lt;em&gt;v&lt;/em&gt;）；这篇博文的构成为一些零零散散的想法. 因为没有试图组织成完整严肃的文章，所以会比较措辞上随意一些.&lt;/p&gt;
+&lt;h2 id=&#34;20250625&#34;&gt;&lt;a href=&#34;#20250625&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;2025.06.25
+&lt;/h2&gt;&lt;h3 id=&#34;解谜游戏与-figure&#34;&gt;&lt;a href=&#34;#%e8%a7%a3%e8%b0%9c%e6%b8%b8%e6%88%8f%e4%b8%8e-figure&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;解谜游戏与 Figure
+&lt;/h3&gt;&lt;p&gt;近半年玩了两款解谜游戏，巴别塔圣歌（Chants of Sennaar）和见证者（The Witness），这两个游戏的共性在于玩家需要在图里找规律，我发现这种经验是可以迁移到论文阅读上的，比如浏览到 &amp;ldquo;As shown in Figure X/Table X, &amp;hellip;&amp;rdquo; 的时候陈述一个字不看直接点击超链接跳转到图标上来就是猜，猜出一个自洽的解释的时候，图表可能也差不多看懂了，不清晰的地方再看看相关陈述.&lt;/p&gt;
 &lt;h2 id=&#34;20250619&#34;&gt;&lt;a href=&#34;#20250619&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;2025.06.19
 &lt;/h2&gt;&lt;h3 id=&#34;cps-一个有关承诺的故事&#34;&gt;&lt;a href=&#34;#cps-%e4%b8%80%e4%b8%aa%e6%9c%89%e5%85%b3%e6%89%bf%e8%af%ba%e7%9a%84%e6%95%85%e4%ba%8b&#34; class=&#34;header-anchor&#34;&gt;&lt;/a&gt;CPS: 一个有关承诺的故事
 &lt;/h3&gt;&lt;p&gt;一些参考资料：&lt;/p&gt;
@@ -23,12 +26,12 @@
     &gt;Cornell CS6110 Lecture 13 Continuation-passing style&lt;/a&gt;，语言：(Pure) Untyped Lambda Calculus，概述：对最初最简单的 LC 做 CPS 变换&lt;/li&gt;
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://groups.seas.harvard.edu/courses/cs152/2010sp/lectures/lec11.pdf&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;Harvard CS152 Lecture 11 References; Continuation passing style&lt;/a&gt;，语言：(Applied) Untyped Lambda Calculus，概述：在原始 LC 基础上加了若干新构造子，我觉得更好理解一些&lt;/li&gt;
-&lt;li&gt;SICP §4.3 Variations on a Scheme - Nondeterministic Computing，语言：Scheme，概述：虽然原文没有说 CPS，但内核是 CPS，用 &lt;code&gt;amb&lt;/code&gt; 实现非确定编程，可以跟着用 Scheme 自己动手实现一下，我觉得蛮酷的！&lt;/li&gt;
+&lt;li&gt;SICP §4.3 Variations on a Scheme - Nondeterministic Computing，语言：Scheme，概述：虽然原文没有说 CPS，但内核是 CPS，用 amb 实现非确定编程，可以跟着用 Scheme 自己动手实现一下，我觉得蛮酷的！&lt;/li&gt;
 &lt;li&gt;&lt;a class=&#34;link&#34; href=&#34;https://dl.acm.org/doi/10.1145/3704848&#34;  target=&#34;_blank&#34; rel=&#34;noopener&#34;
     &gt;POPL&#39;25 - The Duality of λ-Abstraction&lt;/a&gt;，语言：Simply Typed Lambda Calculus，概述：今年的新文章，驱动我回过头来重新学习 CPS 的动力，这篇文章用 CPS 来描述加入了 co-abstraction 构造子的新 Lambda Calculus 的语义.&lt;/li&gt;
 &lt;/ol&gt;
 &lt;ul&gt;
-&lt;li&gt;如果把 CPS 变换看作是从源语言到目标语言的一种翻译，那么 2,3,5 中的源语言是渐次复杂的，5 尤其复杂，因为引入了 co-abstrction，但是 5 描述的是有类型的系统，类型标注解千愁；在 Google 上搜索 &amp;ldquo;Continuation-Passing Style note&amp;rdquo; 可以搜到很多名校讲义.&lt;/li&gt;
+&lt;li&gt;如果把 CPS 变换看作是从源语言到目标语言的一种翻译，那么 2,3,5 中的源语言是渐次复杂的，5 尤其复杂，因为引入了 co-abstrction，但是 5 描述的是有类型的系统，类型标注解千愁；在 Google 上搜索 &amp;ldquo;Continuation-Passing Style note&amp;rdquo; 可以搜到很多名校讲义，选看得懂的看.&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;CPS (Continuation Passing Style) 是一种编程风格，它的存在宣告了所有的递归函数都可以改造成尾递归的形式（所以可以成为编译器优化的一部分，即尾递归优化）. 我觉得 CPS 变换不是特别好理解，即使它除了基本的 Lambda Calculus 和 Currying，没有引入任何新概念（事实上用已有的工具呈现新思维正是难点所在）.我对 CPS 的理解是，做角色扮演——&amp;ldquo;假设我是 $\lambda$-term $e$ CPS 进行变换后的结果 ，我接收一个续体 $k$，我向你承诺，我会对 $e$ 进行求值，并且把 $k$ 应用到求值结果上.&amp;rdquo; 就像递归一样，可以用（递归基+）递归步来正规地理解，但有时候你总是需要一些信念，所谓 recursion leap of faith. 当你有了这个信念之后，你还需要想清楚这个信念的全部细节：(1) 求值 → 什么是值？或者说，你所探讨的系统里，语法规定了哪些表达式可以为值？对于 Pure Lambda Calculus，一般规定 variable 和 abstraction 是值；(2) 求值 → 如何在 CPS 变换中求值？尤其是对于 application ($e_1 e_2$) 的情况.&lt;/p&gt;
 &lt;p&gt;$$[x] = \lambda k. k\ x$$
@@ -46,8 +49,6 @@ $$[e_1\ e_2] = \lambda k.\ [e_2] (\lambda v.\ [e_1] (\lambda f. f\ v\ k)) $$&lt;
 &lt;ul&gt;
 &lt;li&gt;抽象与性能：这两天群友正好在讨论 Python 的抽象泄露问题，说“现在的高级语言都把指针抽象掉了，但又得让人刻意去记值类型和引用类型的概念，但说到底又还是指针，然而你还是不能直接控制内存”，最彻底的抽象是让程序员完完全全看不到（更不提控制）底下的硬件的，高级语言程序设计初学者往往会被问“知道指针是什么吗”，这个问题很别扭，最彻底的高级语言应该让人看不到指针，如果学的是汇编——那这个问题是合理的，指针不好懂的根本原因在于这个概念穿梭在计算机系统抽象层的界面之间，所以容易造成困惑. 汇编是低级语言；Haskell 这样完全抛弃了指针的是高级语言；C、Rust 这样有明确指针的语言应该叫做中级语言（其实应该是系统编程语言）&lt;del&gt;；那么 Python 这样疑似没指针，又依赖指针的应该叫做中高级语言.&lt;/del&gt; 回到 trade-off 的讨论上，因为把硬件抽象掉了，获得了安全，被牺牲的是细粒度的控制，那么性能就降低了. Rust 的零成本抽象，听起来很美好，兼顾了抽象和性能，那代价是什么呢——需要编译器对代码进行优化，即我们需要设计出更好更复杂的编译器.&lt;/li&gt;
 &lt;/ul&gt;
-&lt;!-- 抽象的精神是“我管你这那的”，比如“管你这那与或非门的” --&gt;
-&lt;!-- - Safe Language as the cost of ...? --&gt;
 &lt;!-- ## 2025.06.20 
 
 ### 如何阅读一个 Rule Set 
