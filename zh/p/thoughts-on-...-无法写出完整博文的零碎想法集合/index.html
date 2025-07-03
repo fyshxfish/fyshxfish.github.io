@@ -10,7 +10,7 @@
 <meta property='og:description' content="站点显示的日期为最后更新日期（是的，我的预期是可以持续更新v）；这篇博文的构成为一些零零散散的想法. 因为没有试图组织成完整严肃的文章，所以会比较措辞上随意一些.\n">
 <meta property='og:url' content='http://fyshxfish.github.io/zh/p/thoughts-on-...-%E6%97%A0%E6%B3%95%E5%86%99%E5%87%BA%E5%AE%8C%E6%95%B4%E5%8D%9A%E6%96%87%E7%9A%84%E9%9B%B6%E7%A2%8E%E6%83%B3%E6%B3%95%E9%9B%86%E5%90%88/'>
 <meta property='og:site_name' content='fyshXplore'>
-<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-06-25T23:05:00&#43;08:00'/><meta property='article:modified_time' content='2025-06-25T23:05:00&#43;08:00'/>
+<meta property='og:type' content='article'><meta property='article:section' content='Post' /><meta property='article:published_time' content='2025-07-03T20:05:00&#43;08:00'/><meta property='article:modified_time' content='2025-07-03T20:05:00&#43;08:00'/>
 <meta name="twitter:title" content="Thoughts on ... | 无法写出完整博文的零碎想法集合">
 <meta name="twitter:description" content="站点显示的日期为最后更新日期（是的，我的预期是可以持续更新v）；这篇博文的构成为一些零零散散的想法. 因为没有试图组织成完整严肃的文章，所以会比较措辞上随意一些.\n"><style>
   :root {
@@ -274,6 +274,16 @@
         <div class="widget--toc">
             <nav id="TableOfContents">
   <ol>
+    <li><a href="#20250703">2025.07.03</a>
+      <ol>
+        <li><a href="#monad-bind-与-cps">Monad <code>bind</code> 与 CPS</a></li>
+        <li><a href="#定理证明与解谜游戏的共同点">定理证明与解谜游戏的共同点</a>
+          <ol>
+            <li><a href="#pl--game">PL &amp; Game</a></li>
+          </ol>
+        </li>
+      </ol>
+    </li>
     <li><a href="#20250625">2025.06.25</a>
       <ol>
         <li><a href="#解谜游戏与-figure">解谜游戏与 Figure</a></li>
@@ -326,7 +336,7 @@
   <path d="M3 11h16" />
   <path d="M18 16.496v1.504l1 1" />
 </svg>
-                <time class="article-time--published">Jun 25, 2025</time>
+                <time class="article-time--published">Jul 3, 2025</time>
             </div>
         
 
@@ -341,7 +351,7 @@
 
 
                 <time class="article-time--reading">
-                    5 minute read
+                    6 minute read
                 </time>
             </div>
         
@@ -376,6 +386,26 @@
     
     
     <p>站点显示的日期为最后更新日期（是的，我的预期是可以持续更新<em>v</em>）；这篇博文的构成为一些零零散散的想法. 因为没有试图组织成完整严肃的文章，所以会比较措辞上随意一些.</p>
+<h2 id="20250703"><a href="#20250703" class="header-anchor"></a>2025.07.03
+</h2><h3 id="monad-bind-与-cps"><a href="#monad-bind-%e4%b8%8e-cps" class="header-anchor"></a>Monad <code>bind</code> 与 CPS
+</h3><p>如何理解 Monad，一种角度是看类型签名，Haskell 中的 <code>Monad</code> type class 定义如下，意思是：属于 <code>Applicative</code> type class 并且提供以下三个函数（<code>&gt;&gt;=</code>, <code>&gt;&gt;</code>, <code>return</code>）实现的 Concrete type <code>m</code> 即属于 <code>Monad</code> type class：</p>
+<div class="highlight"><pre tabindex="0" style="background-color:#fff;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-hs" data-lang="hs"><span style="display:flex;"><span><span style="color:#cf222e">class</span> <span style="color:#cf222e">Applicative</span> m <span style="color:#0550ae">=&gt;</span> <span style="color:#cf222e">Monad</span> m <span style="color:#cf222e">where</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#1f2328">(</span><span style="color:#0550ae">&gt;&gt;=</span><span style="color:#1f2328">)</span>  <span style="color:#0550ae">::</span> m a <span style="color:#0550ae">-&gt;</span> <span style="color:#1f2328">(</span>a <span style="color:#0550ae">-&gt;</span> m b<span style="color:#1f2328">)</span> <span style="color:#0550ae">-&gt;</span> m b   
+</span></span><span style="display:flex;"><span>    <span style="color:#1f2328">(</span><span style="color:#0550ae">&gt;&gt;</span><span style="color:#1f2328">)</span>   <span style="color:#0550ae">::</span> m a <span style="color:#0550ae">-&gt;</span> m b <span style="color:#0550ae">-&gt;</span> m b          
+</span></span><span style="display:flex;"><span>    return <span style="color:#0550ae">::</span> a <span style="color:#0550ae">-&gt;</span> m a                   
+</span></span></code></pre></div><p>今天忽然发现 CPS 和 <code>bind</code> 有隐约的相似性，假设目前我们关心的程序是 $\lambda x. \ x: A \to A$，对 $\lambda x. \ x: A \to A$ 进行 CPS 变换：</p>
+<p>$$ [\lambda x. \ x] = \lambda k.\ k (\lambda x.\ \lambda k&rsquo;.\ \textcolor{blue}{[x]}\ k&rsquo;) = \lambda k.\ k (\lambda x.\ \lambda k&rsquo;.\ \textcolor{blue}{(\lambda k_x. k_x\ x)} k&rsquo;) = \lambda k.\ k (\lambda x.\ \lambda k&rsquo;.\ k&rsquo;\ x)$$</p>
+<p>假设这个 CPS 变换后的程序的续体（continuation）是 ID 函数（$\lambda x. \ x$），那么我们向程序传递这个续体（正所谓 Continuation Passing Style）：</p>
+<p>$$ [\lambda x. \ x] (\lambda x. \ x) = \lambda k.\ k (\lambda x.\ \lambda k&rsquo;.\ k&rsquo;\ x) (\lambda x. \ x) = \lambda x.\ \lambda k&rsquo;.\ k&rsquo;\ x : \textcolor{red}{A \to (A \to R) \to R}$$</p>
+<p>我想说的相似性就在这里了：$A \to (A \to R) \to R$ 和 <code>bind</code> 的类型签名 <code>m a -&gt; (a -&gt; m b) -&gt; m b</code>，他们的共性在于“期待一个结果 $a$ 和一个施加在该结果上的后继操作 $f$，若等待到了此二者，那么把 $f$ 应用到 $a$ 上，计算得到最终结果 $f\ a$”；两者的区别在于 <code>bind</code> 需要做解封装和封装，即将结果从 <code>m</code> （Functor）中提取出来，且最终结果也需要放到 <code>m</code> 中. 根据上述的共性，不妨说 <code>bind</code> 也不失为一种 CPS.</p>
+<h3 id="定理证明与解谜游戏的共同点"><a href="#%e5%ae%9a%e7%90%86%e8%af%81%e6%98%8e%e4%b8%8e%e8%a7%a3%e8%b0%9c%e6%b8%b8%e6%88%8f%e7%9a%84%e5%85%b1%e5%90%8c%e7%82%b9" class="header-anchor"></a>定理证明与解谜游戏的共同点
+</h3><p>以“交互”为重要特质；以“顿悟”为爽点（尤里卡时刻）；谜题 $\mapsto$ 命题，解法 $\mapsto$ 证明. 我甚至在想基于定理证明器（+DSL？）设计出某种游戏性是不是可行的，听起来怪怪的，不过类似实践并不少见，比如基于电路电子学的图灵完备（<a class="link" href="https://store.steampowered.com/app/1444480/Turing_Complete/#:~:text=Everything%20in%20a%20computer"  target="_blank" rel="noopener"
+    >Turing Complete</a>）、基于微积分的微积历险记（<a class="link" href="https://triseum.com/variant-limits/"  target="_blank" rel="noopener"
+    >Variant: Limits</a>）<del>，不禁想问，这究竟是游戏还是考试.</del></p>
+<h4 id="pl--game"><a href="#pl--game" class="header-anchor"></a>PL &amp; Game
+</h4><p>PL 与游戏交叉路口的一些趣闻：(1) The Witness / Braid 制作人 Jonathan Blow 正在开发为游戏开发而设计的语言 <a class="link" href="https://jai.community/"  target="_blank" rel="noopener"
+    >JAI</a>；（2）虚幻引擎开发方 Epic 公司的高层  Tim Sweeney 对编程语言很感兴趣，过去许多年都在设计一款自己的语言，后来请了 Haskell 语言的核心设计者 Simon Peyton Jones 来给自己的语言做形式化，相关成果 <a class="link" href="https://simon.peytonjones.org/assets/pdfs/verse-icfp23.pdf"  target="_blank" rel="noopener"
+    >Verse Calculus</a> 发表在 ICFP'23 上.</p>
 <h2 id="20250625"><a href="#20250625" class="header-anchor"></a>2025.06.25
 </h2><h3 id="解谜游戏与-figure"><a href="#%e8%a7%a3%e8%b0%9c%e6%b8%b8%e6%88%8f%e4%b8%8e-figure" class="header-anchor"></a>解谜游戏与 Figure
 </h3><p>近半年玩了两款解谜游戏，巴别塔圣歌（Chants of Sennaar）和见证者（The Witness），这两个游戏的共性在于玩家需要在图里找规律，我发现这种经验是可以迁移到论文阅读上的，比如浏览到 &ldquo;As shown in Figure X/Table X, &hellip;&rdquo; 的时候陈述一个字不看直接点击超链接跳转到图标上来就是猜，猜出一个自洽的解释的时候，图表可能也差不多看懂了，不清晰的地方再看看相关陈述.</p>
