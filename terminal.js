@@ -369,8 +369,6 @@
     help: {
       desc: "显示这份帮助",
       run() {
-        printHTML(`<span class="h1">visitor@${esc(SITE.host)}</span> &nbsp; <span class="dim">— a tiny terminal homepage</span>`);
-        printBlank();
         printHTML(`<span class="h2">基础</span>`);
         const tier1 = [
           ["ls [-a] [path]",     "列出目录内容"],
@@ -384,16 +382,16 @@
         ];
         printHTML(renderHelpTable(tier1));
         printBlank();
-        printHTML(`<span class="h2">我</span>`);
-        printHTML(renderHelpTable([
-          ["whoami",     "一份非正式的自我介绍"],
-          ["neofetch",   "看一眼系统(?)信息"],
-          ["history",    "人生大事记 (不是命令历史)"],
-          ["contact",    "联系方式"],
-          ["message",    "在终端里给我留句话"],
-        ]));
-        printBlank();
-        printHTML(`<span class="dim">还有一些不写在 help 里的命令, 也许你的肌肉记忆会带你找到它们.</span>`);
+        printHTML(`<span class="h2">And more...</span>`);
+        // printHTML(renderHelpTable([
+        //   ["whoami",     "一份非正式的自我介绍"],
+        //   ["neofetch",   "看一眼系统(?)信息"],
+        //   ["history",    "人生大事记 (不是命令历史)"],
+        //   ["contact",    "联系方式"],
+        //   ["message",    "在终端里给我留句话"],
+        // ]));
+        // printBlank();
+        // printHTML(`<span class="dim">还有一些不写在 help 里的命令, 也许你的肌肉记忆会带你找到它们.</span>`);
       },
     },
 
@@ -694,7 +692,7 @@
       desc: "在终端里给我留句话",
       run() {
         state.multiline = { lines: [], target: "message" };
-        printHTML(`<span class="note">想说点啥？(直接换行继续输入, <span class="kw">.send</span> 发送, <span class="kw">.cancel</span> 取消)</span>`);
+        printHTML(`<span class="note">这是一个接入了 web3form 服务的匿名留言箱. (直接换行继续输入, <span class="kw">.send</span> 发送, <span class="kw">.cancel</span> 取消)</span>`);
         updatePrompt();
       },
     },
@@ -720,10 +718,10 @@
         }
         state.sudoFails++;
         const lines = [
-          "Permission denied. 这里是来宾区。",
-          "依然 Permission denied。你想干嘛?",
+          "Permission denied. 这里是来宾区.",
+          "依然 Permission denied. 你想干嘛?",
           "Permission denied. 你很有毅力, 但这里依然没有 sudo.",
-          "好好好你赢了. 然而依然 Permission denied.",
+          "依旧 Permission denied.",
         ];
         printErr(lines[Math.min(state.sudoFails-1, lines.length-1)]);
       },
@@ -732,7 +730,7 @@
     "rm-rf": {
       desc: "(危险)",
       run() {
-        printErr("rm: 检测到 -rf /。开始递归删除...");
+        // printErr("rm: 检测到 -rf /。开始递归删除...");
         const fakeSteps = [
           "removing /etc ...",
           "removing /var ...",
@@ -753,7 +751,7 @@
             setTimeout(() => {
               setTimeout(() => {
                 fadeOut.forEach(el => { el.style.opacity = "1"; });
-                print("…开个玩笑。一切都还在。", "ok");
+                print("…开个玩笑. 一切都还在. ^^", "ok");
               }, 1600);
             }, fadeOut.length * 12 + 200);
           }
@@ -761,66 +759,6 @@
       },
     },
 
-    vim: {
-      desc: "(?)",
-      run() {
-        const overlay = document.createElement("div");
-        overlay.className = "overlay";
-        overlay.innerHTML = `
-          <div class="panel" style="width:600px;max-width:90vw;font-family:inherit">
-            <div class="ctl">
-              <span>"untitled" [readonly]</span>
-              <span>:q! 退出 &nbsp;·&nbsp; :w 保存</span>
-            </div>
-            <pre style="margin:0;color:var(--fg);background:var(--bg-alt);padding:14px;border-radius:6px;min-height:200px">~
-~
-~
-~
-~
-~
-~
-~
-~                       VIM - Vi IMproved
-~
-~                        version 0.0.1
-~
-~                      type :q to exit
-~</pre>
-            <div style="margin-top:10px;font-size:13px;color:var(--muted)">输入 :q :q! :w :wq 任一个, 回车退出</div>
-            <div style="margin-top:6px;display:flex;align-items:center;gap:6px">
-              <span style="color:var(--green)">:</span>
-              <input id="vim-input" autofocus style="flex:1;background:transparent;border:none;outline:none;color:var(--fg);font:inherit" />
-            </div>
-          </div>`;
-        document.body.appendChild(overlay);
-        const v = overlay.querySelector("#vim-input");
-        v.focus();
-        v.addEventListener("keydown", e => {
-          if (e.key === "Enter") {
-            const cmd = v.value.trim();
-            if (/^:q!?$/.test(cmd) || cmd === ":wq") {
-              overlay.remove();
-              print("(从 vim 逃出生天)", "dim");
-              focusInput();
-            } else if (cmd === ":w") {
-              v.value = "";
-              const tip = overlay.querySelector("div:last-of-type");
-              tip.innerHTML = `<span style="color:var(--orange)">只读文件系统. 但谢谢你想留下点什么.</span>`;
-            } else {
-              v.value = "";
-            }
-          } else if (e.key === "Escape") {
-            overlay.remove();
-            focusInput();
-          }
-        });
-      },
-    },
-
-    nano: {
-      desc: "(?)",
-      run() { print("nano 不在这艘船上, 请用 vim.", "warn"); },
-    },
 
     sl: {
       desc: "(?)",
@@ -1134,7 +1072,7 @@ ${bottom}
     }
     if (line.trim() === ".send") {
       const body = ml.lines.join("\n").trim();
-      if (!body) { print("(空消息, 啥也没发)", "dim"); state.multiline = null; updatePrompt(); return; }
+      if (!body) { print("(空消息，什么也没发送.)", "dim"); state.multiline = null; updatePrompt(); return; }
       sendMessage(body);
       state.multiline = null;
       updatePrompt();
@@ -1192,15 +1130,11 @@ ${bottom}
   function boot() {
     const lines = [
       `<span class="boot head">terminal-home v0.1</span>`,
-      `<span class="boot"><span class="ok-tag">[ OK ]</span>  mounting <span class="dir">/</span></span>`,
-      `<span class="boot"><span class="ok-tag">[ OK ]</span>  mounting <span class="dir">/dream</span></span>`,
-      `<span class="boot"><span class="ok-tag">[ OK ]</span>  mounting <span class="dir">/daily</span></span>`,
-      `<span class="boot"><span class="ok-tag">[ OK ]</span>  mounting <span class="dir">/photo</span></span>`,
       `<span class="boot"><span class="ok-tag">[ OK ]</span>  linking message@web3forms</span>`,
       `<span class="boot"><span class="ok-tag">[ OK ]</span>  loading theme: <span class="kw">${document.body.dataset.theme}</span></span>`,
       `<span class="boot"><span class="ok-tag">[ OK ]</span>  ready.</span>`,
       `&nbsp;`,
-      `<span class="dim">输入 <span class="kw">help</span> 看可用命令; 输入 <span class="kw">ls -a</span> 看看藏了啥.</span>`,
+      `<span class="dim">输入 <span class="kw">help</span> 查看使用指南.`,
       `&nbsp;`,
     ];
     let i = 0;
@@ -1240,10 +1174,9 @@ ${bottom}
       $add.addEventListener("click", e => {
         e.stopPropagation();
         const lines = [
-          "这里只有一个标签页。但欢迎你来开一个新的。",
-          "想多开?  打开浏览器再开一个本页就行 :)",
-          "其实再点也是没用的。但你点得我开心。",
-          "+1 standing ovation. 但还是只有一个 tab.",
+          "这里只有唯一的标签页.",
+          "其实再点也是没用的.",
+          "真没彩蛋了^^.",
         ];
         const last = +($add.dataset.n || 0);
         print(lines[last % lines.length], "note");
