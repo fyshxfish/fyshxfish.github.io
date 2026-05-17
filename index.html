@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <title>visitor@fyshx</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="visitor@fyshx — a tiny terminal homepage." />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body data-theme="bluloco-light">
+  <div class="desktop">
+    <div class="window" id="window">
+      <header class="titlebar" id="titlebar">
+        <div class="tabs">
+          <div class="tab active" id="tab">
+            <span class="tab-num">1</span>
+            <span class="tab-name">visitor@fyshx — terminal</span>
+          </div>
+          <button class="tab-add" id="tabAdd" title="新标签页?">+</button>
+        </div>
+        <div class="status">
+          <span class="status-item" id="uptime" title="开站多久了"></span>
+          <span class="status-sep">·</span>
+          <span class="status-item" id="clock"></span>
+        </div>
+      </header>
+
+      <div id="terminal" tabindex="0">
+        <div id="output"></div>
+        <div class="input-line" id="inputLine">
+          <span id="prompt"></span>
+          <span class="cmdline">
+            <input id="input" type="text" autocomplete="off" autocorrect="off"
+                   autocapitalize="off" spellcheck="false" />
+            <span class="caret"></span>
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 文件系统在这里改：加文件只要加一行 -->
+  <script src="fs.js"></script>
+  <!-- 终端引擎与所有命令实现 -->
+  <script src="terminal.js"></script>
+</body>
+</html>
