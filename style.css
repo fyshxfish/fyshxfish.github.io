@@ -310,8 +310,13 @@ html, body {
 /* ls 表格 */
 .ls-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
-  gap: 0 18px;
+  column-gap: 2ch;
+  overflow-x: auto;
+}
+.ls-cell {
+  white-space: nowrap;
+  word-break: keep-all;
+  overflow-wrap: normal;
 }
 
 /* tree */

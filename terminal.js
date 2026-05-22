@@ -103,6 +103,141 @@
     return "file";
   }
 
+  function hasGlob(path) {
+    return /[*?]/.test(path);
+  }
+
+  function globSegmentToRegExp(segment) {
+    const body = Array.from(segment).map(ch => {
+      if (ch === "*") return "[^/]*";
+      if (ch === "?") return "[^/]";
+      return ch.replace(/[\\^$+?.()|[\]{}]/g, "\\$&");
+    }).join("");
+    return new RegExp("^" + body + "$");
+  }
+
+  function matchGlobPath(pattern, path) {
+    const patternParts = pattern.split("/").filter(Boolean);
+    const pathParts = path.split("/").filter(Boolean);
+    if (patternParts.length !== pathParts.length) return false;
+    return patternParts.every((part, i) => {
+      const name = pathParts[i];
+      if (name.startsWith(".") && !part.startsWith(".")) return false;
+      return globSegmentToRegExp(part).test(name);
+    });
+  }
+
+  function allDirs() {
+    const dirs = new Set(["/"]);
+    for (const file of Object.keys(FILES)) {
+      const parts = file.split("/").filter(Boolean);
+      for (let i = 1; i < parts.length; i++) {
+        dirs.add("/" + parts.slice(0, i).join("/"));
+      }
+    }
+    return [...dirs].sort((a, b) => a.localeCompare(b));
+  }
+
+  function expandDirGlob(arg) {
+    if (!hasGlob(arg)) return [normalize(arg)];
+    const pattern = normalize(arg);
+    return allDirs().filter(path => matchGlobPath(pattern, path));
+  }
+
+  function expandFileGlobs(args) {
+    const out = [];
+    for (const arg of args) {
+      if (!hasGlob(arg)) {
+        out.push({ input: arg, path: normalize(arg), glob: false });
+        continue;
+      }
+
+      const pattern = normalize(arg);
+      const matches = Object.keys(FILES)
+        .filter(path => matchGlobPath(pattern, path))
+        .sort((a, b) => a.localeCompare(b));
+
+      if (matches.length === 0) out.push({ input: arg, path: pattern, glob: true, missing: true });
+      else matches.forEach(path => out.push({ input: arg, path, glob: true }));
+    }
+    return out;
+  }
+
+  function charWidth(ch) {
+    const cp = ch.codePointAt(0);
+    if (
+      (cp >= 0x0300 && cp <= 0x036f) ||
+      (cp >= 0xfe00 && cp <= 0xfe0f)
+    ) return 0;
+    if (
+      cp >= 0x1100 &&
+      (cp <= 0x115f || cp === 0x2329 || cp === 0x232a ||
+       (cp >= 0x2e80 && cp <= 0xa4cf) ||
+       (cp >= 0xac00 && cp <= 0xd7a3) ||
+       (cp >= 0xf900 && cp <= 0xfaff) ||
+       (cp >= 0xfe10 && cp <= 0xfe19) ||
+       (cp >= 0xfe30 && cp <= 0xfe6f) ||
+       (cp >= 0xff00 && cp <= 0xff60) ||
+       (cp >= 0xffe0 && cp <= 0xffe6))
+    ) return 2;
+    return 1;
+  }
+
+  function textWidth(text) {
+    return Array.from(text).reduce((sum, ch) => sum + charWidth(ch), 0);
+  }
+
+  function terminalColumns() {
+    const style = getComputedStyle($terminal);
+    const width = $terminal.clientWidth
+      - parseFloat(style.paddingLeft || 0)
+      - parseFloat(style.paddingRight || 0);
+    const probe = document.createElement("span");
+    probe.style.cssText = "visibility:hidden;position:absolute;white-space:pre;font:inherit";
+    probe.textContent = "0";
+    $terminal.appendChild(probe);
+    const ch = probe.getBoundingClientRect().width || 8;
+    probe.remove();
+    return Math.max(1, Math.floor(width / ch));
+  }
+
+  function renderLsGrid(entries) {
+    const gap = 2;
+    const maxCols = entries.length;
+    const available = terminalColumns();
+
+    for (let cols = maxCols; cols > 1; cols--) {
+      const rows = Math.ceil(entries.length / cols);
+      const widths = Array.from({ length: cols }, (_, col) => {
+        let w = 0;
+        for (let row = 0; row < rows; row++) {
+          const item = entries[col * rows + row];
+          if (item) w = Math.max(w, item.width);
+        }
+        return w;
+      });
+      const total = widths.reduce((sum, w) => sum + w, 0) + gap * (cols - 1);
+      if (total <= available) return renderLsGridWithColumns(entries, rows, widths);
+    }
+
+    return renderLsGridWithColumns(entries, entries.length, [
+      Math.max(...entries.map(item => item.width)),
+    ]);
+  }
+
+  function renderLsGridWithColumns(entries, rows, widths) {
+    const cols = widths.length;
+    const cells = [];
+    for (let row = 0; row < rows; row++) {
+      for (let col = 0; col < cols; col++) {
+        const item = entries[col * rows + row];
+        if (item) cells.push(`<div class="ls-cell">${item.html}</div>`);
+      }
+    }
+    const columns = widths.map(w => `minmax(${w}ch, max-content)`).join(" ");
+    printHTML(`<div class="ls-grid" style="grid-template-columns:${columns}">${cells.join("")}</div>`);
+  }
+
   // ====================================================================
   // 2. OUTPUT
   // ====================================================================
@@ -372,26 +507,20 @@
         printHTML(`<span class="h2">基础</span>`);
         const tier1 = [
           ["ls [-a] [path]",     "列出目录内容"],
-          ["cd <path>",          "进入目录 (cd / cd .. / cd ~ / cd -)"],
-          ["cat <file>",         "查看文件"],
+          ["cd <path>",          "进入目录"],
+          ["cat <file...>",      "查看文件"],
           ["pwd",                "当前路径"],
           ["tree [path]",        "目录树"],
           ["clear",              "清屏 (Ctrl+L)"],
           ["echo <text>",        "输出文字"],
+          ["message",            "匿名留言箱"],
           ["help",               "看这份帮助"],
         ];
         printHTML(renderHelpTable(tier1));
         printBlank();
+        printHTML(`* 支持简单的通配符和 tab 补全. 可以通过 Ctrl-C 打断一条命令的键入. 支持上下箭头回溯命令历史. `);
+        printBlank();
         printHTML(`<span class="h2">And more...</span>`);
-        // printHTML(renderHelpTable([
-        //   ["whoami",     "一份非正式的自我介绍"],
-        //   ["neofetch",   "看一眼系统(?)信息"],
-        //   ["history",    "人生大事记 (不是命令历史)"],
-        //   ["contact",    "联系方式"],
-        //   ["message",    "在终端里给我留句话"],
-        // ]));
-        // printBlank();
-        // printHTML(`<span class="dim">还有一些不写在 help 里的命令, 也许你的肌肉记忆会带你找到它们.</span>`);
       },
     },
 
@@ -424,7 +553,7 @@
           return printHTML(rows.join("<br>"));
         }
 
-        const cells = items.map(name => {
+        const entries = items.map(name => {
           const full = (target === "/" ? "/" : target + "/") + name;
           const k = entryKind(full);
           const cls = name.startsWith(".") ? "hidden"
@@ -432,16 +561,27 @@
                    : k === "image" ? "image"
                    : "file";
           const suf = k === "dir" ? "/" : "";
-          return `<span class="${cls}">${esc(name)}${suf}</span>`;
+          const label = name + suf;
+          return {
+            html: `<span class="${cls}">${esc(label)}</span>`,
+            width: textWidth(label),
+          };
         });
-        printHTML(`<div class="ls-grid">${cells.map(c => `<div>${c}</div>`).join("")}</div>`);
+        renderLsGrid(entries);
       },
     },
 
     cd: {
       desc: "切目录",
       run(args) {
-        const target = normalize(args[0] || "~");
+        const input = args[0] || "~";
+        const matches = expandDirGlob(input);
+        if (matches.length === 0) return printErr(`cd: ${input}: 没有匹配的目录`);
+        if (matches.length > 1) {
+          printErr(`cd: ${input}: 匹配到多个目录`);
+          return printHTML(matches.map(p => `<span class="dir">${esc(p)}</span>`).join("   "));
+        }
+        const target = matches[0];
         if (!isDir(target)) return printErr(`cd: ${target}: 不是目录`);
         state.prevCwd = state.cwd;
         state.cwd = target;
@@ -458,19 +598,34 @@
       desc: "看文件",
       run(args) {
         if (args.length === 0) return printErr("cat: 给个文件名");
-        for (const a of args) {
-          const p = normalize(a);
+        const expanded = expandFileGlobs(args);
+        const validFiles = expanded.filter(item => !item.missing && isFile(item.path));
+        const showNames = validFiles.length > 1;
+        let rendered = 0;
+        for (const item of expanded) {
+          const p = item.path;
+          const a = item.input;
+          if (item.missing) {
+            printErr(`cat: ${a}: 没有匹配的文件`);
+            continue;
+          }
           if (!isFile(p)) {
             if (isDir(p)) { printErr(`cat: ${a}: 是目录`); continue; }
             printErr(`cat: ${a}: 没有这个文件`); continue;
           }
           const f = FILES[p];
+          if (showNames) {
+            if (rendered > 0) printBlank();
+            printHTML(`<span class="dim">==&gt; </span><span class="file">${esc(p)}</span><span class="dim"> &lt;==</span>`);
+          }
           if (f.type === "image") {
             showImage(f.src, a);
             print(`(已弹出 ${a})`, "dim");
+            rendered++;
             continue;
           }
           renderMarkdown(f.content || "");
+          rendered++;
         }
       },
     },
@@ -756,6 +911,28 @@
             }, fadeOut.length * 12 + 200);
           }
         }, 280);
+      },
+    },
+
+    rm: {
+      desc: "(?)",
+      run(args) {
+        const target = args.join(" ").trim();
+        if (target === "-rf /" || target === "-rf /*") return commands["rm-rf"].run();
+
+        if (!target) {
+          print("rm: missing operand", "bad");
+          print("但这里没有什么真的能被删掉.", "dim");
+          return;
+        }
+
+        const names = expandFileGlobs(args)
+          .filter(item => !item.missing)
+          .map(item => basename(item.path));
+        const label = names.length > 0 ? names.join(", ") : target;
+
+        print(`rm: cannot remove '${label}': read-only file system`, "bad");
+        setTimeout(() => print("文件们松了一口气.", "dim"), 450);
       },
     },
 
