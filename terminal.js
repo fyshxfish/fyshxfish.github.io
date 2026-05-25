@@ -370,7 +370,7 @@
 
     const command = tokenize(value.slice(0, start).trim())[0] || "";
     const items = listDir(dir, prefix.startsWith(".")) || [];
-    const candidates = items
+    let candidates = items
       .filter(name => name.startsWith(prefix))
       .filter(name => {
         if (command !== "play") return true;
@@ -383,6 +383,17 @@
         const label = name + (isD ? "/" : "");
         return { value: shownPrefix + label, label, isDir: isD };
       });
+
+    if (command === "play" && slash < 0) {
+      const seen = new Set(candidates.map(c => c.label));
+      const playlist = listDir("/playlist", prefix.startsWith(".")) || [];
+      for (const name of playlist) {
+        const full = "/playlist/" + name;
+        if (!name.startsWith(prefix) || !isFile(full) || FILES[full].type !== "audio" || seen.has(name)) continue;
+        candidates.push({ value: name, label: name, isDir: false });
+        seen.add(name);
+      }
+    }
 
     return { kind: "path", token, start, candidates };
   }
@@ -1145,7 +1156,7 @@
 
     toggle.addEventListener("click", e => {
       e.stopPropagation();
-      if (audio.paused) audio.play().catch(err => printErr("播放失败: " + err.message));
+      if (audio.paused) safePlay(audio);
       else audio.pause();
       updatePlayer();
       focusInput();
@@ -1157,9 +1168,14 @@
     audio.addEventListener("ended", updatePlayer);
 
     updatePlayer();
-    audio.play()
-      .then(updatePlayer)
-      .catch(err => printErr("播放失败: " + err.message));
+    safePlay(audio).then(updatePlayer);
+  }
+
+  function safePlay(audio) {
+    return audio.play().catch(err => {
+      if (err && err.name === "AbortError") return;
+      printErr("播放失败: " + err.message);
+    });
   }
 
   function formatDuration(ms) {
