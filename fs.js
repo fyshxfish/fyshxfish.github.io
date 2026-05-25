@@ -9,6 +9,7 @@
  * 文件类型：
  *   - { content: "..." }           普通文本/markdown
  *   - { type: "image", src: "..." } 图片（cat 时会弹浮窗）
+ *   - { type: "audio", src: "..." } 音频（play 时播放）
  *   - { type: "exec", run: fn }    可执行——但通常用 commands 实现
  * ====================================================================== */
 window.SITE = {
@@ -82,6 +83,14 @@ window.FS = {
 地球告别彗星。
   
   `.trim() },
+
+    // ====== /playlist ======
+    // 把真实 mp3 放到 content/playlist/song.mp3, 再登记一条虚拟路径:
+    // "/playlist/song.mp3": { type: "audio", src: "content/playlist/song.mp3" },
+    "/playlist/原谅-张玉华.mp3": { type: "audio", src: "content/playlist/原谅-张玉华.mp3" },
+
+    "/playlist/无眠-苏打绿.mp3": { type: "audio", src: "content/playlist/无眠-苏打绿.mp3" },
+
     
     // ====== 隐藏文件 (ls -a 才能看到) ======
     "/.secret.txt": { content: `

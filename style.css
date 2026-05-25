@@ -240,6 +240,7 @@ html, body {
 .hidden{ color: var(--muted); }
 .exec  { color: var(--green); font-weight: 600; }
 .image { color: var(--pink); }
+.audio { color: var(--cyan); }
 .link  { color: var(--cyan); text-decoration: underline; cursor: pointer; }
 
 .ok    { color: var(--green); }
@@ -307,6 +308,23 @@ html, body {
   50.01%, 100% { opacity: 0; }
 }
 
+.completion-grid {
+  display: grid;
+  column-gap: 2ch;
+  row-gap: 1px;
+  width: max-content;
+  max-width: 100%;
+  overflow-x: auto;
+}
+.completion-item {
+  color: var(--muted);
+  white-space: nowrap;
+}
+.completion-item.selected {
+  color: var(--bg);
+  background: var(--accent);
+}
+
 /* ls 表格 */
 .ls-grid {
   display: grid;
@@ -317,6 +335,53 @@ html, body {
   white-space: nowrap;
   word-break: keep-all;
   overflow-wrap: normal;
+}
+
+.audio-player {
+  display: inline-block;
+  width: 50ch;
+  max-width: 100%;
+  padding: 2px 0;
+  background: transparent;
+}
+.audio-title {
+  display: flex;
+  gap: 3ch;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2px;
+  white-space: nowrap;
+}
+.audio-toggle {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--blue);
+  font: inherit;
+  font-weight: 700;
+  line-height: 1.15;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.audio-toggle:hover,
+.audio-toggle:focus {
+  color: var(--cyan);
+  outline: none;
+}
+.audio-toggle:active {
+  transform: translateY(1px);
+}
+.audio-bar {
+  color: transparent;
+  background: linear-gradient(90deg, var(--red), var(--orange), var(--yellow), var(--green), var(--cyan), var(--blue), var(--purple), var(--pink));
+  -webkit-background-clip: text;
+  background-clip: text;
+  white-space: pre;
+  font-variant-numeric: tabular-nums;
+}
+.audio-player audio {
+  display: none;
 }
 
 /* tree */

@@ -33,6 +33,9 @@
     sudoFails: 0,
     multiline: null,   // { lines: [], target: "message" }
     konami: "",
+    audio: null,
+    audioPath: null,
+    completion: null,
   };
 
   const KONAMI = "ArrowUpArrowUpArrowDownArrowDownArrowLeftArrowRightArrowLeftArrowRightba";
@@ -100,6 +103,7 @@
     if (!isFile(p)) return null;
     const f = FILES[p];
     if (f.type === "image") return "image";
+    if (f.type === "audio") return "audio";
     return "file";
   }
 
@@ -332,55 +336,160 @@
     try { localStorage.setItem("th-history", JSON.stringify(state.history)); } catch {}
   }
 
-  function tabComplete() {
-    const v = $input.value;
-    const m = v.match(/^(\S*)$/) || v.match(/(\S+)$/);
-    if (!m) return;
-    const last = m[1];
-    if (!last) return;
-
-    // 命令补全 (光标在第一个 token)
-    const firstTokenOnly = !/\s/.test(v);
-    if (firstTokenOnly) {
-      const candidates = Object.keys(commands).filter(c => c.startsWith(last));
-      return finishTab(v, last, candidates);
-    }
-
-    // 路径补全
-    let dir, prefix;
-    const slash = last.lastIndexOf("/");
-    if (slash >= 0) {
-      dir    = normalize(last.slice(0, slash) || "/");
-      prefix = last.slice(slash + 1);
-    } else {
-      dir    = state.cwd;
-      prefix = last;
-    }
-    const items = listDir(dir, prefix.startsWith(".")) || [];
-    const cands = items.filter(x => x.startsWith(prefix));
-    finishTab(v, last, cands.map(c => (slash >= 0 ? last.slice(0, slash + 1) : "") + c));
+  function currentToken(value) {
+    const m = value.match(/(\S*)$/);
+    const token = m ? m[1] : "";
+    return { token, start: value.length - token.length };
   }
 
-  function finishTab(v, last, cands) {
-    if (cands.length === 0) return;
-    if (cands.length === 1) {
-      const next = cands[0];
-      const completed = v.slice(0, v.length - last.length) + next;
-      const isD = next.includes("/") ? isDir(normalize(next)) : isDir(normalize(next));
-      setInputValue(completed + (isD && !completed.endsWith("/") ? "/" : " "));
+  function completionContext(value) {
+    const { token, start } = currentToken(value);
+    const firstTokenOnly = start === 0 && !/\s/.test(value);
+    if (firstTokenOnly) {
+      return {
+        kind: "command",
+        token,
+        start,
+        candidates: Object.keys(commands)
+          .filter(c => c.startsWith(token))
+          .map(c => ({ value: c, label: c, isDir: false })),
+      };
+    }
+
+    let dir, prefix, shownPrefix;
+    const slash = token.lastIndexOf("/");
+    if (slash >= 0) {
+      dir = normalize(token.slice(0, slash) || "/");
+      prefix = token.slice(slash + 1);
+      shownPrefix = token.slice(0, slash + 1);
+    } else {
+      dir = state.cwd;
+      prefix = token;
+      shownPrefix = "";
+    }
+
+    const command = tokenize(value.slice(0, start).trim())[0] || "";
+    const items = listDir(dir, prefix.startsWith(".")) || [];
+    const candidates = items
+      .filter(name => name.startsWith(prefix))
+      .filter(name => {
+        if (command !== "play") return true;
+        const full = (dir === "/" ? "/" : dir + "/") + name;
+        return isFile(full) && FILES[full].type === "audio";
+      })
+      .map(name => {
+        const full = (dir === "/" ? "/" : dir + "/") + name;
+        const isD = isDir(full);
+        const label = name + (isD ? "/" : "");
+        return { value: shownPrefix + label, label, isDir: isD };
+      });
+
+    return { kind: "path", token, start, candidates };
+  }
+
+  function tabComplete() {
+    const v = $input.value;
+    const ctx = completionContext(v);
+    if (ctx.candidates.length === 0) return;
+    if (ctx.candidates.length === 1 && ctx.token) {
+      applyCompletion(ctx.candidates[0], ctx);
       return;
     }
-    echoCommand($input.value);
-    printHTML(cands.map(c => `<span class="dim">${esc(c)}</span>`).join("   "));
-    // 共同前缀
-    const lcp = cands.reduce((a, b) => {
-      let i = 0;
-      while (i < a.length && i < b.length && a[i] === b[i]) i++;
-      return a.slice(0, i);
-    });
-    if (lcp.length > last.length) {
-      setInputValue(v.slice(0, v.length - last.length) + lcp);
+    openCompletion(ctx);
+  }
+
+  function openCompletion(ctx) {
+    closeCompletion();
+    const rowEl = document.createElement("div");
+    rowEl.className = "row completion-row";
+    $inputLine.insertAdjacentElement("afterend", rowEl);
+    state.completion = {
+      row: rowEl,
+      input: $input.value,
+      start: ctx.start,
+      candidates: ctx.candidates,
+      index: 0,
+      cols: completionColumns(ctx.candidates),
+    };
+    renderCompletion();
+    applyCompletion(ctx.candidates[0], ctx, true);
+  }
+
+  function closeCompletion() {
+    if (state.completion && state.completion.row) state.completion.row.remove();
+    state.completion = null;
+  }
+
+  function renderCompletion() {
+    const c = state.completion;
+    if (!c) return;
+    c.row.innerHTML =
+      `<div class="completion-grid" style="grid-template-columns:repeat(${c.cols}, max-content)">` +
+      c.candidates.map((item, i) => {
+        const cls = i === c.index ? "completion-item selected" : "completion-item";
+        return `<span class="${cls}">${esc(item.label)}</span>`;
+      }).join("") +
+      `</div>`;
+    scrollDown();
+  }
+
+  function completionColumns(candidates) {
+    const gap = 2;
+    const available = terminalColumns();
+    for (let cols = candidates.length; cols > 1; cols--) {
+      const rows = Math.ceil(candidates.length / cols);
+      const widths = Array.from({ length: cols }, (_, col) => {
+        let w = 0;
+        for (let row = 0; row < rows; row++) {
+          const item = candidates[row * cols + col];
+          if (item) w = Math.max(w, textWidth(item.label));
+        }
+        return w;
+      });
+      const total = widths.reduce((sum, w) => sum + w, 0) + gap * (cols - 1);
+      if (total <= available) return cols;
     }
+    return 1;
+  }
+
+  function moveCompletion(delta) {
+    const c = state.completion;
+    if (!c) return;
+    c.index = (c.index + delta + c.candidates.length) % c.candidates.length;
+    renderCompletion();
+    applyCompletion(c.candidates[c.index], null, true);
+  }
+
+  function applyCompletion(item, ctx = null, preview = false) {
+    const c = state.completion;
+    const start = ctx ? ctx.start : c.start;
+    const base = ctx ? $input.value : c.input;
+    const needsSpace = !item.isDir && !item.value.endsWith(" ");
+    const completed = base.slice(0, start) + item.value + (needsSpace ? " " : "");
+    setInputValue(completed);
+    if (preview) return;
+    closeCompletion();
+  }
+
+  function handleCompletionKey(e) {
+    const c = state.completion;
+    if (!c) return false;
+    if (e.key === "ArrowRight") { e.preventDefault(); moveCompletion(1); return true; }
+    if (e.key === "ArrowLeft")  { e.preventDefault(); moveCompletion(-1); return true; }
+    if (e.key === "ArrowDown")  { e.preventDefault(); moveCompletion(c.cols); return true; }
+    if (e.key === "ArrowUp")    { e.preventDefault(); moveCompletion(-c.cols); return true; }
+    if (e.key === "Tab")        { e.preventDefault(); moveCompletion(e.shiftKey ? -1 : 1); return true; }
+    if (e.key === "Enter") {
+      e.preventDefault();
+      applyCompletion(c.candidates[c.index]);
+      return true;
+    }
+    if (e.key === "Escape") {
+      e.preventDefault();
+      closeCompletion();
+      return true;
+    }
+    return false;
   }
 
   // ---------- 主键盘处理 ----------
@@ -392,6 +501,8 @@
       konamiEgg();
       return;
     }
+
+    if (handleCompletionKey(e)) return;
 
     if (e.key === "Enter") {
       e.preventDefault();
@@ -431,6 +542,7 @@
       e.preventDefault();
       echoCommand($input.value + "^C");
       setInputValue("");
+      closeCompletion();
       if (state.multiline) {
         print("(已取消)", "dim");
         state.multiline = null;
@@ -443,6 +555,7 @@
   }
 
   function handleLine(line) {
+    closeCompletion();
     // multiline 模式 (message 输入中)
     if (state.multiline) {
       handleMultiline(line);
@@ -513,6 +626,7 @@
           ["tree [path]",        "目录树"],
           ["clear",              "清屏 (Ctrl+L)"],
           ["echo <text>",        "输出文字"],
+          ["play <file.mp3>",     "播放 playlist 音频"],
           ["message",            "匿名留言箱"],
           ["help",               "看这份帮助"],
         ];
@@ -546,8 +660,9 @@
             const cls = name.startsWith(".") ? "hidden"
                      : k === "dir"   ? "dir"
                      : k === "image" ? "image"
+                     : k === "audio" ? "audio"
                      : "file";
-            const tag = k === "dir" ? "d" : k === "image" ? "i" : "-";
+            const tag = k === "dir" ? "d" : k === "image" ? "i" : k === "audio" ? "a" : "-";
             return `<span class="dim">${tag}rwxr-xr-x</span>  <span class="${cls}">${esc(name)}${k==="dir"?"/":""}</span>`;
           });
           return printHTML(rows.join("<br>"));
@@ -559,6 +674,7 @@
           const cls = name.startsWith(".") ? "hidden"
                    : k === "dir"   ? "dir"
                    : k === "image" ? "image"
+                   : k === "audio" ? "audio"
                    : "file";
           const suf = k === "dir" ? "/" : "";
           const label = name + suf;
@@ -624,9 +740,52 @@
             rendered++;
             continue;
           }
+          if (f.type === "audio") {
+            print(`这是音频文件. 用 play ${basename(p)} 播放.`, "dim");
+            rendered++;
+            continue;
+          }
           renderMarkdown(f.content || "");
           rendered++;
         }
+      },
+    },
+
+    play: {
+      desc: "播放 playlist 里的音频",
+      run(args, raw) {
+        const input = raw.replace(/^play\s*/, "").trim();
+        if (!input) {
+          const tracks = Object.keys(FILES)
+            .filter(p => FILES[p].type === "audio")
+            .sort((a, b) => a.localeCompare(b));
+          if (tracks.length === 0) {
+            print("用法: play <file.mp3>", "dim");
+            return print("还没有登记任何音频. 在 fs.js 里添加 /playlist/*.mp3 即可.", "dim");
+          }
+          print("可播放:", "note");
+          tracks.forEach(p => printHTML(`<span class="audio">${esc(p)}</span>`));
+          return;
+        }
+
+        let matches = expandFileGlobs([input])
+          .filter(item => !item.missing && isFile(item.path) && FILES[item.path].type === "audio")
+          .map(item => item.path);
+
+        if (matches.length === 0 && !input.includes("/")) {
+          matches = expandFileGlobs(["/playlist/" + input])
+            .filter(item => !item.missing && isFile(item.path) && FILES[item.path].type === "audio")
+            .map(item => item.path);
+        }
+
+        matches = [...new Set(matches)].sort((a, b) => a.localeCompare(b));
+        if (matches.length === 0) return printErr(`play: ${input}: 没有匹配的音频文件`);
+        if (matches.length > 1) {
+          printErr(`play: ${input}: 匹配到多首音频`);
+          return printHTML(matches.map(p => `<span class="audio">${esc(p)}</span>`).join("<br>"));
+        }
+
+        playAudio(matches[0]);
       },
     },
 
@@ -885,7 +1044,7 @@
     "rm-rf": {
       desc: "(危险)",
       run() {
-        // printErr("rm: 检测到 -rf /。开始递归删除...");
+        // printErr("rm: 检测到 -rf /. 开始递归删除...");
         const fakeSteps = [
           "removing /etc ...",
           "removing /var ...",
@@ -1227,6 +1386,64 @@ ${bottom}
     document.body.appendChild(overlay);
   }
 
+  function playAudio(path) {
+    const f = FILES[path];
+    if (!f || f.type !== "audio") return printErr(`play: ${path}: 不是音频文件`);
+    if (!f.src) return printErr(`play: ${path}: 没有配置音频 src`);
+
+    if (state.audio) {
+      state.audio.pause();
+      state.audio = null;
+      state.audioPath = null;
+    }
+
+    const wrap = row(
+      `<div class="audio-player">` +
+        `<div class="audio-title">` +
+          `<span><span class="dim">now playing</span> <span class="audio">${esc(basename(path))}</span></span>` +
+          `<button class="audio-toggle" type="button">[▶]</button>` +
+        `</div>` +
+        `<div class="audio-bar" aria-hidden="true">[------------------------------------------------]</div>` +
+        `<audio preload="metadata" src="${esc(f.src)}"></audio>` +
+      `</div>`
+    );
+    const audio = wrap.querySelector("audio");
+    const toggle = wrap.querySelector(".audio-toggle");
+    const bar = wrap.querySelector(".audio-bar");
+
+    audio.controls = false;
+    audio.playbackRate = 1;
+    state.audio = audio;
+    state.audioPath = path;
+
+    function updatePlayer() {
+      const duration = Number.isFinite(audio.duration) ? audio.duration : 0;
+      const current = Number.isFinite(audio.currentTime) ? audio.currentTime : 0;
+      const cells = 48;
+      const filled = duration ? Math.min(cells, Math.round((current / duration) * cells)) : 0;
+      toggle.textContent = audio.paused ? "[▶]" : "[⏸]";
+      bar.textContent = "[" + "#".repeat(filled) + "-".repeat(cells - filled) + "]";
+    }
+
+    toggle.addEventListener("click", e => {
+      e.stopPropagation();
+      if (audio.paused) audio.play().catch(err => printErr("播放失败: " + err.message));
+      else audio.pause();
+      updatePlayer();
+      focusInput();
+    });
+    audio.addEventListener("loadedmetadata", updatePlayer);
+    audio.addEventListener("timeupdate", updatePlayer);
+    audio.addEventListener("play", updatePlayer);
+    audio.addEventListener("pause", updatePlayer);
+    audio.addEventListener("ended", updatePlayer);
+
+    updatePlayer();
+    audio.play()
+      .then(updatePlayer)
+      .catch(err => printErr("播放失败: " + err.message));
+  }
+
   function formatDuration(ms) {
     const s = Math.floor(ms / 1000);
     if (s < 60)    return s + " 秒";
@@ -1306,10 +1523,10 @@ ${bottom}
   // ====================================================================
   function boot() {
     const lines = [
-      `<span class="boot head">terminal-home v0.1</span>`,
+      // `<span class="boot head">WELCOME</span>`,
       `<span class="boot"><span class="ok-tag">[ OK ]</span>  linking message@web3forms</span>`,
       `<span class="boot"><span class="ok-tag">[ OK ]</span>  loading theme: <span class="kw">${document.body.dataset.theme}</span></span>`,
-      `<span class="boot"><span class="ok-tag">[ OK ]</span>  ready.</span>`,
+      `<span class="boot">Last Updated at 2026-05-25.`,
       `&nbsp;`,
       `<span class="dim">输入 <span class="kw">help</span> 查看使用指南.`,
       `&nbsp;`,
@@ -1373,7 +1590,7 @@ ${bottom}
     initTitlebar();
     updatePrompt();
     $input.addEventListener("keydown", onKeyDown);
-    $input.addEventListener("input",   syncCaret);
+    $input.addEventListener("input",   () => { closeCompletion(); syncCaret(); });
     $input.addEventListener("blur",    () => $caret && ($caret.style.opacity = "0.3"));
     $input.addEventListener("focus",   () => $caret && ($caret.style.opacity = "0.85"));
 
