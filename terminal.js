@@ -585,7 +585,6 @@
 
     // 特殊匹配
     if (name === "sudo")       return commands.sudo.run(args, line);
-    if (line === "rm -rf /")   return commands["rm-rf"].run([], line);
     if (name === ":wq" || name === ":q" || name === ":q!") {
       print("你不在 vim 里 — 不过我替你按了 :q。", "dim"); return;
     }
@@ -827,38 +826,6 @@
       },
     },
 
-    find: {
-      desc: "查找",
-      run(args) {
-        const pattern = args.find(a => !a.startsWith("/")) || "";
-        const root = args.find(a => a.startsWith("/")) || state.cwd;
-        const matches = Object.keys(FILES)
-          .filter(p => p.startsWith(root === "/" ? "/" : root + "/") || p === root)
-          .filter(p => !pattern || basename(p).includes(pattern));
-        if (matches.length === 0) print("(无匹配)", "dim");
-        matches.forEach(m => printHTML(`<span class="file">${esc(m)}</span>`));
-      },
-    },
-
-    grep: {
-      desc: "搜索内容",
-      run(args) {
-        if (args.length === 0) return printErr("grep: 用法 grep <pattern>");
-        const pat = args[0];
-        const hits = [];
-        for (const [path, f] of Object.entries(FILES)) {
-          if (!f.content) continue;
-          f.content.split("\n").forEach((line, i) => {
-            if (line.includes(pat)) {
-              hits.push(`<span class="dim">${esc(path)}:${i+1}:</span> ${esc(line).replace(esc(pat), `<span class="bad bold">${esc(pat)}</span>`)}`);
-            }
-          });
-        }
-        if (hits.length === 0) print("(无匹配)", "dim");
-        hits.forEach(h => printHTML(h));
-      },
-    },
-
     which: {
       desc: "命令在哪",
       run(args) {
@@ -904,7 +871,7 @@
 
 ## SEE ALSO
 
-  whoami(1), neofetch(1), message(1)
+  help(1), message(1)
           `.trim());
           return;
         }
@@ -913,60 +880,6 @@
           return;
         }
         printErr(`man: 没有关于 ${t} 的条目`);
-      },
-    },
-
-    // ---------- Tier 2: 身份信息 ----------
-    whoami: {
-      desc: "自我介绍",
-      run() {
-        renderMarkdown(`
-# ${SITE.user}@${SITE.host}
-
-非要描述的话, 大概是这样一个人:
-
-  - 还在学, 也还在学怎么学.
-  - 喜欢一切**会动**的东西 — 程序、想法、车、人.
-  - 相信慢慢做完的小东西比赶出来的大东西更值钱.
-
-更多藏在隐藏文件里. 试试 \`ls -a\` 或者 \`cat .about-me\`.
-        `.trim());
-      },
-    },
-
-    whoarewe: {
-      desc: "我们是谁",
-      run() { print("都是宇宙里的同行旅客，凑巧在这一行命令里相遇。", "note"); },
-    },
-
-    neofetch: {
-      desc: "系统信息",
-      run() {
-        const uptimeMs = Date.now() - BOOT_TS;
-        const uptime = formatDuration(uptimeMs);
-        const lines = [
-          `<span class="kw">${SITE.user}@${SITE.host}</span>`,
-          `<span class="dim">${"-".repeat((SITE.user + "@" + SITE.host).length)}</span>`,
-          `<span class="dim">OS:        </span>Browser`,
-          `<span class="dim">Host:      </span>${SITE.host}.github.io`,
-          `<span class="dim">Kernel:    </span>JavaScript 6.x`,
-          `<span class="dim">Uptime:    </span>${uptime}`,
-          `<span class="dim">Packages:  </span>curiosity, snacks, cats`,
-          `<span class="dim">Shell:     </span>terminal-home`,
-          `<span class="dim">Terminal:  </span>your browser`,
-          `<span class="dim">CPU:       </span>fingers @ 4.0 GHz`,
-          `<span class="dim">Memory:    </span>7% used`,
-          `<span class="dim">Theme:     </span>${document.body.dataset.theme}`,
-        ];
-        const art = (SITE.ascii || []).map(esc);
-        const maxLines = Math.max(art.length, lines.length);
-        const rows = [];
-        for (let i = 0; i < maxLines; i++) {
-          const a = art[i] || " ".repeat(15);
-          const b = lines[i] || "";
-          rows.push(`<span class="ascii">${esc(a)}</span>   ${b}`);
-        }
-        printHTML(`<div>${rows.join("<br>")}</div>`);
       },
     },
 
@@ -982,24 +895,8 @@
     },
 
     date: { desc: "当前时间", run() {
-      print(new Date().toLocaleString("zh-CN", { hour12: false }));
+      print("看右上角^^");
     }},
-    uptime: { desc: "运行了多久", run() {
-      print(`up ${formatDuration(Date.now() - BOOT_TS)} (since you opened the tab)`);
-    }},
-
-    contact: {
-      desc: "联系方式",
-      run() {
-        renderMarkdown(`
-# 联系
-
-邮箱  : ${SITE.contactEmail}
-
-直接 \`message\` 留言我也能收到。
-        `.trim());
-      },
-    },
 
     // ---------- Tier 2: message (核心功能) ----------
     message: {
@@ -1016,7 +913,6 @@
       desc: "(嗯?)",
       run(args, raw) {
         const sub = raw.replace(/^sudo\s*/, "").trim();
-        if (sub === "rm -rf /" || sub === "rm -rf /*") return commands["rm-rf"].run([], sub);
         if (sub === "make me a sandwich") {
           renderASCII(`
    _________________
@@ -1041,44 +937,10 @@
       },
     },
 
-    "rm-rf": {
-      desc: "(危险)",
-      run() {
-        // printErr("rm: 检测到 -rf /. 开始递归删除...");
-        const fakeSteps = [
-          "removing /etc ...",
-          "removing /var ...",
-          "removing /home/visitor/regrets ...",
-          "removing /var/log/yesterday ...",
-          "removing / ...",
-        ];
-        let i = 0;
-        const t = setInterval(() => {
-          if (i < fakeSteps.length) {
-            print(fakeSteps[i++], "dim");
-          } else {
-            clearInterval(t);
-            const fadeOut = $output.querySelectorAll(".row");
-            fadeOut.forEach((el, idx) => {
-              setTimeout(() => { el.style.transition = "opacity .6s"; el.style.opacity = "0"; }, idx * 12);
-            });
-            setTimeout(() => {
-              setTimeout(() => {
-                fadeOut.forEach(el => { el.style.opacity = "1"; });
-                print("…开个玩笑. 一切都还在. ^^", "ok");
-              }, 1600);
-            }, fadeOut.length * 12 + 200);
-          }
-        }, 280);
-      },
-    },
-
     rm: {
       desc: "(?)",
       run(args) {
         const target = args.join(" ").trim();
-        if (target === "-rf /" || target === "-rf /*") return commands["rm-rf"].run();
-
         if (!target) {
           print("rm: missing operand", "bad");
           print("但这里没有什么真的能被删掉.", "dim");
@@ -1128,32 +990,6 @@
       },
     },
 
-    cowsay: {
-      desc: "(?)",
-      run(args, raw) {
-        const text = raw.replace(/^cowsay\s*/, "") || "Moo.";
-        const top    = " " + "_".repeat(text.length + 2);
-        const bottom = " " + "-".repeat(text.length + 2);
-        renderASCII(
-`${top}
-< ${text} >
-${bottom}
-        \\   ^__^
-         \\  (oo)\\_______
-            (__)\\       )\\/\\
-                ||----w |
-                ||     ||`);
-      },
-    },
-
-    fortune: {
-      desc: "(?)",
-      run() {
-        const pool = SITE.fortunes || ["你今天看起来不错。"];
-        print(pool[Math.floor(Math.random() * pool.length)], "note");
-      },
-    },
-
     coffee: {
       desc: "(?)",
       run() {
@@ -1166,70 +1002,6 @@ ${bottom}
          \`----'
 
 ☕ 拿走, 今天我请.`);
-      },
-    },
-    tea: { desc: "(?)", run() { commands.coffee.run(); } },
-
-    hack: {
-      desc: "(?)",
-      run(args) {
-        const target = args[0] || "NSA";
-        print(`Connecting to ${target}.gov ...`, "dim");
-        const stages = [
-          ["Bypassing firewall",  20],
-          ["Cracking passwd",     45],
-          ["Decrypting payload",  70],
-          ["Spoofing IP",         90],
-          ["Almost there",        99],
-        ];
-        let i = 0;
-        const advance = () => {
-          if (i >= stages.length) {
-            print("Got root!", "ok");
-            print("...开玩笑的. 我什么都没做.", "dim");
-            return;
-          }
-          const [label, pct] = stages[i++];
-          const bar = "█".repeat(Math.floor(pct / 5)) + "░".repeat(20 - Math.floor(pct / 5));
-          printHTML(`<span class="warn">${esc(label)}</span>  <span class="ascii">[${bar}] ${pct}%</span>`);
-          setTimeout(advance, 500);
-        };
-        advance();
-      },
-    },
-
-    matrix: {
-      desc: "(?)",
-      run() {
-        let c = document.getElementById("matrix-canvas");
-        if (!c) {
-          c = document.createElement("canvas");
-          c.id = "matrix-canvas";
-          document.body.appendChild(c);
-        }
-        c.width = window.innerWidth;
-        c.height = window.innerHeight;
-        const ctx = c.getContext("2d");
-        const cols = Math.floor(c.width / 14);
-        const drops = new Array(cols).fill(0);
-        let frames = 0;
-        const loop = () => {
-          ctx.fillStyle = "rgba(0,0,0,0.08)";
-          ctx.fillRect(0, 0, c.width, c.height);
-          ctx.fillStyle = "#00ff41";
-          ctx.font = "14px monospace";
-          for (let i = 0; i < cols; i++) {
-            const ch = String.fromCharCode(0x30A0 + Math.random() * 96);
-            ctx.fillText(ch, i * 14, drops[i] * 14);
-            if (drops[i] * 14 > c.height && Math.random() > 0.975) drops[i] = 0;
-            drops[i]++;
-          }
-          frames++;
-          if (frames < 250) requestAnimationFrame(loop);
-          else c.remove();
-        };
-        loop();
-        print("(There is no spoon.)", "dim");
       },
     },
 
@@ -1263,52 +1035,6 @@ ${bottom}
       },
     },
 
-    apt: {
-      desc: "(?)",
-      run(args) {
-        const sub = args.join(" ");
-        if (sub.startsWith("install ")) {
-          const pkg = sub.slice(8);
-          print(`Reading package lists... Done`, "dim");
-          print(`Building dependency tree... Done`, "dim");
-          if (pkg === "happiness") {
-            print(`E: Unable to locate package: 依赖 sleep>=7h, 未满足.`, "bad");
-          } else if (pkg === "motivation") {
-            print(`Reading state information... ` + "▓".repeat(8) + "░".repeat(12), "warn");
-            setTimeout(() => print("(还在读. 可能要等明天.)", "dim"), 1500);
-          } else if (pkg === "courage") {
-            print(`Setting up courage (1.0.0) ...`, "ok");
-            print(`已安装. 去做吧.`, "ok");
-          } else {
-            print(`E: 不认识这个包. 但 'courage' 'happiness' 'motivation' 可以试试.`, "warn");
-          }
-        } else {
-          print(`Usage: apt install <package>`, "dim");
-        }
-      },
-    },
-
-    ssh: {
-      desc: "(?)",
-      run(args) {
-        const tgt = args[0] || "";
-        if (tgt.includes("future-me")) {
-          print("Connecting...", "dim");
-          setTimeout(() => print("Connection refused. (可能是未来的我屏蔽了.)", "bad"), 800);
-          return;
-        }
-        if (tgt.includes("past-me") || tgt.includes("2022")) {
-          print("Connecting to past-me@2022 ...", "dim");
-          setTimeout(() => print("Connection established.", "ok"), 600);
-          setTimeout(() => print("> 你做出来了吗?", "note"), 1200);
-          setTimeout(() => print("> ...你做出来了.", "kw"), 2000);
-          setTimeout(() => print("Connection closed.", "dim"), 3000);
-          return;
-        }
-        printErr(`ssh: 连不上 ${tgt}`);
-      },
-    },
-
     theme: {
       desc: "切换主题",
       run(args) {
@@ -1322,14 +1048,6 @@ ${bottom}
         document.body.dataset.theme = args[0];
         try { localStorage.setItem("th-theme", args[0]); } catch {}
         print(`主题已切换为 ${args[0]}.`, "ok");
-      },
-    },
-
-    unhinged: {
-      desc: "(?)",
-      run() {
-        document.body.classList.toggle("unhinged");
-        print("(◔_◔)  好的, 那就这样.", "kw");
       },
     },
 

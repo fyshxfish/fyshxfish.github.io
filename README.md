@@ -55,11 +55,7 @@ python3 -m http.server 5500
 | `user` / `host` | 提示符显示的用户名 / 主机名 |
 | `contactEmail` | 落底邮箱 |
 | `web3formsKey` | message 命令的收件 key（看下面） |
-| `ascii` | `neofetch` 显示的 ASCII 头像 |
 | `lifeLog` | `history` 显示的人生大事记 |
-| `fortunes` | `fortune` 命令的废话池 |
-
-`whoami` 的内容写在 `terminal.js` 的 `commands.whoami` 里，可以直接改那段 markdown。
 
 ## 怎么开通 message
 
@@ -85,20 +81,17 @@ gh repo create your-handle.github.io --public --source=. --push
 ## 命令清单
 
 **写在 help 里的**
-`ls` `cd` `cat` `pwd` `tree` `clear` `echo` `whoami` `neofetch`
-`history` `contact` `message` `help`
+`ls` `cd` `cat` `pwd` `tree` `clear` `echo` `play` `message` `help`
 
 **没写在 help 里、但是会的**
-`find` `grep` `which` `man` `date` `uptime` `whoarewe` `cls`
+`history` `which` `man` `date` `cls`
 
 **彩蛋（按肌肉记忆乱试就能发现）**
-`sudo *` · `sudo rm -rf /` · `rm -rf /` · `vim` / `nano`
-`sl` · `cowsay <text>` · `coffee` / `tea` · `fortune`
-`hack [target]` · `matrix` · `flip` · `roll 2d6` · `8ball <q>`
-`apt install happiness|motivation|courage`
-`ssh future-me@2030` · `ssh past-me@2022` · `man you`
+`sudo *` · `rm *` · `vim` / `nano`
+`sl` · `coffee` · `flip` · `roll 2d6` · `8ball <q>`
+`man you`
 `theme [bluloco-light|bluloco-dark|matrix|amber]`
-`unhinged` · `exit` / `quit` / `logout`
+`exit` / `quit` / `logout`
 ↑↑↓↓←→←→BA · sudo make me a sandwich
 
 ## 交互细节
