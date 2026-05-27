@@ -643,6 +643,7 @@
         printHTML(renderHelpTable(tier1));
         printBlank();
         printHTML(`* 支持简单的通配符和 tab 补全. 可以通过 Ctrl-C 打断一条命令的键入. 支持上下箭头回溯命令历史. `);
+        printHTML(`* 其实只使用 tab 和方向键就足以访问此站点的大部分内容. `);
         printBlank();
         printHTML(`<span class="h2">And more...</span>`);
       },
@@ -1260,7 +1261,7 @@
       // `<span class="boot head">WELCOME</span>`,
       `<span class="boot"><span class="ok-tag">[ OK ]</span>  linking message@web3forms</span>`,
       `<span class="boot"><span class="ok-tag">[ OK ]</span>  loading theme: <span class="kw">${document.body.dataset.theme}</span></span>`,
-      `<span class="boot">Last Updated at 2026-05-25.`,
+      `<span class="boot">Last Updated at 2026-05-27.`,
       `&nbsp;`,
       `<span class="dim">输入 <span class="kw">help</span> 查看使用指南.`,
       `&nbsp;`,
