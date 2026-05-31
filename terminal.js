@@ -1261,7 +1261,7 @@
       // `<span class="boot head">WELCOME</span>`,
       `<span class="boot"><span class="ok-tag">[ OK ]</span>  linking message@web3forms</span>`,
       `<span class="boot"><span class="ok-tag">[ OK ]</span>  loading theme: <span class="kw">${document.body.dataset.theme}</span></span>`,
-      `<span class="boot">Last Updated at 2026-05-27.`,
+      `<span class="boot">Last Updated at 2026-05-31.`,
       `&nbsp;`,
       `<span class="dim">输入 <span class="kw">help</span> 查看使用指南.`,
       `&nbsp;`,
