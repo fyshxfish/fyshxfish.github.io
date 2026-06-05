@@ -191,24 +191,41 @@
     return Array.from(text).reduce((sum, ch) => sum + charWidth(ch), 0);
   }
 
-  function terminalColumns() {
+  function terminalWidthPx() {
     const style = getComputedStyle($terminal);
-    const width = $terminal.clientWidth
+    return $terminal.clientWidth
       - parseFloat(style.paddingLeft || 0)
       - parseFloat(style.paddingRight || 0);
+  }
+
+  function charWidthPx() {
     const probe = document.createElement("span");
     probe.style.cssText = "visibility:hidden;position:absolute;white-space:pre;font:inherit";
     probe.textContent = "0";
     $terminal.appendChild(probe);
     const ch = probe.getBoundingClientRect().width || 8;
     probe.remove();
-    return Math.max(1, Math.floor(width / ch));
+    return ch;
+  }
+
+  function terminalColumns() {
+    return Math.max(1, Math.floor(terminalWidthPx() / charWidthPx()));
+  }
+
+  function measureTextPx(text) {
+    const probe = document.createElement("span");
+    probe.style.cssText = "visibility:hidden;position:absolute;white-space:pre;font:inherit";
+    probe.textContent = text;
+    $terminal.appendChild(probe);
+    const width = probe.getBoundingClientRect().width;
+    probe.remove();
+    return Math.ceil(width);
   }
 
   function renderLsGrid(entries) {
-    const gap = 2;
+    const gapPx = charWidthPx() * 2;
     const maxCols = entries.length;
-    const available = terminalColumns();
+    const available = terminalWidthPx();
 
     for (let cols = maxCols; cols > 1; cols--) {
       const rows = Math.ceil(entries.length / cols);
@@ -216,16 +233,16 @@
         let w = 0;
         for (let row = 0; row < rows; row++) {
           const item = entries[col * rows + row];
-          if (item) w = Math.max(w, item.width);
+          if (item) w = Math.max(w, item.widthPx);
         }
         return w;
       });
-      const total = widths.reduce((sum, w) => sum + w, 0) + gap * (cols - 1);
+      const total = widths.reduce((sum, w) => sum + w, 0) + gapPx * (cols - 1);
       if (total <= available) return renderLsGridWithColumns(entries, rows, widths);
     }
 
     return renderLsGridWithColumns(entries, entries.length, [
-      Math.max(...entries.map(item => item.width)),
+      Math.min(available, Math.max(...entries.map(item => item.widthPx))),
     ]);
   }
 
@@ -238,7 +255,7 @@
         if (item) cells.push(`<div class="ls-cell">${item.html}</div>`);
       }
     }
-    const columns = widths.map(w => `minmax(${w}ch, max-content)`).join(" ");
+    const columns = widths.map(w => `${w}px`).join(" ");
     printHTML(`<div class="ls-grid" style="grid-template-columns:${columns}">${cells.join("")}</div>`);
   }
 
@@ -692,6 +709,7 @@
           return {
             html: `<span class="${cls}">${esc(label)}</span>`,
             width: textWidth(label),
+            widthPx: measureTextPx(label),
           };
         });
         renderLsGrid(entries);

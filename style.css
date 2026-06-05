@@ -329,12 +329,14 @@ html, body {
 .ls-grid {
   display: grid;
   column-gap: 2ch;
-  overflow-x: auto;
+  overflow: hidden;
 }
 .ls-cell {
   white-space: nowrap;
   word-break: keep-all;
   overflow-wrap: normal;
+  overflow: hidden;
+  text-overflow: clip;
 }
 
 .audio-player {
