@@ -873,35 +873,6 @@
         const t = args[0];
         if (t === "you" || t === "me") {
           renderMarkdown(`
-# MAN(1)                          PERSONAL MANUAL
-
-## NAME
-
-  ${SITE.user} — 一个人
-
-## SYNOPSIS
-
-  ${SITE.user} [--coffee] [--awake] [--in-the-mood]
-
-## DESCRIPTION
-
-  一个还在路上的人。
-  喜欢把简单的东西做得有意思一点,
-  也喜欢把复杂的东西讲到自己听得懂。
-
-## OPTIONS
-
-  --coffee        启动前请先注入此参数, 否则行为未定义
-  --awake         可选. 早上 11 点前不保证生效
-  --in-the-mood   可遇不可求
-
-## BUGS
-
-  情绪偶尔抖动, 但通常 12 小时内自愈.
-
-## SEE ALSO
-
-  help(1), message(1)
           `.trim());
           return;
         }
@@ -1033,6 +1004,13 @@
 
 ☕ 拿走, 今天我请.`);
       },
+    },
+
+    tea: {
+      desc: "(?)",
+      run() {
+        print("for you")},
+      
     },
 
     flip: {
@@ -1279,7 +1257,7 @@
       // `<span class="boot head">WELCOME</span>`,
       `<span class="boot"><span class="ok-tag">[ OK ]</span>  linking message@web3forms</span>`,
       `<span class="boot"><span class="ok-tag">[ OK ]</span>  loading theme: <span class="kw">${document.body.dataset.theme}</span></span>`,
-      `<span class="boot">Last Updated at 2026-05-31.`,
+      `<span class="boot">Last Updated at 2026-10-15.`,
       `&nbsp;`,
       `<span class="dim">输入 <span class="kw">help</span> 查看使用指南.`,
       `&nbsp;`,
