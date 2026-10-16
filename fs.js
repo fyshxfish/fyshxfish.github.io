@@ -26,7 +26,30 @@ window.SITE = {
 };
 
 window.FS = {
+  // 进入这些目录时应用桌面装饰，离开目录后继续保留。
+  // 每个目录还需在 files 中放一个文件，才能被 ls / Tab / tree 发现。
+  appearance: {
+    "/appearence/shining-for-you": { decoration: "stars" },
+    "/appearence/meteors": { meteors: true },
+    "/appearence/reset": { reset: true },
+  },
   files: {
+    // ====== /appearence（保留这个拼写，作为外观设置目录）======
+    "/appearence/readme.md": { content: `
+# 外观实验室
+
+进入下面的目录，即可改变终端窗口外的桌面背景，窗口本身保持不变：
+
+- cd /appearence/shining-for-you：给桌面加上星星装饰，可以和流星叠加。
+- cd /appearence/meteors：每隔 5 秒划过一颗流星，可以和星星叠加。
+- cd /appearence/reset：清除外观设置，恢复当前 theme 的默认桌面背景。
+
+离开目录后效果保留，刷新页面后清除。theme 命令切换桌面背景配色，不改变终端窗口。
+`.trim() },
+    "/appearence/shining-for-you/readme.md": { content: "·-+ Shining for you +-·" },
+    "/appearence/meteors/readme.md": { content: "每隔 5 秒，一颗流星从随机起点划过。cd ../shining-for-you 可以叠加星星；cd ../reset 关闭全部装饰。" },
+    "/appearence/reset/readme.md": { content: "已清除目录外观设置，恢复当前主题的默认桌面背景。" },
+
     // ====== 根目录 ======
     "/readme.md": { content: `
 # 你好 :)

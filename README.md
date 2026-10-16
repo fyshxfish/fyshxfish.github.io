@@ -46,6 +46,27 @@ python3 -m http.server 5500
 
   然后把图片真的放到 `content/photo/sunset.jpg`。
 
+## 通过目录改变外观
+
+```sh
+cd /appearence/shining-for-you  # 星星装饰
+cd ../meteors           # 每隔 5 秒划过一颗流星，可与星星叠加
+cd /books               # 离开后仍保留外观
+cd /appearence/reset     # 恢复当前主题的默认桌面背景
+```
+
+外观效果作用于终端窗口外的桌面，终端窗口保持默认外观。
+`theme` 命令也只切换桌面背景配色。
+
+这些目录支持 `ls`、`tree` 和 Tab 补全；`cat /appearence/readme.md` 可查看说明。
+外观设置只在当前页面有效，刷新后清除；原有 `theme` 选择仍会保存。
+`reset` 关闭星星和流星装饰，不改变当前主题。
+
+配置写在 `fs.js` 的 `FS.appearance` 中，按完整目录路径匹配，成功进入目录后生效。
+新增效果目录时，在 `FS.files` 中添加对应的 `readme.md`，让虚拟文件系统能识别目录。
+星星样式写在 `style.css` 中，通过桌面容器上的 `data-decoration` 匹配；流星由独立装饰层实现。
+目录名沿用 `/appearence` 这个拼写。
+
 ## 怎么改"我"
 
 `fs.js` 顶部的 `SITE` 对象：
@@ -101,4 +122,4 @@ gh repo create your-handle.github.io --public --source=. --push
 - Ctrl+L 清屏
 - Ctrl+C 中断当前输入 / 取消 message
 - `cd -` 回到上一次目录
-- `theme` 切换主题，选项会被记住
+- `theme` 切换桌面背景主题，选项会被记住

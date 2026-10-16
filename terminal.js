@@ -13,6 +13,7 @@
 
   const SITE = window.SITE || { user: "visitor", host: "home" };
   const FILES = (window.FS && window.FS.files) || {};
+  const APPEARANCE = (window.FS && window.FS.appearance) || {};
   const BOOT_TS = Date.now();
 
   // ====================================================================
@@ -23,6 +24,7 @@
   const $input     = document.getElementById("input");
   const $prompt    = document.getElementById("prompt");
   const $terminal  = document.getElementById("terminal");
+  const $desktop   = document.getElementById("desktop");
   const $caret     = document.querySelector(".caret");
 
   const state = {
@@ -61,6 +63,127 @@
       else stack.push(p);
     }
     return "/" + stack.join("/");
+  }
+
+  let starsGenerated = false;
+
+  function generateStars() {
+    if (starsGenerated) return;
+    const layers = [];
+    const twinkles = document.createElement("div");
+    twinkles.className = "star-twinkles";
+    twinkles.ariaHidden = "true";
+    const columns = 16;
+    const rows = 12;
+    // 192 颗中抽取 32 颗闪烁，其中 24 颗为十字星或少量特殊星形。
+    const indices = Array.from({ length: columns * rows }, (_, i) => i);
+    for (let i = indices.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [indices[i], indices[j]] = [indices[j], indices[i]];
+    }
+    const blinking = new Set(indices.slice(0, 32));
+    const blinkingCrosses = new Set(indices.slice(0, 24));
+    const specialShapes = new Map([
+      ...indices.slice(8, 11).map(index => [index, "six"]),
+      ...indices.slice(11, 14).map(index => [index, "eight"]),
+    ]);
+    // 少量异色点缀：8 颗闪烁星和 16 颗静态星，位置每次访问随机。
+    const colored = new Set([...indices.slice(0, 8), ...indices.slice(32, 48)]);
+    const starColors = ["158, 212, 255", "255, 218, 145", "255, 180, 213"];
+    // 分区后在区内随机散布，既打破平铺规律，也避免大片空白。
+    // 百分比坐标适应窗口尺寸变化；同一次访问中不重新生成。
+    for (let row = 0; row < rows; row++) {
+      for (let col = 0; col < columns; col++) {
+        const index = row * columns + col;
+        const isBlinking = blinking.has(index);
+        const isCross = isBlinking ? blinkingCrosses.has(index) : Math.random() < 0.15;
+        const x = ((col + Math.random()) / columns * 100).toFixed(2);
+        const y = ((row + Math.random()) / rows * 100).toFixed(2);
+        // 闪烁星使用不透明核心，普通星保持柔和的亮度。
+        const alpha = isBlinking ? "1" : (0.55 + Math.random() * 0.4).toFixed(2);
+        const rgb = colored.has(index) ? starColors[Math.floor(Math.random() * starColors.length)] : "255, 255, 255";
+        const color = `rgba(${rgb}, ${alpha})`;
+        const position = `at ${x}% ${y}%`;
+        const starLayers = [];
+        if (isCross) {
+          const length = ((isBlinking ? 7 : 5) + Math.random() * 3).toFixed(1);
+          starLayers.push(
+            `radial-gradient(ellipse 1.5px ${length}px ${position}, ${color} 50%, transparent 100%)`,
+            `radial-gradient(ellipse ${length}px 1.5px ${position}, ${color} 50%, transparent 100%)`
+          );
+        } else {
+          const radius = (isBlinking ? 1.5 : 0.8) + Math.random() * 1.5;
+          starLayers.push(`radial-gradient(circle ${radius.toFixed(1)}px ${position}, ${color} 55%, transparent 100%)`);
+        }
+        if (isBlinking) {
+          starLayers.push(`radial-gradient(circle 4px ${position}, rgba(${rgb}, 0.65), transparent 100%)`);
+          const star = document.createElement("span");
+          star.className = "twinkling-star";
+          star.style.left = `${x}%`;
+          star.style.top = `${y}%`;
+          star.style.setProperty("--star-rgb", rgb);
+          const shape = specialShapes.get(index);
+          if (shape) {
+            const silhouette = document.createElement("span");
+            silhouette.className = `star-shape star-${shape}`;
+            star.appendChild(silhouette);
+          } else {
+            star.style.backgroundImage = starLayers.join(",").replaceAll(position, "at 50% 50%");
+          }
+          star.style.animationDuration = `${(6 + Math.random() * 6).toFixed(2)}s`;
+          star.style.animationDelay = `-${(Math.random() * 12).toFixed(2)}s`;
+          twinkles.appendChild(star);
+        } else {
+          layers.push(...starLayers);
+        }
+      }
+    }
+    $desktop.style.setProperty("--star-field", layers.join(","));
+    $desktop.appendChild(twinkles);
+    starsGenerated = true;
+  }
+
+  let meteorTimer = null;
+  let meteorLayer = null;
+
+  function stopMeteors() {
+    if (meteorTimer !== null) clearInterval(meteorTimer);
+    meteorTimer = null;
+    if (meteorLayer) meteorLayer.remove();
+    meteorLayer = null;
+  }
+
+  function startMeteors() {
+    if (meteorTimer !== null) return;
+    meteorLayer = document.createElement("div");
+    meteorLayer.className = "meteor-layer";
+    meteorLayer.ariaHidden = "true";
+    $desktop.appendChild(meteorLayer);
+    meteorTimer = setInterval(() => {
+      if (document.hidden || (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches)) return;
+      const meteor = document.createElement("span");
+      meteor.className = "meteor";
+      meteor.style.left = `${Math.random() * 70}%`;
+      meteor.style.top = `${Math.random() * 25}%`;
+      meteor.addEventListener("animationend", () => meteor.remove(), { once: true });
+      meteorLayer.replaceChildren(meteor);
+    }, 5000);
+  }
+
+  // 只在成功 cd 后应用；未指定的项目保持现状，不影响基础 theme。
+  function applyDirectoryAppearance(path) {
+    if (!Object.prototype.hasOwnProperty.call(APPEARANCE, path)) return;
+    const appearance = APPEARANCE[path];
+    if (appearance.reset) {
+      stopMeteors();
+      delete $desktop.dataset.decoration;
+      print("已恢复当前主题的默认桌面背景。", "ok");
+      return;
+    }
+    if (appearance.meteors) startMeteors();
+    if (appearance.decoration === "stars") generateStars();
+    if (appearance.decoration) $desktop.dataset.decoration = appearance.decoration;
+    print("已应用桌面外观；离开目录后保留，刷新后清除。", "ok");
   }
 
   function isFile(p) {
@@ -731,6 +854,7 @@
         state.prevCwd = state.cwd;
         state.cwd = target;
         updatePrompt();
+        applyDirectoryAppearance(target);
       },
     },
 
@@ -1044,7 +1168,7 @@
     },
 
     theme: {
-      desc: "切换主题",
+      desc: "切换桌面背景主题",
       run(args) {
         const all = ["bluloco-light", "bluloco-dark", "matrix", "amber"];
         if (!args[0]) {
@@ -1055,7 +1179,7 @@
         if (!all.includes(args[0])) return printErr("没这个主题");
         document.body.dataset.theme = args[0];
         try { localStorage.setItem("th-theme", args[0]); } catch {}
-        print(`主题已切换为 ${args[0]}.`, "ok");
+        print(`桌面背景主题已切换为 ${args[0]}.`, "ok");
       },
     },
 

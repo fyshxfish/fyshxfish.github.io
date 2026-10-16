@@ -64,7 +64,13 @@
   --accent: var(--yellow);
 }
 
-/* ---------- 桌面 / 窗口 (chrome 颜色固定, 不随主题变) ---------- */
+/* 主题只改变桌面背景；窗口在 HTML 中固定使用 bluloco-light。 */
+body[data-theme="bluloco-light"] { --desktop-bg: #35353f; }
+body[data-theme="bluloco-dark"]  { --desktop-bg: #20242d; }
+body[data-theme="matrix"]        { --desktop-bg: #071a10; }
+body[data-theme="amber"]         { --desktop-bg: #35220e; }
+
+/* ---------- 桌面 / 窗口 ---------- */
 :root {
   --desktop-bg:   #35353f;
   --chrome-bg:    #2a2a2e;
@@ -99,6 +105,9 @@ html, body {
 
 /* ---------- 桌面: 装窗口的容器 ---------- */
 .desktop {
+  position: relative;
+  isolation: isolate;
+  background: var(--desktop-bg);
   width: 100vw;
   height: 100vh;
   padding: 24px;
@@ -109,6 +118,8 @@ html, body {
 
 /* ---------- 终端窗口本体: 严格 80 × 24 ---------- */
 .window {
+  position: relative;
+  z-index: 1;
   flex: 0 0 auto;
   /* 宽 = 80 列字符 + 左右内边距 */
   width:  calc(var(--term-cols) * 1ch + var(--term-pad-x) * 2);
@@ -203,10 +214,125 @@ html, body {
 
 /* ---------- 终端正文区 (窗口里的内容) ---------- */
 #terminal {
+  position: relative;
+  z-index: 1;
   flex: 1 1 auto;
   padding: var(--term-pad-y) var(--term-pad-x);
   overflow-y: auto;
   outline: none;
+}
+
+/* 装饰铺满桌面，位于窗口下方，不会拦截点击或选择。 */
+.desktop[data-decoration="stars"]::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  color: #fff;
+  opacity: 0.85;
+  filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.6));
+  background-image: var(--star-field, none);
+  background-repeat: no-repeat;
+  animation: stars-appear 4s ease-out backwards;
+}
+
+.star-twinkles {
+  display: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.desktop[data-decoration="stars"] > .star-twinkles {
+  display: block;
+  animation: stars-appear 4s ease-out backwards;
+}
+/* 只指定起点，终点沿用各层原有亮度；闪烁仍由子元素独立控制。 */
+@keyframes stars-appear {
+  from { opacity: 0; }
+}
+.twinkling-star {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  background-repeat: no-repeat;
+  filter: drop-shadow(0 0 3px rgba(var(--star-rgb, 255, 255, 255), 0.7));
+  animation: star-twinkle 9s ease-in-out infinite;
+}
+/* 在子元素上裁切轮廓，让外层光晕保持完整。 */
+.star-shape {
+  position: absolute;
+  inset: 6px;
+  background: rgb(var(--star-rgb, 255, 255, 255));
+}
+.star-six {
+  clip-path: polygon(50% 0%, 64.4% 25%, 93.3% 25%, 78.9% 50%, 93.3% 75%, 64.4% 75%, 50% 100%, 35.6% 75%, 6.7% 75%, 21.1% 50%, 6.7% 25%, 35.6% 25%);
+}
+.star-eight {
+  clip-path: polygon(50% 0%, 59.6% 26.9%, 85.4% 14.6%, 73.1% 40.4%, 100% 50%, 73.1% 59.6%, 85.4% 85.4%, 59.6% 73.1%, 50% 100%, 40.4% 73.1%, 14.6% 85.4%, 26.9% 59.6%, 0% 50%, 26.9% 40.4%, 14.6% 14.6%, 40.4% 26.9%);
+}
+@keyframes star-twinkle {
+  0%, 100% {
+    opacity: 0.08;
+    transform: translate(-50%, -50%) scale(0.75);
+    filter: drop-shadow(0 0 1px rgba(var(--star-rgb, 255, 255, 255), 0.2));
+  }
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.3);
+    filter: drop-shadow(0 0 2px rgb(var(--star-rgb, 255, 255, 255))) drop-shadow(0 0 6px rgba(var(--star-rgb, 220, 235, 255), 0.95));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .desktop[data-decoration="stars"]::before,
+  .desktop[data-decoration="stars"] > .star-twinkles {
+    animation: none;
+  }
+  .twinkling-star {
+    animation: none;
+    opacity: 0.85;
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* 独立裁切流星轨迹，不影响窗口阴影。 */
+.meteor-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.meteor {
+  position: absolute;
+  width: 160px;
+  height: 2px;
+  border-radius: 50%;
+  background: linear-gradient(to right, transparent, #b9dcff 75%, #fff);
+  filter: drop-shadow(0 0 4px #c5e3ff);
+  transform-origin: right center;
+  animation: meteor-flight 1.3s ease-in forwards;
+}
+.meteor::after {
+  content: "";
+  position: absolute;
+  right: -2px;
+  top: -1px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 8px #fff;
+}
+@keyframes meteor-flight {
+  0% { opacity: 0; transform: translate(0, 0) rotate(35deg); }
+  12% { opacity: 1; }
+  70% { opacity: 1; }
+  100% { opacity: 0; transform: translate(60vw, 42vw) rotate(35deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .meteor-layer { display: none; }
 }
 
 /* 小屏时窗口贴边一点 */
