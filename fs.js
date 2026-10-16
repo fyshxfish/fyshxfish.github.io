@@ -29,26 +29,52 @@ window.FS = {
   // 进入这些目录时应用桌面装饰，离开目录后继续保留。
   // 每个目录还需在 files 中放一个文件，才能被 ls / Tab / tree 发现。
   appearance: {
-    "/appearence/shining-for-you": { decoration: "stars" },
-    "/appearence/meteors": { meteors: true },
-    "/appearence/reset": { reset: true },
+    "/weather/shining-for-you": { decoration: "stars" },
+    "/weather/rain": { rain: "medium" },
+    "/weather/rain/light": { rain: "light" },
+    "/weather/rain/medium": { rain: "medium" },
+    "/weather/rain/heavy": { rain: "heavy" },
+    "/weather/rain/changing": { rain: "changing" },
+    "/weather/snow": { snow: true },
+    "/weather/reset": { reset: true },
   },
   files: {
-    // ====== /appearence（保留这个拼写，作为外观设置目录）======
-    "/appearence/readme.md": { content: `
-# 外观实验室
+    // ====== /weather 天气效果 ======
+    "/weather/readme.md": { content: `
+# 天气实验室
 
 进入下面的目录，即可改变终端窗口外的桌面背景，窗口本身保持不变：
 
-- cd /appearence/shining-for-you：给桌面加上星星装饰，可以和流星叠加。
-- cd /appearence/meteors：每隔 5 秒划过一颗流星，可以和星星叠加。
-- cd /appearence/reset：清除外观设置，恢复当前 theme 的默认桌面背景。
+- cd /weather/shining-for-you：夜空和星光，偶尔有流星划过。
+- cd /weather/rain：默认中雨；子目录可选择小雨、中雨、大雨或渐变雨势。
+- cd /weather/snow：飘雪逐渐落满窗沿，堆起柔和起伏的积雪；可以和夜空叠加。
+- reset-weather：在任意目录取消全部天气效果，夜空与积雪淡出，雨会逐渐停下。
+- make-a-wish：许个愿，唤来一阵流星雨。
+- cd /weather/reset：也可以通过这个目录关闭天气效果。
 
 离开目录后效果保留，刷新页面后清除。theme 命令切换桌面背景配色，不改变终端窗口。
 `.trim() },
-    "/appearence/shining-for-you/readme.md": { content: "·-+ Shining for you +-·" },
-    "/appearence/meteors/readme.md": { content: "每隔 5 秒，一颗流星从随机起点划过。cd ../shining-for-you 可以叠加星星；cd ../reset 关闭全部装饰。" },
-    "/appearence/reset/readme.md": { content: "已清除目录外观设置，恢复当前主题的默认桌面背景。" },
+    "/weather/shining-for-you/readme.md": { content: "·-+ Shining for you +-·\n\n进入后前三秒，一颗星会化作流星。之后偶尔有星星离开，再在别处慢慢亮起。\nmake-a-wish：许个愿，让斜穿天空的一条宽带内落下一阵流星雨。\nreset-weather：让夜空慢慢散去。" },
+    "/weather/reset/readme.md": { content: "恢复当前主题的默认桌面背景。夜空会淡出，流星停止；雨逐渐减小，剩下的雨丝和水花自然消散；雪花与积雪一起淡出。" },
+    "/weather/snow/readme.md": { content: "雪花随微风飘落，在窗口顶部慢慢积起高低不同的雪。偶尔有小雪团从厚厚的雪檐滑落，散成细雪，缺口又被新雪慢慢填满；间歇的微风搬动表层积雪，卷起少量雪粉。\n\n雨和雪互相替换，雪可以和夜空叠加。离开目录后继续下雪；reset-weather 让雪花和积雪一起淡出。" },
+    "/weather/rain/readme.md": { content: `
+# 雨
+
+前景是清晰的长雨痕，背景雨丝较淡、稍慢，随微风轻轻偏移。
+雨滴碰到窗口边缘时溅起水珠，偶尔展开渐淡的涟漪。默认中雨。
+
+- cd /weather/rain/light：稀疏、细淡的小雨。
+- cd /weather/rain/medium：中雨。
+- cd /weather/rain/heavy：更密、更快的大雨。
+- cd /weather/rain/changing：雨势约每 40 秒缓慢起伏。
+
+不同雨势互相替换，可以和星星叠加。离开目录后效果保留。
+reset-weather 可在任意目录关闭全部天气效果，雨会渐渐停下。
+`.trim() },
+    "/weather/rain/light/readme.md": { content: "柔和的雨丝随微风轻轻斜落，偶尔在窗沿弹起一两颗小水珠，雨量缓缓起伏。cd ../medium 或 cd ../heavy 可切换雨势。" },
+    "/weather/rain/medium/readme.md": { content: "中雨。雨丝落在窗口边缘时，溅起大小不同的水珠。" },
+    "/weather/rain/heavy/readme.md": { content: "大雨。更密、更快的雨滴，带来更有力的水花。" },
+    "/weather/rain/changing/readme.md": { content: "雨势约每 40 秒缓缓起落，其间伴随轻微变化。" },
 
     // ====== 根目录 ======
     "/readme.md": { content: `
