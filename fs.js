@@ -48,20 +48,21 @@ window.FS = {
 - cd /weather/shining-for-you：夜空和星光，偶尔有流星划过。
 - cd /weather/rain：默认中雨；子目录可选择小雨、中雨、大雨或渐变雨势。
 - cd /weather/snow：飘雪逐渐落满窗沿，堆起柔和起伏的积雪；可以和夜空叠加。
-- reset-weather：在任意目录取消全部天气效果，夜空与积雪淡出，雨会逐渐停下。
+- reset-weather：在任意目录取消全部天气效果，夜空淡出，雨雪逐渐停下，积雪慢慢消融。
 - make-a-wish：许个愿，唤来一阵流星雨。
 - cd /weather/reset：也可以通过这个目录关闭天气效果。
 
 离开目录后效果保留，刷新页面后清除。theme 命令切换桌面背景配色，不改变终端窗口。
 `.trim() },
     "/weather/shining-for-you/readme.md": { content: "·-+ Shining for you +-·\n\n进入后前三秒，一颗星会化作流星。之后偶尔有星星离开，再在别处慢慢亮起。\nmake-a-wish：许个愿，让斜穿天空的一条宽带内落下一阵流星雨。\nreset-weather：让夜空慢慢散去。" },
-    "/weather/reset/readme.md": { content: "恢复当前主题的默认桌面背景。夜空会淡出，流星停止；雨逐渐减小，剩下的雨丝和水花自然消散；雪花与积雪一起淡出。" },
-    "/weather/snow/readme.md": { content: "雪花随微风飘落，在窗口顶部慢慢积起高低不同的雪。偶尔有小雪团从厚厚的雪檐滑落，散成细雪，缺口又被新雪慢慢填满；间歇的微风搬动表层积雪，卷起少量雪粉。\n\n雨和雪互相替换，雪可以和夜空叠加。离开目录后继续下雪；reset-weather 让雪花和积雪一起淡出。" },
+    "/weather/reset/readme.md": { content: "恢复当前主题的默认桌面背景。夜空会淡出，流星停止；雨逐渐减小，剩下的雨丝和水花自然消散；已有雪花继续落下，积雪慢慢消融。" },
+    "/weather/snow/readme.md": { content: "雪花随微风飘落，在窗口顶部慢慢积起高低不同的雪。偶尔有小雪团从厚厚的雪檐滑落，散成细雪，缺口又被新雪慢慢填满；间歇的微风搬动表层积雪，卷起少量雪粉。\n\n雨和雪互相替换，雪可以和夜空叠加。离开目录后继续下雪；reset-weather 不再补充新雪，已有雪花继续落下，积雪慢慢消融。" },
     "/weather/rain/readme.md": { content: `
 # 雨
 
 前景是清晰的长雨痕，背景雨丝较淡、稍慢，随微风轻轻偏移。
 雨滴碰到窗口边缘时溅起水珠，偶尔展开渐淡的涟漪。默认中雨。
+雨声随雨势缓缓变化。标签栏可静音、调音量，也可以输入 rain-sound off 或 rain-sound 25。
 
 - cd /weather/rain/light：稀疏、细淡的小雨。
 - cd /weather/rain/medium：中雨。
@@ -177,9 +178,9 @@ reset-weather 可在任意目录关闭全部天气效果，雨会渐渐停下。
     // ====== /playlist ======
     // 把真实 mp3 放到 content/playlist/song.mp3, 再登记一条虚拟路径:
     // "/playlist/song.mp3": { type: "audio", src: "content/playlist/song.mp3" },
-    "/playlist/原谅-张玉华.mp3": { type: "audio", src: "content/playlist/原谅-张玉华.mp3" },
 
     "/playlist/无眠-苏打绿.mp3": { type: "audio", src: "content/playlist/无眠-苏打绿.mp3" },
+    "/playlist/左边-苏打绿.mp3": { type: "audio", src: "content/playlist/左边-苏打绿.mp3" },
 
     
     // ====== 隐藏文件 (ls -a 才能看到) ======

@@ -140,6 +140,8 @@ html, body {
 
 /* ---------- 标题栏 ---------- */
 .titlebar {
+  position: relative;
+  isolation: isolate;
   flex: 0 0 var(--term-titlebar);
   background: var(--chrome-bg);
   color: var(--chrome-fg);
@@ -208,6 +210,80 @@ html, body {
   letter-spacing: 0.5px;
 }
 .status-item { white-space: nowrap; }
+.rain-sound-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-right: 8px;
+}
+.rain-sound-controls[hidden] { display: none; }
+.rain-sound-controls button {
+  border: 0;
+  padding: 2px;
+  background: transparent;
+  color: var(--chrome-fg);
+  font: inherit;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.rain-sound-controls input {
+  --rain-volume: 25%;
+  appearance: none;
+  -webkit-appearance: none;
+  width: 64px;
+  height: 20px;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+}
+.rain-sound-controls input::-webkit-slider-runnable-track {
+  height: 2px;
+  border-radius: 2px;
+  background: linear-gradient(to right,
+    rgba(210, 220, 235, 0.7) var(--rain-volume),
+    rgba(210, 220, 235, 0.18) var(--rain-volume));
+}
+.rain-sound-controls input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 6px;
+  height: 6px;
+  margin-top: -2px;
+  border: 0;
+  border-radius: 50%;
+  background: #cdd5df;
+  transition: background 0.2s, box-shadow 0.2s;
+}
+.rain-sound-controls input::-moz-range-track {
+  height: 2px;
+  border-radius: 2px;
+  background: rgba(210, 220, 235, 0.18);
+}
+.rain-sound-controls input::-moz-range-progress {
+  height: 2px;
+  border-radius: 2px;
+  background: rgba(210, 220, 235, 0.7);
+}
+.rain-sound-controls input::-moz-range-thumb {
+  width: 6px;
+  height: 6px;
+  border: 0;
+  border-radius: 50%;
+  background: #cdd5df;
+}
+.rain-sound-controls input:hover::-webkit-slider-thumb,
+.rain-sound-controls input:focus-visible::-webkit-slider-thumb {
+  background: #f1f5fa;
+  box-shadow: 0 0 0 3px rgba(210, 220, 235, 0.1);
+}
+.rain-sound-controls input:hover::-moz-range-thumb,
+.rain-sound-controls input:focus-visible::-moz-range-thumb { background: #f1f5fa; }
+.rain-sound-controls input:disabled { opacity: 0.35; cursor: default; }
+.rain-sound-controls :focus-visible { outline: 1px solid var(--chrome-fg); outline-offset: 3px; }
+@media (max-width: 720px) {
+  .rain-sound-controls input { display: none; }
+  .rain-sound-controls { margin-right: 2px; }
+}
 .status-sep  { opacity: 0.5; }
 #clock  { color: var(--chrome-fg); }
 #uptime { color: var(--chrome-mute); }
@@ -436,6 +512,76 @@ html, body {
 }
 @media (prefers-reduced-motion: reduce) {
   .meteor-layer { display: none; }
+}
+
+/* 雨停后，窗沿留下一道清亮的虹光，标签栏保持原来的底色。 */
+.titlebar > :not(.after-rain) {
+  position: relative;
+  z-index: 1;
+}
+.after-rain {
+  --rainbow-light: linear-gradient(100deg,
+    #f9abc8 0%, #ffd3ad 24%, #f5ebba 42%,
+    #b6ecdb 58%, #afd9fa 76%, #d3bdf4 100%);
+  position: absolute;
+  top: 0;
+  left: 3%;
+  right: 3%;
+  height: 12px;
+  z-index: 0;
+  pointer-events: none;
+  opacity: 0;
+  mask-image: linear-gradient(to right,
+    transparent, rgba(0, 0, 0, 0.8) 3%, #000 8%, #000 92%,
+    rgba(0, 0, 0, 0.8) 97%, transparent);
+  animation: after-rain 26s ease-in-out forwards;
+}
+.after-rain::before,
+.after-rain::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: var(--rainbow-light);
+}
+.after-rain::before { height: 1.5px; }
+.after-rain::after {
+  height: 3px;
+  opacity: 0.12;
+  filter: blur(1.5px);
+}
+@keyframes after-rain {
+  0%, 8% { opacity: 0; clip-path: inset(0 100% 0 0); }
+  46%, 69% { opacity: 0.95; clip-path: inset(0); }
+  81%, 100% { opacity: 0; clip-path: inset(0); }
+}
+/* 光点独立于窗口裁切层，让它们能从窗沿向上飘散。 */
+.rainbow-dust {
+  position: absolute;
+  height: 1px;
+  z-index: 2;
+  pointer-events: none;
+}
+.rainbow-mote {
+  position: absolute;
+  top: 0;
+  width: var(--mote-size);
+  height: var(--mote-size);
+  border-radius: 50%;
+  opacity: 0;
+  box-shadow: 0 0 3px currentColor;
+  color: rgba(230, 235, 255, 0.25);
+  animation: rainbow-scatter linear both;
+}
+@keyframes rainbow-scatter {
+  0% { opacity: 0; transform: translate(-50%, 0) scale(1); }
+  12%, 42% { opacity: 0.85; }
+  100% { opacity: 0; transform: translate(var(--mote-x), var(--mote-y)) scale(0.65); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .after-rain { animation: none; opacity: 0.65; }
+  .rainbow-dust { display: none; }
 }
 
 /* 雨层绘制窗口边缘水花；正文区域由 canvas 裁切保护。 */

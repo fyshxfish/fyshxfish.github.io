@@ -19,6 +19,10 @@
           <button class="tab-add" id="tabAdd" title="新标签页?">+</button>
         </div>
         <div class="status">
+          <span id="rainSoundControls" class="rain-sound-controls" hidden>
+            <button id="rainSoundToggle" type="button" aria-pressed="false">雨声：关</button>
+            <input id="rainSoundVolume" type="range" min="0" max="100" value="25" aria-label="雨声音量" />
+          </span>
           <span class="status-item" id="uptime" title="开站多久了"></span>
           <span class="status-sep">·</span>
           <span class="status-item" id="clock"></span>
@@ -42,6 +46,7 @@
   <!-- 文件系统在这里改：加文件只要加一行 -->
   <script src="fs.js"></script>
   <!-- 终端引擎与所有命令实现 -->
+  <script src="rain-audio.js"></script>
   <script src="terminal.js"></script>
 </body>
 </html>

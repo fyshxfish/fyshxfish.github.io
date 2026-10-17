@@ -437,27 +437,85 @@
   let rainMode = null;
   let rainChangeMode = null;
   let rainBeginExit = null;
+  let rainbow = null;
+  let rainbowTimer = null;
+  let rainbowDust = null;
+  let rainbowResize = null;
+
+  function stopRainbow() {
+    if (rainbowTimer !== null) clearTimeout(rainbowTimer);
+    rainbowTimer = null;
+    if (rainbow) rainbow.remove();
+    rainbow = null;
+    if (rainbowDust) rainbowDust.remove();
+    rainbowDust = null;
+    if (rainbowResize) window.removeEventListener("resize", rainbowResize);
+    rainbowResize = null;
+  }
+
+  function showRainbow() {
+    stopRainbow();
+    if (document.hidden) return;
+    rainbow = document.createElement("div");
+    rainbow.className = "after-rain";
+    rainbow.ariaHidden = "true";
+    const titlebar = document.getElementById("titlebar");
+    titlebar.appendChild(rainbow);
+    rainbowDust = document.createElement("div");
+    rainbowDust.className = "rainbow-dust";
+    rainbowDust.ariaHidden = "true";
+    const colors = ["#f9abc8", "#ffd3ad", "#f5ebba", "#b6ecdb", "#afd9fa", "#d3bdf4"];
+    for (let i = 0; i < 60; i++) {
+      const position = (i + Math.random()) / 60;
+      const dot = document.createElement("span");
+      dot.className = "rainbow-mote";
+      dot.style.left = `${3 + position * 94}%`;
+      dot.style.background = colors[Math.min(colors.length - 1, Math.floor(position * colors.length))];
+      dot.style.setProperty("--mote-size", `${1.2 + Math.random() * 0.8}px`);
+      dot.style.setProperty("--mote-x", `${(Math.random() - 0.5) * 44}px`);
+      dot.style.setProperty("--mote-y", `${-12 - Math.random() * 28}px`);
+      dot.style.animationDelay = `${18 + Math.random() * 1.8}s`;
+      dot.style.animationDuration = `${3 + Math.random() * 2}s`;
+      rainbowDust.appendChild(dot);
+    }
+    $desktop.appendChild(rainbowDust);
+    rainbowResize = () => {
+      const desktop = $desktop.getBoundingClientRect();
+      const bar = titlebar.getBoundingClientRect();
+      rainbowDust.style.left = `${bar.left - desktop.left}px`;
+      rainbowDust.style.top = `${bar.top - desktop.top}px`;
+      rainbowDust.style.width = `${bar.width}px`;
+    };
+    rainbowResize();
+    window.addEventListener("resize", rainbowResize);
+    rainbowTimer = setTimeout(stopRainbow, 26000);
+  }
 
   function stopRain(immediate = false) {
     if (rainCleanup && !immediate) {
-      rainBeginExit();
       rainMode = null;
+      rainBeginExit();
       return;
     }
+    const cleared = !!rainCleanup && rainMode === null;
     if (rainCleanup) rainCleanup();
     rainCleanup = null;
     rainMode = null;
     rainChangeMode = null;
     rainBeginExit = null;
+    window.RainAudio?.stop();
+    if (cleared) showRainbow();
   }
 
   function startRain(mode = "medium") {
     if (!Object.prototype.hasOwnProperty.call(RAIN_MODES, mode)) return;
+    stopRainbow();
     stopSnow();
     if (rainCleanup && rainMode === mode) return;
     if (rainCleanup) {
       rainChangeMode(mode);
       rainMode = mode;
+      window.RainAudio?.start(mode);
       return;
     }
     let settings = RAIN_MODES[mode];
@@ -467,6 +525,7 @@
     canvas.ariaHidden = "true";
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
+    window.RainAudio?.start(mode);
     $desktop.appendChild(canvas);
     const drops = [];
     const splashes = [];
@@ -618,6 +677,7 @@
           emissionLevel = entranceStart + (1 - entranceStart) * progress * progress * (3 - 2 * progress);
         }
         pendingDrops += dt * Math.min(900, width * 0.45) * amount * emissionLevel;
+        window.RainAudio?.update(amount, emissionLevel);
         while (pendingDrops >= 1) { addDrop(); pendingDrops--; }
         // 不让雨滴拖影或回落的水珠画到窗口内部。
         ctx.save();
@@ -698,6 +758,7 @@
         ctx.setLineDash([]);
         ctx.restore();
       }
+      if (motion.matches && !document.hidden) window.RainAudio?.update(intensity(), exitAge === null ? 1 : 0);
       // 停止补雨后，等最后的雨丝、水珠和涟漪自然结束再释放雨层。
       if (exitAge !== null && (motion.matches || document.hidden ||
           (exitAge >= exitDuration && !drops.length && !splashes.length && !ripples.length))) {
@@ -743,11 +804,18 @@
     const bank = new Float32Array(90);
     const deposited = new Float32Array(bank.length);
     const snowParticles = [];
+    const overhang = new Float32Array(2);
+    const snowLip = new Float32Array(2);
+    const meltPhase = Math.random() * Math.PI * 2;
+    const meltRates = Float32Array.from(bank, (_, i) =>
+      0.85 + 0.18 * Math.sin(i * 0.16 + meltPhase) + 0.12 * Math.sin(i * 0.37 + meltPhase));
     let width, height, roof, left, right, bottom;
     let frame, previous = null, elapsed = 0, pending = 0, sidePending = 0;
     let visibility = 0, exiting = false;
+    let exitAge = 0;
     let snowDrift = 0;
     const rand = (min, max) => min + Math.random() * (max - min);
+    const edgeCollapseAt = [rand(12, 20), rand(12, 20)];
     let nextSlide = rand(12, 22), nextGust = rand(7, 12);
     let gustAge = 0, gustDuration = 0, gustDirection = 1, powderPending = 0, gustOrigin = 0.5;
 
@@ -787,19 +855,19 @@
       const strength = Math.sin(Math.PI * Math.min(1, gustAge / gustDuration));
       const center = (gustOrigin + gustDirection * 0.18 * gustAge / gustDuration) * (bank.length - 1);
       // 顺风搬运表层积雪；反向遍历，避免同一帧连续搬走同一份雪。
-      for (let k = 1; k < bank.length - 1; k++) {
+      for (let k = 0; k < bank.length; k++) {
         const i = gustDirection > 0 ? bank.length - 1 - k : k;
         const to = i + gustDirection;
         const transfer = Math.min(deposited[i], deposited[i] * dt * strength * 0.22);
         deposited[i] -= transfer;
-        // 窗沿两端是开放边界，搬到边缘的雪直接吹落，不再堵成尖角。
-        if (to > 0 && to < bank.length - 1) deposited[to] += transfer;
+        if (to >= 0 && to < bank.length) deposited[to] += transfer;
+        else overhang[to < 0 ? 0 : 1] += transfer * 0.35;
         // 风卷走局部表层雪，留下由新雪慢慢填补的浅凹。
         const exposure = Math.exp(-Math.pow((i - center) / 8, 2));
-        const edgeExposure = Math.exp(-Math.min(i, bank.length - 1 - i) / 4);
-        const protrusion = Math.max(0, deposited[i] - (deposited[i - 1] + deposited[i + 1]) / 2);
+        const protrusion = Math.max(0, deposited[i] -
+          (deposited[Math.max(0, i - 1)] + deposited[Math.min(bank.length - 1, i + 1)]) / 2);
         deposited[i] = Math.max(0, deposited[i] - dt * strength *
-          (exposure * 0.9 + edgeExposure * deposited[i] * 0.14 + protrusion * 0.65));
+          (exposure * 0.9 + protrusion * 0.65));
       }
       powderPending += dt * strength * 4;
       while (powderPending >= 1) {
@@ -845,7 +913,8 @@
         frame = requestAnimationFrame(draw); return;
       }
       elapsed += dt;
-      visibility = Math.max(0, Math.min(1, visibility + dt * (exiting ? -0.4 : 0.5)));
+      visibility = Math.min(1, visibility + dt * 0.5);
+      if (exiting) exitAge += dt;
       ctx.clearRect(0, 0, width, height);
       ctx.globalAlpha = visibility;
       const gust = !motion.matches && !exiting ? moveSnow(dt) : 0;
@@ -881,11 +950,9 @@
         const index = Math.max(0, Math.min(bank.length - 1,
           Math.floor((flake.x - left) / Math.max(1, right - left) * (bank.length - 1))));
         const surface = roof - bank[index];
-        if (flake.x >= left + 7 && flake.x <= right - 7 && oldY <= surface && flake.y >= surface) {
-          if (!exiting) {
-            for (let j = Math.max(1, index - 3); j <= Math.min(bank.length - 2, index + 3); j++) {
-              deposited[j] += (1 - Math.abs(j - index) / 4) * flake.radius * 0.16;
-            }
+        if (flake.x >= left && flake.x <= right && oldY <= surface && flake.y >= surface) {
+          for (let j = Math.max(0, index - 3); j <= Math.min(bank.length - 1, index + 3); j++) {
+            deposited[j] += (1 - Math.abs(j - index) / 4) * flake.radius * 0.16;
           }
           flakes.splice(i, 1); continue;
         }
@@ -902,25 +969,64 @@
         const stableRise = Math.max(1, (right - left) / (bank.length - 1) * 0.45);
         for (let i = 0; i < bank.length - 1; i++) {
           const difference = deposited[i] - deposited[i + 1];
-          // 陡坡额外滑移，末端的雪可滑出窗沿；内部搬运仍保留雪量。
+          // 雪在窗沿上摊开，两端也保留厚度；悬出的部分另行积累、坍落。
           const excess = Math.max(0, Math.abs(difference) - stableRise);
           const spread = Math.sign(difference) * Math.min(Math.abs(difference) / 2,
             (Math.abs(difference) * 0.45 + excess * 2) * dt);
-          if (i > 0) deposited[i] -= spread;
-          if (i + 1 < bank.length - 1) deposited[i + 1] += spread;
+          deposited[i] -= spread; deposited[i + 1] += spread;
+        }
+        for (let side = 0; side < 2; side++) {
+          const index = side === 0 ? 0 : bank.length - 1;
+          const direction = side === 0 ? -1 : 1;
+          const height = deposited[index];
+          overhang[side] += dt * Math.sqrt(height) * 0.06;
+          // 厚雪檐偶尔断掉一小块，两侧独立变化，不把边缘全部清空。
+          if (height > 7 && overhang[side] > 5 && elapsed >= edgeCollapseAt[side]) {
+            overhang[side] *= 0.2;
+            edgeCollapseAt[side] = elapsed + rand(12, 22);
+            const depth = Math.min(height * 0.25, rand(2, 4));
+            for (let j = 0; j < 4; j++) {
+              const at = index - direction * j;
+              deposited[at] = Math.max(0, deposited[at] - depth * (1 - j / 4));
+            }
+            if (snowParticles.length < 120) snowParticles.push({
+              x: side === 0 ? left - 2 : right + 2, y: roof - bank[index] * 0.3,
+              vx: direction * rand(5, 12), vy: 5, radius: rand(2.5, 4), age: 0, life: 0.65, lump: true });
+          }
+        }
+      }
+      if (exiting) {
+        // 融雪改变实际厚度，保持雪的颜色；不同位置缓慢消融，不整层降透明度。
+        const warmth = Math.min(1, exitAge / 3);
+        for (let i = 0; i < deposited.length; i++) {
+          deposited[i] = Math.max(0, deposited[i] -
+            dt * warmth * meltRates[i] * (1.2 + deposited[i] * 0.08));
+        }
+        for (let side = 0; side < 2; side++) {
+          overhang[side] = Math.max(0, overhang[side] - dt * warmth * (0.7 + overhang[side] * 0.2));
         }
       }
       // 落雪先增加目标高度，再缓慢沉积，避免每次碰撞都跳出一个小凸起。
       const settling = 1 - Math.exp(-dt / 1.8);
       for (let i = 0; i < bank.length; i++) bank[i] += (deposited[i] - bank[i]) * settling;
+      for (let side = 0; side < 2; side++) snowLip[side] += (overhang[side] - snowLip[side]) * settling;
       ctx.globalAlpha = visibility;
-      ctx.beginPath(); ctx.moveTo(left, roof);
+      const leftHeight = bank[0], rightHeight = bank[bank.length - 1];
+      const leftExtent = Math.min(8, leftHeight * 0.16 + snowLip[0] * 0.4);
+      const rightExtent = Math.min(8, rightHeight * 0.16 + snowLip[1] * 0.4);
+      const leftDrop = Math.min(5, leftHeight * 0.08 + snowLip[0] * 0.45);
+      const rightDrop = Math.min(5, rightHeight * 0.08 + snowLip[1] * 0.45);
+      ctx.beginPath(); ctx.moveTo(left, roof + leftDrop);
+      ctx.quadraticCurveTo(left - leftExtent, roof + leftDrop, left - leftExtent, roof - leftHeight * 0.5);
+      ctx.quadraticCurveTo(left - leftExtent, roof - leftHeight, left, roof - leftHeight);
       const step = (right - left) / (bank.length - 1);
       for (let i = 1; i < bank.length - 1; i++) {
         ctx.quadraticCurveTo(left + i * step, roof - bank[i],
           left + (i + 0.5) * step, roof - (bank[i] + bank[i + 1]) / 2);
       }
-      ctx.lineTo(right, roof); ctx.closePath();
+      ctx.quadraticCurveTo(right, roof - rightHeight, right + rightExtent, roof - rightHeight * 0.5);
+      ctx.quadraticCurveTo(right + rightExtent, roof + rightDrop, right, roof + rightDrop);
+      ctx.lineTo(left, roof + leftDrop); ctx.closePath();
       ctx.fillStyle = "#dce6f0"; ctx.fill();
       for (let i = snowParticles.length - 1; i >= 0; i--) {
         const particle = snowParticles[i];
@@ -944,15 +1050,19 @@
         ctx.fillStyle = "#e5edf7"; ctx.fill();
       }
       ctx.globalAlpha = 1;
-      if (exiting && visibility === 0) { stopSnow(true); return; }
+      if (exiting && !flakes.length && !snowParticles.length &&
+          bank.every(height => height < 0.05) && snowLip.every(height => height < 0.05)) {
+        stopSnow(true); return;
+      }
       frame = requestAnimationFrame(draw);
     }
 
     snowBeginExit = () => {
       if (document.hidden || motion.matches) { stopSnow(true); return; }
+      if (!exiting) exitAge = 0;
       exiting = true;
     };
-    snowResume = () => { exiting = false; };
+    snowResume = () => { exiting = false; exitAge = 0; };
     snowCleanup = () => {
       cancelAnimationFrame(frame);
       window.removeEventListener("resize", resize);
@@ -964,12 +1074,12 @@
   }
 
   function resetWeather() {
+    stopRainbow();
     stopMeteors();
-    const raining = !!rainCleanup;
     stopRain();
     stopSnow();
     delete $desktop.dataset.decoration;
-    print(raining ? "天气正在散去，雨会渐渐停下。" : "天气效果正在散去。", "ok");
+    print("# 今夜就开始放晴", "ok");
   }
 
   // 只在成功 cd 后应用；未指定的项目保持现状，不影响基础 theme。
@@ -983,7 +1093,12 @@
     if (appearance.rain) startRain(appearance.rain === true ? "medium" : appearance.rain);
     if (appearance.snow) startSnow();
     if (appearance.decoration === "stars") startStars();
-    print("已应用桌面外观；离开目录后保留，刷新后清除。", "ok");
+    const message =
+        appearance.rain ? "# 雨的铿锵临盆比梦的合奏还静..."
+      : appearance.decoration === "stars" ? "# You will be the star. You will be the one. "
+      : appearance.snow ? "# 天地 不慢不快 不好不坏 专心而澎湃"
+      : "已应用桌面外观；离开目录后保留，刷新后清除。";
+    print(message, "ok");
   }
 
   function isFile(p) {
@@ -1578,7 +1693,6 @@
           ["echo <text>",        "输出文字"],
           ["play <file.mp3>",     "播放 playlist 音频"],
           ["message",            "匿名留言箱"],
-          ["reset-weather",      "取消所有天气效果"],
           ["help",               "看这份帮助"],
         ];
         printHTML(renderHelpTable(tier1));
@@ -1587,6 +1701,23 @@
         printHTML(`* 其实只使用 tab 和方向键就足以访问此站点的大部分内容. `);
         printBlank();
         printHTML(`<span class="h2">And more...</span>`);
+      },
+    },
+
+    "rain-sound": {
+      desc: "开关雨声或设置音量（0–100）",
+      run(args) {
+        const sound = window.RainAudio;
+        if (!sound || !sound.status().available) return print("当前浏览器暂不支持雨声。", "dim");
+        const value = args[0];
+        if (args.length > 1) return print("用法: rain-sound [on|off|0–100]", "dim");
+        if (value === "on" || value === "off") sound.setEnabled(value === "on");
+        else if (value !== undefined) {
+          if (!/^\d{1,3}$/.test(value) || Number(value) > 100) return print("音量请输入 0–100。", "dim");
+          sound.setVolume(Number(value));
+        }
+        const status = sound.status();
+        print(`雨声：${status.enabled && status.volume ? "开" : "关"}，音量 ${status.volume}%。${status.active ? "" : "下雨时生效。"}`, "dim");
       },
     },
 
@@ -1681,7 +1812,14 @@
     cat: {
       desc: "看文件",
       run(args) {
-        if (args.length === 0) return printErr("cat: 给个文件名");
+        if (args.length === 0) {
+          printErr("cat: 不是猫猫");
+          print(String.raw`      /\_)o<
+     |      \
+     | O . O|
+      \_____/`);
+          return;
+        }
         const expanded = expandFileGlobs(args);
         const validFiles = expanded.filter(item => !item.missing && isFile(item.path));
         const showNames = validFiles.length > 1;
@@ -1792,16 +1930,6 @@
       run(args, raw) {
         const text = raw.replace(/^echo\s*/, "");
         print(text);
-      },
-    },
-
-    which: {
-      desc: "命令在哪",
-      run(args) {
-        const c = args[0];
-        if (!c) return printErr("which: 给个命令名");
-        if (commands[c]) print(`/usr/bin/${c}`, "note");
-        else printErr(`${c}: not found`);
       },
     },
 
@@ -1965,20 +2093,6 @@
         const n = +m[1], s = +m[2];
         const rolls = Array.from({ length: n }, () => 1 + Math.floor(Math.random() * s));
         print(`${rolls.join(" + ")} = ${rolls.reduce((a, b) => a + b, 0)}`);
-      },
-    },
-
-    "8ball": {
-      desc: "(?)",
-      run(args, raw) {
-        const q = raw.replace(/^8ball\s*/, "");
-        const answers = [
-          "肯定是", "毫无疑问", "你可以指望它", "看起来是的",
-          "不太确定, 再问一次", "现在最好不要告诉你",
-          "答案不明", "我的来源说不", "非常可疑", "想都别想",
-        ];
-        print(q ? `Q: ${q}` : "(没问问题, 但我还是答你)", "dim");
-        print(answers[Math.floor(Math.random() * answers.length)], "kw");
       },
     },
 
@@ -2196,7 +2310,7 @@
       // `<span class="boot head">WELCOME</span>`,
       `<span class="boot"><span class="ok-tag">[ OK ]</span>  linking message@web3forms</span>`,
       `<span class="boot"><span class="ok-tag">[ OK ]</span>  loading theme: <span class="kw">${document.body.dataset.theme}</span></span>`,
-      `<span class="boot">Last Updated at 2026-10-15.`,
+      `<span class="boot">Last Updated at 2026-10-17.`,
       `&nbsp;`,
       `<span class="dim">输入 <span class="kw">help</span> 查看使用指南.`,
       `&nbsp;`,
