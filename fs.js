@@ -181,6 +181,7 @@ reset-weather 可在任意目录关闭全部天气效果，雨会渐渐停下。
 
     "/playlist/无眠-苏打绿.mp3": { type: "audio", src: "content/playlist/无眠-苏打绿.mp3" },
     "/playlist/左边-苏打绿.mp3": { type: "audio", src: "content/playlist/左边-苏打绿.mp3" },
+    "/playlist/下雨的夜晚-苏打绿.mp3": { type: "audio", src: "content/playlist/下雨的夜晚-苏打绿.mp3" },
     "/playlist/By-the-Campfire": {
       type: "audio",
       title: "Traveler's Encore from Outer Wilds",

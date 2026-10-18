@@ -437,6 +437,7 @@
   let rainMode = null;
   let rainChangeMode = null;
   let rainBeginExit = null;
+  let rainAfterglowColor = null;
   let rainbow = null;
   let rainbowTimer = null;
   let rainbowDust = null;
@@ -453,18 +454,19 @@
     rainbowResize = null;
   }
 
-  function showRainbow() {
+  function showRainbow(color = null) {
     stopRainbow();
     if (document.hidden) return;
     rainbow = document.createElement("div");
     rainbow.className = "after-rain";
+    if (color) rainbow.style.setProperty("--rainbow-light", color);
     rainbow.ariaHidden = "true";
     const titlebar = document.getElementById("titlebar");
     titlebar.appendChild(rainbow);
     rainbowDust = document.createElement("div");
     rainbowDust.className = "rainbow-dust";
     rainbowDust.ariaHidden = "true";
-    const colors = ["#f9abc8", "#ffd3ad", "#f5ebba", "#b6ecdb", "#afd9fa", "#d3bdf4"];
+    const colors = color ? [color] : ["#f9abc8", "#ffd3ad", "#f5ebba", "#b6ecdb", "#afd9fa", "#d3bdf4"];
     for (let i = 0; i < 60; i++) {
       const position = (i + Math.random()) / 60;
       const dot = document.createElement("span");
@@ -491,7 +493,8 @@
     rainbowTimer = setTimeout(stopRainbow, 26000);
   }
 
-  function stopRain(immediate = false) {
+  function stopRain(immediate = false, afterglowColor = null) {
+    if (afterglowColor) rainAfterglowColor = afterglowColor;
     if (rainCleanup && !immediate) {
       rainMode = null;
       rainBeginExit();
@@ -504,11 +507,13 @@
     rainChangeMode = null;
     rainBeginExit = null;
     window.RainAudio?.stop();
-    if (cleared) showRainbow();
+    if (cleared) showRainbow(rainAfterglowColor);
+    rainAfterglowColor = null;
   }
 
   function startRain(mode = "medium") {
     if (!Object.prototype.hasOwnProperty.call(RAIN_MODES, mode)) return;
+    rainAfterglowColor = null;
     stopRainbow();
     stopSnow();
     if (rainCleanup && rainMode === mode) return;
@@ -2166,7 +2171,61 @@
     document.body.appendChild(overlay);
   }
 
+  let rainSongSky = null;
+  let rainSongOwner = null;
+  let rainSongRelease = null;
+
+  function attachRainSongScene(audio, path) {
+    if (path !== "/playlist/下雨的夜晚-苏打绿.mp3") return;
+    const clearingTime = 3 * 60 + 8;
+    let timer = null;
+    let raining = false;
+    let buffering = false;
+    const cancelCue = () => { clearTimeout(timer); timer = null; };
+    const release = () => {
+      cancelCue();
+      if (rainSongOwner !== audio) return;
+      rainSongOwner = null;
+      rainSongRelease = null;
+      rainSongSky.dataset.playing = "false";
+      if (raining) stopRain(false, "#fff");
+      raining = false;
+    };
+    const sync = () => {
+      cancelCue();
+      if (rainSongOwner !== audio || audio.paused || audio.ended) return;
+      const shouldRain = audio.currentTime < clearingTime;
+      if (shouldRain && !raining) startRain("light");
+      else if (!shouldRain && raining) stopRain(false, "#fff");
+      raining = shouldRain;
+      // Use the media clock, and reschedule after seeks, stalls or rate changes.
+      if (shouldRain && !buffering && audio.playbackRate > 0) {
+        timer = setTimeout(sync, Math.max(20, (clearingTime - audio.currentTime) / audio.playbackRate * 1000));
+      }
+    };
+    audio.addEventListener("playing", () => {
+      if (state.audio !== audio) return;
+      if (!rainSongSky) {
+        rainSongSky = document.createElement("div");
+        rainSongSky.className = "rain-song-sky";
+        rainSongSky.setAttribute("aria-hidden", "true");
+        $desktop.appendChild(rainSongSky);
+        rainSongSky.getBoundingClientRect();
+      }
+      rainSongOwner = audio;
+      rainSongRelease = release;
+      rainSongSky.dataset.playing = "true";
+      buffering = false;
+      sync();
+    });
+    for (const event of ["timeupdate", "seeked", "ratechange"]) audio.addEventListener(event, sync);
+    audio.addEventListener("waiting", () => { buffering = true; cancelCue(); });
+    audio.addEventListener("seeking", cancelCue);
+    for (const event of ["pause", "ended", "error", "emptied"]) audio.addEventListener(event, release);
+  }
+
   function activateAudio(audio, path) {
+    if (rainSongOwner && rainSongOwner !== audio) rainSongRelease();
     if (state.audio && state.audio !== audio) state.audio.pause();
     state.audio = audio;
     state.audioPath = path;
@@ -2188,6 +2247,7 @@
     if (!f.src) return printErr(`play: ${path}: 没有配置音频 src`);
 
     if (state.audio) {
+      if (rainSongRelease) rainSongRelease();
       state.audio.pause();
       state.audio = null;
       state.audioPath = null;
@@ -2234,6 +2294,7 @@
     audio.addEventListener("play", () => activateAudio(audio, path));
     audio.addEventListener("pause", updatePlayer);
     audio.addEventListener("ended", updatePlayer);
+    attachRainSongScene(audio, path);
 
     updatePlayer();
     safePlay(audio).then(updatePlayer);
