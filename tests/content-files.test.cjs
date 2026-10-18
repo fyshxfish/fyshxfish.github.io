@@ -90,7 +90,6 @@ test("generated entries preserve all readable paths and media sources exist", as
   });
   const { files, readFile } = context.window.FS;
   assert(files["/books/罐头厂街.md"]);
-  assert(files["/.diary/.260522-魔方工作室你太让我失望了.md"]);
   assert(files["/weather/rain/readme.md"]);
   assert(!files["/weather/rain/light/readme.md"]);
   assert(files["/readme.md"]);

@@ -1090,7 +1090,7 @@
     print("# 今夜就开始放晴", "ok");
   }
 
-  // 只在成功 cd 后应用；未指定的项目保持现状，不影响基础 theme。
+  // 只在成功 cd 后应用；未指定的项目保持现状。
   function applyDirectoryAppearance(path) {
     if (!Object.prototype.hasOwnProperty.call(APPEARANCE, path)) return;
     const appearance = APPEARANCE[path];
@@ -2134,22 +2134,6 @@
       },
     },
 
-    theme: {
-      desc: "切换桌面背景主题",
-      run(args) {
-        const all = ["bluloco-light", "bluloco-dark", "matrix", "amber"];
-        if (!args[0]) {
-          print("可用主题: " + all.join(", "), "note");
-          print("当前: " + document.body.dataset.theme, "dim");
-          return;
-        }
-        if (!all.includes(args[0])) return printErr("没这个主题");
-        document.body.dataset.theme = args[0];
-        try { localStorage.setItem("th-theme", args[0]); } catch {}
-        print(`桌面背景主题已切换为 ${args[0]}.`, "ok");
-      },
-    },
-
     exit: {
       desc: "(?)",
       run() { print("门是开的, 但你舍不得走.", "dim"); },
@@ -2475,12 +2459,6 @@
   }
 
   function init() {
-    // 恢复主题
-    try {
-      const t = localStorage.getItem("th-theme");
-      if (t) document.body.dataset.theme = t;
-    } catch {}
-
     initTitlebar();
     updatePrompt();
     $input.addEventListener("keydown", onKeyDown);

@@ -30,6 +30,11 @@ class ContentIndexTests(unittest.TestCase):
             second = build.generate_index(root)
             key = "/books/随笔/有 空格#问号?.md"
             self.assertNotEqual(first[key]["revision"], second[key]["revision"])
+            renamed = diary.with_name("公开名字.txt")
+            diary.rename(renamed)
+            renamed_index = build.generate_index(root)
+            self.assertNotIn("/.diary/.秘密.txt", renamed_index)
+            self.assertIn("/.diary/公开名字.txt", renamed_index)
             book.unlink()
             self.assertNotIn(key, build.generate_index(root))
 

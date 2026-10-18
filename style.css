@@ -627,7 +627,7 @@ html, body {
 .prompt .dollar { color: var(--muted); }
 
 /* 命令回显块 */
-.cmd-echo { display: flex; gap: 6px; flex-wrap: wrap; }
+.cmd-echo { display: flex; gap: 0; flex-wrap: wrap; }
 .cmd-echo .typed { color: var(--fg); }
 
 /* 输出着色 */
@@ -675,7 +675,7 @@ html, body {
 .input-line {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 0;
   margin-top: 2px;
 }
 .cmdline { position: relative; flex: 1; display: inline-block; }
