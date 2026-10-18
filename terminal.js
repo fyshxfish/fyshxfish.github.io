@@ -1814,7 +1814,8 @@
       run(args) {
         if (args.length === 0) {
           printErr("cat: 不是猫猫");
-          print(String.raw`      /\_)o<
+          print(String.raw`
+      /\_)o<
      |      \
      | O . O|
       \_____/`);
@@ -2165,9 +2166,25 @@
     document.body.appendChild(overlay);
   }
 
+  function activateAudio(audio, path) {
+    if (state.audio && state.audio !== audio) state.audio.pause();
+    state.audio = audio;
+    state.audioPath = path;
+  }
+
   function playAudio(path) {
     const f = FILES[path];
     if (!f || f.type !== "audio") return printErr(`play: ${path}: 不是音频文件`);
+    if (f.tracks) {
+      if (!window.CampfirePlayer) return printErr("合奏播放器未加载，请刷新页面。");
+      const wrap = row("");
+      const player = window.CampfirePlayer.create(wrap, f.tracks, {
+        title: f.title || basename(path).replace(/\.mp3$/i, ""),
+        onActivate: audio => activateAudio(audio, path),
+      });
+      player.play().catch(() => {});
+      return;
+    }
     if (!f.src) return printErr(`play: ${path}: 没有配置音频 src`);
 
     if (state.audio) {
@@ -2214,6 +2231,7 @@
     audio.addEventListener("loadedmetadata", updatePlayer);
     audio.addEventListener("timeupdate", updatePlayer);
     audio.addEventListener("play", updatePlayer);
+    audio.addEventListener("play", () => activateAudio(audio, path));
     audio.addEventListener("pause", updatePlayer);
     audio.addEventListener("ended", updatePlayer);
 
@@ -2308,9 +2326,7 @@
   function boot() {
     const lines = [
       // `<span class="boot head">WELCOME</span>`,
-      `<span class="boot"><span class="ok-tag">[ OK ]</span>  linking message@web3forms</span>`,
-      `<span class="boot"><span class="ok-tag">[ OK ]</span>  loading theme: <span class="kw">${document.body.dataset.theme}</span></span>`,
-      `<span class="boot">Last Updated at 2026-10-17.`,
+      `<span class="boot">Last Updated at 2026-10-18.`,
       `&nbsp;`,
       `<span class="dim">输入 <span class="kw">help</span> 查看使用指南.`,
       `&nbsp;`,

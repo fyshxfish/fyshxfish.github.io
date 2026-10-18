@@ -181,6 +181,19 @@ reset-weather 可在任意目录关闭全部天气效果，雨会渐渐停下。
 
     "/playlist/无眠-苏打绿.mp3": { type: "audio", src: "content/playlist/无眠-苏打绿.mp3" },
     "/playlist/左边-苏打绿.mp3": { type: "audio", src: "content/playlist/左边-苏打绿.mp3" },
+    "/playlist/By-the-Campfire": {
+      type: "audio",
+      title: "Traveler's Encore from Outer Wilds",
+      tracks: [
+        { name: "Esker", color: "#168c88", src: "content/playlist/campfire/Esker.mp3" },
+        { name: "Gabbro", color: "#268452", src: "content/playlist/campfire/Gabbro.mp3" },
+        { name: "Solanum", color: "#9a7918", src: "content/playlist/campfire/Solanum.mp3" },
+        { name: "Riebeck", color: "#7651bd", src: "content/playlist/campfire/Riebeck.mp3" },
+        { name: "Chert", color: "#b26b2c", src: "content/playlist/campfire/Chert.mp3" },
+        { name: "Feldspar", color: "#287ca5", src: "content/playlist/campfire/Feldspar.mp3" },
+        { name: "Prisoner", color: "#54823b", src: "content/playlist/campfire/Prisoner.mp3" },
+      ],
+    },
 
     
     // ====== 隐藏文件 (ls -a 才能看到) ======
