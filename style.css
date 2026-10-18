@@ -633,6 +633,7 @@ html, body {
 /* 输出着色 */
 .dir   { color: var(--blue); font-weight: 600; }
 .file  { color: var(--fg); }
+.cat-file-heading { color: var(--purple); font-weight: 600; }
 .hidden{ color: var(--muted); }
 .exec  { color: var(--green); font-weight: 600; }
 .image { color: var(--pink); }

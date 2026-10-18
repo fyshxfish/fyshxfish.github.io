@@ -787,8 +787,10 @@
   let snowCleanup = null;
   let snowBeginExit = null;
   let snowResume = null;
+  let snowActive = false;
 
   function stopSnow(immediate = false) {
+    snowActive = false;
     if (!snowCleanup) return;
     if (!immediate) { snowBeginExit(); return; }
     snowCleanup();
@@ -797,12 +799,13 @@
 
   function startSnow() {
     stopRain();
-    if (snowCleanup) { snowResume(); return; }
+    if (snowCleanup) { snowResume(); snowActive = true; return; }
     const canvas = document.createElement("canvas");
     canvas.className = "snow-layer";
     canvas.ariaHidden = "true";
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
+    snowActive = true;
     $desktop.appendChild(canvas);
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
     const flakes = [];
@@ -1095,9 +1098,14 @@
       resetWeather();
       return;
     }
+    const starsActive = $desktop.dataset.decoration === "stars";
+    const newlyEnabled = (appearance.rain && rainMode === null)
+      || (appearance.snow && !snowActive)
+      || (appearance.decoration === "stars" && !starsActive);
     if (appearance.rain) startRain(appearance.rain === true ? "medium" : appearance.rain);
     if (appearance.snow) startSnow();
-    if (appearance.decoration === "stars") startStars();
+    if (appearance.decoration === "stars" && !starsActive) startStars();
+    if (!newlyEnabled) return;
     const message =
         appearance.rain ? "# 雨的铿锵临盆比梦的合奏还静..."
       : appearance.decoration === "stars" ? "# You will be the star. You will be the one. "
@@ -1112,15 +1120,14 @@
 
   function isDir(p) {
     if (p === "/") return true;
-    const prefix = (p.endsWith("/") ? p : p + "/");
-    return Object.keys(FILES).some(k => k.startsWith(prefix));
+    return allDirs().includes(p.replace(/\/$/, ""));
   }
 
   function listDir(p, showHidden = false) {
     if (!isDir(p)) return null;
     const prefix = p === "/" ? "/" : p + "/";
     const set = new Set();
-    for (const k of Object.keys(FILES)) {
+    for (const k of [...Object.keys(FILES), ...allDirs()]) {
       if (!k.startsWith(prefix)) continue;
       const rest = k.slice(prefix.length);
       const first = rest.split("/")[0];
@@ -1179,6 +1186,13 @@
     for (const file of Object.keys(FILES)) {
       const parts = file.split("/").filter(Boolean);
       for (let i = 1; i < parts.length; i++) {
+        dirs.add("/" + parts.slice(0, i).join("/"));
+      }
+    }
+    // Weather paths are functional entries, even without a readme or other files.
+    for (const path of Object.keys(APPEARANCE)) {
+      const parts = path.split("/").filter(Boolean);
+      for (let i = 1; i <= parts.length; i++) {
         dirs.add("/" + parts.slice(0, i).join("/"));
       }
     }
@@ -1272,6 +1286,8 @@
 
     for (let cols = maxCols; cols > 1; cols--) {
       const rows = Math.ceil(entries.length / cols);
+      // Rounding the row count can leave entire trailing columns empty.
+      if (Math.ceil(entries.length / rows) !== cols) continue;
       const widths = Array.from({ length: cols }, (_, col) => {
         let w = 0;
         for (let row = 0; row < rows; row++) {
@@ -1295,7 +1311,7 @@
     for (let row = 0; row < rows; row++) {
       for (let col = 0; col < cols; col++) {
         const item = entries[col * rows + row];
-        if (item) cells.push(`<div class="ls-cell">${item.html}</div>`);
+        if (item) cells.push(`<div class="ls-cell" style="grid-column:${col + 1};grid-row:${row + 1}">${item.html}</div>`);
       }
     }
     const columns = widths.map(w => `${w}px`).join(" ");
@@ -1844,7 +1860,7 @@
           const f = FILES[p];
           if (showNames) {
             if (rendered > 0) printBlank();
-            printHTML(`<span class="dim">==&gt; </span><span class="file">${esc(p)}</span><span class="dim"> &lt;==</span>`);
+            printHTML(`<span class="cat-file-heading">==&gt; ${esc(p)} &lt;==</span>`);
           }
           if (f.type === "image") {
             showImage(f.src, a);
@@ -1857,7 +1873,23 @@
             rendered++;
             continue;
           }
-          renderMarkdown(f.content || "");
+          if (f.src || f.type === "text") {
+            const target = row("读取中…", "dim");
+            window.FS.readFile(p).then(text => {
+              if (!target.isConnected) return;
+              target.className = "row";
+              if (f.format === "text") target.textContent = text;
+              else renderMarkdown(text, target);
+            }).catch(error => {
+              if (!target.isConnected) return;
+              target.className = "row bad";
+              target.textContent = `cat: ${a}: ${error.message}`;
+            });
+          } else if (/\.txt$/i.test(p)) {
+            print(f.content || "");
+          } else {
+            renderMarkdown(f.content || "");
+          }
           rendered++;
         }
       },
@@ -2129,7 +2161,7 @@
   // ====================================================================
   // 4.5 渲染辅助 (markdown / 图片 / ASCII)
   // ====================================================================
-  function renderMarkdown(text) {
+  function renderMarkdown(text, target = null) {
     const html = text
       .split("\n")
       .map(line => {
@@ -2143,7 +2175,8 @@
           .replace(/\*([^*]+)\*/g, '<span class="italic">$1</span>');
       })
       .join("<br>");
-    printHTML(html);
+    if (target) target.innerHTML = html;
+    else printHTML(html);
   }
 
   function renderASCII(text) {
