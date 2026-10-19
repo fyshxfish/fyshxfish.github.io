@@ -4,116 +4,134 @@
   "/.diary/26/0522-魔方工作室你太让我失望了.md": {
     "type": "text",
     "src": "content/.diary/26/0522-魔方工作室你太让我失望了.md",
-    "format": "markdown",
-    "revision": "f79beb252a6d"
+    "revision": "f79beb252a6d",
+    "format": "markdown"
   },
   "/.diary/26/0531-浮士德、记忆碎片.md": {
     "type": "text",
     "src": "content/.diary/26/0531-浮士德、记忆碎片.md",
-    "format": "markdown",
-    "revision": "c2a9e5f4bc53"
+    "revision": "c2a9e5f4bc53",
+    "format": "markdown"
   },
   "/.diary/26/0605-最后的本科时光.md": {
     "type": "text",
     "src": "content/.diary/26/0605-最后的本科时光.md",
-    "format": "markdown",
-    "revision": "dc1d08aff0eb"
+    "revision": "dc1d08aff0eb",
+    "format": "markdown"
   },
   "/.diary/26/1016-日记本的命运.md": {
     "type": "text",
     "src": "content/.diary/26/1016-日记本的命运.md",
-    "format": "markdown",
-    "revision": "e574c28ab81a"
+    "revision": "e574c28ab81a",
+    "format": "markdown"
   },
   "/.secret.txt": {
     "type": "text",
     "src": "content/pages/.secret.txt",
-    "format": "text",
-    "revision": "3c59021d15e7"
+    "revision": "3c59021d15e7",
+    "format": "text"
   },
   "/books/博尔赫斯.md": {
     "type": "text",
     "src": "content/books/博尔赫斯.md",
-    "format": "markdown",
-    "revision": "5fe9f3be341d"
+    "revision": "5fe9f3be341d",
+    "format": "markdown"
   },
   "/books/夜色温柔.md": {
     "type": "text",
     "src": "content/books/夜色温柔.md",
-    "format": "markdown",
-    "revision": "f6ecac5749f6"
+    "revision": "f6ecac5749f6",
+    "format": "markdown"
   },
   "/books/大师和玛格丽特.md": {
     "type": "text",
     "src": "content/books/大师和玛格丽特.md",
-    "format": "markdown",
-    "revision": "6dbd9c4e528d"
+    "revision": "6dbd9c4e528d",
+    "format": "markdown"
   },
   "/books/恋人絮语.md": {
     "type": "text",
     "src": "content/books/恋人絮语.md",
-    "format": "markdown",
-    "revision": "37442f6c42fa"
+    "revision": "37442f6c42fa",
+    "format": "markdown"
   },
   "/books/族长的秋天.md": {
     "type": "text",
     "src": "content/books/族长的秋天.md",
-    "format": "markdown",
-    "revision": "02c77ac2712d"
+    "revision": "02c77ac2712d",
+    "format": "markdown"
   },
   "/books/浮士德.md": {
     "type": "text",
     "src": "content/books/浮士德.md",
-    "format": "markdown",
-    "revision": "827dcaae4292"
+    "revision": "827dcaae4292",
+    "format": "markdown"
   },
   "/books/潘达雷昂上尉与劳军女郎.md": {
     "type": "text",
     "src": "content/books/潘达雷昂上尉与劳军女郎.md",
-    "format": "markdown",
-    "revision": "08752285178e"
+    "revision": "08752285178e",
+    "format": "markdown"
   },
   "/books/罐头厂街.md": {
     "type": "text",
     "src": "content/books/罐头厂街.md",
+    "revision": "2af66643c347",
+    "format": "markdown"
+  },
+  "/pockets/simple_fish.jpg": {
+    "type": "image",
+    "src": "content/pockets/simple_fish.jpg",
+    "revision": "3b68fd8fd6c3",
+    "caption": "/pockets/simple_fish.md"
+  },
+  "/pockets/simple_fish.md": {
+    "type": "text",
+    "src": "content/pockets/simple_fish.md",
+    "revision": "89d8bbd5c4b3",
     "format": "markdown",
-    "revision": "2af66643c347"
+    "internal": true
+  },
+  "/pockets/test.png": {
+    "type": "image",
+    "src": "content/pockets/test.png",
+    "revision": "9e7da101e5bc"
   },
   "/readme.md": {
     "type": "text",
     "src": "content/pages/readme.md",
-    "format": "markdown",
-    "revision": "2d90c88644e0"
+    "revision": "2d90c88644e0",
+    "format": "markdown"
   },
   "/weather/rain/readme.md": {
     "type": "text",
     "src": "content/pages/weather/rain/readme.md",
-    "format": "markdown",
-    "revision": "5cf6059a17c5"
+    "revision": "5cf6059a17c5",
+    "format": "markdown"
   },
   "/weather/readme.md": {
     "type": "text",
     "src": "content/pages/weather/readme.md",
-    "format": "markdown",
-    "revision": "315ed2126fc7"
+    "revision": "315ed2126fc7",
+    "format": "markdown"
   },
   "/weather/reset/readme.md": {
     "type": "text",
     "src": "content/pages/weather/reset/readme.md",
-    "format": "markdown",
-    "revision": "bf26fff29d6f"
+    "revision": "bf26fff29d6f",
+    "format": "markdown"
   },
   "/weather/shining-for-you/readme.md": {
     "type": "text",
     "src": "content/pages/weather/shining-for-you/readme.md",
-    "format": "markdown",
-    "revision": "ba73f36a7060"
+    "revision": "ba73f36a7060",
+    "format": "markdown"
   },
   "/weather/snow/readme.md": {
     "type": "text",
     "src": "content/pages/weather/snow/readme.md",
-    "format": "markdown",
-    "revision": "340301f71db0"
+    "revision": "340301f71db0",
+    "format": "markdown"
   }
 };
   for (const path of Object.keys(files)) {

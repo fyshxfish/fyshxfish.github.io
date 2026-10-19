@@ -954,6 +954,52 @@ html, body {
   border-radius: 6px;
 }
 
+.photo-row { white-space: normal; }
+.pocket-photo {
+  width: fit-content;
+  max-width: min(100%, 560px);
+  margin: 10px 0 16px;
+}
+.photo-open {
+  display: block;
+  max-width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
+}
+.photo-open[hidden], .photo-status[hidden] { display: none; }
+.photo-open:disabled { cursor: default; }
+.photo-open:focus-visible { outline: 1px solid var(--blue); outline-offset: 4px; }
+.photo-image {
+  display: block;
+  width: auto;
+  height: auto;
+  max-width: 100%;
+  max-height: min(52vh, 420px);
+  border-radius: 2px;
+  opacity: 0;
+}
+.photo-image.is-loaded { opacity: 1; }
+.photo-status { display: block; font-size: 0.85em; }
+.photo-caption {
+  margin-top: 10px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.9em;
+  line-height: 1.6;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.photo-close {
+  border: 0;
+  padding: 0 2px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  cursor: pointer;
+}
+.photo-close:hover, .photo-close:focus-visible { color: var(--blue); }
 /* matrix 数字雨 */
 #matrix-canvas {
   position: fixed; inset: 0;

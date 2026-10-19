@@ -127,6 +127,79 @@ test("loader encodes filenames, shares pending reads, and retries after failures
   await assert.rejects(readFile("/playlist/By-the-Campfire"), /不是文本文件/);
 });
 
+test("photos render inline, load captions, open on click and clean up every close route", async () => {
+  const context = setup(async () => ({ ok: true, text: async () => "**原样说明** <script>" }));
+  const outputs = [];
+  const keyHandlers = new Set();
+  let focused;
+  class Element {
+    constructor(tag) { this.tag = tag; this.children = []; this.listeners = {}; this.attributes = {}; this.isConnected = true; }
+    appendChild(child) { this.children.push(child); child.parent = this; }
+    setAttribute(name, value) { this.attributes[name] = value; }
+    addEventListener(name, fn) { (this.listeners[name] ||= new Set()).add(fn); }
+    fire(name, data = {}) {
+      for (const fn of this.listeners[name] || []) fn({ target: this, stopPropagation() {}, preventDefault() {}, ...data });
+    }
+    remove() { this.isConnected = false; this.parent.children = this.parent.children.filter(child => child !== this); }
+    focus() { focused = this; }
+    querySelector(selector) { if (selector === ".photo-close") return this.closeButton; }
+    set innerHTML(html) {
+      this.html = html;
+      if (html.includes("photo-close")) { this.closeButton = new Element("button"); this.appendChild(this.closeButton); }
+    }
+  }
+  const body = new Element("body");
+  Object.assign(context, {
+    document: {
+      body, createElement: tag => new Element(tag),
+      addEventListener(name, fn) { assert.equal(name, "keydown"); keyHandlers.add(fn); },
+      removeEventListener(name, fn) { keyHandlers.delete(fn); },
+    },
+    row() { const node = new Element("div"); outputs.push(node); return node; },
+    basename: path => path.split("/").at(-1),
+    focusInput() { focused = "input"; },
+  });
+  const terminal = source("terminal.js");
+  vm.runInContext(`
+    const FILES = window.FS.files;
+    ${terminal.slice(terminal.indexOf("  function esc("), terminal.indexOf("  // ---------- 路径处理"))}
+    ${terminal.slice(terminal.indexOf("  function renderPhoto("), terminal.indexOf("  let rainSongSky"))}
+    this.renderPhoto = renderPhoto;
+  `, context);
+  context.window.FS.files["/pockets/小鱼.txt"] = { type: "text", src: "caption.txt", format: "text" };
+  const file = { type: "image", src: "content/pockets/小鱼 #1.jpg", revision: "abc", caption: "/pockets/小鱼.txt" };
+  context.renderPhoto(file, "/pockets/小鱼 #1.jpg");
+  assert.equal(body.children.length, 0, "cat should not open the overlay automatically");
+  const figure = outputs[0].children[0];
+  const [button, status, caption] = figure.children;
+  const image = button.children[0];
+  assert(image.src.includes("%20%231.jpg?v=abc"));
+  assert(button.disabled);
+  image.fire("load");
+  assert(!button.disabled);
+  assert(status.hidden);
+  assert.equal(image.className, "photo-image is-loaded");
+  for (let i = 0; i < 12; i++) await Promise.resolve();
+  assert.equal(caption.textContent, "**原样说明** <script>");
+  for (const route of ["button", "escape", "backdrop"]) {
+    button.fire("click");
+    const overlay = body.children[0];
+    assert.equal(overlay.attributes.role, "dialog");
+    assert.equal(keyHandlers.size, 1);
+    if (route === "button") overlay.closeButton.fire("click");
+    else if (route === "escape") for (const handler of [...keyHandlers]) handler({ key: "Escape", preventDefault() {} });
+    else overlay.fire("click");
+    assert.equal(body.children.length, 0);
+    assert.equal(keyHandlers.size, 0);
+    assert.equal(focused, button);
+  }
+  context.renderPhoto({ type: "image", src: "missing.jpg" }, "/pockets/missing.jpg");
+  const [failedButton, failedStatus] = outputs[1].children[0].children;
+  failedButton.children[0].fire("error");
+  assert(failedButton.hidden);
+  assert.match(failedStatus.textContent, /无法加载/);
+});
+
 test("cat preserves glob order, escapes Markdown and renders txt literally", async () => {
   const pending = new Map();
   const context = setup(url => new Promise(resolve => pending.set(decodeURIComponent(url.split("?")[0]), resolve)));
@@ -154,6 +227,8 @@ test("cat preserves glob order, escapes Markdown and renders txt literally", asy
     this.listDir = listDir;
     this.isDir = isDir;
     this.expandDirGlob = expandDirGlob;
+    this.expandFileGlobs = expandFileGlobs;
+    this.isFile = isFile;
   `, context);
   assert(!context.listDir("/").includes(".diary"));
   assert(context.listDir("/", true).includes(".diary"));
@@ -167,6 +242,16 @@ test("cat preserves glob order, escapes Markdown and renders txt literally", asy
     assert.equal(context.window.FS.appearance[`/weather/rain/${mode}`].rain, mode);
   }
   const files = context.window.FS.files;
+  files["/pockets/example.jpg"] = { type: "image", src: "example.jpg" };
+  files["/pockets/example.md"] = { type: "text", internal: true };
+  files["/pockets/notes/unused.txt"] = { type: "text", internal: true };
+  const pocketNames = Array.from(context.listDir("/pockets", true));
+  assert(pocketNames.includes("example.jpg"));
+  assert(!pocketNames.includes("example.md"));
+  assert(!pocketNames.includes("notes"));
+  assert(!context.isFile("/pockets/example.md"));
+  assert(!context.isDir("/pockets/notes"));
+  assert(context.expandFileGlobs(["/pockets/*"]).every(item => files[item.path].type === "image"));
   files["/test/1.md"] = { type: "text", src: "1.md", format: "markdown" };
   files["/test/2.txt"] = { type: "text", src: "2.txt", format: "text" };
   context.cat.run(["/test/*"]);

@@ -1115,7 +1115,7 @@
   }
 
   function isFile(p) {
-    return Object.prototype.hasOwnProperty.call(FILES, p);
+    return Object.prototype.hasOwnProperty.call(FILES, p) && !FILES[p].internal;
   }
 
   function isDir(p) {
@@ -1128,6 +1128,7 @@
     const prefix = p === "/" ? "/" : p + "/";
     const set = new Set();
     for (const k of [...Object.keys(FILES), ...allDirs()]) {
+      if (FILES[k]?.internal) continue;
       if (!k.startsWith(prefix)) continue;
       const rest = k.slice(prefix.length);
       const first = rest.split("/")[0];
@@ -1184,6 +1185,7 @@
   function allDirs() {
     const dirs = new Set(["/"]);
     for (const file of Object.keys(FILES)) {
+      if (FILES[file].internal) continue;
       const parts = file.split("/").filter(Boolean);
       for (let i = 1; i < parts.length; i++) {
         dirs.add("/" + parts.slice(0, i).join("/"));
@@ -1215,7 +1217,7 @@
 
       const pattern = normalize(arg);
       const matches = Object.keys(FILES)
-        .filter(path => matchGlobPath(pattern, path))
+        .filter(path => isFile(path) && matchGlobPath(pattern, path))
         .sort((a, b) => a.localeCompare(b));
 
       if (matches.length === 0) out.push({ input: arg, path: pattern, glob: true, missing: true });
@@ -1863,8 +1865,7 @@
             printHTML(`<span class="cat-file-heading">==&gt; ${esc(p)} &lt;==</span>`);
           }
           if (f.type === "image") {
-            showImage(f.src, a);
-            print(`(已弹出 ${a})`, "dim");
+            renderPhoto(f, p);
             rendered++;
             continue;
           }
@@ -2173,19 +2174,89 @@
     ).join("")}</div>`;
   }
 
-  function showImage(src, label) {
+  function renderPhoto(file, path) {
+    const wrap = row("", "photo-row");
+    const figure = document.createElement("figure");
+    figure.className = "pocket-photo";
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "photo-open";
+    button.disabled = true;
+    const label = basename(path);
+    button.setAttribute("aria-label", `放大查看 ${label}`);
+    const image = document.createElement("img");
+    image.className = "photo-image";
+    image.alt = label;
+    image.loading = "lazy";
+    image.decoding = "async";
+    const status = document.createElement("span");
+    status.className = "photo-status dim";
+    status.setAttribute("role", "status");
+    status.textContent = "照片加载中…";
+    const src = window.FS.assetURL(file);
+    image.addEventListener("load", () => {
+      image.className = "photo-image is-loaded";
+      button.disabled = false;
+      status.hidden = true;
+    });
+    image.addEventListener("error", () => {
+      button.hidden = true;
+      status.className = "photo-status bad";
+      status.textContent = `无法加载 ${label}，请稍后重试。`;
+    });
+    button.addEventListener("click", event => {
+      event.stopPropagation();
+      showImage(src, label, button);
+    });
+    button.appendChild(image);
+    figure.appendChild(button);
+    figure.appendChild(status);
+    wrap.appendChild(figure);
+    if (file.caption) {
+      const caption = document.createElement("figcaption");
+      caption.className = "photo-caption";
+      figure.appendChild(caption);
+      window.FS.readFile(file.caption).then(text => {
+        if (!caption.isConnected) return;
+        if (FILES[file.caption].format === "text") caption.textContent = text;
+        else renderMarkdown(text, caption);
+      }).catch(() => {
+        if (caption.isConnected) caption.textContent = "照片说明暂时无法读取。";
+      });
+    }
+    image.src = src;
+  }
+
+  function showImage(src, label, trigger = null) {
     const overlay = document.createElement("div");
     overlay.className = "overlay";
+    overlay.setAttribute("role", "dialog");
+    overlay.setAttribute("aria-modal", "true");
+    overlay.setAttribute("aria-label", label || "照片");
     overlay.innerHTML = `
       <div class="panel">
-        <div class="ctl"><span>${esc(label || "image")}</span><span>点空白或按 Esc 关闭</span></div>
+        <div class="ctl"><span>${esc(label || "image")}</span><button class="photo-close" type="button" aria-label="关闭照片">[×]</button></div>
         <img src="${esc(src)}" alt="${esc(label || "")}" />
       </div>`;
-    overlay.addEventListener("click", e => { if (e.target === overlay) overlay.remove(); });
-    document.addEventListener("keydown", function onEsc(e) {
-      if (e.key === "Escape") { overlay.remove(); document.removeEventListener("keydown", onEsc); }
+    const closeButton = overlay.querySelector(".photo-close");
+    const close = () => {
+      document.removeEventListener("keydown", onKey);
+      overlay.remove();
+      if (trigger?.isConnected) trigger.focus();
+      else focusInput();
+    };
+    const onKey = event => {
+      if (event.key === "Escape") { event.preventDefault(); close(); }
+      if (event.key === "Tab") { event.preventDefault(); closeButton.focus(); }
+    };
+    overlay.addEventListener("click", event => {
+      event.stopPropagation();
+      if (event.target === overlay) close();
     });
+    closeButton.addEventListener("click", close);
+    document.addEventListener("keydown", onKey);
     document.body.appendChild(overlay);
+    closeButton.focus();
   }
 
   let rainSongSky = null;
