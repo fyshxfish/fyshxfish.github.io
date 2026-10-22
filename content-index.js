@@ -49,6 +49,12 @@
     "revision": "6dbd9c4e528d",
     "format": "markdown"
   },
+  "/books/少年维特的烦恼.md": {
+    "type": "text",
+    "src": "content/books/少年维特的烦恼.md",
+    "revision": "7e409f910115",
+    "format": "markdown"
+  },
   "/books/恋人絮语.md": {
     "type": "text",
     "src": "content/books/恋人絮语.md",
@@ -88,7 +94,7 @@
   "/pockets/simple_fish.md": {
     "type": "text",
     "src": "content/pockets/simple_fish.md",
-    "revision": "89d8bbd5c4b3",
+    "revision": "debc2f0ed61f",
     "format": "markdown",
     "internal": true
   },
