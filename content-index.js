@@ -52,7 +52,7 @@
   "/books/少年维特的烦恼.md": {
     "type": "text",
     "src": "content/books/少年维特的烦恼.md",
-    "revision": "7e409f910115",
+    "revision": "cf95c796bbf0",
     "format": "markdown"
   },
   "/books/恋人絮语.md": {
@@ -83,6 +83,25 @@
     "type": "text",
     "src": "content/books/罐头厂街.md",
     "revision": "2af66643c347",
+    "format": "markdown"
+  },
+  "/ink/my_shelter.md": {
+    "type": "text",
+    "src": "content/ink/my_shelter.md",
+    "revision": "939275277512",
+    "format": "markdown",
+    "internal": true
+  },
+  "/ink/my_shelter.png": {
+    "type": "image",
+    "src": "content/ink/my_shelter.png",
+    "revision": "5a99b069b57d",
+    "caption": "/ink/my_shelter.md"
+  },
+  "/ink/readme.md": {
+    "type": "text",
+    "src": "content/ink/readme.md",
+    "revision": "18d30573eb5f",
     "format": "markdown"
   },
   "/pockets/simple_fish.jpg": {
@@ -146,4 +165,5 @@
     }
   }
   Object.assign(window.FS.files, files);
+  window.FS.updatedAt = "2026-10-23";
 })();

@@ -57,6 +57,21 @@ class ContentIndexTests(unittest.TestCase):
             with self.assertRaises(UnicodeDecodeError):
                 build.generate_index(root)
 
+    def test_ink_images_hide_captions_but_keep_readme_and_other_text(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            directory = root / "content/ink"
+            directory.mkdir(parents=True)
+            (directory / "my_shelter.png").write_bytes(b"\x89PNG\r\n")
+            for name in ("my_shelter.md", "readme.md", "notes.md"):
+                (directory / name).write_text("一些文字", encoding="utf-8")
+            files = build.generate_index(root)
+            self.assertEqual(files["/ink/my_shelter.png"]["caption"], "/ink/my_shelter.md")
+            self.assertTrue(files["/ink/my_shelter.md"]["internal"])
+            for name in ("readme.md", "notes.md"):
+                self.assertEqual(files["/ink/" + name]["type"], "text")
+                self.assertFalse(files["/ink/" + name].get("internal", False))
+
     def test_pocket_images_and_optional_captions(self):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder)

@@ -2433,7 +2433,7 @@
       // 兜底 mailto
       const subject = encodeURIComponent("[terminal-home] 留言");
       const url = `mailto:${SITE.contactEmail}?subject=${subject}&body=${encodeURIComponent(body)}`;
-      print("未配置 web3forms key, 给你打开默认邮件客户端兜底.", "warn");
+      print("未配置 web3forms key.", "warn");
       window.open(url);
       return;
     }
@@ -2475,7 +2475,7 @@
   function boot() {
     const lines = [
       // `<span class="boot head">WELCOME</span>`,
-      `<span class="boot">Last Updated at 2026-10-18.`,
+      `<span class="boot">Welcome!${window.FS.updatedAt ? ` Last Updated at ${esc(window.FS.updatedAt)}.` : ""}</span>`,
       `&nbsp;`,
       `<span class="dim">输入 <span class="kw">help</span> 查看使用指南.`,
       `&nbsp;`,
