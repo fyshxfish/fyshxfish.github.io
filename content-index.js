@@ -101,26 +101,47 @@
   "/ink/readme.md": {
     "type": "text",
     "src": "content/ink/readme.md",
-    "revision": "18d30573eb5f",
+    "revision": "cf5b8c91e09e",
     "format": "markdown"
   },
-  "/pockets/simple_fish.jpg": {
-    "type": "image",
-    "src": "content/pockets/simple_fish.jpg",
-    "revision": "3b68fd8fd6c3",
-    "caption": "/pockets/simple_fish.md"
-  },
-  "/pockets/simple_fish.md": {
+  "/pockets/000000-WELCOME.md": {
     "type": "text",
-    "src": "content/pockets/simple_fish.md",
-    "revision": "debc2f0ed61f",
+    "src": "content/pockets/000000-WELCOME.md",
+    "revision": "17f67ddfc359",
     "format": "markdown",
     "internal": true
   },
-  "/pockets/test.png": {
+  "/pockets/000000-WELCOME.png": {
     "type": "image",
-    "src": "content/pockets/test.png",
-    "revision": "9e7da101e5bc"
+    "src": "content/pockets/000000-WELCOME.png",
+    "revision": "78af09f9102d",
+    "caption": "/pockets/000000-WELCOME.md"
+  },
+  "/pockets/261027-哈...羁縻?.md": {
+    "type": "text",
+    "src": "content/pockets/261027-哈...羁縻?.md",
+    "revision": "5504920f2eb6",
+    "format": "markdown",
+    "internal": true
+  },
+  "/pockets/261027-哈...羁縻?.png": {
+    "type": "image",
+    "src": "content/pockets/261027-哈...羁縻?.png",
+    "revision": "5739a59b781e",
+    "caption": "/pockets/261027-哈...羁縻?.md"
+  },
+  "/pockets/261027-粉黛子草.md": {
+    "type": "text",
+    "src": "content/pockets/261027-粉黛子草.md",
+    "revision": "cb643c6e5920",
+    "format": "markdown",
+    "internal": true
+  },
+  "/pockets/261027-粉黛子草.png": {
+    "type": "image",
+    "src": "content/pockets/261027-粉黛子草.png",
+    "revision": "66141a8b3509",
+    "caption": "/pockets/261027-粉黛子草.md"
   },
   "/readme.md": {
     "type": "text",
@@ -165,5 +186,5 @@
     }
   }
   Object.assign(window.FS.files, files);
-  window.FS.updatedAt = "2026-10-23";
+  window.FS.updatedAt = "2026-10-28";
 })();

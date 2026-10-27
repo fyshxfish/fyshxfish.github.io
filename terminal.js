@@ -41,6 +41,7 @@
   };
 
   const KONAMI = "ArrowUpArrowUpArrowDownArrowDownArrowLeftArrowRightArrowLeftArrowRightba";
+  let pocketsBrowser = null;
 
   function esc(s) {
     return String(s).replace(/[&<>"']/g, c => ({
@@ -1348,7 +1349,8 @@
     const div = document.createElement("div");
     div.className = "row " + cls;
     div.innerHTML = html;
-    $output.appendChild(div);
+    (pocketsBrowser ? pocketsBrowser.log : $output).appendChild(div);
+    if (pocketsBrowser) pocketsBrowser.log.scrollTop = pocketsBrowser.log.scrollHeight;
     scrollDown();
     return div;
   }
@@ -1592,6 +1594,7 @@
     }
 
     if (handleCompletionKey(e)) return;
+    if (handlePocketsKey(e)) return;
 
     if (e.key === "Enter") {
       e.preventDefault();
@@ -1659,12 +1662,21 @@
     const trimmed = line.trim();
     if (!trimmed) return;
     runCommand(trimmed);
+    syncPocketsBrowser();
   }
 
   function runCommand(line) {
     const tokens = tokenize(line);
     const name = tokens[0];
     const args = tokens.slice(1);
+
+    if (pocketsBrowser && name === "cat" && args.length === 1) {
+      const path = normalize(args[0]);
+      if (isFile(path) && FILES[path].type === "image") {
+        openPocketsPhoto(path);
+        return;
+      }
+    }
 
     if (commands[name]) {
       try { commands[name].run(args, line); }
@@ -1960,7 +1972,10 @@
 
     clear: {
       desc: "清屏",
-      run() { $output.innerHTML = ""; },
+      run() {
+        $output.innerHTML = "";
+        if (pocketsBrowser) pocketsBrowser.log.replaceChildren();
+      },
     },
     cls: { desc: "清屏", run() { commands.clear.run(); } },
 
@@ -2150,6 +2165,7 @@
     const html = text
       .split("\n")
       .map(line => {
+        if (!line.trim()) return null;
         if (/^#\s/.test(line))   return `<span class="h1">${esc(line.slice(2))}</span>`;
         if (/^##\s/.test(line))  return `<span class="h2">${esc(line.slice(3))}</span>`;
         if (/^###\s/.test(line)) return `<span class="h3">${esc(line.slice(4))}</span>`;
@@ -2159,7 +2175,10 @@
           .replace(/\*\*([^*]+)\*\*/g, '<span class="bold">$1</span>')
           .replace(/\*([^*]+)\*/g, '<span class="italic">$1</span>');
       })
-      .join("<br>");
+      .map(line => line === null
+        ? '<span class="md-blank" aria-hidden="true"></span>'
+        : `<span class="md-line">${line}</span>`)
+      .join("");
     if (target) target.innerHTML = html;
     else printHTML(html);
   }
@@ -2174,8 +2193,120 @@
     ).join("")}</div>`;
   }
 
-  function renderPhoto(file, path) {
-    const wrap = row("", "photo-row");
+  function syncPocketsBrowser() {
+    const active = state.cwd === "/pockets" || state.cwd.startsWith("/pockets/");
+    if (!active) {
+      if (!pocketsBrowser) return;
+      for (const child of Array.from(pocketsBrowser.log.children)) $output.appendChild(child);
+      pocketsBrowser.shell.remove();
+      pocketsBrowser.log.remove();
+      pocketsBrowser = null;
+      $terminal.classList.remove("pockets-mode");
+      scrollDown();
+      return;
+    }
+    if (pocketsBrowser?.cwd === state.cwd) return;
+    if (pocketsBrowser) {
+      for (const child of Array.from(pocketsBrowser.log.children)) $output.appendChild(child);
+      pocketsBrowser.shell.remove();
+      pocketsBrowser.log.remove();
+    }
+    const shell = document.createElement("section");
+    shell.className = "pockets-browser";
+    shell.setAttribute("aria-label", "口袋里的照片");
+    shell.innerHTML = `<div class="pockets-heading">${esc("~" + state.cwd)}<span class="pockets-help"></span></div>
+      <nav class="pockets-list" aria-label="照片列表"></nav>
+      <div class="pockets-detail" tabindex="0" aria-label="照片与说明"></div>`;
+    const log = document.createElement("div");
+    log.className = "pockets-log";
+    log.setAttribute("aria-live", "polite");
+    $terminal.insertBefore(shell, $inputLine);
+    $terminal.insertBefore(log, $inputLine);
+    $terminal.classList.add("pockets-mode");
+    const paths = Object.keys(FILES).filter(path => isFile(path) && FILES[path].type === "image"
+      && path.startsWith(state.cwd + "/")).sort((a, b) => a.localeCompare(b));
+    const list = shell.querySelector(".pockets-list");
+    pocketsBrowser = { shell, log, list, cwd: state.cwd, paths, selected: 0, buttons: [], focus: "list",
+      detail: shell.querySelector(".pockets-detail") };
+    for (const [pane, node] of [["list", list], ["detail", pocketsBrowser.detail]]) {
+      node.addEventListener("pointerdown", () => setPocketsFocus(pane));
+      node.addEventListener("focusin", () => setPocketsFocus(pane));
+    }
+    shell.addEventListener("keydown", event => handlePocketsKey(event));
+    setPocketsFocus("list");
+    paths.forEach((path, index) => {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "pockets-entry";
+      button.textContent = path.slice(state.cwd.length + 1).replace(/\.[^.]+$/, "");
+      button.title = basename(path);
+      button.addEventListener("click", event => {
+        event.stopPropagation();
+        pocketsBrowser.selected = index;
+        setPocketsFocus("list");
+        openPocketsPhoto(path);
+        focusInput();
+      });
+      list.appendChild(button);
+      pocketsBrowser.buttons.push(button);
+    });
+    if (paths.length) openPocketsPhoto(paths[0]);
+    else pocketsBrowser.detail.textContent = "口袋暂时空着。";
+    syncCaret();
+  }
+
+  function markPocketsSelection() {
+    pocketsBrowser.buttons.forEach((button, index) => {
+      const selected = index === pocketsBrowser.selected;
+      button.classList.toggle("is-selected", selected);
+      button.setAttribute("aria-current", String(selected));
+    });
+    pocketsBrowser.buttons[pocketsBrowser.selected]?.scrollIntoView({ block: "nearest" });
+  }
+
+  function setPocketsFocus(pane) {
+    const browser = pocketsBrowser;
+    browser.focus = pane;
+    browser.list.classList.toggle("is-focused", pane === "list");
+    browser.detail.classList.toggle("is-focused", pane === "detail");
+    browser.shell.querySelector(".pockets-help").textContent =
+      `${pane === "list" ? "列表 · ↑↓ 翻看" : "内容 · ↑↓ 滚动"} · ←→ 切换焦点 · cd .. 离开`;
+  }
+
+  function openPocketsPhoto(path) {
+    const browser = pocketsBrowser;
+    const index = browser.paths.indexOf(path);
+    if (index >= 0) browser.selected = index;
+    markPocketsSelection();
+    browser.detail.replaceChildren();
+    browser.detail.scrollTop = 0;
+    renderPhoto(FILES[path], path, browser.detail);
+  }
+
+  function handlePocketsKey(event) {
+    if (!pocketsBrowser || $input.value || state.multiline || event.isComposing
+        || event.ctrlKey || event.altKey || event.metaKey) return false;
+    if (!["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)) return false;
+    event.preventDefault();
+    const browser = pocketsBrowser;
+    if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
+      setPocketsFocus(event.key === "ArrowLeft" ? "list" : "detail");
+      return true;
+    }
+    if (browser.focus === "detail") {
+      browser.detail.scrollBy({ top: event.key === "ArrowDown" ? 60 : -60, behavior: "auto" });
+      return true;
+    }
+    if (!browser.paths.length) return true;
+    browser.selected = (browser.selected + (event.key === "ArrowDown" ? 1 : -1)
+      + browser.paths.length) % browser.paths.length;
+    openPocketsPhoto(browser.paths[browser.selected]);
+    return true;
+  }
+
+  function renderPhoto(file, path, mount = null) {
+    const wrap = mount ? document.createElement("div") : row("", "photo-row");
+    if (mount) { wrap.className = "photo-row"; mount.appendChild(wrap); }
     const figure = document.createElement("figure");
     figure.className = "pocket-photo";
     const button = document.createElement("button");

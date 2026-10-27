@@ -654,6 +654,8 @@ html, body {
 .h3 { color: var(--pink);   font-weight: 600; }
 .code { background: var(--bg-alt); padding: 0 4px; border-radius: 3px; color: var(--orange); }
 .bold { font-weight: 700; }
+.md-line { display: block; }
+.md-blank { display: block; height: 0.2lh; }
 .italic { font-style: italic; color: var(--muted); }
 
 /* ASCII 艺术对齐 */
@@ -1000,6 +1002,104 @@ html, body {
   cursor: pointer;
 }
 .photo-close:hover, .photo-close:focus-visible { color: var(--blue); }
+/* Pockets: a directory-local photo browser above the command line. */
+#terminal.pockets-mode {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  min-height: 0;
+}
+.pockets-mode > #output { display: none; }
+.pockets-browser {
+  display: grid;
+  grid-template-columns: minmax(13ch, 27%) minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr);
+  flex: 1 1 0;
+  min-height: 0;
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--muted);
+}
+.pockets-heading {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 2ch;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--muted);
+  color: var(--purple);
+  font-size: .85em;
+}
+.pockets-help { color: var(--muted); font-size: .9em; }
+.pockets-list {
+  min-width: 0;
+  overflow: auto;
+  padding: 12px 12px 12px 0;
+  border-right: 1px solid var(--muted);
+}
+.pockets-entry {
+  display: block;
+  width: 100%;
+  padding: 8px 6px;
+  border: 0;
+  text-align: left;
+  background: transparent;
+  color: var(--fg);
+  font: inherit;
+  font-size: .85em;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+  cursor: pointer;
+}
+.pockets-entry::before { content: '  '; white-space: pre; }
+.pockets-entry.is-selected { color: var(--blue); background: var(--bg-alt); }
+.pockets-entry.is-selected::before { content: '› '; }
+.pockets-entry:hover { color: var(--blue); }
+.pockets-entry:focus-visible, .pockets-detail:focus-visible {
+  outline: 1px solid var(--blue);
+  outline-offset: -2px;
+}
+.pockets-detail { min-width: 0; overflow: auto; padding: 18px 0 24px 24px; }
+.pockets-list.is-focused { border-right-color: var(--blue); }
+.pockets-detail.is-focused { box-shadow: inset 0 -1px var(--blue); }
+.pockets-detail .pocket-photo { width: 100%; max-width: 100%; margin: 0; }
+.pockets-detail .photo-open { margin-inline: auto; }
+.pockets-detail .photo-image { max-height: min(43vh, 440px); }
+.pockets-detail .photo-caption {
+  position: relative;
+  max-width: none;
+  margin: 18px 0 0;
+  padding-left: 2ch;
+  text-align: left;
+  color: var(--fg);
+  line-height: 1.85;
+}
+.pockets-detail .photo-caption::before {
+  content: '>';
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: var(--muted);
+}
+/* Grow with output up to three lines; the input takes the fourth line. */
+.pockets-log {
+  flex: 0 0 auto;
+  max-height: 4.5em;
+  overflow: auto;
+  line-height: 1.5;
+}
+.pockets-log .row + .row { margin-top: 0; }
+.pockets-mode .input-line { flex: 0 0 auto; margin-top: 0; }
+@media (max-width: 600px) {
+  .pockets-browser { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto minmax(0, 1fr); }
+  .pockets-list { display: flex; gap: 8px; padding: 8px 0; border-right: 0; border-bottom: 1px solid var(--muted); }
+  .pockets-list.is-focused { border-bottom-color: var(--blue); }
+  .pockets-entry { flex: 0 0 auto; width: auto; max-width: 24ch; }
+  .pockets-detail { padding: 14px 0; }
+  .pockets-detail .photo-image { max-height: 35vh; }
+  .pockets-heading { font-size: .75em; }
+}
+
 /* matrix 数字雨 */
 #matrix-canvas {
   position: fixed; inset: 0;

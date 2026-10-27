@@ -200,6 +200,96 @@ test("photos render inline, load captions, open on click and clean up every clos
   assert.match(failedStatus.textContent, /无法加载/);
 });
 
+test("pockets browser previews immediately, switches panes and preserves command input", () => {
+  class Element {
+    constructor() {
+      this.children = []; this.attributes = {}; this.handlers = {};
+      const classes = new Set();
+      this.classList = { add: value => classes.add(value), remove: value => classes.delete(value),
+        toggle: (value, active) => active ? classes.add(value) : classes.delete(value),
+        contains: value => classes.has(value) };
+    }
+    appendChild(child) {
+      if (child.parent) child.remove();
+      this.children.push(child); child.parent = this;
+    }
+    insertBefore(child, before) {
+      child.parent = this; this.children.splice(this.children.indexOf(before), 0, child);
+    }
+    remove() { this.parent.children = this.parent.children.filter(child => child !== this); }
+    setAttribute(key, value) { this.attributes[key] = value; }
+    addEventListener(key, fn) { this.handlers[key] = fn; }
+    scrollIntoView() {}
+    scrollBy({ top }) { this.scrollTop = Math.max(0, (this.scrollTop || 0) + top); }
+    replaceChildren() { this.children = []; }
+    set innerHTML(value) {
+      this.list = new Element(); this.detail = new Element();
+      this.appendChild(this.list); this.appendChild(this.detail);
+    }
+    querySelector(selector) { return selector === ".pockets-list" ? this.list : this.detail; }
+  }
+  const terminal = new Element(), output = new Element(), inputLine = new Element();
+  terminal.appendChild(output); terminal.appendChild(inputLine);
+  const rendered = [];
+  const input = { value: "" }, state = { cwd: "/pockets" };
+  const files = { "/pockets/a.png": { type: "image" }, "/pockets/b.jpg": { type: "image" },
+    "/pockets/a.md": { type: "text", internal: true }, "/ink/c.png": { type: "image" } };
+  const context = vm.createContext({ document: { createElement: () => new Element() },
+    $terminal: terminal, $output: output, $inputLine: inputLine, $input: input, state, FILES: files,
+    isFile: path => !!files[path] && !files[path].internal, esc: value => value,
+    basename: path => path.split("/").pop(), focusInput() {}, syncCaret() {}, scrollDown() {},
+    renderPhoto: (file, path, mount) => rendered.push({ path, mount }) });
+  const code = source("terminal.js");
+  vm.runInContext(`let pocketsBrowser = null;
+    ${code.slice(code.indexOf("  function syncPocketsBrowser("), code.indexOf("  function renderPhoto("))}
+    this.browser = () => pocketsBrowser;`, context);
+  const key = (name, extra = {}) => context.handlePocketsKey({ key: name, preventDefault() {}, ...extra });
+  context.syncPocketsBrowser();
+  assert(terminal.classList.contains("pockets-mode"));
+  assert.equal(context.browser().paths.length, 2);
+  assert.equal(rendered[0].path, "/pockets/a.png");
+  key("ArrowDown");
+  assert.equal(context.browser().selected, 1);
+  assert.equal(rendered.length, 2);
+  assert.equal(key("Enter"), false);
+  assert.equal(rendered.at(-1).path, "/pockets/b.jpg");
+  key("ArrowRight");
+  assert.equal(context.browser().focus, "detail");
+  assert(context.browser().detail.classList.contains("is-focused"));
+  key("ArrowDown");
+  assert.equal(context.browser().detail.scrollTop, 60);
+  assert.equal(context.browser().selected, 1);
+  assert.equal(rendered.length, 2);
+  key("ArrowUp");
+  assert.equal(context.browser().detail.scrollTop, 0);
+  key("ArrowLeft");
+  assert.equal(context.browser().focus, "list");
+  assert(context.browser().list.classList.contains("is-focused"));
+  input.value = "cd ..";
+  assert.equal(key("ArrowUp"), false);
+  assert.equal(key("ArrowRight"), false);
+  assert.equal(key("Enter"), false);
+  input.value = "";
+  assert.equal(key("Enter", { isComposing: true }), false);
+  assert.equal(key("ArrowUp", { ctrlKey: true }), false);
+  context.syncPocketsBrowser();
+  assert.equal(rendered.length, 2); // Failed cd / other commands don't reset the selection.
+  const logRow = new Element();
+  context.browser().log.appendChild(logRow);
+  state.cwd = "/books";
+  context.syncPocketsBrowser();
+  assert.equal(context.browser(), null);
+  assert(!terminal.classList.contains("pockets-mode"));
+  assert(output.children.includes(logRow));
+  assert.equal(terminal.children.length, 2);
+  assert.equal(key("ArrowUp"), false);
+  state.cwd = "/pockets/empty";
+  context.syncPocketsBrowser();
+  assert.equal(context.browser().paths.length, 0);
+  assert.equal(key("Enter"), false);
+  assert.equal(key("ArrowDown"), true);
+});
+
 test("cat preserves glob order, escapes Markdown and renders txt literally", async () => {
   const pending = new Map();
   const context = setup(url => new Promise(resolve => pending.set(decodeURIComponent(url.split("?")[0]), resolve)));
