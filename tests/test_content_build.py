@@ -72,25 +72,52 @@ class ContentIndexTests(unittest.TestCase):
                 self.assertEqual(files["/ink/" + name]["type"], "text")
                 self.assertFalse(files["/ink/" + name].get("internal", False))
 
+    def test_water_photo_config_and_article(self):
+        with tempfile.TemporaryDirectory() as folder:
+            root = Path(folder)
+            directory = root / "content/water/trip"
+            directory.mkdir(parents=True)
+            for name in ("01.png", "02.png", "03.png"):
+                (directory / name).write_bytes(b"\x89PNG")
+            (directory / "readme.md").write_text("正文", encoding="utf-8")
+            config = directory / "photos.json"
+            config.write_text('[{"file":"02.png","caption":"小猫 <3"},{"file":"01.png"}]', encoding="utf-8")
+            files = build.generate_index(root)
+            self.assertEqual(files["/water/trip/02.png"]["photoOrder"], 0)
+            self.assertEqual(files["/water/trip/02.png"]["photoCaption"], "小猫 <3")
+            self.assertEqual(files["/water/trip/01.png"]["photoOrder"], 1)
+            self.assertNotIn("photoCaption", files["/water/trip/01.png"])
+            self.assertNotIn("photoOrder", files["/water/trip/03.png"])
+            self.assertEqual(files["/water/trip/03.png"]["article"], "/water/trip/readme.md")
+            config.unlink()
+            files = build.generate_index(root)
+            self.assertNotIn("photoOrder", files["/water/trip/02.png"])
+            for invalid in ('{}', '[{"file":"missing.png"}]', '[{"file":"../01.png"}]',
+                            '[{"file":"01.png","caption":42}]',
+                            '[{"file":"01.png"},{"file":"01.png"}]'):
+                config.write_text(invalid, encoding="utf-8")
+                with self.assertRaises(ValueError):
+                    build.generate_index(root)
+
     def test_pocket_images_and_optional_captions(self):
         with tempfile.TemporaryDirectory() as folder:
             root = Path(folder)
-            photo = root / "content/pockets/夏天/小鱼 #1.JPG"
+            photo = root / "content/water/夏天/小鱼 #1.JPG"
             photo.parent.mkdir(parents=True)
             photo.write_bytes(b"\xff\xd8\xff\xe0binary image")
             caption = photo.with_suffix(".txt")
             caption.write_text("照片说明", encoding="utf-8")
             files = build.generate_index(root)
-            key = "/pockets/夏天/小鱼 #1.JPG"
+            key = "/water/夏天/小鱼 #1.JPG"
             self.assertEqual(files[key]["type"], "image")
-            self.assertEqual(files[key]["caption"], "/pockets/夏天/小鱼 #1.txt")
+            self.assertEqual(files[key]["caption"], "/water/夏天/小鱼 #1.txt")
             self.assertTrue(files[files[key]["caption"]]["internal"])
             original_revision = files[key]["revision"]
             markdown = photo.with_suffix(".md")
             markdown.write_text("**另一份说明**", encoding="utf-8")
             photo.write_bytes(b"\xff\xd8new image")
             files = build.generate_index(root)
-            self.assertEqual(files[key]["caption"], "/pockets/夏天/小鱼 #1.md")
+            self.assertEqual(files[key]["caption"], "/water/夏天/小鱼 #1.md")
             self.assertTrue(files[files[key]["caption"]]["internal"])
             self.assertNotEqual(files[key]["revision"], original_revision)
             markdown.unlink()

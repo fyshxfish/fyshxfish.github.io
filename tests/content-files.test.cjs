@@ -166,9 +166,9 @@ test("photos render inline, load captions, open on click and clean up every clos
     ${terminal.slice(terminal.indexOf("  function renderPhoto("), terminal.indexOf("  let rainSongSky"))}
     this.renderPhoto = renderPhoto;
   `, context);
-  context.window.FS.files["/pockets/小鱼.txt"] = { type: "text", src: "caption.txt", format: "text" };
-  const file = { type: "image", src: "content/pockets/小鱼 #1.jpg", revision: "abc", caption: "/pockets/小鱼.txt" };
-  context.renderPhoto(file, "/pockets/小鱼 #1.jpg");
+  context.window.FS.files["/water/小鱼.txt"] = { type: "text", src: "caption.txt", format: "text" };
+  const file = { type: "image", src: "content/water/小鱼 #1.jpg", revision: "abc", caption: "/water/小鱼.txt" };
+  context.renderPhoto(file, "/water/小鱼 #1.jpg");
   assert.equal(body.children.length, 0, "cat should not open the overlay automatically");
   const figure = outputs[0].children[0];
   const [button, status, caption] = figure.children;
@@ -181,6 +181,10 @@ test("photos render inline, load captions, open on click and clean up every clos
   assert.equal(image.className, "photo-image is-loaded");
   for (let i = 0; i < 12; i++) await Promise.resolve();
   assert.equal(caption.textContent, "**原样说明** <script>");
+  context.renderPhoto({ type: "image", src: "note.png", photoCaption: "猫猫 <script>" }, "/water/note.png");
+  const note = outputs.at(-1).children[0].children.at(-1);
+  assert.equal(note.className, "photo-note");
+  assert.equal(note.textContent, "猫猫 <script>");
   for (const route of ["button", "escape", "backdrop"]) {
     button.fire("click");
     const overlay = body.children[0];
@@ -193,17 +197,20 @@ test("photos render inline, load captions, open on click and clean up every clos
     assert.equal(keyHandlers.size, 0);
     assert.equal(focused, button);
   }
-  context.renderPhoto({ type: "image", src: "missing.jpg" }, "/pockets/missing.jpg");
+  context.renderPhoto({ type: "image", src: "missing.jpg" }, "/water/missing.jpg");
   const [failedButton, failedStatus] = outputs[1].children[0].children;
   failedButton.children[0].fire("error");
   assert(failedButton.hidden);
   assert.match(failedStatus.textContent, /无法加载/);
 });
 
-test("pockets browser previews immediately, switches panes and preserves command input", () => {
+test("water browser previews immediately, switches panes and preserves command input", async () => {
   class Element {
     constructor() {
       this.children = []; this.attributes = {}; this.handlers = {};
+      this.isConnected = true;
+      this.clientWidth = 600;
+      this.style = { setProperty: (key, value) => { this.style[key] = value; } };
       const classes = new Set();
       this.classList = { add: value => classes.add(value), remove: value => classes.delete(value),
         toggle: (value, active) => active ? classes.add(value) : classes.delete(value),
@@ -226,33 +233,45 @@ test("pockets browser previews immediately, switches panes and preserves command
       this.list = new Element(); this.detail = new Element();
       this.appendChild(this.list); this.appendChild(this.detail);
     }
-    querySelector(selector) { return selector === ".pockets-list" ? this.list : this.detail; }
+    querySelector(selector) { return selector === ".water-list" ? this.list : this.detail; }
   }
   const terminal = new Element(), output = new Element(), inputLine = new Element();
   terminal.appendChild(output); terminal.appendChild(inputLine);
   const rendered = [];
-  const input = { value: "" }, state = { cwd: "/pockets" };
-  const files = { "/pockets/a.png": { type: "image" }, "/pockets/b.jpg": { type: "image" },
-    "/pockets/a.md": { type: "text", internal: true }, "/ink/c.png": { type: "image" } };
+  const input = { value: "" }, state = { cwd: "/water" };
+  const files = { "/water/a.png": { type: "image" }, "/water/b.jpg": { type: "image" },
+    "/water/a.md": { type: "text", internal: true }, "/ink/c.png": { type: "image" } };
   const context = vm.createContext({ document: { createElement: () => new Element() },
     $terminal: terminal, $output: output, $inputLine: inputLine, $input: input, state, FILES: files,
     isFile: path => !!files[path] && !files[path].internal, esc: value => value,
     basename: path => path.split("/").pop(), focusInput() {}, syncCaret() {}, scrollDown() {},
-    renderPhoto: (file, path, mount) => rendered.push({ path, mount }) });
+    Image: class {
+      set src(value) {
+        this.naturalWidth = value.includes("01.png") ? 800 : 300;
+        this.naturalHeight = value.includes("01.png") ? 400 : 600;
+        Promise.resolve().then(() => this.onload());
+      }
+    },
+    window: { FS: { readFile: async () => "正文只出现一次", assetURL: file => file.src } },
+    renderMarkdown: (text, target) => { target.textContent = text; },
+    renderPhoto: (file, path, mount) => {
+      rendered.push({ file, path, mount });
+      mount.appendChild(new Element());
+    } });
   const code = source("terminal.js");
-  vm.runInContext(`let pocketsBrowser = null;
-    ${code.slice(code.indexOf("  function syncPocketsBrowser("), code.indexOf("  function renderPhoto("))}
-    this.browser = () => pocketsBrowser;`, context);
-  const key = (name, extra = {}) => context.handlePocketsKey({ key: name, preventDefault() {}, ...extra });
-  context.syncPocketsBrowser();
-  assert(terminal.classList.contains("pockets-mode"));
+  vm.runInContext(`let waterBrowser = null; const waterPhotoRatios = new Map();
+    ${code.slice(code.indexOf("  function syncWaterBrowser("), code.indexOf("  function renderPhoto("))}
+    this.browser = () => waterBrowser;`, context);
+  const key = (name, extra = {}) => context.handleWaterKey({ key: name, preventDefault() {}, ...extra });
+  context.syncWaterBrowser();
+  assert(terminal.classList.contains("water-mode"));
   assert.equal(context.browser().paths.length, 2);
-  assert.equal(rendered[0].path, "/pockets/a.png");
+  assert.equal(rendered[0].path, "/water/a.png");
   key("ArrowDown");
   assert.equal(context.browser().selected, 1);
   assert.equal(rendered.length, 2);
   assert.equal(key("Enter"), false);
-  assert.equal(rendered.at(-1).path, "/pockets/b.jpg");
+  assert.equal(rendered.at(-1).path, "/water/b.jpg");
   key("ArrowRight");
   assert.equal(context.browser().focus, "detail");
   assert(context.browser().detail.classList.contains("is-focused"));
@@ -272,19 +291,67 @@ test("pockets browser previews immediately, switches panes and preserves command
   input.value = "";
   assert.equal(key("Enter", { isComposing: true }), false);
   assert.equal(key("ArrowUp", { ctrlKey: true }), false);
-  context.syncPocketsBrowser();
+  context.syncWaterBrowser();
   assert.equal(rendered.length, 2); // Failed cd / other commands don't reset the selection.
   const logRow = new Element();
   context.browser().log.appendChild(logRow);
   state.cwd = "/books";
-  context.syncPocketsBrowser();
+  context.syncWaterBrowser();
   assert.equal(context.browser(), null);
-  assert(!terminal.classList.contains("pockets-mode"));
+  assert(!terminal.classList.contains("water-mode"));
   assert(output.children.includes(logRow));
   assert.equal(terminal.children.length, 2);
   assert.equal(key("ArrowUp"), false);
-  state.cwd = "/pockets/empty";
-  context.syncPocketsBrowser();
+  files["/water/entry/01.png"] = { type: "image", src: "01.png", photoOrder: 1, article: "/water/entry/readme.md", caption: "legacy.md" };
+  files["/water/entry/02.png"] = { type: "image", src: "02.png", photoOrder: 0, article: "/water/entry/readme.md" };
+  state.cwd = "/water";
+  context.syncWaterBrowser();
+  assert.equal(context.browser().entries.length, 3);
+  assert.equal(context.browser().buttons[2].textContent, "entry");
+  context.openWaterPhoto("/water/entry/02.png");
+  assert.equal(context.browser().selected, 2);
+  assert.equal(rendered.at(-1).path, "/water/entry/02.png");
+  assert.equal(rendered.at(-1).file.caption, undefined);
+  assert.equal(context.browser().detail.children.length, 3);
+  const stage = context.browser().detail.children[0];
+  const controls = context.browser().detail.children[1];
+  assert.equal(stage.children.length, 1);
+  assert.equal(controls.children[1].textContent, "1 / 2");
+  controls.children[2].handlers.click({ stopPropagation() {} });
+  assert.equal(rendered.at(-1).path, "/water/entry/01.png");
+  assert.equal(stage.children.length, 1);
+  assert.equal(controls.children[1].textContent, "2 / 2");
+  controls.children[2].handlers.click({ stopPropagation() {} });
+  assert.equal(rendered.at(-1).path, "/water/entry/02.png");
+  controls.children[0].handlers.click({ stopPropagation() {} });
+  assert.equal(rendered.at(-1).path, "/water/entry/01.png");
+  assert.equal(key("]"), false);
+  assert.equal(key("["), false);
+  assert.equal(rendered.at(-1).path, "/water/entry/01.png");
+  const photoFocus = context.browser().focus;
+  key("ArrowRight", { shiftKey: true });
+  assert.equal(rendered.at(-1).path, "/water/entry/02.png");
+  key("ArrowLeft", { shiftKey: true });
+  assert.equal(rendered.at(-1).path, "/water/entry/01.png");
+  assert.equal(context.browser().focus, photoFocus);
+  assert.equal(key("]", { isComposing: true }), false);
+  input.value = "cat ";
+  assert.equal(key("["), false);
+  assert.equal(key("ArrowLeft", { shiftKey: true }), true);
+  assert.equal(rendered.at(-1).path, "/water/entry/02.png");
+  assert.equal(input.value, "cat ");
+  input.value = "";
+  const article = context.browser().detail.children.at(-1);
+  assert.equal(article.className, "water-article photo-caption");
+  await Promise.resolve();
+  assert.equal(article.textContent, "正文只出现一次");
+  for (let i = 0; i < 4; i++) await Promise.resolve();
+  assert.equal(stage.style["--water-photo-height"], "min(var(--water-photo-cap), 300px)");
+  stage.clientWidth = 400;
+  context.browser().resizePhotos();
+  assert.equal(stage.style["--water-photo-height"], "min(var(--water-photo-cap), 200px)");
+  state.cwd = "/water/empty";
+  context.syncWaterBrowser();
   assert.equal(context.browser().paths.length, 0);
   assert.equal(key("Enter"), false);
   assert.equal(key("ArrowDown"), true);
@@ -332,16 +399,16 @@ test("cat preserves glob order, escapes Markdown and renders txt literally", asy
     assert.equal(context.window.FS.appearance[`/weather/rain/${mode}`].rain, mode);
   }
   const files = context.window.FS.files;
-  files["/pockets/example.jpg"] = { type: "image", src: "example.jpg" };
-  files["/pockets/example.md"] = { type: "text", internal: true };
-  files["/pockets/notes/unused.txt"] = { type: "text", internal: true };
-  const pocketNames = Array.from(context.listDir("/pockets", true));
+  files["/water/example.jpg"] = { type: "image", src: "example.jpg" };
+  files["/water/example.md"] = { type: "text", internal: true };
+  files["/water/notes/unused.txt"] = { type: "text", internal: true };
+  const pocketNames = Array.from(context.listDir("/water", true));
   assert(pocketNames.includes("example.jpg"));
   assert(!pocketNames.includes("example.md"));
   assert(!pocketNames.includes("notes"));
-  assert(!context.isFile("/pockets/example.md"));
-  assert(!context.isDir("/pockets/notes"));
-  assert(context.expandFileGlobs(["/pockets/*"]).every(item => files[item.path].type === "image"));
+  assert(!context.isFile("/water/example.md"));
+  assert(!context.isDir("/water/notes"));
+  assert(context.expandFileGlobs(["/water/*"]).every(item => files[item.path].type === "image"));
   files["/test/1.md"] = { type: "text", src: "1.md", format: "markdown" };
   files["/test/2.txt"] = { type: "text", src: "2.txt", format: "text" };
   context.cat.run(["/test/*"]);

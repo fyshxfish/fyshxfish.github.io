@@ -984,6 +984,15 @@ html, body {
 }
 .photo-image.is-loaded { opacity: 1; }
 .photo-status { display: block; font-size: 0.85em; }
+.photo-note {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: .75em;
+  line-height: 1.5;
+  text-align: right;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
 .photo-caption {
   margin-top: 10px;
   text-align: center;
@@ -1002,15 +1011,15 @@ html, body {
   cursor: pointer;
 }
 .photo-close:hover, .photo-close:focus-visible { color: var(--blue); }
-/* Pockets: a directory-local photo browser above the command line. */
-#terminal.pockets-mode {
+/* Water: a directory-local photo browser above the command line. */
+#terminal.water-mode {
   display: flex;
   flex-direction: column;
   overflow: hidden;
   min-height: 0;
 }
-.pockets-mode > #output { display: none; }
-.pockets-browser {
+.water-mode > #output { display: none; }
+.water-browser {
   display: grid;
   grid-template-columns: minmax(13ch, 27%) minmax(0, 1fr);
   grid-template-rows: auto minmax(0, 1fr);
@@ -1019,7 +1028,7 @@ html, body {
   margin-bottom: 12px;
   border-bottom: 1px solid var(--muted);
 }
-.pockets-heading {
+.water-heading {
   grid-column: 1 / -1;
   display: flex;
   flex-wrap: wrap;
@@ -1030,14 +1039,14 @@ html, body {
   color: var(--purple);
   font-size: .85em;
 }
-.pockets-help { color: var(--muted); font-size: .9em; }
-.pockets-list {
+.water-help { color: var(--muted); font-size: .9em; }
+.water-list {
   min-width: 0;
   overflow: auto;
   padding: 12px 12px 12px 0;
   border-right: 1px solid var(--muted);
 }
-.pockets-entry {
+.water-entry {
   display: block;
   width: 100%;
   padding: 8px 6px;
@@ -1051,21 +1060,38 @@ html, body {
   overflow-wrap: anywhere;
   cursor: pointer;
 }
-.pockets-entry::before { content: '  '; white-space: pre; }
-.pockets-entry.is-selected { color: var(--blue); background: var(--bg-alt); }
-.pockets-entry.is-selected::before { content: '› '; }
-.pockets-entry:hover { color: var(--blue); }
-.pockets-entry:focus-visible, .pockets-detail:focus-visible {
+.water-entry::before { content: '  '; white-space: pre; }
+.water-entry.is-selected { color: var(--blue); background: var(--bg-alt); }
+.water-entry.is-selected::before { content: '› '; }
+.water-entry:hover { color: var(--blue); }
+.water-entry:focus-visible, .water-detail:focus-visible {
   outline: 1px solid var(--blue);
   outline-offset: -2px;
 }
-.pockets-detail { min-width: 0; overflow: auto; padding: 18px 0 24px 24px; }
-.pockets-list.is-focused { border-right-color: var(--blue); }
-.pockets-detail.is-focused { box-shadow: inset 0 -1px var(--blue); }
-.pockets-detail .pocket-photo { width: 100%; max-width: 100%; margin: 0; }
-.pockets-detail .photo-open { margin-inline: auto; }
-.pockets-detail .photo-image { max-height: min(43vh, 440px); }
-.pockets-detail .photo-caption {
+.water-detail { min-width: 0; overflow: auto; padding: 18px 0 24px 24px; }
+.water-list.is-focused { border-right-color: var(--blue); }
+.water-detail.is-focused { box-shadow: inset 0 -1px var(--blue); }
+.water-detail .pocket-photo { width: 100%; max-width: 100%; margin: 0; }
+.water-detail .photo-row + .photo-row { margin-top: 28px; }
+.water-detail .photo-open { margin-inline: auto; }
+.water-detail .photo-image { max-height: min(43vh, 440px); }
+.water-slides { --water-photo-cap: min(43vh, 440px); --water-photo-height: auto; }
+.water-slides .photo-open { width: 100%; height: var(--water-photo-height); }
+.water-slides .photo-image {
+  width: auto;
+  height: var(--water-photo-height);
+  max-height: var(--water-photo-cap);
+  margin-inline: auto;
+  object-fit: contain;
+}
+.water-slides .photo-note { min-height: 1.5em; }
+.water-slides .pocket-photo { position: relative; }
+.water-slides .photo-status { position: absolute; top: 0; left: 0; }
+.water-photo-controls { display: flex; align-items: center; justify-content: center; gap: 1.5ch; margin-top: 8px; color: var(--muted); font-size: .8em; }
+.water-photo-controls button { border: 0; background: transparent; color: var(--fg); font: inherit; padding: 2px 10px; cursor: pointer; }
+.water-photo-controls button:hover { color: var(--blue); }
+.water-photo-controls button:focus-visible { outline: 1px solid var(--blue); }
+.water-detail .photo-caption {
   position: relative;
   max-width: none;
   margin: 18px 0 0;
@@ -1074,7 +1100,7 @@ html, body {
   color: var(--fg);
   line-height: 1.85;
 }
-.pockets-detail .photo-caption::before {
+.water-detail .photo-caption::before {
   content: '>';
   position: absolute;
   left: 0;
@@ -1082,22 +1108,23 @@ html, body {
   color: var(--muted);
 }
 /* Grow with output up to three lines; the input takes the fourth line. */
-.pockets-log {
+.water-log {
   flex: 0 0 auto;
   max-height: 4.5em;
   overflow: auto;
   line-height: 1.5;
 }
-.pockets-log .row + .row { margin-top: 0; }
-.pockets-mode .input-line { flex: 0 0 auto; margin-top: 0; }
+.water-log .row + .row { margin-top: 0; }
+.water-mode .input-line { flex: 0 0 auto; margin-top: 0; }
 @media (max-width: 600px) {
-  .pockets-browser { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto minmax(0, 1fr); }
-  .pockets-list { display: flex; gap: 8px; padding: 8px 0; border-right: 0; border-bottom: 1px solid var(--muted); }
-  .pockets-list.is-focused { border-bottom-color: var(--blue); }
-  .pockets-entry { flex: 0 0 auto; width: auto; max-width: 24ch; }
-  .pockets-detail { padding: 14px 0; }
-  .pockets-detail .photo-image { max-height: 35vh; }
-  .pockets-heading { font-size: .75em; }
+  .water-browser { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto auto minmax(0, 1fr); }
+  .water-list { display: flex; gap: 8px; padding: 8px 0; border-right: 0; border-bottom: 1px solid var(--muted); }
+  .water-list.is-focused { border-bottom-color: var(--blue); }
+  .water-entry { flex: 0 0 auto; width: auto; max-width: 24ch; }
+  .water-detail { padding: 14px 0; }
+  .water-detail .photo-image { max-height: 35vh; }
+  .water-slides { --water-photo-cap: 35vh; }
+  .water-heading { font-size: .75em; }
 }
 
 /* matrix 数字雨 */

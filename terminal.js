@@ -41,7 +41,8 @@
   };
 
   const KONAMI = "ArrowUpArrowUpArrowDownArrowDownArrowLeftArrowRightArrowLeftArrowRightba";
-  let pocketsBrowser = null;
+  let waterBrowser = null;
+  const waterPhotoRatios = new Map();
 
   function esc(s) {
     return String(s).replace(/[&<>"']/g, c => ({
@@ -1349,8 +1350,8 @@
     const div = document.createElement("div");
     div.className = "row " + cls;
     div.innerHTML = html;
-    (pocketsBrowser ? pocketsBrowser.log : $output).appendChild(div);
-    if (pocketsBrowser) pocketsBrowser.log.scrollTop = pocketsBrowser.log.scrollHeight;
+    (waterBrowser ? waterBrowser.log : $output).appendChild(div);
+    if (waterBrowser) waterBrowser.log.scrollTop = waterBrowser.log.scrollHeight;
     scrollDown();
     return div;
   }
@@ -1593,8 +1594,9 @@
       return;
     }
 
+    if (e.shiftKey && (e.key === "ArrowLeft" || e.key === "ArrowRight") && handleWaterKey(e)) return;
     if (handleCompletionKey(e)) return;
-    if (handlePocketsKey(e)) return;
+    if (handleWaterKey(e)) return;
 
     if (e.key === "Enter") {
       e.preventDefault();
@@ -1662,7 +1664,7 @@
     const trimmed = line.trim();
     if (!trimmed) return;
     runCommand(trimmed);
-    syncPocketsBrowser();
+    syncWaterBrowser();
   }
 
   function runCommand(line) {
@@ -1670,10 +1672,10 @@
     const name = tokens[0];
     const args = tokens.slice(1);
 
-    if (pocketsBrowser && name === "cat" && args.length === 1) {
+    if (waterBrowser && name === "cat" && args.length === 1) {
       const path = normalize(args[0]);
       if (isFile(path) && FILES[path].type === "image") {
-        openPocketsPhoto(path);
+        openWaterPhoto(path);
         return;
       }
     }
@@ -1974,7 +1976,7 @@
       desc: "清屏",
       run() {
         $output.innerHTML = "";
-        if (pocketsBrowser) pocketsBrowser.log.replaceChildren();
+        if (waterBrowser) waterBrowser.log.replaceChildren();
       },
     },
     cls: { desc: "清屏", run() { commands.clear.run(); } },
@@ -2193,104 +2195,203 @@
     ).join("")}</div>`;
   }
 
-  function syncPocketsBrowser() {
-    const active = state.cwd === "/pockets" || state.cwd.startsWith("/pockets/");
+  function syncWaterBrowser() {
+    const active = state.cwd === "/water" || state.cwd.startsWith("/water/");
     if (!active) {
-      if (!pocketsBrowser) return;
-      for (const child of Array.from(pocketsBrowser.log.children)) $output.appendChild(child);
-      pocketsBrowser.shell.remove();
-      pocketsBrowser.log.remove();
-      pocketsBrowser = null;
-      $terminal.classList.remove("pockets-mode");
+      if (!waterBrowser) return;
+      for (const child of Array.from(waterBrowser.log.children)) $output.appendChild(child);
+      waterBrowser.shell.remove();
+      waterBrowser.log.remove();
+      waterBrowser = null;
+      $terminal.classList.remove("water-mode");
       scrollDown();
       return;
     }
-    if (pocketsBrowser?.cwd === state.cwd) return;
-    if (pocketsBrowser) {
-      for (const child of Array.from(pocketsBrowser.log.children)) $output.appendChild(child);
-      pocketsBrowser.shell.remove();
-      pocketsBrowser.log.remove();
+    if (waterBrowser?.cwd === state.cwd) return;
+    if (waterBrowser) {
+      for (const child of Array.from(waterBrowser.log.children)) $output.appendChild(child);
+      waterBrowser.shell.remove();
+      waterBrowser.log.remove();
     }
     const shell = document.createElement("section");
-    shell.className = "pockets-browser";
-    shell.setAttribute("aria-label", "口袋里的照片");
-    shell.innerHTML = `<div class="pockets-heading">${esc("~" + state.cwd)}<span class="pockets-help"></span></div>
-      <nav class="pockets-list" aria-label="照片列表"></nav>
-      <div class="pockets-detail" tabindex="0" aria-label="照片与说明"></div>`;
+    shell.className = "water-browser";
+    shell.setAttribute("aria-label", "Water 照片浏览");
+    shell.innerHTML = `<div class="water-heading">${esc("~" + state.cwd)}<span class="water-help"></span></div>
+      <nav class="water-list" aria-label="照片列表"></nav>
+      <div class="water-detail" tabindex="0" aria-label="照片与说明"></div>`;
     const log = document.createElement("div");
-    log.className = "pockets-log";
+    log.className = "water-log";
     log.setAttribute("aria-live", "polite");
     $terminal.insertBefore(shell, $inputLine);
     $terminal.insertBefore(log, $inputLine);
-    $terminal.classList.add("pockets-mode");
-    const paths = Object.keys(FILES).filter(path => isFile(path) && FILES[path].type === "image"
+    $terminal.classList.add("water-mode");
+    const images = Object.keys(FILES).filter(path => isFile(path) && FILES[path].type === "image"
       && path.startsWith(state.cwd + "/")).sort((a, b) => a.localeCompare(b));
-    const list = shell.querySelector(".pockets-list");
-    pocketsBrowser = { shell, log, list, cwd: state.cwd, paths, selected: 0, buttons: [], focus: "list",
-      detail: shell.querySelector(".pockets-detail") };
-    for (const [pane, node] of [["list", list], ["detail", pocketsBrowser.detail]]) {
-      node.addEventListener("pointerdown", () => setPocketsFocus(pane));
-      node.addEventListener("focusin", () => setPocketsFocus(pane));
+    const groups = new Map();
+    for (const path of images) {
+      const relative = path.slice(state.cwd.length + 1);
+      const slash = relative.lastIndexOf("/");
+      const key = slash >= 0 ? relative.slice(0, slash) : relative;
+      if (!groups.has(key)) groups.set(key, { label: slash >= 0 ? key : relative.replace(/\.[^.]+$/, ""), images: [] });
+      groups.get(key).images.push(path);
     }
-    shell.addEventListener("keydown", event => handlePocketsKey(event));
-    setPocketsFocus("list");
+    const entries = Array.from(groups.values());
+    for (const entry of entries) {
+      entry.images.sort((a, b) => (FILES[a].photoOrder ?? Infinity) - (FILES[b].photoOrder ?? Infinity)
+        || a.localeCompare(b));
+    }
+    const paths = entries.map(entry => entry.images[0]);
+    const list = shell.querySelector(".water-list");
+    waterBrowser = { shell, log, list, cwd: state.cwd, paths, entries, selected: 0, buttons: [], focus: "list",
+      detail: shell.querySelector(".water-detail") };
+    for (const [pane, node] of [["list", list], ["detail", waterBrowser.detail]]) {
+      node.addEventListener("pointerdown", () => setWaterFocus(pane));
+      node.addEventListener("focusin", () => setWaterFocus(pane));
+    }
+    shell.addEventListener("keydown", event => handleWaterKey(event));
+    setWaterFocus("list");
     paths.forEach((path, index) => {
       const button = document.createElement("button");
       button.type = "button";
-      button.className = "pockets-entry";
-      button.textContent = path.slice(state.cwd.length + 1).replace(/\.[^.]+$/, "");
-      button.title = basename(path);
+      button.className = "water-entry";
+      button.textContent = entries[index].label;
+      button.title = entries[index].label;
       button.addEventListener("click", event => {
         event.stopPropagation();
-        pocketsBrowser.selected = index;
-        setPocketsFocus("list");
-        openPocketsPhoto(path);
+        waterBrowser.selected = index;
+        setWaterFocus("list");
+        openWaterPhoto(path);
         focusInput();
       });
       list.appendChild(button);
-      pocketsBrowser.buttons.push(button);
+      waterBrowser.buttons.push(button);
     });
-    if (paths.length) openPocketsPhoto(paths[0]);
-    else pocketsBrowser.detail.textContent = "口袋暂时空着。";
+    if (paths.length) openWaterPhoto(paths[0]);
+    else waterBrowser.detail.textContent = "这里暂时没有照片。";
     syncCaret();
   }
 
-  function markPocketsSelection() {
-    pocketsBrowser.buttons.forEach((button, index) => {
-      const selected = index === pocketsBrowser.selected;
+  function markWaterSelection() {
+    waterBrowser.buttons.forEach((button, index) => {
+      const selected = index === waterBrowser.selected;
       button.classList.toggle("is-selected", selected);
       button.setAttribute("aria-current", String(selected));
     });
-    pocketsBrowser.buttons[pocketsBrowser.selected]?.scrollIntoView({ block: "nearest" });
+    waterBrowser.buttons[waterBrowser.selected]?.scrollIntoView({ block: "nearest" });
   }
 
-  function setPocketsFocus(pane) {
-    const browser = pocketsBrowser;
+  function setWaterFocus(pane) {
+    const browser = waterBrowser;
     browser.focus = pane;
     browser.list.classList.toggle("is-focused", pane === "list");
     browser.detail.classList.toggle("is-focused", pane === "detail");
-    browser.shell.querySelector(".pockets-help").textContent =
+    browser.shell.querySelector(".water-help").textContent =
       `${pane === "list" ? "列表 · ↑↓ 翻看" : "内容 · ↑↓ 滚动"} · ←→ 切换焦点 · cd .. 离开`;
   }
 
-  function openPocketsPhoto(path) {
-    const browser = pocketsBrowser;
-    const index = browser.paths.indexOf(path);
+  function openWaterPhoto(path) {
+    const browser = waterBrowser;
+    const index = browser.entries.findIndex(entry => entry.images.includes(path));
     if (index >= 0) browser.selected = index;
-    markPocketsSelection();
+    markWaterSelection();
     browser.detail.replaceChildren();
     browser.detail.scrollTop = 0;
-    renderPhoto(FILES[path], path, browser.detail);
+    const images = index >= 0 ? browser.entries[index].images : [path];
+    const article = FILES[images[0]].article;
+    const stage = document.createElement("div");
+    stage.className = "water-slides";
+    browser.detail.appendChild(stage);
+    browser.resizePhotos = null;
+    if (images.length > 1) sizeWaterPhotos(browser, stage, images);
+    let current = Math.max(0, images.indexOf(path));
+    const counter = document.createElement("span");
+    counter.setAttribute("aria-live", "polite");
+    const showSlide = () => {
+      stage.replaceChildren();
+      const image = images[current];
+      const file = { ...FILES[image], photoCaption: FILES[image].photoCaption || (images.length > 1 ? "\u00a0" : "") };
+      if (article) file.caption = undefined;
+      renderPhoto(file, image, stage);
+      counter.textContent = `${current + 1} / ${images.length}`;
+    };
+    browser.changePhoto = step => {
+      if (images.length < 2) return;
+      current = (current + step + images.length) % images.length;
+      showSlide();
+    };
+    showSlide();
+    if (images.length > 1) {
+      const controls = document.createElement("div");
+      controls.className = "water-photo-controls";
+      const makeButton = (label, symbol, step) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.textContent = symbol;
+        button.setAttribute("aria-label", label);
+        button.addEventListener("click", event => {
+          event.stopPropagation();
+          browser.changePhoto(step);
+        });
+        return button;
+      };
+      controls.appendChild(makeButton("上一张照片（Shift + ←）", "‹", -1));
+      controls.appendChild(counter);
+      controls.appendChild(makeButton("下一张照片（Shift + →）", "›", 1));
+      browser.detail.appendChild(controls);
+    }
+    if (article) {
+      const body = document.createElement("div");
+      body.className = "water-article photo-caption";
+      browser.detail.appendChild(body);
+      window.FS.readFile(article).then(text => {
+        if (body.isConnected) renderMarkdown(text, body);
+      }).catch(() => {
+        if (body.isConnected) body.textContent = "正文暂时无法读取。";
+      });
+    }
   }
 
-  function handlePocketsKey(event) {
-    if (!pocketsBrowser || $input.value || state.multiline || event.isComposing
+  function sizeWaterPhotos(browser, stage, paths) {
+    const ratios = paths.map(path => {
+      const src = window.FS.assetURL(FILES[path]);
+      if (!waterPhotoRatios.has(src)) {
+        waterPhotoRatios.set(src, new Promise(resolve => {
+          const image = new Image();
+          image.onload = () => resolve(image.naturalHeight ? image.naturalWidth / image.naturalHeight : 0);
+          image.onerror = () => { waterPhotoRatios.delete(src); resolve(0); };
+          image.src = src;
+        }));
+      }
+      return waterPhotoRatios.get(src);
+    });
+    Promise.all(ratios).then(values => {
+      if (!stage.isConnected || waterBrowser !== browser) return;
+      const widest = Math.max(...values);
+      if (!widest) return;
+      const resize = () => {
+        if (stage.isConnected && stage.clientWidth > 0) {
+          stage.style.setProperty("--water-photo-height", `min(var(--water-photo-cap), ${stage.clientWidth / widest}px)`);
+        }
+      };
+      browser.resizePhotos = resize;
+      resize();
+    });
+  }
+
+  function handleWaterKey(event) {
+    if (!waterBrowser || event.isComposing
         || event.ctrlKey || event.altKey || event.metaKey) return false;
+    const browser = waterBrowser;
+    if (event.shiftKey && (event.key === "ArrowLeft" || event.key === "ArrowRight")) {
+      event.preventDefault();
+      browser.changePhoto?.(event.key === "ArrowRight" ? 1 : -1);
+      return true;
+    }
+    if ($input.value || state.multiline) return false;
     if (!["ArrowUp", "ArrowDown", "ArrowLeft", "ArrowRight"].includes(event.key)) return false;
     event.preventDefault();
-    const browser = pocketsBrowser;
     if (event.key === "ArrowLeft" || event.key === "ArrowRight") {
-      setPocketsFocus(event.key === "ArrowLeft" ? "list" : "detail");
+      setWaterFocus(event.key === "ArrowLeft" ? "list" : "detail");
       return true;
     }
     if (browser.focus === "detail") {
@@ -2300,7 +2401,7 @@
     if (!browser.paths.length) return true;
     browser.selected = (browser.selected + (event.key === "ArrowDown" ? 1 : -1)
       + browser.paths.length) % browser.paths.length;
-    openPocketsPhoto(browser.paths[browser.selected]);
+    openWaterPhoto(browser.paths[browser.selected]);
     return true;
   }
 
@@ -2343,6 +2444,12 @@
     figure.appendChild(button);
     figure.appendChild(status);
     wrap.appendChild(figure);
+    if (file.photoCaption) {
+      const note = document.createElement("figcaption");
+      note.className = "photo-note";
+      note.textContent = file.photoCaption;
+      figure.appendChild(note);
+    }
     if (file.caption) {
       const caption = document.createElement("figcaption");
       caption.className = "photo-caption";
@@ -2675,7 +2782,10 @@
       if (e.target.closest(".titlebar")) return;
       focusInput();
     });
-    window.addEventListener("resize", syncCaret);
+    window.addEventListener("resize", () => {
+      syncCaret();
+      waterBrowser?.resizePhotos?.();
+    });
 
     boot();
     syncCaret();
