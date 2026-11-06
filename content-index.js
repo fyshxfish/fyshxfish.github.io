@@ -113,7 +113,7 @@
   "/water/000000-WELCOME/000000-WELCOME.md": {
     "type": "text",
     "src": "content/water/000000-WELCOME/000000-WELCOME.md",
-    "revision": "d102a29f0a22",
+    "revision": "a99169528c91",
     "format": "markdown",
     "internal": true
   },
@@ -162,7 +162,7 @@
     "src": "content/water/261102-苏州/2-cat.png",
     "revision": "da50d3c82bd6",
     "photoOrder": 1,
-    "photoCaption": "猫猫 × 2",
+    "photoCaption": "猫猫 × 2，在平江路买的纪念品",
     "article": "/water/261102-苏州/readme.md"
   },
   "/water/261102-苏州/3-chayan.png": {
@@ -170,13 +170,13 @@
     "src": "content/water/261102-苏州/3-chayan.png",
     "revision": "426cb333b5b5",
     "photoOrder": 2,
-    "photoCaption": "重逢的街头？",
+    "photoCaption": "欲买桂花同载【甜】唯有柚香如故 2.0 果乳茶，终不似，本科游(?)",
     "article": "/water/261102-苏州/readme.md"
   },
   "/water/261102-苏州/readme.md": {
     "type": "text",
     "src": "content/water/261102-苏州/readme.md",
-    "revision": "4dc933459e2f",
+    "revision": "fca4ae6f1ba3",
     "format": "markdown",
     "internal": true
   },
@@ -217,5 +217,5 @@
     }
   }
   Object.assign(window.FS.files, files);
-  window.FS.updatedAt = "2026-11-02";
+  window.FS.updatedAt = "2026-11-07";
 })();
