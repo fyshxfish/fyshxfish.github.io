@@ -266,12 +266,12 @@ test("water browser previews immediately, switches panes and preserves command i
   context.syncWaterBrowser();
   assert(terminal.classList.contains("water-mode"));
   assert.equal(context.browser().paths.length, 2);
-  assert.equal(rendered[0].path, "/water/a.png");
+  assert.equal(rendered[0].path, "/water/b.jpg");
   key("ArrowDown");
   assert.equal(context.browser().selected, 1);
   assert.equal(rendered.length, 2);
   assert.equal(key("Enter"), false);
-  assert.equal(rendered.at(-1).path, "/water/b.jpg");
+  assert.equal(rendered.at(-1).path, "/water/a.png");
   key("ArrowRight");
   assert.equal(context.browser().focus, "detail");
   assert(context.browser().detail.classList.contains("is-focused"));
@@ -307,9 +307,9 @@ test("water browser previews immediately, switches panes and preserves command i
   state.cwd = "/water";
   context.syncWaterBrowser();
   assert.equal(context.browser().entries.length, 3);
-  assert.equal(context.browser().buttons[2].textContent, "entry");
+  assert.equal(context.browser().buttons[0].textContent, "entry");
   context.openWaterPhoto("/water/entry/02.png");
-  assert.equal(context.browser().selected, 2);
+  assert.equal(context.browser().selected, 0);
   assert.equal(rendered.at(-1).path, "/water/entry/02.png");
   assert.equal(rendered.at(-1).file.caption, undefined);
   assert.equal(context.browser().detail.children.length, 3);

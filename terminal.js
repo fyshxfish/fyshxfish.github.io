@@ -2235,7 +2235,7 @@
       if (!groups.has(key)) groups.set(key, { label: slash >= 0 ? key : relative.replace(/\.[^.]+$/, ""), images: [] });
       groups.get(key).images.push(path);
     }
-    const entries = Array.from(groups.values());
+    const entries = Array.from(groups.values()).sort((a, b) => b.label.localeCompare(a.label));
     for (const entry of entries) {
       entry.images.sort((a, b) => (FILES[a].photoOrder ?? Infinity) - (FILES[b].photoOrder ?? Infinity)
         || a.localeCompare(b));

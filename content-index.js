@@ -98,30 +98,11 @@
     "revision": "5a99b069b57d",
     "caption": "/ink/my_shelter.md"
   },
-  "/ink/readme.md": {
-    "type": "text",
-    "src": "content/ink/readme.md",
-    "revision": "cf5b8c91e09e",
-    "format": "markdown"
-  },
   "/readme.md": {
     "type": "text",
     "src": "content/pages/readme.md",
     "revision": "2d90c88644e0",
     "format": "markdown"
-  },
-  "/water/000000-WELCOME/000000-WELCOME.md": {
-    "type": "text",
-    "src": "content/water/000000-WELCOME/000000-WELCOME.md",
-    "revision": "a99169528c91",
-    "format": "markdown",
-    "internal": true
-  },
-  "/water/000000-WELCOME/000000-WELCOME.png": {
-    "type": "image",
-    "src": "content/water/000000-WELCOME/000000-WELCOME.png",
-    "revision": "78af09f9102d",
-    "caption": "/water/000000-WELCOME/000000-WELCOME.md"
   },
   "/water/261027-哈...羁縻?/261027-哈...羁縻?.md": {
     "type": "text",
@@ -180,6 +161,19 @@
     "format": "markdown",
     "internal": true
   },
+  "/water/XXXXXX-WELCOME/000000-WELCOME.md": {
+    "type": "text",
+    "src": "content/water/XXXXXX-WELCOME/000000-WELCOME.md",
+    "revision": "a99169528c91",
+    "format": "markdown",
+    "internal": true
+  },
+  "/water/XXXXXX-WELCOME/000000-WELCOME.png": {
+    "type": "image",
+    "src": "content/water/XXXXXX-WELCOME/000000-WELCOME.png",
+    "revision": "78af09f9102d",
+    "caption": "/water/XXXXXX-WELCOME/000000-WELCOME.md"
+  },
   "/weather/rain/readme.md": {
     "type": "text",
     "src": "content/pages/weather/rain/readme.md",
@@ -217,5 +211,5 @@
     }
   }
   Object.assign(window.FS.files, files);
-  window.FS.updatedAt = "2026-11-07";
+  window.FS.updatedAt = "2026-11-09";
 })();
